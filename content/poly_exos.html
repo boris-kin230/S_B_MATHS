@@ -1,18 +1,21 @@
 <div class="banner">
-    <h1>Exercices : Polynômes</h1>
-    <p>Focus : Polynômes de Tchebychev ($T_n$)</p>
+    <h1>Banque d'Exercices : Polynômes</h1>
+    <p>Niveau : PCSI Prestige - 5 Problèmes de Synthèse</p>
 </div>
 
 <div class="tcb-box exobox">
-    <div class="tcb-title">Problème Classique : Famille de Tchebychev</div>
+    <div class="tcb-title">Exercice 1 : Polynômes de Tchebychev ($T_n$)</div>
     <div class="tcb-content">
-        On cherche une suite de polynômes $(T_n)$ tels que : 
-        $\forall \theta \in \mathbb{R}, \quad T_n(\cos \theta) = \cos(n\theta)$
-        
+        On cherche une suite de polynômes $(T_n)$ tels que : $\forall \theta \in \mathbb{R}, T_n(\cos \theta) = \cos(n\theta)$.
         <ol>
-            <li>Démontrer l'unicité de $T_n$.</li>
-            <li>Établir la relation de récurrence entre $T_n, T_{n-1}$ et $T_{n-2}$.</li>
-            <li>Calculer les premiers termes.</li>
+            <li>Démontrer l'unicité de $T_n$ par argument sur l'infinité de racines.</li>
+            <li>Établir la relation de récurrence entre $T_n, T_{n-1}$ et $T_{n-2}$ par linéarisation.</li>
+            <li>Calculer explicitement $T_0, T_1, T_2, T_3, T_4$.</li>
+            <li>Déterminer le degré et le coefficient dominant de $T_n$ pour $n \geq 1$.</li>
+            <li>Étudier la parité de $T_n$.</li>
+            <li>Calculer $T_n(1)$, $T_n(-1)$ et $T_n(0)$.</li>
+            <li>Déterminer les racines de $T_n$ dans $[-1, 1]$. Sont-elles simples ?</li>
+            <li>Démontrer que $(T_n)$ vérifie l'équation : $(1-X^2)T_n'' - XT_n' + n^2 T_n = 0$.</li>
         </ol>
 
         <button class="btn btn-sol" onclick="toggleBox('sol_tcheby')">
@@ -20,25 +23,125 @@
         </button>
 
         <div id="sol_tcheby" class="solbox">
-            <h4 class="navy">1. Unicité</h4>
-            Si $P$ et $Q$ conviennent, alors $H = P-Q$ s'annule sur tout $[-1, 1]$. Un polynôme ayant une infinité de racines est nul, donc $P=Q$.
-            
-            <h4 class="navy">2. Récurrence</h4>
-            D'après la formule $2\cos a \cos b = \cos(a+b) + \cos(a-b)$ :
-            $2\cos\theta \cos((n-1)\theta) = \cos(n\theta) + \cos((n-2)\theta)$
-            D'où : $\boxed{T_n(X) = 2XT_{n-1}(X) - T_{n-2}(X)}$
-            
-            <h4 class="navy">3. Premiers Termes</h4>
-            <ul>
-                <li>$T_0 = 1$</li>
-                <li>$T_1 = X$</li>
-                <li>$T_2 = 2X^2 - 1$</li>
-                <li>$T_3 = 4X^3 - 3X$</li>
-            </ul>
-            
-            <h4 class="navy">4. Racines de $T_n$</h4>
-            $T_n(\cos\theta) = 0 \iff n\theta = \frac{\pi}{2} + k\pi$. Les $n$ racines sont :
-            $x_k = \cos\left( \frac{(2k+1)\pi}{2n} \right)$ pour $k \in \{0, \dots, n-1\}$.
+            <p><b>1. Unicité :</b> La différence de deux solutions s'annule sur $[-1, 1]$, donc sur une infinité de points. Le polynôme est nul.</p>
+            <p><b>2. Récurrence :</b> $\cos((n+1)\theta) + \cos((n-1)\theta) = 2\cos\theta \cos(n\theta) \implies \boxed{T_{n+1} = 2XT_n - T_{n-1}}$.</p>
+            <p><b>4. Coeff :</b> $\deg(T_n) = n$, coeff dominant $2^{n-1}$ pour $n \geq 1$.</p>
+            <p><b>7. Racines :</b> $x_k = \cos(\frac{(2k+1)\pi}{2n})$ pour $k \in \{0, \dots, n-1\}$.</p>
+        </div>
+    </div>
+</div>
+
+<div class="tcb-box exobox">
+    <div class="tcb-title">Exercice 2 : Produit de Sinus et Racines de l'Unité</div>
+    <div class="tcb-content">
+        Soit $n \in \mathbb{N}, n \geq 2$. On pose $P = \sum_{k=0}^{n-1} X^k$.
+        <ol>
+            <li>Factoriser $P$ dans $\mathbb{C}[X]$ à l'aide des racines $n$-ièmes de l'unité $\omega_k = e^{i\frac{2k\pi}{n}}$.</li>
+            <li>Justifier que $P(1) = n$.</li>
+            <li>En déduire que $\prod_{k=1}^{n-1} (1 - e^{i\frac{2k\pi}{n}}) = n$.</li>
+            <li>En utilisant l'angle moitié, montrer que $1 - e^{i\alpha} = -2ie^{i\alpha/2}\sin(\alpha/2)$.</li>
+            <li>Démontrer que $\prod_{k=1}^{n-1} \sin(\frac{k\pi}{n}) = \frac{n}{2^{n-1}}$.</li>
+            <li>Calculer le module de $P(i)$.</li>
+            <li>Déduire des questions précédentes la valeur de $\prod_{k=1}^{n-1} |1 + \omega_k|$.</li>
+            <li>Soit $Q = (X+1)^n - (X-1)^n$. Déterminer les racines de $Q$.</li>
+            <li>Montrer que ces racines sont toutes imaginaires pures.</li>
+        </ol>
+
+        <button class="btn btn-sol" onclick="toggleBox('sol_poly_u')">
+            <i class="fas fa-eye"></i> Voir la correction détaillée
+        </button>
+
+        <div id="sol_poly_u" class="solbox">
+            <p><b>1.</b> $P = \prod_{k=1}^{n-1} (X - e^{i\frac{2k\pi}{n}})$.</p>
+            <p><b>3.</b> On évalue en $X=1$.</p>
+            <p><b>5.</b> On prend le module du produit : $\prod |2\sin\frac{k\pi}{n}| = n$.</p>
+            <p><b>8.</b> $Q(z) = 0 \iff (\frac{z+1}{z-1})^n = 1 \implies \frac{z+1}{z-1} = \omega_k$. On trouve $z_k = \frac{\omega_k+1}{\omega_k-1} = i\text{cotan}(\frac{k\pi}{n})$.</p>
+        </div>
+    </div>
+</div>
+
+<div class="tcb-box exobox">
+    <div class="tcb-title">Exercice 3 : Puissance de Matrices et Restes de Division</div>
+    <div class="tcb-content">
+        Soit $A = \begin{pmatrix} 4 & -2 \\ 1 & 1 \end{pmatrix}$. On cherche à calculer $A^n$.
+        <ol>
+            <li>Calculer $P(X) = \det(A - XI)$. On appelle ce polynôme le polynôme caractéristique.</li>
+            <li>Déterminer les racines de $P$, notées $\lambda_1$ et $\lambda_2$.</li>
+            <li>Effectuer la division euclidienne de $X^n$ par $P(X)$. On notera $R_n = a_n X + b_n$ le reste.</li>
+            <li>En évaluant en $\lambda_1$ et $\lambda_2$, déterminer le système vérifié par $(a_n, b_n)$.</li>
+            <li>Résoudre ce système pour obtenir $a_n$ et $b_n$ en fonction de $n$.</li>
+            <li>Justifier que $A^n = a_n A + b_n I$ (Théorème de Cayley-Hamilton).</li>
+            <li>Donner l'expression explicite de la matrice $A^n$.</li>
+            <li>Vérifier la cohérence pour $n=0$ et $n=1$.</li>
+            <li>Déterminer la limite de la matrice $M_n = A^n / 3^n$ quand $n \to +\infty$.</li>
+        </ol>
+
+        <button class="btn btn-sol" onclick="toggleBox('sol_poly_mat')">
+            <i class="fas fa-eye"></i> Voir la correction détaillée
+        </button>
+
+        <div id="sol_poly_mat" class="solbox">
+            <p><b>1.</b> $P(X) = (4-X)(1-X) + 2 = X^2 - 5X + 6$.</p>
+            <p><b>2.</b> Racines : $\lambda_1 = 2, \lambda_2 = 3$.</p>
+            <p><b>4.</b> $2^n = 2a_n + b_n$ et $3^n = 3a_n + b_n$.</p>
+            <p><b>5.</b> $a_n = 3^n - 2^n$ et $b_n = 3 \cdot 2^n - 2 \cdot 3^n$.</p>
+            <p><b>9.</b> $M_n \to \begin{pmatrix} 1 & -2 \\ 1 & -2 \end{pmatrix} + \text{termes en } (2/3)^n \to \begin{pmatrix} 2 & -2 \\ 1 & -1 \end{pmatrix}$.</p>
+        </div>
+    </div>
+</div>
+
+<div class="tcb-box exobox">
+    <div class="tcb-title">Exercice 4 : Sommes des Puissances et Relations de Newton</div>
+    <div class="tcb-content">
+        Soit $P = X^3 + pX + q$ un polynôme de racines $x_1, x_2, x_3$. On pose $S_k = \sum_{i=1}^3 x_i^k$.
+        <ol>
+            <li>Déterminer $S_0, S_1$ et $S_2$ en fonction de $p$ et $q$.</li>
+            <li>Montrer que pour tout $n \in \mathbb{N}$, $S_{n+3} + pS_{n+1} + qS_n = 0$.</li>
+            <li>Calculer $S_3$.</li>
+            <li>Calculer $S_4$ en fonction de $p$.</li>
+            <li>On suppose $S_1 = S_2 = S_3 = S_4 = 0$. Que peut-on dire des racines ?</li>
+            <li>Résoudre dans $\mathbb{C}^3$ le système : $x+y+z=0, x^2+y^2+z^2=2, x^3+y^3+z^3=3$.</li>
+            <li>Déterminer un polynôme dont les racines sont les carrés des racines de $P$.</li>
+            <li>Exprimer le discriminant $\Delta = (x_1-x_2)^2(x_2-x_3)^2(x_3-x_1)^2$ en fonction de $p$ et $q$.</li>
+        </ol>
+
+        <button class="btn btn-sol" onclick="toggleBox('sol_newton')">
+            <i class="fas fa-eye"></i> Voir la correction détaillée
+        </button>
+
+        <div id="sol_newton" class="solbox">
+            <p><b>1.</b> $S_0 = 3$. $S_1 = 0$ (car pas de terme en $X^2$). $S_2 = -2p$.</p>
+            <p><b>3.</b> $S_3 = -pS_1 - qS_0 = -3q$.</p>
+            <p><b>6.</b> Le système donne $p = -1$ et $q = -1$. On résout $X^3 - X - 1 = 0$.</p>
+            <p><b>8.</b> $\Delta = -4p^3 - 27q^2$.</p>
+        </div>
+    </div>
+</div>
+
+<div class="tcb-box exobox">
+    <div class="tcb-title">Exercice 5 : Arithmétique et Division de Restes</div>
+    <div class="tcb-content">
+        Soit $n$ et $m$ deux entiers naturels non nuls. On s'intéresse au PGCD de $A = X^n - 1$ et $B = X^m - 1$.
+        <ol>
+            <li>Calculer le reste de la division euclidienne de $X^n-1$ par $X^m-1$ si $n = mq+r$.</li>
+            <li>Démontrer que $\text{pgcd}(X^n-1, X^m-1) = X^{\text{pgcd}(n,m)} - 1$ en utilisant l'algorithme d'Euclide.</li>
+            <li>Déterminer la multiplicité de la racine $1$ dans le polynôme $P = nX^{n+1} - (n+1)X^n + 1$.</li>
+            <li>Démontrer que $(X-1)^3$ divise $P$ si et seulement si $n(n+1)$ est un multiple d'une certaine valeur.</li>
+            <li>Soit $A \in \mathbb{K}[X]$. Montrer que $A(X) - X$ divise $A(A(X)) - X$.</li>
+            <li>Décomposer en éléments simples dans $\mathbb{C}(X)$ la fraction $F = \frac{1}{X^n - 1}$.</li>
+            <li>Déterminer tous les polynômes $P$ tels que $P(X^2) = P(X)^2$.</li>
+            <li>Résoudre l'équation $P \circ P = P$.</li>
+        </ol>
+
+        <button class="btn btn-sol" onclick="toggleBox('sol_arith')">
+            <i class="fas fa-eye"></i> Voir la correction détaillée
+        </button>
+
+        <div id="sol_arith" class="solbox">
+            <p><b>1.</b> Le reste est $X^r - 1$.</p>
+            <p><b>3.</b> $P(1)=0, P'(1)=0, P''(1) = n(n+1)n - (n+1)n(n-1) = n(n+1)$. La multiplicité est exactement 2.</p>
+            <p><b>7.</b> $P = 0, P = 1$ ou $P = X^n$.</p>
+            <p><b>8.</b> $P$ constant ou $P = X$.</p>
         </div>
     </div>
 </div>
