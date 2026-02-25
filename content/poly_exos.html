@@ -1,0 +1,44 @@
+<div class="banner">
+    <h1>Exercices : Polynômes</h1>
+    <p>Focus : Polynômes de Tchebychev ($T_n$)</p>
+</div>
+
+<div class="tcb-box exobox">
+    <div class="tcb-title">Problème Classique : Famille de Tchebychev</div>
+    <div class="tcb-content">
+        On cherche une suite de polynômes $(T_n)$ tels que : 
+        $\forall \theta \in \mathbb{R}, \quad T_n(\cos \theta) = \cos(n\theta)$
+        
+        <ol>
+            <li>Démontrer l'unicité de $T_n$.</li>
+            <li>Établir la relation de récurrence entre $T_n, T_{n-1}$ et $T_{n-2}$.</li>
+            <li>Calculer les premiers termes.</li>
+        </ol>
+
+        <button class="btn btn-sol" onclick="toggleBox('sol_tcheby')">
+            <i class="fas fa-eye"></i> Voir la correction détaillée
+        </button>
+
+        <div id="sol_tcheby" class="solbox">
+            <h4 class="navy">1. Unicité</h4>
+            Si $P$ et $Q$ conviennent, alors $H = P-Q$ s'annule sur tout $[-1, 1]$. Un polynôme ayant une infinité de racines est nul, donc $P=Q$.
+            
+            <h4 class="navy">2. Récurrence</h4>
+            D'après la formule $2\cos a \cos b = \cos(a+b) + \cos(a-b)$ :
+            $2\cos\theta \cos((n-1)\theta) = \cos(n\theta) + \cos((n-2)\theta)$
+            D'où : $\boxed{T_n(X) = 2XT_{n-1}(X) - T_{n-2}(X)}$
+            
+            <h4 class="navy">3. Premiers Termes</h4>
+            <ul>
+                <li>$T_0 = 1$</li>
+                <li>$T_1 = X$</li>
+                <li>$T_2 = 2X^2 - 1$</li>
+                <li>$T_3 = 4X^3 - 3X$</li>
+            </ul>
+            
+            <h4 class="navy">4. Racines de $T_n$</h4>
+            $T_n(\cos\theta) = 0 \iff n\theta = \frac{\pi}{2} + k\pi$. Les $n$ racines sont :
+            $x_k = \cos\left( \frac{(2k+1)\pi}{2n} \right)$ pour $k \in \{0, \dots, n-1\}$.
+        </div>
+    </div>
+</div>
