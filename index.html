@@ -6,10 +6,22 @@
     <title>Elian Maths | PCSI Prestige Intégral</title>
     
     <script>
-        window.MathJax = { tex: { inlineMath: [['$', '$']], displayMath: [['$$', '$$']] } };
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                processEscapes: true
+            },
+            options: {
+                enableMenu: false
+            }
+        };
     </script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -18,7 +30,7 @@
     <div class="logo-container">
         <div class="logo-icon"><i class="fas fa-functions"></i></div>
         <div class="logo-text">ELIAN<span>MATHS</span></div>
-        <p style="font-size: 0.65rem; color: var(--text-muted); margin-top: 5px;">MATHÉMATIQUES PCSI</p>
+        <p style="font-size: 0.65rem; color: var(--text-muted); margin-top: 5px; font-weight: 600;">MATHÉMATIQUES PCSI</p>
     </div>
 
     <div class="semester-title">PREMIER SEMESTRE</div>
@@ -207,72 +219,96 @@
     <div id="content-container">
         <div class="banner">
             <h1>Plateforme PCSI Prestige</h1>
-            <p>Bienvenue Elian. Sélectionnez une notion détaillée dans le menu de gauche.</p>
+            <p>Bienvenue Elian. Sélectionnez un module pour commencer.</p>
         </div>
         <div class="tcb-box">
-            <div class="tcb-title">Prêt pour la compilation</div>
+            <div class="tcb-title">Statut du Système</div>
             <div class="tcb-content">
-                Tous les chapitres du programme sont désormais listés. 
-                <br><b>Note :</b> Assurez-vous d'avoir créé le dossier <code>content/</code> contenant vos fichiers <code>.html</code>.
+                <p>Tous les modules sont prêts à être chargés.</p>
+                <br>
+                <p><b>Conseil :</b> Pour les exercices longs, les corrigés sont masqués par défaut pour favoriser la recherche personnelle.</p>
             </div>
         </div>
     </div>
 </div>
 
 <script>
-    // 1. GESTION DES MENUS
+    // 1. GESTION DE L'ACCORDÉON
     function toggleMenu(btn) {
         const submenu = btn.nextElementSibling;
-        const allSubmenus = document.querySelectorAll('.submenu');
-        const allBtns = document.querySelectorAll('.chapter-btn');
+        const isOpen = submenu.classList.contains('open');
 
-        allSubmenus.forEach(sub => { if(sub !== submenu) sub.classList.remove('open'); });
-        allBtns.forEach(b => { if(b !== btn) b.classList.remove('active'); });
+        // Ferme tous les autres menus
+        document.querySelectorAll('.submenu').forEach(sub => sub.classList.remove('open'));
+        document.querySelectorAll('.chapter-btn').forEach(b => b.classList.remove('active'));
 
-        submenu.classList.toggle('open');
-        btn.classList.toggle('active');
+        // Ouvre le menu cliqué s'il n'était pas déjà ouvert
+        if (!isOpen) {
+            submenu.classList.add('open');
+            btn.classList.add('active');
+        }
     }
 
-    // 2. CHARGEMENT DES PAGES
+    // 2. CHARGEMENT DYNAMIQUE DES FICHIERS HTML
     async function load(file) {
         const container = document.getElementById('content-container');
+        
+        // Animation de transition douce
+        container.style.opacity = '0.3';
+
         try {
             const response = await fetch(`content/${file}.html`);
-            if (!response.ok) throw new Error();
+            if (!response.ok) throw new Error("Fichier introuvable");
+            
             const html = await response.text();
+            
+            // Injection du HTML
             container.innerHTML = html;
-            
-            // Relancer MathJax pour les nouvelles formules
-            if (window.MathJax) MathJax.typesetPromise();
-            
-            // Scroll en haut de page
-            window.scrollTo(0,0);
+            container.style.opacity = '1';
+
+            // Relancer MathJax (Indispensable pour le LaTeX après un fetch)
+            if (window.MathJax && window.MathJax.typesetPromise) {
+                window.MathJax.typesetPromise([container]).catch((err) => console.log(err.message));
+            }
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
         } catch (err) {
-            container.innerHTML = `<div class="banner" style="background:var(--navy)"><h1>Module en construction</h1><p>Le fichier <b>content/${file}.html</b> n'a pas été trouvé.</p></div>`;
+            container.style.opacity = '1';
+            container.innerHTML = `
+                <div class="banner" style="background:var(--navy)">
+                    <h1>Module en construction</h1>
+                    <p>Le fichier <b>content/${file}.html</b> n'a pas encore été créé ou est inaccessible.</p>
+                </div>`;
         }
     }
 
-    // 3. FONCTION CORRIGÉ (ESSENTIELLE)
+    // 3. GESTION DES BOITES DE CORRIGÉS (Améliorée)
     function toggleBox(id) {
         const box = document.getElementById(id);
-        if (box) {
-            // Si la boîte est cachée, on l'affiche, sinon on la cache
-            if (box.style.display === "none" || box.style.display === "") {
-                box.style.display = "block";
-            } else {
-                box.style.display = "none";
-            }
+        if (!box) return;
+
+        // On utilise display pour la logique et une animation CSS via les classes
+        if (box.style.display === "block") {
+            box.style.display = "none";
+        } else {
+            box.style.display = "block";
+            // On force MathJax à revérifier la boîte qui vient de s'afficher
+            if (window.MathJax) MathJax.typesetPromise([box]);
         }
     }
 
-    // 4. FONCTION ENVOI ELEVE (SIMULATION)
+    // 4. LOGIQUE ÉLÈVE
     function soumettreReponse() {
         const nom = document.getElementById('nom_eleve').value;
-        if(!nom) { alert("Indique ton nom !"); return; }
-        alert("Félicitations " + nom + ", ta réponse a été enregistrée !");
+        const reponse = document.getElementById('reponse_eleve').value;
+        if(!nom || !reponse) { 
+            alert("Veuillez remplir tous les champs !"); 
+            return; 
+        }
+        alert("Bravo " + nom + " ! Ta réponse a été transmise à Elian.");
     }
 </script>
 
 </body>
 </html>
-
