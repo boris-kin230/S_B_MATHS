@@ -23,6 +23,21 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
     
     <link rel="stylesheet" href="style.css">
+    
+    <style>
+        /* Ajout de styles critiques pour assurer la cohérence si style.css est lent */
+        :root {
+            --royal-blue: #2c5282;
+            --navy: #1a365d;
+            --text-muted: #718096;
+        }
+        body { font-family: 'Inter', sans-serif; margin: 0; background: #f8fafc; }
+        #sidebar { transition: all 0.3s ease; }
+        .submenu { display: none; overflow: hidden; background: #edf2f7; }
+        .submenu.open { display: block; }
+        #main { margin-left: 280px; padding: 40px; transition: 0.3s; }
+        @media (max-width: 900px) { #main { margin-left: 0; } }
+    </style>
 </head>
 <body>
 
@@ -163,57 +178,7 @@
         </div>
     </div>
 
-    <div class="chapter">
-        <button class="chapter-btn" onclick="toggleMenu(this)">
-            <span><i class="fas fa-th"></i> Matrices & Déterminants</span> <i class="fas fa-chevron-down chevron"></i>
-        </button>
-        <div class="submenu">
-            <a onclick="load('matrices_s2_cours')">Cours complet (S2)</a>
-            <a onclick="load('matrices_s2_exos')">Exercices Corrigés</a>
-        </div>
     </div>
-
-    <div class="chapter">
-        <button class="chapter-btn" onclick="toggleMenu(this)">
-            <span><i class="fas fa-integral"></i> Intégration</span> <i class="fas fa-chevron-down chevron"></i>
-        </button>
-        <div class="submenu">
-            <a onclick="load('integration_cours')">Calcul Intégral</a>
-            <a onclick="load('integration_exos')">Exercices Corrigés</a>
-        </div>
-    </div>
-
-    <div class="chapter">
-        <button class="chapter-btn" onclick="toggleMenu(this)">
-            <span><i class="fas fa-sort-numeric-up"></i> Séries Numériques</span> <i class="fas fa-chevron-down chevron"></i>
-        </button>
-        <div class="submenu">
-            <a onclick="load('series_cours')">Cours Séries</a>
-            <a onclick="load('series_exos')">Exercices Corrigés</a>
-        </div>
-    </div>
-
-    <div class="chapter">
-        <button class="chapter-btn" onclick="toggleMenu(this)">
-            <span><i class="fas fa-vector-square"></i> Espaces Euclidiens</span> <i class="fas fa-chevron-down chevron"></i>
-        </button>
-        <div class="submenu">
-            <a onclick="load('euclidiens_cours')">Produit Scalaire</a>
-            <a onclick="load('euclidiens_exos')">Exercices Corrigés</a>
-        </div>
-    </div>
-
-    <div class="chapter">
-        <button class="chapter-btn" onclick="toggleMenu(this)">
-            <span><i class="fas fa-dice"></i> Probabilités</span> <i class="fas fa-chevron-down chevron"></i>
-        </button>
-        <div class="submenu">
-            <a onclick="load('proba_cours')">Espaces Probabilisés</a>
-            <a onclick="load('proba_exos')">Exercices Corrigés</a>
-            <a onclick="load('proba_eleve')">🎯 Zone Élève</a>
-        </div>
-    </div>
-</div>
 
 <div id="main">
     <div id="content-container">
@@ -249,11 +214,9 @@
         }
     }
 
-    // 2. CHARGEMENT DYNAMIQUE DES FICHIERS HTML
+    // 2. CHARGEMENT DYNAMIQUE (Version Améliorée pour Scripts)
     async function load(file) {
         const container = document.getElementById('content-container');
-        
-        // Animation de transition douce
         container.style.opacity = '0.3';
 
         try {
@@ -262,15 +225,25 @@
             
             const html = await response.text();
             
-            // Injection du HTML
+            // On injecte le contenu
             container.innerHTML = html;
-            container.style.opacity = '1';
 
-            // Relancer MathJax (Indispensable pour le LaTeX après un fetch)
+            // --- CORRECTION CRITIQUE : EXECUTION DES SCRIPTS ---
+            // On récupère toutes les balises scripts injectées
+            const scripts = container.querySelectorAll("script");
+            scripts.forEach(oldScript => {
+                const newScript = document.createElement("script");
+                Array.from(oldScript.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value));
+                newScript.appendChild(document.createTextNode(oldScript.innerHTML));
+                oldScript.parentNode.replaceChild(newScript, oldScript);
+            });
+
+            // Relancer MathJax
             if (window.MathJax && window.MathJax.typesetPromise) {
                 window.MathJax.typesetPromise([container]).catch((err) => console.log(err.message));
             }
 
+            container.style.opacity = '1';
             window.scrollTo({ top: 0, behavior: 'smooth' });
 
         } catch (err) {
@@ -280,33 +253,21 @@
                     <h1>Module en construction</h1>
                     <p>Le fichier <b>content/${file}.html</b> n'a pas encore été créé ou est inaccessible.</p>
                 </div>`;
+            console.error(err);
         }
     }
 
-    // 3. GESTION DES BOITES DE CORRIGÉS (Améliorée)
+    // 3. GESTION DES BOITES DE CORRIGÉS
     function toggleBox(id) {
         const box = document.getElementById(id);
         if (!box) return;
 
-        // On utilise display pour la logique et une animation CSS via les classes
         if (box.style.display === "block") {
             box.style.display = "none";
         } else {
             box.style.display = "block";
-            // On force MathJax à revérifier la boîte qui vient de s'afficher
             if (window.MathJax) MathJax.typesetPromise([box]);
         }
-    }
-
-    // 4. LOGIQUE ÉLÈVE
-    function soumettreReponse() {
-        const nom = document.getElementById('nom_eleve').value;
-        const reponse = document.getElementById('reponse_eleve').value;
-        if(!nom || !reponse) { 
-            alert("Veuillez remplir tous les champs !"); 
-            return; 
-        }
-        alert("Bravo " + nom + " ! Ta réponse a été transmise à Elian.");
     }
 </script>
 
