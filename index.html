@@ -12,13 +12,14 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        /* CSS PRESTIGE ELIAN MATHS */
+        /* CSS INTERNE (Sera déplacé dans style.css plus tard) */
         :root {
             --royal-blue: #004d40; --accent-orange: #ff9800; --accent-green: #4caf50;
             --navy: #1a2a3a; --bg-light: #f4f7f6; --sidebar-bg: #ffffff;
             --text-main: #2c3e50; --text-muted: #7f8c8d; --white: #ffffff;
             --radius: 12px; --shadow-sm: 0 2px 8px rgba(0,0,0,0.1);
             --transition: all 0.3s ease;
+            --solbox-bg: #f1f8e9;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -41,7 +42,7 @@
 
         .submenu { display: none; background: #fafafa; border-bottom: 1px solid #eee; }
         .submenu.open { display: block; }
-        .submenu a { display: block; padding: 10px 45px; text-decoration: none; color: var(--text-muted); font-size: 0.85rem; transition: 0.2s; position: relative; }
+        .submenu a { display: block; padding: 10px 45px; text-decoration: none; color: var(--text-muted); font-size: 0.85rem; transition: 0.2s; position: relative; cursor: pointer; }
         .submenu a::before { content: '•'; position: absolute; left: 25px; color: #ccc; }
         .submenu a:hover { color: var(--royal-blue); background: white; padding-left: 50px; }
 
@@ -49,10 +50,29 @@
         #main { margin-left: 320px; flex: 1; padding: 40px; }
         .banner { background: linear-gradient(135deg, var(--navy), var(--royal-blue)); padding: 35px; border-radius: 15px; color: white; margin-bottom: 30px; box-shadow: var(--shadow-sm); }
         
-        /* CUSTOM BOXES FOR CONTENT */
+        /* BOXES */
         .tcb-box { background: white; border-radius: var(--radius); margin-bottom: 25px; overflow: hidden; border-left: 5px solid var(--royal-blue); box-shadow: var(--shadow-sm); }
         .tcb-title { padding: 12px 20px; background: var(--royal-blue); color: white; font-weight: 700; }
         .tcb-content { padding: 20px; }
+
+        .exobox { border-left-color: var(--accent-orange); }
+        .exobox .tcb-title { background: var(--accent-orange); }
+        
+        /* STYLE POUR LE CORRIGÉ (CORRECTED) */
+        .solbox { 
+            display: none; 
+            margin-top: 15px; 
+            padding: 15px; 
+            background-color: var(--solbox-bg); 
+            border: 1px solid var(--accent-green); 
+            border-radius: 8px;
+            animation: fadeIn 0.4s ease;
+        }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        .btn { border: none; padding: 10px 18px; border-radius: 8px; cursor: pointer; font-weight: 600; display: inline-flex; align-items: center; gap: 8px; transition: 0.3s; }
+        .btn-sol { background: var(--accent-orange); color: white; }
+        .btn-sol:hover { background: #e68a00; transform: scale(1.02); }
     </style>
 </head>
 <body>
@@ -71,9 +91,9 @@
             <span><i class="fas fa-vial"></i> Raisonnement & Ensembles</span> <i class="fas fa-chevron-down chevron"></i>
         </button>
         <div class="submenu">
-            <a onclick="load('raisonnement_cours')">Cours : Logique & Ensembles</a>
+            <a onclick="load('raisonnement_cours')">Cours & Notions</a>
             <a onclick="load('raisonnement_exos')">Exercices Corrigés</a>
-            <a onclick="load('raisonnement_eleve')">🎯 Zone Entraînement</a>
+            <a onclick="load('raisonnement_eleve')">🎯 Zone Élève</a>
         </div>
     </div>
 
@@ -82,9 +102,9 @@
             <span><i class="fas fa-atom"></i> Complexes & Trigonométrie</span> <i class="fas fa-chevron-down chevron"></i>
         </button>
         <div class="submenu">
-            <a onclick="load('complexes_cours')">Cours : Nombres Complexes</a>
+            <a onclick="load('complexes_cours')">Cours & Trigonométrie</a>
             <a onclick="load('complexes_exos')">Exercices Corrigés</a>
-            <a onclick="load('complexes_eleve')">🎯 Zone Entraînement</a>
+            <a onclick="load('complexes_eleve')">🎯 Zone Élève</a>
         </div>
     </div>
 
@@ -94,17 +114,17 @@
         </button>
         <div class="submenu">
             <a onclick="load('calcul_algebre_cours')">Sommes & Produits</a>
-            <a onclick="load('calcul_algebre_exos')">Exercices</a>
+            <a onclick="load('calcul_algebre_exos')">Exercices Corrigés</a>
         </div>
     </div>
 
     <div class="chapter">
         <button class="chapter-btn" onclick="toggleMenu(this)">
-            <span><i class="fas fa-microscope"></i> Techniques Fondamentales</span> <i class="fas fa-chevron-down chevron"></i>
+            <span><i class="fas fa-microscope"></i> Techniques en Analyse</span> <i class="fas fa-chevron-down chevron"></i>
         </button>
         <div class="submenu">
-            <a onclick="load('tech_analyse_cours')">Analyse Fondamentale</a>
-            <a onclick="load('tech_analyse_exos')">Exercices</a>
+            <a onclick="load('tech_analyse_cours')">Cours Analyse</a>
+            <a onclick="load('tech_analyse_exos')">Exercices Corrigés</a>
         </div>
     </div>
 
@@ -113,9 +133,9 @@
             <span><i class="fas fa-infinity"></i> Réels & Suites</span> <i class="fas fa-chevron-down chevron"></i>
         </button>
         <div class="submenu">
-            <a onclick="load('suites_cours')">Suites Numériques</a>
-            <a onclick="load('suites_exos')">Exercices</a>
-            <a onclick="load('suites_eleve')">🎯 Zone Entraînement</a>
+            <a onclick="load('suites_cours')">Cours : Suites Numériques</a>
+            <a onclick="load('suites_exos')">Exercices Corrigés</a>
+            <a onclick="load('suites_eleve')">🎯 Zone Élève</a>
         </div>
     </div>
 
@@ -125,7 +145,7 @@
         </button>
         <div class="submenu">
             <a onclick="load('limites_cours')">Limites & Dérivabilité</a>
-            <a onclick="load('limites_exos')">Exercices</a>
+            <a onclick="load('limites_exos')">Exercices Corrigés</a>
         </div>
     </div>
 
@@ -134,28 +154,29 @@
             <span><i class="fas fa-long-arrow-alt-right"></i> Analyse Asymptotique</span> <i class="fas fa-chevron-down chevron"></i>
         </button>
         <div class="submenu">
-            <a onclick="load('asymptote_cours')">Développements Limités</a>
-            <a onclick="load('asymptote_exos')">Exercices</a>
+            <a onclick="load('asymptote_cours')">Cours : DL & Équivalents</a>
+            <a onclick="load('asymptote_exos')">Exercices Corrigés</a>
         </div>
     </div>
 
     <div class="chapter">
         <button class="chapter-btn" onclick="toggleMenu(this)">
-            <span><i class="fas fa-border-all"></i> Systèmes & Matrices (S1)</span> <i class="fas fa-chevron-down chevron"></i>
+            <span><i class="fas fa-border-all"></i> Systèmes & Matrices</span> <i class="fas fa-chevron-down chevron"></i>
         </button>
         <div class="submenu">
             <a onclick="load('systemes_cours')">Systèmes Linéaires</a>
-            <a onclick="load('calcul_mat_cours')">Calcul Matriciel</a>
+            <a onclick="load('calcul_mat_cours')">Calcul Matriciel (S1)</a>
+            <a onclick="load('matrices_s1_exos')">Exercices Corrigés</a>
         </div>
     </div>
 
     <div class="chapter">
         <button class="chapter-btn" onclick="toggleMenu(this)">
-            <span><i class="fas fa-list-ol"></i> Dénombrement</span> <i class="fas fa-chevron-down chevron"></i>
+            <span><i class="fas fa-list-ol"></i> Entiers & Dénombrement</span> <i class="fas fa-chevron-down chevron"></i>
         </button>
         <div class="submenu">
-            <a onclick="load('denombrement_cours')">Entiers & Dénombrement</a>
-            <a onclick="load('denombrement_exos')">Exercices</a>
+            <a onclick="load('denombrement_cours')">Cours Dénombrement</a>
+            <a onclick="load('denombrement_exos')">Exercices Corrigés</a>
         </div>
     </div>
 
@@ -164,7 +185,8 @@
             <span><i class="fas fa-draw-polygon"></i> Géométrie Analytique</span> <i class="fas fa-chevron-down chevron"></i>
         </button>
         <div class="submenu">
-            <a onclick="load('geometrie_analytique')">Géométrie du Plan & Espace</a>
+            <a onclick="load('geometrie_cours')">Plan & Espace</a>
+            <a onclick="load('geometrie_exos')">Exercices Corrigés</a>
         </div>
     </div>
 
@@ -176,8 +198,8 @@
         </button>
         <div class="submenu">
             <a onclick="load('poly_cours')">Cours complet</a>
-            <a onclick="load('poly_exos')">Exercices corrigés</a>
-            <a onclick="load('poly_training')">Exercices corrigés</a>
+            <a onclick="load('poly_exos')">Exercices Corrigés</a>
+            <a onclick="load('poly_training')">🎯 Zone Élève</a>
         </div>
     </div>
 
@@ -186,8 +208,9 @@
             <span><i class="fas fa-project-diagram"></i> Espaces Vectoriels</span> <i class="fas fa-chevron-down chevron"></i>
         </button>
         <div class="submenu">
-            <a onclick="load('ev_cours')">EV & Applications Linéaires</a>
-            <a onclick="load('ev_exos')">Exercices</a>
+            <a onclick="load('ev_cours')">Cours : AL & EV</a>
+            <a onclick="load('ev_exos')">Exercices Corrigés</a>
+            <a onclick="load('ev_eleve')">🎯 Zone Élève</a>
         </div>
     </div>
 
@@ -196,8 +219,8 @@
             <span><i class="fas fa-th"></i> Matrices & Déterminants</span> <i class="fas fa-chevron-down chevron"></i>
         </button>
         <div class="submenu">
-            <a onclick="load('matrices_s2_cours')">Matrices & Déterminants</a>
-            <a onclick="load('matrices_s2_exos')">Exercices</a>
+            <a onclick="load('matrices_s2_cours')">Cours complet (S2)</a>
+            <a onclick="load('matrices_s2_exos')">Exercices Corrigés</a>
         </div>
     </div>
 
@@ -207,7 +230,7 @@
         </button>
         <div class="submenu">
             <a onclick="load('integration_cours')">Calcul Intégral</a>
-            <a onclick="load('integration_exos')">Exercices</a>
+            <a onclick="load('integration_exos')">Exercices Corrigés</a>
         </div>
     </div>
 
@@ -216,8 +239,8 @@
             <span><i class="fas fa-sort-numeric-up"></i> Séries Numériques</span> <i class="fas fa-chevron-down chevron"></i>
         </button>
         <div class="submenu">
-            <a onclick="load('series_cours')">Séries Numériques</a>
-            <a onclick="load('series_exos')">Exercices</a>
+            <a onclick="load('series_cours')">Cours Séries</a>
+            <a onclick="load('series_exos')">Exercices Corrigés</a>
         </div>
     </div>
 
@@ -227,7 +250,7 @@
         </button>
         <div class="submenu">
             <a onclick="load('euclidiens_cours')">Produit Scalaire</a>
-            <a onclick="load('euclidiens_exos')">Exercices</a>
+            <a onclick="load('euclidiens_exos')">Exercices Corrigés</a>
         </div>
     </div>
 
@@ -237,44 +260,43 @@
         </button>
         <div class="submenu">
             <a onclick="load('proba_cours')">Espaces Probabilisés</a>
-            <a onclick="load('proba_exos')">Exercices</a>
+            <a onclick="load('proba_exos')">Exercices Corrigés</a>
+            <a onclick="load('proba_eleve')">🎯 Zone Élève</a>
         </div>
     </div>
-
 </div>
 
 <div id="main">
     <div id="content-container">
         <div class="banner">
-            <h1>Bienvenue Elian</h1>
-            <p>Accédez à l'intégralité du programme PCSI via le menu latéral.</p>
+            <h1>Plateforme PCSI Prestige</h1>
+            <p>Bienvenue Elian. Sélectionnez une notion détaillée dans le menu de gauche.</p>
         </div>
         <div class="tcb-box">
-            <div class="tcb-title">Statut du Site</div>
+            <div class="tcb-title">Prêt pour la compilation</div>
             <div class="tcb-content">
-                Tous les menus sont configurés. Vous pouvez maintenant créer les fichiers correspondants dans le dossier <b>content/</b>.
+                Tous les chapitres du programme sont désormais listés. 
+                <br><b>Note :</b> Assurez-vous d'avoir créé le dossier <code>content/</code> contenant vos fichiers <code>.html</code>.
             </div>
         </div>
     </div>
 </div>
 
 <script>
-    // Gestionnaire des menus accordéons
+    // 1. GESTION DES MENUS
     function toggleMenu(btn) {
         const submenu = btn.nextElementSibling;
         const allSubmenus = document.querySelectorAll('.submenu');
         const allBtns = document.querySelectorAll('.chapter-btn');
 
-        // Ferme les autres pour rester propre
         allSubmenus.forEach(sub => { if(sub !== submenu) sub.classList.remove('open'); });
         allBtns.forEach(b => { if(b !== btn) b.classList.remove('active'); });
 
-        // Switch l'état actuel
         submenu.classList.toggle('open');
         btn.classList.toggle('active');
     }
 
-    // Chargement dynamique des pages
+    // 2. CHARGEMENT DES PAGES
     async function load(file) {
         const container = document.getElementById('content-container');
         try {
@@ -282,14 +304,37 @@
             if (!response.ok) throw new Error();
             const html = await response.text();
             container.innerHTML = html;
-            // Relancer MathJax
+            
+            // Relancer MathJax pour les nouvelles formules
             if (window.MathJax) MathJax.typesetPromise();
+            
+            // Scroll en haut de page
+            window.scrollTo(0,0);
         } catch (err) {
-            container.innerHTML = `<div class="banner" style="background:var(--navy)"><h1>Fichier manquant</h1><p>Créez <b>content/${file}.html</b> pour voir ce contenu.</p></div>`;
+            container.innerHTML = `<div class="banner" style="background:var(--navy)"><h1>Module en construction</h1><p>Le fichier <b>content/${file}.html</b> n'a pas été trouvé.</p></div>`;
         }
+    }
+
+    // 3. FONCTION CORRIGÉ (ESSENTIELLE)
+    function toggleBox(id) {
+        const box = document.getElementById(id);
+        if (box) {
+            // Si la boîte est cachée, on l'affiche, sinon on la cache
+            if (box.style.display === "none" || box.style.display === "") {
+                box.style.display = "block";
+            } else {
+                box.style.display = "none";
+            }
+        }
+    }
+
+    // 4. FONCTION ENVOI ELEVE (SIMULATION)
+    function soumettreReponse() {
+        const nom = document.getElementById('nom_eleve').value;
+        if(!nom) { alert("Indique ton nom !"); return; }
+        alert("Félicitations " + nom + ", ta réponse a été enregistrée !");
     }
 </script>
 
 </body>
 </html>
-
