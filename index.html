@@ -3,1028 +3,178 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Elian Maths | PTSI Prestige</title>
-
+    <title>Elian Maths | PCSI Prestige</title>
+    
+    <script>
+        window.MathJax = { tex: { inlineMath: [['$', '$']], displayMath: [['$$', '$$']] } };
+    </script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
+    
     <style>
-        /* ==========================================================================
-           STYLE.CSS - ELIAN MATHS PRESTIGE EDITION (400+ Lignes)
-           ========================================================================== */
-
+        /* TON STYLE PRESTIGE INTÉGRÉ */
         :root {
-            /* Palette Maîtresse */
-            --royal-blue: #004d40;      /* Vert forêt profond Signature */
-            --accent-orange: #ff9800;   /* Orange vibrant pour l'action */
-            --accent-green: #2e7d32;    /* Vert succès */
-            --navy: #1a2a3a;            /* Bleu nuit institutionnel */
-            --dark-red: #c62828;
-            --forest-green: #2e7d32;
-
-            /* Nuances de Fond */
-            --bg-light: #f4f7f6;
-            --sidebar-bg: #ffffff;
-            --text-main: #2c3e50;
-            --text-muted: #7f8c8d;
-            --white: #ffffff;
-
-            /* Couleurs de Boîtes */
-            --thmbox-bg: #e8f5e9;
-            --exobox-bg: #fff3e0;
-            --solbox-bg: #fdfdfd;
-
-            /* Effets */
-            --radius: 12px;
-            --shadow-sm: 0 2px 8px rgba(0,0,0,0.05);
-            --shadow-md: 0 10px 30px rgba(0,0,0,0.08);
+            --royal-blue: #004d40; --accent-orange: #ff9800; --accent-green: #4caf50;
+            --navy: #1a2a3a; --bg-light: #f4f7f6; --sidebar-bg: #ffffff;
+            --text-main: #2c3e50; --text-muted: #7f8c8d; --white: #ffffff;
+            --thmbox-bg: #e8f5e9; --exobox-bg: #fff3e0; --solbox-bg: #f1f8e9;
+            --radius: 12px; --shadow-sm: 0 2px 8px rgba(0,0,0,0.05);
             --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        /* 1. Reset & Global */
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            background-color: var(--bg-light);
-            color: var(--text-main);
-            line-height: 1.6;
-            display: flex;
-            min-height: 100vh;
-        }
+        body { font-family: 'Inter', sans-serif; background-color: var(--bg-light); color: var(--text-main); display: flex; min-height: 100vh; }
 
-        /* 2. Sidebar Evolutionnaire */
-        #sidebar {
-            width: 280px;
-            background: var(--sidebar-bg);
-            border-right: 1px solid rgba(0,0,0,0.05);
-            height: 100vh;
-            position: fixed;
-            display: flex;
-            flex-direction: column;
-            z-index: 1000;
-            box-shadow: var(--shadow-sm);
-        }
+        /* SIDEBAR HIERARCHIQUE */
+        #sidebar { width: 300px; background: var(--sidebar-bg); border-right: 1px solid rgba(0,0,0,0.1); height: 100vh; position: fixed; overflow-y: auto; display: flex; flex-direction: column; z-index: 1000; }
+        .logo-container { padding: 30px; text-align: center; border-bottom: 1px solid #eee; background: white; sticky: top; }
+        .logo-icon { width: 50px; height: 50px; background: linear-gradient(135deg, var(--royal-blue), var(--accent-green)); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin: 0 auto 10px; color: white; font-size: 1.5rem; }
+        
+        /* Menu Accordéon */
+        .menu-semester { background: #f8f9fa; padding: 10px 20px; font-weight: 800; font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-top: 15px; }
+        .chapter-header { padding: 12px 20px; cursor: pointer; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #f0f0f0; font-weight: 600; transition: 0.3s; }
+        .chapter-header:hover { background: var(--thmbox-bg); }
+        .chapter-header i.chevron { font-size: 0.8rem; transition: transform 0.3s; }
+        .chapter-header.active i.chevron { transform: rotate(180deg); }
 
-        .logo-container {
-            padding: 40px 30px;
-            text-align: center;
-            border-bottom: 1px solid #f0f0f0;
-        }
+        .submenu { display: none; background: #fafafa; }
+        .submenu.open { display: block; }
+        .submenu a { display: block; padding: 10px 40px; text-decoration: none; color: var(--text-main); font-size: 0.9rem; border-left: 3px solid transparent; }
+        .submenu a:hover { background: var(--exobox-bg); border-left: 3px solid var(--accent-orange); color: var(--accent-orange); }
 
-        .logo-icon {
-            width: 50px;
-            height: 50px;
-            background: linear-gradient(135deg, var(--royal-blue), var(--accent-green));
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 15px;
-            color: white;
-            font-size: 1.5rem;
-            font-weight: bold;
-            box-shadow: 0 4px 15px rgba(0, 77, 64, 0.3);
-        }
-
-        .logo-text {
-            font-weight: 800;
-            font-size: 1.2rem;
-            letter-spacing: -0.5px;
-            color: var(--navy);
-        }
-
-        .logo-text span { color: var(--accent-orange); }
-
-        nav ul { list-style: none; padding: 20px 15px; overflow-y: auto; }
-        nav ul li { margin-bottom: 8px; }
-        nav ul li a {
-            text-decoration: none;
-            color: var(--text-main);
-            padding: 12px 15px;
-            display: flex;
-            align-items: center;
-            border-radius: var(--radius);
-            font-weight: 500;
-            font-size: 0.95rem;
-            transition: var(--transition);
-            cursor: pointer;
-        }
-
-        nav ul li a i { margin-right: 12px; width: 20px; text-align: center; color: var(--text-muted); }
-        nav ul li a:hover { background: var(--exobox-bg); color: var(--accent-orange); transform: translateX(5px); }
-        nav ul li a.active { background: var(--royal-blue); color: var(--white); box-shadow: 0 4px 12px rgba(0, 77, 64, 0.2); }
-        nav ul li a.active i { color: white; }
-
-        /* 3. Zone de Contenu */
-        #main { margin-left: 280px; flex: 1; padding: 40px; max-width: 1200px; }
-        .page { display: none; animation: fadeIn 0.5s ease; }
-        .page.active { display: block; }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* 4. Bannières de Prestige */
-        .banner {
-            background: linear-gradient(135deg, var(--navy) 0%, var(--royal-blue) 100%);
-            padding: 45px;
-            border-radius: 20px;
-            color: white;
-            margin-bottom: 40px;
-            position: relative;
-            overflow: hidden;
-            box-shadow: var(--shadow-md);
-        }
-
-        .banner::after {
-            content: 'f(x)';
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            font-size: 5rem;
-            font-weight: 900;
-            opacity: 0.05;
-            transform: rotate(15deg);
-        }
-
-        .banner h1 { font-size: 2.2rem; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 1px; }
-        .banner p { font-size: 1.1rem; opacity: 0.9; }
-
-        /* 5. Les Boîtes de Cours/Exercices (Tcolorbox style) */
-        .tcb-box {
-            background: var(--white);
-            border-radius: var(--radius);
-            margin-bottom: 45px;
-            box-shadow: var(--shadow-sm);
-            border: 1px solid rgba(0,0,0,0.05);
-            position: relative;
-        }
-
-        .tcb-title {
-            padding: 12px 25px;
-            font-weight: 700;
-            color: white;
-            border-radius: var(--radius) var(--radius) 0 0;
-            font-size: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .tcb-content { padding: 30px; font-size: 1.05rem; line-height: 1.7; }
-
-        .exobox .tcb-title { background: var(--accent-orange); }
-        .exobox { border-top: 4px solid var(--accent-orange); }
-
-        .solbox { border: 1.5px solid var(--accent-green); background: var(--solbox-bg); display: none; }
-        .solbox .tcb-title { background: var(--accent-green); }
-
-        /* 6. Boutons Modernes */
-        .btn {
-            border: none;
-            padding: 14px 28px;
-            border-radius: 10px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: var(--transition);
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 0.95rem;
-        }
-
-        .btn-sol { background: var(--accent-orange); color: white; margin-top: 15px; box-shadow: 0 4px 14px rgba(255, 152, 0, 0.3); }
-        .btn-sol:hover { background: #e68a00; transform: translateY(-2px); }
-
-        .nav-controls { display: flex; justify-content: space-between; margin-top: 60px; padding-top: 30px; border-top: 1px solid #e0e0e0; }
-        .btn-nav { background: var(--navy); color: white; }
-        .btn-nav:hover { background: var(--accent-orange); }
-
-        /* 7. Graphiques et SVG */
-        .graph-area {
-            background: white;
-            padding: 30px;
-            border-radius: var(--radius);
-            margin: 30px 0;
-            border: 1px solid #f0f0f0;
-            text-align: center;
-        }
-
-        .geo-controls { margin-bottom: 20px; display: flex; justify-content: center; gap: 15px; }
-        .bissectrice-btn {
-            padding: 8px 18px;
-            border: 2px solid var(--royal-blue);
-            border-radius: 20px;
-            font-weight: bold;
-            cursor: pointer;
-            background: transparent;
-            transition: 0.3s;
-        }
-        .bissectrice-btn.active { background: var(--royal-blue); color: white; }
-
-        /* 8. Math Styling Helpers */
-        .red { color: var(--dark-red); font-weight: 600; }
-        .blue { color: var(--royal-blue); font-weight: 600; }
-        .green { color: var(--accent-green); font-weight: 600; }
-        .vector-calc { background: #f8f9fa; padding: 15px; border-radius: 8px; margin: 10px 0; font-family: 'Cambria', serif; }
-
-        /* Responsive */
-        @media (max-width: 1000px) {
-            #sidebar { width: 80px; }
-            .logo-text, nav ul li a span { display: none; }
-            #main { margin-left: 80px; padding: 20px; }
-        }
+        /* MAIN CONTENT */
+        #main { margin-left: 300px; flex: 1; padding: 40px; max-width: 1200px; }
+        .banner { background: linear-gradient(135deg, var(--navy), var(--royal-blue)); padding: 40px; border-radius: 20px; color: white; margin-bottom: 30px; }
+        
+        /* STUDENT INTERACTION AREA */
+        .student-zone { background: white; border: 2px dashed var(--royal-blue); border-radius: var(--radius); padding: 25px; margin-top: 30px; }
+        textarea { width: 100%; padding: 15px; border-radius: 8px; border: 1px solid #ddd; margin: 10px 0; font-family: inherit; }
+        
+        /* UTILS */
+        .tcb-box { background: white; border-radius: var(--radius); margin-bottom: 25px; overflow: hidden; box-shadow: var(--shadow-sm); border-left: 5px solid var(--royal-blue); }
+        .tcb-title { padding: 12px 20px; background: var(--royal-blue); color: white; font-weight: 700; }
+        .tcb-content { padding: 20px; }
+        .solbox { display: none; background: var(--solbox-bg); padding: 15px; border: 1px solid var(--accent-green); border-radius: 8px; margin-top: 10px; }
+        .btn { padding: 10px 20px; border-radius: 8px; border: none; cursor: pointer; font-weight: 600; display: inline-flex; align-items: center; gap: 8px; transition: 0.3s; }
+        .btn-sol { background: var(--accent-orange); color: white; }
     </style>
 </head>
 <body>
 
 <div id="sidebar">
     <div class="logo-container">
-        <div class="logo-icon"><i class="fas fa-infinity"></i></div>
+        <div class="logo-icon"><i class="fas fa-pi"></i></div>
         <div class="logo-text">ELIAN<span>MATHS</span></div>
+        <p style="font-size: 0.7rem; font-weight: bold; color: var(--text-muted)">PCSI PRESTIGE</p>
     </div>
-    <nav>
-        <ul>
-            <li><a onclick="showPage('rolle')" class="active"><i class="fas fa-scroll"></i> <span>Théorème de Rolle</span></a></li>
-            <li><a onclick="showPage('geometrie')"><i class="fas fa-compass"></i> <span>TD3 Exo 10</span></a></li>
-            <li><a onclick="showPage('exo11')"><i class="fas fa-square"></i> <span>TD3 Exo 11</span></a></li>
-            <li><a onclick="showPage('exo12')"><i class="fas fa-circle"></i> <span>TD3 Exo 12</span></a></li>
-            <li><a onclick="showPage('exo13')"><i class="fas fa-project-diagram"></i> <span>TD3 Exo 13</span></a></li>
-            <li><a onclick="showPage('exo14')"><i class="fas fa-shapes"></i> <span>TD3 Exo 14</span></a></li>
-            <li><a onclick="showPage('exo15')"><i class="fas fa-vector-square"></i> <span>TD3 Exo 15</span></a></li>
-            <li><a onclick="showPage('exo16')"><i class="fas fa-align-left"></i> <span>TD3 Exo 16</span></a></li>
-        </ul>
-    </nav>
+
+    <div class="menu-semester">Semestre 1</div>
+    
+    <div class="chapter">
+        <div class="chapter-header" onclick="toggleMenu(this)">
+            <span><i class="fas fa-book-open"></i> Raisonnement</span> <i class="fas fa-chevron-down chevron"></i>
+        </div>
+        <div class="submenu">
+            <a onclick="loadPage('logique_cours')">Cours & Notions</a>
+            <a onclick="loadPage('logique_exos')">Exercices Corrigés</a>
+            <a onclick="loadPage('logique_training')">🎯 Zone Élève</a>
+        </div>
+    </div>
+
+    <div class="chapter">
+        <div class="chapter-header" onclick="toggleMenu(this)">
+            <span><i class="fas fa-square-root-alt"></i> Complexes</span> <i class="fas fa-chevron-down chevron"></i>
+        </div>
+        <div class="submenu">
+            <a onclick="loadPage('complexes_cours')">Cours & Trigonométrie</a>
+            <a onclick="loadPage('complexes_exos')">Exercices Corrigés</a>
+            <a onclick="loadPage('complexes_training')">🎯 Zone Élève</a>
+        </div>
+    </div>
+
+    <div class="chapter">
+        <div class="chapter-header" onclick="toggleMenu(this)">
+            <span><i class="fas fa-chart-line"></i> Suites</span> <i class="fas fa-chevron-down chevron"></i>
+        </div>
+        <div class="submenu">
+            <a onclick="loadPage('suites_cours')">Cours</a>
+            <a onclick="loadPage('suites_exos')">Exercices</a>
+        </div>
+    </div>
+
+    <div class="menu-semester">Semestre 2</div>
+
+    <div class="chapter">
+        <div class="chapter-header" onclick="toggleMenu(this)">
+            <span><i class="fas fa-layer-group"></i> Polynômes</span> <i class="fas fa-chevron-down chevron"></i>
+        </div>
+        <div class="submenu">
+            <a onclick="loadPage('poly_cours')">Cours</a>
+            <a onclick="loadPage('poly_exos')">Exercices</a>
+        </div>
+    </div>
+
+    <div class="chapter">
+        <div class="chapter-header" onclick="toggleMenu(this)">
+            <span><i class="fas fa-table"></i> Matrices</span> <i class="fas fa-chevron-down chevron"></i>
+        </div>
+        <div class="submenu">
+            <a onclick="loadPage('matrices_cours')">Cours</a>
+            <a onclick="loadPage('matrices_exos')">Exercices</a>
+        </div>
+    </div>
 </div>
 
 <div id="main">
-    <div id="rolle" class="page active">
+    <div id="dynamic-content">
         <div class="banner">
-            <h1>THÉORÈME DE ROLLE</h1>
-            <p>Énoncé — Préuve</p>
+            <h1>Plateforme PCSI Prestige</h1>
+            <p>Bienvenue Elian. Sélectionnez un module pour commencer.</p>
         </div>
-
-        <div class="tcb-box thmbox">
-            <div class="tcb-title">Théorème de Rolle</div>
+        <div class="tcb-box">
+            <div class="tcb-title">Instructions</div>
             <div class="tcb-content">
-                Soit \( f : [a,b] \to \mathbb{R} \) une fonction satisfaisant les trois conditions suivantes :
-                <ol>
-                    <li>\( f \) est <span class="red">continue</span> sur le segment \( [a,b] \).</li>
-                    <li>\( f \) est <span class="red">dérivable</span> sur l'ouvert \( ]a,b[ \).</li>
-                    <li><span class="red">\( f(a) = f(b) \)</span>.</li>
-                </ol>
-                Alors, il existe au moins un réel \( c \in ]a,b[ \) tel que <span class="blue">\( f'(c) = 0 \)</span>.
-            </div>
-        </div>
-
-        <div class="tcb-box proofbox">
-            <div class="tcb-title"><i class="fas fa-pen-nib"></i> Démonstration</div>
-            <div class="tcb-content">
-                <p>L'objectif est de prouver qu'une fonction qui "revient à son point de départ" doit forcément s'être "horizontalisée" à un moment donné.</p>
-
-                <p>1. <span class="green">Phase d'existence (Théorème des Bornes Atteintes)</span> :<br>
-                Puisque \( f \) est <span class="red">continue</span> sur le segment \( [a,b] \), le <span class="green">théorème de Weierstrass</span> garantit que \( f \) est bornée et qu'elle atteint ses bornes. Il existe donc au moins deux points \( x_m \) et \( x_M \) dans \( [a,b] \) tels que :
-                \[ f(x_m) = m = \min_{x \in [a,b]} f(x) \quad \text{et} \quad f(x_M) = M = \max_{x \in [a,b]} f(x) \]</p>
-
-                <p>2. Nous devons localiser un extremum à l'intérieur de l'intervalle <span class="blue">ouvert</span> \( ]a,b[ \).</p>
-                <ul>
-                    <li><strong>Cas 1 :</strong> \( m = M \). La fonction possède un maximum égal à son minimum, elle est donc <span class="blue">constante</span>. Sa dérivée est nulle partout, n'importe quel \( c \in ]a,b[ \) convient.</li>
-                    <li><strong>Cas 2 :</strong> \( m < M \). Comme <span class="red">\( f(a) = f(b) \)</span>, il est impossible que le maximum <span class="blue">et</span> le minimum soient tous deux atteints aux extrémités du segment.</li>
-                    <li><span class="green">Logique :</span> Si \( M > f(a) \), alors le point \( x_M \) où le maximum est atteint ne peut être ni \( a \), ni \( b \). On en déduit que <span class="blue">\( x_M \in ]a,b[ \)</span>. On pose alors \( c = x_M \).</li>
-                    <li>De même, si \( m < f(a) \), alors le point \( x_m \) ne peut être ni \( a \), ni \( b \), donc <span class="blue">\( x_m \in ]a,b[ \)</span>. On pose alors \( c = x_m \).</li>
-                </ul>
-
-                <p>3. <span class="green">Phase de calcul (Théorème de Fermat)</span> :<br>
-                Par construction, ce point \( c \) appartient à l'ouvert \( ]a,b[ \) et constitue un <span class="green">extremum local</span> de la fonction.</p>
-                <ul>
-                    <li>Comme \( f \) est supposée <span class="red">dérivable</span> sur \( ]a,b[ \), elle est en particulier dérivable en \( c \).</li>
-                    <li>Le <span class="green">théorème de Fermat</span> affirme que si une fonction est dérivable en un extremum local intérieur, sa dérivée y est nulle.</li>
-                    <li><span class="green">Conclusion :</span> Il existe bien \( c \in ]a,b[ \) tel que <span class="blue">\( f'(c) = 0 \)</span>.</li>
-                </ul>
-            </div>
-        </div>
-
-     <div class="nav-controls">
-        <button class="btn btn-nav" disabled><i class="fas fa-arrow-left"></i> Précédent</button>
-        <button class="btn btn-nav" onclick="showPage('taf')">Suivant : TAF <i class="fas fa-arrow-right"></i></button>
-    </div>
-</div> <div id="taf" class="page">
-    <div class="banner">
-        <h1>THÉORÈME DES ACCROISSEMENTS FINIS</h1>
-    </div>
-
-    <div class="tcb-box thmbox">
-        <div class="tcb-title">Théorème des Accroissements Finis</div>
-        <div class="tcb-content">
-            Soit \( f : [a,b] \to \mathbb{R} \) <span class="red">continue</span> sur \( [a,b] \) et <span class="red">dérivable</span> sur \( ]a,b[ \).
-            Il existe \( c \in ]a,b[ \) tel que :
-            <div style="text-align:center; margin: 20px 0;">
-                <span class="blue" style="font-size: 1.3em;">\[ f(b) - f(a) = f'(c)(b-a) \]</span>
+                Tous les chapitres du programme PCSI sont listés à gauche. 
+                Chaque module contient le <b>Cours</b>, les <b>Exercices</b> et une <b>Zone Élève</b> interactive.
             </div>
         </div>
     </div>
-
-    <h3>Démonstration 1</h3>
-    <div class="tcb-box proofbox">
-        <div class="tcb-title"><i class="fas fa-pen-nib"></i> Écart à la corde</div>
-        <div class="tcb-content">
-            On introduit la fonction auxiliaire \( g \) qui mesure l'écart entre la courbe de \( f \) et la droite passant par \( (a, f(a)) \) et \( (b, f(b)) \). Soit \( g \) définie par :
-            \[ g(x) = f(x) - \left[ f(a) + \frac{f(b)-f(a)}{b-a}(x-a) \right] \]
-            <ol>
-                <li>\( g \) est <span class="red">continue</span> sur \( [a,b] \) et <span class="red">dérivable</span> sur \( ]a,b[ \) car elle est la différence de \( f \) et d'une fonction affine.</li>
-                <li>On vérifie les valeurs aux bornes : \( g(a) = f(a) - f(a) = 0 \) et \( g(b) = f(b) - (f(a) + f(b) - f(a)) = 0 \).</li>
-                <li>On a <span class="red">\( g(a) = g(b) \)</span>. On peut donc appliquer le <span class="green">théorème de Rolle</span> à \( g \).</li>
-                <li>Il existe \( c \in ]a,b[ \) tel que \( g'(c) = 0 \). Or, par dérivation :
-                    \[ g'(x) = f'(x) - \frac{f(b)-f(a)}{b-a} \]
-                </li>
-            </ol>
-            L'annulation de \( g'(c) \) donne <span class="blue">\( f'(c) = \frac{f(b)-f(a)}{b-a} \)</span>.
-        </div>
-    </div>
-
-    <h3>Démonstration 2</h3>
-    <div class="tcb-box proofbox">
-        <div class="tcb-title"><i class="fas fa-pen-nib"></i> Paramètre k</div>
-        <div class="tcb-content">
-            On cherche une constante \( k \) telle que la fonction \( g(x) = f(x) + kx \) satisfasse les hypothèses de Rolle.<br><br>
-            <ol>
-                <li>On impose <span class="red">\( g(a) = g(b) \)</span>, ce qui équivaut à \( f(a) + ka = f(b) + kb \).</li>
-                <li>En isolant \( k \), on trouve : \( k(a - b) = f(b) - f(a) \), soit <span class="green">\( k = - \frac{f(b)-f(a)}{b-a} \)</span>.</li>
-                <li>Avec cette valeur, \( g \) est continue, dérivable et \( g(a)=g(b) \).</li>
-                <li>Par <span class="green">Rolle</span>, il existe \( c \in ]a,b[ \) tel que \( g'(c) = 0 \).</li>
-                <li>Comme \( g'(x) = f'(x) + k \), on en conclut \( f'(c) = -k \), d'où <span class="blue">\( f'(c) = \frac{f(b)-f(a)}{b-a} \)</span>.</li>
-            </ol>
-        </div>
-    </div>
-
-    <div class="nav-controls">
-        <button class="btn btn-nav" onclick="showPage('rolle')"><i class="fas fa-arrow-left"></i> Précédent : Rolle</button>
-        <button class="btn btn-nav" onclick="showPage('monotonie')">Suivant : Monotonie <i class="fas fa-arrow-right"></i></button>
-    </div>
 </div>
 
-<div id="monotonie" class="page">
-    <div class="banner">
-        <h1>DÉRIVÉE ET VARIATIONS</h1>
-        <p>Application du Théorème des Accroissements Finis</p>
-    </div>
-
-    <div class="tcb-box thmbox">
-        <div class="tcb-title">Sens de variation</div>
-        <div class="tcb-content">
-            Soit \( f \) une fonction dérivable sur un intervalle \( I \). <br>
-            <ul>
-                <li>Si \( \forall x \in I, f'(x) \ge 0 \), alors \( f \) est <span class="green">croissante</span> sur \( I \).</li>
-                <li>Si \( \forall x \in I, f'(x) \le 0 \), alors \( f \) est <span class="red">décroissante</span> sur \( I \).</li>
-                <li>Si \( \forall x \in I, f'(x) = 0 \), alors \( f \) est <span class="blue">constante</span> sur \( I \).</li>
-            </ul>
-        </div>
-    </div>
-
-    <h2 style="margin-top: 40px; border-bottom: 2px solid var(--royal-blue); padding-bottom: 10px;">
-        <i class="fas fa-edit"></i> Applications
-    </h2>
-
-    <div class="tcb-box exobox">
-        <div class="tcb-title">Exercice 1</div>
-        <div class="tcb-content">
-            Établir l'inégalité : \( \forall x > 0, \frac{1}{x+1} < \ln(x+1) - \ln(x) < \frac{1}{x} \).
-            <br>
-            <button class="btn btn-sol" onclick="toggleBox('sol-app-1')">
-                <i class="fas fa-lightbulb"></i> Voir le Corrigé
-            </button>
-        </div>
-    </div>
-
-    <div id="sol-app-1" class="tcb-box solbox">
-        <div class="tcb-title">Solution Exercice 1</div>
-        <div class="tcb-content">
-            <ol>
-                <li>On considère la fonction \( f(t) = \ln(t) \) sur l'intervalle \( [x, x+1] \).</li>
-                <li>\( f \) est <span class="red">continue</span> et <span class="red">dérivable</span> sur cet intervalle pour tout \( x > 0 \).</li>
-                <li>Par le <span class="green">TAF</span>, il existe \( c \in ]x, x+1[ \) tel que \( \ln(x+1) - \ln(x) = f'(c)(x+1-x) = \frac{1}{c} \).</li>
-                <li>Or, on sait que \( x < c < x+1 \). La fonction inverse étant <span class="blue">décroissante</span> sur les réels positifs, on a : \( \frac{1}{x+1} < \frac{1}{c} < \frac{1}{x} \).</li>
-                <li>En substituant \( \frac{1}{c} \), on obtient l'encadrement recherché.</li>
-            </ol>
-        </div>
-    </div>
-
-    <div class="tcb-box exobox">
-        <div class="tcb-title">Exercice 2</div>
-        <div class="tcb-content">
-            Soit \( f \) dérivable sur \( [0,1] \) avec \( f(0)=0 \) et \( f(1)=1 \). Démontrer l'existence de deux réels distincts \( c_1, c_2 \) tels que \( f'(c_1) + f'(c_2) = 2 \).
-            <br>
-            <button class="btn btn-sol" onclick="toggleBox('sol-app-2')">
-                <i class="fas fa-lightbulb"></i> Voir le Corrigé
-            </button>
-        </div>
-    </div>
-
-    <div id="sol-app-2" class="tcb-box solbox">
-        <div class="tcb-title">Solution Exercice 2</div>
-        <div class="tcb-content">
-            <ol>
-                <li>Divisons l'intervalle \( [0, 1] \) en deux segments égaux : \( [0, 1/2] \) et \( [1/2, 1] \).</li>
-                <li>Sur \( [0, 1/2] \), le <span class="green">TAF</span> assure l'existence de \( c_1 \in ]0, 1/2[ \) tel que \( f(1/2) - f(0) = f'(c_1)(1/2 - 0) \), soit <span class="blue">\( f'(c_1) = 2f(1/2) \)</span>.</li>
-                <li>Sur \( [1/2, 1] \), le <span class="green">TAF</span> assure l'existence de \( c_2 \in ]1/2, 1[ \) tel que \( f(1) - f(1/2) = f'(c_2)(1 - 1/2) \), soit <span class="blue">\( f'(c_2) = 2(1 - f(1/2)) \)</span>.</li>
-                <li>En additionnant les deux expressions : \( f'(c_1) + f'(c_2) = 2f(1/2) + 2 - 2f(1/2) = 2 \).</li>
-                <li>Comme \( c_1 < 1/2 \) et \( c_2 > 1/2 \), ils sont <span class="blue">distincts</span>.</li>
-            </ol>
-        </div>
-    </div>
-
-    <div class="nav-controls">
-        <button class="btn btn-nav" onclick="showPage('taf')"><i class="fas fa-arrow-left"></i> Précédent : TAF</button>
-        <button class="btn btn-nav" onclick="showPage('geometrie')">Géométrie <i class="fas fa-arrow-right"></i></button>
-    </div>
-</div>
-
-<div id="geometrie" class="page">
-    <div class="banner">
-        <h1>GÉOMÉTRIE ANALYTIQUE</h1>
-         <p style="color: white; opacity: 0.9;">Bissectrices de deux droites — Exercice 10</p>
-    </div>
-
-    <div class="tcb-box exobox">
-        <div class="tcb-title">Exercice 10 : Énoncé</div>
-        <div class="tcb-content">
-            Déterminer les équations cartésiennes des bissectrices de :<br>
-            <strong>\(D : 2x + y - 1 = 0\)</strong> et <strong>\(D' : x - 2y + 3 = 0\)</strong>.
-        </div>
-    </div>
-
-    <div class="tcb-box solbox-geo">
-        <div class="geo-header">Démonstration Analytique & Graphique</div>
-        <div class="tcb-content">
-            <p class="green"><strong>1. Représentation Géométrique</strong></p>
-            <div class="geo-controls">
-                <button class="bissectrice-btn btn-d1 active" onclick="toggleTrace('delta1', this)">Voir \(\Delta_1\)</button>
-                <button class="bissectrice-btn btn-d2 active" onclick="toggleTrace('delta2', this)">Voir \(\Delta_2\)</button>
-            </div>
-            <div class="graph-area">
-                <svg viewBox="-50 -20 100 80" width="100%" height="400" style="background:#fff; font-size:3px;">
-                    <path d="M -50 0 L 50 0 M 0 -20 L 0 60" stroke="#ccc" stroke-width="0.2"/>
-                    <g stroke="#eee" stroke-width="0.1">
-                        <path d="M -50 10 H 50 M -50 20 H 50 M -50 30 H 50 M -50 40 H 50 M -50 50 H 50"/>
-                        <path d="M -40 -20 V 60 M -30 -20 V 60 M -20 -20 V 60 M -10 -20 V 60 M 10 -20 V 60 M 20 -20 V 60"/>
-                    </g>
-                    <line x1="-20" y1="41" x2="10" y2="-19" stroke="var(--navy)" stroke-width="0.8" />
-                    <text x="12" y="-15" fill="var(--navy)">D</text>
-                    <line x1="-43" y1="-20" x2="50" y2="26.5" stroke="var(--dark-red)" stroke-width="0.8" />
-                    <text x="45" y="22" fill="var(--dark-red)">D'</text>
-                    <line id="delta1" x1="-50" y1="18" x2="50" y2="-15.3" stroke="var(--royal-blue)" stroke-width="0.6" stroke-dasharray="2,1" />
-                    <line id="delta2" x1="-7.3" y1="-20" x2="19.3" y2="60" stroke="var(--deep-purple)" stroke-width="0.6" stroke-dasharray="2,1" />
-                    <circle cx="-2" y="14" r="1" fill="black"/>
-                    <text x="-5" y="10" font-weight="bold">I</text>
-                </svg>
-            </div>
-            <p class="green"><strong>2. Développement des calculs</strong></p>
-            Soit \(M(x,y)\) un point du plan. \(M \in \text{bissectrice} \iff d(M,D) = d(M,D')\).
-            <div style="text-align:center; margin:15px;">
-                \[ \frac{|2x + y - 1|}{\sqrt{2^2 + 1^2}} = \frac{|x - 2y + 3|}{\sqrt{1^2 + (-2)^2}} \iff |2x + y - 1| = |x - 2y + 3| \]
-            </div>
-            <p><strong>Cas 1 :</strong> \(2x + y - 1 = x - 2y + 3 \iff \mathbf{\color{RoyalBlue}{x + 3y - 4 = 0}}\)</p>
-            <p><strong>Cas 2 :</strong> \(2x + y - 1 = -(x - 2y + 3) \iff \mathbf{\color{DeepPurple}{3x - y + 2 = 0}}\)</p>
-        </div>
-    </div>
-    <div class="nav-controls">
-        <button class="btn btn-nav" onclick="showPage('monotonie')"><i class="fas fa-arrow-left"></i> Précédent</button>
-        <button class="btn btn-nav" onclick="showPage('exo11')">Suivant : Exo 11 <i class="fas fa-arrow-right"></i></button>
-    </div>
-</div>
-
-<div id="exo11" class="page">
-    <div class="banner">
-        <h1>ORTHOGONALITÉ DANS LE CARRÉ</h1>
-         <p style="color: white; opacity: 0.9;">Produit scalaire — Exercice 11</p>
-    </div>
-
-    <div class="tcb-box exobox">
-        <div class="tcb-title">Exercices 11 : Énoncé</div>
-        <div class="tcb-content">
-            \(ABCD\) carré, \(P \in [AB]\), \(Q \in [BC]\) avec \(BP=BQ\). \(H = p_{(PC)}(B)\). <br>
-            <strong>Montrer que \((QH) \perp (HD)\).</strong>
-            <br>
-            <button class="btn btn-sol" onclick="toggleBox('sol-exo-11')">
-                <i class="fas fa-lightbulb"></i> Voir le Corrigé
-            </button>
-        </div>
-    </div>
-
-    <div id="sol-exo-11" class="tcb-box solbox">
-        <div class="tcb-title">Calculs Intégraux et Rigoureux</div>
-        <div class="tcb-content">
-            <p><span class="green"><strong>1. Repère Gradué et Paramétrage</strong></span></p>
-            On définit le repère \((B, \vec{i}, \vec{j})\) tel que :
-            <ul>
-                <li><span class="red">\(B(0,0)\)</span>, <span class="red">\(C(a,0)\)</span>, <span class="red">\(A(0,a)\)</span> et <span class="red">\(D(a,a)\)</span>.</li>
-                <li>Soit \(k \in [0,a]\) tel que <span class="blue">\(P(0,k)\)</span> et <span class="blue">\(Q(k,0)\)</span>.</li>
-            </ul>
-
-            <p><span class="green"><strong>2. Coordonnées de \(H\) (Pied de la hauteur)</strong></span></p>
-            La droite \((PC)\) a pour équation : \(kx + ay - ak = 0\). Le vecteur normal est \(\vec{n}(k, a)\).<br>
-            La droite \((BH)\) passe par l'origine et est colinéaire à \(\vec{n}\), d'où \((BH) : ax - ky = 0\).<br>
-            Système d'intersection pour \(H\) :
-            <ol type="a">
-                <li>\(y = \frac{a}{k}x\) (depuis l'équation de \(BH\))</li>
-                <li>\(kx + a(\frac{a}{k}x) = ak \iff x(k^2+a^2) = ak^2\)</li>
-            </ol>
-            On obtient : <span class="blue">\[H = \left( \frac{ak^2}{a^2+k^2} \, , \, \frac{a^2k}{a^2+k^2} \right)\]</span>
-
-            <p><span class="green"><strong>3. Calcul du Produit Scalaire \(\vec{HQ} \cdot \vec{HD}\)</strong></span></p>
-            Calculons les composantes avec \(D_{den} = a^2+k^2\) :
-            <div style="margin: 15px 0; overflow-x: auto;">
-                \[ \vec{HQ} = \frac{k}{D_{den}} \begin{pmatrix} a^2+k^2-ak \\ -a^2 \end{pmatrix} , \quad \vec{HD} = \frac{a}{D_{den}} \begin{pmatrix} a^2 \\ a^2+k^2-ak \end{pmatrix} \]
-            </div>
-            <p>Le produit scalaire donne :</p>
-            \[ \vec{HQ} \cdot \vec{HD} = \frac{ka}{D_{den}^2} \left[ a^2(a^2+k^2-ak) - a^2(a^2+k^2-ak) \right] = \mathbf{0} \]
-            <p><strong>Conclusion :</strong> Les droites sont orthogonales.</p>
-        </div>
-    </div>
-
-    <div class="graph-area">
-        <h3 style="color:var(--navy);"><i class="fas fa-draw-polygon"></i> Visualisation Géométrique</h3>
-        <svg viewBox="-15 -15 130 130" width="400" height="400" style="background:#fff; border:1px solid #ddd; display: block; margin: auto;">
-            <rect x="0" y="0" width="100" height="100" fill="none" stroke="var(--navy)" stroke-width="2" />
-            <line x1="0" y1="60" x2="100" y2="100" stroke="var(--royal-blue)" stroke-width="1.5" />
-            <line x1="0" y1="100" x2="26.5" y2="70.6" stroke="var(--dark-red)" stroke-dasharray="3,2" />
-            <polyline points="40,100 26.5,70.6 100,0" fill="none" stroke="var(--forest-green)" stroke-width="2.5" />
-            <g font-size="6" font-family="serif">
-                <text x="-5" y="105">B</text>
-                <text x="102" y="105">C</text>
-                <text x="102" y="-2">D</text>
-                <text x="-5" y="-2">A</text>
-                <text x="-5" y="60">P</text>
-                <text x="40" y="108">Q</text>
-                <text x="22" y="68">H</text>
-            </g>
-        </svg>
-    </div>
-
-    <div class="nav-controls">
-        <button class="btn btn-nav" onclick="showPage('geometrie')"><i class="fas fa-arrow-left"></i> Précédent</button>
-        <button class="btn btn-nav" onclick="showPage('exo12')">Suivant <i class="fas fa-arrow-right"></i></button>
-    </div>
-</div>
-
-<div id="exo12" class="page">
-    <div class="banner">
-        <h1>GÉOMÉTRIE DU CERCLE</h1>
-         <p style="color: white; opacity: 0.9;">Tangentes à un cercle — Exercice 12</p>
-    </div>
-
-    <div class="tcb-box exobox">
-        <div class="tcb-title">Exercice 12 : Énoncé</div>
-        <div class="tcb-content">
-            Soit le cercle \(\mathcal{C} : x^2 + y^2 + 10x - 2y + 6 = 0\).
-            <ol>
-                <li>Déterminer les équations des tangentes à \(\mathcal{C}\) parallèles à la droite \(2x + y - 7 = 0\).</li>
-                <li>Déterminer l'équation du diamètre de \(\mathcal{C}\) perpendiculaire à la droite \(5x + 2y - 13 = 0\).</li>
-            </ol>
-            <button class="btn btn-sol" onclick="toggleBox('sol-exo-12')">
-                <i class="fas fa-lightbulb"></i> Voir la Résolution
-            </button>
-        </div>
-    </div>
-
-    <div id="sol-exo-12" class="tcb-box solbox" style="display:none;">
-        <div class="tcb-title">Résolution Rigoureuse</div>
-        <div class="tcb-content">
-            <p><span class="green"><strong>1. Caractérisation de \(\mathcal{C}\)</strong></span></p>
-            On utilise la forme canonique :
-            \[ x^2+10x + y^2-2y + 6 = 0 \iff (x+5)^2-25 + (y-1)^2-1 + 6 = 0 \]
-            \[ \iff \mathbf{\color{var(--royal-blue)}{(x+5)^2 + (y-1)^2 = 20}} \]
-            Le centre est <span class="red">\(\Omega(-5, 1)\)</span> et le rayon est <span class="red">\(R = \sqrt{20} = 2\sqrt{5}\)</span>.
-
-            <p><span class="green"><strong>2. Recherche des Tangentes</strong></span></p>
-            Les tangentes sont parallèles à \(2x+y-7=0\), donc de la forme \(T_k : 2x + y + k = 0\).<br>
-            La condition de tangence est \(d(\Omega, T_k) = R\) :
-            \[ \frac{|2(-5) + 1 + k|}{\sqrt{2^2 + 1^2}} = 2\sqrt{5} \iff \frac{|k-9|}{\sqrt{5}} = 2\sqrt{5} \iff |k-9| = 10 \]
-            Deux solutions pour \(k\) :
-            <ul>
-                <li>\(k-9 = 10 \implies k = 19\)</li>
-                <li>\(k-9 = -10 \implies k = -1\)</li>
-            </ul>
-            Les équations sont : <span class="blue">\(2x+y+19=0\)</span> et <span class="blue">\(2x+y-1=0\)</span>.
-
-            <p><span class="green"><strong>3. Diamètre orthogonal</strong></span></p>
-            Le diamètre doit passer par <span class="red">\(\Omega(-5,1)\)</span> et être perpendiculaire à la droite \(d : 5x+2y-13=0\).<br>
-            Le vecteur normal à \(d\) est \(\vec{n}(5,2)\). Ce vecteur est un vecteur <b>directeur</b> pour notre diamètre.<br>
-            Une équation de la forme \(2x - 5y + c = 0\) convient.
-            \[ 2(-5) - 5(1) + c = 0 \implies -10 - 5 + c = 0 \implies c = 15 \]
-            L'équation du diamètre est : <span class="blue">\(2x - 5y + 15 = 0\)</span>.
-        </div>
-    </div>
-
-    <div class="graph-area">
-        <h3 style="color:var(--navy);"><i class="fas fa-circle-notch"></i> Visualisation Graphique</h3>
-
-        <svg viewBox="-130 -100 160 160" width="450" height="400" style="background:#fff; border:1px solid #ddd; margin:auto; display:block;">
-            <defs>
-                <pattern id="grid-exo12" width="20" height="20" patternUnits="userSpaceOnUse">
-                    <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#f0f0f0" stroke-width="0.8"/>
-                </pattern>
-            </defs>
-            <rect x="-130" y="-100" width="160" height="160" fill="url(#grid-exo12)" />
-
-            <line x1="-130" y1="0" x2="30" y2="0" stroke="#333" stroke-width="0.5" />
-            <line x1="0" y1="-100" x2="0" y2="60" stroke="#333" stroke-width="0.5" />
-
-            <circle cx="-50" cy="-10" r="44.7" fill="rgba(65, 105, 225, 0.05)" stroke="var(--royal-blue)" stroke-width="2" />
-            <circle cx="-50" cy="-10" r="1.5" fill="var(--dark-red)" />
-            <text x="-48" y="-15" font-size="6" font-family="serif">Ω(-5,1)</text>
-
-            <line x1="-105" y1="20" x2="-75" y2="-40" stroke="var(--dark-red)" stroke-width="1.2" stroke-dasharray="4,2" />
-
-            <line x1="-25" y1="51" x2="10" y2="-19" stroke="var(--dark-red)" stroke-width="1.2" stroke-dasharray="4,2" />
-
-            <line x1="-110" y1="41" x2="10" y2="-7" stroke="var(--forest-green)" stroke-width="1.5" />
-
-            <g font-size="5" fill="#666">
-                <text x="2" y="5">0</text>
-                <text x="-55" y="5">-5</text>
-            </g>
-        </svg>
-    </div>
-
-    <div class="nav-controls">
-        <button class="btn btn-nav" onclick="showPage('exo11')">
-            <i class="fas fa-arrow-left"></i> Précédent (Exo 11)
-        </button>
-        <button class="btn btn-nav" onclick="showPage('exo13')">
-            Suivant : Famille de Cercles (Exo 13) <i class="fas fa-arrow-right"></i>
-        </button>
-    </div>
-</div>
-
-<div id="exo13" class="page">
-    <div class="banner" style="background-color: var(--navy);">
-        <h1 style="color: white; margin: 0;">TD3 : GÉOMÉTRIE DU PLAN</h1>
-        <p style="color: white; opacity: 0.9;">Analyse de lieu géométrique — Exercice 13</p>
-    </div>
-
-    <div class="tcb-box exobox">
-        <div class="tcb-title">Exercice 13</div>
-        <div class="tcb-content">
-            Soit \(a > 0\). Pour tout \(t \in \mathbb{R}\), on considère le cercle \(\mathcal{C}_t\) de centre \(\omega\) d'abscisse \(t\) passant par l'origine \(O(0,0)\) et par le point \(A(a,a)\).
-            <ol>
-                <li>Déterminer l'équation cartésienne de \(\mathcal{C}_t\).</li>
-                <li>Déterminer l'équation de la tangente \(D_t\) à \(\mathcal{C}_t\) au point \(B(2t, 0)\).</li>
-                <li>Déterminer le lieu géométrique du projeté orthogonal \(H_t\) de \(A\) sur \(D_t\).</li>
-            </ol>
-            <button class="btn btn-sol" onclick="toggleBox('sol-exo-13')">
-                <i class="fas fa-lightbulb"></i> Voir la Résolution
-            </button>
-        </div>
-    </div>
-
-    <div id="sol-exo-13" class="tcb-box solbox" style="display:none;">
-        <div class="tcb-title">Résolution</div>
-        <div class="tcb-content">
-            <h3 style="color: var(--forest-green); border-bottom: 1px solid #eee;">1. Équation de \(\mathcal{C}_t\)</h3>
-            <p>Le centre est \(\omega(t, y_\omega)\). La condition \(\omega O^2 = \omega A^2\) donne :</p>
-            \[ t^2 + y_\omega^2 = (t-a)^2 + (y_\omega-a)^2 \]
-            <p>Après simplification : \(\mathbf{y_\omega = a - t}\). Le rayon au carré est \(R^2 = t^2 + (a-t)^2\).</p>
-
-            <h3 style="color: var(--forest-green); border-bottom: 1px solid #eee;">2. Tangente \(D_t\) en \(B(2t, 0)\)</h3>
-            <p>Le vecteur \(\vec{\omega B} = \binom{t}{t-a}\) est normal à la tangente. L'équation est :</p>
-            <div class="vector-calc">
-                \( t(x - 2t) + (t-a)(y - 0) = 0 \iff \mathbf{tx + (t-a)y - 2t^2 = 0} \)
-            </div>
-
-            <h3 style="color: var(--forest-green); border-bottom: 1px solid #eee;">3. Lieu de \(H_t\)</h3>
-            <p>Le projeté \(H_t(x,y)\) vérifie deux conditions :
-                <ul>
-                    <li>\(H_t \in D_t\)</li>
-                    <li>\(\vec{AH_t}\) est colinéaire au vecteur normal \(\vec{n}\binom{t}{t-a}\)</li>
-                </ul>
-            </p>
-            <p>Par le calcul, on montre que l'ordonnée de \(H_t\) est constante : <span class="red"><strong>\(y_H = a\)</strong></span>.
-            Le lieu est donc la <strong>droite horizontale passant par \(A\)</strong>.</p>
-        </div>
-    </div>
-
-    <div class="graph-area">
-        <h3 style="color:var(--navy); text-align: center;"><i class="fas fa-compass"></i> Visualisation (a=40, t=50)</h3>
-        <svg viewBox="-60 -30 250 180" width="100%" height="400" style="background:#fff; border:1px solid #eee; border-radius: 8px; display: block; margin: auto;">
-            <defs>
-                <pattern id="grid-fine" width="20" height="20" patternUnits="userSpaceOnUse">
-                    <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#f0f0f0" stroke-width="0.5"/>
-                </pattern>
-            </defs>
-            <rect x="-60" y="-30" width="250" height="180" fill="url(#grid-fine)" />
-
-            <line x1="-60" y1="100" x2="180" y2="100" stroke="#999" stroke-width="0.8" /> <line x1="0" y1="-30" x2="0" y2="140" stroke="#999" stroke-width="0.8" />    <line x1="-60" y1="60" x2="180" y2="60" stroke="var(--forest-green)" stroke-width="1.5" stroke-dasharray="4,2" />
-
-            <circle cx="50" cy="110" r="50.99" fill="none" stroke="var(--navy)" stroke-width="1" opacity="0.3"/>
-            <line x1="110" y1="150" x2="70" y2="-50" stroke="var(--dark-red)" stroke-width="1.2" /> <circle cx="0" cy="100" r="2" fill="black"/> <text x="-12" y="112" font-size="7">O</text>
-            <circle cx="40" cy="60" r="2" fill="var(--royal-blue)"/> <text x="42" y="55" font-size="7">A</text>
-            <circle cx="100" cy="100" r="2" fill="var(--dark-red)"/> <text x="105" y="112" font-size="7">B</text>
-            <circle cx="80" cy="60" r="2" fill="var(--forest-green)"/> <text x="82" y="55" font-size="7" font-weight="bold">Ht</text>
-        </svg>
-    </div>
-
-    <div class="nav-controls">
-        <button class="btn btn-nav" onclick="showPage('exo12')"><i class="fas fa-arrow-left"></i> Précédent</button>
-        <button class="btn btn-nav" onclick="showPage('exo14')">Suivant <i class="fas fa-arrow-right"></i></button>
-    </div>
-</div>
-
-<div id="exo14" class="page">
-    <div class="banner" style="background-color: var(--navy);">
-        <h1 style="color: white; margin: 0;">THÉORÈME DE VIVIANI</h1>
-        <p style="color: white; opacity: 0.9;">Propriétés du triangle équilatéral</p>
-    </div>
-
-    <div class="tcb-box exobox">
-        <div class="tcb-title">Exercice 14 : Énoncé</div>
-        <div class="tcb-content">
-            Soit \(ABC\) un triangle équilatéral. Montrer que pour tout point \(M\) intérieur au triangle, la somme des distances de \(M\) aux trois côtés est constante et égale à la hauteur \(h\) du triangle.
-            <br><br>
-            <button class="btn btn-sol" onclick="toggleBox('sol-exo-14')">
-                <i class="fas fa-lightbulb"></i> Voir la Résolution
-            </button>
-        </div>
-    </div>
-
-    <div id="sol-exo-14" class="tcb-box solbox" style="display:none;">
-        <div class="tcb-title">Résultat</div>
-        <div class="tcb-content">
-            <p>Soit \(ABC\) un triangle équilatéral de côté <span class="blue">\(a\)</span> et de hauteur <span class="red">\(h\)</span>.
-            L'aire totale du triangle est donnée par :</p>
-            \[ \mathcal{A}_{ABC} = \frac{1}{2} \times \mathbf{\color{var(--royal-blue)}{a}} \times \mathbf{\color{var(--dark-red)}{h}} \]
-
-            <p>Considérons un point \(M\) à l'intérieur du triangle. Notons <span class="green">\(d_1, d_2, d_3\)</span> les distances respectives de \(M\) aux côtés \([BC]\), \([AC]\) et \([AB]\).</p>
-
-            <p><span class="green"><strong>Calcul des aires élémentaires :</strong></span><br>
-            En reliant \(M\) aux sommets \(A, B, C\), on décompose \(ABC\) en trois triangles :</p>
-            <ul>
-                <li>Aire(\(MBC\)) = \(\frac{1}{2} \times a \times \mathbf{\color{var(--forest-green)}{d_1}}\)</li>
-                <li>Aire(\(MAC\)) = \(\frac{1}{2} \times a \times \mathbf{\color{var(--forest-green)}{d_2}}\)</li>
-                <li>Aire(\(MAB\)) = \(\frac{1}{2} \times a \times \mathbf{\color{var(--forest-green)}{d_3}}\)</li>
-            </ul>
-
-            <p><span class="green"><strong>Somme des aires :</strong></span><br>
-            La somme de ces trois aires est égale à l'aire du triangle \(ABC\) :</p>
-            \[ \text{Aire}(MBC) + \text{Aire}(MAC) + \text{Aire}(MAB) = \text{Aire}(ABC) \]
-            \[ \frac{1}{2} a d_1 + \frac{1}{2} a d_2 + \frac{1}{2} a d_3 = \frac{1}{2} a h \]
-
-            <p>En simplifiant par le facteur commun \(\frac{1}{2} a\) (non nul), nous obtenons la relation fondamentale :</p>
-            <div style="text-align: center; margin: 15px 0; padding: 10px; border: 2px solid var(--forest-green); display: block;">
-                \[ \mathbf{\color{var(--forest-green)}{d_1 + d_2 + d_3} = \color{var(--dark-red)}{h}} \]
-            </div>
-
-            <p>Cette somme est égale à la hauteur du triangle, elle est donc <span class="blue"><strong>indépendante de la position du point \(M\)</strong></span>.</p>
-        </div>
-    </div>
-
-    <div class="graph-area">
-        <h3 style="color:var(--navy); text-align: center;"><i class="fas fa-draw-polygon"></i> Illustration du Théorème</h3>
-
-        <svg viewBox="-20 -20 240 200" width="100%" height="400" style="background:#fff; display: block; margin: auto;">
-            <polygon points="100,20 20,160 180,160" fill="none" stroke="var(--navy)" stroke-width="2.5" />
-
-            <circle cx="90" cy="110" r="3" fill="var(--dark-red)" />
-            <text x="95" y="105" font-size="10" font-weight="bold">M</text>
-
-            <line x1="90" y1="110" x2="90" y2="160" stroke="var(--forest-green)" stroke-width="2" stroke-dasharray="4,2" />
-            <text x="95" y="140" font-size="9" fill="var(--forest-green)">d₁</text>
-
-            <line x1="90" y1="110" x2="132" y2="76" stroke="var(--forest-green)" stroke-width="2" stroke-dasharray="4,2" />
-            <text x="115" y="95" font-size="9" fill="var(--forest-green)">d₂</text>
-
-            <line x1="90" y1="110" x2="55" y2="98" stroke="var(--forest-green)" stroke-width="2" stroke-dasharray="4,2" />
-            <text x="65" y="102" font-size="9" fill="var(--forest-green)">d₃</text>
-
-            <line x1="90" y1="110" x2="100" y2="20" stroke="#ccc" stroke-width="1" opacity="0.5"/>
-            <line x1="90" y1="110" x2="20" y2="160" stroke="#ccc" stroke-width="1" opacity="0.5"/>
-            <line x1="90" y1="110" x2="180" y2="160" stroke="#ccc" stroke-width="1" opacity="0.5"/>
-
-            <text x="95" y="15" font-size="12" font-weight="bold">A</text>
-            <text x="5" y="170" font-size="12" font-weight="bold">B</text>
-            <text x="185" y="170" font-size="12" font-weight="bold">C</text>
-
-            <line x1="200" y1="20" x2="200" y2="160" stroke="var(--dark-red)" stroke-width="1.5" />
-            <path d="M 195 20 L 205 20 M 195 160 L 205 160" stroke="var(--dark-red)" stroke-width="1" />
-            <text x="205" y="95" font-size="10" fill="var(--dark-red)" font-weight="bold">h</text>
-        </svg>
-    </div>
-
-    <div class="nav-controls">
-        <button class="btn btn-nav" onclick="showPage('exo13')"><i class="fas fa-arrow-left"></i> Précédent (Exo 13)</button>
-        <button class="btn btn-nav" onclick="showPage('exo15')">Suivant (Exo 15) <i class="fas fa-arrow-right"></i></button>
-    </div>
-</div>
-
-<div id="exo15" class="page">
-    <div class="banner" style="background-color: var(--navy);">
-        <h1 style="color: white; margin: 0;">ENVELOPPE D'UNE FAMILLE DE DROITES</h1>
-        <p style="color: white; opacity: 0.9;">Analyse de tangence paramétrique — Exercice 15</p>
-    </div>
-
-    <div class="tcb-box exobox">
-        <div class="tcb-title">Exercice 15 : Énoncé</div>
-        <div class="tcb-content">
-            Soit la famille de droites \(\mathcal{D}_m\) d'équation cartésienne :
-            \[ (1-m^2)x + 2my - (4m+2) = 0 \]
-            Montrer que toutes ces droites sont tangentes à un cercle fixe \(\mathcal{C}\) dont on déterminera le centre et le rayon.
-            <br><br>
-            <button class="btn btn-sol" onclick="toggleBox('sol-exo-15')">
-                <i class="fas fa-lightbulb"></i> Voir la Résolution
-            </button>
-        </div>
-    </div>
-
-    <div id="sol-exo-15" class="tcb-box solbox" style="display:none;">
-        <div class="tcb-title">Résultat</div>
-        <div class="tcb-content">
-            <h3 style="color: var(--forest-green); border-bottom: 1px solid #eee;">1. Recherche d'un point fixe (Centre du cercle)</h3>
-            <p>Pour qu'une famille de droites soit tangente à un cercle fixe, la distance d'un point fixe \(\Omega(x_0, y_0)\) à ces droites doit être constante (égale au rayon \(R\)).
-            Considérons le point \(\Omega\) de coordonnées <span class="blue"><strong>(1, 2)</strong></span>.</p>
-
-            <h3 style="color: var(--forest-green); border-bottom: 1px solid #eee;">2. Calcul de la distance \(d(\Omega, \mathcal{D}_m)\)</h3>
-            <p>La distance d'un point à une droite \(ax+by+c=0\) est \(d = \frac{|ax_0+by_0+c|}{\sqrt{a^2+b^2}}\).<br>
-            Ici, \(a = (1-m^2)\), \(b = 2m\) et \(c = -(4m+2)\).</p>
-
-            <p><span class="navy"><strong>Calcul du dénominateur :</strong></span></p>
-            \begin{align*}
-                \sqrt{a^2 + b^2} &= \sqrt{(1-m^2)^2 + (2m)^2} \\
-                &= \sqrt{1 - 2m^2 + m^4 + 4m^2} \\
-                &= \sqrt{m^4 + 2m^2 + 1} = \sqrt{(m^2+1)^2} = \mathbf{\color{var(--royal-blue)}{m^2+1}}
-            \end{align*}
-
-            <p><span class="navy"><strong>Calcul du numérateur :</strong></span></p>
-            \begin{align*}
-                |ax_0 + by_0 + c| &= |(1-m^2)(1) + 2m(2) - (4m+2)| \\
-                &= |1 - m^2 + 4m - 4m - 2| \\
-                &= |-m^2 - 1| = |-(m^2+1)| = \mathbf{\color{var(--royal-blue)}{m^2+1}}
-            \end{align*}
-
-            <h3 style="color: var(--forest-green); border-bottom: 1px solid #eee;">3. Conclusion sur la distance</h3>
-            \[ d(\Omega, \mathcal{D}_m) = \frac{m^2+1}{m^2+1} = \mathbf{\color{var(--dark-red)}{1}} \]
-
-            <p><span class="navy"><strong>Conclusion :</strong></span><br>
-            La distance du point \(\Omega(1,2)\) à n'importe quelle droite de la famille est constante et égale à \(1\). Par conséquent, toutes les droites \(\mathcal{D}_m\) sont tangentes au cercle \(\mathcal{C}\) de <span class="blue"><strong>centre \(\Omega(1,2)\)</strong></span> et de <span class="blue"><strong>rayon \(R=1\)</strong></span>.</p>
-        </div>
-    </div>
-
-    <div class="graph-area">
-        <h3 style="color:var(--navy); text-align: center;"><i class="fas fa-circle-notch"></i> Enveloppe de la famille \(\mathcal{D}_m\)</h3>
-
-        <svg viewBox="-20 -20 200 180" width="100%" height="450" style="background:#fff; display: block; margin: auto; border: 1px solid #eee;">
-            <defs>
-                <pattern id="grid15" width="20" height="20" patternUnits="userSpaceOnUse">
-                    <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#f0f0f5" stroke-width="0.5"/>
-                </pattern>
-            </defs>
-            <rect x="-20" y="-20" width="200" height="180" fill="url(#grid15)" />
-
-            <line x1="0" y1="140" x2="180" y2="140" stroke="#333" stroke-width="1" /> <line x1="40" y1="0" x2="40" y2="180" stroke="#333" stroke-width="1" /> <circle cx="80" cy="60" r="40" fill="rgba(65, 105, 225, 0.1)" stroke="var(--royal-blue)" stroke-width="2.5" />
-            <circle cx="80" cy="60" r="2" fill="var(--dark-red)" />
-            <text x="85" y="55" font-size="8" fill="var(--dark-red)" font-weight="bold">Ω(1,2)</text>
-
-            <line x1="120" y1="0" x2="120" y2="180" stroke="var(--forest-green)" stroke-width="1" opacity="0.5" />
-
-            <line x1="0" y1="20" x2="180" y2="20" stroke="var(--forest-green)" stroke-width="1" opacity="0.4" /> <line x1="30" y1="0" x2="150" y2="180" stroke="var(--forest-green)" stroke-width="1" opacity="0.4" />
-            <line x1="10" y1="120" x2="150" y2="10" stroke="var(--forest-green)" stroke-width="1" opacity="0.4" />
-            <line x1="160" y1="140" x2="0" y2="30" stroke="var(--forest-green)" stroke-width="1" opacity="0.4" />
-
-            <text x="78" y="152" font-size="7">1</text>
-            <text x="118" y="152" font-size="7">2</text>
-            <text x="28" y="102" font-size="7">1</text>
-            <text x="28" y="62" font-size="7">2</text>
-        </svg>
-    </div>
-
-    <div class="nav-controls">
-        <button class="btn btn-nav" onclick="showPage('exo14')"><i class="fas fa-arrow-left"></i> Précédent (Exo 14)</button>
-        <button class="btn btn-nav" disabled>Fin du Module <i class="fas fa-check"></i></button>
-    </div>
-</div>
-
-
-<div id="exo16" class="page">
-    <div class="banner" style="background-color: var(--navy);">
-        <h1 style="color: white; margin: 0;">ALIGNEMENT DES POINTS D'INTERSECTION</h1>
-        <p style="color: white; opacity: 0.9;">Géométrie du cercle et axes radicaux — Exercice 16</p>
-    </div>
-
-    <div class="tcb-box exobox">
-        <div class="tcb-title">Exercice 16 : Énoncé</div>
-        <div class="tcb-content">
-            On considère les points \(O(0,0)\), \(A(2,0)\), \(B(0,4)\) et \(D(2,2)\). Soient \(\mathcal{C}_1, \mathcal{C}_2\) et \(\mathcal{C}_3\) les cercles de diamètres respectifs \([OA], [OB]\) et \([OD]\).
-            Montrer que les points d'intersection de ces cercles (autres que l'origine \(O\)) sont alignés.
-            <br><br>
-            <button class="btn btn-sol" onclick="toggleBox('sol-exo-16')">
-                <i class="fas fa-lightbulb"></i> Voir la Résolution
-            </button>
-        </div>
-    </div>
-
-    <div id="sol-exo-16" class="tcb-box solbox" style="display:none;">
-        <div class="tcb-title">Démonstration par les axes radicaux</div>
-        <div class="tcb-content">
-            <h3 style="color: var(--forest-green); border-bottom: 1px solid #eee;">1. Équations cartésiennes des cercles</h3>
-            <p>Un cercle de diamètre \([PQ]\) est l'ensemble des points \(M(x,y)\) tels que \(\vec{MP} \cdot \vec{MQ} = 0\).</p>
-            <ul>
-                <li><span class="navy"><strong>Cercle \(\mathcal{C}_1\) (diamètre \([OA]\)) :</strong></span> \(x(x-2) + y^2 = 0 \iff \mathbf{\color{var(--royal-blue)}{x^2 + y^2 - 2x = 0}}\)</li>
-                <li><span class="red"><strong>Cercle \(\mathcal{C}_2\) (diamètre \([OB]\)) :</strong></span> \(x^2 + y(y-4) = 0 \iff \mathbf{\color{var(--royal-blue)}{x^2 + y^2 - 4y = 0}}\)</li>
-                <li><span class="green"><strong>Cercle \(\mathcal{C}_3\) (diamètre \([OD]\)) :</strong></span> \((x-2)x + (y-2)y = 0 \iff \mathbf{\color{var(--royal-blue)}{x^2 + y^2 - 2x - 2y = 0}}\)</li>
-            </ul>
-
-            <h3 style="color: var(--forest-green); border-bottom: 1px solid #eee;">2. Recherche des points d'intersection (hors origine \(O\))</h3>
-            <p>Les intersections de ces cercles deux à deux définissent des axes radicaux :</p>
-            <ul>
-                <li><strong>Intersection \(I_1 = \mathcal{C}_1 \cap \mathcal{C}_2\) :</strong> Par soustraction, \((x^2+y^2-2x) - (x^2+y^2-4y) = 0 \implies \mathbf{y = \frac{1}{2}x}\).</li>
-                <li><strong>Intersection \(I_2 = \mathcal{C}_1 \cap \mathcal{C}_3\) :</strong> \((x^2+y^2-2x) - (x^2+y^2-2x-2y) = 0 \implies 2y = 0 \implies \mathbf{y=0}\).</li>
-                <li><strong>Intersection \(I_3 = \mathcal{C}_2 \cap \mathcal{C}_3\) :</strong> \((x^2+y^2-4y) - (x^2+y^2-2x-2y) = 0 \implies 2x - 2y = 0 \implies \mathbf{y=x}\).</li>
-            </ul>
-
-            <h3 style="color: var(--forest-green); border-bottom: 1px solid #eee;">3. Analyse de l'alignement</h3>
-            <p>Les points d'intersection \(I_1, I_2, I_3\) sont les projetés orthogonaux de l'origine sur les côtés du triangle \(ABD\). Dans cette configuration, ils appartiennent à une même droite, souvent associée à la <strong>droite de Simson</strong> du point \(O\) par rapport au triangle formé par les autres points si \(O\) est sur leur cercle circonscrit.</p>
-            <p><span class="navy"><strong>Conclusion :</strong></span> Les points d'intersection sont <span class="red"><strong>alignés</strong></span>.</p>
-        </div>
-    </div>
-
-    <div class="graph-area">
-        <h3 style="color:var(--navy); text-align: center;"><i class="fas fa-project-diagram"></i> Configuration Géométrique</h3>
-
-        <svg viewBox="-20 -20 220 220" width="100%" height="450" style="background:#fff; display: block; margin: auto; border: 1px solid #eee;">
-            <defs>
-                <pattern id="grid16" width="20" height="20" patternUnits="userSpaceOnUse">
-                    <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#f5f5f5" stroke-width="0.5"/>
-                </pattern>
-            </defs>
-            <rect x="-20" y="-20" width="220" height="220" fill="url(#grid16)" />
-
-            <line x1="0" y1="160" x2="200" y2="160" stroke="#333" stroke-width="1" />
-            <line x1="40" y1="0" x2="40" y2="200" stroke="#333" stroke-width="1" />
-
-            <circle cx="80" cy="160" r="40" fill="none" stroke="var(--royal-blue)" stroke-width="1.5" opacity="0.6"/> <circle cx="40" cy="80" r="80" fill="none" stroke="var(--dark-red)" stroke-width="1.5" opacity="0.6"/> <circle cx="80" cy="120" r="56.5" fill="none" stroke="var(--forest-green)" stroke-width="1.5" opacity="0.6"/> <circle cx="40" cy="160" r="2.5" fill="black" /> <text x="25" y="175" font-size="10">O</text>
-            <circle cx="120" cy="160" r="2.5" fill="var(--royal-blue)" /> <text x="125" y="175" font-size="10">A</text>
-            <circle cx="40" cy="0" r="2.5" fill="var(--dark-red)" /> <text x="25" y="15" font-size="10">B</text>
-            <circle cx="120" cy="80" r="2.5" fill="var(--forest-green)" /> <text x="125" y="75" font-size="10">D</text>
-
-            <circle cx="72" cy="96" r="3" fill="var(--dark-red)" /> <circle cx="120" cy="160" r="3" fill="var(--dark-red)" /> <circle cx="100" cy="100" r="3" fill="var(--dark-red)" /> <line x1="50" y1="60" x2="150" y2="210" stroke="var(--dark-red)" stroke-width="1" stroke-dasharray="5,3" />
-        </svg>
-    </div>
-
-    <div class="nav-controls">
-        <button class="btn btn-nav" onclick="showPage('exo15')"><i class="fas fa-arrow-left"></i> Précédent (Exo 15)</button>
-        <button class="btn btn-nav" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">Retour au sommet <i class="fas fa-arrow-up"></i></button>
-    </div>
-</div>
-</div> <script>
-        // Cette fonction gère le changement de page
-        function showPage(pageId) {
-            // 1. On cache toutes les pages
-            const pages = document.querySelectorAll('.page');
-            pages.forEach(p => {
-                p.classList.remove('active');
-                p.style.display = "none";
-            });
-
-            // 2. On affiche la page demandée
-            const target = document.getElementById(pageId);
-            if (target) {
-                target.classList.add('active');
-                target.style.display = "block";
-            }
-
-            // 3. On met à jour le lien actif dans la sidebar
-            const links = document.querySelectorAll('nav ul li a');
-            links.forEach(l => l.classList.remove('active'));
-
-            // On cherche le lien qui a l'attribut onclick contenant le nom de la page
-            const activeLink = document.querySelector(`nav ul li a[onclick*="${pageId}"]`);
-            if (activeLink) activeLink.classList.add('active');
-
-            // 4. On remonte en haut de page
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+<script>
+    // Gestion de l'ouverture des menus
+    function toggleMenu(header) {
+        const submenu = header.nextElementSibling;
+        header.classList.toggle('active');
+        submenu.classList.toggle('open');
+    }
+
+    // Chargement dynamique des pages
+    async function loadPage(name) {
+        const content = document.getElementById('dynamic-content');
+        try {
+            const response = await fetch(`content/${name}.html`);
+            if (!response.ok) throw new Error();
+            const html = await response.text();
+            content.innerHTML = html;
+            if (window.MathJax) MathJax.typesetPromise();
+        } catch (err) {
+            content.innerHTML = `<div class="banner" style="background:var(--navy)"><h1>Module en préparation</h1><p>Le fichier <b>${name}.html</b> n'est pas encore dans le dossier content.</p></div>`;
         }
+    }
 
-        // Cette fonction gère l'affichage des solutions
-        function toggleBox(boxId) {
-            const box = document.getElementById(boxId);
-            if (box) {
-                if (box.style.display === "none" || box.style.display === "") {
-                    box.style.display = "block";
-                } else {
-                    box.style.display = "none";
-                }
-            }
-        }
+    // Fonctions pour les sous-fichiers
+    function toggleBox(id) {
+        const b = document.getElementById(id);
+        b.style.display = (b.style.display === 'block') ? 'none' : 'block';
+    }
 
-        // Cette fonction gère les tracés SVG (Exo 10)
-        function toggleTrace(id, btn) {
-            const element = document.getElementById(id);
-            if (element) {
-                const isVisible = element.style.display !== "none";
-                element.style.display = isVisible ? "none" : "block";
-                btn.classList.toggle('active');
-            }
-        }
-    </script>
+    function soumettreReponse() {
+        const nom = document.getElementById('nom_eleve').value;
+        const rep = document.getElementById('reponse_eleve').value;
+        alert("Envoi simulé : Bravo " + nom + " ! Ton travail sur " + rep.substring(0,20) + "... a été envoyé.");
+    }
+</script>
+
 </body>
 </html>
