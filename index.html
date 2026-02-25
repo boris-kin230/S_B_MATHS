@@ -10,70 +10,7 @@
     </script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <style>
-        /* CSS INTERNE (Sera déplacé dans style.css plus tard) */
-        :root {
-            --royal-blue: #004d40; --accent-orange: #ff9800; --accent-green: #4caf50;
-            --navy: #1a2a3a; --bg-light: #f4f7f6; --sidebar-bg: #ffffff;
-            --text-main: #2c3e50; --text-muted: #7f8c8d; --white: #ffffff;
-            --radius: 12px; --shadow-sm: 0 2px 8px rgba(0,0,0,0.1);
-            --transition: all 0.3s ease;
-            --solbox-bg: #f1f8e9;
-        }
-
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: 'Inter', sans-serif; background-color: var(--bg-light); color: var(--text-main); display: flex; min-height: 100vh; }
-
-        /* SIDEBAR NAV */
-        #sidebar { width: 320px; background: var(--sidebar-bg); border-right: 1px solid #eee; height: 100vh; position: fixed; overflow-y: auto; z-index: 1000; }
-        .logo-container { padding: 25px; text-align: center; border-bottom: 2px solid var(--bg-light); position: sticky; top: 0; background: white; z-index: 10; }
-        .logo-icon { width: 45px; height: 45px; background: linear-gradient(135deg, var(--royal-blue), var(--accent-green)); border-radius: 10px; display: flex; align-items: center; justify-content: center; margin: 0 auto 10px; color: white; font-size: 1.3rem; }
-        .logo-text { font-weight: 800; font-size: 1.1rem; color: var(--navy); }
-        .logo-text span { color: var(--accent-orange); }
-
-        /* ACCORDION SYSTEM */
-        .semester-title { background: #f0f4f3; padding: 10px 20px; font-weight: 800; font-size: 0.75rem; color: var(--royal-blue); text-transform: uppercase; letter-spacing: 1px; margin-top: 5px; }
-        .chapter-btn { width: 100%; border: none; background: none; padding: 12px 20px; text-align: left; display: flex; align-items: center; justify-content: space-between; cursor: pointer; border-bottom: 1px solid #f9f9f9; font-weight: 600; color: var(--text-main); transition: 0.2s; }
-        .chapter-btn:hover { background: #f1f8e9; }
-        .chapter-btn i.chevron { font-size: 0.7rem; transition: transform 0.3s; }
-        .chapter-btn.active { color: var(--accent-orange); background: #fff8f0; }
-        .chapter-btn.active i.chevron { transform: rotate(180deg); }
-
-        .submenu { display: none; background: #fafafa; border-bottom: 1px solid #eee; }
-        .submenu.open { display: block; }
-        .submenu a { display: block; padding: 10px 45px; text-decoration: none; color: var(--text-muted); font-size: 0.85rem; transition: 0.2s; position: relative; cursor: pointer; }
-        .submenu a::before { content: '•'; position: absolute; left: 25px; color: #ccc; }
-        .submenu a:hover { color: var(--royal-blue); background: white; padding-left: 50px; }
-
-        /* MAIN CONTENT */
-        #main { margin-left: 320px; flex: 1; padding: 40px; }
-        .banner { background: linear-gradient(135deg, var(--navy), var(--royal-blue)); padding: 35px; border-radius: 15px; color: white; margin-bottom: 30px; box-shadow: var(--shadow-sm); }
-        
-        /* BOXES */
-        .tcb-box { background: white; border-radius: var(--radius); margin-bottom: 25px; overflow: hidden; border-left: 5px solid var(--royal-blue); box-shadow: var(--shadow-sm); }
-        .tcb-title { padding: 12px 20px; background: var(--royal-blue); color: white; font-weight: 700; }
-        .tcb-content { padding: 20px; }
-
-        .exobox { border-left-color: var(--accent-orange); }
-        .exobox .tcb-title { background: var(--accent-orange); }
-        
-        /* STYLE POUR LE CORRIGÉ (CORRECTED) */
-        .solbox { 
-            display: none; 
-            margin-top: 15px; 
-            padding: 15px; 
-            background-color: var(--solbox-bg); 
-            border: 1px solid var(--accent-green); 
-            border-radius: 8px;
-            animation: fadeIn 0.4s ease;
-        }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-
-        .btn { border: none; padding: 10px 18px; border-radius: 8px; cursor: pointer; font-weight: 600; display: inline-flex; align-items: center; gap: 8px; transition: 0.3s; }
-        .btn-sol { background: var(--accent-orange); color: white; }
-        .btn-sol:hover { background: #e68a00; transform: scale(1.02); }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
@@ -338,3 +275,4 @@
 
 </body>
 </html>
+
