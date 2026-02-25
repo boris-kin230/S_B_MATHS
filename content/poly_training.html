@@ -7,6 +7,7 @@
         --light-bg: #f7fafc;
         --error-red: #e53e3e;
         --gold: #ecc94b;
+        --slate: #4a5568;
     }
 
     /* CONTENEUR PRINCIPAL */
@@ -184,15 +185,28 @@
 <div class="training-wrapper">
 
     <div class="banner">
-        <h1><i class="fas fa-graduation-cap"></i> Master Class : Polynômes</h1>
-        <p>Entraînement Intensif - 20 Étapes vers l'Excellence en Algèbre</p>
+        <h1><i class="fas fa-microchip"></i> Training Center : Polynômes</h1>
+        <p>Évaluation de Synthèse - 20 Questions de Diagnostic PCSI Prestige</p>
     </div>
 
     <div class="tcb-box">
-        <div class="tcb-title"><i class="fas fa-user-circle"></i> Fiche de Suivi</div>
+        <div class="tcb-title"><i class="fas fa-id-badge"></i> Identification de l'Étudiant</div>
         <div class="tcb-content">
-            <label style="display:block; margin-bottom: 8px; font-weight: 500;">Nom complet de l'étudiant :</label>
-            <input type="text" id="nom_eleve" placeholder="Ex: Jean Dupont" style="width:100%; padding:15px; border:2px solid #cbd5e0; border-radius:10px; font-size:1em; outline:none; transition: border 0.3s;">
+            <div style="display: flex; gap: 20px; align-items: center;">
+                <div style="flex: 2;">
+                    <label style="display:block; margin-bottom: 8px; font-weight: 500;">Nom & Prénom :</label>
+                    <input type="text" id="nom_eleve" placeholder="Saisissez votre nom..." 
+                           style="width:100%; padding:15px; border:2px solid #cbd5e0; border-radius:10px; font-size:1em; outline:none;">
+                </div>
+                <div style="flex: 1;">
+                    <label style="display:block; margin-bottom: 8px; font-weight: 500;">Classe :</label>
+                    <select style="width:100%; padding:15px; border:2px solid #cbd5e0; border-radius:10px;">
+                        <option>PCSI Prestige</option>
+                        <option>MPSI Excellence</option>
+                        <option>MP/PC Étoile</option>
+                    </select>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -200,325 +214,295 @@
         
         <div class="tcb-box quiz-card">
             <div class="tcb-content">
-                <p class="question-text">Q1. Quelle est la valeur de $\deg(P \times Q)$ si $P \neq 0$ et $Q \neq 0$ ?</p>
+                <p class="question-text">Q1. Si $P$ est de degré $n$ et $Q$ de degré $m$, quel est le degré de $P \circ Q$ ?</p>
                 <div class="options-grid">
-                    <label class="option-item"><input type="radio" name="q1" value="correct"> $\deg(P) + \deg(Q)$</label>
-                    <label class="option-item"><input type="radio" name="q1" value="0"> $\deg(P) \times \deg(Q)$</label>
-                    <label class="option-item"><input type="radio" name="q1" value="0"> $\max(\deg P, \deg Q)$</label>
-                    <label class="option-item"><input type="radio" name="q1" value="0"> $\deg(P)^{\deg Q}$</label>
+                    <label class="option-item"><input type="radio" name="q1" value="0"> $n + m$</label>
+                    <label class="option-item"><input type="radio" name="q1" value="correct"> $n \times m$</label>
+                    <label class="option-item"><input type="radio" name="q1" value="0"> $n^m$</label>
+                    <label class="option-item"><input type="radio" name="q1" value="0"> $\max(n, m)$</label>
                 </div>
                 <div class="btn-action-row">
-                    <button type="button" class="btn-clear" onclick="clearSelection('q1')"><i class="fas fa-undo"></i> Effacer</button>
+                    <button type="button" class="btn-clear" onclick="clearSelection('q1')"><i class="fas fa-eraser"></i> Réinitialiser</button>
                 </div>
             </div>
         </div>
 
         <div class="tcb-box quiz-card">
             <div class="tcb-content">
-                <p class="question-text">Q2. Un polynôme nul possède-t-il des racines ?</p>
+                <p class="question-text">Q2. Un polynôme non nul de degré $n$ peut-il avoir $n+1$ racines distinctes ?</p>
                 <div class="options-grid">
-                    <label class="option-item"><input type="radio" name="q2" value="0"> Aucune</label>
-                    <label class="option-item"><input type="radio" name="q2" value="0"> Une seule : 0</label>
-                    <label class="option-item"><input type="radio" name="q2" value="correct"> Tout élément de $\mathbb{K}$ est racine</label>
-                    <label class="option-item"><input type="radio" name="q2" value="0"> Seulement dans $\mathbb{C}$</label>
+                    <label class="option-item"><input type="radio" name="q2" value="0"> Oui, dans $\mathbb{C}$</label>
+                    <label class="option-item"><input type="radio" name="q2" value="correct"> Non, c'est impossible</label>
+                    <label class="option-item"><input type="radio" name="q2" value="0"> Seulement si $n=0$</label>
+                    <label class="option-item"><input type="radio" name="q2" value="0"> Oui, si les racines sont nulles</label>
                 </div>
                 <div class="btn-action-row">
-                    <button type="button" class="btn-clear" onclick="clearSelection('q2')"><i class="fas fa-undo"></i> Effacer</button>
+                    <button type="button" class="btn-clear" onclick="clearSelection('q2')"><i class="fas fa-eraser"></i> Réinitialiser</button>
                 </div>
             </div>
         </div>
 
         <div class="tcb-box quiz-card">
             <div class="tcb-content">
-                <p class="question-text">Q3. Quelle est la condition pour que $(X-a)^k$ divise $P$ ?</p>
+                <p class="question-text">Q3. Quelle est la multiplicité de la racine $1$ dans $X^n - 1$ ?</p>
                 <div class="options-grid">
-                    <label class="option-item"><input type="radio" name="q3" value="0"> $P(a) = 0$</label>
-                    <label class="option-item"><input type="radio" name="q3" value="correct"> $P(a) = P'(a) = \dots = P^{(k-1)}(a) = 0$</label>
-                    <label class="option-item"><input type="radio" name="q3" value="0"> $P^{(k)}(a) = 0$</label>
-                    <label class="option-item"><input type="radio" name="q3" value="0"> $P(k) = a$</label>
+                    <label class="option-item"><input type="radio" name="q3" value="correct"> Multiplicité 1</label>
+                    <label class="option-item"><input type="radio" name="q3" value="0"> Multiplicité $n$</label>
+                    <label class="option-item"><input type="radio" name="q3" value="0"> $n-1$</label>
+                    <label class="option-item"><input type="radio" name="q3" value="0"> Cela dépend de la parité de $n$</label>
                 </div>
                 <div class="btn-action-row">
-                    <button type="button" class="btn-clear" onclick="clearSelection('q3')"><i class="fas fa-undo"></i> Effacer</button>
-                </div>
-            </div>
-        </div>
-
-        
-
-        <div class="tcb-box quiz-card">
-            <div class="tcb-content">
-                <p class="question-text">Q4. Le polynôme $X^2+1$ est-il irréductible dans $\mathbb{C}[X]$ ?</p>
-                <div class="options-grid">
-                    <label class="option-item"><input type="radio" name="q4" value="0"> Oui, toujours</label>
-                    <label class="option-item"><input type="radio" name="q4" value="correct"> Non, il vaut $(X-i)(X+i)$</label>
-                    <label class="option-item"><input type="radio" name="q4" value="0"> Oui, car son discriminant est négatif</label>
-                    <label class="option-item"><input type="radio" name="q4" value="0"> Seulement si $X > 0$</label>
-                </div>
-                <div class="btn-action-row">
-                    <button type="button" class="btn-clear" onclick="clearSelection('q4')"><i class="fas fa-undo"></i> Effacer</button>
+                    <button type="button" class="btn-clear" onclick="clearSelection('q3')"><i class="fas fa-eraser"></i> Réinitialiser</button>
                 </div>
             </div>
         </div>
 
         <div class="tcb-box quiz-card">
             <div class="tcb-content">
-                <p class="question-text">Q5. Théorème de d'Alembert-Gauss : Tout polynôme non constant de $\mathbb{C}[X]$...</p>
+                <p class="question-text">Q4. Le polynôme $P = (X^2+1)^2$ est-il irréductible dans $\mathbb{R}[X]$ ?</p>
                 <div class="options-grid">
-                    <label class="option-item"><input type="radio" name="q5" value="0"> Est de degré impair</label>
-                    <label class="option-item"><input type="radio" name="q5" value="0"> Est irréductible</label>
-                    <label class="option-item"><input type="radio" name="q5" value="correct"> Admet au moins une racine complexe</label>
-                    <label class="option-item"><input type="radio" name="q5" value="0"> Est égal à son dérivé</label>
+                    <label class="option-item"><input type="radio" name="q4" value="0"> Oui, car $\Delta < 0$</label>
+                    <label class="option-item"><input type="radio" name="q4" value="correct"> Non, il est produit de deux facteurs</label>
+                    <label class="option-item"><input type="radio" name="q4" value="0"> Oui, car il n'a pas de racines réelles</label>
+                    <label class="option-item"><input type="radio" name="q4" value="0"> Non, car il est de degré 4</label>
                 </div>
                 <div class="btn-action-row">
-                    <button type="button" class="btn-clear" onclick="clearSelection('q5')"><i class="fas fa-undo"></i> Effacer</button>
+                    <button type="button" class="btn-clear" onclick="clearSelection('q4')"><i class="fas fa-eraser"></i> Réinitialiser</button>
                 </div>
             </div>
         </div>
 
         <div class="tcb-box quiz-card">
             <div class="tcb-content">
-                <p class="question-text">Q6. Somme des racines de $aX^2 + bX + c = 0$ :</p>
+                <p class="question-text">Q5. Si $P$ est scindé sur $\mathbb{R}$, que peut-on dire de $P'$ ?</p>
                 <div class="options-grid">
-                    <label class="option-item"><input type="radio" name="q6" value="correct"> $-b/a$</label>
-                    <label class="option-grid"><input type="radio" name="q6" value="0"> $c/a$</label>
-                    <label class="option-item"><input type="radio" name="q6" value="0"> $b/a$</label>
-                    <label class="option-item"><input type="radio" name="q6" value="0"> $\Delta / 2a$</label>
+                    <label class="option-item"><input type="radio" name="q5" value="0"> $P'$ n'est pas forcément scindé</label>
+                    <label class="option-item"><input type="radio" name="q5" value="correct"> $P'$ est aussi scindé sur $\mathbb{R}$</label>
+                    <label class="option-item"><input type="radio" name="q5" value="0"> $P'$ a les mêmes racines que $P$</label>
+                    <label class="option-item"><input type="radio" name="q5" value="0"> $P'$ est unitaire</label>
                 </div>
                 <div class="btn-action-row">
-                    <button type="button" class="btn-clear" onclick="clearSelection('q6')"><i class="fas fa-undo"></i> Effacer</button>
+                    <button type="button" class="btn-clear" onclick="clearSelection('q5')"><i class="fas fa-eraser"></i> Réinitialiser</button>
                 </div>
             </div>
         </div>
 
         <div class="tcb-box quiz-card">
             <div class="tcb-content">
-                <p class="question-text">Q7. Produit des racines de $aX^2 + bX + c = 0$ :</p>
+                <p class="question-text">Q6. Dans $\mathbb{C}[X]$, quels sont les polynômes irréductibles ?</p>
                 <div class="options-grid">
-                    <label class="option-item"><input type="radio" name="q7" value="0"> $-c/a$</label>
-                    <label class="option-item"><input type="radio" name="q7" value="correct"> $c/a$</label>
-                    <label class="option-item"><input type="radio" name="q7" value="0"> $\sqrt{\Delta}$</label>
-                    <label class="option-item"><input type="radio" name="q7" value="0"> $b^2-4ac$</label>
+                    <label class="option-item"><input type="radio" name="q6" value="0"> Ceux de degré 1 et 2</label>
+                    <label class="option-item"><input type="radio" name="q6" value="correct"> Uniquement ceux de degré 1</label>
+                    <label class="option-item"><input type="radio" name="q6" value="0"> Ceux de degré impair</label>
+                    <label class="option-item"><input type="radio" name="q6" value="0"> Aucun n'est irréductible</label>
                 </div>
                 <div class="btn-action-row">
-                    <button type="button" class="btn-clear" onclick="clearSelection('q7')"><i class="fas fa-undo"></i> Effacer</button>
+                    <button type="button" class="btn-clear" onclick="clearSelection('q6')"><i class="fas fa-eraser"></i> Réinitialiser</button>
                 </div>
             </div>
         </div>
 
         <div class="tcb-box quiz-card">
             <div class="tcb-content">
-                <p class="question-text">Q8. Quel est le reste de $P$ par $(X-a)$ ?</p>
+                <p class="question-text">Q7. Valeur de la somme des racines n-ièmes de l'unité ?</p>
                 <div class="options-grid">
-                    <label class="option-item"><input type="radio" name="q8" value="0"> 0</label>
-                    <label class="option-item"><input type="radio" name="q8" value="correct"> $P(a)$</label>
-                    <label class="option-item"><input type="radio" name="q8" value="0"> $P'(a)$</label>
-                    <label class="option-item"><input type="radio" name="q8" value="0"> $X-P(a)$</label>
+                    <label class="option-item"><input type="radio" name="q7" value="correct"> 0 (si $n \geq 2$)</label>
+                    <label class="option-item"><input type="radio" name="q7" value="0"> 1</label>
+                    <label class="option-item"><input type="radio" name="q7" value="0"> $n$</label>
+                    <label class="option-item"><input type="radio" name="q7" value="0"> $i$</label>
                 </div>
                 <div class="btn-action-row">
-                    <button type="button" class="btn-clear" onclick="clearSelection('q8')"><i class="fas fa-undo"></i> Effacer</button>
+                    <button type="button" class="btn-clear" onclick="clearSelection('q7')"><i class="fas fa-eraser"></i> Réinitialiser</button>
                 </div>
             </div>
         </div>
 
         <div class="tcb-box quiz-card">
             <div class="tcb-content">
-                <p class="question-text">Q9. Deux polynômes sont égaux si et seulement si :</p>
+                <p class="question-text">Q8. Degré du reste dans la division de $P$ par $(X-a)(X-b)$ ?</p>
                 <div class="options-grid">
-                    <label class="option-item"><input type="radio" name="q9" value="0"> Ils ont les mêmes racines</label>
-                    <label class="option-item"><input type="radio" name="q9" value="correct"> Leurs coefficients sont tous égaux</label>
-                    <label class="option-item"><input type="radio" name="q9" value="0"> Ils ont le même degré</label>
-                    <label class="option-item"><input type="radio" name="q9" value="0"> Leurs dérivées sont égales</label>
+                    <label class="option-item"><input type="radio" name="q8" value="0"> Toujours 0</label>
+                    <label class="option-item"><input type="radio" name="q8" value="0"> Toujours 1</label>
+                    <label class="option-item"><input type="radio" name="q8" value="correct"> Au plus 1</label>
+                    <label class="option-item"><input type="radio" name="q8" value="0"> Exactement 2</label>
                 </div>
                 <div class="btn-action-row">
-                    <button type="button" class="btn-clear" onclick="clearSelection('q9')"><i class="fas fa-undo"></i> Effacer</button>
+                    <button type="button" class="btn-clear" onclick="clearSelection('q8')"><i class="fas fa-eraser"></i> Réinitialiser</button>
                 </div>
             </div>
         </div>
 
         <div class="tcb-box quiz-card">
             <div class="tcb-content">
-                <p class="question-text">Q10. Un polynôme de degré $n$ est scindé si :</p>
+                <p class="question-text">Q9. Relation de Viète : pour $X^n + a_{n-1}X^{n-1} + \dots + a_0$, la somme des racines est :</p>
                 <div class="options-grid">
-                    <label class="option-item"><input type="radio" name="q10" value="correct"> Il est produit de $n$ facteurs de degré 1</label>
-                    <label class="option-item"><input type="radio" name="q10" value="0"> Il n'a aucune racine</label>
-                    <label class="option-item"><input type="radio" name="q10" value="0"> Il est pair</label>
-                    <label class="option-item"><input type="radio" name="q10" value="0"> Son coefficient dominant est 1</label>
+                    <label class="option-item"><input type="radio" name="q9" value="0"> $a_{n-1}$</label>
+                    <label class="option-item"><input type="radio" name="q9" value="correct"> $-a_{n-1}$</label>
+                    <label class="option-item"><input type="radio" name="q9" value="0"> $(-1)^n a_0$</label>
+                    <label class="option-item"><input type="radio" name="q9" value="0"> $a_0$</label>
                 </div>
                 <div class="btn-action-row">
-                    <button type="button" class="btn-clear" onclick="clearSelection('q10')"><i class="fas fa-undo"></i> Effacer</button>
+                    <button type="button" class="btn-clear" onclick="clearSelection('q9')"><i class="fas fa-eraser"></i> Réinitialiser</button>
                 </div>
             </div>
         </div>
 
         <div class="tcb-box quiz-card">
             <div class="tcb-content">
-                <p class="question-text">Q11. Polynôme de Tchebychev $T_2(X)$ est égal à :</p>
+                <p class="question-text">Q10. Le reste de la division de $P$ par $X$ est :</p>
                 <div class="options-grid">
-                    <label class="option-item"><input type="radio" name="q11" value="correct"> $2X^2 - 1$</label>
-                    <label class="option-item"><input type="radio" name="q11" value="0"> $X^2$</label>
-                    <label class="option-item"><input type="radio" name="q11" value="0"> $2X^2 + 1$</label>
-                    <label class="option-item"><input type="radio" name="q11" value="0"> $4X^2 - 2X$</label>
+                    <label class="option-item"><input type="radio" name="q10" value="0"> $P'(0)$</label>
+                    <label class="option-item"><input type="radio" name="q10" value="correct"> $P(0)$</label>
+                    <label class="option-item"><input type="radio" name="q10" value="0"> 0</label>
+                    <label class="option-item"><input type="radio" name="q10" value="0"> Le coefficient dominant</label>
                 </div>
                 <div class="btn-action-row">
-                    <button type="button" class="btn-clear" onclick="clearSelection('q11')"><i class="fas fa-undo"></i> Effacer</button>
+                    <button type="button" class="btn-clear" onclick="clearSelection('q10')"><i class="fas fa-eraser"></i> Réinitialiser</button>
                 </div>
             </div>
         </div>
 
         <div class="tcb-box quiz-card">
             <div class="tcb-content">
-                <p class="question-text">Q12. Si $\deg(P) = n$, alors $\deg(P')$ est :</p>
+                <p class="question-text">Q11. $T_n(1)$ pour tout polynôme de Tchebychev vaut :</p>
                 <div class="options-grid">
-                    <label class="option-item"><input type="radio" name="q12" value="0"> $n$</label>
-                    <label class="option-item"><input type="radio" name="q12" value="correct"> $n-1$ (si $n \geq 1$)</label>
-                    <label class="option-item"><input type="radio" name="q12" value="0"> $n+1$</label>
-                    <label class="option-item"><input type="radio" name="q12" value="0"> $2n$</label>
-                </div>
-                <div class="btn-action-row">
-                    <button type="button" class="btn-clear" onclick="clearSelection('q12')"><i class="fas fa-undo"></i> Effacer</button>
+                    <label class="option-item"><input type="radio" name="q11" value="0"> 0</label>
+                    <label class="option-item"><input type="radio" name="q11" value="correct"> 1</label>
+                    <label class="option-item"><input type="radio" name="q11" value="0"> $(-1)^n$</label>
+                    <label class="option-item"><input type="radio" name="q11" value="0"> $n$</label>
                 </div>
             </div>
         </div>
 
         <div class="tcb-box quiz-card">
             <div class="tcb-content">
-                <p class="question-text">Q13. Le polynôme $X^n-1$ admet pour racines complexes :</p>
+                <p class="question-text">Q12. Si $P(A) = 0$ pour une matrice $A$, $P$ est appelé :</p>
                 <div class="options-grid">
-                    <label class="option-item"><input type="radio" name="q13" value="0"> Uniquement 1 et -1</label>
-                    <label class="option-item"><input type="radio" name="q13" value="correct"> Les racines n-ièmes de l'unité $e^{2ik\pi/n}$</label>
-                    <label class="option-item"><input type="radio" name="q13" value="0"> Aucun</label>
-                    <label class="option-item"><input type="radio" name="q13" value="0"> $0, 1, \dots, n$</label>
-                </div>
-                <div class="btn-action-row">
-                    <button type="button" class="btn-clear" onclick="clearSelection('q13')"><i class="fas fa-undo"></i> Effacer</button>
+                    <label class="option-item"><input type="radio" name="q12" value="0"> Polynôme caractéristique</label>
+                    <label class="option-item"><input type="radio" name="q12" value="correct"> Polynôme annulateur</label>
+                    <label class="option-item"><input type="radio" name="q12" value="0"> Polynôme unitaire</label>
+                    <label class="option-item"><input type="radio" name="q12" value="0"> Polynôme de Lagrange</label>
                 </div>
             </div>
         </div>
 
         <div class="tcb-box quiz-card">
             <div class="tcb-content">
-                <p class="question-text">Q14. Que vaut $\sum_{k=0}^{n-1} \omega^k$ où $\omega$ est une racine n-ième de l'unité $\neq 1$ ?</p>
+                <p class="question-text">Q13. Le PGCD de $P$ et $P'$ est constant si et seulement si :</p>
                 <div class="options-grid">
-                    <label class="option-item"><input type="radio" name="q14" value="correct"> $0$</label>
-                    <label class="option-item"><input type="radio" name="q14" value="0"> $1$</label>
-                    <label class="option-item"><input type="radio" name="q14" value="0"> $n$</label>
-                    <label class="option-item"><input type="radio" name="q14" value="0"> $-1$</label>
-                </div>
-                <div class="btn-action-row">
-                    <button type="button" class="btn-clear" onclick="clearSelection('q14')"><i class="fas fa-undo"></i> Effacer</button>
+                    <label class="option-item"><input type="radio" name="q13" value="correct"> $P$ n'a que des racines simples</label>
+                    <label class="option-item"><input type="radio" name="q13" value="0"> $P$ est irréductible</label>
+                    <label class="option-item"><input type="radio" name="q13" value="0"> $P$ est scindé</label>
+                    <label class="option-item"><input type="radio" name="q13" value="0"> $P$ est de degré 1</label>
                 </div>
             </div>
         </div>
 
         <div class="tcb-box quiz-card">
             <div class="tcb-content">
-                <p class="question-text">Q15. Quel est l'élément neutre pour l'addition dans $\mathbb{K}[X]$ ?</p>
+                <p class="question-text">Q14. Somme des coefficients de $P = \sum a_k X^k$ :</p>
                 <div class="options-grid">
-                    <label class="option-item"><input type="radio" name="q15" value="0"> $X$</label>
-                    <label class="option-item"><input type="radio" name="q15" value="0"> $1$</label>
-                    <label class="option-item"><input type="radio" name="q15" value="correct"> Le polynôme nul $0$</label>
-                    <label class="option-item"><input type="radio" name="q15" value="0"> $X-1$</label>
-                </div>
-                <div class="btn-action-row">
-                    <button type="button" class="btn-clear" onclick="clearSelection('q15')"><i class="fas fa-undo"></i> Effacer</button>
+                    <label class="option-item"><input type="radio" name="q14" value="0"> $P(0)$</label>
+                    <label class="option-item"><input type="radio" name="q14" value="correct"> $P(1)$</label>
+                    <label class="option-item"><input type="radio" name="q14" value="0"> $P'(1)$</label>
+                    <label class="option-item"><input type="radio" name="q14" value="0"> $a_n$</label>
                 </div>
             </div>
         </div>
 
         <div class="tcb-box quiz-card">
             <div class="tcb-content">
-                <p class="question-text">Q16. Un polynôme $P$ est dit unitaire si :</p>
+                <p class="question-text">Q15. Un polynôme de degré $n$ est égal à son polynôme d'interpolation de Lagrange sur $n+1$ points :</p>
                 <div class="options-grid">
-                    <label class="option-item"><input type="radio" name="q16" value="correct"> Son coefficient dominant est 1</label>
-                    <label class="option-item"><input type="radio" name="q16" value="0"> Il a une seule racine</label>
-                    <label class="option-item"><input type="radio" name="q16" value="0"> $\deg(P) = 1$</label>
-                    <label class="option-item"><input type="radio" name="q16" value="0"> $P(1) = 1$</label>
-                </div>
-                <div class="btn-action-row">
-                    <button type="button" class="btn-clear" onclick="clearSelection('q16')"><i class="fas fa-undo"></i> Effacer</button>
+                    <label class="option-item"><input type="radio" name="q15" value="correct"> Toujours vrai</label>
+                    <label class="option-item"><input type="radio" name="q15" value="0"> Faux</label>
+                    <label class="option-item"><input type="radio" name="q15" value="0"> Seulement si les points sont réels</label>
+                    <label class="option-item"><input type="radio" name="q15" value="0"> Seulement s'il est unitaire</label>
                 </div>
             </div>
         </div>
 
         <div class="tcb-box quiz-card">
             <div class="tcb-content">
-                <p class="question-text">Q17. Les polynômes de Lagrange $L_i$ sont utilisés pour :</p>
+                <p class="question-text">Q16. $\deg(P+Q)$ est toujours égal à $\max(\deg P, \deg Q)$ :</p>
                 <div class="options-grid">
-                    <label class="option-item"><input type="radio" name="q17" value="0"> Dériver plus vite</label>
-                    <label class="option-item"><input type="radio" name="q17" value="correct"> L'interpolation (passer par des points donnés)</label>
-                    <label class="option-item"><input type="radio" name="q17" value="0"> Trouver des racines réelles</label>
-                    <label class="option-item"><input type="radio" name="q17" value="0"> Factoriser $X^n+1$</label>
-                </div>
-                <div class="btn-action-row">
-                    <button type="button" class="btn-clear" onclick="clearSelection('q17')"><i class="fas fa-undo"></i> Effacer</button>
+                    <label class="option-item"><input type="radio" name="q16" value="0"> Vrai</label>
+                    <label class="option-item"><input type="radio" name="q16" value="correct"> Faux (si les termes dominants s'annulent)</label>
+                    <label class="option-item"><input type="radio" name="q16" value="0"> Vrai seulement dans $\mathbb{C}$</label>
+                    <label class="option-item"><input type="radio" name="q16" value="0"> Vrai si $P$ et $Q$ sont de degrés différents</label>
                 </div>
             </div>
         </div>
 
         <div class="tcb-box quiz-card">
             <div class="tcb-content">
-                <p class="question-text">Q18. Si $a$ est racine de multiplicité $m$ de $P$, alors :</p>
+                <p class="question-text">Q17. L'ensemble des polynômes de degré exactement $n$ est un espace vectoriel :</p>
                 <div class="options-grid">
-                    <label class="option-item"><input type="radio" name="q18" value="0"> $a$ est racine de multiplicité $m$ de $P'$</label>
-                    <label class="option-item"><input type="radio" name="q18" value="correct"> $a$ est racine de multiplicité $m-1$ de $P'$</label>
-                    <label class="option-item"><input type="radio" name="q18" value="0"> $a$ n'est pas racine de $P'$</label>
-                    <label class="option-item"><input type="radio" name="q18" value="0"> $a$ est racine de multiplicité $m+1$ de $P'$</label>
-                </div>
-                <div class="btn-action-row">
-                    <button type="button" class="btn-clear" onclick="clearSelection('q18')"><i class="fas fa-undo"></i> Effacer</button>
+                    <label class="option-item"><input type="radio" name="q17" value="0"> Oui</label>
+                    <label class="option-item"><input type="radio" name="q17" value="correct"> Non (ne contient pas le vecteur nul)</label>
+                    <label class="option-item"><input type="radio" name="q17" value="0"> Seulement pour $n=1$</label>
+                    <label class="option-item"><input type="radio" name="q17" value="0"> Oui, de dimension $n+1$</label>
                 </div>
             </div>
         </div>
 
         <div class="tcb-box quiz-card">
             <div class="tcb-content">
-                <p class="question-text">Q19. Dans $\mathbb{R}[X]$, $X^2+X+1$ est-il irréductible ?</p>
+                <p class="question-text">Q18. Si $P(x) = Q(x)$ pour une infinité de $x$, alors $P = Q$ :</p>
                 <div class="options-grid">
-                    <label class="option-item"><input type="radio" name="q19" value="correct"> Oui ($\Delta = -3 < 0$)</label>
-                    <label class="option-item"><input type="radio" name="q19" value="0"> Non ($j$ est racine)</label>
-                    <label class="option-item"><input type="radio" name="q19" value="0"> Oui car il est unitaire</label>
-                    <label class="option-item"><input type="radio" name="q19" value="0"> Non, il vaut $(X+1)^2$</label>
-                </div>
-                <div class="btn-action-row">
-                    <button type="button" class="btn-clear" onclick="clearSelection('q19')"><i class="fas fa-undo"></i> Effacer</button>
+                    <label class="option-item"><input type="radio" name="q18" value="correct"> Vrai</label>
+                    <label class="option-item"><input type="radio" name="q18" value="0"> Faux</label>
+                    <label class="option-item"><input type="radio" name="q18" value="0"> Vrai seulement si $P, Q \in \mathbb{R}[X]$</label>
+                    <label class="option-item"><input type="radio" name="q18" value="0"> Seulement si $P$ et $Q$ ont le même degré</label>
                 </div>
             </div>
         </div>
 
         <div class="tcb-box quiz-card">
             <div class="tcb-content">
-                <p class="question-text">Q20. Quelle est la dimension du sous-espace des polynômes pairs de $\mathbb{K}_{2n}[X]$ ?</p>
+                <p class="question-text">Q19. $X^2-2$ est irréductible dans :</p>
+                <div class="options-grid">
+                    <label class="option-item"><input type="radio" name="q19" value="correct"> $\mathbb{Q}[X]$</label>
+                    <label class="option-item"><input type="radio" name="q19" value="0"> $\mathbb{R}[X]$</label>
+                    <label class="option-item"><input type="radio" name="q19" value="0"> $\mathbb{C}[X]$</label>
+                    <label class="option-item"><input type="radio" name="q19" value="0"> Nulle part</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="tcb-box quiz-card">
+            <div class="tcb-content">
+                <p class="question-text">Q20. Dimension de $\mathbb{K}_n[X]$ :</p>
                 <div class="options-grid">
                     <label class="option-item"><input type="radio" name="q20" value="0"> $n$</label>
                     <label class="option-item"><input type="radio" name="q20" value="correct"> $n+1$</label>
                     <label class="option-item"><input type="radio" name="q20" value="0"> $2n$</label>
                     <label class="option-item"><input type="radio" name="q20" value="0"> $n-1$</label>
                 </div>
-                <div class="btn-action-row">
-                    <button type="button" class="btn-clear" onclick="clearSelection('q20')"><i class="fas fa-undo"></i> Effacer</button>
-                </div>
             </div>
         </div>
 
         <button type="button" class="prestige-btn" onclick="analyserResultats()">
-            <i class="fas fa-paper-plane"></i> VALIDER MON TEST
+            <i class="fas fa-check-double"></i> FINALISER L'ÉVALUATION
         </button>
+
     </form>
 
     <div id="resultat_box" style="display:none;" class="tcb-box">
-        <div class="tcb-title"><i class="fas fa-poll-h"></i> Votre Rapport de Performance</div>
+        <div class="tcb-title"><i class="fas fa-chart-pie"></i> Rapport de Performance</div>
         <div class="tcb-content">
             <h2 id="display_name" style="color:var(--navy); margin-bottom:5px;">Étudiant</h2>
-            <p id="display_date" style="font-size:0.9em; color:#718096;"></p>
+            <p id="display_date" style="font-size:0.9em; color:var(--slate);"></p>
             
             <div class="score-circle" id="score_num">0</div>
             
-            <h3 id="appreciation_title" style="margin-top:20px;">Analyse...</h3>
-            <p id="appreciation_text" style="max-width:600px; margin: 10px auto; color:#4a5568;"></p>
+            <h3 id="appreciation_title" style="margin-top:20px;">Analyse en cours...</h3>
+            <p id="appreciation_text" style="max-width:600px; margin: 15px auto; color:var(--slate);"></p>
             
-            <div style="margin-top:30px; display:flex; gap:10px; justify-content:center;">
-                <button class="prestige-btn" style="margin:0; width:auto; padding: 12px 30px; background:var(--forest-green);" onclick="window.location.reload()">Recommencer</button>
-                <button class="prestige-btn" style="margin:0; width:auto; padding: 12px 30px; background:#718096;" onclick="window.print()">Imprimer Score</button>
+            <div style="margin-top:40px; border-top: 1px solid #e2e8f0; padding-top: 20px;">
+                <button class="prestige-btn" style="margin:0 auto; width:auto; padding: 12px 40px; background:var(--forest-green);" onclick="window.location.reload()">
+                    <i class="fas fa-sync"></i> Tenter un nouveau record
+                </button>
             </div>
         </div>
     </div>
@@ -528,7 +512,6 @@
 <script>
     /**
      * CLEAR SELECTION
-     * Permet de décocher une question si l'étudiant veut laisser vide (0 point)
      */
     function clearSelection(name) {
         const radios = document.getElementsByName(name);
@@ -536,56 +519,57 @@
     }
 
     /**
-     * ANALYSEUR DE RESULTATS
-     * Calcule le score et génère le feedback
+     * MAIN ANALYZER
      */
     function analyserResultats() {
         const form = document.getElementById('quizForm');
-        const nom = document.getElementById('nom_eleve').value.trim() || "Candidat Anonyme";
+        const identityBox = document.querySelector('.tcb-box'); // Identity box
+        const nom = document.getElementById('nom_eleve').value.trim() || "Candidat Prestige";
         let score = 0;
-        const totalQuestions = 20;
+        const total = 20;
 
-        // Calcul mathématique
-        for (let i = 1; i <= totalQuestions; i++) {
+        // Scoring Logic
+        for (let i = 1; i <= total; i++) {
             const reponse = form.querySelector(`input[name="q${i}"]:checked`);
             if (reponse && reponse.value === "correct") {
                 score++;
             }
         }
 
-        // Masquage et Affichage
+        // UI Transitions
         form.style.display = "none";
+        identityBox.style.display = "none";
         const resultBox = document.getElementById('resultat_box');
         resultBox.style.display = "block";
 
-        // Insertion des données
+        // Fill Results
         document.getElementById('display_name').innerText = "Félicitations, " + nom;
-        document.getElementById('display_date').innerText = "Test complété le " + new Date().toLocaleDateString('fr-FR');
-        document.getElementById('score_num').innerText = score + "/20";
+        document.getElementById('display_date').innerText = "Session du " + new Date().toLocaleDateString('fr-FR', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+        document.getElementById('score_num').innerText = score + "/" + total;
 
-        // Logique d'appréciation
+        // Feedback Logic
         const title = document.getElementById('appreciation_title');
         const text = document.getElementById('appreciation_text');
 
         if (score >= 18) {
-            title.innerText = "🏆 Niveau Major (ENS/Polytechnique)";
-            text.innerText = "Une maîtrise absolue des polynômes. Votre rigueur sur les bases et les concepts avancés est remarquable.";
+            title.innerText = "⭐ Rang : Major de Promotion";
+            text.innerText = "Performance exceptionnelle. Votre maîtrise des structures polynomiales et des relations racines-coefficients est digne des plus grands concours (ENS/X). Continuez sur cette rigueur.";
             title.style.color = "var(--forest-green)";
         } else if (score >= 14) {
-            title.innerText = "🥈 Niveau Admissible (Mines-Ponts)";
-            text.innerText = "Très bons résultats. Vous avez une base solide, surveillez les pièges sur les racines n-ièmes et Tchebychev.";
+            title.innerText = "📈 Rang : Admissible Mines-Ponts";
+            text.innerText = "Très bons résultats techniques. Quelques points de détails sur les espaces vectoriels ou l'arithmétique polynomiale sont à affiner pour atteindre l'excellence totale.";
             title.style.color = "var(--royal-blue)";
         } else if (score >= 10) {
-            title.innerText = "🥉 Niveau Moyen (CCINP/E3A)";
-            text.innerText = "Le cours est compris mais l'application manque de précision. Pratiquez davantage les factorisations complexes.";
+            title.innerText = "⚖️ Rang : Équilibre Fragile";
+            text.innerText = "Le socle est présent mais attention aux approximations. Les polynômes demandent une précision chirurgicale sur les degrés et les multiplicités. Revoyez les fondamentaux.";
             title.style.color = "#d69e2e";
         } else {
-            title.innerText = "⚠️ Consolidation Requise";
-            text.innerText = "Les fondamentaux (degré, racines, division) ne sont pas encore stabilisés. Relisez attentivement la Zone de Cours.";
+            title.innerText = "🚨 Alerte : Consolidation Urgente";
+            text.innerText = "Les concepts de base (division euclidienne, racines, irréductibilité) ne sont pas assimilés. Une relecture complète du cours est impérative avant d'aborder les problèmes de synthèse.";
             title.style.color = "var(--error-red)";
         }
 
-        // Scroll vers le haut pour voir le résultat
+        // Scroll to top
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 </script>
