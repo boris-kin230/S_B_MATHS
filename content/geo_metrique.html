@@ -1,0 +1,70 @@
+<div class="banner">
+    <h1 style="font-size: 2rem; margin: 0;"><i class="fas fa-vector-square"></i> Géométrie Métrique</h1>
+    <p style="opacity: 0.8;">Produit scalaire, norme et déterminant dans le plan $\mathbb{R}^2$.</p>
+</div>
+
+<div class="qcm-box">
+    <h3 style="color: var(--navy-dark);"><i class="fas fa-book-open"></i> Rappels Fondamentaux</h3>
+    <p>Soient deux vecteurs $\vec{u}(x, y)$ et $\vec{v}(x', y')$ dans une base orthonormée directe :</p>
+    <ul>
+        <li><strong>Produit Scalaire :</strong> $\vec{u} \cdot \vec{v} = xx' + yy' = \|\vec{u}\| \|\vec{v}\| \cos(\theta)$</li>
+        <li><strong>Déterminant :</strong> $\det(\vec{u}, \vec{v}) = xy' - yx' = \|\vec{u}\| \|\vec{v}\| \sin(\theta)$</li>
+        <li><strong>Norme :</strong> $\|\vec{u}\| = \sqrt{x^2 + y^2}$</li>
+    </ul>
+
+    <div style="text-align: center; margin: 30px 0; background: #f8fafc; padding: 20px; border-radius: 10px;">
+        <svg width="200" height="200" viewBox="0 0 200 200" style="max-width: 100%;">
+            <line x1="10" y1="180" x2="190" y2="180" stroke="#cbd5e1" stroke-width="2" />
+            <line x1="20" y1="10" x2="20" y2="190" stroke="#cbd5e1" stroke-width="2" />
+            <line x1="20" y1="180" x2="150" y2="180" stroke="#1e293b" stroke-width="3" marker-end="url(#arrow)" />
+            <text x="155" y="185" font-weight="bold" fill="#1e293b">u</text>
+            <line x1="20" y1="180" x2="120" y2="80" stroke="#eab308" stroke-width="3" marker-end="url(#arrowGold)" />
+            <text x="125" y="75" font-weight="bold" fill="#eab308">v</text>
+            <path d="M 50 180 A 30 30 0 0 0 42 158" fill="none" stroke="#64748b" stroke-width="2" />
+            <text x="55" y="165" font-size="12" fill="#64748b">θ</text>
+            
+            <defs>
+                <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                    <path d="M0,0 L0,6 L9,3 z" fill="#1e293b" />
+                </marker>
+                <marker id="arrowGold" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                    <path d="M0,0 L0,6 L9,3 z" fill="#eab308" />
+                </marker>
+            </defs>
+        </svg>
+        <p style="font-size: 0.8rem; color: var(--text-muted);">Représentation de l'angle orienté $(\vec{u}, \vec{v})$</p>
+    </div>
+</div>
+
+
+
+<div class="qcm-box">
+    <div class="qcm-question">
+        1. Soient $\vec{u}(1, \sqrt{3})$ et $\vec{v}(-1, 1)$. Quelle est la valeur de leur produit scalaire $\vec{u} \cdot \vec{v}$ ?
+    </div>
+    <div class="qcm-grid">
+        <button class="opt-btn" onclick="checkAnswer(this, false)">$1 + \sqrt{3}$</button>
+        <button class="opt-btn" onclick="checkAnswer(this, true)">$\sqrt{3} - 1$</button>
+        <button class="opt-btn" onclick="checkAnswer(this, false)">$0$</button>
+        <button class="opt-btn" onclick="checkAnswer(this, false)">$2$</button>
+    </div>
+    <button class="share-btn pdf" style="margin-top: 20px; background: var(--navy-main);" onclick="toggleCorrection(this)">
+        <i class="fas fa-eye"></i> Afficher le corrigé
+    </button>
+    <div class="correction-box" style="display:none; margin-top:15px; padding:15px; border-left:4px solid var(--gold-btn); background:#fffbeb;">
+        <strong>Solution :</strong> On applique la formule $xx' + yy'$. <br>
+        $\vec{u} \cdot \vec{v} = (1 \times -1) + (\sqrt{3} \times 1) = -1 + \sqrt{3} = \sqrt{3} - 1$.
+    </div>
+</div>
+
+<div class="qcm-box">
+    <div class="qcm-question">
+        2. Si $\det(\vec{u}, \vec{v}) = 0$, que peut-on dire des vecteurs $\vec{u}$ et $\vec{v}$ ?
+    </div>
+    <div class="qcm-grid">
+        <button class="opt-btn" onclick="checkAnswer(this, false)">Ils sont orthogonaux</button>
+        <button class="opt-btn" onclick="checkAnswer(this, true)">Ils sont colinéaires</button>
+        <button class="opt-btn" onclick="checkAnswer(this, false)">Ils sont unitaires</button>
+        <button class="opt-btn" onclick="checkAnswer(this, false)">Ils forment une base</button>
+    </div>
+</div>
