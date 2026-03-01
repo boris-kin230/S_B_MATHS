@@ -1,0 +1,280 @@
+<style>
+    /* COMPLÉMENT DU DESIGN SYSTÈME */
+    .training-wrapper {
+        animation: fadeIn 0.6s ease-out;
+    }
+
+    /* Barre de progression fixe en haut du contenu */
+    .progression-bar-container {
+        position: sticky;
+        top: 0;
+        background: white;
+        padding: 10px 0;
+        z-index: 100;
+        border-bottom: 2px solid #edf2f7;
+        margin-bottom: 20px;
+    }
+
+    .progress-track {
+        width: 100%;
+        height: 8px;
+        background: #e2e8f0;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+
+    .progress-fill {
+        width: 0%;
+        height: 100%;
+        background: linear-gradient(to right, var(--royal-blue), #63b3ed);
+        transition: width 0.4s ease;
+    }
+
+    /* Style des badges de difficulté */
+    .diff-badge {
+        font-size: 0.7em;
+        padding: 2px 8px;
+        border-radius: 4px;
+        text-transform: uppercase;
+        font-weight: bold;
+        margin-left: 10px;
+    }
+    .diff-easy { background: #c6f6d5; color: #22543d; }
+    .diff-medium { background: #feebc8; color: #744210; }
+    .diff-hard { background: #fed7d7; color: #822727; }
+
+    /* Correction des options pour un look "App" */
+    .option-item {
+        border: 2px solid #edf2f7;
+        transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .option-item:has(input:checked) {
+        border-color: var(--royal-blue);
+        background-color: #ebf8ff;
+        box-shadow: 0 0 0 1px var(--royal-blue);
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+</style>
+
+<div class="training-wrapper">
+
+    <div class="banner">
+        <h1><i class="fas fa-microchip"></i> Training Center : Polynômes</h1>
+        <p>Évaluation de Diagnostic PCSI Prestige - Session Automne 2026</p>
+    </div>
+
+    <div class="tcb-box">
+        <div class="tcb-title"><i class="fas fa-id-badge"></i> Dossier Académique</div>
+        <div class="tcb-content">
+            <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+                <div style="flex: 2; min-width: 250px;">
+                    <label style="font-weight: 600; color: var(--navy);">Nom de l'Étudiant :</label>
+                    <input type="text" id="nom_eleve" placeholder="Ex: Jean Dupont" 
+                           style="width:100%; padding:12px; border:2px solid #e2e8f0; border-radius:8px; margin-top:5px;">
+                </div>
+                <div style="flex: 1; min-width: 150px;">
+                    <label style="font-weight: 600; color: var(--navy);">Promotion :</label>
+                    <select id="classe_eleve" style="width:100%; padding:12px; border:2px solid #e2e8f0; border-radius:8px; margin-top:5px;">
+                        <option>PCSI Prestige</option>
+                        <option>MPSI Excellence</option>
+                        <option>MP* / PC*</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="progression-bar-container">
+        <div style="display: flex; justify-content: space-between; font-size: 0.8em; margin-bottom: 5px; font-weight: bold; color: var(--slate);">
+            <span>AVANCEMENT DE L'EXAMEN</span>
+            <span id="progress-text">0 / 20</span>
+        </div>
+        <div class="progress-track">
+            <div class="progress-fill" id="progress-fill"></div>
+        </div>
+    </div>
+
+    <form id="quizForm">
+        
+        <div class="tcb-box quiz-card">
+            <div class="tcb-content">
+                <p class="question-text">
+                    Q1. Si $P$ est de degré $n$ et $Q$ de degré $m$, quel est le degré de $P \circ Q$ ?
+                    <span class="diff-badge diff-easy">Fondamental</span>
+                </p>
+                <div class="options-grid">
+                    <label class="option-item"><input type="radio" name="q1" value="0" onchange="updateProgress()"> $n + m$</label>
+                    <label class="option-item"><input type="radio" name="q1" value="correct" onchange="updateProgress()"> $n \times m$</label>
+                    <label class="option-item"><input type="radio" name="q1" value="0" onchange="updateProgress()"> $n^m$</label>
+                    <label class="option-item"><input type="radio" name="q1" value="0" onchange="updateProgress()"> $\max(n, m)$</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="tcb-box quiz-card">
+            <div class="tcb-content">
+                <p class="question-text">
+                    Q2. Un polynôme non nul de degré $n$ peut-il avoir $n+1$ racines distinctes ?
+                    <span class="diff-badge diff-easy">Logique</span>
+                </p>
+                <div class="options-grid">
+                    <label class="option-item"><input type="radio" name="q2" value="0" onchange="updateProgress()"> Oui, dans $\mathbb{C}$</label>
+                    <label class="option-item"><input type="radio" name="q2" value="correct" onchange="updateProgress()"> Non, c'est impossible</label>
+                    <label class="option-item"><input type="radio" name="q2" value="0" onchange="updateProgress()"> Seulement si $n=0$</label>
+                    <label class="option-item"><input type="radio" name="q2" value="0" onchange="updateProgress()"> Oui, si les racines sont nulles</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="tcb-box quiz-card">
+            <div class="tcb-content">
+                <p class="question-text">
+                    Q3. Quelle est la multiplicité de la racine $1$ dans $X^n - 1$ ?
+                    <span class="diff-badge diff-medium">Analyse</span>
+                </p>
+                <div class="options-grid">
+                    <label class="option-item"><input type="radio" name="q3" value="correct" onchange="updateProgress()"> Multiplicité 1</label>
+                    <label class="option-item"><input type="radio" name="q3" value="0" onchange="updateProgress()"> Multiplicité $n$</label>
+                    <label class="option-item"><input type="radio" name="q3" value="0" onchange="updateProgress()"> $n-1$</label>
+                    <label class="option-item"><input type="radio" name="q3" value="0" onchange="updateProgress()"> Dépend de la parité de $n$</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="tcb-box quiz-card">
+            <div class="tcb-content">
+                <p class="question-text">
+                    Q4. Le polynôme $P = (X^2+1)^2$ est-il irréductible dans $\mathbb{R}[X]$ ?
+                    <span class="diff-badge diff-medium">Cours</span>
+                </p>
+                <div class="options-grid">
+                    <label class="option-item"><input type="radio" name="q4" value="0" onchange="updateProgress()"> Oui, car $\Delta < 0$</label>
+                    <label class="option-item"><input type="radio" name="q4" value="correct" onchange="updateProgress()"> Non, il est réductible</label>
+                    <label class="option-item"><input type="radio" name="q4" value="0" onchange="updateProgress()"> Oui, racines imaginaires</label>
+                    <label class="option-item"><input type="radio" name="q4" value="0" onchange="updateProgress()"> Non, car deg = 4</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="tcb-box quiz-card">
+            <div class="tcb-content">
+                <p class="question-text">
+                    Q5. Si $P$ est scindé sur $\mathbb{R}$, que dire de $P'$ ?
+                    <span class="diff-badge diff-hard">Gauss-Lucas</span>
+                </p>
+                <div class="options-grid">
+                    <label class="option-item"><input type="radio" name="q5" value="0" onchange="updateProgress()"> Pas forcément scindé</label>
+                    <label class="option-item"><input type="radio" name="q5" value="correct" onchange="updateProgress()"> $P'$ est aussi scindé</label>
+                    <label class="option-item"><input type="radio" name="q5" value="0" onchange="updateProgress()"> $P'$ a les mêmes racines</label>
+                    <label class="option-item"><input type="radio" name="q5" value="0" onchange="updateProgress()"> $P'$ est unitaire</label>
+                </div>
+            </div>
+        </div>
+
+        <div style="padding: 20px; text-align: center; color: var(--slate); font-style: italic;">
+            <i class="fas fa-info-circle"></i> Assurez-vous d'avoir répondu à toutes les questions avant de finaliser.
+        </div>
+
+        <button type="button" class="prestige-btn" onclick="analyserResultats()">
+            <i class="fas fa-check-double"></i> FINALISER L'ÉVALUATION
+        </button>
+
+    </form>
+
+    <div id="resultat_box" style="display:none;" class="tcb-box">
+        <div class="tcb-title"><i class="fas fa-chart-pie"></i> Rapport de Performance</div>
+        <div class="tcb-content">
+            <div style="text-align: center;">
+                <h2 id="display_name" style="color:var(--navy); margin-bottom:5px;">Étudiant</h2>
+                <div id="display_class" style="font-weight: bold; color: var(--royal-blue); margin-bottom: 20px;"></div>
+                
+                <div class="score-circle" id="score_num">0</div>
+                
+                <h3 id="appreciation_title" style="margin-top:20px; font-size: 1.5em;">Analyse...</h3>
+                <p id="appreciation_text" style="max-width:600px; margin: 15px auto; color:var(--slate); line-height: 1.8;"></p>
+                
+                <div style="margin-top:40px; border-top: 1px solid #e2e8f0; padding-top: 20px; display: flex; gap: 15px; justify-content: center;">
+                    <button class="prestige-btn" style="margin:0; width:auto; padding: 12px 30px; background:var(--forest-green);" onclick="window.print()">
+                        <i class="fas fa-file-pdf"></i> Imprimer le Bilan
+                    </button>
+                    <button class="prestige-btn" style="margin:0; width:auto; padding: 12px 30px; background:var(--royal-blue);" onclick="window.location.reload()">
+                        <i class="fas fa-sync"></i> Recommencer
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    /**
+     * GESTION DE LA BARRE DE PROGRESSION
+     */
+    function updateProgress() {
+        const total = 20; // Nombre total de questions
+        const checked = document.querySelectorAll('input[type="radio"]:checked').length;
+        const percent = (checked / total) * 100;
+        
+        document.getElementById('progress-fill').style.width = percent + "%";
+        document.getElementById('progress-text').innerText = checked + " / " + total;
+    }
+
+    /**
+     * ANALYSE DES RÉSULTATS
+     */
+    function analyserResultats() {
+        const nom = document.getElementById('nom_eleve').value.trim() || "Candidat Anonyme";
+        const classe = document.getElementById('classe_eleve').value;
+        const total = 20;
+        let score = 0;
+
+        // Calcul du score
+        for (let i = 1; i <= total; i++) {
+            const reponse = document.querySelector(`input[name="q${i}"]:checked`);
+            if (reponse && reponse.value === "correct") score++;
+        }
+
+        // Transition Visuelle
+        document.getElementById('quizForm').style.display = "none";
+        document.querySelector('.tcb-box').style.display = "none";
+        document.querySelector('.progression-bar-container').style.display = "none";
+        
+        const resultBox = document.getElementById('resultat_box');
+        resultBox.style.display = "block";
+
+        // Affichage des données
+        document.getElementById('display_name').innerText = nom;
+        document.getElementById('display_class').innerText = "Classe : " + classe;
+        document.getElementById('score_num').innerText = score + "/" + total;
+
+        const title = document.getElementById('appreciation_title');
+        const text = document.getElementById('appreciation_text');
+
+        // Logique de Feedback
+        if (score >= 18) {
+            title.innerHTML = "⭐ Major de Promotion";
+            text.innerText = "Maîtrise absolue. Vos bases en algèbre polynomiale sont solides. Vous êtes prêt pour les épreuves de synthèse de type Mines-Ponts / Centrale.";
+            title.style.color = "var(--forest-green)";
+        } else if (score >= 14) {
+            title.innerHTML = "📈 Niveau Admissible";
+            text.innerText = "Excellent travail. Quelques erreurs de précision sur les propriétés fines (irréductibilité ou Tchebychev). Une relecture ciblée suffira.";
+            title.style.color = "var(--royal-blue)";
+        } else if (score >= 10) {
+            title.innerHTML = "⚖️ Résultat Moyen";
+            text.innerText = "Le socle est là, mais attention à la rigueur des définitions. Les polynômes ne supportent pas l'approximation.";
+            title.style.color = "#d69e2e";
+        } else {
+            title.innerHTML = "🚨 Consolidation Nécessaire";
+            text.innerText = "Des lacunes importantes sur les définitions de base. Un retour immédiat au cours et aux exercices de niveau 1 est impératif.";
+            title.style.color = "var(--error-red)";
+        }
+
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+</script>
