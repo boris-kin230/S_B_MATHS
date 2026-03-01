@@ -1,0 +1,115 @@
+<div class="banner" style="background: linear-gradient(135deg, #0f172a 0%, #334155 100%);">
+    <h1 style="font-size: 2rem; margin: 0;"><i class="fas fa-chart-line"></i> Analyse : Fonctions Usuelles (v1)</h1>
+    <p style="opacity: 0.8;">Test de rapidité sur les bases de l'analyse en PCSI.</p>
+</div>
+
+<div id="quiz-wrapper">
+
+    <div class="qcm-box">
+        <div class="qcm-question">1. Quel est le domaine de définition de la fonction $f(x) = \ln(x^2 - 1)$ ?</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$]-1, 1[$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, true)">$]-\infty, -1[ \cup ]1, +\infty[$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$[1, +\infty[$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$\mathbb{R} \setminus \{-1, 1\}$</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">2. La dérivée de $f(x) = e^{u(x)}$ est :</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$e^{u(x)}$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, true)">$u'(x)e^{u(x)}$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$u(x)e^{u(x)-1}$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$\frac{u'(x)}{e^{u(x)}}$</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">3. La limite de $\frac{\ln(1+x)}{x}$ quand $x \to 0$ est :</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, false)">0</button>
+            <button class="opt-btn" onclick="checkAnswer(this, true)">1</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$+\infty$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$e$</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">4. La fonction $\text{ch}(x)$ est définie par :</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, true)">$\frac{e^x + e^{-x}}{2}$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$\frac{e^x - e^{-x}}{2}$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$e^x + e^{-x}$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$\frac{1}{\cos(x)}$</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">5. Quelle est la valeur de $\arctan(1)$ ?</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, false)">0</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$\pi/2$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, true)">$\pi/4$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$\pi/3$</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">6. La fonction $x \mapsto |x|$ est-elle dérivable en 0 ?</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, false)">Oui, de dérivée 0</button>
+            <button class="opt-btn" onclick="checkAnswer(this, true)">Non</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">Oui, de dérivée 1</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">Seulement à droite</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">7. $\ln(a) - \ln(b)$ est égal à :</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$\ln(a-b)$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, true)">$\ln(a/b)$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$\ln(a) / \ln(b)$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$\ln(ab)$</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">8. La fonction réciproque de $\exp$ est :</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$1/x$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, true)">$\ln$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$x^e$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$\ln(1/x)$</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">9. Quelle est la limite de $x \ln(x)$ en $0^+$ ?</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$-\infty$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, true)">0</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">1</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$-1$</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">10. Si $f$ est impaire, alors sa courbe est symétrique par rapport à :</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, false)">L'axe des ordonnées</button>
+            <button class="opt-btn" onclick="checkAnswer(this, true)">L'origine du repère</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">L'axe des abscisses</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">La droite $y=x$</button>
+        </div>
+    </div>
+
+</div>
+
+<div id="score-display" style="display:none; margin-top: 30px;"></div>
+<div id="congrats-msg" style="display:none;"></div>
+
+<button id="submit-btn" class="btn-primary" onclick="calculateScore()">
+    <i class="fas fa-check"></i> Vérifier mes bases d'analyse
+</button>
