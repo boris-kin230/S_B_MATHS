@@ -12,20 +12,23 @@
         };
     </script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&display=swap" rel="stylesheet">
     
     <style>
         :root {
             /* Palette Ultra Prestige */
-            --navy-dark: #0a0f1d;     /* Bleu nuit très profond */
-            --navy-main: #111827;     /* Anthracite / Bleu très sombre */
-            --gold-btn: #eab308;      /* Jaune/Or éclatant pour les boutons */
-            --gold-hover: #facc15;    /* Jaune plus clair au survol */
-            --gold-muted: #c6a052;    /* Or mat pour les bordures et textes */
+            --navy-dark: #0a0f1d;     
+            --navy-main: #111827;     
+            --gold-btn: #eab308;      
+            --gold-hover: #facc15;    
+            --gold-muted: #c6a052;    
             
-            --bg-page: #f4f6f9;       /* Gris perle très doux, reposant pour les yeux */
-            --surface: #ffffff;       /* Blanc pur pour les cartes */
+            --bg-page: #f4f6f9;       
+            --surface: #ffffff;       
             
             --text-main: #1e293b;
             --text-muted: #64748b;
@@ -34,6 +37,7 @@
             --radius: 14px;
             --shadow-sm: 0 2px 10px rgba(10, 15, 29, 0.03);
             --shadow-md: 0 10px 25px rgba(10, 15, 29, 0.08);
+            --shadow-lg: 0 20px 40px rgba(10, 15, 29, 0.15);
             --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
@@ -87,8 +91,11 @@
         .chevron { font-size: 0.7rem; transition: transform 0.3s; color: var(--text-muted); }
         .open > .chevron { transform: rotate(180deg); color: var(--navy-dark); }
 
-        /* MAIN CONTENT */
-        #main { margin-left: 320px; flex-grow: 1; padding: 40px; height: 100vh; overflow-y: auto; scroll-behavior: smooth; }
+        /* MAIN CONTENT - FIX DU SCROLL ICI (padding-bottom augmenté) */
+        #main { 
+            margin-left: 320px; flex-grow: 1; padding: 40px; padding-bottom: 120px; 
+            height: 100vh; overflow-y: auto; scroll-behavior: smooth; box-sizing: border-box; 
+        }
         
         .banner { 
             background: linear-gradient(135deg, var(--navy-dark), var(--navy-main)); 
@@ -97,7 +104,7 @@
             border-bottom: 4px solid var(--gold-btn);
         }
         
-        /* STYLES GLOBAUX POUR LES QCM INJECTÉS */
+        /* STYLES QCM */
         .qcm-box { 
             background: var(--surface); padding: 30px; border-radius: var(--radius); 
             margin-bottom: 30px; border-left: 6px solid var(--gold-muted); box-shadow: var(--shadow-sm); 
@@ -112,25 +119,36 @@
             font-weight: 500;
         }
         
-        /* L'effet Jaune/Or au survol des boutons */
         .opt-btn:hover:not(:disabled) { 
-            background: #fefce8; 
-            border-color: var(--gold-btn); 
-            box-shadow: 0 4px 12px rgba(234, 179, 8, 0.15);
-            transform: translateY(-2px);
+            background: #fefce8; border-color: var(--gold-btn); 
+            box-shadow: 0 4px 12px rgba(234, 179, 8, 0.15); transform: translateY(-2px);
         }
         
         .opt-btn.correct { background: #ecfdf5 !important; border-color: #10b981 !important; color: #065f46; font-weight: bold; }
         .opt-btn.wrong { background: #fef2f2 !important; border-color: #ef4444 !important; color: #991b1b; text-decoration: line-through; }
 
-        /* BOUTON D'ACTION PRINCIPAL (ex: Valider le QCM) */
+        /* BOUTON SOUMETTRE STICKY */
         .btn-primary {
-            display: block; width: 100%; max-width: 350px; margin: 40px auto; padding: 18px;
+            display: block; width: 100%; max-width: 400px; margin: 40px auto; padding: 20px;
             background: var(--gold-btn); color: var(--navy-dark); border: none;
-            border-radius: 50px; font-weight: 800; font-size: 1.1rem; text-transform: uppercase; 
-            cursor: pointer; transition: var(--transition); box-shadow: 0 4px 15px rgba(234, 179, 8, 0.4);
+            border-radius: 50px; font-weight: 800; font-size: 1.15rem; text-transform: uppercase; 
+            cursor: pointer; transition: var(--transition); box-shadow: var(--shadow-lg);
+            position: sticky; bottom: 30px; z-index: 50; /* Permet au bouton de toujours rester visible à l'écran */
         }
-        .btn-primary:hover { background: var(--gold-hover); transform: translateY(-3px); box-shadow: 0 6px 20px rgba(234, 179, 8, 0.6); }
+        .btn-primary:hover { background: var(--gold-hover); transform: translateY(-3px); box-shadow: 0 10px 30px rgba(234, 179, 8, 0.5); }
+
+        /* STYLES BOUTONS DE PARTAGE */
+        .share-container { display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; margin-top: 25px; }
+        .share-btn {
+            padding: 12px 20px; border: none; border-radius: 10px; cursor: pointer; font-family: 'Inter';
+            font-weight: 600; font-size: 0.95rem; color: white; transition: var(--transition); display: flex; align-items: center; gap: 10px;
+            box-shadow: var(--shadow-sm);
+        }
+        .share-btn.pdf { background: #ef4444; } /* Rouge PDF */
+        .share-btn.email { background: #3b82f6; } /* Bleu Mail */
+        .share-btn.wa { background: #22c55e; } /* Vert WhatsApp */
+        .share-btn.sms { background: #8b5cf6; } /* Violet SMS */
+        .share-btn:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); filter: brightness(1.1); }
 
     </style>
 </head>
@@ -223,6 +241,9 @@
             const html = response.ok ? await response.text() : `<div class="banner" style="background: #ef4444; border-bottom:none;"><h1>Module Introuvable</h1><p>Le fichier ${file}.html manque dans le dossier /content/.</p></div>`;
             target.innerHTML = html;
             if (window.MathJax) MathJax.typesetPromise([target]);
+            
+            // Remonte en haut de la page lors du chargement
+            document.getElementById('main').scrollTo(0, 0);
         } catch (e) { console.error(e); }
         
         setTimeout(() => {
@@ -235,7 +256,6 @@
     function loadTraining(subject) {
         const quizNumber = Math.floor(Math.random() * 3) + 1;
         const fileName = `${subject}_training_v${quizNumber}`;
-        console.log(`Lancement du training : ${fileName}`);
         load(fileName);
     }
 
@@ -245,7 +265,6 @@
         const allButtons = container.querySelectorAll('.opt-btn');
         
         button.classList.add('selected');
-
         allButtons.forEach(btn => btn.disabled = true);
         
         if(isCorrect) {
@@ -276,46 +295,94 @@
         let msgBox = document.getElementById('congrats-msg');
         if(msgBox) {
             msgBox.style.display = 'block';
-            msgBox.style.padding = '20px';
+            msgBox.style.padding = '30px';
             msgBox.style.borderRadius = 'var(--radius)';
             msgBox.style.textAlign = 'center';
-            msgBox.style.fontWeight = '600';
             msgBox.style.marginTop = '25px';
 
+            let title = "";
             if (score === 20) {
-                msgBox.innerHTML = "🏆 Incroyable ! Un sans-faute absolu, félicitations !";
-                msgBox.style.backgroundColor = "#ecfdf5";
-                msgBox.style.color = "#065f46";
-                msgBox.style.border = "2px solid #10b981";
+                title = "🏆 Incroyable ! Un sans-faute absolu, félicitations !";
+                msgBox.style.backgroundColor = "#ecfdf5"; msgBox.style.border = "2px solid #10b981"; msgBox.style.color = "#065f46";
             } else if (score >= 15) {
-                msgBox.innerHTML = "🎉 Excellent travail ! Tu maîtrises très bien le sujet.";
-                msgBox.style.backgroundColor = "#eff6ff";
-                msgBox.style.color = "#1e40af";
-                msgBox.style.border = "2px solid #3b82f6";
+                title = "🎉 Excellent travail ! Tu maîtrises très bien le sujet.";
+                msgBox.style.backgroundColor = "#eff6ff"; msgBox.style.border = "2px solid #3b82f6"; msgBox.style.color = "#1e40af";
             } else if (score >= 10) {
-                msgBox.innerHTML = "👍 Bon effort ! Encore quelques révisions et ce sera parfait.";
-                msgBox.style.backgroundColor = "#fefce8";
-                msgBox.style.color = "#854d0e";
-                msgBox.style.border = "2px solid #eab308";
+                title = "👍 Bon effort ! Encore quelques révisions et ce sera parfait.";
+                msgBox.style.backgroundColor = "#fefce8"; msgBox.style.border = "2px solid #eab308"; msgBox.style.color = "#854d0e";
             } else {
-                msgBox.innerHTML = "💪 Ne te décourage pas, revois le cours et retente ta chance !";
-                msgBox.style.backgroundColor = "#fef2f2";
-                msgBox.style.color = "#991b1b";
-                msgBox.style.border = "2px solid #ef4444";
+                title = "💪 Ne te décourage pas, revois le cours et retente ta chance !";
+                msgBox.style.backgroundColor = "#fef2f2"; msgBox.style.border = "2px solid #ef4444"; msgBox.style.color = "#991b1b";
             }
+
+            // Génération des boutons d'envoi et de PDF
+            msgBox.innerHTML = `
+                <h3 style="margin-top:0; font-size: 1.3rem;">${title}</h3>
+                <p style="margin-bottom: 20px; font-weight: 500;">Transmets tes résultats à ton professeur :</p>
+                
+                <div class="share-container" id="share-buttons">
+                    <button onclick="downloadPDF()" class="share-btn pdf"><i class="fas fa-file-pdf"></i> Générer PDF</button>
+                    <button onclick="shareResult('email', ${score})" class="share-btn email"><i class="fas fa-envelope"></i> Par Mail</button>
+                    <button onclick="shareResult('whatsapp', ${score})" class="share-btn wa"><i class="fab fa-whatsapp"></i> Par WhatsApp</button>
+                    <button onclick="shareResult('sms', ${score})" class="share-btn sms"><i class="fas fa-comment-sms"></i> Par SMS</button>
+                </div>
+            `;
         }
+
+        // Fait défiler la page vers le score en douceur
+        setTimeout(() => {
+            if(scoreDisplay) scoreDisplay.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }, 100);
     }
 
-    // FONCTION POUR AFFICHER/MASQUER LES CORRIGÉS DES EXERCICES
+    // FONCTION POUR MASQUER/AFFICHER LA CORRECTION
     function toggleCorrection(btn) {
         const correctionDiv = btn.nextElementSibling;
-        
         if (correctionDiv.style.display === "none" || correctionDiv.style.display === "") {
             correctionDiv.style.display = "block";
             btn.innerHTML = '<i class="fas fa-eye-slash"></i> Masquer le corrigé';
         } else {
             correctionDiv.style.display = "none";
             btn.innerHTML = '<i class="fas fa-eye"></i> Afficher le corrigé';
+        }
+    }
+
+    // FONCTIONS D'EXPORT ET DE PARTAGE
+    function downloadPDF() {
+        const element = document.getElementById('content-container');
+        const shareCont = document.getElementById('share-buttons');
+        
+        // On cache temporairement les boutons pour qu'ils ne soient pas sur le PDF
+        if(shareCont) shareCont.style.display = 'none';
+
+        const opt = {
+            margin:       10,
+            filename:     'Evaluation_ElianMaths_PCSI.pdf',
+            image:        { type: 'jpeg', quality: 0.98 },
+            html2canvas:  { scale: 2, useCORS: true, scrollY: 0 },
+            jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+        };
+
+        // Génération du PDF
+        html2pdf().set(opt).from(element).save().then(() => {
+            // On remet les boutons après le téléchargement
+            if(shareCont) shareCont.style.display = 'flex';
+        });
+    }
+
+    function shareResult(type, score) {
+        const emailContact = "boris.kinnouezan@imsp-uac.org";
+        const message = `Bonjour M. Kinnouezan, voici mon rendu pour le module Elian Maths. J'ai obtenu la note de ${score}/20 ! (Le PDF de ma copie est en pièce jointe).`;
+        
+        const subjectEncoded = encodeURIComponent("Rendu QCM Elian Maths PCSI");
+        const bodyEncoded = encodeURIComponent(message);
+
+        if (type === 'email') {
+            window.location.href = `mailto:${emailContact}?subject=${subjectEncoded}&body=${bodyEncoded}`;
+        } else if (type === 'whatsapp') {
+            window.open(`https://wa.me/?text=${bodyEncoded}`, '_blank');
+        } else if (type === 'sms') {
+            window.open(`sms:?&body=${bodyEncoded}`, '_self');
         }
     }
 </script>
