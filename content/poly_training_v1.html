@@ -1,7 +1,7 @@
 <div style="animation: fadeIn 0.5s;">
     <div class="banner" style="background: linear-gradient(135deg, #1a365d, #3182ce); padding: 40px; border-radius: 15px; color: white; text-align: center; margin-bottom: 30px;">
         <h2 style="margin:0; font-size: 2rem;"><i class="fas fa-bolt"></i> Training Polynômes - Version 1</h2>
-        <p style="opacity:0.9; margin-top:10px; font-size: 1.1rem;">Évaluation aléatoire : Bases & Arithmétique (20 Questions)</p>
+        <p style="opacity:0.9; margin-top:10px; font-size: 1.1rem;">Évaluation aléatoire : Bases, Arithmétique & Calculs (30 Questions)</p>
     </div>
 
     <div class="qcm-box">
@@ -195,7 +195,7 @@
     </div>
 
     <div class="qcm-box">
-        <div class="qcm-question">Q20. L'ensemble des polynômes de degré *exactement* $n$ forme-t-il un sous-espace vectoriel de $\mathbb{K}[X]$ ?</div>
+        <div class="qcm-question">Q20. L'ensemble des polynômes de degré <em>exactement</em> $n$ forme-t-il un sous-espace vectoriel de $\mathbb{K}[X]$ ?</div>
         <div class="qcm-grid">
             <button class="opt-btn" onclick="checkAnswer(this, false)">Oui, de dimension $n$</button>
             <button class="opt-btn" onclick="checkAnswer(this, false)">Oui, de dimension $n+1$</button>
@@ -203,4 +203,110 @@
             <button class="opt-btn" onclick="checkAnswer(this, false)">Non, car ce n'est pas un ensemble fini</button>
         </div>
     </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">Q21. Quel est le reste de la division euclidienne de $P(X) = X^{10} + X + 1$ par $X - 1$ ?</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, false)">1</button>
+            <button class="opt-btn" onclick="checkAnswer(this, true)">3</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$X+1$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">0</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">Q22. Soit $A(X) = X^3 - 2X^2 + X - 1$ et $B(X) = X - 2$. Quel est le quotient de la division euclidienne de $A$ par $B$ ?</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$X^2 - 1$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, true)">$X^2 + 1$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$X^2 + X$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$X - 1$</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">Q23. Quelle est la forme théorique de la décomposition en éléments simples sur $\mathbb{R}$ de $F(X) = \frac{1}{(X-1)(X^2+1)}$ ?</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$\frac{a}{X-1} + \frac{b}{X^2+1}$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, true)">$\frac{a}{X-1} + \frac{bX+c}{X^2+1}$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$\frac{a}{X-1} + \frac{b}{X-i} + \frac{c}{X+i}$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$\frac{a}{X-1} + \frac{bX}{X^2+1}$</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">Q24. Dans la décomposition en éléments simples de $F(X) = \frac{X}{(X-1)(X-2)} = \frac{a}{X-1} + \frac{b}{X-2}$, que vaut $a$ ?</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, false)">1</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">2</button>
+            <button class="opt-btn" onclick="checkAnswer(this, true)">-1</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">0</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">Q25. Que vaut l'intégrale $\int_{0}^{1} (3X^2 - 2X + 1) \, dX$ ?</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, false)">0</button>
+            <button class="opt-btn" onclick="checkAnswer(this, true)">1</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">2</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$1/2$</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">Q26. Quelles sont les racines du polynôme $P(X) = X^4 - 1$ dans $\mathbb{C}$ ?</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$\{1, -1\}$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, true)">$\{1, -1, i, -i\}$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$\{1, i\}$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$\{0, 1, -1\}$</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">Q27. Que vaut l'intégrale $\int_{2}^{3} \frac{1}{X-1} \, dX$ ?</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$\ln(3)$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, true)">$\ln(2)$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">1</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$1/2$</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">Q28. Quel est le reste de la division euclidienne de $X^4 + X^2 + 1$ par $X^2 + 1$ ?</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$X$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, true)">1</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$X+1$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">0</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">Q29. Quel est l'ordre de multiplicité de la racine $1$ pour le polynôme $P(X) = X^3 - 3X + 2$ ?</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, false)">1</button>
+            <button class="opt-btn" onclick="checkAnswer(this, true)">2</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">3</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">0</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">Q30. Soit $P$ un polynôme de degré 2 tel que $P(0)=1$, $P'(0)=2$, et $P''(0)=4$. Que vaut $\int_{0}^{1} P(X) \, dX$ ?</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$4/3$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, true)">$8/3$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">3</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$7/3$</button>
+        </div>
+    </div>
+
+    <button id="submit-btn" class="btn-primary" onclick="calculateScore()">Valider mes réponses</button>
+    
+    <div id="score-display" style="display: none; margin-top: 40px;"></div>
+    <div id="congrats-msg" style="display: none;"></div>
+
 </div>
