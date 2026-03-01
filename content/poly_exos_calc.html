@@ -1,0 +1,190 @@
+<div style="animation: fadeIn 0.5s; padding-bottom: 40px;">
+    <div class="banner" style="background: linear-gradient(135deg, #1a365d, #4299e1); padding: 40px; border-radius: 15px; color: white; margin-bottom: 30px; position: relative;">
+        <h2 style="margin:0; font-size: 2.2rem;"><i class="fas fa-pen-nib"></i> Calculs & Algorithmes</h2>
+        <p style="opacity:0.9; margin-top:10px; font-size: 1.1rem;">5 Exercices d'entraînement lourd (Type DS PCSI) avec corrigés intégrés.</p>
+    </div>
+
+    <style>
+        .exo-box { background: white; padding: 30px; border-radius: 12px; margin-bottom: 35px; border-left: 6px solid var(--royal-blue); box-shadow: var(--shadow); }
+        .exo-title { font-weight: 800; font-size: 1.3rem; color: var(--royal-blue); margin-bottom: 15px; display: flex; align-items: center; justify-content: space-between; border-bottom: 2px solid var(--border); padding-bottom: 10px;}
+        .exo-questions ol { line-height: 1.8; margin-bottom: 25px; padding-left: 20px; color: var(--text-main); }
+        .exo-questions li { margin-bottom: 10px; }
+        
+        .corr-btn { 
+            background: #edf2f7; color: var(--royal-blue); border: 1px solid #cbd5e1; 
+            padding: 10px 20px; border-radius: 8px; font-weight: 600; font-size: 0.95rem; 
+            cursor: pointer; transition: all 0.2s ease; display: inline-flex; align-items: center; gap: 8px;
+        }
+        .corr-btn:hover { background: var(--royal-blue); color: white; border-color: var(--royal-blue); }
+        
+        .correction-content { 
+            display: none; margin-top: 20px; padding: 25px; 
+            background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; 
+            border-left: 4px solid #059669; animation: slideDown 0.3s ease-out;
+        }
+        .correction-content h4 { color: #059669; margin-top: 0; margin-bottom: 15px; font-size: 1.1rem;}
+        .correction-content ol { line-height: 1.7; padding-left: 20px; color: #334155; }
+        
+        @keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+
+    <div class="exo-box">
+        <div class="exo-title"><span><i class="fas fa-dumbbell"></i> Exercice 1 : Division euclidienne et restes</span> <span style="font-size: 0.9rem; font-weight: 600; color: var(--text-muted); background: #f1f5f9; padding: 4px 10px; border-radius: 20px;">Classique</span></div>
+        <div class="exo-questions">
+            <ol>
+                <li>Énoncer le théorème de la division euclidienne d'un polynôme $A$ par un polynôme $B$ ($B \neq 0$).</li>
+                <li>Soit $A(X) = X^n$ (avec $n \geq 2$) et $B(X) = (X-a)(X-b)$ avec $a \neq b$. Quel est le degré maximal du reste $R$ ?</li>
+                <li>Écrire la forme générale de $R(X)$.</li>
+                <li>Évaluer la relation $A = BQ + R$ en $a$ et en $b$.</li>
+                <li>En déduire l'expression explicite du reste $R(X)$ en fonction de $a, b$ et $n$.</li>
+                <li>Que devient la méthode si $a = b$ (division par $(X-a)^2$) ? Expliquer comment utiliser la dérivée.</li>
+                <li>Application : Déterminer le reste de la division euclidienne de $(X \sin \theta + \cos \theta)^n$ par $X^2+1$ dans $\mathbb{C}[X]$.</li>
+            </ol>
+            <button class="corr-btn" onclick="toggleCorrection(this)"><i class="fas fa-eye"></i> Afficher le corrigé</button>
+            <div class="correction-content">
+                <h4><i class="fas fa-check-circle"></i> Corrigé de l'Exercice 1</h4>
+                <ol>
+                    <li>Il existe un unique couple $(Q, R) \in \mathbb{K}[X]^2$ tel que $A = BQ + R$ avec $\deg(R) < \deg(B)$.</li>
+                    <li>Comme $\deg(B) = 2$, on a $\deg(R) < 2$, donc $\deg(R) \leq 1$.</li>
+                    <li>On peut écrire $R(X) = \alpha X + \beta$ avec $\alpha, \beta \in \mathbb{K}$.</li>
+                    <li>$A(a) = a^n = R(a) = \alpha a + \beta$ et $A(b) = b^n = R(b) = \alpha b + \beta$.</li>
+                    <li>On résout le système : $\alpha(a-b) = a^n - b^n \implies \alpha = \frac{a^n - b^n}{a-b}$. Puis $\beta = a^n - a \frac{a^n - b^n}{a-b} = \frac{a b^n - b a^n}{a-b}$. Donc $R(X) = \frac{a^n - b^n}{a-b} X + \frac{a b^n - b a^n}{a-b}$.</li>
+                    <li>Si $a=b$, $B(X) = (X-a)^2$. On a $X^n = (X-a)^2 Q(X) + \alpha X + \beta$. On évalue en $a$ : $a^n = \alpha a + \beta$. On dérive la relation : $n X^{n-1} = 2(X-a)Q(X) + (X-a)^2 Q'(X) + \alpha$. On évalue en $a$ : $\alpha = n a^{n-1}$. D'où $\beta = a^n - n a^n = (1-n)a^n$.</li>
+                    <li>Les racines de $X^2+1$ sont $i$ et $-i$. Soit $R(X) = \alpha X + \beta$. On évalue le polynôme en $i$ : $(i \sin \theta + \cos \theta)^n = e^{in\theta} = \cos(n\theta) + i\sin(n\theta)$. Or $R(i) = \alpha i + \beta$. Par identification des parties réelle et imaginaire, $\alpha = \sin(n\theta)$ et $\beta = \cos(n\theta)$. Donc $R(X) = X \sin(n\theta) + \cos(n\theta)$.</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+
+    <div class="exo-box">
+        <div class="exo-title"><span><i class="fas fa-dumbbell"></i> Exercice 2 : Racines, multiplicité et dérivation</span> <span style="font-size: 0.9rem; font-weight: 600; color: var(--text-muted); background: #f1f5f9; padding: 4px 10px; border-radius: 20px;">Incontournable</span></div>
+        <div class="exo-questions">
+            <p>Soit $n \in \mathbb{N}^*$. On considère le polynôme $P_n(X) = X^{2n} - nX^{n+1} + nX^{n-1} - 1$.</p>
+            <ol>
+                <li>Calculer $P_n(1)$. Que peut-on en déduire ?</li>
+                <li>Calculer les polynômes dérivés $P_n'(X)$ et $P_n''(X)$.</li>
+                <li>Évaluer $P_n'(1)$ et $P_n''(1)$.</li>
+                <li>En déduire l'ordre de multiplicité exact de la racine $1$ pour le polynôme $P_n$.</li>
+                <li>Le scalaire $-1$ est-il racine de $P_n$ ? Étudier selon la parité de $n$.</li>
+                <li>Déterminer l'ordre de multiplicité de la racine $-1$ lorsqu'elle existe.</li>
+                <li>Expliciter et factoriser complètement $P_2(X)$ dans $\mathbb{R}[X]$.</li>
+            </ol>
+            <button class="corr-btn" onclick="toggleCorrection(this)"><i class="fas fa-eye"></i> Afficher le corrigé</button>
+            <div class="correction-content">
+                <h4><i class="fas fa-check-circle"></i> Corrigé de l'Exercice 2</h4>
+                <ol>
+                    <li>$P_n(1) = 1 - n + n - 1 = 0$. Donc $1$ est racine de $P_n$.</li>
+                    <li>$P_n'(X) = 2nX^{2n-1} - n(n+1)X^n + n(n-1)X^{n-2}$. <br> $P_n''(X) = 2n(2n-1)X^{2n-2} - n^2(n+1)X^{n-1} + n(n-1)(n-2)X^{n-3}$.</li>
+                    <li>$P_n'(1) = 2n - n^2 - n + n^2 - n = 0$.<br> $P_n''(1) = 4n^2 - 2n - n^3 - n^2 + n^3 - 3n^2 + 2n = 0$.</li>
+                    <li>Comme $P_n(1) = P_n'(1) = P_n''(1) = 0$, $1$ est racine de multiplicité au moins 3. En calculant $P_n'''(1)$, on trouve une valeur non nulle. La multiplicité est donc exactement 3.</li>
+                    <li>$P_n(-1) = 1 - n(-1)^{n+1} + n(-1)^{n-1} - 1 = -n(-1)^{n-1} + n(-1)^{n-1} = 0$. Donc $-1$ est toujours racine, peu importe la parité de $n$.</li>
+                    <li>$P_n'(-1) = -2n - n(n+1)(-1)^n + n(n-1)(-1)^n = -2n - n(-1)^n (n+1 - n + 1) = -2n - 2n(-1)^n$. Si $n$ est pair, $P_n'(-1) = -4n \neq 0$ (racine simple). Si $n$ est impair, $P_n'(-1) = 0$ (racine multiple).</li>
+                    <li>Pour $n=2$, $P_2(X) = X^4 - 2X^3 + 2X - 1$. Les racines 1 (multiplicité 3) et -1 (simple) donnent $P_2(X) = (X-1)^3(X+1)$.</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+
+    <div class="exo-box">
+        <div class="exo-title"><span><i class="fas fa-dumbbell"></i> Exercice 3 : Polynômes de Tchebychev</span> <span style="font-size: 0.9rem; font-weight: 600; color: var(--text-muted); background: #f1f5f9; padding: 4px 10px; border-radius: 20px;">Difficile</span></div>
+        <div class="exo-questions">
+            <p>On s'intéresse à la famille de polynômes $T_n$ définie par la propriété : $\forall \theta \in \mathbb{R}, T_n(\cos \theta) = \cos(n\theta)$.</p>
+            <ol>
+                <li>En utilisant la formule de Moivre, justifier l'existence d'un tel polynôme $T_n \in \mathbb{R}[X]$.</li>
+                <li>Calculer explicitement $T_0(X), T_1(X)$ et $T_2(X)$.</li>
+                <li>À l'aide des formules d'addition trigonométriques $\cos(a+b)+\cos(a-b)$, établir la relation : $T_{n+2}(X) = 2X T_{n+1}(X) - T_n(X)$.</li>
+                <li>Déterminer par récurrence le degré et le coefficient dominant de $T_n$ (pour $n \geq 1$).</li>
+                <li>Quelle est la parité du polynôme $T_n$ ?</li>
+                <li>Résoudre l'équation $\cos(n\theta) = 0$ pour $\theta \in [0, \pi]$. En déduire les racines de $T_n$.</li>
+                <li>Montrer que $T_n$ est scindé à racines simples dans $\mathbb{R}[X]$ et écrire sa factorisation.</li>
+            </ol>
+            <button class="corr-btn" onclick="toggleCorrection(this)"><i class="fas fa-eye"></i> Afficher le corrigé</button>
+            <div class="correction-content">
+                <h4><i class="fas fa-check-circle"></i> Corrigé de l'Exercice 3</h4>
+                <ol>
+                    <li>$\cos(n\theta) = \text{Re}((\cos\theta + i\sin\theta)^n) = \sum_{k=0}^{\lfloor n/2 \rfloor} \binom{n}{2k} \cos^{n-2k}(\theta) (-1)^k \sin^{2k}(\theta)$. Comme $\sin^{2k}(\theta) = (1-\cos^2\theta)^k$, on obtient bien une expression polynomiale en $\cos\theta$.</li>
+                    <li>$T_0(X) = 1$, $T_1(X) = X$, et comme $\cos(2\theta) = 2\cos^2\theta - 1$, $T_2(X) = 2X^2 - 1$.</li>
+                    <li>$\cos((n+2)\theta) + \cos(n\theta) = 2\cos(\theta)\cos((n+1)\theta)$. En posant $X = \cos\theta$, on a $T_{n+2}(X) + T_n(X) = 2X T_{n+1}(X)$, d'où le résultat.</li>
+                    <li>Par récurrence double : $\deg(T_n) = n$. Le coefficient dominant de $T_1$ est 1, celui de $T_2$ est 2. Par la relation $2X T_{n+1}$, on trouve que le coefficient dominant de $T_n$ est $2^{n-1}$ pour $n \geq 1$.</li>
+                    <li>Par récurrence forte, ou via la relation $T_n(-\cos\theta) = T_n(\cos(\pi-\theta)) = \cos(n\pi-n\theta) = (-1)^n \cos(n\theta)$. Donc $T_n(-X) = (-1)^n T_n(X)$. $T_n$ a la même parité que $n$.</li>
+                    <li>$\cos(n\theta) = 0 \iff n\theta = \frac{\pi}{2} + k\pi \iff \theta_k = \frac{(2k+1)\pi}{2n}$. Pour $k \in \{0, \dots, n-1\}$, on a $n$ valeurs distinctes dans $]0, \pi[$. Les racines sont $x_k = \cos\left(\frac{(2k+1)\pi}{2n}\right)$.</li>
+                    <li>$T_n$ est de degré $n$ et possède $n$ racines distinctes (car cosinus est bijectif sur $[0,\pi]$). Il est donc scindé à racines simples : $T_n(X) = 2^{n-1} \prod_{k=0}^{n-1} \left(X - \cos\left(\frac{(2k+1)\pi}{2n}\right)\right)$.</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+
+    <div class="exo-box">
+        <div class="exo-title"><span><i class="fas fa-dumbbell"></i> Exercice 4 : Bézout et Algorithme d'Euclide</span> <span style="font-size: 0.9rem; font-weight: 600; color: var(--text-muted); background: #f1f5f9; padding: 4px 10px; border-radius: 20px;">Technique</span></div>
+        <div class="exo-questions">
+            <p>On donne les polynômes $C(X) = X^3 - 1$ et $D(X) = X^2 + 1$.</p>
+            <ol>
+                <li>Factoriser $C$ et $D$ dans $\mathbb{C}[X]$ puis dans $\mathbb{R}[X]$.</li>
+                <li>Montrer, sans faire de division, que $C$ et $D$ sont premiers entre eux.</li>
+                <li>Effectuer l'algorithme d'Euclide sur $C$ et $D$ pour trouver leur PGCD.</li>
+                <li>Remonter l'algorithme d'Euclide pour expliciter un couple de polynômes $(U, V)$ tel que $C U + D V = 1$.</li>
+                <li>On cherche à résoudre l'équation $(E) : C P + D Q = X^4$ avec $P, Q \in \mathbb{R}[X]$. Donner une solution particulière $(P_0, Q_0)$.</li>
+                <li>Déterminer l'ensemble de toutes les solutions $(P, Q)$ de l'équation $(E)$.</li>
+                <li>Montrer qu'il existe un unique couple $(P, Q)$ solution tel que $\deg(P) < \deg(D)$. Déterminer ce couple.</li>
+            </ol>
+            <button class="corr-btn" onclick="toggleCorrection(this)"><i class="fas fa-eye"></i> Afficher le corrigé</button>
+            <div class="correction-content">
+                <h4><i class="fas fa-check-circle"></i> Corrigé de l'Exercice 4</h4>
+                <ol>
+                    <li>Dans $\mathbb{R}[X]$ : $C = (X-1)(X^2+X+1)$ et $D = X^2+1$. Dans $\mathbb{C}[X]$, $C = (X-1)(X-j)(X-j^2)$ et $D = (X-i)(X+i)$.</li>
+                    <li>Les racines complexes de $D$ sont $i, -i$. Or $C(i) = -i-1 \neq 0$ et $C(-i) = i-1 \neq 0$. Ils n'ont aucune racine commune dans $\mathbb{C}$, donc ils sont premiers entre eux : $PGCD(C,D)=1$.</li>
+                    <li>$X^3-1 = (X^2+1)X + (-X-1)$. Puis $X^2+1 = (-X-1)(-X+1) + 2$. Le dernier reste non nul est 2 (une constante), ce qui confirme que le PGCD est 1.</li>
+                    <li>On isole le reste : $2 = (X^2+1) - (-X-1)(-X+1) = (X^2+1) - [ (X^3-1) - X(X^2+1) ](-X+1)$.<br> $2 = (X^2+1)[1 + X(-X+1)] - (X^3-1)(-X+1) = D(X)(-X^2+X+1) + C(X)(X-1)$.<br> On divise par 2 : $U(X) = \frac{1}{2}(X-1)$ et $V(X) = \frac{1}{2}(-X^2+X+1)$.</li>
+                    <li>On multiplie la relation de Bézout par $X^4$ : $C \cdot (X^4 U) + D \cdot (X^4 V) = X^4$. Donc $P_0 = \frac{1}{2}(X^5-X^4)$ et $Q_0 = \frac{1}{2}(-X^6+X^5+X^4)$.</li>
+                    <li>Soit $(P,Q)$ une solution. Par soustraction avec $(P_0, Q_0)$, on a $C(P-P_0) = -D(Q-Q_0)$. $D$ divise $C(P-P_0)$. Comme $PGCD(C,D)=1$, par le lemme de Gauss, $D$ divise $P-P_0$. Donc $P = P_0 + K \cdot D$. En remplaçant, on trouve $Q = Q_0 - K \cdot C$, avec $K \in \mathbb{R}[X]$.</li>
+                    <li>On fait la division euclidienne de $P_0$ par $D$ : $P_0 = D \cdot S + R$ avec $\deg(R) < 2$. On prend $K = -S$, alors $P = R$. C'est le seul candidat vérifiant la condition de degré. Calcul : $P_0 = \frac{1}{2}(X^5-X^4) = (X^2+1)(\dots) + \frac{1}{2}(-X-1)$. Donc $P(X) = -\frac{1}{2}(X+1)$. On calcule alors $Q$ avec l'équation $(E)$ : $Q = \frac{X^4 - C P}{D} = \frac{1}{2}(X^2+X-1)$.</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+
+    <div class="exo-box" style="margin-bottom: 0;">
+        <div class="exo-title"><span><i class="fas fa-dumbbell"></i> Exercice 5 : Décomposition en Éléments Simples (D.E.S)</span> <span style="font-size: 0.9rem; font-weight: 600; color: var(--text-muted); background: #f1f5f9; padding: 4px 10px; border-radius: 20px;">Expert</span></div>
+        <div class="exo-questions">
+            <p>Soit $n \in \mathbb{N}^*$. On étudie la fraction rationnelle $F_n(X) = \frac{1}{X^n - 1}$ dans $\mathbb{C}(X)$.</p>
+            <ol>
+                <li>Déterminer les pôles de $F_n$. On notera $\omega_k = e^{i 2k\pi / n}$ pour $k \in \{0, \dots, n-1\}$.</li>
+                <li>Justifier que tous ces pôles sont simples et donner la forme théorique de la D.E.S de $F_n$ dans $\mathbb{C}(X)$.</li>
+                <li>Rappeler la formule de cours permettant de trouver le coefficient $\lambda_k$ associé à un pôle simple $a$ d'une fraction $P/Q$.</li>
+                <li>Appliquer cette formule pour déterminer $\lambda_k$ en fonction de $\omega_k$ et de $n$.</li>
+                <li>En déduire l'écriture complète de $F_n(X)$ sous forme de somme.</li>
+                <li>En multipliant l'égalité par $X$ et en faisant tendre $|X| \to +\infty$, que vaut la somme $\sum_{k=0}^{n-1} \lambda_k$ ?</li>
+                <li>Bonus : Déterminer la valeur de $\sum_{k=0}^{n-1} \omega_k$ à partir des propriétés du polynôme $X^n-1$.</li>
+            </ol>
+            <button class="corr-btn" onclick="toggleCorrection(this)"><i class="fas fa-eye"></i> Afficher le corrigé</button>
+            <div class="correction-content">
+                <h4><i class="fas fa-check-circle"></i> Corrigé de l'Exercice 5</h4>
+                <ol>
+                    <li>Les pôles sont les racines de $X^n-1 = 0$, c'est-à-dire les racines $n$-ièmes de l'unité : $\omega_k = e^{i 2k\pi / n}$.</li>
+                    <li>Le polynôme dérivé du dénominateur est $n X^{n-1}$. En l'évaluant en $\omega_k$, on trouve $n \omega_k^{n-1} \neq 0$. Les racines sont donc toutes simples. La D.E.S s'écrit : $F_n(X) = \sum_{k=0}^{n-1} \frac{\lambda_k}{X-\omega_k}$ (la partie entière est nulle car $\deg(F_n) < 0$).</li>
+                    <li>Pour $F = P/Q$ avec $a$ pôle simple, le résidu est $\lambda = \frac{P(a)}{Q'(a)}$.</li>
+                    <li>Ici $P(X) = 1$ et $Q'(X) = nX^{n-1}$. Donc $\lambda_k = \frac{1}{n \omega_k^{n-1}}$. Comme $\omega_k^n = 1$, on a $\omega_k^{n-1} = \frac{1}{\omega_k}$. D'où $\lambda_k = \frac{\omega_k}{n}$.</li>
+                    <li>On obtient : $F_n(X) = \frac{1}{n} \sum_{k=0}^{n-1} \frac{\omega_k}{X-\omega_k}$.</li>
+                    <li>$X F_n(X) = \frac{X}{X^n-1} = \sum_{k=0}^{n-1} \frac{\lambda_k X}{X-\omega_k}$. Quand $X \to +\infty$, le membre de gauche tend vers $0$ (si $n \geq 2$) et le membre de droite tend vers $\sum_{k=0}^{n-1} \lambda_k$. Donc $\sum_{k=0}^{n-1} \lambda_k = 0$.</li>
+                    <li>D'après la question 4, $\lambda_k = \omega_k / n$. Comme la somme des $\lambda_k$ est nulle, la somme des $\omega_k$ est aussi nulle. On retrouve bien que la somme des racines $n$-ièmes de l'unité vaut 0 (coefficient de $X^{n-1}$ dans $X^n-1$, via les relations de Viète).</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function toggleCorrection(btn) {
+        // Sélectionne le bloc de correction qui suit immédiatement le bouton
+        const correctionDiv = btn.nextElementSibling;
+        const icon = btn.querySelector('i');
+        
+        if (correctionDiv.style.display === "none" || correctionDiv.style.display === "") {
+            correctionDiv.style.display = "block";
+            btn.innerHTML = '<i class="fas fa-eye-slash"></i> Masquer le corrigé';
+        } else {
+            correctionDiv.style.display = "none";
+            btn.innerHTML = '<i class="fas fa-eye"></i> Afficher le corrigé';
+        }
+    }
+</script>
