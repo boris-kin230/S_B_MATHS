@@ -48,6 +48,7 @@
             width: 320px; height: 100vh; background: var(--surface); 
             border-right: 1px solid var(--border); overflow-y: auto; position: fixed; z-index: 100;
             box-shadow: 4px 0 15px rgba(0,0,0,0.02);
+            transition: transform 0.3s ease;
         }
 
         .logo-container { padding: 35px 20px 25px; text-align: center; border-bottom: 1px solid var(--border); background: var(--surface); }
@@ -91,10 +92,11 @@
         .chevron { font-size: 0.7rem; transition: transform 0.3s; color: var(--text-muted); }
         .open > .chevron { transform: rotate(180deg); color: var(--navy-dark); }
 
-        /* MAIN CONTENT - FIX DU SCROLL ICI (padding-bottom augmenté) */
+        /* MAIN CONTENT */
         #main { 
             margin-left: 320px; flex-grow: 1; padding: 40px; padding-bottom: 120px; 
             height: 100vh; overflow-y: auto; scroll-behavior: smooth; box-sizing: border-box; 
+            transition: margin-left 0.3s ease;
         }
         
         .banner { 
@@ -133,7 +135,7 @@
             background: var(--gold-btn); color: var(--navy-dark); border: none;
             border-radius: 50px; font-weight: 800; font-size: 1.15rem; text-transform: uppercase; 
             cursor: pointer; transition: var(--transition); box-shadow: var(--shadow-lg);
-            position: sticky; bottom: 30px; z-index: 50; /* Permet au bouton de toujours rester visible à l'écran */
+            position: sticky; bottom: 30px; z-index: 50; 
         }
         .btn-primary:hover { background: var(--gold-hover); transform: translateY(-3px); box-shadow: 0 10px 30px rgba(234, 179, 8, 0.5); }
 
@@ -144,15 +146,91 @@
             font-weight: 600; font-size: 0.95rem; color: white; transition: var(--transition); display: flex; align-items: center; gap: 10px;
             box-shadow: var(--shadow-sm);
         }
-        .share-btn.pdf { background: #ef4444; } /* Rouge PDF */
-        .share-btn.email { background: #3b82f6; } /* Bleu Mail */
-        .share-btn.wa { background: #22c55e; } /* Vert WhatsApp */
-        .share-btn.sms { background: #8b5cf6; } /* Violet SMS */
+        .share-btn.pdf { background: #ef4444; } 
+        .share-btn.email { background: #3b82f6; } 
+        .share-btn.wa { background: #22c55e; } 
+        .share-btn.sms { background: #8b5cf6; } 
         .share-btn:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); filter: brightness(1.1); }
 
+        /* --- ELEMENTS POUR MOBILE --- */
+        .mobile-menu-btn {
+            display: none;
+            position: fixed;
+            top: 15px;
+            left: 15px;
+            z-index: 1000;
+            background: var(--navy-dark);
+            color: var(--gold-btn);
+            border: none;
+            border-radius: 8px;
+            padding: 10px 15px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            box-shadow: var(--shadow-md);
+        }
+
+        .sidebar-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 90;
+        }
+        .sidebar-overlay.active {
+            display: block;
+        }
+
+        /* --- ADAPTATION RESPONSIVE (MOBILES ET PETITES TABLETTES) --- */
+        @media (max-width: 900px) {
+            .mobile-menu-btn { display: block; }
+
+            #sidebar {
+                transform: translateX(-100%);
+            }
+            #sidebar.active {
+                transform: translateX(0);
+            }
+
+            #main {
+                margin-left: 0;
+                padding: 70px 20px 100px 20px; 
+            }
+
+            .banner {
+                padding: 30px 20px;
+                margin-bottom: 25px;
+            }
+
+            .qcm-grid {
+                grid-template-columns: 1fr;
+            }
+            .qcm-box {
+                padding: 20px;
+            }
+
+            .btn-primary {
+                font-size: 1rem;
+                padding: 15px;
+                bottom: 15px;
+            }
+
+            .share-btn {
+                width: calc(50% - 8px); 
+                justify-content: center;
+            }
+        }
     </style>
 </head>
 <body>
+
+<button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+    <i class="fas fa-bars"></i>
+</button>
+
+<div class="sidebar-overlay" id="mobileOverlay" onclick="toggleMobileMenu()"></div>
 
 <div id="sidebar">
     <div class="logo-container">
@@ -224,13 +302,27 @@
 </div>
 
 <script>
+    // GESTION DU MENU MOBILE
+    function toggleMobileMenu() {
+        document.getElementById('sidebar').classList.toggle('active');
+        document.getElementById('mobileOverlay').classList.toggle('active');
+    }
+
+    // ACCORDEON DU MENU
     function toggleMenu(btn) {
         const container = btn.nextElementSibling;
         btn.classList.toggle('open');
         container.classList.toggle('open');
     }
 
+    // CHARGEMENT DYNAMIQUE DES PAGES
     async function load(file) {
+        // Ferme le menu mobile automatiquement si on clique sur un lien
+        if (window.innerWidth <= 900) {
+            document.getElementById('sidebar').classList.remove('active');
+            document.getElementById('mobileOverlay').classList.remove('active');
+        }
+
         const target = document.getElementById('dynamic-content');
         target.style.opacity = '0.3';
         target.style.transform = 'translateY(10px)';
