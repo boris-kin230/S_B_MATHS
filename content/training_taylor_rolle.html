@@ -1,0 +1,243 @@
+<div class="banner">
+    <h1 style="font-size: 2.2rem; margin: 0; letter-spacing: -1px;">Entraînement : QCM de Synthèse</h1>
+    <p style="opacity: 0.9; font-size: 1.1rem; margin-top: 10px;">Théorèmes de Rolle, Accroissements Finis et Formules de Taylor</p>
+</div>
+
+<h2 style="margin-top: 30px; border-bottom: 2px solid var(--border); padding-bottom: 10px; color: var(--navy-dark);">
+    <i class="fas fa-check-square"></i> QCM 1 : Autour de Rolle et du TAF
+</h2>
+
+<div class="tcb-box exobox" style="background: #f8fafc; padding: 25px; border-radius: var(--radius); border: 1px solid #cbd5e1; margin-bottom: 20px;">
+    <ol style="padding-left: 20px; line-height: 1.8;">
+        
+        <li style="margin-bottom: 20px;">
+            <strong>Soit la fonction $f(x) = |x|$ définie sur $[-1, 1]$. Pourquoi le théorème de Rolle ne s'applique-t-il pas ici, bien que $f(-1) = f(1)$ ?</strong><br>
+            A) $f$ n'est pas continue sur $[-1, 1]$.<br>
+            B) $f$ n'est pas dérivable sur l'ouvert $]-1, 1[$.<br>
+            C) Le segment doit être strictement positif.<br>
+            D) Le théorème s'applique, $f'(0) = 0$.
+            <button class="opt-btn" style="display:block; margin-top:10px; padding: 5px 10px; font-size: 0.85rem; border: 1px solid #94a3b8; background: white; border-radius: 4px; cursor: pointer;" onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'block' ? 'none' : 'block'">Voir la réponse</button>
+            <div class="solbox" style="display: none; margin-top: 10px; padding: 10px; background: #e2e8f0; border-left: 4px solid #3b82f6; font-size: 0.95rem;">
+                <strong>Réponse B.</strong> $f$ est continue, mais elle présente un point anguleux en $x = 0$. Elle n'est donc pas dérivable sur la totalité de l'ouvert $]-1, 1[$, ce qui met en échec les hypothèses de Rolle.
+            </div>
+        </li>
+
+        <li style="margin-bottom: 20px;">
+            <strong>Quelle est l'interprétation géométrique principale du Théorème des Accroissements Finis ?</strong><br>
+            A) Il existe au moins une tangente horizontale.<br>
+            B) Il existe au moins une tangente passant par l'origine.<br>
+            C) Il existe au moins une tangente parallèle à la corde reliant les points extrêmes.<br>
+            D) La courbe ne change pas de convexité.
+            <button class="opt-btn" style="display:block; margin-top:10px; padding: 5px 10px; font-size: 0.85rem; border: 1px solid #94a3b8; background: white; border-radius: 4px; cursor: pointer;" onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'block' ? 'none' : 'block'">Voir la réponse</button>
+            <div class="solbox" style="display: none; margin-top: 10px; padding: 10px; background: #e2e8f0; border-left: 4px solid #3b82f6; font-size: 0.95rem;">
+                <strong>Réponse C.</strong> La pente de la corde entre $a$ et $b$ est $\frac{f(b)-f(a)}{b-a}$. Le TAF affirme qu'il existe un point $c$ où la dérivée (pente de la tangente) vaut exactement cette valeur.
+            </div>
+        </li>
+
+        <li style="margin-bottom: 20px;">
+            <strong>Quel théorème permet de justifier de manière immédiate l'inégalité $|\sin(x) - \sin(y)| \le |x - y|$ pour tous réels $x, y$ ?</strong><br>
+            A) Le théorème de Weierstrass.<br>
+            B) Le théorème des valeurs intermédiaires.<br>
+            C) L'inégalité des Accroissements Finis.<br>
+            D) La formule de Taylor-Young.
+            <button class="opt-btn" style="display:block; margin-top:10px; padding: 5px 10px; font-size: 0.85rem; border: 1px solid #94a3b8; background: white; border-radius: 4px; cursor: pointer;" onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'block' ? 'none' : 'block'">Voir la réponse</button>
+            <div class="solbox" style="display: none; margin-top: 10px; padding: 10px; background: #e2e8f0; border-left: 4px solid #3b82f6; font-size: 0.95rem;">
+                <strong>Réponse C.</strong> La dérivée de $\sin$ est $\cos$, qui est majorée en valeur absolue par $1$. L'inégalité des accroissements finis (IAF) donne immédiatement le résultat.
+            </div>
+        </li>
+
+        <li style="margin-bottom: 20px;">
+            <strong>Combien de racines réelles le polynôme $P(x) = 3x^5 + 15x - 8$ possède-t-il ?</strong><br>
+            A) 0<br>
+            B) 1<br>
+            C) 3<br>
+            D) 5
+            <button class="opt-btn" style="display:block; margin-top:10px; padding: 5px 10px; font-size: 0.85rem; border: 1px solid #94a3b8; background: white; border-radius: 4px; cursor: pointer;" onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'block' ? 'none' : 'block'">Voir la réponse</button>
+            <div class="solbox" style="display: none; margin-top: 10px; padding: 10px; background: #e2e8f0; border-left: 4px solid #3b82f6; font-size: 0.95rem;">
+                <strong>Réponse B.</strong> $P'(x) = 15x^4 + 15 > 0$ sur $\mathbb{R}$. La fonction est strictement croissante. S'il y avait deux racines distinctes, par Rolle, $P'$ s'annulerait entre ces deux racines, ce qui est impossible. De plus, $\lim_{\pm \infty} P(x) = \pm \infty$, le TVI garantit donc l'existence d'exactement 1 racine.
+            </div>
+        </li>
+
+        <li style="margin-bottom: 20px;">
+            <strong>Soit $f(x) = x^3 - 3x$ sur $[0, 2]$. Quelle est la valeur du réel $c$ donné par le TAF ?</strong><br>
+            A) $1$<br>
+            B) $\sqrt{2}$<br>
+            C) $\frac{2}{\sqrt{3}}$<br>
+            D) Il y a une infinité de valeurs possibles.
+            <button class="opt-btn" style="display:block; margin-top:10px; padding: 5px 10px; font-size: 0.85rem; border: 1px solid #94a3b8; background: white; border-radius: 4px; cursor: pointer;" onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'block' ? 'none' : 'block'">Voir la réponse</button>
+            <div class="solbox" style="display: none; margin-top: 10px; padding: 10px; background: #e2e8f0; border-left: 4px solid #3b82f6; font-size: 0.95rem;">
+                <strong>Réponse C.</strong> On calcule $f(0)=0$ et $f(2)=2$. Le TAF pose $f(2)-f(0) = f'(c)(2-0)$, soit $2 = (3c^2-3) \times 2$. On simplifie : $1 = 3c^2 - 3 \implies 3c^2 = 4 \implies c^2 = \frac{4}{3}$. Comme $c \in ]0,2[$, on prend la racine positive $c = \frac{2}{\sqrt{3}}$.
+            </div>
+        </li>
+
+        <li style="margin-bottom: 20px;">
+            <strong>Le théorème de Rolle s'applique-t-il aux fonctions à valeurs complexes, par exemple $f(t) = e^{it}$ sur $[0, 2\pi]$ ?</strong><br>
+            A) Vrai, car la dérivée s'annule en un point.<br>
+            B) Faux, c'est un résultat purement réel.
+            <button class="opt-btn" style="display:block; margin-top:10px; padding: 5px 10px; font-size: 0.85rem; border: 1px solid #94a3b8; background: white; border-radius: 4px; cursor: pointer;" onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'block' ? 'none' : 'block'">Voir la réponse</button>
+            <div class="solbox" style="display: none; margin-top: 10px; padding: 10px; background: #e2e8f0; border-left: 4px solid #3b82f6; font-size: 0.95rem;">
+                <strong>Réponse B (Faux).</strong> Le théorème de Rolle (et l'égalité du TAF) tombe en défaut pour les fonctions à valeurs dans $\mathbb{C}$ ou $\mathbb{R}^n$. Pour $f(t) = e^{it}$, $f(0) = f(2\pi) = 1$, mais $f'(t) = ie^{it}$ dont le module vaut 1 : la dérivée ne s'annule jamais !
+            </div>
+        </li>
+    </ol>
+</div>
+
+<h2 style="margin-top: 40px; border-bottom: 2px solid var(--border); padding-bottom: 10px; color: var(--navy-dark);">
+    <i class="fas fa-microscope"></i> QCM 2 : Bien choisir son Taylor
+</h2>
+
+<div class="tcb-box exobox" style="background: #f8fafc; padding: 25px; border-radius: var(--radius); border: 1px solid #cbd5e1; margin-bottom: 20px;">
+    <ol style="padding-left: 20px; line-height: 1.8;">
+        
+        <li style="margin-bottom: 20px;">
+            <strong>Pour calculer la limite en $0$ de $\frac{\cos(x)-1}{x^2}$, quelle est la formule la plus adaptée ?</strong><br>
+            A) Taylor-Lagrange<br>
+            B) Taylor avec reste intégral<br>
+            C) Taylor-Young<br>
+            D) Le TAF itéré
+            <button class="opt-btn" style="display:block; margin-top:10px; padding: 5px 10px; font-size: 0.85rem; border: 1px solid #94a3b8; background: white; border-radius: 4px; cursor: pointer;" onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'block' ? 'none' : 'block'">Voir la réponse</button>
+            <div class="solbox" style="display: none; margin-top: 10px; padding: 10px; background: #e2e8f0; border-left: 4px solid #8b5cf6; font-size: 0.95rem;">
+                <strong>Réponse C.</strong> Taylor-Young donne l'existence d'un développement limité, ce qui est l'outil parfait (car purement local) pour lever une indétermination : $\cos(x) = 1 - \frac{x^2}{2} + o(x^2)$, d'où la limite de $-1/2$.
+            </div>
+        </li>
+
+        <li style="margin-bottom: 20px;">
+            <strong>On applique l'inégalité de Taylor-Lagrange à $e^x$ sur $[0, 1]$. On sait que l'erreur est majorée par $M \frac{|1-0|^{n+1}}{(n+1)!}$. Que vaut la constante optimale $M$ ?</strong><br>
+            A) $1$<br>
+            B) $e$<br>
+            C) $n$<br>
+            D) $0$
+            <button class="opt-btn" style="display:block; margin-top:10px; padding: 5px 10px; font-size: 0.85rem; border: 1px solid #94a3b8; background: white; border-radius: 4px; cursor: pointer;" onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'block' ? 'none' : 'block'">Voir la réponse</button>
+            <div class="solbox" style="display: none; margin-top: 10px; padding: 10px; background: #e2e8f0; border-left: 4px solid #8b5cf6; font-size: 0.95rem;">
+                <strong>Réponse B.</strong> $M$ doit être un majorant de la valeur absolue de la dérivée $(n+1)$-ième sur l'intervalle $[0, 1]$. Or, la dérivée $(n+1)$-ième de $e^x$ est $e^x$, qui est strictement croissante et atteint son maximum en $1$. Donc $M = e^1 = e$.
+            </div>
+        </li>
+
+        <li style="margin-bottom: 20px;">
+            <strong>Quelle est l'expression exacte du reste intégral dans la formule de Taylor à l'ordre 1 pour une fonction $f$ entre $a$ et $x$ ?</strong><br>
+            A) $\int_a^x f''(t) \, dt$<br>
+            B) $\int_a^x \frac{(x-t)^2}{2} f''(t) \, dt$<br>
+            C) $\int_a^x (x-t) f''(t) \, dt$<br>
+            D) $\int_a^x (t-a) f''(t) \, dt$
+            <button class="opt-btn" style="display:block; margin-top:10px; padding: 5px 10px; font-size: 0.85rem; border: 1px solid #94a3b8; background: white; border-radius: 4px; cursor: pointer;" onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'block' ? 'none' : 'block'">Voir la réponse</button>
+            <div class="solbox" style="display: none; margin-top: 10px; padding: 10px; background: #e2e8f0; border-left: 4px solid #8b5cf6; font-size: 0.95rem;">
+                <strong>Réponse C.</strong> L'expression générale du reste est $\int_a^x \frac{(x-t)^n}{n!} f^{(n+1)}(t) \, dt$. Pour $n=1$, on obtient bien $\int_a^x (x-t) f''(t) \, dt$.
+            </div>
+        </li>
+
+        <li style="margin-bottom: 20px;">
+            <strong>Si la fonction $f$ admet un développement limité $f(x) = 2 - 3x + 5x^2 + o(x^2)$ au voisinage de $0$, que vaut $f''(0)$ ?</strong><br>
+            A) $5$<br>
+            B) $10$<br>
+            C) $-3$<br>
+            D) Impossible de le savoir.
+            <button class="opt-btn" style="display:block; margin-top:10px; padding: 5px 10px; font-size: 0.85rem; border: 1px solid #94a3b8; background: white; border-radius: 4px; cursor: pointer;" onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'block' ? 'none' : 'block'">Voir la réponse</button>
+            <div class="solbox" style="display: none; margin-top: 10px; padding: 10px; background: #e2e8f0; border-left: 4px solid #8b5cf6; font-size: 0.95rem;">
+                <strong>Réponse B.</strong> D'après la formule de Taylor-Young, le coefficient de $x^2$ est égal à $\frac{f''(0)}{2!}$. On a donc $\frac{f''(0)}{2} = 5$, ce qui donne $f''(0) = 10$.
+            </div>
+        </li>
+
+        <li style="margin-bottom: 20px;">
+            <strong>Soit $f$ de classe $C^2$. Si $f'(a) = 0$ et $f''(a) < 0$, que peut-on déduire grâce à Taylor-Young au voisinage de $a$ ?</strong><br>
+            A) La fonction est localement constante.<br>
+            B) Le point $a$ est un minimum local.<br>
+            C) Le point $a$ est un maximum local.<br>
+            D) Le point $a$ est un point d'inflexion.
+            <button class="opt-btn" style="display:block; margin-top:10px; padding: 5px 10px; font-size: 0.85rem; border: 1px solid #94a3b8; background: white; border-radius: 4px; cursor: pointer;" onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'block' ? 'none' : 'block'">Voir la réponse</button>
+            <div class="solbox" style="display: none; margin-top: 10px; padding: 10px; background: #e2e8f0; border-left: 4px solid #8b5cf6; font-size: 0.95rem;">
+                <strong>Réponse C.</strong> $f(x) - f(a) = \frac{f''(a)}{2}(x-a)^2 + o((x-a)^2)$. Comme $(x-a)^2$ est positif et $f''(a) < 0$, la différence $f(x)-f(a)$ est strictement négative autour de $a$. $f(a)$ est donc un maximum local.
+            </div>
+        </li>
+
+        <li style="margin-bottom: 20px;">
+            <strong>Laquelle de ces formules fournit une égalité EXACTE, sans terme d'erreur asymptotique ("petit o") ni de majoration par inégalité ?</strong><br>
+            A) Formule de Taylor-Young<br>
+            B) Inégalité de Taylor-Lagrange<br>
+            C) Formule de Taylor avec reste intégral<br>
+            D) Les Développements Limités usuels
+            <button class="opt-btn" style="display:block; margin-top:10px; padding: 5px 10px; font-size: 0.85rem; border: 1px solid #94a3b8; background: white; border-radius: 4px; cursor: pointer;" onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'block' ? 'none' : 'block'">Voir la réponse</button>
+            <div class="solbox" style="display: none; margin-top: 10px; padding: 10px; background: #e2e8f0; border-left: 4px solid #8b5cf6; font-size: 0.95rem;">
+                <strong>Réponse C.</strong> La formule de Taylor avec reste intégral est la seule qui permet d'écrire le reste sous la forme d'une expression explicite et exacte (l'intégrale), et non comme un comportement asymptotique ou une simple borne.
+            </div>
+        </li>
+    </ol>
+</div>
+
+<h2 style="margin-top: 40px; border-bottom: 2px solid var(--border); padding-bottom: 10px; color: var(--navy-dark);">
+    <i class="fas fa-brain"></i> QCM 3 : Déductions et Calculs (Niveau Supérieur)
+</h2>
+
+<div class="tcb-box exobox" style="background: #f8fafc; padding: 25px; border-radius: var(--radius); border: 1px solid #cbd5e1; margin-bottom: 20px;">
+    <ol style="padding-left: 20px; line-height: 1.8;">
+        
+        <li style="margin-bottom: 20px;">
+            <strong>Soit $f(x) = x - \cos(x)$. L'équation $f(x) = 0$ admet sur $[0, \pi/2]$ :</strong><br>
+            A) Aucune solution<br>
+            B) Exactement 1 solution<br>
+            C) Exactement 2 solutions<br>
+            D) Une infinité de solutions
+            <button class="opt-btn" style="display:block; margin-top:10px; padding: 5px 10px; font-size: 0.85rem; border: 1px solid #94a3b8; background: white; border-radius: 4px; cursor: pointer;" onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'block' ? 'none' : 'block'">Voir la réponse</button>
+            <div class="solbox" style="display: none; margin-top: 10px; padding: 10px; background: #e2e8f0; border-left: 4px solid #10b981; font-size: 0.95rem;">
+                <strong>Réponse B.</strong> $f'(x) = 1 + \sin(x) > 0$ sur l'intervalle. $f$ y est donc strictement croissante. Comme $f(0) = -1 < 0$ et $f(\pi/2) = \pi/2 > 0$, le théorème de la bijection (TVI monotone) garantit une unique racine.
+            </div>
+        </li>
+
+        <li style="margin-bottom: 20px;">
+            <strong>À l'aide du TAF appliqué à $f(t) = \ln(1+t)$ sur $[0, x]$ avec $x > 0$, on peut déduire que :</strong><br>
+            A) $\ln(1+x) < x$<br>
+            B) $\ln(1+x) > x$<br>
+            C) $\ln(1+x) = x$<br>
+            D) $\ln(1+x) > 1/x$
+            <button class="opt-btn" style="display:block; margin-top:10px; padding: 5px 10px; font-size: 0.85rem; border: 1px solid #94a3b8; background: white; border-radius: 4px; cursor: pointer;" onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'block' ? 'none' : 'block'">Voir la réponse</button>
+            <div class="solbox" style="display: none; margin-top: 10px; padding: 10px; background: #e2e8f0; border-left: 4px solid #10b981; font-size: 0.95rem;">
+                <strong>Réponse A.</strong> Il existe $c \in ]0, x[$ tel que $\ln(1+x) - \ln(1) = \frac{1}{1+c} \times x$. Puisque $c > 0$, on a $1+c > 1$, donc $\frac{1}{1+c} < 1$. D'où $\ln(1+x) < x$.
+            </div>
+        </li>
+
+        <li style="margin-bottom: 20px;">
+            <strong>Soit $f$ une fonction de classe $C^2$ telle que $f(0)=0$, $f'(0)=1$ et pour tout $x \ge 0$, $f''(x) \ge 0$. Par Taylor, on peut déduire que pour tout $x \ge 0$ :</strong><br>
+            A) $f(x) \ge x^2$<br>
+            B) $f(x) \ge x$<br>
+            C) $f(x) \le x$<br>
+            D) $f(x) \ge e^x - 1$
+            <button class="opt-btn" style="display:block; margin-top:10px; padding: 5px 10px; font-size: 0.85rem; border: 1px solid #94a3b8; background: white; border-radius: 4px; cursor: pointer;" onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'block' ? 'none' : 'block'">Voir la réponse</button>
+            <div class="solbox" style="display: none; margin-top: 10px; padding: 10px; background: #e2e8f0; border-left: 4px solid #10b981; font-size: 0.95rem;">
+                <strong>Réponse B.</strong> La formule de Taylor avec reste intégral donne $f(x) = f(0) + f'(0)x + \int_0^x (x-t)f''(t) dt = x + \int_0^x (x-t)f''(t) dt$. Or $x-t \ge 0$ et $f''(t) \ge 0$ sur l'intervalle, donc l'intégrale est positive, d'où $f(x) \ge x$.
+            </div>
+        </li>
+
+        <li style="margin-bottom: 20px;">
+            <strong>Le développement de Taylor-Young de $\sin(x)$ en $0$ à l'ordre $3$ est :</strong><br>
+            A) $x - \frac{x^3}{3!} + o(x^3)$<br>
+            B) $1 - \frac{x^2}{2} + o(x^3)$<br>
+            C) $x - \frac{x^3}{3} + o(x^3)$<br>
+            D) $x + \frac{x^3}{6} + o(x^3)$
+            <button class="opt-btn" style="display:block; margin-top:10px; padding: 5px 10px; font-size: 0.85rem; border: 1px solid #94a3b8; background: white; border-radius: 4px; cursor: pointer;" onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'block' ? 'none' : 'block'">Voir la réponse</button>
+            <div class="solbox" style="display: none; margin-top: 10px; padding: 10px; background: #e2e8f0; border-left: 4px solid #10b981; font-size: 0.95rem;">
+                <strong>Réponse A.</strong> $\sin(0)=0, \sin'(0)=\cos(0)=1, \sin''(0)=-\sin(0)=0, \sin'''(0)=-\cos(0)=-1$. Donc $P_3(x) = 0 + 1 \cdot x + 0 \cdot \frac{x^2}{2} - 1 \cdot \frac{x^3}{6}$, soit $x - \frac{x^3}{3!}$.
+            </div>
+        </li>
+
+        <li style="margin-bottom: 20px;">
+            <strong>Que stipule le Théorème des Valeurs Intermédiaires (TVI) si on le compare à Rolle ou au TAF ?</strong><br>
+            A) Il s'intéresse aux images de la fonction, alors que Rolle s'intéresse à sa dérivée.<br>
+            B) Il requiert que la fonction soit dérivable, contrairement au TAF.<br>
+            C) Il ne s'applique qu'aux fonctions bijectives.<br>
+            D) Il donne la valeur exacte de l'antécédent.
+            <button class="opt-btn" style="display:block; margin-top:10px; padding: 5px 10px; font-size: 0.85rem; border: 1px solid #94a3b8; background: white; border-radius: 4px; cursor: pointer;" onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'block' ? 'none' : 'block'">Voir la réponse</button>
+            <div class="solbox" style="display: none; margin-top: 10px; padding: 10px; background: #e2e8f0; border-left: 4px solid #10b981; font-size: 0.95rem;">
+                <strong>Réponse A.</strong> Le TVI (basé sur la seule continuité) permet d'affirmer l'existence d'antécédents (valeurs de la fonction), tandis que Rolle et le TAF (qui requièrent la dérivabilité) s'intéressent aux valeurs prises par la dérivée.
+            </div>
+        </li>
+
+        <li style="margin-bottom: 20px;">
+            <strong>Soit $f : \mathbb{R} \to \mathbb{R}$ telle que $\forall x \in \mathbb{R}, f'(x) = f(x)$. L'utilisation de Rolle ou TAF est-elle la voie la plus directe pour montrer que $f(x) = C e^x$ ?</strong><br>
+            A) Oui, c'est une application immédiate du TAF.<br>
+            B) Non, il est plus direct d'utiliser la fonction auxiliaire $g(x) = f(x)e^{-x}$ et de dériver.<br>
+            <button class="opt-btn" style="display:block; margin-top:10px; padding: 5px 10px; font-size: 0.85rem; border: 1px solid #94a3b8; background: white; border-radius: 4px; cursor: pointer;" onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'block' ? 'none' : 'block'">Voir la réponse</button>
+            <div class="solbox" style="display: none; margin-top: 10px; padding: 10px; background: #e2e8f0; border-left: 4px solid #10b981; font-size: 0.95rem;">
+                <strong>Réponse B.</strong> C'est la méthode reine. On pose $g(x) = f(x)e^{-x}$. Alors $g'(x) = f'(x)e^{-x} - f(x)e^{-x} = (f'(x)-f(x))e^{-x} = 0$. Par le corollaire du TAF, une fonction dont la dérivée est nulle sur un intervalle est constante. Donc $g(x) = C$, soit $f(x) = Ce^x$.
+            </div>
+        </li>
+    </ol>
+</div>
