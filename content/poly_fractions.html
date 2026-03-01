@@ -1,0 +1,49 @@
+<div style="animation: fadeIn 0.5s;">
+    <div class="banner" style="background: linear-gradient(135deg, #7b341e, #dd6b20); padding: 40px; border-radius: 15px; color: white; margin-bottom: 30px;">
+        <h2 style="margin:0; font-size: 2.2rem;"><i class="fas fa-divide"></i> Fractions Rationnelles & D.E.S</h2>
+        <p style="opacity:0.9; margin-top:10px; font-size: 1.1rem;">Pôles, partie entière et Décomposition en Éléments Simples.</p>
+    </div>
+
+    <h3 style="color: var(--royal-blue); border-bottom: 2px solid var(--border); padding-bottom: 10px;"><i class="fas fa-fraction"></i> 1. Définitions et Pôles</h3>
+    <div style="background: white; padding: 20px; border-radius: 10px; box-shadow: var(--shadow); margin-bottom: 20px;">
+        <p>Une fraction rationnelle $F \in \mathbb{K}(X)$ est un "quotient formel" de deux polynômes $P$ et $Q$ avec $Q \neq 0$ :</p>
+        <p style="text-align: center;">$$F = \frac{P}{Q}$$</p>
+        <p>On peut toujours supposer $F$ sous <strong>forme irréductible</strong> (c'est-à-dire que $P$ et $Q$ sont premiers entre eux).</p>
+        <ul style="line-height: 1.6;">
+            <li><strong>Degré :</strong> $\deg(F) = \deg(P) - \deg(Q)$</li>
+            <li><strong>Pôles :</strong> Les racines complexes du dénominateur $Q$ (pour la forme irréductible).</li>
+            <li><strong>Zéros :</strong> Les racines complexes du numérateur $P$.</li>
+        </ul>
+    </div>
+
+    <h3 style="color: var(--royal-blue); border-bottom: 2px solid var(--border); padding-bottom: 10px;"><i class="fas fa-cut"></i> 2. Partie Entière</h3>
+    <div style="background: #ebf8ff; padding: 20px; border-left: 5px solid var(--accent); border-radius: 8px; margin-bottom: 30px;">
+        <p>Toute fraction rationnelle $F = \frac{P}{Q}$ se décompose de manière unique sous la forme :</p>
+        <p style="text-align: center;">$$F = E + \frac{R}{Q}$$</p>
+        <p>Où $E$ est un polynôme appelé <strong>partie entière</strong> de $F$, et $\deg(R) < \deg(Q)$.</p>
+        <p style="margin-bottom: 0;"><strong>Astuce :</strong> $E$ est simplement le quotient de la division euclidienne de $P$ par $Q$. Si $\deg(P) < \deg(Q)$, alors la partie entière est nulle ($E=0$).</p>
+    </div>
+
+    <h3 style="color: var(--royal-blue); border-bottom: 2px solid var(--border); padding-bottom: 10px;"><i class="fas fa-sitemap"></i> 3. Décomposition en Éléments Simples (D.E.S)</h3>
+    <div style="background: #fffaf0; padding: 20px; border-left: 5px solid var(--gold); border-radius: 8px; margin-bottom: 20px; box-shadow: var(--shadow);">
+        <h4 style="margin-top: 0; color: #975a16;">Théorème d'existence et d'unicité</h4>
+        <p>Toute fraction rationnelle $F = \frac{P}{Q}$ s'écrit de manière unique comme la somme de sa partie entière et d'éléments simples associés à chaque pôle de $Q$.</p>
+        
+        <h5 style="color: var(--royal-blue);">Dans $\mathbb{C}(X)$ :</h5>
+        <p>Les éléments simples sont tous de la forme $\frac{\lambda}{(X-a)^k}$. Exemple pour un pôle $a$ de multiplicité 2 :</p>
+        <p style="text-align: center;">$$\frac{c_1}{X-a} + \frac{c_2}{(X-a)^2}$$</p>
+
+        <h5 style="color: var(--royal-blue);">Dans $\mathbb{R}(X)$ :</h5>
+        <p>S'ajoutent des éléments simples de seconde espèce pour les polynômes irréductibles de degré 2 ($\Delta < 0$) :</p>
+        <p style="text-align: center;">$$\frac{\alpha X + \beta}{(X^2+pX+q)^k}$$</p>
+    </div>
+
+    <h3 style="color: var(--royal-blue); border-bottom: 2px solid var(--border); padding-bottom: 10px;"><i class="fas fa-lightbulb"></i> 4. Astuces de calcul des coefficients</h3>
+    <div style="background: white; padding: 20px; border-radius: 10px; box-shadow: var(--shadow); margin-bottom: 20px;">
+        <ul style="line-height: 1.8;">
+            <li><strong>Pour un pôle simple $a$ :</strong> Le coefficient (résidu) s'obtient en calculant $\left[ (X-a)F(X) \right]_{X=a}$ ou bien avec la formule de Taylor : $\frac{P(a)}{Q'(a)}$.</li>
+            <li><strong>Parité :</strong> Si $F$ est paire ou impaire, la D.E.S conserve les symétries, ce qui réduit de moitié les coefficients à calculer.</li>
+            <li><strong>Limite à l'infini :</strong> Multiplier l'égalité de la D.E.S par $X$ et faire tendre $x \to +\infty$ donne une relation simple sur la somme des coefficients de degré 1.</li>
+        </ul>
+    </div>
+</div>
