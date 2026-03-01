@@ -1,0 +1,215 @@
+<div class="banner">
+    <h1 style="font-size: 2rem; margin: 0;"><i class="fas fa-bolt"></i> Training : Géométrie (v3)</h1>
+    <p style="opacity: 0.8;">Série de 20 questions (Niveau 3) : Perfectionnement et rapidité.</p>
+</div>
+
+<div id="quiz-wrapper">
+
+    <div class="qcm-box">
+        <div class="qcm-question">1. Le produit scalaire est une forme :</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, true)">Bilinéaire symétrique définie positive</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">Bilinéaire alternée</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">Linéaire</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">Quadratique uniquement</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">2. L'équation $x^2 + y^2 = 0$ représente dans $\mathbb{R}^2$ :</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, false)">Un cercle de rayon nul</button>
+            <button class="opt-btn" onclick="checkAnswer(this, true)">Le point unique $(0, 0)$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">L'ensemble vide</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">Une droite</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">3. Soient $A(1, 1)$ et $B(3, 5)$. Le vecteur $\vec{AB}$ a pour coordonnées :</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$(4, 6)$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, true)">$(2, 4)$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$(-2, -4)$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$(1, 2)$</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">4. L'angle $(\vec{i}, \vec{u})$ avec $\vec{u}(-1, 1)$ est :</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$\pi/4$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, true)">$3\pi/4$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$-\pi/4$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$5\pi/4$</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">5. La distance du point $M(1, 1)$ à la droite $x + y = 0$ est :</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, false)">2</button>
+            <button class="opt-btn" onclick="checkAnswer(this, true)">$\sqrt{2}$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">0</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$1/\sqrt{2}$</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">6. Deux droites d'équations $y = mx+p$ et $y = m'x+p'$ sont perpendiculaires si :</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$m = m'$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, true)">$mm' = -1$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$mm' = 1$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$m + m' = 0$</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">7. L'aire du triangle dont les sommets sont $(0,0), (1,0)$ et $(0,1)$ est :</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, false)">1</button>
+            <button class="opt-btn" onclick="checkAnswer(this, true)">0.5</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">2</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$\sqrt{2}$</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">8. Le vecteur $\vec{n}(a, b)$ est normal à la droite :</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, true)">$ax + by + c = 0$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$bx - ay + c = 0$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$x/a + y/b = 1$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$y = ax + b$</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">9. En coordonnées polaires, $x^2 + y^2$ s'écrit :</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$r$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, true)">$r^2$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$r \cos \theta$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$1$</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">10. Le projeté orthogonal de l'origine sur la droite $x=3$ est :</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$(0, 3)$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, true)">$(3, 0)$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$(3, 3)$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">L'origine elle-même</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">11. Si $\vec{u} \cdot \vec{v} = 3$ et $\|\vec{u}\| = 2, \|\vec{v}\| = 3$, alors $\cos(\theta)$ vaut :</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, false)">1</button>
+            <button class="opt-btn" onclick="checkAnswer(this, true)">0.5</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$\sqrt{3}/2$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">0</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">12. L'ensemble des points $M$ tels que $MA^2 - MB^2 = k$ est :</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, false)">Un cercle</button>
+            <button class="opt-btn" onclick="checkAnswer(this, true)">Une droite perpendiculaire à $(AB)$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">Une ellipse</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">Un point</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">13. L'équation de la tangente au cercle $x^2 + y^2 = R^2$ au point $M_0(x_0, y_0)$ est :</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, true)">$xx_0 + yy_0 = R^2$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$x/x_0 + y/y_0 = 1$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$(x-x_0)^2 + (y-y_0)^2 = R^2$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$y - y_0 = x - x_0$</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">14. Si $\det(\vec{u}, \vec{v}) < 0$, alors la base $(\vec{u}, \vec{v})$ est :</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, false)">Directe</button>
+            <button class="opt-btn" onclick="checkAnswer(this, true)">Indirecte</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">Orthonormée</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">Liée</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">15. La droite passant par l'origine et de pente $1$ a pour équation polaire :</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$r = 1$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, true)">$\theta = \pi/4$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$r = \theta$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$\theta = \pi/2$</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">16. Quelle est la norme de $\vec{u} = \cos(\alpha)\vec{i} + \sin(\alpha)\vec{j}$ ?</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$\alpha$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, true)">1</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$\cos(2\alpha)$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">0</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">17. Le symétrique du point $(x, y)$ par rapport à l'axe $(Ox)$ est :</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$(-x, y)$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, true)">$(x, -y)$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$(-x, -y)$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$(y, x)$</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">18. La relation d'Al-Kashi dans un triangle s'écrit $a^2 = b^2 + c^2 - \dots$</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$bc \cos(A)$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, true)">$2bc \cos(A)$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$2bc \sin(A)$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$bc \sin(A)$</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">19. Pour tout vecteur $\vec{u}$, $\vec{u} \cdot \vec{u}$ est :</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, false)">Toujours nul</button>
+            <button class="opt-btn" onclick="checkAnswer(this, true)">Toujours positif ou nul</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">Toujours strictement positif</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">Parfois négatif</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">20. La condition $\det(\vec{u}, \vec{v}) = \|\vec{u}\|\|\vec{v}\|$ implique :</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$\vec{u} \perp \vec{v}$ et sens direct</button>
+            <button class="opt-btn" onclick="checkAnswer(this, true)">$\vec{u} \perp \vec{v}$ et angle $+\pi/2$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$\vec{u}$ et $\vec{v}$ colinéaires</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$\vec{u} = \vec{v}$</button>
+        </div>
+    </div>
+
+</div>
+
+<div id="score-display" style="display:none; margin-top: 30px;"></div>
+<div id="congrats-msg" style="display:none;"></div>
+
+<button id="submit-btn" class="btn-primary" onclick="calculateScore()">
+    <i class="fas fa-trophy"></i> Terminer le Training v3
+</button>
