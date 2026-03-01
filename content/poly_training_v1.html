@@ -1,0 +1,206 @@
+<div style="animation: fadeIn 0.5s;">
+    <div class="banner" style="background: linear-gradient(135deg, #1a365d, #3182ce); padding: 40px; border-radius: 15px; color: white; text-align: center; margin-bottom: 30px;">
+        <h2 style="margin:0; font-size: 2rem;"><i class="fas fa-bolt"></i> Training Polynômes - Version 1</h2>
+        <p style="opacity:0.9; margin-top:10px; font-size: 1.1rem;">Évaluation aléatoire : Bases & Arithmétique (20 Questions)</p>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">Q1. Soient $P$ et $Q$ deux polynômes de $\mathbb{K}[X]$ tels que $\deg(P) > \deg(Q)$. Quel est le degré du polynôme $P + Q$ ?</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, true)">$\deg(P)$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$\max(\deg(P), \deg(Q))$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$\deg(P) + \deg(Q)$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$\deg(P) - \deg(Q)$</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">Q2. Soient $P$ et $Q$ deux polynômes non nuls de $\mathbb{K}[X]$. Quel est le degré du polynôme composé $P \circ Q$ ?</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$\deg(P) + \deg(Q)$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, true)">$\deg(P) \times \deg(Q)$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$\max(\deg(P), \deg(Q))$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$\deg(P)^{\deg(Q)}$</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">Q3. Soit la division euclidienne de $A$ par $B$ ($B \neq 0$) : $A = BQ + R$. Quelle condition définit de manière unique le reste $R$ ?</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$\deg(R) \leq \deg(B)$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, true)">$\deg(R) < \deg(B)$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$R = 0$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$\deg(R) < \deg(Q)$</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">Q4. Par convention, quel est le degré du polynôme nul ($P = 0$) ?</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$0$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$-1$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, true)">$-\infty$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">Non défini</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">Q5. Quel est le reste de la division euclidienne d'un polynôme $P$ par $(X - a)$ ?</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$0$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$P'(a)$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, true)">$P(a)$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$P(-a)$</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">Q6. Dans $\mathbb{C}[X]$, quels sont les seuls polynômes irréductibles ?</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, false)">Les polynômes de degré 1 et 2</button>
+            <button class="opt-btn" onclick="checkAnswer(this, true)">Uniquement les polynômes de degré 1</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">Les polynômes de degré impair</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">Aucun</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">Q7. Que signifie le fait que deux polynômes $A$ et $B$ soient "premiers entre eux" ?</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, false)">Ils n'ont pas de racines communes</button>
+            <button class="opt-btn" onclick="checkAnswer(this, true)">Leurs seuls diviseurs communs sont des constantes non nulles</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">Leur somme est égale à 1</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">L'un des deux est irréductible</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">Q8. Quel est le coefficient dominant du polynôme $P(X) = (2X^3 + X - 1)^4$ ?</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$8$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, true)">$16$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$2$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$12$</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">Q9. Soient $P$ et $Q$ deux polynômes non nuls. Si $P|Q$ et $Q|P$, que peut-on en déduire ?</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$P = Q$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, true)">$P = \lambda Q$ avec $\lambda \in \mathbb{K}^*$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$\deg(P) = \deg(Q) + 1$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">Leur PGCD est nul</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">Q10. Quelle est la dimension de l'espace vectoriel $\mathbb{K}_n[X]$ ?</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$n$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, true)">$n+1$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$n-1$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">Infinie</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">Q11. Si un polynôme $P \in \mathbb{K}[X]$ s'annule sur une infinité de points, alors :</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$P$ est unitaire</button>
+            <button class="opt-btn" onclick="checkAnswer(this, true)">$P$ est le polynôme nul</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$P$ est de degré impair</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$P$ est scindé</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">Q12. Soit $P = X^n + a_{n-1}X^{n-1} + \dots + a_0$. À quoi correspond $a_{n-1}$ ?</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, false)">Au produit des racines</button>
+            <button class="opt-btn" onclick="checkAnswer(this, true)">À l'opposé de la somme des racines</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">À la somme des racines</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">À la somme des doubles produits</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">Q13. Comment obtient-on la somme des coefficients d'un polynôme $P(X)$ ?</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, false)">En calculant $P(0)$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, true)">En calculant $P(1)$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">En calculant $P(-1)$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">En dérivant le polynôme</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">Q14. Quelle est la parité d'un polynôme qui ne contient que des puissances paires de $X$ ?</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, false)">Impair</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">Pas de parité définie</button>
+            <button class="opt-btn" onclick="checkAnswer(this, true)">Pair</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">Constant</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">Q15. Si $\deg(P) = n \geq 1$ en caractéristique nulle, quel est le degré de $P'$ ?</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$n$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$n+1$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, true)">$n-1$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">Imprévisible</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">Q16. Que donne la formule de Taylor pour un polynôme $P$ de degré $n$, évaluée en $a$ ?</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, true)">$\sum_{k=0}^{n} \frac{P^{(k)}(a)}{k!} (X-a)^k$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$\sum_{k=0}^{n} P^{(k)}(a) (X-a)^k$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$\sum_{k=0}^{\infty} \frac{P^{(k)}(a)}{k!} X^k$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$\sum_{k=0}^{n} \frac{P(k)}{k!} a^k$</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">Q17. Dans $\mathbb{K}[X]$, l'ensemble des multiples d'un polynôme fixé $A$ forme :</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, false)">Un corps</button>
+            <button class="opt-btn" onclick="checkAnswer(this, true)">Un idéal</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">Un groupe fini</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">L'ensemble vide</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">Q18. Si $a$ est racine d'un polynôme $P(X)$, et que $P$ est impair, que peut-on affirmer ?</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, true)">$P(-a) = 0$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$a$ est une racine double</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">Pas d'autres racines</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$a = 0$</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">Q19. Si $A | B$ et $B | C$, quelle propriété permet de conclure que $A | C$ ?</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, false)">La réflexivité</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">La symétrie</button>
+            <button class="opt-btn" onclick="checkAnswer(this, true)">La transitivité</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">L'antisymétrie</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">Q20. L'ensemble des polynômes de degré *exactement* $n$ forme-t-il un sous-espace vectoriel de $\mathbb{K}[X]$ ?</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, false)">Oui, de dimension $n$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">Oui, de dimension $n+1$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, true)">Non, car il ne contient pas le polynôme nul</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">Non, car ce n'est pas un ensemble fini</button>
+        </div>
+    </div>
+</div>
