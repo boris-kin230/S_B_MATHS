@@ -211,70 +211,176 @@
     </div>
 
 </div>
+<style>
+    /* ==========================================================================
+       COMPLÉMENT TRAINING - ELIAN MATHS PRESTIGE
+       ========================================================================== */
 
-<script>
-    /**
-     * GESTION DE LA BARRE DE PROGRESSION
-     */
-    function updateProgress() {
-        const total = 20; // Nombre total de questions
-        const checked = document.querySelectorAll('input[type="radio"]:checked').length;
-        const percent = (checked / total) * 100;
-        
-        document.getElementById('progress-fill').style.width = percent + "%";
-        document.getElementById('progress-text').innerText = checked + " / " + total;
+    .training-wrapper {
+        animation: fadeIn 0.6s ease-out;
+        max-width: 1000px;
+        margin: 0 auto;
     }
 
-    /**
-     * ANALYSE DES RÉSULTATS
-     */
-    function analyserResultats() {
-        const nom = document.getElementById('nom_eleve').value.trim() || "Candidat Anonyme";
-        const classe = document.getElementById('classe_eleve').value;
-        const total = 20;
-        let score = 0;
-
-        // Calcul du score
-        for (let i = 1; i <= total; i++) {
-            const reponse = document.querySelector(`input[name="q${i}"]:checked`);
-            if (reponse && reponse.value === "correct") score++;
-        }
-
-        // Transition Visuelle
-        document.getElementById('quizForm').style.display = "none";
-        document.querySelector('.tcb-box').style.display = "none";
-        document.querySelector('.progression-bar-container').style.display = "none";
-        
-        const resultBox = document.getElementById('resultat_box');
-        resultBox.style.display = "block";
-
-        // Affichage des données
-        document.getElementById('display_name').innerText = nom;
-        document.getElementById('display_class').innerText = "Classe : " + classe;
-        document.getElementById('score_num').innerText = score + "/" + total;
-
-        const title = document.getElementById('appreciation_title');
-        const text = document.getElementById('appreciation_text');
-
-        // Logique de Feedback
-        if (score >= 18) {
-            title.innerHTML = "⭐ Major de Promotion";
-            text.innerText = "Maîtrise absolue. Vos bases en algèbre polynomiale sont solides. Vous êtes prêt pour les épreuves de synthèse de type Mines-Ponts / Centrale.";
-            title.style.color = "var(--forest-green)";
-        } else if (score >= 14) {
-            title.innerHTML = "📈 Niveau Admissible";
-            text.innerText = "Excellent travail. Quelques erreurs de précision sur les propriétés fines (irréductibilité ou Tchebychev). Une relecture ciblée suffira.";
-            title.style.color = "var(--royal-blue)";
-        } else if (score >= 10) {
-            title.innerHTML = "⚖️ Résultat Moyen";
-            text.innerText = "Le socle est là, mais attention à la rigueur des définitions. Les polynômes ne supportent pas l'approximation.";
-            title.style.color = "#d69e2e";
-        } else {
-            title.innerHTML = "🚨 Consolidation Nécessaire";
-            text.innerText = "Des lacunes importantes sur les définitions de base. Un retour immédiat au cours et aux exercices de niveau 1 est impératif.";
-            title.style.color = "var(--error-red)";
-        }
-
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+    /* 1. BARRE DE PROGRESSION (Sticky Performance) */
+    .progression-bar-container {
+        position: sticky;
+        top: 0;
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(5px);
+        padding: 15px 20px;
+        z-index: 100;
+        border-bottom: 2px solid var(--bg-light);
+        margin-bottom: 30px;
+        border-radius: 0 0 var(--radius) var(--radius);
+        box-shadow: var(--shadow-sm);
     }
-</script>
+
+    .progress-track {
+        width: 100%;
+        height: 10px;
+        background: var(--bg-light);
+        border-radius: 20px;
+        overflow: hidden;
+        border: 1px solid rgba(0,0,0,0.05);
+    }
+
+    .progress-fill {
+        width: 0%;
+        height: 100%;
+        background: linear-gradient(90deg, var(--royal-blue), var(--accent-green));
+        transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* 2. BADGES DE DIFFICULTÉ */
+    .diff-badge {
+        font-size: 0.65rem;
+        padding: 4px 10px;
+        border-radius: 50px;
+        text-transform: uppercase;
+        font-weight: 800;
+        margin-left: 10px;
+        vertical-align: middle;
+        letter-spacing: 0.5px;
+    }
+    .diff-easy   { background: #e8f5e9; color: #2e7d32; border: 1px solid #c8e6c9; }
+    .diff-medium { background: #fff3e0; color: #ef6c00; border: 1px solid #ffe0b2; }
+    .diff-hard   { background: #fce4ec; color: #c2185b; border: 1px solid #f8bbd0; }
+
+    /* 3. CARTES DE QUESTIONS (Quiz Cards) */
+    .quiz-card {
+        transition: var(--transition);
+        border-left: 5px solid #d1d5db; /* Gris par défaut */
+    }
+
+    /* État quand une question est répondue (via JS) */
+    .quiz-card.answered {
+        border-left-color: var(--accent-green) !important;
+        background-color: var(--solbox-bg);
+    }
+
+    .question-text {
+        font-size: 1.15rem;
+        font-weight: 700;
+        color: var(--navy);
+        margin-bottom: 20px;
+        line-height: 1.5;
+    }
+
+    /* 4. OPTIONS DE RÉPONSE (Look "Application") */
+    .options-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 12px;
+        margin-top: 15px;
+    }
+
+    .option-item {
+        background: var(--white);
+        border: 2px solid var(--bg-light);
+        padding: 16px 20px;
+        border-radius: var(--radius);
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        transition: all 0.2s ease;
+        font-weight: 600;
+        color: var(--text-main);
+        position: relative;
+    }
+
+    .option-item:hover {
+        border-color: var(--royal-blue);
+        background-color: #f0f7ff;
+        transform: translateY(-2px);
+    }
+
+    /* État sélectionné (Le coeur de l'interactivité) */
+    .option-item:has(input:checked) {
+        border-color: var(--royal-blue);
+        background-color: #ebf8ff;
+        box-shadow: 0 4px 12px rgba(0, 77, 64, 0.1);
+    }
+
+    .option-item input[type="radio"] {
+        margin-right: 15px;
+        width: 18px;
+        height: 18px;
+        accent-color: var(--royal-blue);
+        cursor: pointer;
+    }
+
+    /* 5. BOUTON PRESTIGE FINAL */
+    .prestige-btn {
+        display: block;
+        width: 100%;
+        max-width: 400px;
+        margin: 40px auto;
+        padding: 18px;
+        background: linear-gradient(135deg, var(--navy), var(--royal-blue));
+        color: white;
+        border: none;
+        border-radius: 50px;
+        font-size: 1.1rem;
+        font-weight: 800;
+        letter-spacing: 1px;
+        cursor: pointer;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        transition: var(--transition);
+    }
+
+    .prestige-btn:hover {
+        transform: translateY(-3px) scale(1.02);
+        box-shadow: 0 15px 30px rgba(0, 77, 64, 0.2);
+    }
+
+    /* 6. ÉCRAN DE RÉSULTAT */
+    .score-circle {
+        width: 140px;
+        height: 140px;
+        border-radius: 50%;
+        background: var(--white);
+        color: var(--royal-blue);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 3rem;
+        font-weight: 800;
+        margin: 30px auto;
+        border: 8px solid var(--royal-blue);
+        box-shadow: var(--shadow-md);
+        position: relative;
+    }
+
+    /* 7. ANIMATIONS */
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+        .options-grid { grid-template-columns: 1fr; }
+        #main { padding: 15px; }
+    }
+</style>
