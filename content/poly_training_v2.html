@@ -1,7 +1,7 @@
 <div style="animation: fadeIn 0.5s;">
     <div class="banner" style="background: linear-gradient(135deg, #276749, #38a169); padding: 40px; border-radius: 15px; color: white; text-align: center; margin-bottom: 30px;">
         <h2 style="margin:0; font-size: 2rem;"><i class="fas fa-bolt"></i> Training Polynômes - Version 2</h2>
-        <p style="opacity:0.9; margin-top:10px; font-size: 1.1rem;">Évaluation aléatoire : Racines, Multiplicité & Factorisation (20 Questions)</p>
+        <p style="opacity:0.9; margin-top:10px; font-size: 1.1rem;">Évaluation aléatoire : Racines, Multiplicité, Factorisation & Calculs (30 Questions)</p>
     </div>
 
     <div class="qcm-box">
@@ -99,7 +99,7 @@
         <div class="qcm-grid">
             <button class="opt-btn" onclick="checkAnswer(this, false)">$(X-1)^n$</button>
             <button class="opt-btn" onclick="checkAnswer(this, true)">$\prod_{k=0}^{n-1} (X - e^{i\frac{2k\pi}{n}})$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$(X-1)(X^{n-1} + \dots + 1)$ (C'est irréductible)</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$(X-1)(X^{n-1} + \dots + 1)$</button>
             <button class="opt-btn" onclick="checkAnswer(this, false)">$\prod_{k=1}^n (X - i^k)$</button>
         </div>
     </div>
@@ -203,4 +203,110 @@
             <button class="opt-btn" onclick="checkAnswer(this, false)">À l'aide de la division euclidienne par $X$</button>
         </div>
     </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">Q21. Quel est le reste de la division euclidienne de $P(X) = X^{2024} - 1$ par $X + 1$ ?</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, false)">1</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$-2$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, true)">0</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">2</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">Q22. Soit la décomposition $F(X) = \frac{2}{X^2 - 1} = \frac{a}{X-1} + \frac{b}{X+1}$. Que valent respectivement $a$ et $b$ ?</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$a=1, b=1$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, true)">$a=1, b=-1$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$a=-1, b=1$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$a=2, b=2$</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">Q23. Que vaut l'intégrale $\int_{-1}^{1} (5X^4 - 3X^2 + 2) \, dX$ ?</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, false)">0</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">2</button>
+            <button class="opt-btn" onclick="checkAnswer(this, true)">4</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">8</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">Q24. Sachant que 1 est racine évidente, quelle est la factorisation de $P(X) = X^3 - 4X^2 + 5X - 2$ sur $\mathbb{R}$ ?</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, true)">$(X-1)^2(X-2)$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$(X-1)(X-2)^2$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$(X-1)(X+2)^2$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$(X+1)^2(X-2)$</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">Q25. En utilisant une décomposition en éléments simples, calculez l'intégrale $\int_{0}^{1} \frac{1}{(X+1)(X+2)} \, dX$ :</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$\ln(3/2)$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, true)">$\ln(4/3)$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$\ln(2)$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$\ln(3)$</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">Q26. Quel est l'ordre de multiplicité de la racine $i$ pour le polynôme $P(X) = (X^2+1)^3 (X-i)^2$ ?</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, false)">2</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">3</button>
+            <button class="opt-btn" onclick="checkAnswer(this, true)">5</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">6</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">Q27. Quel est le quotient exact de la division euclidienne de $X^4 - 1$ par $X^2 - 1$ ?</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$X^2 - 1$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, true)">$X^2 + 1$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$X - 1$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$X^3 + 1$</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">Q28. Quelle est la décomposition en éléments simples sur $\mathbb{R}$ de $F(X) = \frac{X}{(X-1)^2}$ ?</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$\frac{1}{(X-1)^2}$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$\frac{X}{X-1} + \frac{1}{(X-1)^2}$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$\frac{1}{X-1} - \frac{1}{(X-1)^2}$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, true)">$\frac{1}{X-1} + \frac{1}{(X-1)^2}$</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">Q29. Le reste de la division de $P(X)$ par $(X-1)(X-2)$ est de la forme $R(X) = aX+b$. Si $P(1)=3$ et $P(2)=5$, que vaut $R(X)$ ?</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, true)">$2X + 1$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$3X + 2$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$X + 2$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$2X - 1$</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">Q30. Quelle est la primitive sur $\mathbb{R}$ de la fraction rationnelle $F(X) = \frac{2X}{X^2+1}$ ? (à une constante près)</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$\arctan(X)$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$\frac{1}{X^2+1}$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, true)">$\ln(X^2+1)$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$2\ln(X^2+1)$</button>
+        </div>
+    </div>
+
+    <button id="submit-btn" class="btn-primary" onclick="calculateScore()">Valider mes réponses</button>
+    
+    <div id="score-display" style="display: none; margin-top: 40px;"></div>
+    <div id="congrats-msg" style="display: none;"></div>
+
 </div>
