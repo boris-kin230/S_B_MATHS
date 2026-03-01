@@ -78,6 +78,15 @@
             color: white; padding: 50px; border-radius: 20px; margin-bottom: 30px;
             box-shadow: 0 10px 25px rgba(26, 54, 93, 0.2);
         }
+        
+        /* STYLES GLOBAUX POUR LES QCM INJECTÉS */
+        .qcm-box { background: white; padding: 25px; border-radius: 12px; margin-bottom: 25px; border-left: 5px solid var(--gold); box-shadow: var(--shadow); }
+        .qcm-question { font-weight: 600; font-size: 1.1rem; margin-bottom: 20px; color: var(--royal-blue); }
+        .qcm-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        .opt-btn { padding: 15px; border: 2px solid #e2e8f0; background: #f8fafc; border-radius: 10px; cursor: pointer; transition: 0.2s; font-family: inherit; font-size: 1rem; text-align: left; }
+        .opt-btn:hover:not(:disabled) { background: #edf2f7; border-color: #3182ce; }
+        .opt-btn.correct { background: #c6f6d5 !important; border-color: #38a169 !important; color: #22543d; font-weight: bold; }
+        .opt-btn.wrong { background: #fed7d7 !important; border-color: #e53e3e !important; color: #822727; text-decoration: line-through; }
     </style>
 </head>
 <body>
@@ -163,7 +172,7 @@
         target.style.opacity = '0.3';
         try {
             const response = await fetch(`content/${file}.html`);
-            const html = response.ok ? await response.text() : `<div class="banner" style="background: #e53e3e"><h1>Module Introuvable</h1><p>Le fichier ${file}.html manque dans /content/.</p></div>`;
+            const html = response.ok ? await response.text() : `<div class="banner" style="background: #e53e3e"><h1>Module Introuvable</h1><p>Le fichier ${file}.html manque dans le dossier /content/.</p></div>`;
             target.innerHTML = html;
             if (window.MathJax) MathJax.typesetPromise([target]);
         } catch (e) { console.error(e); }
@@ -177,6 +186,24 @@
         const fileName = `${subject}_training_v${quizNumber}`;
         console.log(`Lancement du training : ${fileName}`);
         load(fileName);
+    }
+
+    // FONCTION GLOBALE POUR LE QCM (Ajoutée ici pour fonctionner partout)
+    function checkAnswer(button, isCorrect) {
+        const container = button.parentElement;
+        const allButtons = container.querySelectorAll('.opt-btn');
+        
+        // Désactive tous les boutons de cette question
+        allButtons.forEach(btn => btn.disabled = true);
+        
+        if(isCorrect) {
+            button.classList.add('correct');
+        } else {
+            button.classList.add('wrong');
+            // Montre la bonne réponse à l'élève
+            const correctBtn = Array.from(allButtons).find(b => b.getAttribute('onclick').includes('true'));
+            if(correctBtn) correctBtn.classList.add('correct');
+        }
     }
 </script>
 
