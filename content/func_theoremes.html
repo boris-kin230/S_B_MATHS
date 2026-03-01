@@ -1,0 +1,155 @@
+<div class="banner">
+    <h1 style="font-size: 2.2rem; margin: 0; letter-spacing: -1px;">Théorèmes de Rolle et des Accroissements Finis</h1>
+    <p style="opacity: 0.9; font-size: 1.1rem; margin-top: 10px;">Énoncés, Démonstrations et Applications (Monotonie)</p>
+</div>
+
+<h2 style="margin-top: 30px; border-bottom: 2px solid var(--border); padding-bottom: 10px; color: var(--navy-dark);">
+    <i class="fas fa-mountain"></i> 1. Théorème de Rolle
+</h2>
+
+<div class="tcb-box thmbox" style="background: var(--surface); padding: 25px; border-radius: var(--radius); border-left: 5px solid #3b82f6; box-shadow: var(--shadow-sm); margin-bottom: 25px;">
+    <div class="tcb-title" style="font-weight: 800; color: #1e40af; margin-bottom: 15px; font-size: 1.1rem;">Théorème de Rolle</div>
+    <div class="tcb-content" style="line-height: 1.6;">
+        Soit $f : [a,b] \to \mathbb{R}$ une fonction satisfaisant les trois conditions suivantes :
+        <ol style="margin-top: 10px; padding-left: 20px;">
+            <li>$f$ est <span style="color: #ef4444; font-weight: 600;">continue</span> sur le segment $[a,b]$.</li>
+            <li>$f$ est <span style="color: #ef4444; font-weight: 600;">dérivable</span> sur l'ouvert $]a,b[$.</li>
+            <li><span style="color: #ef4444; font-weight: 600;">$f(a) = f(b)$</span>.</li>
+        </ol>
+        Alors, il existe au moins un réel $c \in ]a,b[$ tel que <span style="color: #3b82f6; font-weight: 600;">$f'(c) = 0$</span>.
+    </div>
+</div>
+
+<div class="tcb-box proofbox" style="background: #f8fafc; padding: 25px; border-radius: var(--radius); border: 1px solid var(--border); margin-bottom: 40px;">
+    <div class="tcb-title" style="font-weight: 700; color: var(--text-muted); margin-bottom: 15px;"><i class="fas fa-pen-nib"></i> Démonstration</div>
+    <div class="tcb-content" style="font-size: 0.95rem; line-height: 1.6;">
+        <p>L'objectif est de prouver qu'une fonction qui "revient à son point de départ" doit forcément s'être "horizontalisée" à un moment donné.</p>
+
+        <p><strong>1. Phase d'existence (Théorème des Bornes Atteintes) :</strong><br>
+        Puisque $f$ est continue sur le segment $[a,b]$, le théorème de Weierstrass garantit que $f$ est bornée et qu'elle atteint ses bornes. Il existe donc au moins deux points $x_m$ et $x_M$ dans $[a,b]$ tels que :
+        $$f(x_m) = m = \min_{x \in [a,b]} f(x) \quad \text{et} \quad f(x_M) = M = \max_{x \in [a,b]} f(x)$$</p>
+
+        <p><strong>2. Localisation de l'extremum :</strong><br>
+        Nous devons localiser un extremum à l'intérieur de l'intervalle ouvert $]a,b[$.</p>
+        <ul style="padding-left: 20px;">
+            <li><strong>Cas 1 :</strong> $m = M$. La fonction possède un maximum égal à son minimum, elle est donc constante. Sa dérivée est nulle partout, n'importe quel $c \in ]a,b[$ convient.</li>
+            <li><strong>Cas 2 :</strong> $m < M$. Comme $f(a) = f(b)$, il est impossible que le maximum et le minimum soient tous deux atteints aux extrémités du segment. Si $M > f(a)$, alors le point $x_M$ où le maximum est atteint ne peut être ni $a$, ni $b$. On en déduit que $x_M \in ]a,b[$. On pose alors $c = x_M$. Le raisonnement est symétrique pour le minimum.</li>
+        </ul>
+
+        <p><strong>3. Phase de calcul (Théorème de Fermat) :</strong><br>
+        Par construction, ce point $c$ appartient à l'ouvert $]a,b[$ et constitue un extremum local de la fonction. Comme $f$ est supposée dérivable sur $]a,b[$, elle l'est en $c$. Le théorème de Fermat affirme que si une fonction est dérivable en un extremum local intérieur, sa dérivée y est nulle. Conclusion : <span style="color: #3b82f6; font-weight: 600;">$f'(c) = 0$</span>.</p>
+    </div>
+</div>
+
+<h2 style="margin-top: 40px; border-bottom: 2px solid var(--border); padding-bottom: 10px; color: var(--navy-dark);">
+    <i class="fas fa-chart-line"></i> 2. Théorème des Accroissements Finis (TAF)
+</h2>
+
+<div class="tcb-box thmbox" style="background: var(--surface); padding: 25px; border-radius: var(--radius); border-left: 5px solid #10b981; box-shadow: var(--shadow-sm); margin-bottom: 25px;">
+    <div class="tcb-title" style="font-weight: 800; color: #059669; margin-bottom: 15px; font-size: 1.1rem;">Théorème des Accroissements Finis</div>
+    <div class="tcb-content" style="line-height: 1.6;">
+        Soit $f : [a,b] \to \mathbb{R}$ <span style="color: #ef4444; font-weight: 600;">continue</span> sur $[a,b]$ et <span style="color: #ef4444; font-weight: 600;">dérivable</span> sur $]a,b[$.
+        Il existe $c \in ]a,b[$ tel que :
+        <div style="text-align:center; margin: 20px 0; background: #ecfdf5; padding: 15px; border-radius: 8px;">
+            <span style="color: #059669; font-size: 1.3em; font-weight: bold;">$$f(b) - f(a) = f'(c)(b-a)$$</span>
+        </div>
+    </div>
+</div>
+
+<div class="tcb-box proofbox" style="background: #f8fafc; padding: 25px; border-radius: var(--radius); border: 1px solid var(--border); margin-bottom: 40px;">
+    <div class="tcb-title" style="font-weight: 700; color: var(--text-muted); margin-bottom: 15px;"><i class="fas fa-pen-nib"></i> Démonstration (par la fonction d'écart)</div>
+    <div class="tcb-content" style="font-size: 0.95rem; line-height: 1.6;">
+        On introduit la fonction auxiliaire $g$ qui mesure l'écart entre la courbe de $f$ et la corde passant par $(a, f(a))$ et $(b, f(b))$. Soit $g$ définie par :
+        $$g(x) = f(x) - \left[ f(a) + \frac{f(b)-f(a)}{b-a}(x-a) \right]$$
+        <ol style="padding-left: 20px; margin-top: 10px;">
+            <li>$g$ est continue sur $[a,b]$ et dérivable sur $]a,b[$ (différence de $f$ et d'une fonction affine).</li>
+            <li>On vérifie les bornes : $g(a) = f(a) - f(a) = 0$ et $g(b) = f(b) - (f(a) + f(b) - f(a)) = 0$.</li>
+            <li>On a $g(a) = g(b) = 0$. On peut appliquer le théorème de Rolle à $g$.</li>
+            <li>Il existe $c \in ]a,b[$ tel que $g'(c) = 0$. Or, par dérivation : $$g'(x) = f'(x) - \frac{f(b)-f(a)}{b-a}$$</li>
+        </ol>
+        L'annulation de $g'(c)$ donne exactement $f'(c) = \frac{f(b)-f(a)}{b-a}$.
+    </div>
+</div>
+
+<h2 style="margin-top: 40px; border-bottom: 2px solid var(--border); padding-bottom: 10px; color: var(--navy-dark);">
+    <i class="fas fa-dumbbell"></i> 3. Exercices d'Application
+</h2>
+
+<div class="tcb-box exobox" style="background: #fffbeb; padding: 25px; border-radius: var(--radius); border: 1px solid #fde68a; margin-bottom: 20px;">
+    <div class="tcb-title" style="font-weight: 700; color: #b45309; margin-bottom: 10px;">Exercice 1 : Encadrement classique</div>
+    <div class="tcb-content" style="margin-bottom: 15px;">
+        Établir l'inégalité : $\forall x > 0, \quad \frac{1}{x+1} < \ln(x+1) - \ln(x) < \frac{1}{x}$.
+    </div>
+    <button class="opt-btn" style="width: 100%; text-align: center; border-color: #fcd34d; color: #b45309;" onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'block' ? 'none' : 'block'">
+        <i class="fas fa-eye"></i> Afficher / Masquer le corrigé
+    </button>
+    <div class="solbox" style="display: none; margin-top: 15px; padding-top: 15px; border-top: 1px solid #fde68a; font-size: 0.95rem;">
+        <ol style="padding-left: 20px; margin: 0;">
+            <li>On considère $f(t) = \ln(t)$ sur l'intervalle $[x, x+1]$.</li>
+            <li>$f$ est continue et dérivable sur cet intervalle pour tout $x > 0$.</li>
+            <li>Par le TAF, il existe $c \in ]x, x+1[$ tel que $\ln(x+1) - \ln(x) = f'(c)(x+1-x) = \frac{1}{c}$.</li>
+            <li>Or, on sait que $x < c < x+1$. La fonction inverse étant strictement décroissante sur $\mathbb{R}_+^*$, on a : $\frac{1}{x+1} < \frac{1}{c} < \frac{1}{x}$.</li>
+            <li>En substituant $\frac{1}{c}$, on obtient l'encadrement recherché.</li>
+        </ol>
+    </div>
+</div>
+
+<div class="tcb-box exobox" style="background: #fffbeb; padding: 25px; border-radius: var(--radius); border: 1px solid #fde68a; margin-bottom: 20px;">
+    <div class="tcb-title" style="font-weight: 700; color: #b45309; margin-bottom: 10px;">Exercice 2 : Somme de dérivées</div>
+    <div class="tcb-content" style="margin-bottom: 15px;">
+        Soit $f$ dérivable sur $[0,1]$ avec $f(0)=0$ et $f(1)=1$. Démontrer l'existence de deux réels distincts $c_1, c_2 \in ]0,1[$ tels que $f'(c_1) + f'(c_2) = 2$.
+    </div>
+    <button class="opt-btn" style="width: 100%; text-align: center; border-color: #fcd34d; color: #b45309;" onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'block' ? 'none' : 'block'">
+        <i class="fas fa-eye"></i> Afficher / Masquer le corrigé
+    </button>
+    <div class="solbox" style="display: none; margin-top: 15px; padding-top: 15px; border-top: 1px solid #fde68a; font-size: 0.95rem;">
+        <ol style="padding-left: 20px; margin: 0;">
+            <li>Coupons l'intervalle $[0, 1]$ en deux segments égaux : $[0, 1/2]$ et $[1/2, 1]$.</li>
+            <li>Sur $[0, 1/2]$, le TAF assure l'existence de $c_1 \in ]0, 1/2[$ tel que $f(1/2) - f(0) = f'(c_1)(1/2 - 0)$, soit $f'(c_1) = 2f(1/2)$.</li>
+            <li>Sur $[1/2, 1]$, le TAF assure l'existence de $c_2 \in ]1/2, 1[$ tel que $f(1) - f(1/2) = f'(c_2)(1 - 1/2)$, soit $f'(c_2) = 2(1 - f(1/2))$.</li>
+            <li>En additionnant : $f'(c_1) + f'(c_2) = 2f(1/2) + 2 - 2f(1/2) = 2$.</li>
+            <li>Comme $c_1 < 1/2$ et $c_2 > 1/2$, ils sont bien distincts.</li>
+        </ol>
+    </div>
+</div>
+
+<div class="tcb-box exobox" style="background: #fffbeb; padding: 25px; border-radius: var(--radius); border: 1px solid #fde68a; margin-bottom: 20px;">
+    <div class="tcb-title" style="font-weight: 700; color: #b45309; margin-bottom: 10px;">Exercice 3 : Application itérée de Rolle</div>
+    <div class="tcb-content" style="margin-bottom: 15px;">
+        Soit $f$ une fonction de classe $C^2$ sur $[a, b]$. On suppose qu'il existe trois réels $x_1 < x_2 < x_3$ dans $[a, b]$ tels que $f(x_1) = f(x_2) = f(x_3) = 0$. Démontrer qu'il existe un point $c \in ]x_1, x_3[$ tel que $f''(c) = 0$.
+    </div>
+    <button class="opt-btn" style="width: 100%; text-align: center; border-color: #fcd34d; color: #b45309;" onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'block' ? 'none' : 'block'">
+        <i class="fas fa-eye"></i> Afficher / Masquer le corrigé
+    </button>
+    <div class="solbox" style="display: none; margin-top: 15px; padding-top: 15px; border-top: 1px solid #fde68a; font-size: 0.95rem;">
+        <ol style="padding-left: 20px; margin: 0;">
+            <li>$f$ est continue et dérivable (car $C^2$) sur $[x_1, x_2]$. Comme $f(x_1) = f(x_2) = 0$, le théorème de Rolle garantit l'existence de $\alpha_1 \in ]x_1, x_2[$ tel que $f'(\alpha_1) = 0$.</li>
+            <li>De même, sur l'intervalle $[x_2, x_3]$, puisque $f(x_2) = f(x_3) = 0$, Rolle garantit l'existence de $\alpha_2 \in ]x_2, x_3[$ tel que $f'(\alpha_2) = 0$.</li>
+            <li>Considérons maintenant la fonction $f'$. Puisque $f$ est $C^2$, $f'$ est continue et dérivable sur $[\alpha_1, \alpha_2]$.</li>
+            <li>De plus, nous venons de montrer que $f'(\alpha_1) = f'(\alpha_2) = 0$.</li>
+            <li>En appliquant le théorème de Rolle à la fonction $f'$ sur l'intervalle $[\alpha_1, \alpha_2]$, on déduit qu'il existe un réel $c \in ]\alpha_1, \alpha_2[$ tel que la dérivée de $f'$, c'est-à-dire $f''$, s'annule en $c$.</li>
+            <li>Puisque $x_1 < \alpha_1 < c < \alpha_2 < x_3$, on a bien $c \in ]x_1, x_3[$ avec $f''(c) = 0$.</li>
+        </ol>
+    </div>
+</div>
+
+<div class="tcb-box exobox" style="background: #fffbeb; padding: 25px; border-radius: var(--radius); border: 1px solid #fde68a; margin-bottom: 20px;">
+    <div class="tcb-title" style="font-weight: 700; color: #b45309; margin-bottom: 10px;">Exercice 4 : Inégalité avec Arctangente</div>
+    <div class="tcb-content" style="margin-bottom: 15px;">
+        En utilisant le Théorème des Accroissements Finis, démontrer que pour tous réels $a, b$ tels que $0 < a < b$, on a :<br>
+        $$ \frac{b-a}{1+b^2} < \arctan(b) - \arctan(a) < \frac{b-a}{1+a^2} $$
+    </div>
+    <button class="opt-btn" style="width: 100%; text-align: center; border-color: #fcd34d; color: #b45309;" onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'block' ? 'none' : 'block'">
+        <i class="fas fa-eye"></i> Afficher / Masquer le corrigé
+    </button>
+    <div class="solbox" style="display: none; margin-top: 15px; padding-top: 15px; border-top: 1px solid #fde68a; font-size: 0.95rem;">
+        <ol style="padding-left: 20px; margin: 0;">
+            <li>On pose $f(t) = \arctan(t)$. $f$ est continue et dérivable sur $\mathbb{R}$, et sa dérivée est $f'(t) = \frac{1}{1+t^2}$.</li>
+            <li>Soient $a$ et $b$ tels que $0 < a < b$. Appliquons le TAF à $f$ sur le segment $[a, b]$.</li>
+            <li>Il existe $c \in ]a, b[$ tel que $\arctan(b) - \arctan(a) = f'(c)(b-a) = \frac{b-a}{1+c^2}$.</li>
+            <li>Puisque $0 < a < c < b$, la stricte croissance de la fonction $t \mapsto t^2$ sur $\mathbb{R}^+$ implique $a^2 < c^2 < b^2$.</li>
+            <li>En ajoutant 1 et en passant à l'inverse (les quantités étant strictement positives), on inverse le sens des inégalités : $\frac{1}{1+b^2} < \frac{1}{1+c^2} < \frac{1}{1+a^2}$.</li>
+            <li>Comme $b-a > 0$, on peut multiplier cette double inégalité par $(b-a)$ sans en changer le sens, ce qui donne directement le résultat attendu.</li>
+        </ol>
+    </div>
+</div>
