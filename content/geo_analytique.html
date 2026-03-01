@@ -1,0 +1,66 @@
+<div class="banner">
+    <h1 style="font-size: 2rem; margin: 0;"><i class="fas fa-line"></i> Géométrie Analytique</h1>
+    <p style="opacity: 0.8;">Équations de droites, cercles et distances dans le plan.</p>
+</div>
+
+<div class="qcm-box">
+    <h3 style="color: var(--navy-dark);"><i class="fas fa-microchip"></i> Rappels de Formes</h3>
+    <p>Maîtriser les représentations analytiques est crucial pour l'étude des lieux géométriques :</p>
+    <ul>
+        <li><strong>Droite $(\mathcal{D})$ :</strong> Équation cartésienne $ax + by + c = 0$. Le vecteur $\vec{n}(a, b)$ est normal à $(\mathcal{D})$.</li>
+        <li><strong>Cercle $(\mathcal{C})$ :</strong> De centre $\Omega(x_0, y_0)$ et de rayon $R$ : $(x - x_0)^2 + (y - y_0)^2 = R^2$.</li>
+        <li><strong>Distance Point-Droite :</strong> $d(M, \mathcal{D}) = \frac{|ax_M + by_M + c|}{\sqrt{a^2 + b^2}}$.</li>
+    </ul>
+
+    <div style="text-align: center; margin: 30px 0; background: #f8fafc; padding: 20px; border-radius: 10px;">
+        <svg width="200" height="200" viewBox="0 0 200 200" style="max-width: 100%;">
+            <path d="M 0 100 L 200 100 M 100 0 L 100 200" stroke="#e2e8f0" stroke-width="1" />
+            <circle cx="100" cy="100" r="60" fill="rgba(234, 179, 8, 0.1)" stroke="#eab308" stroke-width="2" stroke-dasharray="4" />
+            <circle cx="100" cy="100" r="3" fill="#0a0f1d" />
+            <text x="105" y="95" font-size="12" font-weight="bold">Ω</text>
+            <line x1="100" y1="100" x2="142" y2="58" stroke="#1e293b" stroke-width="2" />
+            <text x="120" y="75" font-size="12" fill="#1e293b">R</text>
+            <line x1="160" y1="20" x2="160" y2="180" stroke="#ef4444" stroke-width="2" />
+            <text x="165" y="40" font-size="10" fill="#ef4444">(T)</text>
+        </svg>
+        <p style="font-size: 0.8rem; color: var(--text-muted);">Représentation cartésienne d'un cercle et d'une tangente.</p>
+    </div>
+</div>
+
+
+
+<div class="qcm-box">
+    <div class="qcm-question">
+        1. Quelle est l'équation du cercle de centre $\Omega(1, -2)$ et de rayon $R = 3$ ?
+    </div>
+    <div class="qcm-grid">
+        <button class="opt-btn" onclick="checkAnswer(this, false)">$(x+1)^2 + (y-2)^2 = 9$</button>
+        <button class="opt-btn" onclick="checkAnswer(this, true)">$(x-1)^2 + (y+2)^2 = 9$</button>
+        <button class="opt-btn" onclick="checkAnswer(this, false)">$(x-1)^2 + (y+2)^2 = 3$</button>
+        <button class="opt-btn" onclick="checkAnswer(this, false)">$x^2 + y^2 - 2x + 4y + 5 = 0$</button>
+    </div>
+    <button class="share-btn pdf" style="margin-top: 20px; background: var(--navy-main);" onclick="toggleCorrection(this)">
+        <i class="fas fa-eye"></i> Afficher le corrigé
+    </button>
+    <div class="correction-box" style="display:none; margin-top:15px; padding:15px; border-left:4px solid var(--gold-btn); background:#fffbeb;">
+        <strong>Solution :</strong> La formule est $(x - x_0)^2 + (y - y_0)^2 = R^2$. <br>
+        Ici $x_0 = 1$, $y_0 = -2$ et $R^2 = 3^2 = 9$. <br>
+        On obtient : $(x - 1)^2 + (y - (-2))^2 = 9 \Rightarrow (x - 1)^2 + (y + 2)^2 = 9$.
+    </div>
+</div>
+
+<div class="qcm-box">
+    <div class="qcm-question">
+        2. Soit la droite $(\mathcal{D})$ d'équation $3x - 4y + 5 = 0$. Quelle est la distance du point $A(1, 2)$ à cette droite ?
+    </div>
+    <div class="qcm-grid">
+        <button class="opt-btn" onclick="checkAnswer(this, true)">$0$ (le point est sur la droite)</button>
+        <button class="opt-btn" onclick="checkAnswer(this, false)">$1$</button>
+        <button class="opt-btn" onclick="checkAnswer(this, false)">$2/5$</button>
+        <button class="opt-btn" onclick="checkAnswer(this, false)">$5$</button>
+    </div>
+    <div class="correction-box" style="display:none; margin-top:15px; padding:15px; border-left:4px solid var(--gold-btn); background:#fffbeb;">
+        <strong>Solution :</strong> On teste si le point appartient à la droite : $3(1) - 4(2) + 5 = 3 - 8 + 5 = 0$. <br>
+        Le numérateur de la formule de distance étant nul, la distance est $0$.
+    </div>
+</div>
