@@ -1,0 +1,267 @@
+<div class="banner" style="background: linear-gradient(135deg, #450a0a 0%, #991b1b 100%);">
+    <h1 style="font-size: 2rem; margin: 0;"><i class="fas fa-fire"></i> Mode Hard : Géométrie PCSI (25 Q)</h1>
+    <p style="opacity: 0.8;">Paramètres, bissectrices et lieux géométriques complexes.</p>
+</div>
+
+<div id="quiz-wrapper">
+
+    <div class="qcm-box">
+        <div class="qcm-question">1. Pour quelles valeurs du paramètre $m$ les droites $(D_1) : mx + y - 1 = 0$ et $(D_2) : (m-2)x + 3y + 5 = 0$ sont-elles orthogonales ?</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$m = 1$ ou $m = 2$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, true)">$m = 3/4$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$m \in \{0, 3\}$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">Aucune valeur</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">2. L'une des équations des bissectrices des droites $3x + 4y = 0$ et $5x - 12y = 0$ est :</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$2x + y = 0$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, true)">$7x + 56y = 0$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$x - y = 0$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$8x - 4y = 0$</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">3. Soit $(\mathcal{C}_m) : x^2 + y^2 - 2mx + 4my - 1 = 0$. Quel est le lieu des centres $\Omega_m$ quand $m$ décrit $\mathbb{R}$ ?</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, false)">Un cercle de rayon 1</button>
+            <button class="opt-btn" onclick="checkAnswer(this, true)">La droite d'équation $y = -2x$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">La droite d'équation $y = 2x$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">Un seul point fixe</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">4. La condition pour que la droite $y = mx$ soit tangente au cercle $(x-5)^2 + y^2 = 9$ est :</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$m = \pm 1$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, true)">$m = \pm 3/4$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$m = 0$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$m = \pm 4/3$</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">5. Dans un carré $ABCD$ de côté $a$, soit $M$ le milieu de $[BC]$ et $N$ le milieu de $[CD]$. Que vaut $\vec{AM} \cdot \vec{AN}$ ?</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$a^2/2$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, true)">$a^2$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$3a^2/4$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$5a^2/4$</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">6. La distance de l'origine à la droite $x\cos\theta + y\sin\theta = p$ est :</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$p^2$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, true)">$|p|$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$p\cos\theta$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$\sqrt{p}$</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">7. Si $A(1, 2)$ et $B(3, 4)$ sont diamétralement opposés, l'équation du cercle est :</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, true)">$x^2 + y^2 - 4x - 6y + 11 = 0$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$x^2 + y^2 + 4x + 6y - 11 = 0$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$(x-2)^2 + (y-3)^2 = 4$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$x^2 + y^2 = 2$</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">8. Soient $\vec{u}(a, b)$ et $\vec{v}(c, d)$. Si $\det(\vec{u}, \vec{v}) = \vec{u} \cdot \vec{v}$, alors l'angle $(\vec{u}, \vec{v})$ est :</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$0 \pmod{\pi}$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, true)">$\pi/4 \pmod{\pi}$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$\pi/2 \pmod{\pi}$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$\pi/3 \pmod{\pi}$</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">9. Le lieu des points $M(x, y)$ équidistants des droites $x=1$ et $y=2$ est formé par :</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, false)">Un cercle</button>
+            <button class="opt-btn" onclick="checkAnswer(this, true)">Deux droites perpendiculaires</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">La droite $y = x+1$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">Le point $(1, 2)$ uniquement</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">10. Le projeté orthogonal de $P(5, 5)$ sur la droite $x+y-2=0$ est :</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$(0, 2)$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, true)">$(1, 1)$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$(2, 0)$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$(0, 0)$</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">11. Dans un repère $(A, \vec{AB}, \vec{AD})$, quel est le point de concours des médianes du triangle $ABC$ ?</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$(1/2, 1/2)$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, true)">$(2/3, 1/3)$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$(1/3, 2/3)$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$(1/3, 1/3)$</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">12. La puissance de $O(0, 0)$ par rapport au cercle $(x-3)^2 + (y-4)^2 = 4$ est :</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, false)">5</button>
+            <button class="opt-btn" onclick="checkAnswer(this, true)">21</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">25</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">-4</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">13. L'angle formé par les droites $y = \sqrt{3}x + 1$ et $y = x - 5$ est :</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$15^\circ$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, true)">$15^\circ$ ou $75^\circ$ (via $\tan \alpha = |\frac{m-m'}{1+mm'}|$)</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$30^\circ$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$45^\circ$</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">14. Pour quelle valeur de $\lambda$, l'équation $x^2 + y^2 - 2x + \lambda = 0$ représente un point unique ?</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$\lambda = 0$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, true)">$\lambda = 1$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$\lambda = -1$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">Aucune</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">15. Soit $A(1, 1), B(4, 5)$ et $C(x, 2)$. Pour quelle valeur de $x$, le triangle $ABC$ est-il rectangle en $A$ ?</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$x = 0$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, true)">$x = -1/3$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$x = 7/3$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$x = 4/3$</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">16. Toutes les droites $(D_m) : (m+1)x + (2m-1)y + 3 = 0$ passent par un point fixe $S$. Lequel ?</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, true)">$S(-2, -1)$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$S(1, 2)$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$S(0, -3)$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$S(-1, -1)$</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">17. Si $\|\vec{u}+\vec{v}\| = \|\vec{u}-\vec{v}\|$, alors $\vec{u}$ et $\vec{v}$ sont :</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, false)">Colinéaires</button>
+            <button class="opt-btn" onclick="checkAnswer(this, true)">Orthogonaux</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">Unitaires</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">Nuls</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">18. L'image du cercle $x^2 + y^2 = 1$ par l'homothétie de centre $O$ et de rapport 3 est :</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$x^2 + y^2 = 3$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, true)">$x^2 + y^2 = 9$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$(x-3)^2 + y^2 = 1$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$3x^2 + 3y^2 = 1$</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">19. Un vecteur normal à la bissectrice de $(\vec{i}, \vec{j})$ est :</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, true)">$(1, -1)$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$(1, 1)$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$(0, 1)$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$(-1, -1)$</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">20. Quel est le point du cercle $x^2 + y^2 - 4x = 0$ le plus éloigné de l'origine ?</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$(2, 2)$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, true)">$(4, 0)$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$(2, 0)$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$(0, 0)$</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">21. L'aire du triangle formé par les axes et la droite $x/a + y/b = 1$ est :</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$ab$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, true)">$|ab|/2$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$a^2 + b^2$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$\sqrt{ab}$</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">22. Si $G$ est le centre de gravité de $ABC$, alors $\vec{GA} + \vec{GB} + \vec{GC}$ vaut :</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$3\vec{OG}$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, true)">$\vec{0}$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$\vec{AB} + \vec{BC}$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$1$</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">23. La droite passant par $(1, 2)$ faisant un angle de $45^\circ$ avec $(Ox)$ a pour équation :</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$x + y = 3$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, true)">$y = x + 1$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$y = x - 1$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$x = 1$</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">24. Le point $M(\cos^2 \theta, \sin^2 \theta)$ appartient à quelle courbe ?</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, false)">Un cercle</button>
+            <button class="opt-btn" onclick="checkAnswer(this, true)">Le segment de droite $x+y=1, x \in [0, 1]$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">Une ellipse</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">Une parabole</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">25. Dans un triangle $ABC$ rectangle en $A$, l'orthocentre est :</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, false)">Le milieu de $[BC]$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, true)">Le sommet $A$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">Le centre du cercle circonscrit</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">Le centre de gravité</button>
+        </div>
+    </div>
+
+</div>
+
+
+
+<div id="score-display" style="display:none; margin-top: 30px;"></div>
+<div id="congrats-msg" style="display:none;"></div>
+
+<button id="submit-btn" class="btn-primary" onclick="calculateScore()">
+    <i class="fas fa-skull"></i> Soumettre le test Expert
+</button>
