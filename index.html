@@ -13,80 +13,125 @@
     </script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --royal-blue: #1a365d;
-            --gold: #c6a052;
-            --accent: #3182ce;
-            --bg-dark: #0f172a;
-            --sidebar-bg: #ffffff;
+            /* Palette Ultra Prestige */
+            --navy-dark: #0a0f1d;     /* Bleu nuit très profond */
+            --navy-main: #111827;     /* Anthracite / Bleu très sombre */
+            --gold-btn: #eab308;      /* Jaune/Or éclatant pour les boutons */
+            --gold-hover: #facc15;    /* Jaune plus clair au survol */
+            --gold-muted: #c6a052;    /* Or mat pour les bordures et textes */
+            
+            --bg-page: #f4f6f9;       /* Gris perle très doux, reposant pour les yeux */
+            --surface: #ffffff;       /* Blanc pur pour les cartes */
+            
             --text-main: #1e293b;
             --text-muted: #64748b;
             --border: #e2e8f0;
-            --radius: 12px;
-            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            
+            --radius: 14px;
+            --shadow-sm: 0 2px 10px rgba(10, 15, 29, 0.03);
+            --shadow-md: 0 10px 25px rgba(10, 15, 29, 0.08);
+            --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        body { font-family: 'Inter', sans-serif; margin: 0; background: #f8fafc; color: var(--text-main); display: flex; overflow: hidden; }
+        body { font-family: 'Inter', sans-serif; margin: 0; background: var(--bg-page); color: var(--text-main); display: flex; overflow: hidden; }
         
         /* SIDEBAR PRESTIGE */
         #sidebar { 
-            width: 320px; height: 100vh; background: var(--sidebar-bg); 
+            width: 320px; height: 100vh; background: var(--surface); 
             border-right: 1px solid var(--border); overflow-y: auto; position: fixed; z-index: 100;
+            box-shadow: 4px 0 15px rgba(0,0,0,0.02);
         }
 
-        .logo-container { padding: 30px 20px; text-align: center; border-bottom: 1px solid var(--border); }
-        .logo-text { font-weight: 800; font-size: 1.5rem; color: var(--royal-blue); letter-spacing: -1px; }
-        .logo-text span { color: var(--gold); }
+        .logo-container { padding: 35px 20px 25px; text-align: center; border-bottom: 1px solid var(--border); background: var(--surface); }
+        .logo-text { font-weight: 800; font-size: 1.6rem; color: var(--navy-dark); letter-spacing: -1px; }
+        .logo-text span { color: var(--gold-btn); }
+        
+        .badge-prestige {
+            font-size: 0.65rem; color: var(--navy-dark); font-weight: 800; margin-top: 8px; 
+            background: linear-gradient(135deg, var(--gold-btn), var(--gold-hover));
+            display: inline-block; padding: 4px 10px; border-radius: 6px; box-shadow: 0 2px 5px rgba(234, 179, 8, 0.3);
+        }
 
         /* MENU ARCHITECTURE */
-        .chapter-box { border-bottom: 1px solid #f1f5f9; }
+        .chapter-box { border-bottom: 1px solid var(--border); }
         .lvl-1-btn { 
-            width: 100%; padding: 16px 20px; border: none; background: none;
+            width: 100%; padding: 18px 20px; border: none; background: none;
             display: flex; justify-content: space-between; align-items: center;
-            font-weight: 800; color: var(--royal-blue); cursor: pointer; transition: 0.2s;
+            font-weight: 800; color: var(--navy-dark); cursor: pointer; transition: var(--transition);
             text-transform: uppercase; font-size: 0.85rem; letter-spacing: 0.5px;
         }
-        .lvl-1-btn:hover { background: #f8fafc; }
+        .lvl-1-btn:hover { background: #f8fafc; color: var(--gold-muted); }
 
-        .lvl-2-container { display: none; background: #fafafa; padding-bottom: 10px; }
+        .lvl-2-container { display: none; background: #fafbfc; padding-bottom: 10px; border-top: 1px solid #f1f5f9; }
         .lvl-2-container.open { display: block; }
 
         .lvl-2-header { 
-            padding: 10px 20px 5px 30px; font-size: 0.75rem; font-weight: 800; 
-            color: var(--gold); text-transform: uppercase; opacity: 0.8;
+            padding: 15px 20px 5px 30px; font-size: 0.7rem; font-weight: 800; 
+            color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px;
         }
 
         .lvl-3-item {
             display: flex; align-items: center; padding: 10px 20px 10px 45px; 
-            font-size: 0.9rem; color: var(--text-muted); text-decoration: none; 
-            transition: 0.2s; cursor: pointer;
+            font-size: 0.9rem; color: var(--text-muted); font-weight: 500; text-decoration: none; 
+            transition: var(--transition); cursor: pointer;
         }
-        .lvl-3-item i { margin-right: 10px; font-size: 0.8rem; width: 15px; }
-        .lvl-3-item:hover { color: var(--royal-blue); background: #f1f5f9; padding-left: 50px; }
+        .lvl-3-item i { margin-right: 12px; font-size: 0.85rem; width: 15px; text-align: center; }
+        .lvl-3-item:hover { color: var(--navy-dark); background: white; padding-left: 50px; box-shadow: inset 3px 0 0 var(--gold-btn); }
         .lvl-3-item.training { color: #059669; font-weight: 600; }
+        .lvl-3-item.training:hover { box-shadow: inset 3px 0 0 #059669; }
 
-        .chevron { font-size: 0.7rem; transition: transform 0.3s; }
-        .open > .chevron { transform: rotate(180deg); }
+        .chevron { font-size: 0.7rem; transition: transform 0.3s; color: var(--text-muted); }
+        .open > .chevron { transform: rotate(180deg); color: var(--navy-dark); }
 
         /* MAIN CONTENT */
         #main { margin-left: 320px; flex-grow: 1; padding: 40px; height: 100vh; overflow-y: auto; scroll-behavior: smooth; }
+        
         .banner { 
-            background: linear-gradient(135deg, var(--royal-blue), #2c5282); 
-            color: white; padding: 50px; border-radius: 20px; margin-bottom: 30px;
-            box-shadow: 0 10px 25px rgba(26, 54, 93, 0.2);
+            background: linear-gradient(135deg, var(--navy-dark), var(--navy-main)); 
+            color: white; padding: 50px; border-radius: var(--radius); margin-bottom: 40px;
+            box-shadow: var(--shadow-md); position: relative; overflow: hidden;
+            border-bottom: 4px solid var(--gold-btn);
         }
         
         /* STYLES GLOBAUX POUR LES QCM INJECTÉS */
-        .qcm-box { background: white; padding: 25px; border-radius: 12px; margin-bottom: 25px; border-left: 5px solid var(--gold); box-shadow: var(--shadow); }
-        .qcm-question { font-weight: 600; font-size: 1.1rem; margin-bottom: 20px; color: var(--royal-blue); }
+        .qcm-box { 
+            background: var(--surface); padding: 30px; border-radius: var(--radius); 
+            margin-bottom: 30px; border-left: 6px solid var(--gold-muted); box-shadow: var(--shadow-sm); 
+        }
+        .qcm-question { font-weight: 600; font-size: 1.15rem; margin-bottom: 25px; color: var(--navy-dark); line-height: 1.6; }
         .qcm-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
-        .opt-btn { padding: 15px; border: 2px solid #e2e8f0; background: #f8fafc; border-radius: 10px; cursor: pointer; transition: 0.2s; font-family: inherit; font-size: 1rem; text-align: left; }
-        .opt-btn:hover:not(:disabled) { background: #edf2f7; border-color: #3182ce; }
-        .opt-btn.correct { background: #c6f6d5 !important; border-color: #38a169 !important; color: #22543d; font-weight: bold; }
-        .opt-btn.wrong { background: #fed7d7 !important; border-color: #e53e3e !important; color: #822727; text-decoration: line-through; }
+        
+        .opt-btn { 
+            padding: 18px; border: 2px solid var(--border); background: var(--surface); 
+            border-radius: 10px; cursor: pointer; transition: var(--transition); 
+            font-family: inherit; font-size: 1rem; text-align: left; color: var(--text-main);
+            font-weight: 500;
+        }
+        
+        /* L'effet Jaune/Or au survol des boutons */
+        .opt-btn:hover:not(:disabled) { 
+            background: #fefce8; 
+            border-color: var(--gold-btn); 
+            box-shadow: 0 4px 12px rgba(234, 179, 8, 0.15);
+            transform: translateY(-2px);
+        }
+        
+        .opt-btn.correct { background: #ecfdf5 !important; border-color: #10b981 !important; color: #065f46; font-weight: bold; }
+        .opt-btn.wrong { background: #fef2f2 !important; border-color: #ef4444 !important; color: #991b1b; text-decoration: line-through; }
+
+        /* BOUTON D'ACTION PRINCIPAL (ex: Valider le QCM) */
+        .btn-primary {
+            display: block; width: 100%; max-width: 350px; margin: 40px auto; padding: 18px;
+            background: var(--gold-btn); color: var(--navy-dark); border: none;
+            border-radius: 50px; font-weight: 800; font-size: 1.1rem; text-transform: uppercase; 
+            cursor: pointer; transition: var(--transition); box-shadow: 0 4px 15px rgba(234, 179, 8, 0.4);
+        }
+        .btn-primary:hover { background: var(--gold-hover); transform: translateY(-3px); box-shadow: 0 6px 20px rgba(234, 179, 8, 0.6); }
+
     </style>
 </head>
 <body>
@@ -94,7 +139,7 @@
 <div id="sidebar">
     <div class="logo-container">
         <div class="logo-text">ELIAN<span>MATHS</span></div>
-        <div style="font-size: 0.65rem; color: var(--text-muted); font-weight: 800; margin-top:5px; border: 1px solid var(--border); display: inline-block; padding: 2px 8px; border-radius: 4px;">PCSI PRESTIGE INTEGRAL</div>
+        <div class="badge-prestige">PCSI PRESTIGE INTEGRAL</div>
     </div>
 
     <nav id="menu">
@@ -151,12 +196,12 @@
 
 <div id="main">
     <div id="content-container">
-        <div class="banner">
-            <h1 style="font-size: 2.5rem; margin: 0;">Elite Workspace</h1>
-            <p style="opacity: 0.9; font-size: 1.1rem; margin-top: 10px;">Système d'apprentissage adaptatif pour PCSI.</p>
-        </div>
         <div id="dynamic-content">
+            <div class="banner">
+                <h1 style="font-size: 2.5rem; margin: 0; letter-spacing: -1px;">Elite Workspace</h1>
+                <p style="opacity: 0.9; font-size: 1.1rem; margin-top: 10px;">Système d'apprentissage adaptatif pour classe préparatoire PCSI.</p>
             </div>
+        </div>
     </div>
 </div>
 
@@ -170,18 +215,24 @@
     async function load(file) {
         const target = document.getElementById('dynamic-content');
         target.style.opacity = '0.3';
+        target.style.transform = 'translateY(10px)';
+        target.style.transition = 'all 0.3s ease';
+        
         try {
             const response = await fetch(`content/${file}.html`);
-            const html = response.ok ? await response.text() : `<div class="banner" style="background: #e53e3e"><h1>Module Introuvable</h1><p>Le fichier ${file}.html manque dans le dossier /content/.</p></div>`;
+            const html = response.ok ? await response.text() : `<div class="banner" style="background: #ef4444; border-bottom:none;"><h1>Module Introuvable</h1><p>Le fichier ${file}.html manque dans le dossier /content/.</p></div>`;
             target.innerHTML = html;
             if (window.MathJax) MathJax.typesetPromise([target]);
         } catch (e) { console.error(e); }
-        target.style.opacity = '1';
+        
+        setTimeout(() => {
+            target.style.opacity = '1';
+            target.style.transform = 'translateY(0)';
+        }, 50);
     }
 
     // LOGIQUE DE TIRAGE ALÉATOIRE
     function loadTraining(subject) {
-        // Tirage au sort entre 1 et 3
         const quizNumber = Math.floor(Math.random() * 3) + 1;
         const fileName = `${subject}_training_v${quizNumber}`;
         console.log(`Lancement du training : ${fileName}`);
@@ -193,17 +244,14 @@
         const container = button.parentElement;
         const allButtons = container.querySelectorAll('.opt-btn');
         
-        // Ajout de la classe 'selected' au bouton cliqué pour pouvoir compter le score
         button.classList.add('selected');
 
-        // Désactive tous les boutons de cette question
         allButtons.forEach(btn => btn.disabled = true);
         
         if(isCorrect) {
             button.classList.add('correct');
         } else {
             button.classList.add('wrong');
-            // Montre la bonne réponse à l'élève
             const correctBtn = Array.from(allButtons).find(b => b.getAttribute('onclick').includes('true'));
             if(correctBtn) correctBtn.classList.add('correct');
         }
@@ -211,39 +259,63 @@
 
     // FONCTION DE CALCUL DU SCORE
     function calculateScore() {
-        // Compte le nombre de boutons qui ont à la fois la classe 'selected' et 'correct'
         let score = document.querySelectorAll('.opt-btn.correct.selected').length; 
         
-        // Affichage
         let submitBtn = document.getElementById('submit-btn');
         if(submitBtn) submitBtn.style.display = 'none';
         
         let scoreDisplay = document.getElementById('score-display');
-        if(scoreDisplay) scoreDisplay.style.display = 'block';
-        
-        let scoreValue = document.getElementById('score-value');
-        if(scoreValue) scoreValue.innerText = score;
+        if(scoreDisplay) {
+            scoreDisplay.style.display = 'flex';
+            scoreDisplay.style.flexDirection = 'column';
+            scoreDisplay.style.alignItems = 'center';
+            scoreDisplay.style.justifyContent = 'center';
+            scoreDisplay.innerHTML = `<div style="width: 140px; height: 140px; border-radius: 50%; border: 6px solid var(--gold-btn); display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 2.8rem; font-weight: 800; color: var(--navy-dark); background: white; box-shadow: var(--shadow-md);">${score}<span style="font-size: 1rem; color: var(--text-muted); margin-top: -5px;">/20</span></div>`;
+        }
         
         let msgBox = document.getElementById('congrats-msg');
         if(msgBox) {
             msgBox.style.display = 'block';
+            msgBox.style.padding = '20px';
+            msgBox.style.borderRadius = 'var(--radius)';
+            msgBox.style.textAlign = 'center';
+            msgBox.style.fontWeight = '600';
+            msgBox.style.marginTop = '25px';
+
             if (score === 20) {
                 msgBox.innerHTML = "🏆 Incroyable ! Un sans-faute absolu, félicitations !";
-                msgBox.style.backgroundColor = "#c6f6d5";
-                msgBox.style.color = "#22543d";
+                msgBox.style.backgroundColor = "#ecfdf5";
+                msgBox.style.color = "#065f46";
+                msgBox.style.border = "2px solid #10b981";
             } else if (score >= 15) {
                 msgBox.innerHTML = "🎉 Excellent travail ! Tu maîtrises très bien le sujet.";
-                msgBox.style.backgroundColor = "#bee3f8";
-                msgBox.style.color = "#2a4365";
+                msgBox.style.backgroundColor = "#eff6ff";
+                msgBox.style.color = "#1e40af";
+                msgBox.style.border = "2px solid #3b82f6";
             } else if (score >= 10) {
                 msgBox.innerHTML = "👍 Bon effort ! Encore quelques révisions et ce sera parfait.";
-                msgBox.style.backgroundColor = "#feebc8";
-                msgBox.style.color = "#7b341e";
+                msgBox.style.backgroundColor = "#fefce8";
+                msgBox.style.color = "#854d0e";
+                msgBox.style.border = "2px solid #eab308";
             } else {
                 msgBox.innerHTML = "💪 Ne te décourage pas, revois le cours et retente ta chance !";
-                msgBox.style.backgroundColor = "#fed7d7";
-                msgBox.style.color = "#742a2a";
+                msgBox.style.backgroundColor = "#fef2f2";
+                msgBox.style.color = "#991b1b";
+                msgBox.style.border = "2px solid #ef4444";
             }
+        }
+    }
+
+    // FONCTION POUR AFFICHER/MASQUER LES CORRIGÉS DES EXERCICES
+    function toggleCorrection(btn) {
+        const correctionDiv = btn.nextElementSibling;
+        
+        if (correctionDiv.style.display === "none" || correctionDiv.style.display === "") {
+            correctionDiv.style.display = "block";
+            btn.innerHTML = '<i class="fas fa-eye-slash"></i> Masquer le corrigé';
+        } else {
+            correctionDiv.style.display = "none";
+            btn.innerHTML = '<i class="fas fa-eye"></i> Afficher le corrigé';
         }
     }
 </script>
