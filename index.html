@@ -338,10 +338,21 @@
         }, 50);
     }
 
-    // LOGIQUE DE TIRAGE ALÉATOIRE
+    // LOGIQUE DE TIRAGE ALÉATOIRE (CORRIGÉE)
     function loadTraining(subject) {
-        const quizNumber = Math.floor(Math.random() * 3) + 1;
-        load(`${subject}_training_v${quizNumber}`);
+        const rand = Math.random();
+        let fileToLoad;
+
+        if (rand < 0.25) {
+            // 25% de chance de tomber sur la version PRO
+            fileToLoad = `${subject}_training_pro`;
+        } else {
+            // 75% de chance de tomber sur v1, v2 ou v3
+            const quizNumber = Math.floor(Math.random() * 3) + 1;
+            fileToLoad = `${subject}_training_v${quizNumber}`;
+        }
+        
+        load(fileToLoad);
     }
 
     // FONCTION GLOBALE POUR LE QCM
