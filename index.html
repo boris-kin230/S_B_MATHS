@@ -7,8 +7,18 @@
     
     <script>
         window.MathJax = {
-            tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$']] },
-            options: { enableMenu: false }
+            tex: { 
+                inlineMath: [['$', '$'], ['\\(', '\\)']], 
+                displayMath: [['$$', '$$']],
+                processEscapes: true
+            },
+            options: { enableMenu: false },
+            startup: {
+                ready: () => {
+                    MathJax.startup.defaultReady();
+                    console.log('MathJax is ready');
+                }
+            }
         };
     </script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
@@ -18,472 +28,709 @@
     
     <style>
         :root {
-            /* Palette Royal / Deep Tech */
-            --navy-dark: #0f172a;     
-            --navy-soft: #1e293b;     
-            --gold: #fbbf24;          
-            --gold-dark: #b45309;     
-            --accent: #3b82f6;        
-            --success: #10b981;
-            --danger: #ef4444;
+            /* Palette Chromatique Prestige */
+            --navy-deep: #0f172a;
+            --navy-light: #1e293b;
+            --gold-primary: #ca8a04;
+            --gold-light: #fde047;
+            --gold-soft: #fefce8;
             
-            --bg-page: #f8fafc;       
-            --surface: #ffffff;       
-            --border: #e2e8f0;
+            --accent-success: #10b981;
+            --accent-error: #ef4444;
+            --accent-info: #3b82f6;
+            
+            --bg-canvas: #f8fafc;
+            --bg-card: #ffffff;
+            
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --text-white: #ffffff;
+            
+            --border-color: #e2e8f0;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.1);
+            --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
             
             --radius-sm: 8px;
             --radius-md: 12px;
             --radius-lg: 20px;
             
-            --shadow-subtle: 0 1px 3px rgba(0,0,0,0.05);
-            --shadow-pro: 0 10px 30px -10px rgba(15, 23, 42, 0.1);
+            --sidebar-width: 320px;
             --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        /* --- RESET & BASE --- */
-        * { box-sizing: border-box; }
+        /* --- Reset & Base Styles --- */
+        * { box-sizing: border-box; -webkit-font-smoothing: antialiased; }
         body { 
             font-family: 'Inter', sans-serif; 
             margin: 0; 
-            background: var(--bg-page); 
-            color: var(--navy-dark); 
+            background: var(--bg-canvas); 
+            color: var(--text-main); 
             display: flex; 
             height: 100vh;
             overflow: hidden;
         }
 
-        /* --- SIDEBAR PRESTIGE --- */
+        /* --- Sidebar Architecture --- */
         #sidebar { 
-            width: 300px; 
+            width: var(--sidebar-width); 
             height: 100vh; 
-            background: var(--navy-dark); 
-            color: white;
-            overflow-y: auto; 
-            position: relative;
-            z-index: 100;
-            transition: var(--transition);
+            background: var(--bg-card); 
+            border-right: 1px solid var(--border-color); 
             display: flex;
             flex-direction: column;
+            position: fixed;
+            left: 0;
+            top: 0;
+            z-index: 100;
+            transition: var(--transition);
         }
 
-        .logo-area { 
-            padding: 40px 30px; 
-            text-align: left; 
-            border-bottom: 1px solid rgba(255,255,255,0.05); 
+        .sidebar-header {
+            padding: 40px 24px;
+            border-bottom: 1px solid var(--border-color);
+            text-align: center;
         }
-        .logo-text { font-weight: 800; font-size: 1.5rem; letter-spacing: -1px; }
-        .logo-text span { color: var(--gold); }
+
+        .logo-main {
+            font-size: 1.8rem;
+            font-weight: 800;
+            letter-spacing: -1.5px;
+            color: var(--navy-deep);
+            text-transform: uppercase;
+        }
+
+        .logo-main span { color: var(--gold-primary); }
+
         .badge-pcsi {
-            font-size: 0.7rem; color: var(--navy-dark); font-weight: 700;
-            background: var(--gold); padding: 3px 8px; border-radius: 4px;
-            margin-top: 5px; display: inline-block;
+            display: inline-block;
+            margin-top: 10px;
+            padding: 4px 12px;
+            background: var(--gold-soft);
+            color: var(--gold-primary);
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            border: 1px solid #fef08a;
         }
 
-        /* MENU ITEMS */
-        .nav-group { margin-top: 20px; }
-        .nav-label { 
-            padding: 10px 30px; font-size: 0.75rem; font-weight: 700; 
-            color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 1px;
+        .sidebar-nav {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px 0;
+            scrollbar-width: thin;
         }
+
+        /* --- Navigation Menu --- */
+        .nav-group { margin-bottom: 10px; }
+
+        .nav-parent {
+            width: 100%;
+            padding: 14px 24px;
+            border: none;
+            background: transparent;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 600;
+            color: var(--navy-light);
+            font-size: 0.9rem;
+        }
+
+        .nav-parent:hover { background: var(--bg-canvas); color: var(--gold-primary); }
+        .nav-parent i:first-child { width: 20px; margin-right: 12px; font-size: 1.1rem; }
+
+        .nav-children {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+            background: #fcfcfd;
+        }
+
+        .nav-group.active .nav-children { max-height: 800px; }
+        .nav-group.active .chevron { transform: rotate(180deg); }
+
         .nav-item {
-            padding: 12px 30px; display: flex; align-items: center; gap: 12px;
-            color: rgba(255,255,255,0.7); text-decoration: none; cursor: pointer;
-            transition: var(--transition); font-size: 0.95rem; font-weight: 500;
-        }
-        .nav-item i { width: 20px; text-align: center; font-size: 1rem; }
-        .nav-item:hover { color: white; background: rgba(255,255,255,0.05); }
-        .nav-item.active { color: var(--gold); background: rgba(255,255,255,0.08); border-right: 3px solid var(--gold); }
-        
-        /* ACCORDEON */
-        .sub-menu { display: none; background: rgba(0,0,0,0.2); }
-        .sub-menu.open { display: block; }
-        .sub-item { padding: 10px 30px 10px 62px; font-size: 0.85rem; color: rgba(255,255,255,0.5); display: block; cursor: pointer; }
-        .sub-item:hover { color: var(--gold); }
-
-        /* --- MAIN CONTENT --- */
-        #main { 
-            flex-grow: 1; height: 100vh; overflow-y: auto; 
-            position: relative; scroll-behavior: smooth;
+            display: flex;
+            align-items: center;
+            padding: 10px 24px 10px 52px;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
         }
 
-        .top-bar {
-            position: sticky; top: 0; left: 0; right: 0; height: 5px;
-            background: var(--border); z-index: 1000;
-        }
-        #progress-bar { width: 0%; height: 100%; background: var(--gold); transition: width 0.1s; }
+        .nav-item:hover { color: var(--navy-deep); background: white; padding-left: 58px; }
+        .nav-item.training { color: var(--accent-success); font-weight: 700; }
 
-        .content-wrapper { 
-            max-width: 900px; margin: 0 auto; padding: 60px 40px 120px; 
-            animation: fadeIn 0.5s ease-out;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+        .nav-section-title {
+            padding: 15px 24px 5px 52px;
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #94a3b8;
+            font-weight: 800;
         }
 
-        .banner { 
-            background: linear-gradient(135deg, var(--navy-dark), var(--navy-soft)); 
-            color: white; padding: 60px; border-radius: var(--radius-lg); margin-bottom: 50px;
-            box-shadow: var(--shadow-pro); position: relative; overflow: hidden;
-        }
-        .banner::after {
-            content: ''; position: absolute; top: -50%; right: -20%; width: 300px; height: 300px;
-            background: rgba(255,255,255,0.03); border-radius: 50%;
-        }
-
-        /* --- QCM DESIGN --- */
-        .qcm-box { 
-            background: var(--surface); padding: 40px; border-radius: var(--radius-md); 
-            margin-bottom: 35px; border: 1px solid var(--border); box-shadow: var(--shadow-subtle);
-            transition: var(--transition); page-break-inside: avoid;
-        }
-        .qcm-box:hover { box-shadow: var(--shadow-pro); border-color: #cbd5e1; }
-        
-        .qcm-tag {
-            font-size: 0.7rem; font-weight: 700; text-transform: uppercase;
-            color: var(--accent); margin-bottom: 10px; display: block; letter-spacing: 1px;
-        }
-        .qcm-question { 
-            font-weight: 700; font-size: 1.25rem; margin-bottom: 25px; 
-            color: var(--navy-dark); line-height: 1.5; 
+        /* --- Main Content Area --- */
+        #main {
+            margin-left: var(--sidebar-width);
+            flex: 1;
+            height: 100vh;
+            overflow-y: auto;
+            padding: 40px;
+            scroll-behavior: smooth;
         }
 
-        .options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
-        
-        .opt-btn { 
-            padding: 20px; border: 1.5px solid var(--border); background: #fcfdfe; 
-            border-radius: var(--radius-md); cursor: pointer; transition: var(--transition); 
-            font-family: inherit; font-size: 1rem; text-align: left; position: relative;
-            display: flex; align-items: center; gap: 12px;
+        .content-wrapper {
+            max-width: 900px;
+            margin: 0 auto;
         }
-        .opt-btn:hover:not(:disabled) { 
-            background: white; border-color: var(--accent); transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.1);
-        }
-        .opt-btn::before {
-            content: ''; width: 20px; height: 20px; border: 2px solid var(--border);
-            border-radius: 50%; flex-shrink: 0; transition: var(--transition);
-        }
-        .opt-btn.correct { background: #ecfdf5 !important; border-color: var(--success) !important; color: #064e3b; font-weight: 600; }
-        .opt-btn.correct::before { background: var(--success); border-color: var(--success); }
-        .opt-btn.wrong { background: #fef2f2 !important; border-color: var(--danger) !important; color: #7f1d1d; }
-        .opt-btn.wrong::before { background: var(--danger); border-color: var(--danger); }
 
-        /* --- RESULTS AREA --- */
-        .score-card {
-            display: none; background: white; border-radius: var(--radius-lg);
-            padding: 50px; text-align: center; border: 2px solid var(--gold);
-            margin-top: 40px; box-shadow: var(--shadow-pro);
+        .hero-banner {
+            background: linear-gradient(135deg, var(--navy-deep) 0%, #1e1b4b 100%);
+            border-radius: var(--radius-lg);
+            padding: 60px;
+            color: white;
+            margin-bottom: 40px;
+            box-shadow: var(--shadow-lg);
+            position: relative;
+            overflow: hidden;
         }
+
+        .hero-banner::after {
+            content: '∫';
+            position: absolute;
+            right: -20px;
+            bottom: -40px;
+            font-size: 15rem;
+            opacity: 0.05;
+            font-family: 'Times New Roman', serif;
+            font-style: italic;
+        }
+
+        /* --- QCM Components --- */
+        .qcm-card {
+            background: var(--bg-card);
+            border-radius: var(--radius-md);
+            padding: 30px;
+            margin-bottom: 25px;
+            border: 1px solid var(--border-color);
+            transition: var(--transition);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .qcm-card:hover { border-color: var(--gold-primary); box-shadow: var(--shadow-md); }
+
+        .qcm-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .qcm-number {
+            background: var(--navy-deep);
+            color: white;
+            min-width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 0.8rem;
+        }
+
+        .qcm-question {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--navy-deep);
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        .options-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .option-btn {
+            padding: 16px 20px;
+            border: 2px solid #f1f5f9;
+            background: #f8fafc;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 0.95rem;
+            text-align: left;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .option-btn:hover:not(:disabled) {
+            background: white;
+            border-color: var(--gold-primary);
+            transform: translateX(5px);
+        }
+
+        .option-btn.selected { border-color: var(--navy-deep); background: white; }
+        .option-btn.correct { background: #ecfdf5 !important; border-color: var(--accent-success) !important; color: #065f46; font-weight: 700; }
+        .option-btn.wrong { background: #fef2f2 !important; border-color: var(--accent-error) !important; color: #991b1b; }
+
+        /* --- Score & Results --- */
+        .results-panel {
+            display: none;
+            background: white;
+            border-radius: var(--radius-lg);
+            padding: 40px;
+            text-align: center;
+            margin-top: 50px;
+            box-shadow: var(--shadow-lg);
+            border: 2px solid var(--gold-primary);
+        }
+
         .score-circle {
-            width: 120px; height: 120px; border-radius: 50%; border: 8px solid var(--gold);
-            margin: 0 auto 20px; display: flex; flex-direction: column; align-items: center;
-            justify-content: center; font-size: 2.5rem; font-weight: 800;
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            border: 8px solid var(--gold-primary);
+            margin: 0 auto 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
         }
-        .score-circle span { font-size: 1rem; color: #64748b; margin-top: -5px; }
 
-        .share-actions { display: flex; gap: 10px; justify-content: center; margin-top: 30px; flex-wrap: wrap; }
-        .btn-share {
-            padding: 12px 24px; border-radius: 10px; border: none; font-weight: 600;
-            color: white; cursor: pointer; display: flex; align-items: center; gap: 8px;
-            transition: var(--transition); font-size: 0.9rem;
+        .score-value { font-size: 3rem; font-weight: 800; color: var(--navy-deep); }
+        .score-total { font-size: 1rem; color: var(--text-muted); border-top: 1px solid var(--border-color); padding-top: 5px; }
+
+        /* --- Actions --- */
+        .btn-submit {
+            display: block;
+            width: 100%;
+            max-width: 300px;
+            margin: 40px auto;
+            padding: 18px;
+            background: var(--gold-primary);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            box-shadow: 0 10px 15px -3px rgba(202, 138, 4, 0.3);
+            transition: var(--transition);
         }
-        .btn-share.pdf { background: #dc2626; }
-        .btn-share.email { background: #2563eb; }
-        .btn-share.wa { background: #16a34a; }
 
-        /* --- PDF & PRINT OPTIMIZATION --- */
+        .btn-submit:hover { transform: translateY(-3px); background: #a16e03; }
+
+        .action-group {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .btn-action {
+            padding: 12px 24px;
+            border-radius: 10px;
+            border: none;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: var(--transition);
+        }
+
+        .btn-pdf { background: #ef4444; }
+        .btn-email { background: var(--accent-info); }
+        .btn-whatsapp { background: #22c55e; }
+
+        .btn-action:hover { opacity: 0.9; transform: scale(1.05); }
+
+        /* --- Correction Box --- */
+        .correction-box {
+            display: none;
+            margin-top: 15px;
+            padding: 20px;
+            background: #f8fafc;
+            border-left: 4px solid var(--accent-info);
+            border-radius: 4px;
+            font-size: 0.9rem;
+            color: #334155;
+        }
+
+        /* --- PDF PRINT OPTIMIZATION (Crucial) --- */
         @media print {
-            .no-print, .nav-item, #sidebar, .mobile-menu-btn, .opt-btn::before { display: none !important; }
-            #main { margin: 0; padding: 0; width: 100%; height: auto; overflow: visible; }
-            .content-wrapper { max-width: 100%; padding: 0; }
-            .qcm-box { border: 1px solid #eee; break-inside: avoid; box-shadow: none; margin-bottom: 20px; }
-            .banner { background: white !important; color: black !important; border: 2px solid black; padding: 20px; }
-            .opt-btn { border: 1px solid #ccc !important; background: transparent !important; color: black !important; }
+            body { background: white; }
+            #sidebar, .btn-submit, .action-group, .mobile-menu-btn { display: none !important; }
+            #main { margin-left: 0; padding: 0; overflow: visible; }
+            .qcm-card { break-inside: avoid; border: 1px solid #eee; box-shadow: none; margin-bottom: 20px; }
+            .option-btn { border: 1px solid #ddd; background: transparent !important; }
+            .hero-banner { background: #000 !important; color: #fff !important; padding: 20px; }
+            .badge-pcsi { border: 1px solid #000; color: #000; }
         }
 
-        /* --- MOBILE --- */
+        /* --- Mobile Responsive --- */
         .mobile-menu-btn {
-            display: none; position: fixed; top: 15px; left: 15px; z-index: 1001;
-            background: var(--navy-dark); color: white; border: none; padding: 12px;
-            border-radius: 8px; cursor: pointer;
+            display: none;
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1001;
+            background: var(--navy-deep);
+            color: white;
+            border: none;
+            width: 45px;
+            height: 45px;
+            border-radius: 10px;
+            cursor: pointer;
         }
 
-        @media (max-width: 900px) {
-            #sidebar { transform: translateX(-100%); position: fixed; }
+        @media (max-width: 1024px) {
+            #sidebar { transform: translateX(-100%); }
             #sidebar.active { transform: translateX(0); }
-            #main { padding-top: 60px; }
+            #main { margin-left: 0; padding: 80px 20px; }
             .mobile-menu-btn { display: block; }
             .options-grid { grid-template-columns: 1fr; }
-            .banner { padding: 30px; }
         }
+
+        /* --- Loading State --- */
+        .loader {
+            display: none;
+            text-align: center;
+            padding: 50px;
+        }
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid var(--border-color);
+            border-top: 4px solid var(--gold-primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
     </style>
 </head>
 <body>
 
-<button class="mobile-menu-btn" onclick="toggleSidebar()"><i class="fas fa-bars"></i></button>
+    <button class="mobile-menu-btn" onclick="toggleMobile()"><i class="fas fa-bars"></i></button>
 
-<aside id="sidebar">
-    <div class="logo-area">
-        <div class="logo-text">ELIAN<span>MATHS</span></div>
-        <div class="badge-pcsi">PREPA PCSI - ELITE</div>
-    </div>
-
-    <nav class="nav-group">
-        <div class="nav-label">Analyse</div>
+    <aside id="sidebar">
+        <div class="sidebar-header">
+            <div class="logo-main">ELIAN<span>MATHS</span></div>
+            <div class="badge-pcsi">PREPA PCSI • PRESTIGE</div>
+        </div>
         
-        <div class="menu-block">
-            <div class="nav-item" onclick="toggleSub(this)">
-                <i class="fas fa-chart-area"></i> Fonctions réelles
-                <i class="fas fa-chevron-down" style="margin-left:auto; font-size:0.7rem;"></i>
+        <nav class="sidebar-nav">
+            <div class="nav-group">
+                <button class="nav-parent" onclick="handleNav(this)">
+                    <span><i class="fas fa-superscript"></i> Polynômes</span>
+                    <i class="fas fa-chevron-down chevron"></i>
+                </button>
+                <div class="nav-children">
+                    <div class="nav-section-title">Cours</div>
+                    <a class="nav-item" onclick="loadPage('poly_bases')">Construction & Arithmétique</a>
+                    <a class="nav-item" onclick="loadPage('poly_racines')">Racines & Multiplicité</a>
+                    <a class="nav-item" onclick="loadPage('poly_fractions')">Fractions Rationnelles</a>
+                    <div class="nav-section-title">Entraînement</div>
+                    <a class="nav-item training" onclick="startTraining('poly')">Training Prestige (Note/20)</a>
+                </div>
             </div>
-            <div class="sub-menu">
-                <a class="sub-item" onclick="loadContent('theoremes')">Rolle & Accroissements finis</a>
-                <a class="sub-item" onclick="loadContent('taylor')">Formules de Taylor</a>
-                <a class="sub-item" onclick="loadContent('training')">🎓 Training QCM</a>
+
+            <div class="nav-group">
+                <button class="nav-parent" onclick="handleNav(this)">
+                    <span><i class="fas fa-draw-polygon"></i> Géométrie</span>
+                    <i class="fas fa-chevron-down chevron"></i>
+                </button>
+                <div class="nav-children">
+                    <div class="nav-section-title">Cours</div>
+                    <a class="nav-item" onclick="loadPage('geo_affine')">Espaces Affines</a>
+                    <a class="nav-item" onclick="loadPage('geo_metrique')">Produit Scalaire</a>
+                    <div class="nav-section-title">Entraînement</div>
+                    <a class="nav-item training" onclick="startTraining('geo')">Training Prestige (Note/30)</a>
+                </div>
             </div>
+
+            <div class="nav-group">
+                <button class="nav-parent" onclick="handleNav(this)">
+                    <span><i class="fas fa-wave-square"></i> Analyse</span>
+                    <i class="fas fa-chevron-down chevron"></i>
+                </button>
+                <div class="nav-children">
+                    <div class="nav-section-title">Cours</div>
+                    <a class="nav-item" onclick="loadPage('ana_limites')">Limites & Continuité</a>
+                    <a class="nav-item" onclick="loadPage('ana_derivation')">Dérivation & Rolle</a>
+                    <div class="nav-section-title">Entraînement</div>
+                    <a class="nav-item training" onclick="startTraining('ana')">Training Rapide (Note/6)</a>
+                </div>
+            </div>
+        </nav>
+
+        <div style="padding: 20px; border-top: 1px solid var(--border-color); font-size: 0.7rem; color: var(--text-muted); text-align: center;">
+            &copy; 2026 Elian Maths - Excellence PCSI
         </div>
+    </aside>
 
-        <div class="menu-block">
-            <div class="nav-item" onclick="toggleSub(this)">
-                <i class="fas fa-infinity"></i> Suites & Séries
-                <i class="fas fa-chevron-down" style="margin-left:auto; font-size:0.7rem;"></i>
+    <main id="main">
+        <div class="content-wrapper" id="pdf-area">
+            <div id="dynamic-zone">
+                <div class="hero-banner">
+                    <h1 style="font-size: 2.8rem; margin: 0; font-weight: 800; letter-spacing: -2px;">Elite Workspace</h1>
+                    <p style="font-size: 1.2rem; opacity: 0.8; margin-top: 10px; font-weight: 400;">
+                        Système d'évaluation adaptatif pour mathématiques de haut niveau.
+                    </p>
+                    <div style="margin-top: 30px; display: flex; gap: 15px;">
+                        <span style="display: flex; align-items: center; gap: 8px; font-size: 0.9rem;">
+                            <i class="fas fa-check-circle" style="color: var(--gold-light);"></i> Rendu LaTeX impeccable
+                        </span>
+                        <span style="display: flex; align-items: center; gap: 8px; font-size: 0.9rem;">
+                            <i class="fas fa-check-circle" style="color: var(--gold-light);"></i> Export PDF Académique
+                        </span>
+                    </div>
+                </div>
+
+                <div style="text-align: center; color: var(--text-muted); padding: 100px 20px;">
+                    <i class="fas fa-arrow-left" style="font-size: 2rem; margin-bottom: 20px; display: block;"></i>
+                    <p>Sélectionnez un module dans le menu latéral pour commencer.</p>
+                </div>
             </div>
-            <div class="sub-menu">
-                <a class="sub-item">Suites usuelles</a>
-                <a class="sub-item">Convergence</a>
-            </div>
-        </div>
 
-        <div class="nav-label">Algèbre</div>
-        <a class="nav-item"><i class="fas fa-th"></i> Matrices & Systèmes</a>
-        <a class="nav-item"><i class="fas fa-project-diagram"></i> Espaces Vectoriels</a>
-    </nav>
-</aside>
-
-<main id="main" onscroll="updateScroll()">
-    <div class="top-bar"><div id="progress-bar"></div></div>
-
-    <div class="content-wrapper" id="pdf-area">
-        <div id="dynamic-content">
-            <div class="banner">
-                <h1 style="margin:0; font-size: 2.8rem; letter-spacing: -2px;">Espace de Travail PCSI</h1>
-                <p style="opacity:0.8; font-size: 1.1rem; margin-top: 15px; font-weight: 300;">
-                    Plateforme académique haute performance pour la maîtrise du calcul différentiel.
-                </p>
-                <div style="margin-top: 30px;">
-                    <button onclick="loadContent('training')" style="background: var(--gold); border:none; padding:12px 25px; border-radius:8px; font-weight:700; cursor:pointer;">
-                        Lancer l'entraînement
+            <div id="results-panel" class="results-panel">
+                <h2 id="congrats-title">Analyse des Résultats</h2>
+                <div class="score-circle">
+                    <div class="score-value" id="final-score">0</div>
+                    <div class="score-total" id="final-base">/20</div>
+                </div>
+                <p id="evaluation-text" style="font-weight: 600; margin-bottom: 30px; color: var(--text-muted);"></p>
+                
+                <div class="action-group">
+                    <button class="btn-action btn-pdf" onclick="generateProfessionalPDF()">
+                        <i class="fas fa-file-pdf"></i> Télécharger le Compte-Rendu
+                    </button>
+                    <button class="btn-action btn-email" onclick="shareResult('email')">
+                        <i class="fas fa-envelope"></i> Envoyer au Professeur
+                    </button>
+                    <button class="btn-action btn-whatsapp" onclick="shareResult('whatsapp')">
+                        <i class="fab fa-whatsapp"></i> Partager via WhatsApp
                     </button>
                 </div>
             </div>
         </div>
-
-        <div id="result-zone" class="score-card no-print">
-            <div class="score-circle" id="score-val">0<span>/0</span></div>
-            <h2 id="score-title">Analyse des résultats</h2>
-            <p id="score-msg" style="color:#64748b; margin-bottom: 30px;"></p>
-            <div class="share-actions">
-                <button class="btn-share pdf" onclick="exportToPDF()"><i class="fas fa-file-pdf"></i> Télécharger ma copie</button>
-                <button class="btn-share email" onclick="shareResult('email')"><i class="fas fa-envelope"></i> Email au prof</button>
-                <button class="btn-share wa" onclick="shareResult('wa')"><i class="fab fa-whatsapp"></i> WhatsApp</button>
-            </div>
+        
+        <div id="loader" class="loader">
+            <div class="spinner"></div>
+            <p>Chargement des ressources mathématiques...</p>
         </div>
-    </div>
-    
-    <button id="final-submit" class="no-print" style="display:none; margin: 0 auto 100px; background: var(--navy-dark); color:white; border:none; padding:20px 50px; border-radius:50px; font-weight:800; cursor:pointer; font-size: 1.1rem; box-shadow: var(--shadow-pro);">
-        SOUMETTRE MA COPIE
-    </button>
-</main>
+    </main>
 
-<script>
-    // --- GESTION INTERFACE ---
-    function toggleSidebar() {
-        document.getElementById('sidebar').classList.toggle('active');
-    }
+    <script>
+        // --- CONFIGURATION ---
+        const PROF_EMAIL = "boris.kinnouezan@imsp-uac.org";
+        let currentTotalQuestions = 0;
+        let currentBaseScale = 20;
 
-    function toggleSub(el) {
-        const menu = el.nextElementSibling;
-        menu.classList.toggle('open');
-        el.querySelector('.fa-chevron-down').style.transform = menu.classList.contains('open') ? 'rotate(180deg)' : 'rotate(0deg)';
-    }
-
-    function updateScroll() {
-        const winScroll = document.getElementById('main').scrollTop;
-        const height = document.getElementById('main').scrollHeight - document.getElementById('main').clientHeight;
-        const scrolled = (winScroll / height) * 100;
-        document.getElementById('progress-bar').style.width = scrolled + "%";
-    }
-
-    // --- MOTEUR DE CONTENU ---
-    function loadContent(page) {
-        if(window.innerWidth <= 900) toggleSidebar();
-        const container = document.getElementById('dynamic-content');
-        const submitBtn = document.getElementById('final-submit');
-        const resultZone = document.getElementById('result-zone');
-        
-        resultZone.style.display = 'none';
-        
-        if(page === 'training') {
-            container.innerHTML = generateMockTraining();
-            submitBtn.style.display = 'block';
-            submitBtn.onclick = calculateFinalScore;
-        } else if(page === 'taylor') {
-            container.innerHTML = `
-                <div class="banner"><h1>Formules de Taylor</h1><p>Approximation polynomiale et reste intégral.</p></div>
-                <div class="qcm-box"><h3>Cours en rédaction...</h3><p>Revenez plus tard pour ce module.</p></div>
-            `;
-            submitBtn.style.display = 'none';
+        // --- GESTION INTERFACE ---
+        function toggleMobile() {
+            document.getElementById('sidebar').classList.toggle('active');
         }
-        
-        if (window.MathJax) MathJax.typesetPromise();
-        document.getElementById('main').scrollTo(0, 0);
-    }
 
-    // --- GÉNÉRATEUR DE QUESTIONS (MODIFIABLE FACILEMENT) ---
-    function generateMockTraining() {
-        const questions = [
-            {
-                q: "Soit $f$ continue sur $[a, b]$ et dérivable sur $]a, b[$. Si $f(a) = f(b)$, que garantit le théorème de Rolle ?",
-                o: ["$f$ est constante", "$\exists c \in ]a, b[, f'(c) = 0$", "$f$ est monotone", "$f'(a) = f'(b)$"],
-                a: 1,
-                t: "Théorème de Rolle"
-            },
-            {
-                q: "Quelle est l'expression du reste intégral de Taylor à l'ordre $n$ ?",
-                o: ["$\int_a^x \frac{(x-t)^n}{n!} f^{(n+1)}(t) dt$", "$\int_a^x \frac{(t-a)^n}{n!} f^{(n)}(t) dt$", "$\frac{(x-a)^{n+1}}{(n+1)!} f^{(n+1)}(c)$", "$o((x-a)^n)$"],
-                a: 0,
-                t: "Formule de Taylor"
-            },
-            {
-                q: "Si $|f'(x)| \le k$, alors $|f(b) - f(a)|$ est majoré par :",
-                o: ["$k |b-a|$", "$k$", "$|b-a| / k$", "$k^2 |b-a|$"],
-                a: 0,
-                t: "Inégalité des Accroissements Finis"
-            },
-            {
-                q: "Le développement de Taylor-Young est un outil :",
-                o: ["Global", "Local (au voisinage d'un point)", "Uniquement pour les polynômes", "Qui donne une égalité exacte"],
-                a: 1,
-                t: "Taylor-Young"
-            },
-            {
-                q: "Pour $f(x) = \sin(x)$ en $0$ à l'ordre 3, le reste de Taylor-Young est :",
-                o: ["$x^3$", "$o(x^3)$", "$x^4 / 24$", "$1$"],
-                a: 1,
-                t: "DL Usuels"
-            },
-            {
-                q: "La fonction $f(x) = |x|$ vérifie-t-elle Rolle sur $[-1, 1]$ ?",
-                o: ["Oui", "Non, car elle n'est pas dérivable en 0", "Non, car $f(-1) \ne f(1)$", "Seulement sur $[0, 1]$"],
-                a: 1,
-                t: "Hypothèses"
+        function handleNav(btn) {
+            const group = btn.parentElement;
+            const wasActive = group.classList.contains('active');
+            
+            document.querySelectorAll('.nav-group').forEach(g => g.classList.remove('active'));
+            if (!wasActive) group.classList.add('active');
+        }
+
+        // --- CHARGEMENT DYNAMIQUE ---
+        async function loadPage(file) {
+            const zone = document.getElementById('dynamic-zone');
+            const loader = document.getElementById('loader');
+            const results = document.getElementById('results-panel');
+            
+            results.style.display = 'none';
+            zone.style.opacity = '0';
+            loader.style.display = 'block';
+
+            if(window.innerWidth <= 1024) toggleMobile();
+
+            try {
+                const response = await fetch(`content/${file}.html`);
+                const html = response.ok ? await response.text() : generateErrorHTML(file);
+                
+                zone.innerHTML = html;
+                
+                // Détecter automatiquement le nombre de questions
+                currentTotalQuestions = zone.querySelectorAll('.qcm-card').length;
+                
+                // Appliquer MathJax
+                if (window.MathJax) {
+                    await MathJax.typesetPromise([zone]);
+                }
+
+                zone.style.opacity = '1';
+                document.getElementById('main').scrollTo({ top: 0, behavior: 'smooth' });
+            } catch (err) {
+                zone.innerHTML = `<div class="hero-banner" style="background:var(--accent-error)"><h1>Erreur Réseau</h1><p>${err.message}</p></div>`;
+            } finally {
+                loader.style.display = 'none';
+                zone.style.opacity = '1';
             }
-        ];
+        }
 
-        return questions.map((item, idx) => `
-            <div class="qcm-box" data-ans="${item.a}">
-                <span class="qcm-tag">${item.t}</span>
-                <div class="qcm-question">${item.q}</div>
-                <div class="options-grid">
-                    ${item.o.map((opt, i) => `
-                        <button class="opt-btn" onclick="selectOpt(this, ${i})">${opt}</button>
-                    `).join('')}
+        function generateErrorHTML(file) {
+            return `
+                <div class="hero-banner" style="background:var(--accent-error)">
+                    <h1>Module non trouvé</h1>
+                    <p>Le fichier <code>content/${file}.html</code> est manquant dans votre architecture.</p>
                 </div>
-            </div>
-        `).join('');
-    }
-
-    // --- LOGIQUE QCM ---
-    function selectOpt(btn, idx) {
-        const parent = btn.closest('.qcm-box');
-        parent.querySelectorAll('.opt-btn').forEach(b => b.classList.remove('selected', 'wrong', 'correct'));
-        btn.classList.add('selected');
-        
-        // Auto-correction visuelle immédiate
-        const correctIdx = parseInt(parent.dataset.ans);
-        if(idx === correctIdx) {
-            btn.classList.add('correct');
-        } else {
-            btn.classList.add('wrong');
-            parent.querySelectorAll('.opt-btn')[correctIdx].classList.add('correct');
-        }
-        // Désactiver les boutons après choix
-        parent.querySelectorAll('.opt-btn').forEach(b => b.disabled = true);
-    }
-
-    // --- CALCUL DU SCORE DYNAMIQUE ---
-    function calculateFinalScore() {
-        const boxes = document.querySelectorAll('.qcm-box');
-        const total = boxes.length; // Calcule dynamiquement le total (6, 20, 30...)
-        let points = 0;
-
-        boxes.forEach(box => {
-            const selected = box.querySelector('.opt-btn.correct.selected');
-            if(selected) points++;
-        });
-
-        // Affichage des résultats
-        document.getElementById('final-submit').style.display = 'none';
-        const zone = document.getElementById('result-zone');
-        zone.style.display = 'block';
-        
-        document.getElementById('score-val').innerHTML = `${points}<span>/${total}</span>`;
-        
-        let title = "Travail à poursuivre";
-        let msg = "Les bases ne semblent pas encore acquises. Relisez attentivement le chapitre sur les dérivées.";
-        
-        const ratio = points / total;
-        if(ratio >= 0.9) {
-            title = "Excellence Académique";
-            msg = "Félicitations. Votre maîtrise des théorèmes de l'analyse est digne d'une intégration en école de rang A.";
-        } else if(ratio >= 0.7) {
-            title = "Résultats Solides";
-            msg = "Très bon niveau. Quelques imprécisions sur les restes de Taylor, mais l'essentiel est là.";
-        } else if(ratio >= 0.5) {
-            title = "Niveau Convenable";
-            msg = "La moyenne est atteinte, mais attention aux hypothèses de continuité et de dérivabilité.";
+            `;
         }
 
-        document.getElementById('score-title').innerText = title;
-        document.getElementById('score-msg').innerText = msg;
-        
-        zone.scrollIntoView({ behavior: 'smooth' });
-    }
-
-    // --- EXPORT PDF PROFESSIONNEL ---
-    function exportToPDF() {
-        const element = document.getElementById('pdf-area');
-        const opt = {
-            margin:       [15, 15],
-            filename:     'Copie_PCSI_Analyse.pdf',
-            image:        { type: 'jpeg', quality: 1.0 },
-            html2canvas:  { scale: 2, useCORS: true, letterRendering: true },
-            jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' },
-            pagebreak:    { mode: 'avoid-all', before: '.qcm-box' }
-        };
-
-        // On masque les éléments interactifs pour le PDF
-        document.querySelectorAll('.share-actions, .mobile-menu-btn').forEach(e => e.style.opacity = '0');
-
-        html2pdf().set(opt).from(element).save().then(() => {
-            document.querySelectorAll('.share-actions, .mobile-menu-btn').forEach(e => e.style.opacity = '1');
-        });
-    }
-
-    // --- PARTAGE SOCIAL ---
-    function shareResult(mode) {
-        const scoreText = document.getElementById('score-val').innerText;
-        const msg = `Rendu ElianMaths PCSI : J'ai obtenu ${scoreText.replace('\n', '')} sur le module Analyse.`;
-        
-        if(mode === 'email') {
-            window.location.href = `mailto:boris.kinnouezan@imsp-uac.org?subject=Copie PCSI&body=${encodeURIComponent(msg)}`;
-        } else if(mode === 'wa') {
-            window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`);
+        // --- LOGIQUE D'ENTRAÎNEMENT ---
+        function startTraining(subject) {
+            // Ici on pourrait charger aléatoirement v1, v2 ou v3
+            const v = Math.floor(Math.random() * 2) + 1;
+            loadPage(`${subject}_training_v${v}`);
         }
-    }
-</script>
 
-</body>
+        // --- LOGIQUE QCM ---
+        function selectOption(btn, isCorrect) {
+            const card = btn.closest('.qcm-card');
+            const options = card.querySelectorAll('.option-btn');
+            
+            // Désactiver les options après choix
+            options.forEach(opt => {
+                opt.disabled = true;
+                opt.classList.remove('selected');
+            });
+
+            btn.classList.add('selected');
+            
+            // Feedback immédiat (optionnel, mais pro)
+            if (isCorrect) {
+                btn.classList.add('correct');
+            } else {
+                btn.classList.add('wrong');
+                // Montrer la bonne réponse
+                options.forEach(opt => {
+                    if (opt.getAttribute('onclick').includes('true')) opt.classList.add('correct');
+                });
+            }
+        }
+
+        // --- CALCUL DU SCORE DYNAMIQUE ---
+        function processFinalScore() {
+            const totalQuestions = document.querySelectorAll('.qcm-card').length;
+            const correctAnswers = document.querySelectorAll('.option-btn.correct.selected').length;
+            
+            // Déterminer la base de notation (30, 20 ou 6)
+            if (totalQuestions >= 15) currentBaseScale = 20;
+            else if (totalQuestions >= 8) currentBaseScale = 30;
+            else currentBaseScale = 6;
+
+            const finalNote = ((correctAnswers / totalQuestions) * currentBaseScale).toFixed(1);
+            
+            displayResults(finalNote, currentBaseScale, correctAnswers, totalQuestions);
+        }
+
+        function displayResults(note, base, correct, total) {
+            const panel = document.getElementById('results-panel');
+            const scoreVal = document.getElementById('final-score');
+            const scoreBase = document.getElementById('final-base');
+            const evalText = document.getElementById('evaluation-text');
+            const title = document.getElementById('congrats-title');
+
+            panel.style.display = 'block';
+            scoreVal.innerText = note;
+            scoreBase.innerText = `/${base}`;
+
+            let appreciation = "";
+            let color = "";
+
+            const ratio = note / base;
+            if (ratio >= 0.9) { appreciation = "🏆 Excellence académique. Félicitations."; color = "var(--accent-success)"; }
+            else if (ratio >= 0.7) { appreciation = "🥈 Très bon niveau, maîtrisez les détails."; color = "var(--accent-info)"; }
+            else if (ratio >= 0.5) { appreciation = "🥉 Niveau satisfaisant, continuez les efforts."; color = "var(--gold-primary)"; }
+            else { appreciation = "✍️ Travail insuffisant. Reprenez le cours."; color = "var(--accent-error)"; }
+
+            evalText.innerText = appreciation;
+            evalText.style.color = color;
+            title.innerText = `Résultats : ${correct} bonnes réponses sur ${total}`;
+
+            panel.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // --- EXPORT PDF PRESTIGE ---
+        function generateProfessionalPDF() {
+            const element = document.getElementById('pdf-area');
+            const originalContent = element.innerHTML;
+            
+            // Création d'un conteneur temporaire pour le nettoyage PDF
+            const pdfContainer = document.createElement('div');
+            pdfContainer.innerHTML = originalContent;
+            
+            // Nettoyage des éléments non désirés dans le PDF
+            pdfContainer.querySelectorAll('.action-group, .btn-submit, button').forEach(el => el.remove());
+            
+            // Ajout d'un en-tête académique
+            const header = document.createElement('div');
+            header.innerHTML = `
+                <div style="border-bottom: 2px solid #000; padding-bottom: 10px; margin-bottom: 30px; display: flex; justify-content: space-between; align-items: center;">
+                    <div style="font-weight: 800; font-size: 20px;">ELIAN MATHS | PCSI</div>
+                    <div style="text-align: right; font-size: 12px;">Compte-rendu d'évaluation numérique<br>Date: ${new Date().toLocaleDateString('fr-FR')}</div>
+                </div>
+            `;
+            pdfContainer.prepend(header);
+
+            // Options de génération
+            const opt = {
+                margin: [15, 15, 20, 15], // Haut, Gauche, Bas, Droite
+                filename: `Evaluation_PCSI_${new Date().getTime()}.pdf`,
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { 
+                    scale: 2, 
+                    useCORS: true,
+                    logging: false,
+                    letterRendering: true
+                },
+                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+                pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
+            };
+
+            // Lancer la génération
+            html2pdf().set(opt).from(pdfContainer).save().then(() => {
+                console.log("PDF exporté avec succès");
+            });
+        }
+
+        // --- PARTAGE ---
+        function shareResult(type) {
+            const score = document.getElementById('final-score').innerText;
+            const base = document.getElementById('final-base').innerText;
+            const text = `Bonjour Boris, j'ai terminé mon évaluation. Résultat : ${score}${base}. Je vous joins le PDF détaillé.`;
+            
+            if (type === 'email') {
+                const subject = encodeURIComponent("Rendu Évaluation Mathématiques PCSI");
+                window.location.href = `mailto:${PROF_EMAIL}?subject=${subject}&body=${encodeURIComponent(text)}`;
+            } else if (type === 'whatsapp') {
+                window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, '_blank');
+            }
+        }
+    </script>
+
+    </body>
 </html>
