@@ -12,64 +12,224 @@
         };
     </script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --navy-dark: #0a0f1d; --navy-main: #111827;      
-            --gold-btn: #eab308; --gold-hover: #facc15;    
-            --gold-muted: #c6a052; --bg-page: #f4f6f9;        
-            --surface: #ffffff; --text-main: #1e293b;
-            --text-muted: #64748b; --border: #e2e8f0;
-            --radius: 14px; --shadow-sm: 0 2px 10px rgba(10, 15, 29, 0.03);
+            /* Palette Ultra Prestige */
+            --navy-dark: #0a0f1d;     
+            --navy-main: #111827;     
+            --gold-btn: #eab308;      
+            --gold-hover: #facc15;    
+            --gold-muted: #c6a052;    
+            
+            --bg-page: #f4f6f9;       
+            --surface: #ffffff;       
+            
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+            
+            --radius: 14px;
+            --shadow-sm: 0 2px 10px rgba(10, 15, 29, 0.03);
             --shadow-md: 0 10px 25px rgba(10, 15, 29, 0.08);
             --shadow-lg: 0 20px 40px rgba(10, 15, 29, 0.15);
             --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
         }
+
         body { font-family: 'Inter', sans-serif; margin: 0; background: var(--bg-page); color: var(--text-main); display: flex; overflow: hidden; }
-        #sidebar { width: 320px; height: 100vh; background: var(--surface); border-right: 1px solid var(--border); overflow-y: auto; position: fixed; z-index: 100; box-shadow: 4px 0 15px rgba(0,0,0,0.02); transition: transform 0.3s ease; }
-        .logo-container { padding: 35px 20px 25px; text-align: center; border-bottom: 1px solid var(--border); }
+        
+        /* SIDEBAR PRESTIGE */
+        #sidebar { 
+            width: 320px; height: 100vh; background: var(--surface); 
+            border-right: 1px solid var(--border); overflow-y: auto; position: fixed; z-index: 100;
+            box-shadow: 4px 0 15px rgba(0,0,0,0.02);
+            transition: transform 0.3s ease;
+        }
+
+        .logo-container { padding: 35px 20px 25px; text-align: center; border-bottom: 1px solid var(--border); background: var(--surface); }
         .logo-text { font-weight: 800; font-size: 1.6rem; color: var(--navy-dark); letter-spacing: -1px; }
         .logo-text span { color: var(--gold-btn); }
-        .badge-prestige { font-size: 0.65rem; color: var(--navy-dark); font-weight: 800; margin-top: 8px; background: linear-gradient(135deg, var(--gold-btn), var(--gold-hover)); display: inline-block; padding: 4px 10px; border-radius: 6px; }
+        
+        .badge-prestige {
+            font-size: 0.65rem; color: var(--navy-dark); font-weight: 800; margin-top: 8px; 
+            background: linear-gradient(135deg, var(--gold-btn), var(--gold-hover));
+            display: inline-block; padding: 4px 10px; border-radius: 6px; box-shadow: 0 2px 5px rgba(234, 179, 8, 0.3);
+        }
+
+        /* MENU ARCHITECTURE */
         .chapter-box { border-bottom: 1px solid var(--border); }
-        .lvl-1-btn { width: 100%; padding: 18px 20px; border: none; background: none; display: flex; justify-content: space-between; align-items: center; font-weight: 800; color: var(--navy-dark); cursor: pointer; transition: var(--transition); text-transform: uppercase; font-size: 0.85rem; }
+        .lvl-1-btn { 
+            width: 100%; padding: 18px 20px; border: none; background: none;
+            display: flex; justify-content: space-between; align-items: center;
+            font-weight: 800; color: var(--navy-dark); cursor: pointer; transition: var(--transition);
+            text-transform: uppercase; font-size: 0.85rem; letter-spacing: 0.5px;
+        }
         .lvl-1-btn:hover { background: #f8fafc; color: var(--gold-muted); }
+
         .lvl-2-container { display: none; background: #fafbfc; padding-bottom: 10px; border-top: 1px solid #f1f5f9; }
         .lvl-2-container.open { display: block; }
-        .lvl-2-header { padding: 15px 20px 5px 30px; font-size: 0.7rem; font-weight: 800; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; }
-        .lvl-3-item { display: flex; align-items: center; padding: 10px 20px 10px 45px; font-size: 0.9rem; color: var(--text-muted); font-weight: 500; text-decoration: none; transition: var(--transition); cursor: pointer; }
+
+        .lvl-2-header { 
+            padding: 15px 20px 5px 30px; font-size: 0.7rem; font-weight: 800; 
+            color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px;
+        }
+
+        .lvl-3-item {
+            display: flex; align-items: center; padding: 10px 20px 10px 45px; 
+            font-size: 0.9rem; color: var(--text-muted); font-weight: 500; text-decoration: none; 
+            transition: var(--transition); cursor: pointer;
+        }
         .lvl-3-item i { margin-right: 12px; font-size: 0.85rem; width: 15px; text-align: center; }
         .lvl-3-item:hover { color: var(--navy-dark); background: white; padding-left: 50px; box-shadow: inset 3px 0 0 var(--gold-btn); }
         .lvl-3-item.training { color: #059669; font-weight: 600; }
         .lvl-3-item.training:hover { box-shadow: inset 3px 0 0 #059669; }
-        .lvl-3-item.pro { color: #b91c1c; font-weight: 600; }
-        .lvl-3-item.pro:hover { box-shadow: inset 3px 0 0 #b91c1c; }
+
         .chevron { font-size: 0.7rem; transition: transform 0.3s; color: var(--text-muted); }
         .open > .chevron { transform: rotate(180deg); color: var(--navy-dark); }
-        #main { margin-left: 320px; flex-grow: 1; padding: 40px; padding-bottom: 120px; height: 100vh; overflow-y: auto; scroll-behavior: smooth; box-sizing: border-box; }
-        .banner { background: linear-gradient(135deg, var(--navy-dark), var(--navy-main)); color: white; padding: 50px; border-radius: var(--radius); margin-bottom: 40px; box-shadow: var(--shadow-md); border-bottom: 4px solid var(--gold-btn); }
-        .qcm-box { background: var(--surface); padding: 30px; border-radius: var(--radius); margin-bottom: 30px; border-left: 6px solid var(--gold-muted); box-shadow: var(--shadow-sm); }
+
+        /* MAIN CONTENT */
+        #main { 
+            margin-left: 320px; flex-grow: 1; padding: 40px; padding-bottom: 120px; 
+            height: 100vh; overflow-y: auto; scroll-behavior: smooth; box-sizing: border-box; 
+            transition: margin-left 0.3s ease;
+        }
+        
+        .banner { 
+            background: linear-gradient(135deg, var(--navy-dark), var(--navy-main)); 
+            color: white; padding: 50px; border-radius: var(--radius); margin-bottom: 40px;
+            box-shadow: var(--shadow-md); position: relative; overflow: hidden;
+            border-bottom: 4px solid var(--gold-btn);
+        }
+        
+        /* STYLES QCM */
+        .qcm-box { 
+            background: var(--surface); padding: 30px; border-radius: var(--radius); 
+            margin-bottom: 30px; border-left: 6px solid var(--gold-muted); box-shadow: var(--shadow-sm); 
+        }
         .qcm-question { font-weight: 600; font-size: 1.15rem; margin-bottom: 25px; color: var(--navy-dark); line-height: 1.6; }
         .qcm-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
-        .opt-btn { padding: 18px; border: 2px solid var(--border); background: var(--surface); border-radius: 10px; cursor: pointer; transition: var(--transition); font-family: inherit; font-size: 1rem; text-align: left; color: var(--text-main); font-weight: 500; }
-        .opt-btn:hover:not(:disabled) { background: #fefce8; border-color: var(--gold-btn); transform: translateY(-2px); }
+        
+        .opt-btn { 
+            padding: 18px; border: 2px solid var(--border); background: var(--surface); 
+            border-radius: 10px; cursor: pointer; transition: var(--transition); 
+            font-family: inherit; font-size: 1rem; text-align: left; color: var(--text-main);
+            font-weight: 500;
+        }
+        
+        .opt-btn:hover:not(:disabled) { 
+            background: #fefce8; border-color: var(--gold-btn); 
+            box-shadow: 0 4px 12px rgba(234, 179, 8, 0.15); transform: translateY(-2px);
+        }
+        
         .opt-btn.correct { background: #ecfdf5 !important; border-color: #10b981 !important; color: #065f46; font-weight: bold; }
         .opt-btn.wrong { background: #fef2f2 !important; border-color: #ef4444 !important; color: #991b1b; text-decoration: line-through; }
-        .btn-primary { display: block; width: 100%; max-width: 400px; margin: 40px auto; padding: 20px; background: var(--gold-btn); color: var(--navy-dark); border: none; border-radius: 50px; font-weight: 800; font-size: 1.15rem; text-transform: uppercase; cursor: pointer; transition: var(--transition); box-shadow: var(--shadow-lg); position: sticky; bottom: 30px; z-index: 50; }
+
+        /* BOUTON SOUMETTRE STICKY */
+        .btn-primary {
+            display: block; width: 100%; max-width: 400px; margin: 40px auto; padding: 20px;
+            background: var(--gold-btn); color: var(--navy-dark); border: none;
+            border-radius: 50px; font-weight: 800; font-size: 1.15rem; text-transform: uppercase; 
+            cursor: pointer; transition: var(--transition); box-shadow: var(--shadow-lg);
+            position: sticky; bottom: 30px; z-index: 50; 
+        }
+        .btn-primary:hover { background: var(--gold-hover); transform: translateY(-3px); box-shadow: 0 10px 30px rgba(234, 179, 8, 0.5); }
+
+        /* STYLES BOUTONS DE PARTAGE */
         .share-container { display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; margin-top: 25px; }
-        .share-btn { padding: 12px 20px; border: none; border-radius: 10px; cursor: pointer; font-family: 'Inter'; font-weight: 600; font-size: 0.95rem; color: white; transition: var(--transition); display: flex; align-items: center; gap: 10px; }
-        .share-btn.pdf { background: #ef4444; } .share-btn.email { background: #3b82f6; } .share-btn.wa { background: #22c55e; } .share-btn.sms { background: #8b5cf6; }
-        .mobile-menu-btn { display: none; position: fixed; top: 15px; left: 15px; z-index: 1000; background: var(--navy-dark); color: var(--gold-btn); border: none; border-radius: 8px; padding: 10px 15px; cursor: pointer; }
-        .sidebar-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); z-index: 90; }
-        @media (max-width: 900px) { .mobile-menu-btn { display: block; } #sidebar { transform: translateX(-100%); } #sidebar.active { transform: translateX(0); } .sidebar-overlay.active { display: block; } #main { margin-left: 0; padding: 70px 20px 100px 20px; } .qcm-grid { grid-template-columns: 1fr; } .share-btn { width: calc(50% - 8px); } }
+        .share-btn {
+            padding: 12px 20px; border: none; border-radius: 10px; cursor: pointer; font-family: 'Inter';
+            font-weight: 600; font-size: 0.95rem; color: white; transition: var(--transition); display: flex; align-items: center; gap: 10px;
+            box-shadow: var(--shadow-sm);
+        }
+        .share-btn.pdf { background: #ef4444; } 
+        .share-btn.email { background: #3b82f6; } 
+        .share-btn.wa { background: #22c55e; } 
+        .share-btn.sms { background: #8b5cf6; } 
+        .share-btn:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); filter: brightness(1.1); }
+
+        /* --- ELEMENTS POUR MOBILE --- */
+        .mobile-menu-btn {
+            display: none;
+            position: fixed;
+            top: 15px;
+            left: 15px;
+            z-index: 1000;
+            background: var(--navy-dark);
+            color: var(--gold-btn);
+            border: none;
+            border-radius: 8px;
+            padding: 10px 15px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            box-shadow: var(--shadow-md);
+        }
+
+        .sidebar-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 90;
+        }
+        .sidebar-overlay.active {
+            display: block;
+        }
+
+        /* --- ADAPTATION RESPONSIVE --- */
+        @media (max-width: 900px) {
+            .mobile-menu-btn { display: block; }
+
+            #sidebar {
+                transform: translateX(-100%);
+            }
+            #sidebar.active {
+                transform: translateX(0);
+            }
+
+            #main {
+                margin-left: 0;
+                padding: 70px 20px 100px 20px; 
+            }
+
+            .banner {
+                padding: 30px 20px;
+                margin-bottom: 25px;
+            }
+
+            .qcm-grid {
+                grid-template-columns: 1fr;
+            }
+            .qcm-box {
+                padding: 20px;
+            }
+
+            .btn-primary {
+                font-size: 1rem;
+                padding: 15px;
+                bottom: 15px;
+            }
+
+            .share-btn {
+                width: calc(50% - 8px); 
+                justify-content: center;
+            }
+        }
     </style>
 </head>
 <body>
 
-<button class="mobile-menu-btn" onclick="toggleMobileMenu()"><i class="fas fa-bars"></i></button>
+<button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+    <i class="fas fa-bars"></i>
+</button>
+
 <div class="sidebar-overlay" id="mobileOverlay" onclick="toggleMobileMenu()"></div>
 
 <div id="sidebar">
@@ -81,42 +241,47 @@
     <nav id="menu">
         <div class="chapter-box">
             <button class="lvl-1-btn" onclick="toggleMenu(this)">
-                <span><i class="fas fa-draw-polygon"></i> &nbsp; Géométrie</span>
+                <span><i class="fas fa-superscript"></i> &nbsp; Polynômes</span>
                 <i class="fas fa-chevron-down chevron"></i>
             </button>
             <div class="lvl-2-container">
-                <div class="lvl-2-header">Cours</div>
-                <a class="lvl-3-item" onclick="load('geo_metrique')"><i class="fas fa-vector-square"></i> Scalaire & Déterminant</a>
-                <a class="lvl-3-item" onclick="load('geo_analytique')"><i class="fas fa-line"></i> Droites & Cercles</a>
-                <div class="lvl-2-header">Entraînement</div>
-                <a class="lvl-3-item training" onclick="loadTraining('geo')"><i class="fas fa-bolt"></i> Entraînement Mixte</a>
-                <a class="lvl-3-item pro" onclick="load('geo_training_pro')"><i class="fas fa-fire"></i> Défi Expert (25 Q)</a>
+                <div class="lvl-2-header">Cours & Méthodes</div>
+                <a class="lvl-3-item" onclick="load('poly_bases')"><i class="fas fa-book"></i> Arithmétique & Bases</a>
+                <a class="lvl-3-item" onclick="load('poly_racines')"><i class="fas fa-seedling"></i> Racines & Multiplicité</a>
+                <a class="lvl-3-item" onclick="load('poly_fractions')"><i class="fas fa-divide"></i> Fractions Rationnelles</a>
+                
+                <div class="lvl-2-header">Évaluations</div>
+                <a class="lvl-3-item training" onclick="loadTraining('poly')"><i class="fas fa-bolt"></i> Test d'entraînement</a>
             </div>
         </div>
 
         <div class="chapter-box">
             <button class="lvl-1-btn" onclick="toggleMenu(this)">
-                <span><i class="fas fa-chart-line"></i> &nbsp; Analyse</span>
+                <span><i class="fas fa-draw-polygon"></i> &nbsp; Géométrie</span>
                 <i class="fas fa-chevron-down chevron"></i>
             </button>
             <div class="lvl-2-container">
-                <div class="lvl-2-header">Cours</div>
-                <a class="lvl-3-item" onclick="load('func_theoremes')"><i class="fas fa-check-circle"></i> Continuité & Dérivabilité</a>
-                <a class="lvl-3-item" onclick="load('func_taylor')"><i class="fas fa-infinity"></i> Développements limités</a>
-                <div class="lvl-2-header">Entraînement</div>
-                <a class="lvl-3-item training" onclick="loadTraining('func')"><i class="fas fa-bolt"></i> Test de connaissances</a>
+                <div class="lvl-2-header">Cours & Méthodes</div>
+                <a class="lvl-3-item" onclick="load('geo_metrique')"><i class="fas fa-vector-square"></i> Produit Scalaire</a>
+                <a class="lvl-3-item" onclick="load('geo_analytique')"><i class="fas fa-line"></i> Droites & Cercles</a>
+                
+                <div class="lvl-2-header">Évaluations</div>
+                <a class="lvl-3-item training" onclick="loadTraining('geo')"><i class="fas fa-bolt"></i> Test d'entraînement</a>
             </div>
         </div>
-        
+
         <div class="chapter-box">
             <button class="lvl-1-btn" onclick="toggleMenu(this)">
-                <span><i class="fas fa-superscript"></i> &nbsp; Algèbre</span>
+                <span><i class="fas fa-chart-line"></i> &nbsp; Fonctions</span>
                 <i class="fas fa-chevron-down chevron"></i>
             </button>
             <div class="lvl-2-container">
-                <div class="lvl-2-header">Cours</div>
-                <a class="lvl-3-item" onclick="load('poly_bases')"><i class="fas fa-book"></i> Polynômes</a>
-                <a class="lvl-3-item" onclick="load('poly_fractions')"><i class="fas fa-divide"></i> Fractions rationnelles</a>
+                <div class="lvl-2-header">Cours & Méthodes</div>
+                <a class="lvl-3-item" onclick="load('func_theoremes')"><i class="fas fa-check-circle"></i> Rolle & TAF</a>
+                <a class="lvl-3-item" onclick="load('func_taylor')"><i class="fas fa-infinity"></i> Taylor & Reste</a>
+                
+                <div class="lvl-2-header">Évaluations</div>
+                <a class="lvl-3-item training" onclick="loadTraining('func')"><i class="fas fa-bolt"></i> Test d'entraînement</a>
             </div>
         </div>
     </nav>
@@ -126,49 +291,64 @@
     <div id="content-container">
         <div id="dynamic-content">
             <div class="banner">
-                <h1 style="font-size: 2.5rem; margin: 0; letter-spacing: -1px;">Elite Workspace</h1>
-                <p style="opacity: 0.9; font-size: 1.1rem; margin-top: 10px;">PCSI | Mathématiques & Analyse Numérique.</p>
+                <h1 style="font-size: 2.5rem; margin: 0; letter-spacing: -1px;">Espace de Travail</h1>
+                <p style="opacity: 0.9; font-size: 1.1rem; margin-top: 10px;">Accédez aux modules de cours et aux entraînements interactifs.</p>
             </div>
         </div>
     </div>
 </div>
 
 <script>
+    // GESTION DU MENU MOBILE
     function toggleMobileMenu() {
         document.getElementById('sidebar').classList.toggle('active');
         document.getElementById('mobileOverlay').classList.toggle('active');
     }
 
+    // ACCORDEON DU MENU
     function toggleMenu(btn) {
         const container = btn.nextElementSibling;
         btn.classList.toggle('open');
         container.classList.toggle('open');
     }
 
+    // CHARGEMENT DYNAMIQUE DES PAGES
     async function load(file) {
-        if (window.innerWidth <= 900) toggleMobileMenu();
+        if (window.innerWidth <= 900) {
+            document.getElementById('sidebar').classList.remove('active');
+            document.getElementById('mobileOverlay').classList.remove('active');
+        }
+
         const target = document.getElementById('dynamic-content');
         target.style.opacity = '0.3';
+        target.style.transform = 'translateY(10px)';
+        target.style.transition = 'all 0.3s ease';
         
         try {
             const response = await fetch(`content/${file}.html`);
-            const html = response.ok ? await response.text() : `<div class="banner" style="background: #ef4444; border-bottom:none;"><h1>Erreur</h1><p>Le module ${file} est en cours de rédaction.</p></div>`;
+            const html = response.ok ? await response.text() : `<div class="banner" style="background: #ef4444; border-bottom:none;"><h1>Module Non Disponible</h1><p>Le contenu ${file}.html est en cours de mise à jour.</p></div>`;
             target.innerHTML = html;
             if (window.MathJax) MathJax.typesetPromise([target]);
             document.getElementById('main').scrollTo(0, 0);
         } catch (e) { console.error(e); }
         
-        setTimeout(() => { target.style.opacity = '1'; }, 50);
+        setTimeout(() => {
+            target.style.opacity = '1';
+            target.style.transform = 'translateY(0)';
+        }, 50);
     }
 
+    // LOGIQUE DE TIRAGE ALÉATOIRE
     function loadTraining(subject) {
         const quizNumber = Math.floor(Math.random() * 3) + 1;
         load(`${subject}_training_v${quizNumber}`);
     }
 
+    // FONCTION GLOBALE POUR LE QCM
     function checkAnswer(button, isCorrect) {
         const container = button.parentElement;
         const allButtons = container.querySelectorAll('.opt-btn');
+        
         button.classList.add('selected');
         allButtons.forEach(btn => btn.disabled = true);
         
@@ -181,42 +361,107 @@
         }
     }
 
+    // FONCTION DE CALCUL DU SCORE
     function calculateScore() {
-        const selected = document.querySelectorAll('.opt-btn.selected');
-        const correct = document.querySelectorAll('.opt-btn.correct.selected');
-        const totalQuestions = document.querySelectorAll('.qcm-box').length;
-        let score = correct.length;
+        let score = document.querySelectorAll('.opt-btn.correct.selected').length; 
         
-        document.getElementById('submit-btn').style.display = 'none';
+        let submitBtn = document.getElementById('submit-btn');
+        if(submitBtn) submitBtn.style.display = 'none';
+        
         let scoreDisplay = document.getElementById('score-display');
-        scoreDisplay.style.display = 'flex';
-        scoreDisplay.style.flexDirection = 'column';
-        scoreDisplay.style.alignItems = 'center';
-        scoreDisplay.innerHTML = `<div style="width: 140px; height: 140px; border-radius: 50%; border: 6px solid var(--gold-btn); display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 2.8rem; font-weight: 800; color: var(--navy-dark); background: white; box-shadow: var(--shadow-md);">${score}<span style="font-size: 1rem; color: var(--text-muted); margin-top: -5px;">/${totalQuestions}</span></div>`;
+        if(scoreDisplay) {
+            scoreDisplay.style.display = 'flex';
+            scoreDisplay.style.flexDirection = 'column';
+            scoreDisplay.style.alignItems = 'center';
+            scoreDisplay.style.justifyContent = 'center';
+            scoreDisplay.innerHTML = `<div style="width: 140px; height: 140px; border-radius: 50%; border: 6px solid var(--gold-btn); display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 2.8rem; font-weight: 800; color: var(--navy-dark); background: white; box-shadow: var(--shadow-md);">${score}<span style="font-size: 1rem; color: var(--text-muted); margin-top: -5px;">/20</span></div>`;
+        }
         
-        document.getElementById('congrats-msg').style.display = 'block';
-        document.getElementById('congrats-msg').innerHTML = `
-            <div style="text-align:center; padding:30px; background:#fafafa; border-radius:14px; margin-top:20px;">
-                <h3>Évaluation Terminée</h3>
-                <div class="share-container">
+        let msgBox = document.getElementById('congrats-msg');
+        if(msgBox) {
+            msgBox.style.display = 'block';
+            msgBox.style.padding = '30px';
+            msgBox.style.borderRadius = 'var(--radius)';
+            msgBox.style.textAlign = 'center';
+            msgBox.style.marginTop = '25px';
+
+            let title = "";
+            if (score === 20) {
+                title = "🏆 Excellence ! Un résultat parfait.";
+                msgBox.style.backgroundColor = "#ecfdf5"; msgBox.style.border = "2px solid #10b981"; msgBox.style.color = "#065f46";
+            } else if (score >= 15) {
+                title = "🎉 Très bon travail ! Les notions sont acquises.";
+                msgBox.style.backgroundColor = "#eff6ff"; msgBox.style.border = "2px solid #3b82f6"; msgBox.style.color = "#1e40af";
+            } else if (score >= 10) {
+                title = "👍 Résultat encourageant ! Continuez vos efforts.";
+                msgBox.style.backgroundColor = "#fefce8"; msgBox.style.border = "2px solid #eab308"; msgBox.style.color = "#854d0e";
+            } else {
+                title = "💪 Ne baissez pas les bras, reprenez les points de cours.";
+                msgBox.style.backgroundColor = "#fef2f2"; msgBox.style.border = "2px solid #ef4444"; msgBox.style.color = "#991b1b";
+            }
+
+            msgBox.innerHTML = `
+                <h3 style="margin-top:0; font-size: 1.3rem;">${title}</h3>
+                <p style="margin-bottom: 20px; font-weight: 500;">Options de partage des résultats :</p>
+                
+                <div class="share-container" id="share-buttons">
                     <button onclick="downloadPDF()" class="share-btn pdf"><i class="fas fa-file-pdf"></i> PDF</button>
-                    <button onclick="shareResult('email', ${score}, ${totalQuestions})" class="share-btn email"><i class="fas fa-envelope"></i> Mail</button>
-                    <button onclick="shareResult('whatsapp', ${score}, ${totalQuestions})" class="share-btn wa"><i class="fab fa-whatsapp"></i> WhatsApp</button>
+                    <button onclick="shareResult('email', ${score})" class="share-btn email"><i class="fas fa-envelope"></i> Email</button>
+                    <button onclick="shareResult('whatsapp', ${score})" class="share-btn wa"><i class="fab fa-whatsapp"></i> WhatsApp</button>
+                    <button onclick="shareResult('sms', ${score})" class="share-btn sms"><i class="fas fa-comment-sms"></i> SMS</button>
                 </div>
-            </div>`;
+            `;
+        }
+
+        setTimeout(() => {
+            if(scoreDisplay) scoreDisplay.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }, 100);
     }
 
-    function shareResult(type, score, total) {
-        const emailContact = "boris.kinnouezan@imsp-uac.org";
-        const message = `Bonjour, j'ai complété mon entraînement. Score : ${score}/${total}.`;
-        const bodyEncoded = encodeURIComponent(message);
-        if (type === 'email') window.location.href = `mailto:${emailContact}?subject=Rendu ElianMaths&body=${bodyEncoded}`;
-        else if (type === 'whatsapp') window.open(`https://wa.me/?text=${bodyEncoded}`, '_blank');
+    // FONCTION POUR MASQUER/AFFICHER LA CORRECTION
+    function toggleCorrection(btn) {
+        const correctionDiv = btn.nextElementSibling;
+        if (correctionDiv.style.display === "none" || correctionDiv.style.display === "") {
+            correctionDiv.style.display = "block";
+            btn.innerHTML = '<i class="fas fa-eye-slash"></i> Masquer le corrigé';
+        } else {
+            correctionDiv.style.display = "none";
+            btn.innerHTML = '<i class="fas fa-eye"></i> Afficher le corrigé';
+        }
     }
 
+    // EXPORT ET PARTAGE
     function downloadPDF() {
         const element = document.getElementById('content-container');
-        html2pdf().from(element).save('Copie_Maths_PCSI.pdf');
+        const shareCont = document.getElementById('share-buttons');
+        if(shareCont) shareCont.style.display = 'none';
+
+        const opt = {
+            margin: 10,
+            filename: 'Copie_ElianMaths.pdf',
+            image: { type: 'jpeg', quality: 0.98 },
+            html2canvas: { scale: 2, useCORS: true, scrollY: 0 },
+            jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+        };
+
+        html2pdf().set(opt).from(element).save().then(() => {
+            if(shareCont) shareCont.style.display = 'flex';
+        });
+    }
+
+    function shareResult(type, score) {
+        const emailContact = "boris.kinnouezan@imsp-uac.org";
+        const message = `Bonjour, voici mes résultats sur Elian Maths. Score obtenu : ${score}/20.`;
+        const subjectEncoded = encodeURIComponent("Rendu QCM Elian Maths");
+        const bodyEncoded = encodeURIComponent(message);
+
+        if (type === 'email') {
+            window.location.href = `mailto:${emailContact}?subject=${subjectEncoded}&body=${bodyEncoded}`;
+        } else if (type === 'whatsapp') {
+            window.open(`https://wa.me/?text=${bodyEncoded}`, '_blank');
+        } else if (type === 'sms') {
+            window.open(`sms:?&body=${bodyEncoded}`, '_self');
+        }
     }
 </script>
 
