@@ -1,0 +1,223 @@
+<div class="quiz-container" style="animation: fadeIn 0.5s; position: relative;">
+    <div class="banner" style="background: linear-gradient(135deg, #7b341e, #dd6b20); padding: 40px; border-radius: 15px; color: white; text-align: center; margin-bottom: 30px; position: relative;">
+        <div style="font-size: 3rem; margin-bottom: 15px;">
+            <i class="fas fa-divide"></i> </div>
+        <h2 style="margin:0; font-size: 2rem;">Training Polynômes - Version 3</h2>
+        <p style="opacity:0.9; margin-top:10px; font-size: 1.1rem;">Évaluation : Fractions Rationnelles & Éléments Simples (20 Questions)</p>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">Q1. Par définition, le corps des fractions rationnelles $\mathbb{K}(X)$ est :</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, true)">Le corps des fractions de l'anneau $\mathbb{K}[X]$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">L'ensemble des fonctions rationnelles définies sur $\mathbb{K}$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">Un sous-anneau de $\mathbb{K}[X]$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">L'ensemble des polynômes inversibles</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">Q2. Quel est le degré de la fraction rationnelle $F = \frac{P}{Q}$ (avec $P, Q \neq 0$) ?</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$\max(\deg(P), \deg(Q))$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$\frac{\deg(P)}{\deg(Q)}$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, true)">$\deg(P) - \deg(Q)$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$\deg(P) + \deg(Q)$</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">Q3. Qu'est-ce qu'un pôle d'une fraction rationnelle $F = \frac{P}{Q}$ écrite sous forme irréductible ?</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, false)">Une racine de $P$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, true)">Une racine de $Q$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">Une racine commune à $P$ et $Q$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">La limite de $F$ en l'infini</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">Q4. Dans quelle condition la partie entière d'une fraction rationnelle $F = \frac{P}{Q}$ est-elle nulle ?</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, true)">Si $\deg(P) < \deg(Q)$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">Si $\deg(P) = \deg(Q)$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">Si $\deg(P) > \deg(Q)$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">Si $P$ et $Q$ sont premiers entre eux</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">Q5. Comment calcule-t-on la partie entière d'une fraction $F = \frac{P}{Q}$ ?</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, false)">En dérivant $P$ et $Q$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, true)">En effectuant la division euclidienne de $P$ par $Q$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">En évaluant $P$ aux racines de $Q$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">En cherchant le PGCD de $P$ et $Q$</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">Q6. Dans $\mathbb{C}(X)$, quelle est la forme des éléments simples ?</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, true)">$\frac{\lambda}{(X-a)^k}$ avec $\lambda, a \in \mathbb{C}$ et $k \in \mathbb{N}^*$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$\frac{aX+b}{(X^2+cX+d)^k}$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">Des polynômes de degré 1 uniquement</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$\frac{\lambda}{X-a}$ uniquement (k=1 obligatoirement)</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">Q7. Dans $\mathbb{R}(X)$, en plus des éléments simples de première espèce, on trouve des éléments de seconde espèce de la forme :</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$\frac{\lambda}{(X-a)^k}$ avec $\lambda \in \mathbb{C}$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, true)">$\frac{aX+b}{(X^2+pX+q)^k}$ avec $\Delta = p^2-4q < 0$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$\frac{aX+b}{(X^2-1)^k}$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$\frac{\lambda}{X^2+pX+q}$ avec $\Delta > 0$</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">Q8. Soit $F = \frac{P}{Q}$ ayant un pôle simple en $a$. Comment calculer rapidement le coefficient $\lambda$ de l'élément simple $\frac{\lambda}{X-a}$ ?</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$\lambda = P(a) Q(a)$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, true)">$\lambda = \frac{P(a)}{Q'(a)}$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$\lambda = \frac{P'(a)}{Q(a)}$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$\lambda = F(a)$</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">Q9. Pour trouver le coefficient $c_k$ de l'élément $\frac{c_k}{(X-a)^k}$ pour un pôle $a$ de multiplicité $k$, on peut :</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, true)">Multiplier $F(X)$ par $(X-a)^k$ puis évaluer en $a$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">Multiplier $F(X)$ par $(X-a)$ puis évaluer en $a$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">Évaluer directement la dérivée $F'(a)$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">Calculer $\frac{P(a)}{Q^{(k)}(a)}$</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">Q10. Si $F(X)$ est une fraction rationnelle paire, que peut-on dire des coefficients de sa décomposition en éléments simples (D.E.S) ?</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, false)">Ils sont tous pairs</button>
+            <button class="opt-btn" onclick="checkAnswer(this, true)">Le pôle $a$ et le pôle $-a$ ont des éléments simples liés par symétrie</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">Il n'y a pas de pôles impairs</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">La partie entière est forcément nulle</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">Q11. Quelle est la décomposition en éléments simples de $F(X) = \frac{1}{X^2-1}$ dans $\mathbb{R}(X)$ ?</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, true)">$\frac{1/2}{X-1} - \frac{1/2}{X+1}$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$\frac{1}{X-1} + \frac{1}{X+1}$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$\frac{1}{X-1} - \frac{1}{X+1}$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$\frac{1/2}{X-1} + \frac{1/2}{X+1}$</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">Q12. La dérivée logarithmique d'un polynôme $P$ scindé à racines simples $x_1, \dots, x_n$ est $\frac{P'}{P}$. Quelle est sa D.E.S ?</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$\sum \frac{x_k}{X-x_k}$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, true)">$\sum \frac{1}{X-x_k}$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$\sum \frac{k}{X-x_k}$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$\sum \frac{1}{(X-x_k)^2}$</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">Q13. Si $\deg(F) \leq -2$, que peut-on dire de la somme des résidus (coefficients des éléments simples de degré 1) dans $\mathbb{C}(X)$ ?</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, false)">Elle vaut 1</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">Elle est infinie</button>
+            <button class="opt-btn" onclick="checkAnswer(this, true)">Elle est nulle</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">Elle est égale à $\deg(F)$</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">Q14. Que se passe-t-il lors du passage à la limite $x \to \infty$ pour la fraction $F(x) = \frac{x}{x^2+1}$ ?</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, true)">$F(x) \to 0$ car $\deg(F) < 0$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$F(x) \to 1$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$F(x) \to \infty$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">La limite n'existe pas</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">Q15. Comment appelle-t-on le théorème affirmant que toute fraction rationnelle s'écrit de manière unique comme somme de sa partie entière et d'éléments simples ?</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, false)">Théorème de d'Alembert-Gauss</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">Théorème de Bézout</button>
+            <button class="opt-btn" onclick="checkAnswer(this, true)">Théorème d'existence et d'unicité de la D.E.S.</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">Lemme de Gauss</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">Q16. Lors de la D.E.S de $F = \frac{1}{X^3-1}$ dans $\mathbb{C}(X)$, combien trouve-t-on d'éléments simples ?</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, false)">1</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">2</button>
+            <button class="opt-btn" onclick="checkAnswer(this, true)">3</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">0</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">Q17. Une fraction rationnelle $F \in \mathbb{K}(X)$ est dite irréductible si :</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, false)">Son dénominateur est de degré 1</button>
+            <button class="opt-btn" onclick="checkAnswer(this, true)">Son numérateur et son dénominateur sont premiers entre eux</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">Elle n'a pas de racines</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">Son degré est strictement négatif</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">Q18. Soit $F = \frac{X^2+1}{(X-1)^2(X+2)}$. Quelle est la forme théorique de sa D.E.S dans $\mathbb{R}(X)$ ?</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$\frac{a}{X-1} + \frac{b}{X+2}$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, true)">$\frac{a}{X-1} + \frac{b}{(X-1)^2} + \frac{c}{X+2}$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$E(X) + \frac{a}{(X-1)^2} + \frac{b}{X+2}$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$\frac{aX+b}{(X-1)^2} + \frac{c}{X+2}$</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">Q19. Quelle est une astuce classique pour trouver un coefficient dans la D.E.S liée au passage à la limite ?</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, false)">Évaluer en 0</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">Dériver la fraction</button>
+            <button class="opt-btn" onclick="checkAnswer(this, true)">Multiplier par $X$ et prendre la limite quand $X \to +\infty$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">Calculer l'intégrale</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">Q20. Pour $P$ scindé, la décomposition de $\frac{P'}{P} = \sum_{k=1}^r \frac{m_k}{X-x_k}$ montre que :</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, true)">Les $m_k$ sont les multiplicités des racines $x_k$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">Les $m_k$ sont toutes égales à 1</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">Les racines de $P'$ sont les mêmes que celles de $P$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">La fraction $\frac{P'}{P}$ est de degré 0</button>
+        </div>
+    </div>
+
+    <div class="quiz-footer" style="text-align: center; margin-top: 40px; padding: 20px; border-top: 2px dashed #ccc;">
+        
+        <button id="submit-btn" style="background-color: #dd6b20; color: white; border: none; padding: 15px 30px; font-size: 1.2rem; border-radius: 8px; cursor: pointer; transition: background 0.3s; font-weight: bold;" onclick="calculateScore()">
+            <i class="fas fa-check-circle"></i> Soumettre mes réponses
+        </button>
+
+        <div id="score-display" style="display: none; margin-top: 20px; font-size: 1.8rem; font-weight: bold; color: #2d3748;">
+            Score : <span id="score-value">0</span> / 20
+        </div>
+
+        <div id="congrats-msg" style="display: none; margin-top: 15px; padding: 15px; border-radius: 8px; font-size: 1.2rem;">
+            </div>
+        
+    </div>
+</div>
