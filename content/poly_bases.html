@@ -1,25 +1,47 @@
-<div class="banner">
-    <h1>Polynômes $\mathbb{K}[X]$</h1>
-    <p>Bases et Arithmétique</p>
-</div>
+<div style="animation: fadeIn 0.5s;">
+    <div class="banner" style="background: linear-gradient(135deg, #1a365d, #2b6cb0); padding: 40px; border-radius: 15px; color: white; margin-bottom: 30px;">
+        <h2 style="margin:0; font-size: 2.2rem;"><i class="fas fa-book"></i> Polynômes : Bases & Arithmétique</h2>
+        <p style="opacity:0.9; margin-top:10px; font-size: 1.1rem;">L'anneau $\mathbb{K}[X]$, le degré, la division euclidienne et le théorème de Bézout.</p>
+    </div>
 
-<div class="tcb-box thmbox">
-    <div class="tcb-title"><i class="fas fa-book"></i> 1. Définitions et Degrés</div>
-    <div class="tcb-content">
-        Un polynôme $P$ est défini par ses coefficients $(a_n)$ : $P(X) = \sum_{k=0}^{n} a_k X^k$.
-        <ul>
-            <li><b>Degré :</b> $\deg(P) = \max\{k \mid a_k \neq 0\}$. Convention : $\deg(0) = -\infty$.</li>
-            <li><b>Relations :</b> $\deg(P+Q) \leq \max(\deg P, \deg Q)$ et $\deg(PQ) = \deg P + \deg Q$.</li>
+    <h3 style="color: var(--royal-blue); border-bottom: 2px solid var(--border); padding-bottom: 10px;"><i class="fas fa-cube"></i> 1. Définitions et Opérations</h3>
+    <div style="background: white; padding: 20px; border-radius: 10px; box-shadow: var(--shadow); margin-bottom: 20px;">
+        <p>Un polynôme $P$ à coefficients dans $\mathbb{K}$ (où $\mathbb{K} = \mathbb{R}$ ou $\mathbb{C}$) s'écrit sous la forme :</p>
+        <p style="text-align: center;">$$P(X) = \sum_{k=0}^{n} a_k X^k = a_n X^n + a_{n-1} X^{n-1} + \dots + a_1 X + a_0$$</p>
+        <ul style="line-height: 1.6;">
+            <li>Si $a_n \neq 0$, $n$ est le <strong>degré</strong> de $P$, noté $\deg(P)$.</li>
+            <li>Le scalaire $a_n$ est le <strong>coefficient dominant</strong>. Si $a_n = 1$, le polynôme est dit <strong>unitaire</strong>.</li>
+            <li>Par convention, le degré du polynôme nul est $\deg(0) = -\infty$.</li>
         </ul>
     </div>
-</div>
 
-<div class="tcb-box thmbox">
-    <div class="tcb-title"><i class="fas fa-divide"></i> 2. Division Euclidienne</div>
-    <div class="tcb-content">
-        Soient $A$ et $B$ deux polynômes avec $B \neq 0$. Il existe un unique couple $(Q, R)$ tel que :
-        <p style="text-align:center; font-size:1.2rem; margin:10px 0;">
-            $\boxed{A = BQ + R \quad \text{avec} \quad \deg R < \deg B}$
-        </p>
+    <div style="background: #ebf8ff; padding: 20px; border-left: 5px solid var(--accent); border-radius: 8px; margin-bottom: 30px;">
+        <h4 style="margin-top: 0; color: #2b6cb0;"><i class="fas fa-exclamation-circle"></i> Propriétés du degré</h4>
+        <p>Soient $P$ et $Q$ deux polynômes non nuls :</p>
+        <ul>
+            <li>$\deg(P \times Q) = \deg(P) + \deg(Q)$</li>
+            <li>$\deg(P + Q) \leq \max(\deg(P), \deg(Q))$</li>
+            <li>$\deg(P \circ Q) = \deg(P) \times \deg(Q)$</li>
+        </ul>
+    </div>
+
+    <h3 style="color: var(--royal-blue); border-bottom: 2px solid var(--border); padding-bottom: 10px;"><i class="fas fa-divide"></i> 2. Division Euclidienne</h3>
+    <div style="background: #fffaf0; padding: 20px; border-left: 5px solid var(--gold); border-radius: 8px; margin-bottom: 30px; box-shadow: var(--shadow);">
+        <h4 style="margin-top: 0; color: #975a16;"><i class="fas fa-star"></i> Théorème de la division euclidienne</h4>
+        <p>Soient $A$ et $B$ deux polynômes de $\mathbb{K}[X]$ avec $B \neq 0$. Il existe un unique couple $(Q, R)$ de polynômes tel que :</p>
+        <p style="text-align: center; font-size: 1.2rem; font-weight: bold;">$$A = BQ + R \quad \text{avec} \quad \deg(R) < \deg(B)$$</p>
+        <p style="margin-bottom: 0;">$Q$ est le <strong>quotient</strong> et $R$ est le <strong>reste</strong>. Si $R = 0$, on dit que $B$ divise $A$, noté $B \mid A$.</p>
+    </div>
+
+    <h3 style="color: var(--royal-blue); border-bottom: 2px solid var(--border); padding-bottom: 10px;"><i class="fas fa-link"></i> 3. Arithmétique dans $\mathbb{K}[X]$</h3>
+    <div style="background: white; padding: 20px; border-radius: 10px; box-shadow: var(--shadow); margin-bottom: 20px;">
+        <p>L'anneau $\mathbb{K}[X]$ possède une arithmétique très similaire à celle de $\mathbb{Z}$ : on y définit le PGCD, le PPCM et on y trouve les mêmes grands théorèmes.</p>
+        
+        <h4 style="color: var(--royal-blue);">Théorème de Bézout</h4>
+        <p>Deux polynômes $A$ et $B$ sont premiers entre eux ($\text{PGCD}(A,B)=1$) si et seulement s'il existe deux polynômes $U$ et $V$ tels que :</p>
+        <p style="text-align: center;">$$AU + BV = 1$$</p>
+
+        <h4 style="color: var(--royal-blue);">Lemme de Gauss</h4>
+        <p>Si $A$ divise $BC$ et si $A$ est premier avec $B$, alors $A$ divise $C$.</p>
     </div>
 </div>
