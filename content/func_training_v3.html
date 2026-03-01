@@ -1,0 +1,115 @@
+<div class="banner" style="background: linear-gradient(135deg, #4c1d95 0%, #8b5cf6 100%);">
+    <h1 style="font-size: 2rem; margin: 0;"><i class="fas fa-brain"></i> Analyse : Continuité & Bijection (v3)</h1>
+    <p style="opacity: 0.8;">Niveau Expert : Théorèmes fondamentaux et fonctions hyperboliques réciproques.</p>
+</div>
+
+<div id="quiz-wrapper">
+
+    <div class="qcm-box">
+        <div class="qcm-question">1. Une fonction $f$ continue sur un intervalle $I$ et strictement monotone sur $I$ réalise :</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, true)">Une bijection de $I$ vers $f(I)$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">Une injection de $\mathbb{R}$ vers $I$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">Une fonction constante</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">Une application surjective vers $\mathbb{R}$</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">2. Quelle est l'expression logarithmique de $\text{argsh}(x)$ ?</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$\ln(x - \sqrt{x^2-1})$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, true)">$\ln(x + \sqrt{x^2+1})$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$\frac{1}{2}\ln(\frac{1+x}{1-x})$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$\ln(\sqrt{x^2+1})$</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">3. Si $f$ est dérivable en $a$, quelle est la limite de $\frac{f(a+h)-f(a-h)}{2h}$ quand $h \to 0$ ?</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, false)">0</button>
+            <button class="opt-btn" onclick="checkAnswer(this, true)">$f'(a)$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$2f'(a)$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">N'existe pas forcément</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">4. Le théorème des valeurs intermédiaires affirme que si $f$ est continue sur $[a, b]$, alors $f([a, b])$ est :</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, false)">Un ensemble fini</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">Ouvert</button>
+            <button class="opt-btn" onclick="checkAnswer(this, true)">Un intervalle fermé borné</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$\mathbb{R}$</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">5. La fonction $f(x) = \cos(x) - x$ possède au moins une racine sur $[0, \pi/2]$ car :</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, false)">Elle est périodique</button>
+            <button class="opt-btn" onclick="checkAnswer(this, true)">$f(0)f(\pi/2) < 0$ et $f$ est continue</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">Sa dérivée est positive</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$\cos(x)$ est toujours plus petit que $x$</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">6. La dérivée de $(f^{-1})'(y_0)$ est donnée par :</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$1/f'(y_0)$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, true)">$1/f'(f^{-1}(y_0))$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$f'(x_0)$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$-f'(x_0)/(f(x_0))^2$</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">7. La fonction $\text{th}(x)$ tend vers quelle valeur en $+\infty$ ?</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, false)">0</button>
+            <button class="opt-btn" onclick="checkAnswer(this, true)">1</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$+\infty$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$e$</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">8. $\cos(x) = \frac{1-t^2}{1+t^2}$ avec $t = \tan(x/2)$ est une formule de :</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, false)">Moivre</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">Linéarisation</button>
+            <button class="opt-btn" onclick="checkAnswer(this, true)">Paramétrage rationnel</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">Bernoulli</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">9. Une fonction dérivable est nécessairement continue.</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, true)">Vrai</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">Faux</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">Seulement si elle est monotone</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">Seulement en 0</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">10. Quelle est la valeur de $\text{ch}(\ln 2)$ ?</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, false)">1</button>
+            <button class="opt-btn" onclick="checkAnswer(this, true)">1.25 (ou 5/4)</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">1.5</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">0.75</button>
+        </div>
+    </div>
+
+</div>
+
+<div id="score-display" style="display:none; margin-top: 30px;"></div>
+<div id="congrats-msg" style="display:none;"></div>
+
+<button id="submit-btn" class="btn-primary" onclick="calculateScore()">
+    <i class="fas fa-graduation-cap"></i> Terminer le cycle Analyse
+</button>
