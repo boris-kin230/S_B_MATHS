@@ -1,9 +1,10 @@
 <div class="quiz-container" style="animation: fadeIn 0.5s; position: relative;">
     <div class="banner" style="background: linear-gradient(135deg, #7b341e, #dd6b20); padding: 40px; border-radius: 15px; color: white; text-align: center; margin-bottom: 30px; position: relative;">
         <div style="font-size: 3rem; margin-bottom: 15px;">
-            <i class="fas fa-divide"></i> </div>
+            <i class="fas fa-divide"></i> 
+        </div>
         <h2 style="margin:0; font-size: 2rem;">Training Polynômes - Version 3</h2>
-        <p style="opacity:0.9; margin-top:10px; font-size: 1.1rem;">Évaluation : Fractions Rationnelles & Éléments Simples (20 Questions)</p>
+        <p style="opacity:0.9; margin-top:10px; font-size: 1.1rem;">Évaluation : Fractions Rationnelles & Éléments Simples (30 Questions)</p>
     </div>
 
     <div class="qcm-box">
@@ -206,6 +207,106 @@
         </div>
     </div>
 
+    <div class="qcm-box">
+        <div class="qcm-question">Q21. Quelle est la décomposition en éléments simples de $\frac{1}{X(X-1)}$ dans $\mathbb{R}(X)$ ?</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$\frac{1}{X} - \frac{1}{X-1}$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$\frac{1}{X} + \frac{1}{X-1}$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, true)">$\frac{-1}{X} + \frac{1}{X-1}$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$\frac{1/2}{X} - \frac{1/2}{X-1}$</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">Q22. Quelle est la partie entière de la fraction $F(X) = \frac{X^3 + X^2 + 1}{X^2 + 1}$ ?</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, true)">$X + 1$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$X$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$X - 1$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$X^2 + 1$</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">Q23. Dans la D.E.S de $F(X) = \frac{X^2+1}{(X-1)(X-2)(X-3)}$, quel est le coefficient de l'élément simple $\frac{c}{X-1}$ ?</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$-1$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$0$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$1/2$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, true)">$1$</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">Q24. Quelle est la décomposition en éléments simples de $\frac{1}{X^2+1}$ dans le corps $\mathbb{C}(X)$ ?</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, true)">$\frac{-i/2}{X-i} + \frac{i/2}{X+i}$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$\frac{i/2}{X-i} - \frac{i/2}{X+i}$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$\frac{1/2}{X-i} + \frac{1/2}{X+i}$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$\frac{1}{X-i} - \frac{1}{X+i}$</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">Q25. Que vaut la limite de $X \cdot F(X)$ en $+\infty$ pour la fraction $F(X) = \frac{2X+1}{X^2-X+1}$ ?</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, true)">$2$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$0$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$+\infty$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$1$</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">Q26. Quelle est une primitive de la fonction $x \mapsto \frac{1}{x(x+1)}$ sur $]0, +\infty[$ ?</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$\ln(x(x+1))$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, true)">$\ln\left(\frac{x}{x+1}\right)$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$\frac{1}{x^2}$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$\ln(x) + \ln(x+1)$</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">Q27. Pour $F(X) = \frac{1}{X(X-1)^2}$, que vaut le coefficient $c$ de l'élément simple $\frac{c}{(X-1)^2}$ ?</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, true)">$1$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$-1$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$0$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$1/2$</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">Q28. Soit $F(X) = \frac{X}{X^2-4}$. Puisque $F$ est impaire, sa D.E.S est nécessairement de la forme :</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, true)">$\frac{a}{X-2} + \frac{a}{X+2}$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$\frac{a}{X-2} - \frac{a}{X+2}$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$\frac{a}{(X-2)^2}$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">Il y a une partie entière non nulle</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">Q29. Une primitive de la fraction rationnelle (élément de 2ème espèce) $\frac{1}{X^2+X+1}$ s'exprime à l'aide de la fonction :</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$\ln$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, true)">$\arctan$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$\exp$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">Aucune, ce n'est pas intégrable</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">Q30. Si $F(X) = \frac{X^2+2}{(X-1)(X-2)(X-3)} = \frac{a}{X-1} + \frac{b}{X-2} + \frac{c}{X-3}$, que vaut la somme $a+b+c$ ?</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, true)">$1$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$0$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$3$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$-1$</button>
+        </div>
+    </div>
+
     <div class="quiz-footer" style="text-align: center; margin-top: 40px; padding: 20px; border-top: 2px dashed #ccc;">
         
         <button id="submit-btn" style="background-color: #dd6b20; color: white; border: none; padding: 15px 30px; font-size: 1.2rem; border-radius: 8px; cursor: pointer; transition: background 0.3s; font-weight: bold;" onclick="calculateScore()">
@@ -213,11 +314,11 @@
         </button>
 
         <div id="score-display" style="display: none; margin-top: 20px; font-size: 1.8rem; font-weight: bold; color: #2d3748;">
-            Score : <span id="score-value">0</span> / 20
+            Score : <span id="score-value">0</span> / 30
         </div>
 
         <div id="congrats-msg" style="display: none; margin-top: 15px; padding: 15px; border-radius: 8px; font-size: 1.2rem;">
-            </div>
+        </div>
         
     </div>
 </div>
