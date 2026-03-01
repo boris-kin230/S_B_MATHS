@@ -1,0 +1,140 @@
+<div class="banner">
+    <h1 style="font-size: 2.2rem; margin: 0; letter-spacing: -1px;">Formules de Taylor</h1>
+    <p style="opacity: 0.9; font-size: 1.1rem; margin-top: 10px;">Reste Intégral, Taylor-Lagrange et Taylor-Young</p>
+</div>
+
+<h2 style="margin-top: 30px; border-bottom: 2px solid var(--border); padding-bottom: 10px; color: var(--navy-dark);">
+    <i class="fas fa-integral"></i> 1. Formule de Taylor avec Reste Intégral
+</h2>
+
+<div class="tcb-box thmbox" style="background: var(--surface); padding: 25px; border-radius: var(--radius); border-left: 5px solid #8b5cf6; box-shadow: var(--shadow-sm); margin-bottom: 25px;">
+    <div class="tcb-title" style="font-weight: 800; color: #5b21b6; margin-bottom: 15px; font-size: 1.1rem;">Théorème (Taylor avec Reste Intégral)</div>
+    <div class="tcb-content" style="line-height: 1.6;">
+        Soit $f$ une fonction à valeurs réelles ou complexes, de classe <span style="color: #ef4444; font-weight: 600;">$\mathcal{C}^{n+1}$</span> sur un intervalle $I$.<br>
+        Pour tous réels $a$ et $x$ appartenant à $I$, on a :
+        <div style="text-align:center; margin: 20px 0; background: #f5f3ff; padding: 15px; border-radius: 8px; overflow-x: auto;">
+            <span style="color: #6d28d9; font-size: 1.2em; font-weight: bold;">
+                $$f(x) = \sum_{k=0}^n \frac{f^{(k)}(a)}{k!} (x-a)^k + \int_a^x \frac{(x-t)^n}{n!} f^{(n+1)}(t) \, dt$$
+            </span>
+        </div>
+    </div>
+</div>
+
+<div class="tcb-box proofbox" style="background: #f8fafc; padding: 25px; border-radius: var(--radius); border: 1px solid var(--border); margin-bottom: 40px;">
+    <div class="tcb-title" style="font-weight: 700; color: var(--text-muted); margin-bottom: 15px;"><i class="fas fa-pen-nib"></i> Démonstration (Principe)</div>
+    <div class="tcb-content" style="font-size: 0.95rem; line-height: 1.6;">
+        <p>La démonstration se fait par <strong>récurrence sur $n$</strong>.</p>
+        <ul style="padding-left: 20px;">
+            <li><strong>Initialisation ($n=0$) :</strong> La formule s'écrit $f(x) = f(a) + \int_a^x f'(t) \, dt$. C'est exactement le théorème fondamental de l'analyse, valable car $f$ est de classe $\mathcal{C}^1$.</li>
+            <li><strong>Hérédité :</strong> Supposons la formule vraie au rang $n$. On isole le reste intégral et on effectue une <span style="color: #8b5cf6; font-weight: 600;">intégration par parties</span> en posant :
+                <br> $u'(t) = \frac{(x-t)^n}{n!} \implies u(t) = -\frac{(x-t)^{n+1}}{(n+1)!}$
+                <br> $v(t) = f^{(n+1)}(t) \implies v'(t) = f^{(n+2)}(t)$
+            </li>
+            <li>Le terme tout intégré évalué entre $a$ et $x$ fait apparaître exactement le terme manquant de la somme (pour $k=n+1$), et la nouvelle intégrale correspond au reste au rang $n+1$.</li>
+        </ul>
+    </div>
+</div>
+
+<h2 style="margin-top: 40px; border-bottom: 2px solid var(--border); padding-bottom: 10px; color: var(--navy-dark);">
+    <i class="fas fa-balance-scale"></i> 2. Inégalité de Taylor-Lagrange
+</h2>
+
+<div class="tcb-box thmbox" style="background: var(--surface); padding: 25px; border-radius: var(--radius); border-left: 5px solid #eab308; box-shadow: var(--shadow-sm); margin-bottom: 25px;">
+    <div class="tcb-title" style="font-weight: 800; color: #a16207; margin-bottom: 15px; font-size: 1.1rem;">Inégalité de Taylor-Lagrange</div>
+    <div class="tcb-content" style="line-height: 1.6;">
+        Soit $f$ de classe $\mathcal{C}^{n+1}$ sur $I$. Soient $a, x \in I$.<br>
+        S'il existe un réel $M$ tel que pour tout $t$ entre $a$ et $x$, on ait <span style="color: #ef4444; font-weight: 600;">$|f^{(n+1)}(t)| \le M$</span>, alors :
+        <div style="text-align:center; margin: 20px 0; background: #fefce8; padding: 15px; border-radius: 8px;">
+            <span style="color: #a16207; font-size: 1.2em; font-weight: bold;">
+                $$\left| f(x) - \sum_{k=0}^n \frac{f^{(k)}(a)}{k!} (x-a)^k \right| \le M \frac{|x-a|^{n+1}}{(n+1)!}$$
+            </span>
+        </div>
+    </div>
+</div>
+
+<h2 style="margin-top: 40px; border-bottom: 2px solid var(--border); padding-bottom: 10px; color: var(--navy-dark);">
+    <i class="fas fa-microscope"></i> 3. Formule de Taylor-Young
+</h2>
+
+<div class="tcb-box thmbox" style="background: var(--surface); padding: 25px; border-radius: var(--radius); border-left: 5px solid #06b6d4; box-shadow: var(--shadow-sm); margin-bottom: 25px;">
+    <div class="tcb-title" style="font-weight: 800; color: #0e7490; margin-bottom: 15px; font-size: 1.1rem;">Théorème (Taylor-Young)</div>
+    <div class="tcb-content" style="line-height: 1.6;">
+        Soit $f$ une fonction définie sur $I$ et admettant des dérivées jusqu'à l'ordre $n$ en un point $a \in I$.<br>
+        Au voisinage de $a$, on a le développement limité :
+        <div style="text-align:center; margin: 20px 0; background: #ecfeff; padding: 15px; border-radius: 8px;">
+            <span style="color: #0e7490; font-size: 1.2em; font-weight: bold;">
+                $$f(x) = \sum_{k=0}^n \frac{f^{(k)}(a)}{k!} (x-a)^k + o((x-a)^n)$$
+            </span>
+        </div>
+        <em>Note : Contrairement aux précédentes, cette formule est locale et ne donne pas d'expression explicite de l'erreur, seulement son comportement limite.</em>
+    </div>
+</div>
+
+<h2 style="margin-top: 40px; border-bottom: 2px solid var(--border); padding-bottom: 10px; color: var(--navy-dark);">
+    <i class="fas fa-dumbbell"></i> 4. Exercices d'Application
+</h2>
+
+<div class="tcb-box exobox" style="background: #fffbeb; padding: 25px; border-radius: var(--radius); border: 1px solid #fde68a; margin-bottom: 20px;">
+    <div class="tcb-title" style="font-weight: 700; color: #b45309; margin-bottom: 10px;">Exercice 1 : Approximation du nombre $e$</div>
+    <div class="tcb-content" style="margin-bottom: 15px;">
+        On souhaite obtenir une valeur approchée de $e = \exp(1)$ à $10^{-3}$ près. En utilisant l'inégalité de Taylor-Lagrange sur la fonction exponentielle entre 0 et 1, déterminer un entier $n$ suffisant, puis donner l'approximation correspondante. (On admettra que $e < 3$).
+    </div>
+    <button class="opt-btn" style="width: 100%; text-align: center; border-color: #fcd34d; color: #b45309; background: transparent; padding: 8px; border-radius: 5px; cursor: pointer;" onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'block' ? 'none' : 'block'">
+        <i class="fas fa-eye"></i> Afficher / Masquer le corrigé
+    </button>
+    <div class="solbox" style="display: none; margin-top: 15px; padding-top: 15px; border-top: 1px solid #fde68a; font-size: 0.95rem;">
+        <ol style="padding-left: 20px; margin: 0;">
+            <li>Posons $f(x) = e^x$. Pour tout entier $k$, $f^{(k)}(x) = e^x$.</li>
+            <li>Appliquons Taylor-Lagrange entre $a=0$ et $x=1$ à l'ordre $n$. Sur $[0, 1]$, la dérivée $(n+1)$-ième est croissante et majorée par $e^1 = e < 3$. On pose $M = 3$.</li>
+            <li>L'inégalité donne l'erreur $R_n$ : $\left| e - \sum_{k=0}^n \frac{1}{k!} \right| \le \frac{3}{(n+1)!}$.</li>
+            <li>On cherche $n$ tel que $\frac{3}{(n+1)!} \le 10^{-3}$, c'est-à-dire $(n+1)! \ge 3000$.</li>
+            <li>On calcule les factorielles : $5! = 120$, $6! = 720$, $7! = 5040$. Donc $n+1 = 7$, soit $n=6$, suffit.</li>
+            <li>L'approximation est $e \approx 1 + 1 + \frac{1}{2} + \frac{1}{6} + \frac{1}{24} + \frac{1}{120} + \frac{1}{720} = \frac{1957}{720} \approx 2.71805...$</li>
+        </ol>
+    </div>
+</div>
+
+<div class="tcb-box exobox" style="background: #fffbeb; padding: 25px; border-radius: var(--radius); border: 1px solid #fde68a; margin-bottom: 20px;">
+    <div class="tcb-title" style="font-weight: 700; color: #b45309; margin-bottom: 10px;">Exercice 2 : Convexité locale</div>
+    <div class="tcb-content" style="margin-bottom: 15px;">
+        Soit $f$ une fonction de classe $\mathcal{C}^2$ sur un intervalle $I$ et $a \in I$. On suppose que $f''(a) > 0$.<br>
+        Montrer, en utilisant la formule de Taylor-Young, que la courbe représentative de $f$ est strictement au-dessus de sa tangente en $a$ au voisinage de $a$.
+    </div>
+    <button class="opt-btn" style="width: 100%; text-align: center; border-color: #fcd34d; color: #b45309; background: transparent; padding: 8px; border-radius: 5px; cursor: pointer;" onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'block' ? 'none' : 'block'">
+        <i class="fas fa-eye"></i> Afficher / Masquer le corrigé
+    </button>
+    <div class="solbox" style="display: none; margin-top: 15px; padding-top: 15px; border-top: 1px solid #fde68a; font-size: 0.95rem;">
+        <ol style="padding-left: 20px; margin: 0;">
+            <li>L'équation de la tangente en $a$ est $y(x) = f(a) + f'(a)(x-a)$.</li>
+            <li>Il s'agit d'étudier le signe de la différence $d(x) = f(x) - [f(a) + f'(a)(x-a)]$ au voisinage de $a$.</li>
+            <li>Comme $f$ est $\mathcal{C}^2$, elle admet des dérivées jusqu'à l'ordre 2 en $a$. La formule de Taylor-Young à l'ordre 2 donne :<br>
+                $f(x) = f(a) + f'(a)(x-a) + \frac{f''(a)}{2}(x-a)^2 + o((x-a)^2)$.
+            </li>
+            <li>Donc $d(x) = \frac{f''(a)}{2}(x-a)^2 + o((x-a)^2) = (x-a)^2 \left[ \frac{f''(a)}{2} + \varepsilon(x) \right]$ avec $\lim_{x \to a} \varepsilon(x) = 0$.</li>
+            <li>Puisque $f''(a) > 0$, pour $x$ suffisamment proche de $a$, le terme entre crochets est strictement positif.</li>
+            <li>Comme $(x-a)^2 > 0$ pour $x \ne a$, on en déduit que $d(x) > 0$ sur un voisinage pointé de $a$, la courbe est donc au-dessus de sa tangente.</li>
+        </ol>
+    </div>
+</div>
+
+<div class="tcb-box exobox" style="background: #fffbeb; padding: 25px; border-radius: var(--radius); border: 1px solid #fde68a; margin-bottom: 20px;">
+    <div class="tcb-title" style="font-weight: 700; color: #b45309; margin-bottom: 10px;">Exercice 3 : Inégalité avec le reste intégral</div>
+    <div class="tcb-content" style="margin-bottom: 15px;">
+        Soit $f : [0, 1] \to \mathbb{R}$ de classe $\mathcal{C}^2$. On suppose que $f(0) = f'(0) = 0$ et que pour tout $x \in [0, 1]$, $f''(x) \ge 0$.<br>
+        En utilisant la formule de Taylor avec reste intégral, démontrer que pour tout $x \in [0, 1]$, on a $f(x) \ge 0$.
+    </div>
+    <button class="opt-btn" style="width: 100%; text-align: center; border-color: #fcd34d; color: #b45309; background: transparent; padding: 8px; border-radius: 5px; cursor: pointer;" onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'block' ? 'none' : 'block'">
+        <i class="fas fa-eye"></i> Afficher / Masquer le corrigé
+    </button>
+    <div class="solbox" style="display: none; margin-top: 15px; padding-top: 15px; border-top: 1px solid #fde68a; font-size: 0.95rem;">
+        <ol style="padding-left: 20px; margin: 0;">
+            <li>On applique la formule de Taylor avec reste intégral à $f$ entre $0$ et $x$ à l'ordre $n=1$.</li>
+            <li>$f(x) = f(0) + f'(0)x + \int_0^x (x-t) f''(t) \, dt$.</li>
+            <li>Puisque $f(0) = f'(0) = 0$, il reste simplement $f(x) = \int_0^x (x-t) f''(t) \, dt$.</li>
+            <li>Étudions le signe de la fonction intégrée sur l'intervalle $[0, x]$ (avec $x \ge 0$).</li>
+            <li>Pour tout $t \in [0, x]$, on a $x-t \ge 0$. De plus, par hypothèse, $f''(t) \ge 0$.</li>
+            <li>Le produit $(x-t)f''(t)$ est donc positif ou nul sur l'intervalle d'intégration.</li>
+            <li>L'intégrale (de $0$ à $x$, donc les bornes sont dans le bon ordre) d'une fonction positive est positive. Par conséquent, $f(x) \ge 0$.</li>
+        </ol>
+    </div>
+</div>
