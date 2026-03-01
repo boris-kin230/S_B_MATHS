@@ -7,730 +7,477 @@
     
     <script>
         window.MathJax = {
-            tex: { 
-                inlineMath: [['$', '$'], ['\\(', '\\)']], 
-                displayMath: [['$$', '$$']],
-                processEscapes: true
-            },
-            options: { enableMenu: false },
-            startup: {
-                ready: () => {
-                    MathJax.startup.defaultReady();
-                    console.log('MathJax is ready');
-                }
-            }
+            tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$']] },
+            options: { enableMenu: false }
         };
     </script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            /* Palette Chromatique Prestige */
-            --navy-deep: #0f172a;
-            --navy-light: #1e293b;
-            --gold-primary: #ca8a04;
-            --gold-light: #fde047;
-            --gold-soft: #fefce8;
+            /* Palette Ultra Prestige */
+            --navy-dark: #0a0f1d;     
+            --navy-main: #111827;     
+            --gold-btn: #eab308;      
+            --gold-hover: #facc15;    
+            --gold-muted: #c6a052;    
             
-            --accent-success: #10b981;
-            --accent-error: #ef4444;
-            --accent-info: #3b82f6;
+            --bg-page: #f4f6f9;       
+            --surface: #ffffff;       
             
-            --bg-canvas: #f8fafc;
-            --bg-card: #ffffff;
-            
-            --text-main: #0f172a;
+            --text-main: #1e293b;
             --text-muted: #64748b;
-            --text-white: #ffffff;
+            --border: #e2e8f0;
             
-            --border-color: #e2e8f0;
-            --shadow-sm: 0 1px 3px rgba(0,0,0,0.1);
-            --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
-            --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
-            
-            --radius-sm: 8px;
-            --radius-md: 12px;
-            --radius-lg: 20px;
-            
-            --sidebar-width: 320px;
-            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --radius: 14px;
+            --shadow-sm: 0 2px 10px rgba(10, 15, 29, 0.03);
+            --shadow-md: 0 10px 25px rgba(10, 15, 29, 0.08);
+            --shadow-lg: 0 20px 40px rgba(10, 15, 29, 0.15);
+            --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        /* --- Reset & Base Styles --- */
-        * { box-sizing: border-box; -webkit-font-smoothing: antialiased; }
-        body { 
-            font-family: 'Inter', sans-serif; 
-            margin: 0; 
-            background: var(--bg-canvas); 
-            color: var(--text-main); 
-            display: flex; 
-            height: 100vh;
-            overflow: hidden;
-        }
-
-        /* --- Sidebar Architecture --- */
+        body { font-family: 'Inter', sans-serif; margin: 0; background: var(--bg-page); color: var(--text-main); display: flex; overflow: hidden; }
+        
+        /* SIDEBAR PRESTIGE */
         #sidebar { 
-            width: var(--sidebar-width); 
-            height: 100vh; 
-            background: var(--bg-card); 
-            border-right: 1px solid var(--border-color); 
-            display: flex;
-            flex-direction: column;
-            position: fixed;
-            left: 0;
-            top: 0;
-            z-index: 100;
-            transition: var(--transition);
+            width: 320px; height: 100vh; background: var(--surface); 
+            border-right: 1px solid var(--border); overflow-y: auto; position: fixed; z-index: 100;
+            box-shadow: 4px 0 15px rgba(0,0,0,0.02);
+            transition: transform 0.3s ease;
         }
 
-        .sidebar-header {
-            padding: 40px 24px;
-            border-bottom: 1px solid var(--border-color);
-            text-align: center;
+        .logo-container { padding: 35px 20px 25px; text-align: center; border-bottom: 1px solid var(--border); background: var(--surface); }
+        .logo-text { font-weight: 800; font-size: 1.6rem; color: var(--navy-dark); letter-spacing: -1px; }
+        .logo-text span { color: var(--gold-btn); }
+        
+        .badge-prestige {
+            font-size: 0.65rem; color: var(--navy-dark); font-weight: 800; margin-top: 8px; 
+            background: linear-gradient(135deg, var(--gold-btn), var(--gold-hover));
+            display: inline-block; padding: 4px 10px; border-radius: 6px; box-shadow: 0 2px 5px rgba(234, 179, 8, 0.3);
         }
 
-        .logo-main {
-            font-size: 1.8rem;
-            font-weight: 800;
-            letter-spacing: -1.5px;
-            color: var(--navy-deep);
-            text-transform: uppercase;
+        /* MENU ARCHITECTURE */
+        .chapter-box { border-bottom: 1px solid var(--border); }
+        .lvl-1-btn { 
+            width: 100%; padding: 18px 20px; border: none; background: none;
+            display: flex; justify-content: space-between; align-items: center;
+            font-weight: 800; color: var(--navy-dark); cursor: pointer; transition: var(--transition);
+            text-transform: uppercase; font-size: 0.85rem; letter-spacing: 0.5px;
+        }
+        .lvl-1-btn:hover { background: #f8fafc; color: var(--gold-muted); }
+
+        .lvl-2-container { display: none; background: #fafbfc; padding-bottom: 10px; border-top: 1px solid #f1f5f9; }
+        .lvl-2-container.open { display: block; }
+
+        .lvl-2-header { 
+            padding: 15px 20px 5px 30px; font-size: 0.7rem; font-weight: 800; 
+            color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px;
         }
 
-        .logo-main span { color: var(--gold-primary); }
-
-        .badge-pcsi {
-            display: inline-block;
-            margin-top: 10px;
-            padding: 4px 12px;
-            background: var(--gold-soft);
-            color: var(--gold-primary);
-            border-radius: 20px;
-            font-size: 0.75rem;
-            font-weight: 700;
-            border: 1px solid #fef08a;
+        .lvl-3-item {
+            display: flex; align-items: center; padding: 10px 20px 10px 45px; 
+            font-size: 0.9rem; color: var(--text-muted); font-weight: 500; text-decoration: none; 
+            transition: var(--transition); cursor: pointer;
         }
+        .lvl-3-item i { margin-right: 12px; font-size: 0.85rem; width: 15px; text-align: center; }
+        .lvl-3-item:hover { color: var(--navy-dark); background: white; padding-left: 50px; box-shadow: inset 3px 0 0 var(--gold-btn); }
+        .lvl-3-item.training { color: #059669; font-weight: 600; }
+        .lvl-3-item.training:hover { box-shadow: inset 3px 0 0 #059669; }
 
-        .sidebar-nav {
-            flex: 1;
-            overflow-y: auto;
-            padding: 20px 0;
-            scrollbar-width: thin;
+        .chevron { font-size: 0.7rem; transition: transform 0.3s; color: var(--text-muted); }
+        .open > .chevron { transform: rotate(180deg); color: var(--navy-dark); }
+
+        /* MAIN CONTENT */
+        #main { 
+            margin-left: 320px; flex-grow: 1; padding: 40px; padding-bottom: 120px; 
+            height: 100vh; overflow-y: auto; scroll-behavior: smooth; box-sizing: border-box; 
+            transition: margin-left 0.3s ease;
         }
-
-        /* --- Navigation Menu --- */
-        .nav-group { margin-bottom: 10px; }
-
-        .nav-parent {
-            width: 100%;
-            padding: 14px 24px;
-            border: none;
-            background: transparent;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            cursor: pointer;
-            transition: var(--transition);
-            font-weight: 600;
-            color: var(--navy-light);
-            font-size: 0.9rem;
+        
+        .banner { 
+            background: linear-gradient(135deg, var(--navy-dark), var(--navy-main)); 
+            color: white; padding: 50px; border-radius: var(--radius); margin-bottom: 40px;
+            box-shadow: var(--shadow-md); position: relative; overflow: hidden;
+            border-bottom: 4px solid var(--gold-btn);
         }
-
-        .nav-parent:hover { background: var(--bg-canvas); color: var(--gold-primary); }
-        .nav-parent i:first-child { width: 20px; margin-right: 12px; font-size: 1.1rem; }
-
-        .nav-children {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.4s ease;
-            background: #fcfcfd;
+        
+        /* STYLES QCM */
+        .qcm-box { 
+            background: var(--surface); padding: 30px; border-radius: var(--radius); 
+            margin-bottom: 30px; border-left: 6px solid var(--gold-muted); box-shadow: var(--shadow-sm); 
         }
-
-        .nav-group.active .nav-children { max-height: 800px; }
-        .nav-group.active .chevron { transform: rotate(180deg); }
-
-        .nav-item {
-            display: flex;
-            align-items: center;
-            padding: 10px 24px 10px 52px;
-            color: var(--text-muted);
-            text-decoration: none;
-            font-size: 0.85rem;
+        .qcm-question { font-weight: 600; font-size: 1.15rem; margin-bottom: 25px; color: var(--navy-dark); line-height: 1.6; }
+        .qcm-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        
+        .opt-btn { 
+            padding: 18px; border: 2px solid var(--border); background: var(--surface); 
+            border-radius: 10px; cursor: pointer; transition: var(--transition); 
+            font-family: inherit; font-size: 1rem; text-align: left; color: var(--text-main);
             font-weight: 500;
-            cursor: pointer;
-            transition: var(--transition);
         }
-
-        .nav-item:hover { color: var(--navy-deep); background: white; padding-left: 58px; }
-        .nav-item.training { color: var(--accent-success); font-weight: 700; }
-
-        .nav-section-title {
-            padding: 15px 24px 5px 52px;
-            font-size: 0.65rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: #94a3b8;
-            font-weight: 800;
+        
+        .opt-btn:hover:not(:disabled) { 
+            background: #fefce8; border-color: var(--gold-btn); 
+            box-shadow: 0 4px 12px rgba(234, 179, 8, 0.15); transform: translateY(-2px);
         }
+        
+        .opt-btn.correct { background: #ecfdf5 !important; border-color: #10b981 !important; color: #065f46; font-weight: bold; }
+        .opt-btn.wrong { background: #fef2f2 !important; border-color: #ef4444 !important; color: #991b1b; text-decoration: line-through; }
 
-        /* --- Main Content Area --- */
-        #main {
-            margin-left: var(--sidebar-width);
-            flex: 1;
-            height: 100vh;
-            overflow-y: auto;
-            padding: 40px;
-            scroll-behavior: smooth;
+        /* BOUTON SOUMETTRE STICKY */
+        .btn-primary {
+            display: block; width: 100%; max-width: 400px; margin: 40px auto; padding: 20px;
+            background: var(--gold-btn); color: var(--navy-dark); border: none;
+            border-radius: 50px; font-weight: 800; font-size: 1.15rem; text-transform: uppercase; 
+            cursor: pointer; transition: var(--transition); box-shadow: var(--shadow-lg);
+            position: sticky; bottom: 30px; z-index: 50; 
         }
+        .btn-primary:hover { background: var(--gold-hover); transform: translateY(-3px); box-shadow: 0 10px 30px rgba(234, 179, 8, 0.5); }
 
-        .content-wrapper {
-            max-width: 900px;
-            margin: 0 auto;
-        }
-
-        .hero-banner {
-            background: linear-gradient(135deg, var(--navy-deep) 0%, #1e1b4b 100%);
-            border-radius: var(--radius-lg);
-            padding: 60px;
-            color: white;
-            margin-bottom: 40px;
-            box-shadow: var(--shadow-lg);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero-banner::after {
-            content: '∫';
-            position: absolute;
-            right: -20px;
-            bottom: -40px;
-            font-size: 15rem;
-            opacity: 0.05;
-            font-family: 'Times New Roman', serif;
-            font-style: italic;
-        }
-
-        /* --- QCM Components --- */
-        .qcm-card {
-            background: var(--bg-card);
-            border-radius: var(--radius-md);
-            padding: 30px;
-            margin-bottom: 25px;
-            border: 1px solid var(--border-color);
-            transition: var(--transition);
+        /* STYLES BOUTONS DE PARTAGE */
+        .share-container { display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; margin-top: 25px; }
+        .share-btn {
+            padding: 12px 20px; border: none; border-radius: 10px; cursor: pointer; font-family: 'Inter';
+            font-weight: 600; font-size: 0.95rem; color: white; transition: var(--transition); display: flex; align-items: center; gap: 10px;
             box-shadow: var(--shadow-sm);
         }
+        .share-btn.pdf { background: #ef4444; } 
+        .share-btn.email { background: #3b82f6; } 
+        .share-btn.wa { background: #22c55e; } 
+        .share-btn.sms { background: #8b5cf6; } 
+        .share-btn:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); filter: brightness(1.1); }
 
-        .qcm-card:hover { border-color: var(--gold-primary); box-shadow: var(--shadow-md); }
-
-        .qcm-header {
-            display: flex;
-            align-items: flex-start;
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-
-        .qcm-number {
-            background: var(--navy-deep);
-            color: white;
-            min-width: 32px;
-            height: 32px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 8px;
-            font-weight: 700;
-            font-size: 0.8rem;
-        }
-
-        .qcm-question {
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: var(--navy-deep);
-            line-height: 1.6;
-            margin: 0;
-        }
-
-        .options-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-        }
-
-        .option-btn {
-            padding: 16px 20px;
-            border: 2px solid #f1f5f9;
-            background: #f8fafc;
-            border-radius: var(--radius-sm);
-            cursor: pointer;
-            font-family: inherit;
-            font-size: 0.95rem;
-            text-align: left;
-            transition: var(--transition);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .option-btn:hover:not(:disabled) {
-            background: white;
-            border-color: var(--gold-primary);
-            transform: translateX(5px);
-        }
-
-        .option-btn.selected { border-color: var(--navy-deep); background: white; }
-        .option-btn.correct { background: #ecfdf5 !important; border-color: var(--accent-success) !important; color: #065f46; font-weight: 700; }
-        .option-btn.wrong { background: #fef2f2 !important; border-color: var(--accent-error) !important; color: #991b1b; }
-
-        /* --- Score & Results --- */
-        .results-panel {
-            display: none;
-            background: white;
-            border-radius: var(--radius-lg);
-            padding: 40px;
-            text-align: center;
-            margin-top: 50px;
-            box-shadow: var(--shadow-lg);
-            border: 2px solid var(--gold-primary);
-        }
-
-        .score-circle {
-            width: 160px;
-            height: 160px;
-            border-radius: 50%;
-            border: 8px solid var(--gold-primary);
-            margin: 0 auto 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .score-value { font-size: 3rem; font-weight: 800; color: var(--navy-deep); }
-        .score-total { font-size: 1rem; color: var(--text-muted); border-top: 1px solid var(--border-color); padding-top: 5px; }
-
-        /* --- Actions --- */
-        .btn-submit {
-            display: block;
-            width: 100%;
-            max-width: 300px;
-            margin: 40px auto;
-            padding: 18px;
-            background: var(--gold-primary);
-            color: white;
-            border: none;
-            border-radius: 50px;
-            font-weight: 700;
-            font-size: 1rem;
-            cursor: pointer;
-            box-shadow: 0 10px 15px -3px rgba(202, 138, 4, 0.3);
-            transition: var(--transition);
-        }
-
-        .btn-submit:hover { transform: translateY(-3px); background: #a16e03; }
-
-        .action-group {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-top: 30px;
-            flex-wrap: wrap;
-        }
-
-        .btn-action {
-            padding: 12px 24px;
-            border-radius: 10px;
-            border: none;
-            color: white;
-            font-weight: 600;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            transition: var(--transition);
-        }
-
-        .btn-pdf { background: #ef4444; }
-        .btn-email { background: var(--accent-info); }
-        .btn-whatsapp { background: #22c55e; }
-
-        .btn-action:hover { opacity: 0.9; transform: scale(1.05); }
-
-        /* --- Correction Box --- */
-        .correction-box {
-            display: none;
-            margin-top: 15px;
-            padding: 20px;
-            background: #f8fafc;
-            border-left: 4px solid var(--accent-info);
-            border-radius: 4px;
-            font-size: 0.9rem;
-            color: #334155;
-        }
-
-        /* --- PDF PRINT OPTIMIZATION (Crucial) --- */
-        @media print {
-            body { background: white; }
-            #sidebar, .btn-submit, .action-group, .mobile-menu-btn { display: none !important; }
-            #main { margin-left: 0; padding: 0; overflow: visible; }
-            .qcm-card { break-inside: avoid; border: 1px solid #eee; box-shadow: none; margin-bottom: 20px; }
-            .option-btn { border: 1px solid #ddd; background: transparent !important; }
-            .hero-banner { background: #000 !important; color: #fff !important; padding: 20px; }
-            .badge-pcsi { border: 1px solid #000; color: #000; }
-        }
-
-        /* --- Mobile Responsive --- */
+        /* --- ELEMENTS POUR MOBILE --- */
         .mobile-menu-btn {
             display: none;
             position: fixed;
-            top: 20px;
-            left: 20px;
-            z-index: 1001;
-            background: var(--navy-deep);
-            color: white;
+            top: 15px;
+            left: 15px;
+            z-index: 1000;
+            background: var(--navy-dark);
+            color: var(--gold-btn);
             border: none;
-            width: 45px;
-            height: 45px;
-            border-radius: 10px;
+            border-radius: 8px;
+            padding: 10px 15px;
+            font-size: 1.2rem;
             cursor: pointer;
+            box-shadow: var(--shadow-md);
         }
 
-        @media (max-width: 1024px) {
-            #sidebar { transform: translateX(-100%); }
-            #sidebar.active { transform: translateX(0); }
-            #main { margin-left: 0; padding: 80px 20px; }
-            .mobile-menu-btn { display: block; }
-            .options-grid { grid-template-columns: 1fr; }
-        }
-
-        /* --- Loading State --- */
-        .loader {
+        .sidebar-overlay {
             display: none;
-            text-align: center;
-            padding: 50px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 90;
         }
-        .spinner {
-            width: 40px;
-            height: 40px;
-            border: 4px solid var(--border-color);
-            border-top: 4px solid var(--gold-primary);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 20px;
+        .sidebar-overlay.active {
+            display: block;
         }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        /* --- ADAPTATION RESPONSIVE (MOBILES ET PETITES TABLETTES) --- */
+        @media (max-width: 900px) {
+            .mobile-menu-btn { display: block; }
+
+            #sidebar {
+                transform: translateX(-100%);
+            }
+            #sidebar.active {
+                transform: translateX(0);
+            }
+
+            #main {
+                margin-left: 0;
+                padding: 70px 20px 100px 20px; 
+            }
+
+            .banner {
+                padding: 30px 20px;
+                margin-bottom: 25px;
+            }
+
+            .qcm-grid {
+                grid-template-columns: 1fr;
+            }
+            .qcm-box {
+                padding: 20px;
+            }
+
+            .btn-primary {
+                font-size: 1rem;
+                padding: 15px;
+                bottom: 15px;
+            }
+
+            .share-btn {
+                width: calc(50% - 8px); 
+                justify-content: center;
+            }
+        }
     </style>
 </head>
 <body>
 
-    <button class="mobile-menu-btn" onclick="toggleMobile()"><i class="fas fa-bars"></i></button>
+<button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+    <i class="fas fa-bars"></i>
+</button>
 
-    <aside id="sidebar">
-        <div class="sidebar-header">
-            <div class="logo-main">ELIAN<span>MATHS</span></div>
-            <div class="badge-pcsi">PREPA PCSI • PRESTIGE</div>
+<div class="sidebar-overlay" id="mobileOverlay" onclick="toggleMobileMenu()"></div>
+
+<div id="sidebar">
+    <div class="logo-container">
+        <div class="logo-text">ELIAN<span>MATHS</span></div>
+        <div class="badge-prestige">PREPA PCSI</div>
+    </div>
+
+    <nav id="menu">
+        <div class="chapter-box">
+            <button class="lvl-1-btn" onclick="toggleMenu(this)">
+                <span><i class="fas fa-superscript"></i> &nbsp; Polynômes</span>
+                <i class="fas fa-chevron-down chevron"></i>
+            </button>
+            <div class="lvl-2-container">
+                <div class="lvl-2-header">Cours</div>
+                <a class="lvl-3-item" onclick="load('poly_bases')"><i class="fas fa-book"></i> Bases & Arithmétique</a>
+                <a class="lvl-3-item" onclick="load('poly_racines')"><i class="fas fa-seedling"></i> Racines & Multiplicité</a>
+                <a class="lvl-3-item" onclick="load('poly_fractions')"><i class="fas fa-divide"></i> Fractions Rationnelles</a>
+                
+                <div class="lvl-2-header">Exercices</div>
+                <a class="lvl-3-item" onclick="load('poly_exos_calc')"><i class="fas fa-pen-nib"></i> Calculs & Algorithmes</a>
+                
+                <div class="lvl-2-header">Entraînement</div>
+                <a class="lvl-3-item training" onclick="loadTraining('poly')"><i class="fas fa-bolt"></i> Training Aléatoire (20 QCM)</a>
+            </div>
         </div>
+
+        <div class="chapter-box">
+            <button class="lvl-1-btn" onclick="toggleMenu(this)">
+                <span><i class="fas fa-draw-polygon"></i> &nbsp; Géométrie</span>
+                <i class="fas fa-chevron-down chevron"></i>
+            </button>
+            <div class="lvl-2-container">
+                <div class="lvl-2-header">Cours</div>
+                <a class="lvl-3-item" onclick="load('geo_metrique')"><i class="fas fa-vector-square"></i> Scalaire & Déterminant</a>
+                <a class="lvl-3-item" onclick="load('geo_analytique')"><i class="fas fa-line"></i> Droites & Cercles</a>
+                
+                <div class="lvl-2-header">Entraînement</div>
+                <a class="lvl-3-item training" onclick="loadTraining('geo')"><i class="fas fa-bolt"></i> Training Aléatoire (20 QCM)</a>
+            </div>
+        </div>
+
+        <div class="chapter-box">
+            <button class="lvl-1-btn" onclick="toggleMenu(this)">
+                <span><i class="fas fa-chart-line"></i> &nbsp; Fonctions</span>
+                <i class="fas fa-chevron-down chevron"></i>
+            </button>
+            <div class="lvl-2-container">
+                <div class="lvl-2-header">Cours</div>
+                <a class="lvl-3-item" onclick="load('func_theoremes')"><i class="fas fa-check-circle"></i> Rolle & TAF</a>
+                <a class="lvl-3-item" onclick="load('func_taylor')"><i class="fas fa-infinity"></i> Taylor & Reste Intégral</a>
+                
+                <div class="lvl-2-header">Entraînement</div>
+                <a class="lvl-3-item training" onclick="loadTraining('func')"><i class="fas fa-bolt"></i> Training Aléatoire (20 QCM)</a>
+            </div>
+        </div>
+    </nav>
+</div>
+
+<div id="main">
+    <div id="content-container">
+        <div id="dynamic-content">
+            <div class="banner">
+                <h1 style="font-size: 2.5rem; margin: 0; letter-spacing: -1px;">Elite Workspace</h1>
+                <p style="opacity: 0.9; font-size: 1.1rem; margin-top: 10px;">Système d'apprentissage adaptatif pour classe préparatoire PCSI.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // GESTION DU MENU MOBILE
+    function toggleMobileMenu() {
+        document.getElementById('sidebar').classList.toggle('active');
+        document.getElementById('mobileOverlay').classList.toggle('active');
+    }
+
+    // ACCORDEON DU MENU
+    function toggleMenu(btn) {
+        const container = btn.nextElementSibling;
+        btn.classList.toggle('open');
+        container.classList.toggle('open');
+    }
+
+    // CHARGEMENT DYNAMIQUE DES PAGES
+    async function load(file) {
+        // Ferme le menu mobile automatiquement si on clique sur un lien
+        if (window.innerWidth <= 900) {
+            document.getElementById('sidebar').classList.remove('active');
+            document.getElementById('mobileOverlay').classList.remove('active');
+        }
+
+        const target = document.getElementById('dynamic-content');
+        target.style.opacity = '0.3';
+        target.style.transform = 'translateY(10px)';
+        target.style.transition = 'all 0.3s ease';
         
-        <nav class="sidebar-nav">
-            <div class="nav-group">
-                <button class="nav-parent" onclick="handleNav(this)">
-                    <span><i class="fas fa-superscript"></i> Polynômes</span>
-                    <i class="fas fa-chevron-down chevron"></i>
-                </button>
-                <div class="nav-children">
-                    <div class="nav-section-title">Cours</div>
-                    <a class="nav-item" onclick="loadPage('poly_bases')">Construction & Arithmétique</a>
-                    <a class="nav-item" onclick="loadPage('poly_racines')">Racines & Multiplicité</a>
-                    <a class="nav-item" onclick="loadPage('poly_fractions')">Fractions Rationnelles</a>
-                    <div class="nav-section-title">Entraînement</div>
-                    <a class="nav-item training" onclick="startTraining('poly')">Training Prestige (Note/20)</a>
-                </div>
-            </div>
-
-            <div class="nav-group">
-                <button class="nav-parent" onclick="handleNav(this)">
-                    <span><i class="fas fa-draw-polygon"></i> Géométrie</span>
-                    <i class="fas fa-chevron-down chevron"></i>
-                </button>
-                <div class="nav-children">
-                    <div class="nav-section-title">Cours</div>
-                    <a class="nav-item" onclick="loadPage('geo_affine')">Espaces Affines</a>
-                    <a class="nav-item" onclick="loadPage('geo_metrique')">Produit Scalaire</a>
-                    <div class="nav-section-title">Entraînement</div>
-                    <a class="nav-item training" onclick="startTraining('geo')">Training Prestige (Note/30)</a>
-                </div>
-            </div>
-
-            <div class="nav-group">
-                <button class="nav-parent" onclick="handleNav(this)">
-                    <span><i class="fas fa-wave-square"></i> Analyse</span>
-                    <i class="fas fa-chevron-down chevron"></i>
-                </button>
-                <div class="nav-children">
-                    <div class="nav-section-title">Cours</div>
-                    <a class="nav-item" onclick="loadPage('ana_limites')">Limites & Continuité</a>
-                    <a class="nav-item" onclick="loadPage('ana_derivation')">Dérivation & Rolle</a>
-                    <div class="nav-section-title">Entraînement</div>
-                    <a class="nav-item training" onclick="startTraining('ana')">Training Rapide (Note/6)</a>
-                </div>
-            </div>
-        </nav>
-
-        <div style="padding: 20px; border-top: 1px solid var(--border-color); font-size: 0.7rem; color: var(--text-muted); text-align: center;">
-            &copy; 2026 Elian Maths - Excellence PCSI
-        </div>
-    </aside>
-
-    <main id="main">
-        <div class="content-wrapper" id="pdf-area">
-            <div id="dynamic-zone">
-                <div class="hero-banner">
-                    <h1 style="font-size: 2.8rem; margin: 0; font-weight: 800; letter-spacing: -2px;">Elite Workspace</h1>
-                    <p style="font-size: 1.2rem; opacity: 0.8; margin-top: 10px; font-weight: 400;">
-                        Système d'évaluation adaptatif pour mathématiques de haut niveau.
-                    </p>
-                    <div style="margin-top: 30px; display: flex; gap: 15px;">
-                        <span style="display: flex; align-items: center; gap: 8px; font-size: 0.9rem;">
-                            <i class="fas fa-check-circle" style="color: var(--gold-light);"></i> Rendu LaTeX impeccable
-                        </span>
-                        <span style="display: flex; align-items: center; gap: 8px; font-size: 0.9rem;">
-                            <i class="fas fa-check-circle" style="color: var(--gold-light);"></i> Export PDF Académique
-                        </span>
-                    </div>
-                </div>
-
-                <div style="text-align: center; color: var(--text-muted); padding: 100px 20px;">
-                    <i class="fas fa-arrow-left" style="font-size: 2rem; margin-bottom: 20px; display: block;"></i>
-                    <p>Sélectionnez un module dans le menu latéral pour commencer.</p>
-                </div>
-            </div>
-
-            <div id="results-panel" class="results-panel">
-                <h2 id="congrats-title">Analyse des Résultats</h2>
-                <div class="score-circle">
-                    <div class="score-value" id="final-score">0</div>
-                    <div class="score-total" id="final-base">/20</div>
-                </div>
-                <p id="evaluation-text" style="font-weight: 600; margin-bottom: 30px; color: var(--text-muted);"></p>
-                
-                <div class="action-group">
-                    <button class="btn-action btn-pdf" onclick="generateProfessionalPDF()">
-                        <i class="fas fa-file-pdf"></i> Télécharger le Compte-Rendu
-                    </button>
-                    <button class="btn-action btn-email" onclick="shareResult('email')">
-                        <i class="fas fa-envelope"></i> Envoyer au Professeur
-                    </button>
-                    <button class="btn-action btn-whatsapp" onclick="shareResult('whatsapp')">
-                        <i class="fab fa-whatsapp"></i> Partager via WhatsApp
-                    </button>
-                </div>
-            </div>
-        </div>
+        try {
+            const response = await fetch(`content/${file}.html`);
+            const html = response.ok ? await response.text() : `<div class="banner" style="background: #ef4444; border-bottom:none;"><h1>Module Introuvable</h1><p>Le fichier ${file}.html manque dans le dossier /content/.</p></div>`;
+            target.innerHTML = html;
+            if (window.MathJax) MathJax.typesetPromise([target]);
+            
+            // Remonte en haut de la page lors du chargement
+            document.getElementById('main').scrollTo(0, 0);
+        } catch (e) { console.error(e); }
         
-        <div id="loader" class="loader">
-            <div class="spinner"></div>
-            <p>Chargement des ressources mathématiques...</p>
-        </div>
-    </main>
+        setTimeout(() => {
+            target.style.opacity = '1';
+            target.style.transform = 'translateY(0)';
+        }, 50);
+    }
 
-    <script>
-        // --- CONFIGURATION ---
-        const PROF_EMAIL = "boris.kinnouezan@imsp-uac.org";
-        let currentTotalQuestions = 0;
-        let currentBaseScale = 20;
+    // LOGIQUE DE TIRAGE ALÉATOIRE
+    function loadTraining(subject) {
+        const quizNumber = Math.floor(Math.random() * 3) + 1;
+        const fileName = `${subject}_training_v${quizNumber}`;
+        load(fileName);
+    }
 
-        // --- GESTION INTERFACE ---
-        function toggleMobile() {
-            document.getElementById('sidebar').classList.toggle('active');
+    // FONCTION GLOBALE POUR LE QCM
+    function checkAnswer(button, isCorrect) {
+        const container = button.parentElement;
+        const allButtons = container.querySelectorAll('.opt-btn');
+        
+        button.classList.add('selected');
+        allButtons.forEach(btn => btn.disabled = true);
+        
+        if(isCorrect) {
+            button.classList.add('correct');
+        } else {
+            button.classList.add('wrong');
+            const correctBtn = Array.from(allButtons).find(b => b.getAttribute('onclick').includes('true'));
+            if(correctBtn) correctBtn.classList.add('correct');
         }
+    }
 
-        function handleNav(btn) {
-            const group = btn.parentElement;
-            const wasActive = group.classList.contains('active');
-            
-            document.querySelectorAll('.nav-group').forEach(g => g.classList.remove('active'));
-            if (!wasActive) group.classList.add('active');
+    // FONCTION DE CALCUL DU SCORE
+    function calculateScore() {
+        let score = document.querySelectorAll('.opt-btn.correct.selected').length; 
+        
+        let submitBtn = document.getElementById('submit-btn');
+        if(submitBtn) submitBtn.style.display = 'none';
+        
+        let scoreDisplay = document.getElementById('score-display');
+        if(scoreDisplay) {
+            scoreDisplay.style.display = 'flex';
+            scoreDisplay.style.flexDirection = 'column';
+            scoreDisplay.style.alignItems = 'center';
+            scoreDisplay.style.justifyContent = 'center';
+            scoreDisplay.innerHTML = `<div style="width: 140px; height: 140px; border-radius: 50%; border: 6px solid var(--gold-btn); display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 2.8rem; font-weight: 800; color: var(--navy-dark); background: white; box-shadow: var(--shadow-md);">${score}<span style="font-size: 1rem; color: var(--text-muted); margin-top: -5px;">/20</span></div>`;
         }
+        
+        let msgBox = document.getElementById('congrats-msg');
+        if(msgBox) {
+            msgBox.style.display = 'block';
+            msgBox.style.padding = '30px';
+            msgBox.style.borderRadius = 'var(--radius)';
+            msgBox.style.textAlign = 'center';
+            msgBox.style.marginTop = '25px';
 
-        // --- CHARGEMENT DYNAMIQUE ---
-        async function loadPage(file) {
-            const zone = document.getElementById('dynamic-zone');
-            const loader = document.getElementById('loader');
-            const results = document.getElementById('results-panel');
-            
-            results.style.display = 'none';
-            zone.style.opacity = '0';
-            loader.style.display = 'block';
-
-            if(window.innerWidth <= 1024) toggleMobile();
-
-            try {
-                const response = await fetch(`content/${file}.html`);
-                const html = response.ok ? await response.text() : generateErrorHTML(file);
-                
-                zone.innerHTML = html;
-                
-                // Détecter automatiquement le nombre de questions
-                currentTotalQuestions = zone.querySelectorAll('.qcm-card').length;
-                
-                // Appliquer MathJax
-                if (window.MathJax) {
-                    await MathJax.typesetPromise([zone]);
-                }
-
-                zone.style.opacity = '1';
-                document.getElementById('main').scrollTo({ top: 0, behavior: 'smooth' });
-            } catch (err) {
-                zone.innerHTML = `<div class="hero-banner" style="background:var(--accent-error)"><h1>Erreur Réseau</h1><p>${err.message}</p></div>`;
-            } finally {
-                loader.style.display = 'none';
-                zone.style.opacity = '1';
-            }
-        }
-
-        function generateErrorHTML(file) {
-            return `
-                <div class="hero-banner" style="background:var(--accent-error)">
-                    <h1>Module non trouvé</h1>
-                    <p>Le fichier <code>content/${file}.html</code> est manquant dans votre architecture.</p>
-                </div>
-            `;
-        }
-
-        // --- LOGIQUE D'ENTRAÎNEMENT ---
-        function startTraining(subject) {
-            // Ici on pourrait charger aléatoirement v1, v2 ou v3
-            const v = Math.floor(Math.random() * 2) + 1;
-            loadPage(`${subject}_training_v${v}`);
-        }
-
-        // --- LOGIQUE QCM ---
-        function selectOption(btn, isCorrect) {
-            const card = btn.closest('.qcm-card');
-            const options = card.querySelectorAll('.option-btn');
-            
-            // Désactiver les options après choix
-            options.forEach(opt => {
-                opt.disabled = true;
-                opt.classList.remove('selected');
-            });
-
-            btn.classList.add('selected');
-            
-            // Feedback immédiat (optionnel, mais pro)
-            if (isCorrect) {
-                btn.classList.add('correct');
+            let title = "";
+            if (score === 20) {
+                title = "🏆 Incroyable ! Un sans-faute absolu, félicitations !";
+                msgBox.style.backgroundColor = "#ecfdf5"; msgBox.style.border = "2px solid #10b981"; msgBox.style.color = "#065f46";
+            } else if (score >= 15) {
+                title = "🎉 Excellent travail ! Tu maîtrises très bien le sujet.";
+                msgBox.style.backgroundColor = "#eff6ff"; msgBox.style.border = "2px solid #3b82f6"; msgBox.style.color = "#1e40af";
+            } else if (score >= 10) {
+                title = "👍 Bon effort ! Encore quelques révisions et ce sera parfait.";
+                msgBox.style.backgroundColor = "#fefce8"; msgBox.style.border = "2px solid #eab308"; msgBox.style.color = "#854d0e";
             } else {
-                btn.classList.add('wrong');
-                // Montrer la bonne réponse
-                options.forEach(opt => {
-                    if (opt.getAttribute('onclick').includes('true')) opt.classList.add('correct');
-                });
+                title = "💪 Ne te décourage pas, revois le cours et retente ta chance !";
+                msgBox.style.backgroundColor = "#fef2f2"; msgBox.style.border = "2px solid #ef4444"; msgBox.style.color = "#991b1b";
             }
-        }
 
-        // --- CALCUL DU SCORE DYNAMIQUE ---
-        function processFinalScore() {
-            const totalQuestions = document.querySelectorAll('.qcm-card').length;
-            const correctAnswers = document.querySelectorAll('.option-btn.correct.selected').length;
-            
-            // Déterminer la base de notation (30, 20 ou 6)
-            if (totalQuestions >= 15) currentBaseScale = 20;
-            else if (totalQuestions >= 8) currentBaseScale = 30;
-            else currentBaseScale = 6;
-
-            const finalNote = ((correctAnswers / totalQuestions) * currentBaseScale).toFixed(1);
-            
-            displayResults(finalNote, currentBaseScale, correctAnswers, totalQuestions);
-        }
-
-        function displayResults(note, base, correct, total) {
-            const panel = document.getElementById('results-panel');
-            const scoreVal = document.getElementById('final-score');
-            const scoreBase = document.getElementById('final-base');
-            const evalText = document.getElementById('evaluation-text');
-            const title = document.getElementById('congrats-title');
-
-            panel.style.display = 'block';
-            scoreVal.innerText = note;
-            scoreBase.innerText = `/${base}`;
-
-            let appreciation = "";
-            let color = "";
-
-            const ratio = note / base;
-            if (ratio >= 0.9) { appreciation = "🏆 Excellence académique. Félicitations."; color = "var(--accent-success)"; }
-            else if (ratio >= 0.7) { appreciation = "🥈 Très bon niveau, maîtrisez les détails."; color = "var(--accent-info)"; }
-            else if (ratio >= 0.5) { appreciation = "🥉 Niveau satisfaisant, continuez les efforts."; color = "var(--gold-primary)"; }
-            else { appreciation = "✍️ Travail insuffisant. Reprenez le cours."; color = "var(--accent-error)"; }
-
-            evalText.innerText = appreciation;
-            evalText.style.color = color;
-            title.innerText = `Résultats : ${correct} bonnes réponses sur ${total}`;
-
-            panel.scrollIntoView({ behavior: 'smooth' });
-        }
-
-        // --- EXPORT PDF PRESTIGE ---
-        function generateProfessionalPDF() {
-            const element = document.getElementById('pdf-area');
-            const originalContent = element.innerHTML;
-            
-            // Création d'un conteneur temporaire pour le nettoyage PDF
-            const pdfContainer = document.createElement('div');
-            pdfContainer.innerHTML = originalContent;
-            
-            // Nettoyage des éléments non désirés dans le PDF
-            pdfContainer.querySelectorAll('.action-group, .btn-submit, button').forEach(el => el.remove());
-            
-            // Ajout d'un en-tête académique
-            const header = document.createElement('div');
-            header.innerHTML = `
-                <div style="border-bottom: 2px solid #000; padding-bottom: 10px; margin-bottom: 30px; display: flex; justify-content: space-between; align-items: center;">
-                    <div style="font-weight: 800; font-size: 20px;">ELIAN MATHS | PCSI</div>
-                    <div style="text-align: right; font-size: 12px;">Compte-rendu d'évaluation numérique<br>Date: ${new Date().toLocaleDateString('fr-FR')}</div>
+            // Génération des boutons d'envoi et de PDF
+            msgBox.innerHTML = `
+                <h3 style="margin-top:0; font-size: 1.3rem;">${title}</h3>
+                <p style="margin-bottom: 20px; font-weight: 500;">Transmets tes résultats à ton professeur :</p>
+                
+                <div class="share-container" id="share-buttons">
+                    <button onclick="downloadPDF()" class="share-btn pdf"><i class="fas fa-file-pdf"></i> Générer PDF</button>
+                    <button onclick="shareResult('email', ${score})" class="share-btn email"><i class="fas fa-envelope"></i> Par Mail</button>
+                    <button onclick="shareResult('whatsapp', ${score})" class="share-btn wa"><i class="fab fa-whatsapp"></i> Par WhatsApp</button>
+                    <button onclick="shareResult('sms', ${score})" class="share-btn sms"><i class="fas fa-comment-sms"></i> Par SMS</button>
                 </div>
             `;
-            pdfContainer.prepend(header);
-
-            // Options de génération
-            const opt = {
-                margin: [15, 15, 20, 15], // Haut, Gauche, Bas, Droite
-                filename: `Evaluation_PCSI_${new Date().getTime()}.pdf`,
-                image: { type: 'jpeg', quality: 0.98 },
-                html2canvas: { 
-                    scale: 2, 
-                    useCORS: true,
-                    logging: false,
-                    letterRendering: true
-                },
-                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
-                pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
-            };
-
-            // Lancer la génération
-            html2pdf().set(opt).from(pdfContainer).save().then(() => {
-                console.log("PDF exporté avec succès");
-            });
         }
 
-        // --- PARTAGE ---
-        function shareResult(type) {
-            const score = document.getElementById('final-score').innerText;
-            const base = document.getElementById('final-base').innerText;
-            const text = `Bonjour Boris, j'ai terminé mon évaluation. Résultat : ${score}${base}. Je vous joins le PDF détaillé.`;
-            
-            if (type === 'email') {
-                const subject = encodeURIComponent("Rendu Évaluation Mathématiques PCSI");
-                window.location.href = `mailto:${PROF_EMAIL}?subject=${subject}&body=${encodeURIComponent(text)}`;
-            } else if (type === 'whatsapp') {
-                window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, '_blank');
-            }
-        }
-    </script>
+        // Fait défiler la page vers le score en douceur
+        setTimeout(() => {
+            if(scoreDisplay) scoreDisplay.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }, 100);
+    }
 
-    </body>
+    // FONCTION POUR MASQUER/AFFICHER LA CORRECTION
+    function toggleCorrection(btn) {
+        const correctionDiv = btn.nextElementSibling;
+        if (correctionDiv.style.display === "none" || correctionDiv.style.display === "") {
+            correctionDiv.style.display = "block";
+            btn.innerHTML = '<i class="fas fa-eye-slash"></i> Masquer le corrigé';
+        } else {
+            correctionDiv.style.display = "none";
+            btn.innerHTML = '<i class="fas fa-eye"></i> Afficher le corrigé';
+        }
+    }
+
+    // FONCTIONS D'EXPORT ET DE PARTAGE
+    function downloadPDF() {
+        const element = document.getElementById('content-container');
+        const shareCont = document.getElementById('share-buttons');
+        
+        // On cache temporairement les boutons pour qu'ils ne soient pas sur le PDF
+        if(shareCont) shareCont.style.display = 'none';
+
+        const opt = {
+            margin:       10,
+            filename:     'Evaluation_ElianMaths_PCSI.pdf',
+            image:        { type: 'jpeg', quality: 0.98 },
+            html2canvas:  { scale: 2, useCORS: true, scrollY: 0 },
+            jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+        };
+
+        // Génération du PDF
+        html2pdf().set(opt).from(element).save().then(() => {
+            // On remet les boutons après le téléchargement
+            if(shareCont) shareCont.style.display = 'flex';
+        });
+    }
+
+    function shareResult(type, score) {
+        const emailContact = "boris.kinnouezan@imsp-uac.org";
+        const message = `Bonjour M. Kinnouezan, voici mon rendu pour le module Elian Maths. J'ai obtenu la note de ${score}/20 ! (Le PDF de ma copie est en pièce jointe).`;
+        
+        const subjectEncoded = encodeURIComponent("Rendu QCM Elian Maths PCSI");
+        const bodyEncoded = encodeURIComponent(message);
+
+        if (type === 'email') {
+            window.location.href = `mailto:${emailContact}?subject=${subjectEncoded}&body=${bodyEncoded}`;
+        } else if (type === 'whatsapp') {
+            window.open(`https://wa.me/?text=${bodyEncoded}`, '_blank');
+        } else if (type === 'sms') {
+            window.open(`sms:?&body=${bodyEncoded}`, '_self');
+        }
+    }
+</script>
+
+</body>
 </html>
