@@ -269,7 +269,7 @@
                 <a class="lvl-3-item" onclick="load('geo_analytique')"><i class="fas fa-line"></i> Droites & Cercles</a>
                 
                 <div class="lvl-2-header">Entraînement</div>
-                <a class="lvl-3-item training" onclick="loadTraining('geo')"><i class="fas fa-bolt"></i> Training Aléatoire (20 QCM)</a>
+                <a class="lvl-3-item training" onclick="loadTraining('geo')"><i class="fas fa-bolt"></i> Training Aléatoire</a>
             </div>
         </div>
 
@@ -284,7 +284,7 @@
                 <a class="lvl-3-item" onclick="load('func_taylor')"><i class="fas fa-infinity"></i> Taylor & Reste Intégral</a>
                 
                 <div class="lvl-2-header">Entraînement</div>
-                <a class="lvl-3-item training" onclick="loadTraining('func')"><i class="fas fa-bolt"></i> Training Aléatoire (20 QCM)</a>
+                <a class="lvl-3-item training" onclick="loadTraining('func')"><i class="fas fa-bolt"></i> Training Aléatoire</a>
             </div>
         </div>
     </nav>
@@ -464,7 +464,7 @@
 
     function shareResult(type, score) {
         const emailContact = "boris.kinnouezan@imsp-uac.org";
-        const message = `Bonjour M. Kinnouezan, voici mon rendu pour le module Elian Maths. J'ai obtenu la note de ${score}/20 ! (Le PDF de ma copie est en pièce jointe).`;
+        const message = `Bonjour Boris, voici mon rendu pour le module. J'ai obtenu la note de ${score}/20 ! (Le PDF de ma copie est en pièce jointe).`;
         
         const subjectEncoded = encodeURIComponent("Rendu QCM Elian Maths PCSI");
         const bodyEncoded = encodeURIComponent(message);
@@ -481,3 +481,4 @@
 
 </body>
 </html>
+
