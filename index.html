@@ -188,11 +188,14 @@
         load(fileName);
     }
 
-    // FONCTION GLOBALE POUR LE QCM (Ajoutée ici pour fonctionner partout)
+    // FONCTION GLOBALE POUR LE QCM
     function checkAnswer(button, isCorrect) {
         const container = button.parentElement;
         const allButtons = container.querySelectorAll('.opt-btn');
         
+        // Ajout de la classe 'selected' au bouton cliqué pour pouvoir compter le score
+        button.classList.add('selected');
+
         // Désactive tous les boutons de cette question
         allButtons.forEach(btn => btn.disabled = true);
         
@@ -203,6 +206,44 @@
             // Montre la bonne réponse à l'élève
             const correctBtn = Array.from(allButtons).find(b => b.getAttribute('onclick').includes('true'));
             if(correctBtn) correctBtn.classList.add('correct');
+        }
+    }
+
+    // FONCTION DE CALCUL DU SCORE
+    function calculateScore() {
+        // Compte le nombre de boutons qui ont à la fois la classe 'selected' et 'correct'
+        let score = document.querySelectorAll('.opt-btn.correct.selected').length; 
+        
+        // Affichage
+        let submitBtn = document.getElementById('submit-btn');
+        if(submitBtn) submitBtn.style.display = 'none';
+        
+        let scoreDisplay = document.getElementById('score-display');
+        if(scoreDisplay) scoreDisplay.style.display = 'block';
+        
+        let scoreValue = document.getElementById('score-value');
+        if(scoreValue) scoreValue.innerText = score;
+        
+        let msgBox = document.getElementById('congrats-msg');
+        if(msgBox) {
+            msgBox.style.display = 'block';
+            if (score === 20) {
+                msgBox.innerHTML = "🏆 Incroyable ! Un sans-faute absolu, félicitations !";
+                msgBox.style.backgroundColor = "#c6f6d5";
+                msgBox.style.color = "#22543d";
+            } else if (score >= 15) {
+                msgBox.innerHTML = "🎉 Excellent travail ! Tu maîtrises très bien le sujet.";
+                msgBox.style.backgroundColor = "#bee3f8";
+                msgBox.style.color = "#2a4365";
+            } else if (score >= 10) {
+                msgBox.innerHTML = "👍 Bon effort ! Encore quelques révisions et ce sera parfait.";
+                msgBox.style.backgroundColor = "#feebc8";
+                msgBox.style.color = "#7b341e";
+            } else {
+                msgBox.innerHTML = "💪 Ne te décourage pas, revois le cours et retente ta chance !";
+                msgBox.style.backgroundColor = "#fed7d7";
+                msgBox.style.color = "#742a2a";
+            }
         }
     }
 </script>
