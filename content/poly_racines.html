@@ -1,27 +1,44 @@
-<div class="banner">
-    <h1>Racines et Multiplicité</h1>
-    <p>Analyse des zéros et Théorèmes de structure</p>
-</div>
-
-<div class="tcb-box thmbox">
-    <div class="tcb-title"><i class="fas fa-seedling"></i> Caractérisation des Racines</div>
-    <div class="tcb-content">
-        $a$ est une racine de <b>multiplicité</b> $m$ de $P$ si $(X-a)^m$ divise $P$ mais pas $(X-a)^{m+1}$.
-        <br><br>
-        <b>Caractérisation par les dérivées :</b>
-        $a$ est racine de multiplicité $m$ ssi :
-        <p style="text-align:center;">
-            $P(a) = P'(a) = \dots = P^{(m-1)}(a) = 0 \quad \text{et} \quad P^{(m)}(a) \neq 0$
-        </p>
+<div style="animation: fadeIn 0.5s;">
+    <div class="banner" style="background: linear-gradient(135deg, #276749, #38a169); padding: 40px; border-radius: 15px; color: white; margin-bottom: 30px;">
+        <h2 style="margin:0; font-size: 2.2rem;"><i class="fas fa-seedling"></i> Racines & Multiplicité</h2>
+        <p style="opacity:0.9; margin-top:10px; font-size: 1.1rem;">Évaluation, dérivation, factorisation et relations de Viète.</p>
     </div>
-</div>
 
-<div class="tcb-box proofbox">
-    <div class="tcb-title"><i class="fas fa-certificate"></i> Théorèmes Fondamentaux</div>
-    <div class="tcb-content">
+    <h3 style="color: var(--royal-blue); border-bottom: 2px solid var(--border); padding-bottom: 10px;"><i class="fas fa-dot-circle"></i> 1. Racines d'un polynôme</h3>
+    <div style="background: white; padding: 20px; border-radius: 10px; box-shadow: var(--shadow); margin-bottom: 20px;">
+        <p>Un scalaire $a \in \mathbb{K}$ est une <strong>racine</strong> du polynôme $P$ si et seulement si $P(a) = 0$.</p>
+        <div style="background: #f0fff4; padding: 15px; border-left: 4px solid #38a169; margin: 15px 0;">
+            <strong>Caractérisation fondamentale :</strong> $a$ est racine de $P \iff (X-a)$ divise $P$.
+        </div>
+        <p>Conséquence : Un polynôme de degré $n$ admet au plus $n$ racines distinctes.</p>
+    </div>
+
+    <h3 style="color: var(--royal-blue); border-bottom: 2px solid var(--border); padding-bottom: 10px;"><i class="fas fa-layer-group"></i> 2. Ordre de Multiplicité</h3>
+    <div style="background: white; padding: 20px; border-radius: 10px; box-shadow: var(--shadow); margin-bottom: 30px;">
+        <p>On dit que $a$ est racine de <strong>multiplicité $m$</strong> de $P$ (avec $m \geq 1$) si $(X-a)^m$ divise $P$ mais $(X-a)^{m+1}$ ne divise pas $P$.</p>
+        <p>Cela équivaut à écrire : $P(X) = (X-a)^m Q(X)$ avec $Q(a) \neq 0$.</p>
+        
+        <div style="background: #ebf8ff; padding: 15px; border-left: 4px solid #3182ce; margin-top: 15px;">
+            <h4 style="margin-top: 0; color: #2b6cb0;">Critère par les dérivées successives</h4>
+            <p>$a$ est racine de multiplicité $m$ de $P$ si et seulement si :</p>
+            <p style="text-align: center;">$$P(a) = P'(a) = P''(a) = \dots = P^{(m-1)}(a) = 0 \quad \text{et} \quad P^{(m)}(a) \neq 0$$</p>
+        </div>
+    </div>
+
+    <h3 style="color: var(--royal-blue); border-bottom: 2px solid var(--border); padding-bottom: 10px;"><i class="fas fa-project-diagram"></i> 3. Factorisation et Théorème de d'Alembert-Gauss</h3>
+    <div style="background: #fffaf0; padding: 20px; border-left: 5px solid var(--gold); border-radius: 8px; margin-bottom: 30px; box-shadow: var(--shadow);">
+        <h4 style="margin-top: 0; color: #975a16;">Théorème Fondamental de l'Algèbre (d'Alembert-Gauss)</h4>
+        <p>Tout polynôme non constant de $\mathbb{C}[X]$ admet au moins une racine complexe. Par conséquent, <strong>tout polynôme de $\mathbb{C}[X]$ est scindé</strong> (il se factorise entièrement en produit de polynômes de degré 1).</p>
+        <p style="text-align: center;">$$P(X) = \lambda (X - z_1)^{m_1} (X - z_2)^{m_2} \dots (X - z_k)^{m_k}$$</p>
+        <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 0;"><em>Note : Dans $\mathbb{R}[X]$, les polynômes irréductibles sont ceux de degré 1 et ceux de degré 2 ayant un discriminant $\Delta < 0$.</em></p>
+    </div>
+
+    <h3 style="color: var(--royal-blue); border-bottom: 2px solid var(--border); padding-bottom: 10px;"><i class="fas fa-exchange-alt"></i> 4. Relations de Viète</h3>
+    <div style="background: white; padding: 20px; border-radius: 10px; box-shadow: var(--shadow); margin-bottom: 20px;">
+        <p>Soit $P = a_n X^n + a_{n-1} X^{n-1} + \dots + a_1 X + a_0$ un polynôme scindé de racines $x_1, x_2, \dots, x_n$ (comptées avec leur multiplicité).</p>
         <ul>
-            <li><b>Théorème de d'Alembert-Gauss :</b> Tout polynôme non constant de $\mathbb{C}[X]$ est scindé.</li>
-            <li><b>Relations entre racines et coefficients :</b> Pour $P = X^2 + bX + c$, $x_1+x_2 = -b$ et $x_1x_2 = c$.</li>
+            <li style="margin-bottom: 10px;"><strong>Somme des racines :</strong> $\displaystyle \sum_{k=1}^n x_k = -\frac{a_{n-1}}{a_n}$</li>
+            <li><strong>Produit des racines :</strong> $\displaystyle \prod_{k=1}^n x_k = (-1)^n \frac{a_0}{a_n}$</li>
         </ul>
     </div>
 </div>
