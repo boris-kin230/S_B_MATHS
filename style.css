@@ -1,176 +1,113 @@
 <style>
-    /* 1. RÉCUPÉRATION DU DESIGN SYSTÈME (Variables déjà présentes dans style.css) */
     :root {
-        /* On s'assure d'utiliser tes noms de variables exacts */
-        --training-primary: var(--royal-blue); /* #004d40 */
-        --training-accent: var(--accent-orange); /* #ff9800 */
-        --training-success: var(--accent-green); /* #4caf50 */
+        /* Palette Prestige & Luxury */
+        --navy: #0f172a;
+        --royal-blue: #1e3a8a;
+        --gold: #c29d59;
+        --gold-light: #e5c17e;
+        --accent: #3182ce;
+        --bg-light: #f8fafc;
+        --white: #ffffff;
+        --text-main: #1e293b;
+        --text-muted: #64748b;
+        --border: #e2e8f0;
+        
+        /* Utility */
+        --radius: 12px;
+        --shadow-sm: 0 1px 3px rgba(0,0,0,0.1);
+        --shadow-md: 0 10px 15px -3px rgba(0,0,0,0.1);
+        --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
-    /* 2. ADAPTATION DU CONTENEUR */
-    .training-wrapper {
-        font-family: 'Inter', sans-serif;
-        max-width: 900px;
-        margin: 0 auto;
-        padding: 0; /* On laisse le #main gérer le padding global */
+    /* 1. RESET & LAYOUT GLOBAL */
+    body { font-family: 'Inter', sans-serif; margin: 0; background: var(--bg-light); color: var(--text-main); display: flex; height: 100vh; overflow: hidden; }
+
+    /* 2. SIDEBAR (NAVIGATION) */
+    #sidebar { 
+        width: 320px; height: 100vh; background: var(--white); 
+        border-right: 1px solid var(--border); overflow-y: auto; flex-shrink: 0;
+    }
+    .logo-container { padding: 30px 20px; text-align: center; border-bottom: 2px solid var(--bg-light); }
+    .logo-text { font-weight: 800; font-size: 1.5rem; color: var(--navy); letter-spacing: -1px; }
+    .logo-text span { color: var(--gold); }
+
+    .lvl-1-btn { 
+        width: 100%; padding: 15px 20px; border: none; background: none; text-align: left;
+        display: flex; justify-content: space-between; align-items: center;
+        font-weight: 700; color: var(--navy); cursor: pointer; transition: var(--transition);
+        text-transform: uppercase; font-size: 0.85rem; letter-spacing: 0.5px;
+    }
+    .lvl-1-btn:hover { background: #f1f5f9; color: var(--accent); }
+
+    .lvl-2-container { display: none; background: #fafafa; border-bottom: 1px solid var(--border); }
+    .lvl-2-container.open { display: block; }
+
+    .lvl-2-header { padding: 12px 20px 5px 35px; font-size: 0.7rem; font-weight: 800; color: var(--gold); text-transform: uppercase; }
+    
+    .lvl-3-item { 
+        display: block; padding: 10px 20px 10px 50px; font-size: 0.9rem; color: var(--text-muted); 
+        text-decoration: none; transition: var(--transition); cursor: pointer;
+    }
+    .lvl-3-item:hover { color: var(--royal-blue); background: #f1f5f9; padding-left: 55px; }
+    .lvl-3-item.training { color: #059669; font-weight: 700; border-left: 3px solid transparent; }
+    .lvl-3-item.training:hover { border-left-color: #059669; }
+
+    /* 3. MAIN CONTENT AREA */
+    #main { flex-grow: 1; padding: 40px; overflow-y: auto; scroll-behavior: smooth; }
+    .banner { 
+        background: linear-gradient(135deg, var(--navy), var(--royal-blue)); 
+        color: white; padding: 50px; border-radius: 20px; margin-bottom: 30px;
+        box-shadow: var(--shadow-md); position: relative; overflow: hidden;
+    }
+    .banner::after { content: ''; position: absolute; top: -50%; right: -20%; width: 300px; height: 300px; background: rgba(255,255,255,0.05); border-radius: 50%; }
+
+    /* 4. COMPOSANTS DE COURS (Théorèmes, Définitions) */
+    .tcb-box { 
+        background: var(--white); border-radius: var(--radius); border: 1px solid var(--border);
+        margin-bottom: 25px; box-shadow: var(--shadow-sm); overflow: hidden;
+    }
+    .tcb-title { background: #f8fafc; padding: 15px 20px; border-bottom: 1px solid var(--border); font-weight: 700; color: var(--navy); display: flex; align-items: center; gap: 10px; }
+    .tcb-content { padding: 25px; line-height: 1.7; }
+    
+    .thm-box { border-left: 5px solid var(--gold); background: #fffcf5; } /* Pour les Théorèmes */
+    .def-box { border-left: 5px solid var(--accent); background: #f0f7ff; } /* Pour les Définitions */
+
+    /* 5. MOTEUR D'ENTRAÎNEMENT (Training Center) */
+    .progression-bar-container { 
+        position: sticky; top: -40px; background: rgba(248, 250, 252, 0.9); 
+        backdrop-filter: blur(10px); padding: 15px 0; z-index: 10; margin-bottom: 30px;
+    }
+    .progress-track { width: 100%; height: 8px; background: #e2e8f0; border-radius: 10px; overflow: hidden; }
+    .progress-fill { width: 0%; height: 100%; background: linear-gradient(90deg, var(--gold), var(--gold-light)); transition: width 0.4s ease; }
+
+    .quiz-card { border-left: 5px solid #cbd5e0; transition: var(--transition); }
+    .quiz-card.answered { border-left-color: #059669; background: #f0fdf4; }
+
+    .options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 20px; }
+    .option-item { 
+        background: var(--white); border: 2px solid var(--border); padding: 18px; 
+        border-radius: var(--radius); cursor: pointer; display: flex; align-items: center; gap: 12px;
+        font-weight: 600; transition: var(--transition);
+    }
+    .option-item:hover { border-color: var(--accent); background: #f0f7ff; }
+    .option-item:has(input:checked) { border-color: var(--royal-blue); background: #eff6ff; box-shadow: 0 0 0 1px var(--royal-blue); }
+
+    /* 6. BOUTONS & RÉSULTATS */
+    .prestige-btn { 
+        display: block; width: 100%; max-width: 400px; margin: 40px auto; padding: 20px;
+        background: var(--navy); color: var(--gold); border: 2px solid var(--gold);
+        border-radius: 50px; font-weight: 800; text-transform: uppercase; cursor: pointer; transition: var(--transition);
+    }
+    .prestige-btn:hover { background: var(--gold); color: var(--navy); transform: translateY(-3px); }
+
+    .score-circle { 
+        width: 150px; height: 150px; border-radius: 50%; border: 8px solid var(--gold);
+        display: flex; flex-direction: column; align-items: center; justify-content: center;
+        margin: 30px auto; font-size: 3rem; font-weight: 800; color: var(--navy); background: white;
     }
 
-    /* 3. BARRE DE PROGRESSION (Version Prestige) */
-    .progression-bar-container {
-        position: sticky;
-        top: 0;
-        background: var(--sidebar-bg);
-        padding: 15px 20px;
-        z-index: 100;
-        border-bottom: 1px solid rgba(0,0,0,0.05);
-        margin-bottom: 30px;
-        border-radius: 0 0 var(--radius) var(--radius);
-        box-shadow: var(--shadow-sm);
-    }
+    .chevron { transition: transform 0.3s; }
+    .open .chevron { transform: rotate(180deg); }
 
-    .progress-track {
-        width: 100%;
-        height: 6px;
-        background: var(--bg-light);
-        border-radius: 10px;
-        overflow: hidden;
-    }
-
-    .progress-fill {
-        width: 0%;
-        height: 100%;
-        background: linear-gradient(to right, var(--training-primary), var(--training-success));
-        transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    /* 4. CARTES DE QUESTIONS (Style TCB-Box) */
-    .quiz-card {
-        border-left: 5px solid #cbd5e0 !important; /* Bordure neutre par défaut */
-        transition: var(--transition);
-    }
-
-    .quiz-card:hover {
-        border-left-color: var(--training-primary) !important;
-        transform: translateX(5px);
-    }
-
-    /* Style spécifique quand une question est répondue */
-    .quiz-card.answered {
-        border-left-color: var(--training-success) !important;
-        background-color: var(--solbox-bg);
-    }
-
-    .question-text {
-        font-size: 1.1rem;
-        font-weight: 700;
-        color: var(--navy);
-        margin-bottom: 20px;
-    }
-
-    /* 5. OPTIONS DE RÉPONSE (Style Input Moderne) */
-    .options-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 15px;
-    }
-
-    .option-item {
-        background: var(--white);
-        border: 2px solid var(--bg-light);
-        padding: 15px;
-        border-radius: var(--radius);
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        transition: var(--transition);
-        font-weight: 500;
-        color: var(--text-main);
-    }
-
-    .option-item:hover {
-        border-color: var(--training-primary);
-        background: var(--thmbox-bg);
-    }
-
-    /* État sélectionné */
-    .option-item:has(input:checked) {
-        border-color: var(--training-primary);
-        background: var(--thmbox-bg);
-        box-shadow: 0 0 0 1px var(--training-primary);
-    }
-
-    .option-item input[type="radio"] {
-        margin-right: 15px;
-        width: 18px;
-        height: 18px;
-        accent-color: var(--training-primary);
-    }
-
-    /* 6. BOUTONS D'ACTION (Utilisation du style .btn-sol) */
-    .btn-action-row {
-        margin-top: 15px;
-        display: flex;
-        justify-content: flex-end;
-    }
-
-    .btn-clear {
-        background: none;
-        border: none;
-        color: var(--text-muted);
-        font-size: 0.8rem;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        gap: 5px;
-    }
-
-    .btn-clear:hover { color: var(--accent-orange); }
-
-    /* Bouton Final (Style Prestige) */
-    .prestige-btn {
-        display: block;
-        width: 100%;
-        max-width: 450px;
-        margin: 50px auto;
-        padding: 20px;
-        background: var(--training-primary);
-        color: white;
-        border: none;
-        border-radius: 50px;
-        font-size: 1.2rem;
-        font-weight: 800;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        cursor: pointer;
-        box-shadow: 0 10px 20px rgba(0, 77, 64, 0.2);
-        transition: var(--transition);
-    }
-
-    .prestige-btn:hover {
-        background: var(--navy);
-        transform: translateY(-3px);
-        box-shadow: 0 15px 30px rgba(0, 77, 64, 0.3);
-    }
-
-    /* 7. ÉCRAN DE RÉSULTAT */
-    .score-circle {
-        width: 120px;
-        height: 120px;
-        border-radius: 50%;
-        background: var(--training-primary);
-        color: white;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 2.5rem;
-        font-weight: 800;
-        margin: 20px auto;
-        border: 5px solid var(--thmbox-bg);
-        box-shadow: var(--shadow-md);
-    }
-
-    /* Responsive */
-    @media (max-width: 768px) {
-        .options-grid { grid-template-columns: 1fr; }
-    }
+    @media (max-width: 900px) { .options-grid { grid-template-columns: 1fr; } }
 </style>
