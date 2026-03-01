@@ -1,0 +1,206 @@
+<div style="animation: fadeIn 0.5s;">
+    <div class="banner" style="background: linear-gradient(135deg, #276749, #38a169); padding: 40px; border-radius: 15px; color: white; text-align: center; margin-bottom: 30px;">
+        <h2 style="margin:0; font-size: 2rem;"><i class="fas fa-bolt"></i> Training Polynômes - Version 2</h2>
+        <p style="opacity:0.9; margin-top:10px; font-size: 1.1rem;">Évaluation aléatoire : Racines, Multiplicité & Factorisation (20 Questions)</p>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">Q1. Soit $P \in \mathbb{K}[X]$. Le scalaire $a$ est racine de multiplicité $m$ de $P$ si et seulement si :</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$P(a)=0$ et $P'(a)=0$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, true)">$P(a)=\dots=P^{(m-1)}(a)=0$ et $P^{(m)}(a) \neq 0$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$P(a)=0$ et $(X-a)^m$ divise $P'$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$P^{(m)}(a) = 0$</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">Q2. D'après le théorème de d'Alembert-Gauss, dans $\mathbb{C}[X]$ :</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, false)">Tout polynôme a des racines réelles</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">Il existe des polynômes irréductibles de degré 2</button>
+            <button class="opt-btn" onclick="checkAnswer(this, true)">Tout polynôme non constant est scindé</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">Seuls les polynômes de degré impair ont une racine</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">Q3. Si $P \in \mathbb{R}[X]$ admet une racine complexe $z \in \mathbb{C} \setminus \mathbb{R}$ d'ordre de multiplicité $m$, alors :</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$-z$ est aussi racine de multiplicité $m$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, true)">$\bar{z}$ est aussi racine de multiplicité $m$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$z$ est une racine simple ($m=1$ obligatoirement)</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$|z|$ est une racine réelle</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">Q4. Le scalaire $a$ est une racine simple (multiplicité exactement 1) de $P$ si et seulement si :</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, true)">$P(a) = 0$ et $P'(a) \neq 0$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$P(a) = 0$ et $P'(a) = 0$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$P'(a) \neq 0$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$P(a) \neq 0$</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">Q5. Un polynôme $P \in \mathbb{C}[X]$ n'admet que des racines simples si et seulement si :</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$P$ et $P'$ ont le même degré</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$\deg(P) = 1$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, true)">$P$ et $P'$ sont premiers entre eux ($\text{pgcd}(P,P')=1$)</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$P$ est unitaire</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">Q6. Soit $P = a_n X^n + \dots + a_1 X + a_0$ scindé de racines $x_1, \dots, x_n$. Que vaut le produit $x_1 x_2 \dots x_n$ ?</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, true)">$(-1)^n \frac{a_0}{a_n}$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$\frac{a_0}{a_n}$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$-\frac{a_{n-1}}{a_n}$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$(-1)^n a_0$</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">Q7. Pour ce même polynôme $P$, que vaut la somme des racines $x_1 + x_2 + \dots + x_n$ ?</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$\frac{a_{n-1}}{a_n}$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, true)">$-\frac{a_{n-1}}{a_n}$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$-a_{n-1}$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$(-1)^n \frac{a_1}{a_n}$</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">Q8. Si 0 n'est pas racine ($a_0 \neq 0$), que vaut la somme des inverses des racines $\sum_{i=1}^n \frac{1}{x_i}$ ?</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$-\frac{a_{n-1}}{a_0}$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$\frac{a_1}{a_n}$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, true)">$-\frac{a_1}{a_0}$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$(-1)^n \frac{a_1}{a_0}$</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">Q9. Énoncé du Théorème de Gauss-Lucas : pour $P \in \mathbb{C}[X]$, les racines de $P'$ sont situées...</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, false)">Sur le cercle trigonométrique</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">Sur l'axe réel</button>
+            <button class="opt-btn" onclick="checkAnswer(this, true)">Dans l'enveloppe convexe des racines de $P$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">À l'extérieur du disque contenant les racines de $P$</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">Q10. Quelle est la factorisation de $X^n - 1$ dans $\mathbb{C}[X]$ ?</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$(X-1)^n$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, true)">$\prod_{k=0}^{n-1} (X - e^{i\frac{2k\pi}{n}})$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$(X-1)(X^{n-1} + \dots + 1)$ (C'est irréductible)</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$\prod_{k=1}^n (X - i^k)$</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">Q11. Combien de polynômes de degré exactement $n$ s'annulent en $n$ points distincts donnés ?</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, false)">Un seul</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">Aucun</button>
+            <button class="opt-btn" onclick="checkAnswer(this, true)">Une infinité (ils sont tous proportionnels)</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">Exactement $n!$</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">Q12. Si $P \in \mathbb{K}[X]$ est de degré $\leq n$ et s'annule en $n+1$ points distincts, alors :</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$P$ est unitaire</button>
+            <button class="opt-btn" onclick="checkAnswer(this, true)">$P$ est le polynôme nul</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">C'est impossible</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$\deg(P) = n+1$</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">Q13. Soit $\omega = e^{i\frac{2\pi}{n}}$ avec $n \geq 2$. Que vaut la somme $1 + \omega + \omega^2 + \dots + \omega^{n-1}$ ?</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$n$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, true)">$0$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$-1$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$1$</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">Q14. Dans $\mathbb{C}[X]$, quelles sont les racines du polynôme $P = 1 + X + X^2 + \dots + X^{n-1}$ ?</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, false)">Toutes les racines $n$-ièmes de l'unité</button>
+            <button class="opt-btn" onclick="checkAnswer(this, true)">Les racines $n$-ièmes de l'unité, à l'exception de $1$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">Uniquement $1$ avec multiplicité $n-1$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$e^{i\pi/n}$ et ses conjugués</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">Q15. Dans $\mathbb{R}[X]$, les polynômes irréductibles sont :</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, false)">Uniquement ceux de degré 1</button>
+            <button class="opt-btn" onclick="checkAnswer(this, true)">Ceux de degré 1, et ceux de degré 2 avec $\Delta < 0$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">Ceux de degré impair</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">Tous les polynômes n'ayant pas de racines réelles</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">Q16. Quelle est la multiplicité de la racine $a$ dans $P(X) = (X-a)^k Q(X)$ avec $Q(a) \neq 0$ ?</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, true)">$k$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$k+1$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$1$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">Cela dépend du degré de $Q$</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">Q17. Pour $n+1$ points d'interpolation $(x_i, y_i)$ avec les $x_i$ tous distincts, le polynôme de Lagrange est de degré :</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, false)">Exactement $n+1$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">Exactement $n$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, true)">Au plus $n$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">Infini</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">Q18. Sur le corps $\mathbb{Q}$, le polynôme $X^2 - 2$ est :</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, false)">Scindé</button>
+            <button class="opt-btn" onclick="checkAnswer(this, true)">Irréductible</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">Possède la racine rationnelle $\sqrt{2}$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">N'est pas un polynôme</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">Q19. Si $P(x) = Q(x)$ pour tout réel $x \in [0, 1]$, que peut-on affirmer ?</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, true)">Les polynômes $P$ et $Q$ sont égaux ($P=Q$)</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$P-Q$ admet $1$ pour racine</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">Rien hors de l'intervalle $[0, 1]$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$P$ et $Q$ sont constants</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">Q20. Dans la décomposition en éléments simples dans $\mathbb{C}(X)$ de $F = \frac{1}{P}$, la factorisation du dénominateur $P$ se fait :</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, false)">En facteurs irréductibles de degré 1 et 2</button>
+            <button class="opt-btn" onclick="checkAnswer(this, true)">Exclusivement en facteurs de degré 1</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">Sans factoriser $P$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">À l'aide de la division euclidienne par $X$</button>
+        </div>
+    </div>
+</div>
