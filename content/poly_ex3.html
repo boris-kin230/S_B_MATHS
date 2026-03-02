@@ -1,112 +1,42 @@
 <div class="banner">
-    <h1 style="font-size: 2rem; margin: 0;">Exercice 3 : Arithmétique & Algorithmes</h1>
-    <p style="opacity: 0.9;">PGCD, PPCM et identité de Bézout dans $\mathbb{K}[X]$.</p>
+    <h1 style="font-size: 2rem; margin: 0;">Exercice 3 : Décomposition en éléments simples</h1>
+    <p style="opacity: 0.9;">Techniques de calcul et applications aux séries numériques.</p>
 </div>
 
 <div class="qcm-box">
-    <div class="qcm-question">1. Le PGCD de deux polynômes est toujours choisi :</div>
-    <div class="qcm-grid">
-        <button class="opt-btn" onclick="checkAnswer(this, true)">Unitaire (ou nul)</button>
-        <button class="opt-btn" onclick="checkAnswer(this, false)">De degré maximal</button>
-        <button class="opt-btn" onclick="checkAnswer(this, false)">De degré 0</button>
+    <div class="qcm-question" style="text-align: left;">
+        <strong>Énoncé :</strong><br>
+        Soit $F = \frac{1}{X(X+1)(X+2)}$.<br>
+        1. Décomposer $F$ dans $\mathbb{R}(X)$.<br>
+        2. Calculer $S_n = \sum_{k=1}^n \frac{1}{k(k+1)(k+2)}$.<br>
+        3. En déduire la limite de $S_n$.<br>
+        4. Décomposer $G = \frac{X+3}{(X-1)^2(X+2)}$.<br>
+        5. Soit $P = X^3-1$. Décomposer $1/P$ dans $\mathbb{C}(X)$.<br>
+        6. En déduire la décomposition de $1/P$ dans $\mathbb{R}(X)$.<br>
+        7. Calculer $\int_{2}^3 \frac{1}{t^3-1} dt$ (utiliser la décomposition).<br>
+        8. Trouver la partie entière de $H = \frac{X^4+1}{X^2-1}$.
     </div>
-    <button class="share-btn email" style="margin-top:15px; background: var(--navy-dark);" onclick="toggleCorrection(this)">
-        <i class="fas fa-eye"></i> Afficher le corrigé
+
+    <button class="share-btn email" style="margin-top:20px; background: var(--navy-dark);" onclick="toggleCorrection(this)">
+        <i class="fas fa-edit"></i> Voir le corrigé détaillé
     </button>
-    <div class="correction-content" style="display:none; margin-top:15px; padding:15px; background:#f8fafc; border-left:4px solid var(--gold-btn);">
-        Par convention, pour assurer l'unicité, le PGCD est le seul diviseur commun de degré maximal qui est unitaire.
+
+    <div class="correction-content" style="display:none; margin-top:15px; padding:20px; background:#fdfdfd; border-left:4px solid var(--gold-btn);">
+        <strong>1. Décomposition de $F$ :</strong><br>
+        $F = \frac{a}{X} + \frac{b}{X+1} + \frac{c}{X+2}$.<br>
+        $a = [X \cdot F]_{X=0} = \frac{1}{1 \cdot 2} = 1/2$.<br>
+        $b = [(X+1) \cdot F]_{X=-1} = \frac{1}{-1 \cdot 1} = -1$.<br>
+        $c = [(X+2) \cdot F]_{X=-2} = \frac{1}{-2 \cdot -1} = 1/2$.<br>
+        $F = \frac{1}{2X} - \frac{1}{X+1} + \frac{1}{2(X+2)}$.<br><br>
+
+        <strong>2. Calcul de $S_n$ :</strong><br>
+        $S_n = \sum_{k=1}^n \frac{1}{2k} - \sum_{k=1}^n \frac{1}{k+1} + \sum_{k=1}^n \frac{1}{2(k+2)}$.<br>
+        Changement d'indices :<br>
+        $S_n = \frac{1}{2} \sum_{k=1}^n \frac{1}{k} - \sum_{k=2}^{n+1} \frac{1}{k} + \frac{1}{2} \sum_{k=3}^{n+2} \frac{1}{k}$.<br>
+        $S_n = \frac{1}{2}(1 + \frac{1}{2} + \sum_{k=3}^n \frac{1}{k}) - (\frac{1}{2} + \sum_{k=3}^n \frac{1}{k} + \frac{1}{n+1}) + \frac{1}{2}(\sum_{k=3}^n \frac{1}{k} + \frac{1}{n+1} + \frac{1}{n+2})$.<br>
+        Les sommes $\sum_{k=3}^n \frac{1}{k}$ s'annulent ($\frac{1}{2} - 1 + \frac{1}{2} = 0$).<br>
+        Reste : $S_n = \frac{3}{4} - \frac{1}{2} - \frac{1}{n+1} + \frac{1}{2(n+1)} + \frac{1}{2(n+2)} = \frac{1}{4} - \frac{1}{2(n+1)} + \frac{1}{2(n+2)}$.<br><br>
+
+        <strong>3. Limite :</strong> $\lim S_n = 1/4$.
     </div>
 </div>
-
-<div class="qcm-box">
-    <div class="qcm-question">2. Deux polynômes $A$ et $B$ sont dits premiers entre eux si :</div>
-    <div class="qcm-grid">
-        <button class="opt-btn" onclick="checkAnswer(this, false)">$A(0) \neq B(0)$</button>
-        <button class="opt-btn" onclick="checkAnswer(this, true)">Leur PGCD vaut 1</button>
-        <button class="opt-btn" onclick="checkAnswer(this, false)">Ils n'ont aucune racine réelle</button>
-    </div>
-    <button class="share-btn email" style="margin-top:15px; background: var(--navy-dark);" onclick="toggleCorrection(this)">
-        <i class="fas fa-eye"></i> Afficher le corrigé
-    </button>
-    <div class="correction-content" style="display:none; margin-top:15px; padding:15px; background:#f8fafc; border-left:4px solid var(--gold-btn);">
-        $\text{pgcd}(A, B) = 1$ définit la propriété d'être premier entre eux (Théorème de Bézout).
-    </div>
-</div>
-
-<div class="qcm-box">
-    <div class="qcm-question">3. Quel algorithme utilise-t-on pour calculer le PGCD ?</div>
-    <div class="qcm-grid">
-        <button class="opt-btn" onclick="checkAnswer(this, false)">Algorithme de Newton</button>
-        <button class="opt-btn" onclick="checkAnswer(this, true)">Algorithme d'Euclide</button>
-        <button class="opt-btn" onclick="checkAnswer(this, false)">Pivot de Gauss</button>
-    </div>
-    <button class="share-btn email" style="margin-top:15px; background: var(--navy-dark);" onclick="toggleCorrection(this)">
-        <i class="fas fa-eye"></i> Afficher le corrigé
-    </button>
-    <div class="correction-content" style="display:none; margin-top:15px; padding:15px; background:#f8fafc; border-left:4px solid var(--gold-btn);">
-        On effectue des divisions euclidiennes successives jusqu'à obtenir un reste nul.
-    </div>
-</div>
-
-<div class="qcm-box">
-    <div class="qcm-question">4. Si $A$ divise $BC$ et $\text{pgcd}(A, B) = 1$, alors :</div>
-    <div class="qcm-grid">
-        <button class="opt-btn" onclick="checkAnswer(this, true)">$A$ divise $C$</button>
-        <button class="opt-btn" onclick="checkAnswer(this, false)">$B$ divise $C$</button>
-        <button class="opt-btn" onclick="checkAnswer(this, false)">$A = B$</button>
-    </div>
-    <button class="share-btn email" style="margin-top:15px; background: var(--navy-dark);" onclick="toggleCorrection(this)">
-        <i class="fas fa-eye"></i> Afficher le corrigé
-    </button>
-    <div class="correction-content" style="display:none; margin-top:15px; padding:15px; background:#f8fafc; border-left:4px solid var(--gold-btn);">
-        C'est le Lemme de Gauss, valable aussi bien dans $\mathbb{Z}$ que dans $\mathbb{K}[X]$.
-    </div>
-</div>
-
-<div class="qcm-box">
-    <div class="qcm-question">5. Que vaut $\text{pgcd}(X-a, X-b)$ si $a \neq b$ ?</div>
-    <div class="qcm-grid">
-        <button class="opt-btn" onclick="checkAnswer(this, false)">$X$</button>
-        <button class="opt-btn" onclick="checkAnswer(this, false)">$a-b$</button>
-        <button class="opt-btn" onclick="checkAnswer(this, true)">$1$</button>
-    </div>
-    <button class="share-btn email" style="margin-top:15px; background: var(--navy-dark);" onclick="toggleCorrection(this)">
-        <i class="fas fa-eye"></i> Afficher le corrigé
-    </button>
-    <div class="correction-content" style="display:none; margin-top:15px; padding:15px; background:#f8fafc; border-left:4px solid var(--gold-btn);">
-        $(X-a) - (X-b) = b-a \neq 0$. D'après Bézout, ils sont premiers entre eux.
-    </div>
-</div>
-
-<div class="qcm-box">
-    <div class="qcm-question">6. Le PPCM de $A$ et $B$ est lié au PGCD par la relation :</div>
-    <div class="qcm-grid">
-        <button class="opt-btn" onclick="checkAnswer(this, true)">$|AB| = \text{PGCD} \times \text{PPCM}$</button>
-        <button class="opt-btn" onclick="checkAnswer(this, false)">$A+B = \text{PGCD}$</button>
-    </div>
-    <button class="share-btn email" style="margin-top:15px; background: var(--navy-dark);" onclick="toggleCorrection(this)">
-        <i class="fas fa-eye"></i> Afficher le corrigé
-    </button>
-    <div class="correction-content" style="display:none; margin-top:15px; padding:15px; background:#f8fafc; border-left:4px solid var(--gold-btn);">
-        Plus précisément, pour des polynômes unitaires : $AB = \text{pgcd}(A,B) \times \text{ppcm}(A,B)$.
-    </div>
-</div>
-
-<div class="qcm-box">
-    <div class="qcm-question">7. L'identité de Bézout affirme qu'il existe $U, V$ tels que $AU + BV = \dots$</div>
-    <div class="qcm-grid">
-        <button class="opt-btn" onclick="checkAnswer(this, true)">$\text{pgcd}(A, B)$</button>
-        <button class="opt-btn" onclick="checkAnswer(this, false)">$0$</button>
-        <button class="opt-btn" onclick="checkAnswer(this, false)">$1$ toujours</button>
-    </div>
-    <button class="share-btn email" style="margin-top:15px; background: var(--navy-dark);" onclick="toggleCorrection(this)">
-        <i class="fas fa-eye"></i> Afficher le corrigé
-    </button>
-    <div class="correction-content" style="display:none; margin-top:15px; padding:15px; background:#f8fafc; border-left:4px solid var(--gold-btn);">
-        L'identité de Bézout est $AU+BV = D$ où $D$ est le PGCD.
-    </div>
-</div>
-
-<button id="submit-btn" class="btn-primary" onclick="calculateScore()">Valider mes réponses</button>
-<div id="score-display" style="display:none; margin-top:30px;"></div>
-<div id="congrats-msg" style="display:none;"></div>
