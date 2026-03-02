@@ -1,113 +1,40 @@
 <div class="banner">
-    <h1 style="font-size: 2rem; margin: 0;">Exercice 2 : Racines et Multiplicité</h1>
-    <p style="opacity: 0.9;">Étude des zéros des polynômes et des relations de Viète.</p>
+    <h1 style="font-size: 2rem; margin: 0;">Exercice 2 : Polynômes de Legendre</h1>
+    <p style="opacity: 0.9;">Orthogonalité et formule de Rodrigues.</p>
 </div>
 
 <div class="qcm-box">
-    <div class="qcm-question">1. Si $a$ est une racine de multiplicité $k$ de $P$, alors :</div>
-    <div class="qcm-grid">
-        <button class="opt-btn" onclick="checkAnswer(this, false)">$P(a)=0$ uniquement</button>
-        <button class="opt-btn" onclick="checkAnswer(this, true)">$P(a)=P'(a)=...=P^{(k-1)}(a)=0$</button>
-        <button class="opt-btn" onclick="checkAnswer(this, false)">$P^{(k)}(a)=0$</button>
+    <div class="qcm-question" style="text-align: left;">
+        <strong>Énoncé :</strong><br>
+        Soit $L_n = \frac{1}{2^n n!} \frac{d^n}{dX^n}[(X^2-1)^n]$.<br>
+        1. Calculer $L_0, L_1, L_2$.<br>
+        2. Déterminer le degré et le coefficient dominant de $L_n$.<br>
+        3. Montrer que $L_n(1) = 1$.<br>
+        4. Soit $P \in \mathbb{R}_{n-1}[X]$. Calculer $I = \int_{-1}^1 L_n(t)P(t) dt$.<br>
+        5. Montrer que $L_n$ possède $n$ racines simples dans $]-1, 1[$.<br>
+        6. Calculer $\int_{-1}^1 L_n^2(t) dt$ pour $n=1$.<br>
+        7. Établir la parité de $L_n$.<br>
+        8. Vérifier que $(X^2-1)L_n'' + 2XL_n' - n(n+1)L_n = 0$.
     </div>
-    <button class="share-btn email" style="margin-top:15px; background: var(--navy-dark);" onclick="toggleCorrection(this)">
-        <i class="fas fa-eye"></i> Afficher le corrigé
+
+    <button class="share-btn email" style="margin-top:20px; background: var(--navy-dark);" onclick="toggleCorrection(this)">
+        <i class="fas fa-edit"></i> Voir le corrigé détaillé
     </button>
-    <div class="correction-content" style="display:none; margin-top:15px; padding:15px; background:#f8fafc; border-left:4px solid var(--gold-btn);">
-        Caractérisation différentielle : les dérivées jusqu'à l'ordre $k-1$ s'annulent en $a$.
+
+    <div class="correction-content" style="display:none; margin-top:15px; padding:20px; background:#fdfdfd; border-left:4px solid var(--gold-btn);">
+        <strong>3. Calcul de $L_n(1)$ :</strong><br>
+        Posons $A_n(X) = (X-1)^n(X+1)^n$.<br>
+        Utilisons la formule de Leibniz : $A_n^{(n)}(X) = \sum_{k=0}^n \binom{n}{k} ((X-1)^n)^{(k)} ((X+1)^n)^{(n-k)}$.<br>
+        En $X=1$, seul le terme $k=n$ est non nul car $((X-1)^n)^{(k)}(1) = 0$ pour $k < n$.<br>
+        Pour $k=n$, $((X-1)^n)^{(n)} = n!$.<br>
+        Donc $A_n^{(n)}(1) = \binom{n}{n} \cdot n! \cdot (1+1)^{n-0} = n! \cdot 2^n$.<br>
+        D'où $L_n(1) = \frac{1}{2^n n!} (n! 2^n) = 1$.<br><br>
+
+        <strong>4. Orthogonalité :</strong><br>
+        $I = \int_{-1}^1 A_n^{(n)}(t) P(t) dt$. Par intégration par parties :<br>
+        $I = [A_n^{(n-1)}(t)P(t)]_{-1}^1 - \int_{-1}^1 A_n^{(n-1)}(t)P'(t) dt$.<br>
+        Comme $1$ et $-1$ sont racines de multiplicité $n$ de $A_n$, toutes les dérivées $A_n^{(k)}$ s'annulent en $\pm 1$ pour $k < n$.<br>
+        En répétant $n$ fois : $I = (-1)^n \int_{-1}^1 A_n(t) P^{(n)}(t) dt$.<br>
+        Or $\deg(P) < n \implies P^{(n)} = 0$. Donc $I = 0$.
     </div>
 </div>
-
-<div class="qcm-box">
-    <div class="qcm-question">2. Quelles sont les racines de $P = X^2 - 5X + 6$ ?</div>
-    <div class="qcm-grid">
-        <button class="opt-btn" onclick="checkAnswer(this, false)">$1$ et $6$</button>
-        <button class="opt-btn" onclick="checkAnswer(this, true)">$2$ et $3$</button>
-        <button class="opt-btn" onclick="checkAnswer(this, false)">$-2$ et $-3$</button>
-    </div>
-    <button class="share-btn email" style="margin-top:15px; background: var(--navy-dark);" onclick="toggleCorrection(this)">
-        <i class="fas fa-eye"></i> Afficher le corrigé
-    </button>
-    <div class="correction-content" style="display:none; margin-top:15px; padding:15px; background:#f8fafc; border-left:4px solid var(--gold-btn);">
-        $\Delta = 25 - 24 = 1$. Les racines sont $(5 \pm 1)/2$, soit $2$ et $3$.
-    </div>
-</div>
-
-<div class="qcm-box">
-    <div class="qcm-question">3. Soit $P \in \mathbb{C}[X]$ de degré $n \ge 1$. Combien de racines possède-t-il (comptées avec multiplicité) ?</div>
-    <div class="qcm-grid">
-        <button class="opt-btn" onclick="checkAnswer(this, false)">Au moins $n$</button>
-        <button class="opt-btn" onclick="checkAnswer(this, true)">Exactement $n$</button>
-        <button class="opt-btn" onclick="checkAnswer(this, false)">$n+1$</button>
-    </div>
-    <button class="share-btn email" style="margin-top:15px; background: var(--navy-dark);" onclick="toggleCorrection(this)">
-        <i class="fas fa-eye"></i> Afficher le corrigé
-    </button>
-    <div class="correction-content" style="display:none; margin-top:15px; padding:15px; background:#f8fafc; border-left:4px solid var(--gold-btn);">
-        C'est le Théorème de D'Alembert-Gauss.
-    </div>
-</div>
-
-<div class="qcm-box">
-    <div class="qcm-question">4. Dans $X^2 + pX + q = 0$, que vaut la somme des racines $x_1 + x_2$ ?</div>
-    <div class="qcm-grid">
-        <button class="opt-btn" onclick="checkAnswer(this, false)">$p$</button>
-        <button class="opt-btn" onclick="checkAnswer(this, true)">$-p$</button>
-        <button class="opt-btn" onclick="checkAnswer(this, false)">$q$</button>
-    </div>
-    <button class="share-btn email" style="margin-top:15px; background: var(--navy-dark);" onclick="toggleCorrection(this)">
-        <i class="fas fa-eye"></i> Afficher le corrigé
-    </button>
-    <div class="correction-content" style="display:none; margin-top:15px; padding:15px; background:#f8fafc; border-left:4px solid var(--gold-btn);">
-        Relations de Viète : $\sum x_i = -a_{n-1}/a_n$. Ici $-p/1 = -p$.
-    </div>
-</div>
-
-<div class="qcm-box">
-    <div class="qcm-question">5. Quelle est la multiplicité de $1$ dans $P = (X-1)^3(X+2)$ ?</div>
-    <div class="qcm-grid">
-        <button class="opt-btn" onclick="checkAnswer(this, false)">$1$</button>
-        <button class="opt-btn" onclick="checkAnswer(this, false)">$2$</button>
-        <button class="opt-btn" onclick="checkAnswer(this, true)">$3$</button>
-    </div>
-    <button class="share-btn email" style="margin-top:15px; background: var(--navy-dark);" onclick="toggleCorrection(this)">
-        <i class="fas fa-eye"></i> Afficher le corrigé
-    </button>
-    <div class="correction-content" style="display:none; margin-top:15px; padding:15px; background:#f8fafc; border-left:4px solid var(--gold-btn);">
-        L'exposant de $(X-1)$ dans la décomposition est $3$.
-    </div>
-</div>
-
-<div class="qcm-box">
-    <div class="qcm-question">6. Si $P$ est de degré $n$, combien de racines distinctes au maximum peut-il avoir ?</div>
-    <div class="qcm-grid">
-        <button class="opt-btn" onclick="checkAnswer(this, true)">$n$</button>
-        <button class="opt-btn" onclick="checkAnswer(this, false)">$n-1$</button>
-        <button class="opt-btn" onclick="checkAnswer(this, false)">$2n$</button>
-    </div>
-    <button class="share-btn email" style="margin-top:15px; background: var(--navy-dark);" onclick="toggleCorrection(this)">
-        <i class="fas fa-eye"></i> Afficher le corrigé
-    </button>
-    <div class="correction-content" style="display:none; margin-top:15px; padding:15px; background:#f8fafc; border-left:4px solid var(--gold-btn);">
-        Un polynôme de degré $n$ a au plus $n$ racines. S'il en a plus, il est nul.
-    </div>
-</div>
-
-<div class="qcm-box">
-    <div class="qcm-question">7. Soit $P(x) = x^3 - 1$. Quelles sont ses racines dans $\mathbb{C}$ ?</div>
-    <div class="qcm-grid">
-        <button class="opt-btn" onclick="checkAnswer(this, false)">$1$ uniquement</button>
-        <button class="opt-btn" onclick="checkAnswer(this, true)">$1, e^{i2\pi/3}, e^{i4\pi/3}$</button>
-        <button class="opt-btn" onclick="checkAnswer(this, false)">$1, -1, i$</button>
-    </div>
-    <button class="share-btn email" style="margin-top:15px; background: var(--navy-dark);" onclick="toggleCorrection(this)">
-        <i class="fas fa-eye"></i> Afficher le corrigé
-    </button>
-    <div class="correction-content" style="display:none; margin-top:15px; padding:15px; background:#f8fafc; border-left:4px solid var(--gold-btn);">
-        Ce sont les racines n-ièmes de l'unité pour $n=3$, notées $1, j, j^2$.
-    </div>
-</div>
-
-<div id="score-display" style="display:none; margin-top:30px;"></div>
-<div id="congrats-msg" style="display:none;"></div>
-<button id="submit-btn" class="btn-primary" onclick="calculateScore()">Valider mes réponses</button>
