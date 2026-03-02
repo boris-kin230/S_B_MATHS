@@ -1,0 +1,189 @@
+<div class="banner">
+    <h1 style="font-size: 2.5rem; margin: 0;">Série d'Exercices : Polynômes</h1>
+    <p style="opacity: 0.9; font-size: 1.1rem;">Niveau PCSI - Préparation aux Concours</p>
+</div>
+
+<div id="ex1" class="qcm-box">
+    <h2 style="color: var(--navy-dark); border-bottom: 2px solid var(--gold-btn); padding-bottom: 10px;">
+        Exercice 1 : Polynômes de Tchebychev $T_n$
+    </h2>
+    <div style="line-height: 1.8; margin-top: 15px;">
+        <strong>Énoncé :</strong><br>
+        1. Justifier l'existence de $T_n$ tel que $T_n(\cos \theta) = \cos(n\theta)$.<br>
+        2. Calculer $T_0, T_1, T_2, T_3$.<br>
+        3. Démontrer la relation $T_{n+2} = 2XT_{n+1} - T_n$.<br>
+        4. Déterminer le degré et le coefficient dominant de $T_n$ pour $n \ge 1$.<br>
+        5. Calculer $T_n(1)$ et $T_n(-1)$.<br>
+        6. Déterminer les racines de $T_n$ sur $[-1, 1]$.<br>
+        7. Montrer que $T_n$ est pair si $n$ est pair, et impair si $n$ est impair.<br>
+        8. Établir que pour $x \in [-1, 1]$, $|T_n(x)| \le 1$.
+    </div>
+
+    <button class="opt-btn" style="background: var(--navy-dark); color: white; margin-top: 20px; width: auto;" onclick="toggleCorrection(this)">
+        <i class="fas fa-eye"></i> Afficher le corrigé détaillé
+    </button>
+
+    <div class="correction-content" style="display:none;">
+        <strong>1. Existence :</strong> $\cos(n\theta) = \text{Re}(e^{in\theta}) = \text{Re}((\cos \theta + i \sin \theta)^n)$.<br>
+        D'après le binôme de Newton : $\cos(n\theta) = \sum_{k=0, k \text{ pair}}^n \binom{n}{k} (\cos \theta)^{n-k} (i \sin \theta)^k$.<br>
+        Comme $k=2p$, $(i \sin \theta)^{2p} = (-1)^p (\sin^2 \theta)^p = (-1)^p (1-\cos^2 \theta)^p$.<br>
+        C'est une somme de puissances de $\cos \theta$, d'où l'existence de $T_n$.<br><br>
+        
+        <strong>2. Calculs :</strong><br>
+        $T_0 = 1$ ; $T_1 = X$ ; $T_2 = 2X^2-1$ ; $T_3 = 4X^3-3X$.<br><br>
+        
+        <strong>3. Récurrence :</strong> $\cos((n+2)\theta) + \cos(n\theta) = 2\cos((n+1)\theta)\cos\theta$.<br>
+        En posant $X = \cos \theta$, on a $T_{n+2}(X) + T_n(X) = 2X T_{n+1}(X)$.<br><br>
+        
+        <strong>4. Degré/Coef :</strong> Par récurrence, $\deg(T_n)=n$.<br>
+        $\text{dom}(T_{n+2}) = 2 \cdot \text{dom}(T_{n+1})$. Comme $\text{dom}(T_1)=1$, on a $\text{dom}(T_n) = 2^{n-1}$ pour $n \ge 1$.<br><br>
+        
+        <strong>6. Racines :</strong> $T_n(\cos \theta) = 0 \iff n\theta \equiv \frac{\pi}{2} [\pi]$.<br>
+        $\theta_k = \frac{\pi}{2n} + \frac{k\pi}{n}$ pour $k \in \{0, \dots, n-1\}$.<br>
+        $x_k = \cos\left(\frac{(2k+1)\pi}{2n}\right)$.
+    </div>
+</div>
+
+<div id="ex2" class="qcm-box">
+    <h2 style="color: var(--navy-dark); border-bottom: 2px solid var(--gold-btn); padding-bottom: 10px;">
+        Exercice 2 : Polynômes de Legendre $L_n$
+    </h2>
+    <div style="line-height: 1.8; margin-top: 15px;">
+        <strong>Énoncé :</strong> On pose $A_n = (X^2-1)^n$ et $L_n = \frac{1}{2^n n!} A_n^{(n)}$.<br>
+        1. Préciser le degré de $L_n$.<br>
+        2. Calculer $L_0$ et $L_1$.<br>
+        3. Quelles sont les multiplicités des racines $1$ et $-1$ dans $A_n$ ?<br>
+        4. Montrer par Rolle que $L_n$ possède $n$ racines distinctes dans $]-1, 1[$.<br>
+        5. Calculer le coefficient dominant de $L_n$.<br>
+        6. Montrer que $L_n(1) = 1$ via la formule de Leibniz.<br>
+        7. Démontrer que $\int_{-1}^1 L_n(t) P(t) dt = 0$ pour tout $P \in \mathbb{R}_{n-1}[X]$.<br>
+        8. Calculer $L_n(-1)$ en utilisant la parité.
+    </div>
+    
+    <button class="opt-btn" style="background: var(--navy-dark); color: white; margin-top: 20px; width: auto;" onclick="toggleCorrection(this)">
+        <i class="fas fa-eye"></i> Afficher le corrigé détaillé
+    </button>
+
+    <div class="correction-content" style="display:none;">
+        <strong>3. Multiplicités :</strong> $A_n = (X-1)^n (X+1)^n$. Les racines $1$ et $-1$ sont de multiplicité $n$.<br><br>
+        
+        <strong>4. Rolle :</strong> $A_n(-1)=A_n(1)=0$. Par Rolle, $A_n'$ s'annule en $c_1 \in ]-1, 1[$.<br>
+        Comme $-1$ et $1$ sont racines de $A_n'$ (multiplicité $n-1$), on réapplique Rolle sur $[-1, c_1]$ et $[c_1, 1]$.<br>
+        Par itération, la dérivée $n$-ième possède $n$ racines distinctes dans $]-1, 1[$.<br><br>
+        
+        <strong>6. $L_n(1)$ :</strong> $A_n^{(n)} = [(X-1)^n (X+1)^n]^{(n)}$.<br>
+        Leibniz : $\sum_{k=0}^n \binom{n}{k} ((X-1)^n)^{(k)} ((X+1)^n)^{(n-k)}$.<br>
+        En $X=1$, seul le terme $k=n$ survit : $\binom{n}{n} n! (1+1)^n = n! 2^n$.<br>
+        $L_n(1) = \frac{1}{2^n n!} (n! 2^n) = 1$.<br><br>
+        
+        <strong>7. Orthogonalité :</strong> Intégration par parties $n$ fois.<br>
+        $\int_{-1}^1 A_n^{(n)}(t) P(t) dt = [A_n^{(n-1)}P] - \int A_n^{(n-1)}P'$.<br>
+        Le crochet est nul car $A_n^{(k)}(\pm 1) = 0$ pour $k < n$.<br>
+        Au bout de $n$ fois, on a $(-1)^n \int A_n P^{(n)}$. Or $\deg(P) < n \implies P^{(n)}=0$.
+    </div>
+</div>
+
+<div id="ex3" class="qcm-box">
+    <h2 style="color: var(--navy-dark); border-bottom: 2px solid var(--gold-btn); padding-bottom: 10px;">
+        Exercice 3 : Décomposition et Sommes
+    </h2>
+    <div style="line-height: 1.8; margin-top: 15px;">
+        <strong>Énoncé :</strong><br>
+        1. Décomposer $F = \frac{1}{X(X+1)}$ en éléments simples.<br>
+        2. Calculer $S_n = \sum_{k=1}^n \frac{1}{k(k+1)}$.<br>
+        3. Décomposer $G = \frac{1}{X(X+1)(X+2)}$.<br>
+        4. Calculer $\sum_{k=1}^n \frac{1}{k(k+1)(k+2)}$.<br>
+        5. Déterminer la partie entière de $H = \frac{X^3}{X^2-1}$.<br>
+        6. Décomposer $H$ dans $\mathbb{R}(X)$.<br>
+        7. Calculer l'intégrale $\int_2^3 \frac{t^3}{t^2-1} dt$.<br>
+        8. Décomposer $\frac{1}{X^n-1}$ dans $\mathbb{C}(X)$.
+    </div>
+    
+    <button class="opt-btn" style="background: var(--navy-dark); color: white; margin-top: 20px; width: auto;" onclick="toggleCorrection(this)">
+        <i class="fas fa-eye"></i> Afficher le corrigé détaillé
+    </button>
+
+    <div class="correction-content" style="display:none;">
+        <strong>1. $F$ :</strong> $F = \frac{1}{X} - \frac{1}{X+1}$.<br><br>
+        
+        <strong>2. $S_n$ :</strong> Somme télescopique : $(1 - 1/2) + (1/2 - 1/3) + \dots + (1/n - 1/(n+1)) = 1 - \frac{1}{n+1}$.<br><br>
+        
+        <strong>3. $G$ :</strong> $G = \frac{a}{X} + \frac{b}{X+1} + \frac{c}{X+2}$.<br>
+        $a = [XG]_{0} = 1/2$. $b = [(X+1)G]_{-1} = -1$. $c = [(X+2)G]_{-2} = 1/2$.<br>
+        $G = \frac{1}{2X} - \frac{1}{X+1} + \frac{1}{2(X+2)}$.<br><br>
+        
+        <strong>5. Partie entière :</strong> Division euclidienne de $X^3$ par $X^2-1$.<br>
+        $X^3 = X(X^2-1) + X \implies H = X + \frac{X}{X^2-1}$. Partie entière = $X$.<br><br>
+        
+        <strong>8. $X^n-1$ :</strong> Les pôles sont $\omega_k = e^{2ik\pi/n}$.<br>
+        $\frac{1}{X^n-1} = \sum_{k=0}^{n-1} \frac{\lambda_k}{X-\omega_k}$ avec $\lambda_k = \frac{1}{P'(\omega_k)} = \frac{1}{n\omega_k^{n-1}} = \frac{\omega_k}{n}$.
+    </div>
+</div>
+
+<div id="ex4" class="qcm-box">
+    <h2 style="color: var(--navy-dark); border-bottom: 2px solid var(--gold-btn); padding-bottom: 10px;">
+        Exercice 4 : Polynômes et Matrices
+    </h2>
+    <div style="line-height: 1.8; margin-top: 15px;">
+        <strong>Énoncé :</strong> Soit $A = \begin{pmatrix} 1 & 1 \\ 0 & 2 \end{pmatrix}$ et $P = (X-1)(X-2)$.<br>
+        1. Calculer $A^2$.<br>
+        2. Vérifier que $P(A) = 0_2$.<br>
+        3. On pose $X^n = P(X)Q(X) + a_n X + b_n$. Écrire le système vérifié par $(a_n, b_n)$.<br>
+        4. Résoudre le système pour exprimer $a_n$ et $b_n$ en fonction de $n$.<br>
+        5. En déduire l'expression de $A^n$ en fonction de $A, I, n$.<br>
+        6. Calculer les coefficients de $A^n$.<br>
+        7. Soit $S_n = \sum_{k=0}^n A^k$. Exprimer $S_n$ à l'aide de $A^n$.<br>
+        8. Calculer $(A-I)(A-2I)$. Conclure sur les valeurs propres.
+    </div>
+
+    <button class="opt-btn" style="background: var(--navy-dark); color: white; margin-top: 20px; width: auto;" onclick="toggleCorrection(this)">
+        <i class="fas fa-eye"></i> Afficher le corrigé détaillé
+    </button>
+
+    <div class="correction-content" style="display:none;">
+        <strong>3/4. Reste :</strong> $X^n = Q(X)(X-1)(X-2) + a_n X + b_n$.<br>
+        En $X=1$ : $1 = a_n + b_n$.<br>
+        En $X=2$ : $2^n = 2a_n + b_n$.<br>
+        Soustraction : $a_n = 2^n - 1$.<br>
+        Puis $b_n = 1 - (2^n - 1) = 2 - 2^n$.<br><br>
+        
+        <strong>5. $A^n$ :</strong> $A^n = (2^n-1)A + (2-2^n)I$.<br><br>
+        
+        <strong>6. Coefficients :</strong><br>
+        $A^n = (2^n-1)\begin{pmatrix} 1 & 1 \\ 0 & 2 \end{pmatrix} + \begin{pmatrix} 2-2^n & 0 \\ 0 & 2-2^n \end{pmatrix} = \begin{pmatrix} 1 & 2^n-1 \\ 0 & 2^n \end{pmatrix}$.
+    </div>
+</div>
+
+<div id="ex5" class="qcm-box">
+    <h2 style="color: var(--navy-dark); border-bottom: 2px solid var(--gold-btn); padding-bottom: 10px;">
+        Exercice 5 : Synthèse et Trigonométrie
+    </h2>
+    <div style="line-height: 1.8; margin-top: 15px;">
+        <strong>Énoncé :</strong> Soit $P = \sum_{k=0}^{n-1} X^k$.<br>
+        1. Simplifier $P(X)$ pour $X \neq 1$.<br>
+        2. Quelles sont les racines de $P$ dans $\mathbb{C}$ ?<br>
+        3. Factoriser $P$ dans $\mathbb{C}[X]$.<br>
+        4. En évaluant $P(1)$, montrer que $\prod_{k=1}^{n-1} (1 - e^{2ik\pi/n}) = n$.<br>
+        5. Utiliser la factorisation de $1-e^{i\theta}$ pour faire apparaître un sinus.<br>
+        6. En déduire que $\prod_{k=1}^{n-1} \sin\left(\frac{k\pi}{n}\right) = \frac{n}{2^{n-1}}$.<br>
+        7. Soit $S = \sum_{k=0}^{n-1} \cos(2k\pi/n)$. Calculer $S$ pour $n \ge 2$.<br>
+        8. Calculer $\sum_{k=0}^{n-1} \sin(2k\pi/n)$.
+    </div>
+    
+    <button class="opt-btn" style="background: var(--navy-dark); color: white; margin-top: 20px; width: auto;" onclick="toggleCorrection(this)">
+        <i class="fas fa-eye"></i> Afficher le corrigé détaillé
+    </button>
+
+    <div class="correction-content" style="display:none;">
+        <strong>4. Produit :</strong> $P(1) = 1+1+\dots+1 = n$.<br>
+        D'autre part $P(X) = \prod_{k=1}^{n-1} (X - \omega^k)$, donc $P(1) = \prod_{k=1}^{n-1} (1 - \omega^k) = n$.<br><br>
+        
+        <strong>5/6. Sinus :</strong> $1-e^{i\theta} = e^{i\theta/2}(e^{-i\theta/2}-e^{i\theta/2}) = -2ie^{i\theta/2}\sin(\theta/2)$.<br>
+        En prenant le module : $|1-e^{i\theta}| = 2\sin(\theta/2)$ car $\theta/2 \in [0, \pi]$.<br>
+        $|n| = \prod_{k=1}^{n-1} 2\sin(k\pi/n) \implies n = 2^{n-1} \prod \sin(k\pi/n)$.<br><br>
+        
+        <strong>7. Somme :</strong> $S = \text{Re}(\sum \omega^k)$.<br>
+        Somme géométrique : $\sum_{k=0}^{n-1} \omega^k = \frac{\omega^n-1}{\omega-1} = \frac{1-1}{\omega-1} = 0$.<br>
+        Donc $S = 0$.
+    </div>
+</div>
