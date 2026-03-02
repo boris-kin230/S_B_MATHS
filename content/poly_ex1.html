@@ -1,117 +1,50 @@
 <div class="banner">
-    <h1 style="font-size: 2rem; margin: 0;">Exercice 1 : Division Euclidienne</h1>
-    <p style="opacity: 0.9;">Maîtriser l'algorithme de division et les restes remarquables.</p>
+    <h1 style="font-size: 2rem; margin: 0;">Exercice 1 : Polynômes de Tchebychev</h1>
+    <p style="opacity: 0.9;">Construction par récurrence et étude des racines.</p>
 </div>
 
 <div class="qcm-box">
-    <div class="qcm-question">1. Quel est le reste de la division euclidienne de $A = X^n$ par $B = X-1$ ?</div>
-    <div class="qcm-grid">
-        <button class="opt-btn" onclick="checkAnswer(this, false)">$0$</button>
-        <button class="opt-btn" onclick="checkAnswer(this, true)">$1$</button>
-        <button class="opt-btn" onclick="checkAnswer(this, false)">$n$</button>
-        <button class="opt-btn" onclick="checkAnswer(this, false)">$X-1$</button>
+    <div class="qcm-question" style="text-align: left;">
+        <strong>Énoncé :</strong><br>
+        1. Justifier que $\forall n \in \mathbb{N}$, $\exists T_n \in \mathbb{R}[X]$ tel que $T_n(\cos \theta) = \cos(n\theta)$.<br>
+        2. Calculer $T_0, T_1, T_2$ et $T_3$.<br>
+        3. Montrer que $T_{n+2} + T_n = 2XT_{n+1}$.<br>
+        4. Déterminer le coefficient dominant de $T_n$ pour $n \ge 1$.<br>
+        5. Calculer $T_n(1)$ et $T_n(-1)$.<br>
+        6. Résoudre $T_n(x) = 0$ pour $x \in [-1, 1]$.<br>
+        7. Montrer que $T_n'(x) = n \frac{\sin(n \theta)}{\sin \theta}$ avec $x = \cos \theta$.<br>
+        8. En déduire les extremums de $T_n$ sur $[-1, 1]$.
     </div>
-    <button class="share-btn email" style="margin-top:15px; background: var(--navy-dark);" onclick="toggleCorrection(this)">
-        <i class="fas fa-eye"></i> Afficher le corrigé
+
+    <button class="share-btn email" style="margin-top:20px; background: var(--navy-dark);" onclick="toggleCorrection(this)">
+        <i class="fas fa-edit"></i> Voir le corrigé détaillé
     </button>
-    <div class="correction-content" style="display:none; margin-top:15px; padding:15px; background:#f8fafc; border-left:4px solid var(--gold-btn);">
-        D'après le théorème du reste, le reste de la division de $P$ par $(X-a)$ est $P(a)$. Ici $A(1) = 1^n = 1$.
+
+    <div class="correction-content" style="display:none; margin-top:15px; padding:20px; background:#fdfdfd; border-left:4px solid var(--gold-btn); line-height: 1.6;">
+        <h4 style="color: var(--navy-dark);">Solution détaillée :</h4>
+        
+        <strong>1. Existence :</strong> D'après la formule de Moivre : $\cos(n\theta) = \text{Re}((\cos \theta + i \sin \theta)^n)$.<br>
+        En développant par le binôme : $\sum_{k=0, k \text{ pair}}^n \binom{n}{k} (\cos \theta)^{n-k} (i \sin \theta)^k$.<br>
+        Comme $k$ est pair ($k=2p$), $(i \sin \theta)^{2p} = (-1)^p (\sin^2 \theta)^p = (-1)^p (1-\cos^2 \theta)^p$.<br>
+        C'est bien un polynôme en $\cos \theta$.<br><br>
+
+        <strong>2. Calculs :</strong><br>
+        $T_0 = 1$ (car $\cos(0)=1$).<br>
+        $T_1 = X$ (car $\cos(\theta)$).<br>
+        $T_2 = 2X^2 - 1$ (car $\cos(2\theta) = 2\cos^2\theta - 1$).<br>
+        $T_3 = 4X^3 - 3X$ (car $\cos(3\theta) = 4\cos^3\theta - 3\cos\theta$).<br><br>
+
+        <strong>3. Récurrence :</strong> On sait que $\cos(a+b) + \cos(a-b) = 2\cos a \cos b$.<br>
+        Posons $a = (n+1)\theta$ et $b = \theta$. Alors :<br>
+        $\cos((n+2)\theta) + \cos(n\theta) = 2\cos((n+1)\theta)\cos\theta$.<br>
+        En remplaçant par les polynômes : $T_{n+2}(X) + T_n(X) = 2X T_{n+1}(X)$.<br><br>
+
+        <strong>4. Coeff Dominant :</strong> $T_1$ a pour coeff $1 = 2^0$. $T_2$ a $2 = 2^1$. $T_3$ a $4 = 2^2$.<br>
+        Par récurrence, si $\text{dom}(T_{n+1}) = 2^n$, alors $\text{dom}(2XT_{n+1}) = 2 \cdot 2^n = 2^{n+1}$.<br>
+        Donc $\forall n \ge 1$, $\text{dom}(T_n) = 2^{n-1}$.<br><br>
+
+        <strong>6. Racines :</strong> $T_n(\cos \theta) = 0 \iff \cos(n\theta) = 0$.<br>
+        $n\theta = \frac{\pi}{2} + k\pi \iff \theta_k = \frac{(2k+1)\pi}{2n}$.<br>
+        $x_k = \cos\left(\frac{(2k+1)\pi}{2n}\right)$ pour $k \in \{0, \dots, n-1\}$.
     </div>
 </div>
-
-<div class="qcm-box">
-    <div class="qcm-question">2. Soit $A = X^4 + X^2 + 1$. Quelle est sa décomposition en produit de facteurs irréductibles dans $\mathbb{R}[X]$ ?</div>
-    <div class="qcm-grid">
-        <button class="opt-btn" onclick="checkAnswer(this, true)">$(X^2+X+1)(X^2-X+1)$</button>
-        <button class="opt-btn" onclick="checkAnswer(this, false)">$(X^2+1)^2$</button>
-        <button class="opt-btn" onclick="checkAnswer(this, false)">$(X^2+X-1)(X^2-X-1)$</button>
-        <button class="opt-btn" onclick="checkAnswer(this, false)">$(X-1)^2(X+1)^2$</button>
-    </div>
-    <button class="share-btn email" style="margin-top:15px; background: var(--navy-dark);" onclick="toggleCorrection(this)">
-        <i class="fas fa-eye"></i> Afficher le corrigé
-    </button>
-    <div class="correction-content" style="display:none; margin-top:15px; padding:15px; background:#f8fafc; border-left:4px solid var(--gold-btn);">
-        $X^4+X^2+1 = (X^4+2X^2+1) - X^2 = (X^2+1)^2 - X^2$. C'est une identité remarquable $a^2-b^2$.
-    </div>
-</div>
-
-<div class="qcm-box">
-    <div class="qcm-question">3. Si $B$ divise $A$, que peut-on dire du degré du reste $R$ ?</div>
-    <div class="qcm-grid">
-        <button class="opt-btn" onclick="checkAnswer(this, false)">$\deg(R) = \deg(B)$</button>
-        <button class="opt-btn" onclick="checkAnswer(this, true)">$R = 0$</button>
-        <button class="opt-btn" onclick="checkAnswer(this, false)">$\deg(R) < 0$</button>
-        <button class="opt-btn" onclick="checkAnswer(this, false)">$R = 1$</button>
-    </div>
-    <button class="share-btn email" style="margin-top:15px; background: var(--navy-dark);" onclick="toggleCorrection(this)">
-        <i class="fas fa-eye"></i> Afficher le corrigé
-    </button>
-    <div class="correction-content" style="display:none; margin-top:15px; padding:15px; background:#f8fafc; border-left:4px solid var(--gold-btn);">
-        Par définition, $B$ divise $A$ si et seulement si le reste de la division euclidienne est nul.
-    </div>
-</div>
-
-<div class="qcm-box">
-    <div class="qcm-question">4. Quel est le reste de $X^3 - 2X^2 + 3$ par $X^2-1$ ?</div>
-    <div class="qcm-grid">
-        <button class="opt-btn" onclick="checkAnswer(this, false)">$X+1$</button>
-        <button class="opt-btn" onclick="checkAnswer(this, true)">$X+1$ (après calcul)</button>
-        <button class="opt-btn" onclick="checkAnswer(this, false)">$X-5$</button>
-        <button class="opt-btn" onclick="checkAnswer(this, false)">$2$</button>
-    </div>
-    <button class="share-btn email" style="margin-top:15px; background: var(--navy-dark);" onclick="toggleCorrection(this)">
-        <i class="fas fa-eye"></i> Afficher le corrigé
-    </button>
-    <div class="correction-content" style="display:none; margin-top:15px; padding:15px; background:#f8fafc; border-left:4px solid var(--gold-btn);">
-        $X^3-2X^2+3 = X(X^2-1) - 2(X^2-1) + X + 1$. Le reste est donc $X+1$.
-    </div>
-</div>
-
-<div class="qcm-box">
-    <div class="qcm-question">5. Le polynôme $X^2+1$ est-il irréductible dans $\mathbb{C}[X]$ ?</div>
-    <div class="qcm-grid">
-        <button class="opt-btn" onclick="checkAnswer(this, false)">Oui</button>
-        <button class="opt-btn" onclick="checkAnswer(this, true)">Non</button>
-    </div>
-    <button class="share-btn email" style="margin-top:15px; background: var(--navy-dark);" onclick="toggleCorrection(this)">
-        <i class="fas fa-eye"></i> Afficher le corrigé
-    </button>
-    <div class="correction-content" style="display:none; margin-top:15px; padding:15px; background:#f8fafc; border-left:4px solid var(--gold-btn);">
-        Dans $\mathbb{C}[X]$, $X^2+1 = (X-i)(X+i)$. Il n'est donc pas irréductible.
-    </div>
-</div>
-
-<div class="qcm-box">
-    <div class="qcm-question">6. Quel est le degré du polynôme nul ?</div>
-    <div class="qcm-grid">
-        <button class="opt-btn" onclick="checkAnswer(this, false)">$0$</button>
-        <button class="opt-btn" onclick="checkAnswer(this, true)">$-\infty$</button>
-        <button class="opt-btn" onclick="checkAnswer(this, false)">$1$</button>
-        <button class="opt-btn" onclick="checkAnswer(this, false)">Indéfini</button>
-    </div>
-    <button class="share-btn email" style="margin-top:15px; background: var(--navy-dark);" onclick="toggleCorrection(this)">
-        <i class="fas fa-eye"></i> Afficher le corrigé
-    </button>
-    <div class="correction-content" style="display:none; margin-top:15px; padding:15px; background:#f8fafc; border-left:4px solid var(--gold-btn);">
-        Par convention en CPGE, $\deg(0) = -\infty$ pour préserver les formules de degré.
-    </div>
-</div>
-
-<div class="qcm-box">
-    <div class="qcm-question">7. Deux polynômes sont égaux si et seulement si :</div>
-    <div class="qcm-grid">
-        <button class="opt-btn" onclick="checkAnswer(this, false)">Ils ont les mêmes racines</button>
-        <button class="opt-btn" onclick="checkAnswer(this, true)">Leurs coefficients sont égaux</button>
-        <button class="opt-btn" onclick="checkAnswer(this, false)">Ils ont le même degré</button>
-    </div>
-    <button class="share-btn email" style="margin-top:15px; background: var(--navy-dark);" onclick="toggleCorrection(this)">
-        <i class="fas fa-eye"></i> Afficher le corrigé
-    </button>
-    <div class="correction-content" style="display:none; margin-top:15px; padding:15px; background:#f8fafc; border-left:4px solid var(--gold-btn);">
-        L'égalité des polynômes est définie par l'égalité de la suite de leurs coefficients.
-    </div>
-</div>
-
-<div id="score-display" style="display:none; margin-top:30px;"></div>
-<div id="congrats-msg" style="display:none;"></div>
-<button id="submit-btn" class="btn-primary" onclick="calculateScore()">Valider mes réponses</button>
