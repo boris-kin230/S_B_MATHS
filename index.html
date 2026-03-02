@@ -7,13 +7,17 @@
     
     <script>
         window.MathJax = {
-            tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$']] },
+            tex: { 
+                inlineMath: [['$', '$'], ['\\(', '\\)']], 
+                displayMath: [['$$', '$$']],
+                processEscapes: true
+            },
             options: { enableMenu: false }
         };
     </script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&display=swap" rel="stylesheet">
     
@@ -36,17 +40,38 @@
             --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        body { font-family: 'Inter', sans-serif; margin: 0; background: var(--bg-page); color: var(--text-main); display: flex; overflow: hidden; height: 100vh; }
+        * { box-sizing: border-box; }
+
+        body { 
+            font-family: 'Inter', sans-serif; 
+            margin: 0; 
+            background: var(--bg-page); 
+            color: var(--text-main); 
+            display: flex; 
+            overflow: hidden; 
+            height: 100vh; 
+        }
         
-        /* SIDEBAR */
+        /* --- SIDEBAR --- */
         #sidebar { 
-            width: 320px; height: 100vh; background: var(--surface); 
-            border-right: 1px solid var(--border); overflow-y: auto; position: fixed; z-index: 100;
+            width: 320px; 
+            height: 100vh; 
+            background: var(--surface); 
+            border-right: 1px solid var(--border); 
+            overflow-y: auto; 
+            position: fixed; 
+            z-index: 100;
             box-shadow: 4px 0 15px rgba(0,0,0,0.02);
             transition: transform 0.3s ease;
         }
 
-        .logo-container { padding: 40px 20px 30px; text-align: center; border-bottom: 1px solid var(--border); background: var(--surface); }
+        .logo-container { 
+            padding: 40px 20px 30px; 
+            text-align: center; 
+            border-bottom: 1px solid var(--border); 
+            background: var(--surface); 
+        }
+        
         .logo-box {
             background: var(--navy-dark);
             padding: 15px;
@@ -55,62 +80,122 @@
             box-shadow: 0 5px 15px rgba(0,0,0,0.2);
             border: 1px solid rgba(234, 179, 8, 0.4);
         }
-        .logo-text { font-weight: 800; font-size: 1.4rem; color: #fff; letter-spacing: -1px; margin: 0; }
+        
+        .logo-text { 
+            font-weight: 800; 
+            font-size: 1.4rem; 
+            color: #fff; 
+            letter-spacing: -1px; 
+            margin: 0; 
+        }
+        
         .logo-text span { color: var(--gold-btn); }
         
         .badge-prestige {
-            font-size: 0.65rem; color: var(--navy-dark); font-weight: 800; margin-top: 12px; 
+            font-size: 0.65rem; 
+            color: var(--navy-dark); 
+            font-weight: 800; 
+            margin-top: 12px; 
             background: linear-gradient(135deg, var(--gold-btn), var(--gold-hover));
-            display: inline-block; padding: 5px 12px; border-radius: 50px; box-shadow: 0 2px 5px rgba(234, 179, 8, 0.3);
-            text-transform: uppercase; letter-spacing: 1px;
+            display: inline-block; 
+            padding: 5px 12px; 
+            border-radius: 50px; 
+            box-shadow: 0 2px 5px rgba(234, 179, 8, 0.3);
+            text-transform: uppercase; 
+            letter-spacing: 1px;
         }
 
-        /* MENU ARCHITECTURE */
+        /* --- MENU --- */
         .chapter-box { border-bottom: 1px solid var(--border); }
+        
         .lvl-1-btn { 
-            width: 100%; padding: 18px 20px; border: none; background: none;
-            display: flex; justify-content: space-between; align-items: center;
-            font-weight: 800; color: var(--navy-dark); cursor: pointer; transition: var(--transition);
-            text-transform: uppercase; font-size: 0.85rem; letter-spacing: 0.5px;
+            width: 100%; 
+            padding: 18px 20px; 
+            border: none; 
+            background: none;
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center;
+            font-weight: 800; 
+            color: var(--navy-dark); 
+            cursor: pointer; 
+            transition: var(--transition);
+            text-transform: uppercase; 
+            font-size: 0.85rem; 
+            letter-spacing: 0.5px;
         }
+        
         .lvl-1-btn:hover { background: #f8fafc; color: var(--gold-muted); }
 
-        .lvl-2-container { display: none; background: #fafbfc; padding-bottom: 10px; border-top: 1px solid #f1f5f9; }
+        .lvl-2-container { 
+            display: none; 
+            background: #fafbfc; 
+            padding-bottom: 10px; 
+            border-top: 1px solid #f1f5f9; 
+        }
+        
         .lvl-2-container.open { display: block; }
 
         .lvl-2-header { 
-            padding: 15px 20px 5px 30px; font-size: 0.7rem; font-weight: 800; 
-            color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px;
+            padding: 15px 20px 5px 30px; 
+            font-size: 0.7rem; 
+            font-weight: 800; 
+            color: var(--text-muted); 
+            text-transform: uppercase; 
+            letter-spacing: 1px;
         }
 
         .lvl-3-item {
-            display: flex; align-items: center; padding: 10px 20px 10px 45px; 
-            font-size: 0.9rem; color: var(--text-muted); font-weight: 500; text-decoration: none; 
-            transition: var(--transition); cursor: pointer;
+            display: flex; 
+            align-items: center; 
+            padding: 10px 20px 10px 45px; 
+            font-size: 0.9rem; 
+            color: var(--text-muted); 
+            font-weight: 500; 
+            text-decoration: none; 
+            transition: var(--transition); 
+            cursor: pointer;
         }
+        
         .lvl-3-item i { margin-right: 12px; font-size: 0.85rem; width: 15px; text-align: center; }
-        .lvl-3-item:hover { color: var(--navy-dark); background: white; padding-left: 50px; box-shadow: inset 3px 0 0 var(--gold-btn); }
+        
+        .lvl-3-item:hover { 
+            color: var(--navy-dark); 
+            background: white; 
+            padding-left: 50px; 
+            box-shadow: inset 3px 0 0 var(--gold-btn); 
+        }
+        
         .lvl-3-item.training { color: #059669; font-weight: 600; }
         
         .chevron { font-size: 0.7rem; transition: transform 0.3s; color: var(--text-muted); }
         .open > .chevron { transform: rotate(180deg); color: var(--navy-dark); }
 
-        /* MAIN CONTENT */
+        /* --- MAIN CONTENT --- */
         #main { 
-            margin-left: 320px; flex-grow: 1; padding: 40px; padding-bottom: 120px; 
-            height: 100vh; overflow-y: auto; scroll-behavior: smooth; box-sizing: border-box; 
+            margin-left: 320px; 
+            flex-grow: 1; 
+            padding: 40px; 
+            padding-bottom: 120px; 
+            height: 100vh; 
+            overflow-y: auto; 
+            scroll-behavior: smooth; 
         }
         
         .banner { 
             background: linear-gradient(135deg, var(--navy-dark), var(--navy-main)); 
-            color: white; padding: 50px; border-radius: var(--radius); margin-bottom: 40px;
-            box-shadow: var(--shadow-md); position: relative; overflow: hidden;
+            color: white; 
+            padding: 50px; 
+            border-radius: var(--radius); 
+            margin-bottom: 40px;
+            box-shadow: var(--shadow-md); 
+            position: relative; 
+            overflow: hidden;
             border-bottom: 4px solid var(--gold-btn);
         }
 
-        /* BARRE DE PARTAGE (Masquée par défaut) */
         #end-quiz-actions {
-            display: none; /* Apparaît via JS */
+            display: none;
             margin-top: 25px;
             padding: 20px;
             background: rgba(255,255,255,0.05);
@@ -118,34 +203,37 @@
             border: 1px dashed rgba(255,255,255,0.2);
             animation: fadeIn 0.5s ease;
         }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        @keyframes fadeIn { 
+            from { opacity: 0; transform: translateY(10px); } 
+            to { opacity: 1; transform: translateY(0); } 
+        }
 
         .share-grid { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
         
         .share-pill {
-            padding: 10px 20px; border-radius: 50px; border: 1px solid rgba(255,255,255,0.2);
-            background: rgba(255,255,255,0.1); color: white; font-size: 0.85rem; font-weight: 600;
-            cursor: pointer; transition: 0.2s; display: flex; align-items: center; gap: 10px;
+            padding: 10px 20px; 
+            border-radius: 50px; 
+            border: 1px solid rgba(255,255,255,0.2);
+            background: rgba(255,255,255,0.1); 
+            color: white; 
+            font-size: 0.85rem; 
+            font-weight: 600;
+            cursor: pointer; 
+            transition: 0.2s; 
+            display: flex; 
+            align-items: center; 
+            gap: 10px;
         }
-        .share-pill:hover { background: var(--gold-btn); color: var(--navy-dark); border-color: var(--gold-btn); transform: scale(1.05); }
-        .share-pill.whatsapp:hover { background: #25D366; border-color: #25D366; color: white; }
+        
+        .share-pill:hover { 
+            background: var(--gold-btn); 
+            color: var(--navy-dark); 
+            border-color: var(--gold-btn); 
+            transform: scale(1.05); 
+        }
 
-        /* QCM BOX */
-        .qcm-box { 
-            background: var(--surface); padding: 35px; border-radius: var(--radius); 
-            margin-bottom: 30px; border-left: 8px solid var(--gold-muted); box-shadow: var(--shadow-sm); 
-            transition: var(--transition);
-        }
-        .opt-btn {
-            display: block; width: 100%; text-align: left; padding: 15px 20px;
-            margin: 10px 0; border: 1px solid var(--border); border-radius: 10px;
-            background: #fff; cursor: pointer; transition: 0.2s; font-size: 0.95rem;
-        }
-        .opt-btn:hover:not(:disabled) { background: #f8fafc; border-color: var(--gold-muted); }
-        .opt-btn.correct { background: #dcfce7 !important; border-color: #22c55e !important; color: #166534; font-weight: 600; }
-        .opt-btn.wrong { background: #fee2e2 !important; border-color: #ef4444 !important; color: #991b1b; }
-
-        /* RESPONSIVE */
+        /* --- MOBILE --- */
         @media (max-width: 900px) {
             #sidebar { transform: translateX(-100%); }
             #sidebar.active { transform: translateX(0); }
@@ -154,14 +242,29 @@
         }
 
         .mobile-menu-btn {
-            display: none; position: fixed; top: 15px; left: 15px; z-index: 1000;
-            background: var(--navy-dark); color: var(--gold-btn); border: none;
-            border-radius: 8px; padding: 12px 18px; font-size: 1.2rem; cursor: pointer;
+            display: none; 
+            position: fixed; 
+            top: 15px; 
+            left: 15px; 
+            z-index: 1000;
+            background: var(--navy-dark); 
+            color: var(--gold-btn); 
+            border: none;
+            border-radius: 8px; 
+            padding: 12px 18px; 
+            font-size: 1.2rem; 
+            cursor: pointer;
         }
         
         .sidebar-overlay {
-            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.5); z-index: 95;
+            display: none; 
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5); 
+            z-index: 95;
         }
         .sidebar-overlay.active { display: block; }
 
@@ -192,6 +295,7 @@
             </button>
             <div class="lvl-2-container">
                 <div class="lvl-2-header">Cours & Méthodes</div>
+                <a class="lvl-3-item" onclick="load('poly_bases')"><i class="fas fa-book"></i> Bases des Polynômes</a>
                 <a class="lvl-3-item" onclick="load('poly_racines')"><i class="fas fa-seedling"></i> Racines & Multiplicité</a>
                 <a class="lvl-3-item" onclick="load('poly_fractions')"><i class="fas fa-divide"></i> Fractions Rationnelles</a>
                 
@@ -252,7 +356,7 @@
                 <p style="text-align:center; font-weight:bold; margin-bottom:15px; color:var(--gold-btn)">PARTAGER MES RÉSULTATS :</p>
                 <div class="share-grid">
                     <div class="share-pill" onclick="generatePDF()"><i class="fas fa-file-export"></i> Imprimer Test</div>
-                    <div class="share-pill whatsapp" onclick="shareWhatsApp()"><i class="fab fa-whatsapp"></i> WhatsApp</div>
+                    <div class="share-pill" onclick="shareWhatsApp()"><i class="fab fa-whatsapp"></i> WhatsApp</div>
                     <div class="share-pill" onclick="shareMail()"><i class="fas fa-envelope"></i> Email</div>
                     <div class="share-pill" onclick="shareGeneric()"><i class="fas fa-share-nodes"></i> Partager</div>
                 </div>
@@ -267,7 +371,7 @@
 </div>
 
 <script>
-    // --- GESTION NAVIGATION ---
+    // --- NAVIGATION ---
     function toggleMobileMenu() {
         document.getElementById('sidebar').classList.toggle('active');
         document.getElementById('mobileOverlay').classList.toggle('active');
@@ -275,45 +379,60 @@
 
     function toggleMenu(btn) {
         const container = btn.nextElementSibling;
+        const allMenus = document.querySelectorAll('.lvl-2-container');
+        const allBtns = document.querySelectorAll('.lvl-1-btn');
+        
+        // Optionnel : Fermer les autres menus
+        allMenus.forEach(m => { if(m !== container) m.classList.remove('open'); });
+        allBtns.forEach(b => { if(b !== btn) b.classList.remove('open'); });
+
         btn.classList.toggle('open');
         container.classList.toggle('open');
     }
 
-    // --- CHARGEMENT DYNAMIQUE (Depuis le dossier content/) ---
+    // --- CHARGEMENT DYNAMIQUE (Dossier content/) ---
     async function load(file) {
         if (window.innerWidth <= 900) toggleMobileMenu();
         const target = document.getElementById('dynamic-content');
         
-        // Cacher les actions de partage lors d'un nouveau chargement
+        // Masquer les actions de fin de quiz
         document.getElementById('end-quiz-actions').style.display = 'none';
 
         try {
-            // Mise à jour du chemin pour aller chercher dans 'content/'
-            const response = await fetch(`content/${file}.html`);
-            if (!response.ok) throw new Error('Fichier absent');
+            // AJOUT DE ?v= POUR ÉVITER LE CACHE NAVIGATEUR
+            const timestamp = new Date().getTime();
+            const response = await fetch(`content/${file}.html?v=${timestamp}`);
+            
+            if (!response.ok) throw new Error('Fichier introuvable');
             
             const html = await response.text();
             target.innerHTML = html;
             
-            // Injection de la bannière de score et partage si c'est un test
+            // Si c'est un fichier d'exercices, on injecte la zone de score
             if (file.includes('training') || file.includes('exos')) {
                 injectScoreUI();
             }
 
-            if (window.MathJax) MathJax.typesetPromise([target]);
+            // Relancer MathJax pour le rendu des formules
+            if (window.MathJax && MathJax.typesetPromise) {
+                MathJax.typesetPromise([target]);
+            }
+            
+            // Scroll en haut
             document.getElementById('main').scrollTo(0, 0);
+
         } catch (e) {
-            target.innerHTML = `<div class="banner" style="background: #ef4444; border-bottom:none;">
-                <h1>Erreur de Chargement</h1>
-                <p>Le module <b>content/${file}.html</b> est introuvable.</p>
-                <button onclick="location.reload()" style="padding:10px; border-radius:5px; border:none; cursor:pointer;">Réessayer</button>
-            </div>`;
+            target.innerHTML = `
+                <div class="banner" style="background: #ef4444; border-bottom:none;">
+                    <h1>Erreur de Chargement</h1>
+                    <p>Le module <b>content/${file}.html</b> est inaccessible.</p>
+                    <button onclick="location.reload()" style="padding:10px 20px; border-radius:5px; border:none; cursor:pointer; font-weight:bold;">Actualiser la page</button>
+                </div>`;
         }
     }
 
     function injectScoreUI() {
         const target = document.getElementById('dynamic-content');
-        // On s'assure qu'un conteneur de score existe dans le fichier chargé
         if (!document.getElementById('score-display')) {
             const div = document.createElement('div');
             div.id = 'score-display';
@@ -325,58 +444,58 @@
     function loadTraining(subject) {
         const rand = Math.random();
         let file;
-        if (rand < 0.25) file = `${subject}_training_pro`;
-        else file = `${subject}_training_v${Math.floor(Math.random() * 3) + 1}`;
+        // On pioche dans tes fichiers listés
+        if (rand < 0.20) file = `${subject}_training_pro`;
+        else {
+            const version = Math.floor(Math.random() * 3) + 1;
+            file = `${subject}_training_v${version}`;
+        }
         load(file);
     }
 
-    // --- LOGIQUE QCM ---
+    // --- LOGIQUE DES QCM ---
     function checkAnswer(button, isCorrect) {
         const container = button.parentElement;
         const allButtons = container.querySelectorAll('.opt-btn');
         allButtons.forEach(btn => btn.disabled = true);
         
         button.classList.add('selected');
-        if(isCorrect) button.classList.add('correct');
-        else {
+        if(isCorrect) {
+            button.classList.add('correct');
+        } else {
             button.classList.add('wrong');
-            const correctBtn = Array.from(allButtons).find(b => b.onclick.toString().includes('true'));
-            if(correctBtn) correctBtn.classList.add('correct');
+            // Trouver la bonne réponse pour l'afficher
+            allButtons.forEach(btn => {
+                if(btn.getAttribute('onclick').includes('true')) btn.classList.add('correct');
+            });
         }
     }
 
     function calculateScore() {
-        let score = document.querySelectorAll('.opt-btn.correct.selected').length;
-        let total = document.querySelectorAll('.qcm-box').length;
-        
+        const total = document.querySelectorAll('.qcm-box').length;
+        const correct = document.querySelectorAll('.opt-btn.correct.selected').length;
         const scoreDisplay = document.getElementById('score-display');
+        
         if(scoreDisplay) {
             scoreDisplay.innerHTML = `
                 <div style="background:var(--navy-dark); color:white; padding:40px; border-radius:var(--radius); text-align:center; box-shadow:var(--shadow-lg);">
                     <h2 style="color:var(--gold-btn); margin-top:0;">RÉSULTAT FINAL</h2>
-                    <div style="font-size:4rem; font-weight:800;">${score}<span style="font-size:1.5rem; opacity:0.6;">/${total}</span></div>
-                    <p>${score >= total/2 ? "Félicitations ! Vous progressez." : "Continuez vos efforts, la persévérance paie."}</p>
-                    
-                    <div style="margin-top:30px; border-top:1px solid rgba(255,255,255,0.1); padding-top:20px;">
-                        <p style="font-size:0.8rem; text-transform:uppercase; letter-spacing:1px; margin-bottom:15px;">Options de partage</p>
-                        <div style="display:flex; gap:10px; justify-content:center; flex-wrap:wrap;">
-                            <button class="share-pill" onclick="generatePDF()"><i class="fas fa-file-pdf"></i> Imprimer Score</button>
-                            <button class="share-pill whatsapp" onclick="shareWhatsApp()"><i class="fab fa-whatsapp"></i> Envoyer</button>
-                        </div>
+                    <div style="font-size:4rem; font-weight:800;">${correct}<span style="font-size:1.5rem; opacity:0.6;">/${total}</span></div>
+                    <p>${correct >= total/2 ? "Excellent travail !" : "Continuez à réviser, vous y êtes presque."}</p>
+                    <div style="margin-top:20px;">
+                         <button class="share-pill" onclick="generatePDF()" style="margin:auto"><i class="fas fa-file-pdf"></i> Télécharger mes résultats</button>
                     </div>
                 </div>`;
+            scoreDisplay.scrollIntoView({ behavior: 'smooth' });
         }
-        
-        // On fait défiler jusqu'au score
-        scoreDisplay.scrollIntoView({ behavior: 'smooth' });
     }
 
-    // --- FONCTIONS DE SORTIE ---
+    // --- PDF & PARTAGE ---
     function generatePDF() {
         const element = document.getElementById('main');
         const opt = {
-            margin: 5,
-            filename: 'Resultats_ElianMaths.pdf',
+            margin: 10,
+            filename: 'Mes_Resultats_ElianMaths.pdf',
             image: { type: 'jpeg', quality: 0.98 },
             html2canvas: { scale: 2 },
             jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
@@ -385,21 +504,20 @@
     }
 
     function shareWhatsApp() {
-        const score = document.querySelector('#score-display div div')?.innerText || "";
-        const text = `J'ai obtenu ${score} sur Elian Maths ! Rejoins-moi sur : ${window.location.href}`;
+        const text = `Je révise mes maths sur Elian Maths ! Rejoins-moi : ${window.location.href}`;
         window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, '_blank');
     }
 
     function shareMail() {
-        window.location.href = `mailto:?subject=Mes résultats Maths&body=J'ai fini mon entraînement sur Elian Maths : ${window.location.href}`;
+        window.location.href = `mailto:?subject=Révisions PCSI&body=Regarde ce site pour les maths : ${window.location.href}`;
     }
 
     function shareGeneric() {
         if (navigator.share) {
             navigator.share({ title: 'Elian Maths', url: window.location.href });
         } else {
-            alert("Lien copié !");
             navigator.clipboard.writeText(window.location.href);
+            alert("Lien copié dans le presse-papier !");
         }
     }
 
@@ -407,7 +525,7 @@
         const corr = btn.nextElementSibling;
         const isHidden = corr.style.display === "none" || corr.style.display === "";
         corr.style.display = isHidden ? "block" : "none";
-        btn.innerHTML = isHidden ? '<i class="fas fa-eye-slash"></i> Masquer' : '<i class="fas fa-eye"></i> Corrigé';
+        btn.innerHTML = isHidden ? '<i class="fas fa-eye-slash"></i> Masquer le corrigé' : '<i class="fas fa-eye"></i> Voir le corrigé';
     }
 </script>
 
