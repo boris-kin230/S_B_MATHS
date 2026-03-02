@@ -38,6 +38,7 @@
 
         body { font-family: 'Inter', sans-serif; margin: 0; background: var(--bg-page); color: var(--text-main); display: flex; overflow: hidden; height: 100vh; }
         
+        /* SIDEBAR */
         #sidebar { 
             width: 320px; height: 100vh; background: var(--surface); 
             border-right: 1px solid var(--border); overflow-y: auto; position: fixed; z-index: 100;
@@ -64,6 +65,7 @@
             text-transform: uppercase; letter-spacing: 1px;
         }
 
+        /* MENU ARCHITECTURE */
         .chapter-box { border-bottom: 1px solid var(--border); }
         .lvl-1-btn { 
             width: 100%; padding: 18px 20px; border: none; background: none;
@@ -93,6 +95,7 @@
         .chevron { font-size: 0.7rem; transition: transform 0.3s; color: var(--text-muted); }
         .open > .chevron { transform: rotate(180deg); color: var(--navy-dark); }
 
+        /* MAIN CONTENT */
         #main { 
             margin-left: 320px; flex-grow: 1; padding: 40px; padding-bottom: 120px; 
             height: 100vh; overflow-y: auto; scroll-behavior: smooth; box-sizing: border-box; 
@@ -105,6 +108,20 @@
             border-bottom: 4px solid var(--gold-btn);
         }
 
+        /* BARRE DE PARTAGE (Masquée par défaut) */
+        #end-quiz-actions {
+            display: none; /* Apparaît via JS */
+            margin-top: 25px;
+            padding: 20px;
+            background: rgba(255,255,255,0.05);
+            border-radius: var(--radius);
+            border: 1px dashed rgba(255,255,255,0.2);
+            animation: fadeIn 0.5s ease;
+        }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        .share-grid { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
+        
         .share-pill {
             padding: 10px 20px; border-radius: 50px; border: 1px solid rgba(255,255,255,0.2);
             background: rgba(255,255,255,0.1); color: white; font-size: 0.85rem; font-weight: 600;
@@ -113,6 +130,7 @@
         .share-pill:hover { background: var(--gold-btn); color: var(--navy-dark); border-color: var(--gold-btn); transform: scale(1.05); }
         .share-pill.whatsapp:hover { background: #25D366; border-color: #25D366; color: white; }
 
+        /* QCM BOX */
         .qcm-box { 
             background: var(--surface); padding: 35px; border-radius: var(--radius); 
             margin-bottom: 30px; border-left: 8px solid var(--gold-muted); box-shadow: var(--shadow-sm); 
@@ -127,6 +145,7 @@
         .opt-btn.correct { background: #dcfce7 !important; border-color: #22c55e !important; color: #166534; font-weight: 600; }
         .opt-btn.wrong { background: #fee2e2 !important; border-color: #ef4444 !important; color: #991b1b; }
 
+        /* RESPONSIVE */
         @media (max-width: 900px) {
             #sidebar { transform: translateX(-100%); }
             #sidebar.active { transform: translateX(0); }
@@ -145,6 +164,7 @@
             background: rgba(0, 0, 0, 0.5); z-index: 95;
         }
         .sidebar-overlay.active { display: block; }
+
     </style>
 </head>
 <body>
@@ -174,8 +194,12 @@
                 <div class="lvl-2-header">Cours & Méthodes</div>
                 <a class="lvl-3-item" onclick="load('poly_racines')"><i class="fas fa-seedling"></i> Racines & Multiplicité</a>
                 <a class="lvl-3-item" onclick="load('poly_fractions')"><i class="fas fa-divide"></i> Fractions Rationnelles</a>
+                
                 <div class="lvl-2-header">Pratique & Exercices</div>
-                <a class="lvl-3-item" onclick="load('poly_exos')"><i class="fas fa-pen-to-square"></i> Série Intensive</a>
+                <a class="lvl-3-item" onclick="load('poly_exos')"><i class="fas fa-pen-to-square"></i> Série Intensive (60 Q)</a>
+                <a class="lvl-3-item" onclick="load('poly_exos_calc')"><i class="fas fa-calculator"></i> Calcul Intensif</a>
+
+                <div class="lvl-2-header">Évaluations</div>
                 <a class="lvl-3-item training" onclick="loadTraining('poly')"><i class="fas fa-bolt"></i> Test d'entraînement</a>
             </div>
         </div>
@@ -186,8 +210,33 @@
                 <i class="fas fa-chevron-down chevron"></i>
             </button>
             <div class="lvl-2-container">
+                <div class="lvl-2-header">Cours & Méthodes</div>
                 <a class="lvl-3-item" onclick="load('geo_metrique')"><i class="fas fa-vector-square"></i> Produit Scalaire</a>
+                <a class="lvl-3-item" onclick="load('geo_analytique')"><i class="fas fa-line"></i> Droites & Cercles</a>
+                
+                <div class="lvl-2-header">Pratique & Exercices</div>
+                <a class="lvl-3-item" onclick="load('geo_training_v1')"><i class="fas fa-pencil"></i> Exercices d'application</a>
+
+                <div class="lvl-2-header">Évaluations</div>
                 <a class="lvl-3-item training" onclick="loadTraining('geo')"><i class="fas fa-bolt"></i> Test d'entraînement</a>
+            </div>
+        </div>
+
+        <div class="chapter-box">
+            <button class="lvl-1-btn" onclick="toggleMenu(this)">
+                <span><i class="fas fa-chart-line"></i> &nbsp; Fonctions</span>
+                <i class="fas fa-chevron-down chevron"></i>
+            </button>
+            <div class="lvl-2-container">
+                <div class="lvl-2-header">Cours & Méthodes</div>
+                <a class="lvl-3-item" onclick="load('func_theoremes')"><i class="fas fa-check-circle"></i> Rolle & TAF</a>
+                <a class="lvl-3-item" onclick="load('func_taylor')"><i class="fas fa-infinity"></i> Taylor & Reste</a>
+                
+                <div class="lvl-2-header">Pratique & Exercices</div>
+                <a class="lvl-3-item" onclick="load('training_taylor_rolle')"><i class="fas fa-microchip"></i> Application Taylor/Rolle</a>
+
+                <div class="lvl-2-header">Évaluations</div>
+                <a class="lvl-3-item training" onclick="loadTraining('func')"><i class="fas fa-bolt"></i> Test d'entraînement</a>
             </div>
         </div>
     </nav>
@@ -198,6 +247,16 @@
         <div class="banner">
             <h1 style="font-size: 2.5rem; margin: 0; letter-spacing: -1px;">Espace de Travail</h1>
             <p style="opacity: 0.9; font-size: 1.1rem; margin-top: 10px;">Votre plateforme de révision PCSI Haute Performance.</p>
+            
+            <div id="end-quiz-actions">
+                <p style="text-align:center; font-weight:bold; margin-bottom:15px; color:var(--gold-btn)">PARTAGER MES RÉSULTATS :</p>
+                <div class="share-grid">
+                    <div class="share-pill" onclick="generatePDF()"><i class="fas fa-file-export"></i> Imprimer Test</div>
+                    <div class="share-pill whatsapp" onclick="shareWhatsApp()"><i class="fab fa-whatsapp"></i> WhatsApp</div>
+                    <div class="share-pill" onclick="shareMail()"><i class="fas fa-envelope"></i> Email</div>
+                    <div class="share-pill" onclick="shareGeneric()"><i class="fas fa-share-nodes"></i> Partager</div>
+                </div>
+            </div>
         </div>
         
         <div style="text-align:center; padding: 50px; color: var(--text-muted);">
@@ -208,6 +267,7 @@
 </div>
 
 <script>
+    // --- GESTION NAVIGATION ---
     function toggleMobileMenu() {
         document.getElementById('sidebar').classList.toggle('active');
         document.getElementById('mobileOverlay').classList.toggle('active');
@@ -219,24 +279,25 @@
         container.classList.toggle('open');
     }
 
-    // --- CHARGEMENT DYNAMIQUE (Depuis dossier CONTENT) ---
+    // --- CHARGEMENT DYNAMIQUE (Depuis le dossier content/) ---
     async function load(file) {
         if (window.innerWidth <= 900) toggleMobileMenu();
         const target = document.getElementById('dynamic-content');
         
+        // Cacher les actions de partage lors d'un nouveau chargement
+        document.getElementById('end-quiz-actions').style.display = 'none';
+
         try {
-            // Modification du chemin vers le dossier 'content/'
+            // Mise à jour du chemin pour aller chercher dans 'content/'
             const response = await fetch(`content/${file}.html`);
             if (!response.ok) throw new Error('Fichier absent');
             
             const html = await response.text();
             target.innerHTML = html;
             
-            if (!document.getElementById('score-display')) {
-                const div = document.createElement('div');
-                div.id = 'score-display';
-                div.style.margin = "40px 0";
-                target.appendChild(div);
+            // Injection de la bannière de score et partage si c'est un test
+            if (file.includes('training') || file.includes('exos')) {
+                injectScoreUI();
             }
 
             if (window.MathJax) MathJax.typesetPromise([target]);
@@ -250,12 +311,26 @@
         }
     }
 
+    function injectScoreUI() {
+        const target = document.getElementById('dynamic-content');
+        // On s'assure qu'un conteneur de score existe dans le fichier chargé
+        if (!document.getElementById('score-display')) {
+            const div = document.createElement('div');
+            div.id = 'score-display';
+            div.style.margin = "40px 0";
+            target.appendChild(div);
+        }
+    }
+
     function loadTraining(subject) {
         const rand = Math.random();
-        let file = (rand < 0.25) ? `${subject}_training_pro` : `${subject}_training_v${Math.floor(Math.random() * 3) + 1}`;
+        let file;
+        if (rand < 0.25) file = `${subject}_training_pro`;
+        else file = `${subject}_training_v${Math.floor(Math.random() * 3) + 1}`;
         load(file);
     }
 
+    // --- LOGIQUE QCM ---
     function checkAnswer(button, isCorrect) {
         const container = button.parentElement;
         const allButtons = container.querySelectorAll('.opt-btn');
@@ -273,26 +348,30 @@
     function calculateScore() {
         let score = document.querySelectorAll('.opt-btn.correct.selected').length;
         let total = document.querySelectorAll('.qcm-box').length;
-        const scoreDisplay = document.getElementById('score-display');
         
+        const scoreDisplay = document.getElementById('score-display');
         if(scoreDisplay) {
             scoreDisplay.innerHTML = `
                 <div style="background:var(--navy-dark); color:white; padding:40px; border-radius:var(--radius); text-align:center; box-shadow:var(--shadow-lg);">
                     <h2 style="color:var(--gold-btn); margin-top:0;">RÉSULTAT FINAL</h2>
                     <div style="font-size:4rem; font-weight:800;">${score}<span style="font-size:1.5rem; opacity:0.6;">/${total}</span></div>
                     <p>${score >= total/2 ? "Félicitations ! Vous progressez." : "Continuez vos efforts, la persévérance paie."}</p>
+                    
                     <div style="margin-top:30px; border-top:1px solid rgba(255,255,255,0.1); padding-top:20px;">
+                        <p style="font-size:0.8rem; text-transform:uppercase; letter-spacing:1px; margin-bottom:15px;">Options de partage</p>
                         <div style="display:flex; gap:10px; justify-content:center; flex-wrap:wrap;">
-                            <button class="share-pill" onclick="generatePDF()"><i class="fas fa-file-pdf"></i> Imprimer PDF</button>
-                            <button class="share-pill whatsapp" onclick="shareWhatsApp('${score}/${total}')"><i class="fab fa-whatsapp"></i> Envoyer</button>
-                            <button class="share-pill" onclick="shareMail('${score}/${total}')"><i class="fas fa-envelope"></i> Email</button>
+                            <button class="share-pill" onclick="generatePDF()"><i class="fas fa-file-pdf"></i> Imprimer Score</button>
+                            <button class="share-pill whatsapp" onclick="shareWhatsApp()"><i class="fab fa-whatsapp"></i> Envoyer</button>
                         </div>
                     </div>
                 </div>`;
-            scoreDisplay.scrollIntoView({ behavior: 'smooth' });
         }
+        
+        // On fait défiler jusqu'au score
+        scoreDisplay.scrollIntoView({ behavior: 'smooth' });
     }
 
+    // --- FONCTIONS DE SORTIE ---
     function generatePDF() {
         const element = document.getElementById('main');
         const opt = {
@@ -305,13 +384,23 @@
         html2pdf().set(opt).from(element).save();
     }
 
-    function shareWhatsApp(score) {
+    function shareWhatsApp() {
+        const score = document.querySelector('#score-display div div')?.innerText || "";
         const text = `J'ai obtenu ${score} sur Elian Maths ! Rejoins-moi sur : ${window.location.href}`;
         window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, '_blank');
     }
 
-    function shareMail(score) {
-        window.location.href = `mailto:?subject=Mes résultats Maths&body=J'ai fini mon entraînement avec un score de ${score} sur Elian Maths : ${window.location.href}`;
+    function shareMail() {
+        window.location.href = `mailto:?subject=Mes résultats Maths&body=J'ai fini mon entraînement sur Elian Maths : ${window.location.href}`;
+    }
+
+    function shareGeneric() {
+        if (navigator.share) {
+            navigator.share({ title: 'Elian Maths', url: window.location.href });
+        } else {
+            alert("Lien copié !");
+            navigator.clipboard.writeText(window.location.href);
+        }
     }
 
     function toggleCorrection(btn) {
