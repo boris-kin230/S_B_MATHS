@@ -1,189 +1,216 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Série d'Exercices : Polynômes</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333; max-width: 1000px; margin: auto; padding: 20px; background-color: #f4f7f6; }
+        .banner { background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%); color: white; padding: 40px; text-align: center; border-radius: 15px; margin-bottom: 30px; }
+        .banner h1 { font-weight: 300; margin: 0; }
+        .qcm-box { background: white; padding: 25px; border-radius: 12px; margin-bottom: 30px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); border-left: 8px solid; }
+        .ex-title { font-size: 1.4rem; margin-bottom: 15px; font-weight: 400; padding-bottom: 8px; border-bottom: 1px solid #eee; }
+        .opt-btn { cursor: pointer; border: none; padding: 10px 20px; border-radius: 6px; font-size: 0.9rem; transition: 0.3s; margin-top: 15px; }
+        .correction-content { display: none; margin-top: 20px; padding: 20px; border-radius: 8px; font-size: 0.95rem; border: 1px dashed #ccc; }
+        .figure-placeholder { text-align: center; font-style: italic; color: #666; margin: 15px 0; padding: 10px; border: 1px solid #eee; background: #fafafa; }
+        
+        /* Couleurs par exercice */
+        #ex1 { border-color: #3b82f6; } #ex1 .ex-title { color: #1e3a8a; } #ex1 .opt-btn { background: #1e3a8a; color: white; }
+        #ex2 { border-color: #10b981; } #ex2 .ex-title { color: #065f46; } #ex2 .opt-btn { background: #065f46; color: white; }
+        #ex3 { border-color: #f59e0b; } #ex3 .ex-title { color: #92400e; } #ex3 .opt-btn { background: #92400e; color: white; }
+        #ex4 { border-color: #8b5cf6; } #ex4 .ex-title { color: #4c1d95; } #ex4 .opt-btn { background: #4c1d95; color: white; }
+        #ex5 { border-color: #ef4444; } #ex5 .ex-title { color: #7f1d1d; } #ex5 .opt-btn { background: #7f1d1d; color: white; }
+        #ex6 { border-color: #6366f1; } #ex6 .ex-title { color: #312e81; } #ex6 .opt-btn { background: #312e81; color: white; }
+    </style>
+    <script>
+        function toggleCorrection(btn) {
+            var content = btn.nextElementSibling;
+            if (content.style.display === "block") {
+                content.style.display = "none";
+                btn.textContent = "Afficher le corrigé détaillé";
+            } else {
+                content.style.display = "block";
+                btn.textContent = "Masquer le corrigé";
+            }
+        }
+    </script>
+</head>
+<body>
+
 <div class="banner">
-    <h1 style="font-size: 2.5rem; margin: 0;">Série d'Exercices : Polynômes</h1>
-    <p style="opacity: 0.9; font-size: 1.1rem;">Niveau PCSI - Préparation aux Concours</p>
+    <h1>Série d'Exercices : Polynômes</h1>
+    <p>Niveau PCSI - Préparation aux Concours</p>
 </div>
 
 <div id="ex1" class="qcm-box">
-    <h2 style="color: var(--navy-dark); border-bottom: 2px solid var(--gold-btn); padding-bottom: 10px;">
-        Exercice 1 : Polynômes de Tchebychev $T_n$
-    </h2>
-    <div style="line-height: 1.8; margin-top: 15px;">
-        <strong>Énoncé :</strong><br>
-        1. Justifier l'existence de $T_n$ tel que $T_n(\cos \theta) = \cos(n\theta)$.<br>
-        2. Calculer $T_0, T_1, T_2, T_3$.<br>
-        3. Démontrer la relation $T_{n+2} = 2XT_{n+1} - T_n$.<br>
-        4. Déterminer le degré et le coefficient dominant de $T_n$ pour $n \ge 1$.<br>
-        5. Calculer $T_n(1)$ et $T_n(-1)$.<br>
-        6. Déterminer les racines de $T_n$ sur $[-1, 1]$.<br>
-        7. Montrer que $T_n$ est pair si $n$ est pair, et impair si $n$ est impair.<br>
-        8. Établir que pour $x \in [-1, 1]$, $|T_n(x)| \le 1$.
-    </div>
-
-    <button class="opt-btn" style="background: var(--navy-dark); color: white; margin-top: 20px; width: auto;" onclick="toggleCorrection(this)">
-        <i class="fas fa-eye"></i> Afficher le corrigé détaillé
-    </button>
-
-    <div class="correction-content" style="display:none;">
-        <strong>1. Existence :</strong> $\cos(n\theta) = \text{Re}(e^{in\theta}) = \text{Re}((\cos \theta + i \sin \theta)^n)$.<br>
-        D'après le binôme de Newton : $\cos(n\theta) = \sum_{k=0, k \text{ pair}}^n \binom{n}{k} (\cos \theta)^{n-k} (i \sin \theta)^k$.<br>
-        Comme $k=2p$, $(i \sin \theta)^{2p} = (-1)^p (\sin^2 \theta)^p = (-1)^p (1-\cos^2 \theta)^p$.<br>
-        C'est une somme de puissances de $\cos \theta$, d'où l'existence de $T_n$.<br><br>
-        
-        <strong>2. Calculs :</strong><br>
-        $T_0 = 1$ ; $T_1 = X$ ; $T_2 = 2X^2-1$ ; $T_3 = 4X^3-3X$.<br><br>
-        
-        <strong>3. Récurrence :</strong> $\cos((n+2)\theta) + \cos(n\theta) = 2\cos((n+1)\theta)\cos\theta$.<br>
-        En posant $X = \cos \theta$, on a $T_{n+2}(X) + T_n(X) = 2X T_{n+1}(X)$.<br><br>
-        
-        <strong>4. Degré/Coef :</strong> Par récurrence, $\deg(T_n)=n$.<br>
-        $\text{dom}(T_{n+2}) = 2 \cdot \text{dom}(T_{n+1})$. Comme $\text{dom}(T_1)=1$, on a $\text{dom}(T_n) = 2^{n-1}$ pour $n \ge 1$.<br><br>
-        
-        <strong>6. Racines :</strong> $T_n(\cos \theta) = 0 \iff n\theta \equiv \frac{\pi}{2} [\pi]$.<br>
-        $\theta_k = \frac{\pi}{2n} + \frac{k\pi}{n}$ pour $k \in \{0, \dots, n-1\}$.<br>
-        $x_k = \cos\left(\frac{(2k+1)\pi}{2n}\right)$.
+    <div class="ex-title">Exercice 1 : Polynômes de Tchebychev $T_n$</div>
+    1. Justifier l'existence de $T_n$ tel que $T_n(\cos \theta) = \cos(n\theta)$.<br>
+    2. Calculer $T_0, T_1, T_2$.<br>
+    3. Démontrer $T_{n+2} = 2XT_{n+1} - T_n$.<br>
+    4. Calculer $T_3$ et $T_4$.<br>
+    5. Déterminer le degré de $T_n$ pour tout $n$.<br>
+    6. Trouver le coefficient dominant de $T_n$ ($n \ge 1$).<br>
+    7. Calculer $T_n(1)$ et $T_n(-1)$.<br>
+    8. Étudier la parité de $T_n$.<br>
+    9. Déterminer les racines de $T_n$ dans $[-1, 1]$.<br>
+    10. Montrer que $|T_n(x)| \le 1$ pour $x \in [-1, 1]$.
+    <div class="figure-placeholder"></div>
+    <button class="opt-btn" onclick="toggleCorrection(this)">Afficher le corrigé détaillé</button>
+    <div class="correction-content" style="background: #f0f7ff;">
+        <strong>Corrigé détaillé :</strong><br>
+        1. $\cos(n\theta) = \text{Re}((\cos\theta + i\sin\theta)^n) = \sum_{2k \le n} \binom{n}{2k} \cos^{n-2k}\theta (-\sin^2\theta)^k$. En remplaçant $\sin^2\theta$ par $1-\cos^2\theta$, on obtient une somme de puissances de $\cos\theta$.<br>
+        2. $T_0 = 1$ ; $T_1 = X$ ; $T_2 = 2X^2-1$.<br>
+        3. $\cos(n+2)\theta + \cos(n\theta) = 2\cos(n+1)\theta\cos\theta$ (formule de Simpson). En posant $X = \cos\theta$, la relation suit.<br>
+        4. $T_3 = 4X^3-3X$ ; $T_4 = 8X^4-8X^2+1$.<br>
+        5. Par récurrence, $\deg(T_n)=n$ car $\deg(2XT_{n+1}) = n+2$.<br>
+        6. Si $a_n$ est le coefficient dominant, $a_{n+2}=2a_{n+1}$. Comme $a_1=1$, on a $a_n = 2^{n-1}$.<br>
+        7. $T_n(1) = \cos(n \cdot 0) = 1$. $T_n(-1) = \cos(n\pi) = (-1)^n$.<br>
+        8. $T_n(\cos(\pi-\theta)) = \cos(n\pi-n\theta) = (-1)^n\cos(n\theta)$. Donc $T_n(-X) = (-1)^n T_n(X)$.<br>
+        9. $T_n(\cos\theta)=0 \iff n\theta = \pi/2 + k\pi$. Racines : $x_k = \cos(\frac{(2k+1)\pi}{2n})$ pour $k \in \{0, \dots, n-1\}$.<br>
+        10. Pour $x \in [-1, 1]$, $x=\cos\theta$, donc $|T_n(x)| = |\cos(n\theta)| \le 1$.
     </div>
 </div>
 
 <div id="ex2" class="qcm-box">
-    <h2 style="color: var(--navy-dark); border-bottom: 2px solid var(--gold-btn); padding-bottom: 10px;">
-        Exercice 2 : Polynômes de Legendre $L_n$
-    </h2>
-    <div style="line-height: 1.8; margin-top: 15px;">
-        <strong>Énoncé :</strong> On pose $A_n = (X^2-1)^n$ et $L_n = \frac{1}{2^n n!} A_n^{(n)}$.<br>
-        1. Préciser le degré de $L_n$.<br>
-        2. Calculer $L_0$ et $L_1$.<br>
-        3. Quelles sont les multiplicités des racines $1$ et $-1$ dans $A_n$ ?<br>
-        4. Montrer par Rolle que $L_n$ possède $n$ racines distinctes dans $]-1, 1[$.<br>
-        5. Calculer le coefficient dominant de $L_n$.<br>
-        6. Montrer que $L_n(1) = 1$ via la formule de Leibniz.<br>
-        7. Démontrer que $\int_{-1}^1 L_n(t) P(t) dt = 0$ pour tout $P \in \mathbb{R}_{n-1}[X]$.<br>
-        8. Calculer $L_n(-1)$ en utilisant la parité.
-    </div>
-    
-    <button class="opt-btn" style="background: var(--navy-dark); color: white; margin-top: 20px; width: auto;" onclick="toggleCorrection(this)">
-        <i class="fas fa-eye"></i> Afficher le corrigé détaillé
-    </button>
-
-    <div class="correction-content" style="display:none;">
-        <strong>3. Multiplicités :</strong> $A_n = (X-1)^n (X+1)^n$. Les racines $1$ et $-1$ sont de multiplicité $n$.<br><br>
-        
-        <strong>4. Rolle :</strong> $A_n(-1)=A_n(1)=0$. Par Rolle, $A_n'$ s'annule en $c_1 \in ]-1, 1[$.<br>
-        Comme $-1$ et $1$ sont racines de $A_n'$ (multiplicité $n-1$), on réapplique Rolle sur $[-1, c_1]$ et $[c_1, 1]$.<br>
-        Par itération, la dérivée $n$-ième possède $n$ racines distinctes dans $]-1, 1[$.<br><br>
-        
-        <strong>6. $L_n(1)$ :</strong> $A_n^{(n)} = [(X-1)^n (X+1)^n]^{(n)}$.<br>
-        Leibniz : $\sum_{k=0}^n \binom{n}{k} ((X-1)^n)^{(k)} ((X+1)^n)^{(n-k)}$.<br>
-        En $X=1$, seul le terme $k=n$ survit : $\binom{n}{n} n! (1+1)^n = n! 2^n$.<br>
-        $L_n(1) = \frac{1}{2^n n!} (n! 2^n) = 1$.<br><br>
-        
-        <strong>7. Orthogonalité :</strong> Intégration par parties $n$ fois.<br>
-        $\int_{-1}^1 A_n^{(n)}(t) P(t) dt = [A_n^{(n-1)}P] - \int A_n^{(n-1)}P'$.<br>
-        Le crochet est nul car $A_n^{(k)}(\pm 1) = 0$ pour $k < n$.<br>
-        Au bout de $n$ fois, on a $(-1)^n \int A_n P^{(n)}$. Or $\deg(P) < n \implies P^{(n)}=0$.
+    <div class="ex-title">Exercice 2 : Division Euclidienne et Arithmétique</div>
+    1. Effectuer la division de $X^4-3X^3+X+1$ par $X^2+1$.<br>
+    2. Reste de la division de $X^n$ par $X-a$.<br>
+    3. Reste de la division de $X^n$ par $(X-a)(X-b)$ ($a \neq b$).<br>
+    4. Reste de $(X-2)^{2n} + (X-1)^n - 1$ par $(X-1)(X-2)$.<br>
+    5. Montrer que $X^2+X+1$ divise $X^{3n+2} + X^{3m+1} + 1$.<br>
+    6. Déterminer le PGCD de $X^n-1$ et $X^m-1$.<br>
+    7. Trouver $A, B$ tels que $A(X-1) + B(X-2) = 1$.<br>
+    8. Déterminer le reste de $P$ par $(X-a)^2$ en fonction de $P(a)$ et $P'(a)$.<br>
+    9. Soit $P$ tel que $P(1)=3$ et $P(2)=5$. Trouver le reste par $(X-1)(X-2)$.<br>
+    10. Montrer que si $n$ divise $m$, alors $X^n-1$ divise $X^m-1$.
+    <button class="opt-btn" onclick="toggleCorrection(this)">Afficher le corrigé détaillé</button>
+    <div class="correction-content" style="background: #f0fff4;">
+        <strong>Corrigé détaillé :</strong><br>
+        1. $X^4-3X^3+X+1 = (X^2-3X-1)(X^2+1) + (4X+2)$. Quotient $X^2-3X-1$, Reste $4X+2$.<br>
+        2. $X^n = (X-a)Q + R$. En évaluant en $a$, $R = a^n$.<br>
+        3. $R = \alpha X + \beta$. En $a$ : $\alpha a + \beta = a^n$. En $b$ : $\alpha b + \beta = b^n$. On trouve $\alpha = \frac{a^n-b^n}{a-b}$ et $\beta = \frac{ab^n-ba^n}{a-b}$.<br>
+        4. Soit $R = \alpha X + \beta$. En $1$, $P(1) = (-1)^{2n}-1 = 0$. En $2$, $P(2) = 1^n-1 = 0$. Donc $R=0$.<br>
+        5. Soit $j = e^{2i\pi/3}$. $P(j) = j^{3n}j^2 + j^{3m}j + 1 = j^2+j+1 = 0$ car $j^3=1$.<br>
+        6. PGCD($X^n-1, X^m-1$) = $X^{\text{pgcd}(n,m)}-1$.<br>
+        7. $1 \cdot (X-1) - 1 \cdot (X-2) = 1$. Donc $A=1, B=-1$.<br>
+        8. $P = (X-a)^2Q + \alpha(X-a) + \beta$. $\beta = P(a)$. En dérivant, $\alpha = P'(a)$. Reste : $P'(a)(X-a) + P(a)$.<br>
+        9. $R = \alpha X + \beta$. $\alpha + \beta = 3$ et $2\alpha + \beta = 5$. On trouve $\alpha=2, \beta=1$. $R = 2X+1$.<br>
+        10. Si $m=nq$, $X^m-1 = (X^n)^q-1^q = (X^n-1)(1 + X^n + \dots + X^{n(q-1)})$.
     </div>
 </div>
 
 <div id="ex3" class="qcm-box">
-    <h2 style="color: var(--navy-dark); border-bottom: 2px solid var(--gold-btn); padding-bottom: 10px;">
-        Exercice 3 : Décomposition et Sommes
-    </h2>
-    <div style="line-height: 1.8; margin-top: 15px;">
-        <strong>Énoncé :</strong><br>
-        1. Décomposer $F = \frac{1}{X(X+1)}$ en éléments simples.<br>
-        2. Calculer $S_n = \sum_{k=1}^n \frac{1}{k(k+1)}$.<br>
-        3. Décomposer $G = \frac{1}{X(X+1)(X+2)}$.<br>
-        4. Calculer $\sum_{k=1}^n \frac{1}{k(k+1)(k+2)}$.<br>
-        5. Déterminer la partie entière de $H = \frac{X^3}{X^2-1}$.<br>
-        6. Décomposer $H$ dans $\mathbb{R}(X)$.<br>
-        7. Calculer l'intégrale $\int_2^3 \frac{t^3}{t^2-1} dt$.<br>
-        8. Décomposer $\frac{1}{X^n-1}$ dans $\mathbb{C}(X)$.
-    </div>
-    
-    <button class="opt-btn" style="background: var(--navy-dark); color: white; margin-top: 20px; width: auto;" onclick="toggleCorrection(this)">
-        <i class="fas fa-eye"></i> Afficher le corrigé détaillé
-    </button>
-
-    <div class="correction-content" style="display:none;">
-        <strong>1. $F$ :</strong> $F = \frac{1}{X} - \frac{1}{X+1}$.<br><br>
-        
-        <strong>2. $S_n$ :</strong> Somme télescopique : $(1 - 1/2) + (1/2 - 1/3) + \dots + (1/n - 1/(n+1)) = 1 - \frac{1}{n+1}$.<br><br>
-        
-        <strong>3. $G$ :</strong> $G = \frac{a}{X} + \frac{b}{X+1} + \frac{c}{X+2}$.<br>
-        $a = [XG]_{0} = 1/2$. $b = [(X+1)G]_{-1} = -1$. $c = [(X+2)G]_{-2} = 1/2$.<br>
-        $G = \frac{1}{2X} - \frac{1}{X+1} + \frac{1}{2(X+2)}$.<br><br>
-        
-        <strong>5. Partie entière :</strong> Division euclidienne de $X^3$ par $X^2-1$.<br>
-        $X^3 = X(X^2-1) + X \implies H = X + \frac{X}{X^2-1}$. Partie entière = $X$.<br><br>
-        
-        <strong>8. $X^n-1$ :</strong> Les pôles sont $\omega_k = e^{2ik\pi/n}$.<br>
-        $\frac{1}{X^n-1} = \sum_{k=0}^{n-1} \frac{\lambda_k}{X-\omega_k}$ avec $\lambda_k = \frac{1}{P'(\omega_k)} = \frac{1}{n\omega_k^{n-1}} = \frac{\omega_k}{n}$.
+    <div class="ex-title">Exercice 3 : Racines et Multiplicités</div>
+    1. Rappeler la condition sur les dérivées pour qu'une racine soit de multiplicité $k$.<br>
+    2. Multiplicité de 1 dans $X^{2n} - nX^{n+1} + nX^{n-1} - 1$.<br>
+    3. Déterminer $a, b$ pour que $(X-1)^2$ divise $aX^{n+1} + bX^n + 1$.<br>
+    4. Montrer que $P = \sum_{k=0}^n \frac{X^k}{k!}$ n'a que des racines simples.<br>
+    5. Factoriser $X^4+1$ dans $\mathbb{R}[X]$.<br>
+    6. Donner la forme factorisée de $X^n-1$ dans $\mathbb{C}[X]$.<br>
+    7. Calculer la somme des racines de $X^n+X+1=0$ ($n \ge 2$).<br>
+    8. Calculer le produit des racines de $2X^3-5X^2+X-10=0$.<br>
+    9. Montrer que si $P'|P$, alors $P = \lambda(X-a)^n$.<br>
+    10. Résoudre $P(X^2) = P(X)P(X+1)$ pour $P \in \mathbb{R}[X]$.
+    <div class="figure-placeholder"></div>
+    <button class="opt-btn" onclick="toggleCorrection(this)">Afficher le corrigé détaillé</button>
+    <div class="correction-content" style="background: #fffbeb;">
+        <strong>Corrigé détaillé :</strong><br>
+        1. $P(a)=P'(a)=\dots=P^{(k-1)}(a)=0$ et $P^{(k)}(a) \neq 0$.<br>
+        2. $P(1)=0$, $P'(1)=2n-n(n+1)+n(n-1)=0$, $P''(1)=2n(2n-1)-n^2(n+1)+n(n-1)(n-2)=0$. Multiplicité 3.<br>
+        3. $P(1)=a+b+1=0$ et $P'(1)=a(n+1)+bn=0$. On trouve $a=n$ et $b=-(n+1)$.<br>
+        4. $P' = P - X^n/n!$. Si $P(z)=P'(z)=0$, alors $z^n/n!=0$, donc $z=0$. Or $P(0)=1 \neq 0$.<br>
+        5. $X^4+1 = (X^2+1)^2 - 2X^2 = (X^2-\sqrt{2}X+1)(X^2+\sqrt{2}X+1)$.<br>
+        6. $\prod_{k=0}^{n-1} (X-e^{2ik\pi/n})$.<br>
+        7. Somme = $-a_{n-1}/a_n = 0$ car il n'y a pas de terme en $X^{n-1}$.<br>
+        8. Produit = $-(-10)/2 = 5$ (car $(-1)^3 \cdot (-10)/2$).<br>
+        9. Si $\deg(P)=n$, $P/P'$ est de degré 1. $P = \frac{1}{n}(X-a)P'$. En dérivant $n$ fois, on montre que $a$ est l'unique racine.<br>
+        10. Si $a$ est racine, $a^2$ l'est aussi. Donc $a \in \{0, 1\}$. $P(X) = X^n(X-1)^n$.
     </div>
 </div>
 
 <div id="ex4" class="qcm-box">
-    <h2 style="color: var(--navy-dark); border-bottom: 2px solid var(--gold-btn); padding-bottom: 10px;">
-        Exercice 4 : Polynômes et Matrices
-    </h2>
-    <div style="line-height: 1.8; margin-top: 15px;">
-        <strong>Énoncé :</strong> Soit $A = \begin{pmatrix} 1 & 1 \\ 0 & 2 \end{pmatrix}$ et $P = (X-1)(X-2)$.<br>
-        1. Calculer $A^2$.<br>
-        2. Vérifier que $P(A) = 0_2$.<br>
-        3. On pose $X^n = P(X)Q(X) + a_n X + b_n$. Écrire le système vérifié par $(a_n, b_n)$.<br>
-        4. Résoudre le système pour exprimer $a_n$ et $b_n$ en fonction de $n$.<br>
-        5. En déduire l'expression de $A^n$ en fonction de $A, I, n$.<br>
-        6. Calculer les coefficients de $A^n$.<br>
-        7. Soit $S_n = \sum_{k=0}^n A^k$. Exprimer $S_n$ à l'aide de $A^n$.<br>
-        8. Calculer $(A-I)(A-2I)$. Conclure sur les valeurs propres.
-    </div>
-
-    <button class="opt-btn" style="background: var(--navy-dark); color: white; margin-top: 20px; width: auto;" onclick="toggleCorrection(this)">
-        <i class="fas fa-eye"></i> Afficher le corrigé détaillé
-    </button>
-
-    <div class="correction-content" style="display:none;">
-        <strong>3/4. Reste :</strong> $X^n = Q(X)(X-1)(X-2) + a_n X + b_n$.<br>
-        En $X=1$ : $1 = a_n + b_n$.<br>
-        En $X=2$ : $2^n = 2a_n + b_n$.<br>
-        Soustraction : $a_n = 2^n - 1$.<br>
-        Puis $b_n = 1 - (2^n - 1) = 2 - 2^n$.<br><br>
-        
-        <strong>5. $A^n$ :</strong> $A^n = (2^n-1)A + (2-2^n)I$.<br><br>
-        
-        <strong>6. Coefficients :</strong><br>
-        $A^n = (2^n-1)\begin{pmatrix} 1 & 1 \\ 0 & 2 \end{pmatrix} + \begin{pmatrix} 2-2^n & 0 \\ 0 & 2-2^n \end{pmatrix} = \begin{pmatrix} 1 & 2^n-1 \\ 0 & 2^n \end{pmatrix}$.
+    <div class="ex-title">Exercice 4 : Décompositions en Éléments Simples</div>
+    1. Décomposer $F = \frac{1}{X^2-a^2}$ ($a \neq 0$).<br>
+    2. Décomposer $G = \frac{X}{(X-1)(X-2)}$.<br>
+    3. Décomposer $H = \frac{1}{X(X+1)^2}$.<br>
+    4. Calculer la somme $\sum_{k=1}^n \frac{1}{k(k+1)}$.<br>
+    5. Calculer la somme $\sum_{k=1}^n \frac{1}{k(k+1)(k+2)}$.<br>
+    6. Décomposer $\frac{X^3}{X^2-1}$ (trouver d'abord la forme polynomiale).<br>
+    7. Décomposer $\frac{1}{X^4+1}$ dans $\mathbb{R}(X)$.<br>
+    8. Décomposer $\frac{n!}{X(X+1)\dots(X+n)}$.<br>
+    9. Décomposer $\frac{1}{X^2+1}$ dans $\mathbb{C}(X)$.<br>
+    10. Décomposer $\frac{X^2+1}{(X-1)^3}$.
+    <button class="opt-btn" onclick="toggleCorrection(this)">Afficher le corrigé détaillé</button>
+    <div class="correction-content" style="background: #f5f3ff;">
+        <strong>Corrigé détaillé :</strong><br>
+        1. $\frac{1}{2a(X-a)} - \frac{1}{2a(X+a)}$.<br>
+        2. $\frac{-1}{X-1} + \frac{2}{X-2}$ (par la méthode du camouflage).<br>
+        3. $\frac{1}{X} - \frac{1}{X+1} - \frac{1}{(X+1)^2}$.<br>
+        4. $\sum (1/k - 1/(k+1)) = 1 - 1/(n+1)$.<br>
+        5. $\frac{1}{2} \sum [1/(k(k+1)) - 1/((k+1)(k+2))] = \frac{1}{2} [1/2 - 1/((n+1)(n+2))]$.<br>
+        6. $X + \frac{1/2}{X-1} + \frac{1/2}{X+1}$.<br>
+        7. $\frac{aX+b}{X^2-\sqrt{2}X+1} + \frac{cX+d}{X^2+\sqrt{2}X+1}$. On trouve $\frac{-\sqrt{2}X/4+1/2}{X^2-\sqrt{2}X+1} + \frac{\sqrt{2}X/4+1/2}{X^2+\sqrt{2}X+1}$.<br>
+        8. $\sum_{k=0}^n \frac{(-1)^k \binom{n}{k}}{X+k}$.<br>
+        9. $\frac{1/2i}{X-i} - \frac{1/2i}{X+i}$.<br>
+        10. Poser $Y=X-1$. $X^2+1 = (Y+1)^2+1 = Y^2+2Y+2$. Reste : $\frac{1}{X-1} + \frac{2}{(X-1)^2} + \frac{2}{(X-1)^3}$.
     </div>
 </div>
 
 <div id="ex5" class="qcm-box">
-    <h2 style="color: var(--navy-dark); border-bottom: 2px solid var(--gold-btn); padding-bottom: 10px;">
-        Exercice 5 : Synthèse et Trigonométrie
-    </h2>
-    <div style="line-height: 1.8; margin-top: 15px;">
-        <strong>Énoncé :</strong> Soit $P = \sum_{k=0}^{n-1} X^k$.<br>
-        1. Simplifier $P(X)$ pour $X \neq 1$.<br>
-        2. Quelles sont les racines de $P$ dans $\mathbb{C}$ ?<br>
-        3. Factoriser $P$ dans $\mathbb{C}[X]$.<br>
-        4. En évaluant $P(1)$, montrer que $\prod_{k=1}^{n-1} (1 - e^{2ik\pi/n}) = n$.<br>
-        5. Utiliser la factorisation de $1-e^{i\theta}$ pour faire apparaître un sinus.<br>
-        6. En déduire que $\prod_{k=1}^{n-1} \sin\left(\frac{k\pi}{n}\right) = \frac{n}{2^{n-1}}$.<br>
-        7. Soit $S = \sum_{k=0}^{n-1} \cos(2k\pi/n)$. Calculer $S$ pour $n \ge 2$.<br>
-        8. Calculer $\sum_{k=0}^{n-1} \sin(2k\pi/n)$.
-    </div>
-    
-    <button class="opt-btn" style="background: var(--navy-dark); color: white; margin-top: 20px; width: auto;" onclick="toggleCorrection(this)">
-        <i class="fas fa-eye"></i> Afficher le corrigé détaillé
-    </button>
-
-    <div class="correction-content" style="display:none;">
-        <strong>4. Produit :</strong> $P(1) = 1+1+\dots+1 = n$.<br>
-        D'autre part $P(X) = \prod_{k=1}^{n-1} (X - \omega^k)$, donc $P(1) = \prod_{k=1}^{n-1} (1 - \omega^k) = n$.<br><br>
-        
-        <strong>5/6. Sinus :</strong> $1-e^{i\theta} = e^{i\theta/2}(e^{-i\theta/2}-e^{i\theta/2}) = -2ie^{i\theta/2}\sin(\theta/2)$.<br>
-        En prenant le module : $|1-e^{i\theta}| = 2\sin(\theta/2)$ car $\theta/2 \in [0, \pi]$.<br>
-        $|n| = \prod_{k=1}^{n-1} 2\sin(k\pi/n) \implies n = 2^{n-1} \prod \sin(k\pi/n)$.<br><br>
-        
-        <strong>7. Somme :</strong> $S = \text{Re}(\sum \omega^k)$.<br>
-        Somme géométrique : $\sum_{k=0}^{n-1} \omega^k = \frac{\omega^n-1}{\omega-1} = \frac{1-1}{\omega-1} = 0$.<br>
-        Donc $S = 0$.
+    <div class="ex-title">Exercice 5 : Polynômes et Matrices</div>
+    1. Soit $A = \begin{pmatrix} 1 & 1 \\ 0 & 2 \end{pmatrix}$. Calculer $(A-I)(A-2I)$.<br>
+    2. En déduire un polynôme annulateur de $A$.<br>
+    3. Déterminer le reste de $X^n$ par $X^2-3X+2$.<br>
+    4. En déduire l'expression de $A^n$.<br>
+    5. Soit $M$ tel que $M^2=M$. Quelles sont les valeurs propres possibles ?<br>
+    6. Montrer que si $P(A)=0$ et $P(0) \neq 0$, alors $A$ est inversible.<br>
+    7. Calculer l'inverse de $A = \begin{pmatrix} 1 & 1 \\ 0 & 1 \end{pmatrix}$ via son polynôme annulateur.<br>
+    8. Soit $u$ un endomorphisme tel que $u^2-3u+2id=0$. Montrer que $\ker(u-id) \oplus \ker(u-2id) = E$.<br>
+    9. Calculer $A^n$ pour $A = \begin{pmatrix} a & 1 \\ 0 & a \end{pmatrix}$.<br>
+    10. Montrer que deux matrices semblables ont le même polynôme minimal.
+    <button class="opt-btn" onclick="toggleCorrection(this)">Afficher le corrigé détaillé</button>
+    <div class="correction-content" style="background: #fef2f2;">
+        <strong>Corrigé détaillé :</strong><br>
+        1. On trouve la matrice nulle $\begin{pmatrix} 0 & 0 \\ 0 & 0 \end{pmatrix}$.<br>
+        2. $P = X^2-3X+2$.<br>
+        3. $R = (2^n-1)X + (2-2^n)$. (cf Exercice 2).<br>
+        4. $A^n = (2^n-1)A + (2-2^n)I = \begin{pmatrix} 1 & 2^n-1 \\ 0 & 2^n \end{pmatrix}$.<br>
+        5. $X(X-1)=0$, donc $\{0, 1\}$.<br>
+        6. $a_n A^n + \dots + a_1 A + a_0 I = 0$. $A(a_n A^{n-1} + \dots + a_1) = -a_0 I$. Comme $a_0 \neq 0$, $A$ est inversible.<br>
+        7. $(A-I)^2=0 \implies A^2-2A+I=0 \implies A^{-1} = 2I-A = \begin{pmatrix} 1 & -1 \\ 0 & 1 \end{pmatrix}$.<br>
+        8. Découle du lemme des noyaux car $X-1$ et $X-2$ sont premiers entre eux.<br>
+        9. $A = aI + J$ avec $J^2=0$. $A^n = a^n I + n a^{n-1} J = \begin{pmatrix} a^n & na^{n-1} \\ 0 & a^n \end{pmatrix}$.<br>
+        10. $P(S^{-1}AS) = S^{-1}P(A)S = 0$.
     </div>
 </div>
+
+<div id="ex6" class="qcm-box">
+    <div class="ex-title">Exercice 6 : Interpolation de Lagrange</div>
+    1. Définir les polynômes $L_0, L_1, L_2$ pour les points $0, 1, 2$.<br>
+    2. Trouver le polynôme $P$ de degré 2 tel que $P(0)=1, P(1)=3, P(2)=2$.<br>
+    3. Montrer que $\sum_{i=0}^n L_i(X) = 1$.<br>
+    4. Montrer que $\sum_{i=0}^n x_i L_i(X) = X$.<br>
+    5. Soit $P = \prod_{k=0}^n (X-k)$. Calculer $P'(0)$.<br>
+    6. Calculer $\sum_{i=0}^n x_i^2 L_i(X)$.<br>
+    7. Déterminer $P$ de degré $n$ tel que $P(k) = \binom{n}{k}$.<br>
+    8. Montrer que la famille $(L_i)$ est une base de $\mathbb{R}_n[X]$.<br>
+    9. Déterminer les $P$ tels que $P(X+1)-P(X)=X$.<br>
+    10. Montrer que pour tout $P \in \mathbb{R}_n[X]$, $P = \sum_{i=0}^n P(x_i)L_i$.
+    <div class="figure-placeholder"></div>
+    <button class="opt-btn" onclick="toggleCorrection(this)">Afficher le corrigé détaillé</button>
+    <div class="correction-content" style="background: #eef2ff;">
+        <strong>Corrigé détaillé :</strong><br>
+        1. $L_0 = (X-1)(X-2)/2$ ; $L_1 = -X(X-2)$ ; $L_2 = X(X-1)/2$.<br>
+        2. $P = 1 \cdot L_0 + 3 \cdot L_1 + 2 \cdot L_2 = -3/2 X^2 + 7/2 X + 1$.<br>
+        3. Le polynôme $\sum L_i - 1$ est de degré $n$ et s'annule en $n+1$ points. Il est donc nul.<br>
+        4. De même, $\sum x_i L_i$ est le polynôme d'interpolation de la fonction $f(x)=x$. Par unicité, c'est $X$.<br>
+        5. $P'(X) = \sum_{j=0}^n \prod_{k \neq j} (X-k)$. En $0$ : $(-1)^n n!$.<br>
+        6. C'est $X^2$ (interpolation de $f(x)=x^2$).<br>
+        7. $P = \sum \binom{n}{k} L_k(X)$.<br>
+        8. Famille de $n+1$ polynômes libre car si $\sum \lambda_i L_i = 0$, l'évaluation en $x_j$ donne $\lambda_j = 0$.<br>
+        9. $P = \frac{1}{2}X^2 - \frac{1}{2}X + C$.<br>
+        10. C'est la définition même du polynôme d'interpolation de Lagrange.
+    </div>
+</div>
+
+</body>
+</html>
