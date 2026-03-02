@@ -91,6 +91,7 @@
             transition: margin-left 0.3s ease;
         }
         
+        /* Styles pour les bannières et boites dans les fichiers chargés */
         .banner { 
             background: linear-gradient(rgba(10, 15, 29, 0.85), rgba(17, 24, 39, 0.7)), 
                         url('https://images.unsplash.com/photo-1509228468518-180dd482180c?auto=format&fit=crop&q=80&w=2000');
@@ -104,36 +105,29 @@
             background: var(--surface); padding: 30px; border-radius: var(--radius); 
             margin-bottom: 30px; border-left: 6px solid var(--gold-muted); box-shadow: var(--shadow-sm); 
         }
-        .qcm-question { font-weight: 600; font-size: 1.15rem; margin-bottom: 25px; color: var(--navy-dark); line-height: 1.6; }
-        .qcm-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
-        
-        .opt-btn { 
-            padding: 18px; border: 2px solid var(--border); background: var(--surface); 
-            border-radius: 10px; cursor: pointer; transition: var(--transition); 
-            font-family: inherit; font-size: 1rem; text-align: left; color: var(--text-main);
-            font-weight: 500;
+        .correction-content {
+            border-left: 4px solid var(--gold-btn);
+            padding: 20px;
+            background: #f8fafc;
+            margin-top: 15px;
+            border-radius: 0 8px 8px 0;
+            line-height: 1.7;
         }
-        .opt-btn:hover:not(:disabled) { background: #fefce8; border-color: var(--gold-btn); transform: translateY(-2px); }
-        .opt-btn.correct { background: #ecfdf5 !important; border-color: #10b981 !important; color: #065f46; font-weight: bold; }
-        .opt-btn.wrong { background: #fef2f2 !important; border-color: #ef4444 !important; color: #991b1b; text-decoration: line-through; }
 
         .btn-primary {
             display: block; width: 100%; max-width: 400px; margin: 40px auto; padding: 20px;
             background: var(--gold-btn); color: var(--navy-dark); border: none;
             border-radius: 50px; font-weight: 800; font-size: 1.15rem; text-transform: uppercase; 
             cursor: pointer; transition: var(--transition); box-shadow: var(--shadow-lg);
-            position: sticky; bottom: 30px; z-index: 50; 
         }
 
-        .share-container { display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; margin-top: 25px; }
-        .share-btn {
-            padding: 12px 20px; border: none; border-radius: 10px; cursor: pointer;
-            font-weight: 600; color: white; transition: var(--transition); display: flex; align-items: center; gap: 10px;
+        .opt-btn { 
+            padding: 18px; border: 2px solid var(--border); background: var(--surface); 
+            border-radius: 10px; cursor: pointer; transition: var(--transition); 
+            font-family: inherit; font-size: 1rem; text-align: left; color: var(--text-main);
+            font-weight: 500; margin-bottom: 10px; width: 100%;
         }
-        .share-btn.pdf { background: #ef4444; } 
-        .share-btn.email { background: #3b82f6; } 
 
-        /* Mobile Menu */
         .mobile-menu-btn { display: none; position: fixed; top: 15px; left: 15px; z-index: 1000; background: var(--navy-dark); color: var(--gold-btn); border: none; border-radius: 8px; padding: 10px 15px; font-size: 1.2rem; }
         .sidebar-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); z-index: 90; }
 
@@ -142,7 +136,6 @@
             #sidebar { transform: translateX(-100%); }
             #sidebar.active { transform: translateX(0); }
             #main { margin-left: 0; padding: 70px 20px; }
-            .qcm-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -168,18 +161,17 @@
             </button>
             <div class="lvl-2-container">
                 <div class="lvl-2-header"><i class="fas fa-book-open"></i> Cours</div>
-                <a class="lvl-3-item" onclick="load('poly_bases')">Arithmétique & Bases</a>
-                <a class="lvl-3-item" onclick="load('poly_racines')">Racines & Multiplicité</a>
+                <a class="lvl-3-item" onclick="load('poly_cours')">Cours Complet</a>
                 
                 <div class="lvl-2-header"><i class="fas fa-pen-fancy"></i> Exercices</div>
-                <a class="lvl-3-item exe-item" onclick="load('poly_ex1')">Exercice 1 : Division</a>
-                <a class="lvl-3-item exe-item" onclick="load('poly_ex2')">Exercice 2 : Racines</a>
-                <a class="lvl-3-item exe-item" onclick="load('poly_ex3')">Exercice 3 : Arithmétique</a>
-                <a class="lvl-3-item exe-item" onclick="load('poly_ex4')">Exercice 4 : Interpolation</a>
-                <a class="lvl-3-item exe-item" onclick="load('poly_ex5')">Exercice 5 : Synthèse</a>
+                <a class="lvl-3-item exe-item" onclick="load('poly_exos', 'ex1')">Ex 1 : Tchebychev</a>
+                <a class="lvl-3-item exe-item" onclick="load('poly_exos', 'ex2')">Ex 2 : Legendre</a>
+                <a class="lvl-3-item exe-item" onclick="load('poly_exos', 'ex3')">Ex 3 : Fractions</a>
+                <a class="lvl-3-item exe-item" onclick="load('poly_exos', 'ex4')">Ex 4 : Matrices</a>
+                <a class="lvl-3-item exe-item" onclick="load('poly_exos', 'ex5')">Ex 5 : Trigonométrie</a>
 
                 <div class="lvl-2-header"><i class="fas fa-medal"></i> Évaluations</div>
-                <a class="lvl-3-item training" onclick="loadTraining('poly')">Test d'entraînement</a>
+                <a class="lvl-3-item training" onclick="loadTraining('poly')">Test d'entraînement (25 Q)</a>
             </div>
         </div>
 
@@ -190,40 +182,13 @@
             </button>
             <div class="lvl-2-container">
                 <div class="lvl-2-header"><i class="fas fa-book-open"></i> Cours</div>
-                <a class="lvl-3-item" onclick="load('geo_metrique')">Produit Scalaire</a>
-                <a class="lvl-3-item" onclick="load('geo_analytique')">Droites & Cercles</a>
+                <a class="lvl-3-item" onclick="load('geo_cours')">Cours Complet</a>
                 
                 <div class="lvl-2-header"><i class="fas fa-pen-fancy"></i> Exercices</div>
-                <a class="lvl-3-item exe-item" onclick="load('geo_ex1')">Exercice 1</a>
-                <a class="lvl-3-item exe-item" onclick="load('geo_ex2')">Exercice 2</a>
-                <a class="lvl-3-item exe-item" onclick="load('geo_ex3')">Exercice 3</a>
-                <a class="lvl-3-item exe-item" onclick="load('geo_ex4')">Exercice 4</a>
-                <a class="lvl-3-item exe-item" onclick="load('geo_ex5')">Exercice 5</a>
+                <a class="lvl-3-item exe-item" onclick="load('geo_exos', 'ex1')">Série d'exercices</a>
 
                 <div class="lvl-2-header"><i class="fas fa-medal"></i> Évaluations</div>
                 <a class="lvl-3-item training" onclick="loadTraining('geo')">Test d'entraînement</a>
-            </div>
-        </div>
-
-        <div class="chapter-box">
-            <button class="lvl-1-btn" onclick="toggleMenu(this)">
-                <span><i class="fas fa-chart-line"></i> &nbsp; Fonctions</span>
-                <i class="fas fa-chevron-down chevron"></i>
-            </button>
-            <div class="lvl-2-container">
-                <div class="lvl-2-header"><i class="fas fa-book-open"></i> Cours</div>
-                <a class="lvl-3-item" onclick="load('func_theoremes')">Rolle & TAF</a>
-                <a class="lvl-3-item" onclick="load('func_taylor')">Taylor & Reste</a>
-                
-                <div class="lvl-2-header"><i class="fas fa-pen-fancy"></i> Exercices</div>
-                <a class="lvl-3-item exe-item" onclick="load('func_ex1')">Exercice 1</a>
-                <a class="lvl-3-item exe-item" onclick="load('func_ex2')">Exercice 2</a>
-                <a class="lvl-3-item exe-item" onclick="load('func_ex3')">Exercice 3</a>
-                <a class="lvl-3-item exe-item" onclick="load('func_ex4')">Exercice 4</a>
-                <a class="lvl-3-item exe-item" onclick="load('func_ex5')">Exercice 5</a>
-
-                <div class="lvl-2-header"><i class="fas fa-medal"></i> Évaluations</div>
-                <a class="lvl-3-item training" onclick="loadTraining('func')">Test d'entraînement</a>
             </div>
         </div>
     </nav>
@@ -235,7 +200,7 @@
             <div class="banner">
                 <h1 style="font-size: 2.8rem; margin: 0; letter-spacing: -1px;">Espace de Travail</h1>
                 <p style="opacity: 0.9; font-size: 1.2rem; margin-top: 10px; max-width: 700px;">
-                    Structure complète : Cours théoriques approfondis, séries d'exercices d'application et tests d'entraînement en temps réel.
+                    Sélectionnez un chapitre dans le menu latéral pour commencer vos révisions.
                 </p>
             </div>
         </div>
@@ -254,7 +219,7 @@
         container.classList.toggle('open');
     }
 
-    async function load(file) {
+    async function load(file, anchor = null) {
         if (window.innerWidth <= 900) {
             document.getElementById('sidebar').classList.remove('active');
             document.getElementById('mobileOverlay').classList.remove('active');
@@ -263,20 +228,38 @@
         target.style.opacity = '0.3';
         try {
             const response = await fetch(`content/${file}.html`);
-            const html = response.ok ? await response.text() : `<div class="banner" style="background:#ef4444;"><h1>Module en construction</h1><p>Le fichier ${file}.html sera bientôt disponible.</p></div>`;
+            const html = response.ok ? await response.text() : `<div class="banner" style="background:#ef4444;"><h1>Fichier introuvable</h1><p>Vérifiez que content/${file}.html existe.</p></div>`;
             target.innerHTML = html;
-            if (window.MathJax) MathJax.typesetPromise([target]);
-            document.getElementById('main').scrollTo(0, 0);
+            
+            if (window.MathJax) {
+                await MathJax.typesetPromise([target]);
+            }
+
+            // Gestion du scroll vers l'exercice spécifique
+            if (anchor) {
+                setTimeout(() => {
+                    const el = document.getElementById(anchor);
+                    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }, 100);
+            } else {
+                document.getElementById('main').scrollTo(0, 0);
+            }
         } catch (e) { console.error(e); }
         setTimeout(() => target.style.opacity = '1', 50);
     }
 
     function loadTraining(subject) {
-        const rand = Math.random();
-        let fileToLoad = rand < 0.25 ? `${subject}_training_pro` : `${subject}_training_v${Math.floor(Math.random() * 3) + 1}`;
-        load(fileToLoad);
+        load(`${subject}_training_pro`);
     }
 
+    function toggleCorrection(btn) {
+        const correctionDiv = btn.nextElementSibling;
+        const isHidden = correctionDiv.style.display === "none" || correctionDiv.style.display === "";
+        correctionDiv.style.display = isHidden ? "block" : "none";
+        btn.innerHTML = isHidden ? '<i class="fas fa-eye-slash"></i> Masquer le corrigé' : '<i class="fas fa-eye"></i> Afficher le corrigé';
+    }
+
+    // Fonctions pour le QCM Training
     function checkAnswer(button, isCorrect) {
         const container = button.parentElement;
         const allButtons = container.querySelectorAll('.opt-btn');
@@ -293,31 +276,15 @@
     function calculateScore() {
         const totalQuestions = document.querySelectorAll('.qcm-box').length;
         const correctAnswers = document.querySelectorAll('.opt-btn.correct.selected').length;
-        
-        let submitBtn = document.getElementById('submit-btn');
-        if(submitBtn) submitBtn.style.display = 'none';
-        
         let scoreDisplay = document.getElementById('score-display');
         if(scoreDisplay) {
-            scoreDisplay.style.display = 'flex';
-            scoreDisplay.style.flexDirection = 'column';
-            scoreDisplay.style.alignItems = 'center';
-            scoreDisplay.innerHTML = `
-                <div style="width: 140px; height: 140px; border-radius: 50%; border: 6px solid var(--gold-btn); display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 2.5rem; font-weight: 800; color: var(--navy-dark); background: white; box-shadow: var(--shadow-md);">
-                    ${correctAnswers}<span style="font-size: 1rem; color: var(--text-muted); margin-top: -5px;">/${totalQuestions}</span>
-                </div>
-            `;
+            scoreDisplay.style.display = 'block';
+            scoreDisplay.innerHTML = `<div class="qcm-box" style="text-align:center; border-left:6px solid #10b981;">
+                <h2>Résultat Final</h2>
+                <p style="font-size:2rem; font-weight:800;">${correctAnswers} / ${totalQuestions}</p>
+            </div>`;
+            scoreDisplay.scrollIntoView({ behavior: 'smooth' });
         }
-        
-        document.getElementById('congrats-msg').style.display = 'block';
-        scoreDisplay.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    }
-
-    function toggleCorrection(btn) {
-        const correctionDiv = btn.nextElementSibling;
-        const isHidden = correctionDiv.style.display === "none" || correctionDiv.style.display === "";
-        correctionDiv.style.display = isHidden ? "block" : "none";
-        btn.innerHTML = isHidden ? '<i class="fas fa-eye-slash"></i> Masquer le corrigé' : '<i class="fas fa-eye"></i> Afficher le corrigé';
     }
 </script>
 
