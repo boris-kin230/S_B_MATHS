@@ -1,6 +1,15 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body style="background-color: #f1f5f9; font-family: 'Segoe UI', system-ui, sans-serif; padding: 20px;">
+
 <div class="hero-banner" style="background: linear-gradient(135deg, #1a202c, #2b6cb0); padding: 50px 20px; border-radius: 15px; color: white; text-align: center; margin-bottom: 40px; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);">
     <h1 style="margin:0; font-size: 2.5rem; letter-spacing: -1px;"><i class="fas fa-graduation-cap"></i> Polynômes : Expert PCSI</h1>
-    <p style="opacity:0.9; margin-top:15px; font-size: 1.2rem; font-weight: 300;">Série Intensive & Algorithmes — 65 Questions de Haut Niveau</p>
+    <p style="opacity:0.9; margin-top:15px; font-size: 1.2rem; font-weight: 300;">Série Intensive & Algorithmes — 40 Questions de Haut Niveau</p>
 </div>
 
 <style>
@@ -116,136 +125,147 @@
 
 <div class="qcm-card">
     <div class="exo-header">
-        <span class="exo-badge">DS Type</span>
-        <span class="exo-title">I. Division Euclidienne & Paramètres</span>
+        <span class="exo-badge">Thème 1</span>
+        <span class="exo-title">I. Divisions & Congruences Polynomiales</span>
     </div>
     <div class="exo-content">
-        1. Soit $P = (X-2)^{2n} + (X-1)^n - 1$. Montrer que $P$ est divisible par $(X-1)(X-2)$.<br>
-        2. Déterminer le reste de la division de $X^n$ par $X^2-3X+2$.<br>
-        3. <strong>Application complexe :</strong> Trouver le reste de $P = (\cos \theta + X \sin \theta)^n$ par $X^2+1$.
+        1. Trouver le reste de $X^n$ par $X^2-3X+2$ pour $n \ge 2$.<br>
+        2. Déterminer $n \in \mathbb{N}$ tel que $(X+1)^n - X^n - 1$ soit divisible par $X^2+X+1$.<br>
+        3. Soit $a \in \mathbb{R}$. Reste de la division de $(\cos a + X \sin a)^n$ par $X^2+1$.<br>
+        4. Montrer que $X^2+X+1$ divise $X^{3n+2} + X^{3m+1} + 1$.<br>
+        5. Trouver le reste de $X^{2n} + 2X^n + 1$ par $(X-1)^2$.<br>
+        6. PGCD de $X^n-1$ et $X^m-1$ en fonction de $\text{pgcd}(n,m)$.<br>
+        7. Condition sur $n$ pour que $(X-1)^n$ divise $X^n-1$.
     </div>
     <button class="btn-reveal" onclick="toggleDisplay(this)">
-        <i class="fas fa-eye"></i> Voir la démonstration détaillée
-    </button>
-    <div class="correction-block">
-        <strong>Corrigé détaillé :</strong><br>
-        1. Évaluons $P$ aux racines du diviseur : <br>
-        - En $X=1$ : $P(1) = (1-2)^{2n} + (1-1)^n - 1 = (-1)^{2n} - 1 = 1 - 1 = 0$.<br>
-        - En $X=2$ : $P(2) = (2-2)^{2n} + (2-1)^n - 1 = 1^n - 1 = 0$.<br>
-        $P$ s'annule en 1 et 2, donc $(X-1)(X-2)$ divise $P$.<br><br>
-        2. $X^2-3X+2 = (X-1)(X-2)$. Le reste est de la forme $R = aX + b$.<br>
-        - $X=1 \implies 1^n = a + b$<br>
-        - $X=2 \implies 2^n = 2a + b$<br>
-        Par soustraction : $a = 2^n - 1$ et $b = 1 - (2^n - 1) = 2 - 2^n$.<br>
-        <span class="math-expr">$R(X) = (2^n - 1)X + (2 - 2^n)$</span>
-        3. Les racines de $X^2+1$ sont $i$ et $-i$. Posons $R = aX + b$.<br>
-        $P(i) = (\cos \theta + i \sin \theta)^n = (e^{i\theta})^n = e^{in\theta} = \cos(n\theta) + i\sin(n\theta)$.<br>
-        Or $P(i) = R(i) = ai + b$. Par identification :<br>
-        <span class="math-expr">$R(X) = \sin(n\theta)X + \cos(n\theta)$</span>
-    </div>
-</div>
-
-<div class="qcm-card">
-    <div class="exo-header">
-        <span class="exo-badge">Expert</span>
-        <span class="exo-title">II. Polynômes de Tchebychev $T_n$</span>
-    </div>
-    <div class="exo-content">
-        1. Justifier la relation $T_{n+1} = 2XT_n - T_{n-1}$.<br>
-        2. Déterminer les racines de $T_n$ et montrer qu'elles sont dans $]-1, 1[$.<br>
-        3. Étudier la parité de $T_n$.
-    </div>
-    <button class="btn-reveal" onclick="toggleDisplay(this)">
-        <i class="fas fa-eye"></i> Afficher l'analyse graphique et algébrique
-    </button>
-    <div class="correction-block">
-        <strong>Analyse :</strong><br>
-        1. On utilise $\cos(a+b) + \cos(a-b) = 2\cos a \cos b$. Avec $a = n\theta$ et $b = \theta$ :<br>
-        $\cos((n+1)\theta) + \cos((n-1)\theta) = 2\cos\theta \cos(n\theta)$. En posant $X = \cos\theta$, on a bien $T_{n+1} = 2XT_n - T_{n-1}$.<br>
-        2. $T_n(x) = 0 \iff \cos(n\theta) = 0 \iff n\theta = \frac{\pi}{2} + k\pi$.<br>
-        Les racines sont $x_k = \cos\left(\frac{2k+1}{2n}\pi\right)$ pour $k \in \{0, \dots, n-1\}$.<br>
-        Comme $\frac{2k+1}{2n}\pi \in ]0, \pi[$, les cosinus sont tous dans $]-1, 1[$.
-        <div class="img-placeholder">
-            
-            <br><em>Visualisation : Notez que toutes les racines sont réelles et que le polynôme oscille entre -1 et 1.</em>
-        </div>
-    </div>
-</div>
-
-<div class="qcm-card">
-    <div class="exo-header">
-        <span class="exo-badge">Technique</span>
-        <span class="exo-title">III. Racines et Multiplicité</span>
-    </div>
-    <div class="exo-content">
-        Soit $P = nX^{n+1} - (n+1)X^n + 1$.<br>
-        1. Montrer que 1 est racine de $P$.<br>
-        2. Déterminer son ordre de multiplicité.<br>
-        3. En déduire la factorisation de $P$ pour $n=2$.
-    </div>
-    <button class="btn-reveal" onclick="toggleDisplay(this)">
-        <i class="fas fa-eye"></i> Voir le calcul des dérivées
+        <i class="fas fa-eye"></i> Voir les calculs de division
     </button>
     <div class="correction-block">
         <strong>Corrigé :</strong><br>
-        1. $P(1) = n(1)^{n+1} - (n+1)(1)^n + 1 = n - n - 1 + 1 = 0$.<br>
-        2. Dérivons : $P' = n(n+1)X^n - n(n+1)X^{n-1}$.<br>
-        $P'(1) = n(n+1) - n(n+1) = 0$.<br>
-        $P'' = n^2(n+1)X^{n-1} - n(n+1)(n-1)X^{n-2}$.<br>
-        $P''(1) = n^2(n+1) - n(n^2-1) = n^3 + n^2 - n^3 + n = n^2 + n \neq 0$.<br>
-        La multiplicité est donc **exactement 2**.
-        <div class="img-placeholder">
-            
-            <br><em>Le graphe est tangent à l'axe des abscisses en $x=1$ sans le traverser (pour une racine double).</em>
-        </div>
+        1. $X^2-3X+2 = (X-1)(X-2)$. Soit $R=aX+b$. $R(1)=1^n, R(2)=2^n$. On trouve $R(X) = (2^n-1)X + (2-2^n)$.<br>
+        2. Les racines de $X^2+X+1$ sont $j$ et $j^2$. $(j+1)^n - j^n - 1 = 0 \iff (-j^2)^n - j^n - 1 = 0$. Vrai si $n \equiv 1, 5 \pmod 6$.<br>
+        3. $R(i) = (\cos a + i \sin a)^n = e^{ina} = \cos(na) + i \sin(na)$. $R(X) = \sin(na)X + \cos(na)$.<br>
+        4. Évaluer en $j$ : $j^{3n+2} + j^{3m+1} + 1 = j^2 + j + 1 = 0$.<br>
+        5. $R = P'(1)(X-1) + P(1) = (2n+2n)(X-1) + 4 = 4nX - 4n + 4$.<br>
+        6. Le PGCD est $X^{\text{pgcd}(n,m)}-1$.<br>
+        7. Uniquement pour $n=1$. Si $n \ge 2$, $(X-1)^2$ divise $X^n-1 \implies P'(1)=0 \implies n(1)^{n-1}=0$ (impossible).
     </div>
 </div>
 
 <div class="qcm-card">
     <div class="exo-header">
-        <span class="exo-badge">Expert</span>
-        <span class="exo-title">IV. Racines de l'Unité & D.E.S.</span>
+        <span class="exo-badge">Thème 2</span>
+        <span class="exo-title">II. Propriétés de Tchebychev & Orthogonalité</span>
     </div>
     <div class="exo-content">
-        Décomposer en éléments simples $F = \frac{1}{X^n-1}$ dans $\mathbb{C}(X)$.
+        1. Calculer $T_n(1)$ et $T_n(-1)$ pour tout $n$.<br>
+        2. Exprimer $T_n(x)$ pour $x > 1$ à l'aide des fonctions hyperboliques ($\text{ch}$).<br>
+        3. Montrer que $T_n$ est solution de $(1-X^2)y'' - Xy' + n^2y = 0$.<br>
+        4. Calculer le coefficient dominant de $T_n$ par récurrence.<br>
+        5. Montrer que $\int_{-1}^1 \frac{T_n(x)T_m(x)}{\sqrt{1-x^2}} dx = 0$ si $n \neq m$.<br>
+        6. Exprimer $T_{2n}$ en fonction de $T_n$.<br>
+        7. Résoudre $T_n(x) = 1$ dans $[-1, 1]$.
     </div>
     <button class="btn-reveal" onclick="toggleDisplay(this)">
-        <i class="fas fa-eye"></i> Voir la décomposition complexe
+        <i class="fas fa-eye"></i> Afficher l'analyse harmonique
     </button>
     <div class="correction-block">
-        <strong>Méthode des résidus :</strong><br>
-        Les pôles sont les $\omega_k = e^{i\frac{2k\pi}{n}}$. Ce sont des pôles simples.<br>
-        La partie entière est nulle car $\deg(1) < \deg(X^n-1)$.<br>
-        Le coefficient $\lambda_k$ associé au pôle $\omega_k$ est donné par $\frac{P(\omega_k)}{Q'(\omega_k)}$ :<br>
-        $\lambda_k = \frac{1}{n\omega_k^{n-1}} = \frac{\omega_k}{n\omega_k^n} = \frac{\omega_k}{n}$ (car $\omega_k^n = 1$).<br>
-        <span class="math-expr">$F(X) = \frac{1}{n} \sum_{k=0}^{n-1} \frac{e^{i\frac{2k\pi}{n}}}{X - e^{i\frac{2k\pi}{n}}}$</span>
-        <div class="img-placeholder">
-            
-            <br><em>Les pôles de la fraction sont les sommets d'un polygone régulier inscrit dans le cercle unité.</em>
-        </div>
+        <strong>Corrigé :</strong><br>
+        
+        1. $T_n(1)=\cos(n \cdot 0)=1$. $T_n(-1)=\cos(n\pi)=(-1)^n$.<br>
+        2. $T_n(x) = \text{ch}(n \text{argch} x)$ pour $|x| \ge 1$.<br>
+        3. Dériver deux fois $\cos(n\theta)$ par rapport à $\theta$ puis changer de variable $x=\cos \theta$.<br>
+        4. $\text{dom}(T_0)=1, \text{dom}(T_1)=1$. Pour $n \ge 1$, $\text{dom}(T_{n+1})=2 \cdot \text{dom}(T_n) = 2^n$.<br>
+        5. Changement de variable $x=\cos\theta$ : l'intégrale devient $\int_0^\pi \cos(n\theta)\cos(m\theta) d\theta$, qui est nulle par orthogonalité du cosinus.<br>
+        6. $\cos(2n\theta) = 2\cos^2(n\theta)-1 \implies T_{2n} = 2T_n^2 - 1$.<br>
+        7. $\cos(n\theta)=1 \iff n\theta \equiv 0 [2\pi]$. $x_k = \cos(\frac{2k\pi}{n})$ pour $k \in \{0, \dots, \lfloor n/2 \rfloor \}$.
     </div>
 </div>
 
 <div class="qcm-card">
     <div class="exo-header">
-        <span class="exo-badge">DS Type</span>
-        <span class="exo-title">V. Arithmétique & Bézout</span>
+        <span class="exo-badge">Thème 3</span>
+        <span class="exo-title">III. Multiplicité & Équations Différentielles</span>
     </div>
     <div class="exo-content">
-        Trouver les polynômes $U$ et $V$ tels que $(X^3-1)U + (X^2+1)V = 1$.
+        1. Montrer que si $P = (X-a)^k Q$, alors $P'(a) = P''(a) = \dots = P^{(k-1)}(a) = 0$.<br>
+        2. Soit $P = X^n + aX + b$. À quelle condition $P$ admet-il une racine au moins double ?<br>
+        3. Montrer que $P = \sum_{k=0}^n \frac{X^k}{k!}$ n'admet aucune racine multiple dans $\mathbb{C}$.<br>
+        4. Soit $P$ tel que $P' | P$. Montrer que $P = \lambda(X-a)^n$.<br>
+        5. Déterminer $P$ de degré $n$ tel que $P(X+1) - P(X) = X^{n-1}$.<br>
+        6. Trouver les racines de $P'$ pour $P = (X-1)^n(X+1)^n$.<br>
+        7. Étude de $P = (X-1)^3(X+2)^2$ : allure du graphe au voisinage des racines.
     </div>
     <button class="btn-reveal" onclick="toggleDisplay(this)">
-        <i class="fas fa-eye"></i> Algorithme d'Euclide étendu
+        <i class="fas fa-eye"></i> Voir le détail des multiplicités
     </button>
     <div class="correction-block">
-        <strong>Étapes de calcul :</strong><br>
-        1. $X^3-1 = X(X^2+1) + (-X-1)$<br>
-        2. $X^2+1 = (-X+1)(-X-1) + 2$<br>
-        On remonte :<br>
-        $2 = (X^2+1) - (-X+1)(-X-1)$<br>
-        $2 = (X^2+1) - (-X+1)[(X^3-1) - X(X^2+1)]$<br>
-        En regroupant les termes :<br>
-        <span class="math-expr">$1 = \frac{1}{2}(X-1)(X^3-1) + \frac{1}{2}(-X^2+X+1)(X^2+1)$</span>
+        <strong>Corrigé :</strong><br>
+        1. Propriété classique du cours (formule de Taylor pour les polynômes).<br>
+        2. $P'(x) = nX^{n-1}+a$. Racine double si $x = (-a/n)^{1/(n-1)}$ et $P(x)=0$. Condition : $(\frac{a}{n})^n + (\frac{b}{n-1})^{n-1} = 0$ (pour $n=2$, $\Delta=0$).<br>
+        3. $P' = P - \frac{X^n}{n!}$. Si $P(z)=P'(z)=0$, alors $z^n=0 \implies z=0$. Mais $P(0)=1 \neq 0$.<br>
+        4. $P/P'$ est un polynôme de degré 1. Soit $P/P' = \frac{1}{n}(X-a)$. Par intégration, $\ln|P| = n \ln|X-a| + C$.<br>
+        5. Ce sont les polynômes liés aux sommes de puissances (Bernoulli).<br>
+        6. $P'$ s'annule en $\pm 1$ (multiplicité $n-1$) et les racines de $P'$ entre -1 et 1 par le théorème de Rolle.<br>
+        7. En $1$ : tangente horizontale et inflexion (car $k=3$ impair). En $-2$ : tangente horizontale simple (car $k=2$ pair, extrémum local).
+    </div>
+</div>
+
+<div class="qcm-card">
+    <div class="exo-header">
+        <span class="exo-badge">Thème 4</span>
+        <span class="exo-title">IV. Fractions Rationnelles & D.E.S.</span>
+    </div>
+    <div class="exo-content">
+        1. Décomposer $\frac{X^2+1}{(X-1)(X-2)(X-3)}$ dans $\mathbb{R}(X)$.<br>
+        2. Décomposer $\frac{1}{X^2(X+1)}$.<br>
+        3. Décomposer $\frac{X^n-1}{X-1}$ puis $\frac{1}{X^n-1}$ dans $\mathbb{C}(X)$.<br>
+        4. Calculer la somme $\sum_{k=1}^n \frac{1}{k(k+1)(k+2)}$ par D.E.S.<br>
+        5. Montrer que $\sum_{k=0}^{n-1} e^{i\frac{2k\pi}{n}} = 0$ en utilisant $\frac{1}{X^n-1}$.<br>
+        6. Décomposer $\frac{1}{(X^2+1)^2}$ dans $\mathbb{C}(X)$.<br>
+        7. Déterminer la partie entière de $\frac{X^4+X^2+1}{X^2-1}$.
+    </div>
+    <button class="btn-reveal" onclick="toggleDisplay(this)">
+        <i class="fas fa-eye"></i> Afficher les résidus
+    </button>
+    <div class="correction-block">
+        <strong>Corrigé :</strong><br>
+        1. $F = \frac{1}{X-1} - \frac{5}{X-2} + \frac{5}{X-3}$ (méthode de "cache-cache").<br>
+        2. $F = \frac{a}{X} + \frac{b}{X^2} + \frac{c}{X+1} = -\frac{1}{X} + \frac{1}{X^2} + \frac{1}{X+1}$.<br>
+        3. La première est $1+X+\dots+X^{n-1}$. La seconde est $\frac{1}{n}\sum \frac{\omega_k}{X-\omega_k}$.<br>
+        4. $\frac{1}{k(k+1)(k+2)} = \frac{1/2}{k} - \frac{1}{k+1} + \frac{1/2}{k+2}$. Somme télescopique : $\frac{1}{4} - \frac{1}{2(n+1)(n+2)}$.<br>
+        5. C'est la somme des coefficients de la D.E.S. de $\frac{1}{X^n-1}$.<br>
+        6. $\frac{1}{(X-i)^2(X+i)^2} = \dots = -\frac{1}{4}(\frac{1}{(X-i)^2} + \frac{1}{(X+i)^2} + \frac{i}{X-i} - \frac{i}{X+i})$.<br>
+        7. Par division euclidienne : $X^4+X^2+1 = (X^2-1)(X^2+2) + 3$. Partie entière $X^2+2$.
+    </div>
+</div>
+
+<div class="qcm-card">
+    <div class="exo-header">
+        <span class="exo-badge">Thème 5</span>
+        <span class="exo-title">V. Interpolation & Algorithmique</span>
+    </div>
+    <div class="exo-content">
+        1. Trouver le polynôme $P$ de degré 2 tel que $P(0)=1, P(1)=2, P(2)=4$.<br>
+        2. Soient $x_0, \dots, x_n$ distincts. Montrer que $\sum_{i=0}^n L_i(X) = 1$.<br>
+        3. Calculer $\sum_{i=0}^n x_i^k L_i(0)$ pour $k \le n$.<br>
+        4. Algorithme d'Euclide étendu : Trouver $U, V$ pour $X^2+1$ et $X^2+X$.<br>
+        5. Soit $P \in \mathbb{R}_n[X]$. Montrer que s'il s'annule en $n+1$ points, il est nul.<br>
+        6. Construire le polynôme d'interpolation de Lagrange pour la fonction carré aux points $-1, 0, 1$.<br>
+        7. Complexité de l'évaluation d'un polynôme par la méthode de Horner.
+    </div>
+    <button class="btn-reveal" onclick="toggleDisplay(this)">
+        <i class="fas fa-eye"></i> Voir les algorithmes
+    </button>
+    <div class="correction-block">
+        <strong>Corrigé :</strong><br>
+        1. $P(X) = \frac{1}{2}X^2 + \frac{1}{2}X + 1$.<br>
+        2. C'est le polynôme d'interpolation de la fonction constante $f(x)=1$. Par unicité, c'est $1$.<br>
+        3. C'est la valeur en $0$ du polynôme qui interpole $x \mapsto x^k$, donc $0$ si $k \ge 1$ et $1$ si $k=0$.<br>
+        4. $X^2+X = 1(X^2+1) + (X-1)$ ; $X^2+1 = (X+1)(X-1) + 2$. On remonte : $U = -\frac{1}{2}(X+1), V = \frac{1}{2}$.<br>
+        5. Théorème fondamental de l'algèbre ou Vandermonde.<br>
+        6. $L_{-1} = \frac{X(X-1)}{2}, L_0 = -(X+1)(X-1), L_1 = \frac{X(X+1)}{2}$. $P = 1 \cdot L_{-1} + 0 \cdot L_0 + 1 \cdot L_1 = X^2$.<br>
+        7. $n$ multiplications et $n$ additions. C'est optimal.
     </div>
 </div>
 
@@ -266,3 +286,6 @@
         }
     }
 </script>
+
+</body>
+</html>
