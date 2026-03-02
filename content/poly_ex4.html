@@ -1,0 +1,111 @@
+<div class="banner">
+    <h1 style="font-size: 2rem; margin: 0;">Exercice 4 : Interpolation & Taylor</h1>
+    <p style="opacity: 0.9;">Construction de polynômes et développements locaux.</p>
+</div>
+
+<div class="qcm-box">
+    <div class="qcm-question">1. Quel est le degré du polynôme d'interpolation de Lagrange passant par $n+1$ points ?</div>
+    <div class="qcm-grid">
+        <button class="opt-btn" onclick="checkAnswer(this, false)">$n+1$</button>
+        <button class="opt-btn" onclick="checkAnswer(this, true)">Au plus $n$</button>
+        <button class="opt-btn" onclick="checkAnswer(this, false)">$n^2$</button>
+    </div>
+    <button class="share-btn email" style="margin-top:15px; background: var(--navy-dark);" onclick="toggleCorrection(this)">
+        <i class="fas fa-eye"></i> Afficher le corrigé
+    </button>
+    <div class="correction-content" style="display:none; margin-top:15px; padding:15px; background:#f8fafc; border-left:4px solid var(--gold-btn);">
+        Il existe un unique polynôme de degré $\le n$ passant par $n+1$ points distincts.
+    </div>
+</div>
+
+<div class="qcm-box">
+    <div class="qcm-question">2. La formule de Taylor pour un polynôme $P$ au point $a$ est :</div>
+    <div class="qcm-grid">
+        <button class="opt-btn" onclick="checkAnswer(this, true)">$P(X) = \sum_{k=0}^n \frac{P^{(k)}(a)}{k!} (X-a)^k$</button>
+        <button class="opt-btn" onclick="checkAnswer(this, false)">$P(X) = \sum P(k) X^k$</button>
+    </div>
+    <button class="share-btn email" style="margin-top:15px; background: var(--navy-dark);" onclick="toggleCorrection(this)">
+        <i class="fas fa-eye"></i> Afficher le corrigé
+    </button>
+    <div class="correction-content" style="display:none; margin-top:15px; padding:15px; background:#f8fafc; border-left:4px solid var(--gold-btn);">
+        Contrairement aux fonctions, cette somme est finie pour les polynômes.
+    </div>
+</div>
+
+<div class="qcm-box">
+    <div class="qcm-question">3. Les polynômes de base de Lagrange $L_i$ vérifient $L_i(x_j) = \dots$</div>
+    <div class="qcm-grid">
+        <button class="opt-btn" onclick="checkAnswer(this, false)">$0$ toujours</button>
+        <button class="opt-btn" onclick="checkAnswer(this, true)">$\delta_{i,j}$ (1 si $i=j$, 0 sinon)</button>
+        <button class="opt-btn" onclick="checkAnswer(this, false)">$x_i$</button>
+    </div>
+    <button class="share-btn email" style="margin-top:15px; background: var(--navy-dark);" onclick="toggleCorrection(this)">
+        <i class="fas fa-eye"></i> Afficher le corrigé
+    </button>
+    <div class="correction-content" style="display:none; margin-top:15px; padding:15px; background:#f8fafc; border-left:4px solid var(--gold-btn);">
+        C'est la propriété fondamentale qui permet de construire le polynôme global $P = \sum y_i L_i$.
+    </div>
+</div>
+
+<div class="qcm-box">
+    <div class="qcm-question">4. Si $\deg(P) = n$, que vaut sa dérivée $(n+1)$-ième ?</div>
+    <div class="qcm-grid">
+        <button class="opt-btn" onclick="checkAnswer(this, true)">$0$</button>
+        <button class="opt-btn" onclick="checkAnswer(this, false)">$n!$</button>
+        <button class="opt-btn" onclick="checkAnswer(this, false)">$1$</button>
+    </div>
+    <button class="share-btn email" style="margin-top:15px; background: var(--navy-dark);" onclick="toggleCorrection(this)">
+        <i class="fas fa-eye"></i> Afficher le corrigé
+    </button>
+    <div class="correction-content" style="display:none; margin-top:15px; padding:15px; background:#f8fafc; border-left:4px solid var(--gold-btn);">
+        Chaque dérivation diminue le degré de 1. La dérivée d'une constante est nulle.
+    </div>
+</div>
+
+<div class="qcm-box">
+    <div class="qcm-question">5. Soit $P$ tel que $P(0)=1, P(1)=2, P(2)=3$. Quel est le candidat le plus simple ?</div>
+    <div class="qcm-grid">
+        <button class="opt-btn" onclick="checkAnswer(this, true)">$X+1$</button>
+        <button class="opt-btn" onclick="checkAnswer(this, false)">$X^2+1$</button>
+        <button class="opt-btn" onclick="checkAnswer(this, false)">$2X$</button>
+    </div>
+    <button class="share-btn email" style="margin-top:15px; background: var(--navy-dark);" onclick="toggleCorrection(this)">
+        <i class="fas fa-eye"></i> Afficher le corrigé
+    </button>
+    <div class="correction-content" style="display:none; margin-top:15px; padding:15px; background:#f8fafc; border-left:4px solid var(--gold-btn);">
+        Les points sont alignés, le polynôme d'interpolation est donc de degré 1.
+    </div>
+</div>
+
+<div class="qcm-box">
+    <div class="qcm-question">6. Le reste de Taylor est nul pour un polynôme car :</div>
+    <div class="qcm-grid">
+        <button class="opt-btn" onclick="checkAnswer(this, true)">Les dérivées d'ordre élevé sont nulles</button>
+        <button class="opt-btn" onclick="checkAnswer(this, false)">Le polynôme est continu</button>
+    </div>
+    <button class="share-btn email" style="margin-top:15px; background: var(--navy-dark);" onclick="toggleCorrection(this)">
+        <i class="fas fa-eye"></i> Afficher le corrigé
+    </button>
+    <div class="correction-content" style="display:none; margin-top:15px; padding:15px; background:#f8fafc; border-left:4px solid var(--gold-btn);">
+        C'est une propriété spécifique aux polynômes (fonctions polynomiales).
+    </div>
+</div>
+
+<div class="qcm-box">
+    <div class="qcm-question">7. Pour interpoler $P(0)=1$ et $P'(0)=2$, on utilise :</div>
+    <div class="qcm-grid">
+        <button class="opt-btn" onclick="checkAnswer(this, false)">Lagrange</button>
+        <button class="opt-btn" onclick="checkAnswer(this, true)">Hermite (ou Taylor)</button>
+        <button class="opt-btn" onclick="checkAnswer(this, false)">Euclide</button>
+    </div>
+    <button class="share-btn email" style="margin-top:15px; background: var(--navy-dark);" onclick="toggleCorrection(this)">
+        <i class="fas fa-eye"></i> Afficher le corrigé
+    </button>
+    <div class="correction-content" style="display:none; margin-top:15px; padding:15px; background:#f8fafc; border-left:4px solid var(--gold-btn);">
+        Quand on impose des valeurs sur les dérivées, on parle d'interpolation d'Hermite. Ici, Taylor donne $1+2X$.
+    </div>
+</div>
+
+<button id="submit-btn" class="btn-primary" onclick="calculateScore()">Valider mes réponses</button>
+<div id="score-display" style="display:none; margin-top:30px;"></div>
+<div id="congrats-msg" style="display:none;"></div>
