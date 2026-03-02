@@ -1,0 +1,111 @@
+<div class="banner">
+    <h1 style="font-size: 2rem; margin: 0;">Exercice 5 : Synthèse & Fractions</h1>
+    <p style="opacity: 0.9;">Fractions rationnelles et décomposition. Étape ultime.</p>
+</div>
+
+<div class="qcm-box">
+    <div class="qcm-question">1. Une fraction rationnelle est définie comme :</div>
+    <div class="qcm-grid">
+        <button class="opt-btn" onclick="checkAnswer(this, true)">Le quotient de deux polynômes $P/Q$</button>
+        <button class="opt-btn" onclick="checkAnswer(this, false)">Une fonction racine</button>
+        <button class="opt-btn" onclick="checkAnswer(this, false)">Un polynôme inversé</button>
+    </div>
+    <button class="share-btn email" style="margin-top:15px; background: var(--navy-dark);" onclick="toggleCorrection(this)">
+        <i class="fas fa-eye"></i> Afficher le corrigé
+    </button>
+    <div class="correction-content" style="display:none; margin-top:15px; padding:15px; background:#f8fafc; border-left:4px solid var(--gold-btn);">
+        $F \in \mathbb{K}(X)$ est de la forme $P/Q$ avec $Q \neq 0$.
+    </div>
+</div>
+
+<div class="qcm-box">
+    <div class="qcm-question">2. La partie entière d'une fraction $P/Q$ est non nulle si :</div>
+    <div class="qcm-grid">
+        <button class="opt-btn" onclick="checkAnswer(this, true)">$\deg(P) \ge \deg(Q)$</button>
+        <button class="opt-btn" onclick="checkAnswer(this, false)">$\deg(P) < \deg(Q)$</button>
+        <button class="opt-btn" onclick="checkAnswer(this, false)">$Q$ divise $P$</button>
+    </div>
+    <button class="share-btn email" style="margin-top:15px; background: var(--navy-dark);" onclick="toggleCorrection(this)">
+        <i class="fas fa-eye"></i> Afficher le corrigé
+    </button>
+    <div class="correction-content" style="display:none; margin-top:15px; padding:15px; background:#f8fafc; border-left:4px solid var(--gold-btn);">
+        On l'obtient par la division euclidienne de $P$ par $Q$.
+    </div>
+</div>
+
+<div class="qcm-box">
+    <div class="qcm-question">3. Les pôles d'une fraction rationnelle $P/Q$ (irréductible) sont :</div>
+    <div class="qcm-grid">
+        <button class="opt-btn" onclick="checkAnswer(this, false)">Les racines de $P$</button>
+        <button class="opt-btn" onclick="checkAnswer(this, true)">Les racines de $Q$</button>
+        <button class="opt-btn" onclick="checkAnswer(this, false)">Les valeurs où $F=0$</button>
+    </div>
+    <button class="share-btn email" style="margin-top:15px; background: var(--navy-dark);" onclick="toggleCorrection(this)">
+        <i class="fas fa-eye"></i> Afficher le corrigé
+    </button>
+    <div class="correction-content" style="display:none; margin-top:15px; padding:15px; background:#f8fafc; border-left:4px solid var(--gold-btn);">
+        Un pôle est une valeur qui annule le dénominateur.
+    </div>
+</div>
+
+<div class="qcm-box">
+    <div class="qcm-question">4. Décomposition de $\frac{1}{X^2-1}$ dans $\mathbb{R}(X)$ :</div>
+    <div class="qcm-grid">
+        <button class="opt-btn" onclick="checkAnswer(this, true)">$\frac{1/2}{X-1} - \frac{1/2}{X+1}$</button>
+        <button class="opt-btn" onclick="checkAnswer(this, false)">$\frac{1}{X-1} + \frac{1}{X+1}$</button>
+    </div>
+    <button class="share-btn email" style="margin-top:15px; background: var(--navy-dark);" onclick="toggleCorrection(this)">
+        <i class="fas fa-eye"></i> Afficher le corrigé
+    </button>
+    <div class="correction-content" style="display:none; margin-top:15px; padding:15px; background:#f8fafc; border-left:4px solid var(--gold-btn);">
+        En multipliant par $(X-1)$ et en posant $X=1$, on trouve le coefficient $1/2$.
+    </div>
+</div>
+
+<div class="qcm-box">
+    <div class="qcm-question">5. Une fraction est dite "propre" si :</div>
+    <div class="qcm-grid">
+        <button class="opt-btn" onclick="checkAnswer(this, false)">Elle est égale à son inverse</button>
+        <button class="opt-btn" onclick="checkAnswer(this, true)">$\deg(P) < \deg(Q)$</button>
+        <button class="opt-btn" onclick="checkAnswer(this, false)">Elle n'a pas de pôles</button>
+    </div>
+    <button class="share-btn email" style="margin-top:15px; background: var(--navy-dark);" onclick="toggleCorrection(this)">
+        <i class="fas fa-eye"></i> Afficher le corrigé
+    </button>
+    <div class="correction-content" style="display:none; margin-top:15px; padding:15px; background:#f8fafc; border-left:4px solid var(--gold-btn);">
+        Sa partie entière est alors nulle.
+    </div>
+</div>
+
+<div class="qcm-box">
+    <div class="qcm-question">6. Dans $\mathbb{C}(X)$, les éléments simples sont tous de la forme :</div>
+    <div class="qcm-grid">
+        <button class="opt-btn" onclick="checkAnswer(this, true)">$\frac{\lambda}{(X-a)^k}$</button>
+        <button class="opt-btn" onclick="checkAnswer(this, false)">$\frac{AX+B}{X^2+1}$</button>
+    </div>
+    <button class="share-btn email" style="margin-top:15px; background: var(--navy-dark);" onclick="toggleCorrection(this)">
+        <i class="fas fa-eye"></i> Afficher le corrigé
+    </button>
+    <div class="correction-content" style="display:none; margin-top:15px; padding:15px; background:#f8fafc; border-left:4px solid var(--gold-btn);">
+        Car dans $\mathbb{C}[X]$, tous les polynômes irréductibles sont de degré 1.
+    </div>
+</div>
+
+<div class="qcm-box">
+    <div class="qcm-question">7. La décomposition en éléments simples est utile pour :</div>
+    <div class="qcm-grid">
+        <button class="opt-btn" onclick="checkAnswer(this, false)">Multiplier des polynômes</button>
+        <button class="opt-btn" onclick="checkAnswer(this, true)">Calculer des primitives ou des dérivées $n$-ièmes</button>
+        <button class="opt-btn" onclick="checkAnswer(this, false)">Résoudre des systèmes linéaires</button>
+    </div>
+    <button class="share-btn email" style="margin-top:15px; background: var(--navy-dark);" onclick="toggleCorrection(this)">
+        <i class="fas fa-eye"></i> Afficher le corrigé
+    </button>
+    <div class="correction-content" style="display:none; margin-top:15px; padding:15px; background:#f8fafc; border-left:4px solid var(--gold-btn);">
+        Elle transforme un produit complexe en une somme de termes simples faciles à manipuler.
+    </div>
+</div>
+
+<button id="submit-btn" class="btn-primary" onclick="calculateScore()">Valider mes réponses</button>
+<div id="score-display" style="display:none; margin-top:30px;"></div>
+<div id="congrats-msg" style="display:none;"></div>
