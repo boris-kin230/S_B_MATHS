@@ -23,11 +23,11 @@
     
     <style>
         :root {
-            --navy-dark: #0a0f1d;      
-            --navy-main: #111827;      
-            --gold-btn: #eab308;       
-            --gold-hover: #facc15;     
-            --gold-muted: #c6a052;     
+            --navy-dark: #0a0f1d;     
+            --navy-main: #111827;     
+            --gold-btn: #eab308;      
+            --gold-hover: #facc15;    
+            --gold-muted: #c6a052;    
             --bg-page: #f8fafc;        
             --surface: #ffffff;        
             --text-main: #1e293b;
@@ -127,6 +127,7 @@
         }
 
         .chap-toggle:hover { background: #f1f5f9; }
+        
         .chap-toggle i.main-icon { width: 25px; color: var(--gold-muted); }
 
         .chap-content {
@@ -204,6 +205,85 @@
 
         .hero-banner h1 { margin: 0; font-size: 2.2rem; font-weight: 800; letter-spacing: -1px; }
         .hero-banner p { opacity: 0.8; margin-top: 10px; font-size: 1.1rem; }
+
+        /* --- DESIGN QCM PRESTIGE --- */
+        .qcm-card {
+            background: var(--surface);
+            border-radius: var(--radius);
+            padding: 35px;
+            margin-bottom: 25px;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border);
+            transition: var(--transition);
+        }
+
+        .qcm-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+
+        .qcm-question {
+            font-size: 1.15rem;
+            font-weight: 700;
+            margin-bottom: 25px;
+            line-height: 1.5;
+            color: var(--navy-dark);
+        }
+
+        .options-grid {
+            display: grid;
+            gap: 12px;
+        }
+
+        .opt-btn {
+            padding: 16px 22px;
+            border-radius: 12px;
+            border: 2px solid var(--border);
+            background: white;
+            cursor: pointer;
+            text-align: left;
+            font-family: inherit;
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--text-main);
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+        }
+
+        .opt-btn:hover:not(:disabled) {
+            border-color: var(--gold-muted);
+            background: #fffdf5;
+            transform: translateX(5px);
+        }
+
+        .opt-btn.correct {
+            background: #ecfdf5 !important;
+            border-color: #10b981 !important;
+            color: #065f46 !important;
+            font-weight: 700;
+        }
+
+        .opt-btn.wrong {
+            background: #fef2f2 !important;
+            border-color: #ef4444 !important;
+            color: #991b1b !important;
+        }
+
+        .opt-btn:disabled { cursor: default; }
+
+        .correction-box {
+            margin-top: 20px;
+            padding: 20px;
+            background: #f1f5f9;
+            border-radius: 10px;
+            display: none; /* Caché par défaut */
+            border-left: 4px solid var(--navy-main);
+            font-size: 0.95rem;
+            animation: fadeIn 0.4s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
 
         /* --- ACTIONS & SCORE --- */
         #score-zone { margin-top: 50px; }
@@ -288,6 +368,7 @@
                     
                     <p class="nav-section-title">Entraînement</p>
                     <a class="nav-link" onclick="loadPage('poly_exos')"><i class="fas fa-dumbbell"></i> Marathon 60 Questions</a>
+                    <a class="nav-link" onclick="loadPage('poly_exos_calc')"><i class="fas fa-calculator"></i> Calcul Technique</a>
                     <a class="nav-link" style="color:#059669; font-weight:700" onclick="loadTraining('poly')"><i class="fas fa-bolt"></i> Test Aléatoire</a>
                 </div>
             </div>
@@ -377,7 +458,6 @@
                 const html = await response.text();
                 container.innerHTML = html;
 
-                // Relancer MathJax pour transformer le LaTeX
                 if(window.MathJax) {
                     MathJax.typesetPromise([container]).catch(err => console.log(err));
                 }
@@ -387,8 +467,8 @@
             } catch (error) {
                 container.innerHTML = `
                     <div class="hero-banner" style="background:#ef4444; border-color:#991b1b">
-                        <h1>Erreur de module</h1>
-                        <p>Le fichier <b>content/${fileName}.html</b> est absent ou inaccessible.</p>
+                        <h1>Erreur 404</h1>
+                        <p>Le module <b>content/${fileName}.html</b> est introuvable.</p>
                     </div>`;
             }
         }
@@ -396,27 +476,39 @@
         function loadTraining(subject) {
             const versions = ['v1', 'v2', 'v3'];
             const randomVersion = versions[Math.floor(Math.random() * versions.length)];
-            loadPage(`${subject}_training_${randomVersion}`);
+            let finalName = `${subject}_training_${randomVersion}`;
+            loadPage(finalName);
         }
 
-        // --- MOTEUR QCM ---
+        // --- MOTEUR QCM CORRIGÉ ---
         function checkQCM(btn, isCorrect) {
             const card = btn.closest('.qcm-card');
+            if(!card) return;
+
             const allBtns = card.querySelectorAll('.opt-btn');
             
+            // 1. Désactiver tous les boutons pour empêcher de re-cliquer
             allBtns.forEach(b => b.disabled = true);
 
+            // 2. Marquer le bouton cliqué
             if(isCorrect) {
                 btn.classList.add('correct');
             } else {
                 btn.classList.add('wrong');
+                // Révéler la bonne réponse si l'utilisateur s'est trompé
                 allBtns.forEach(b => {
-                    if(b.getAttribute('onclick').includes('true')) b.classList.add('correct');
+                    // On cherche le bouton qui a l'argument 'true' dans son onclick
+                    if(b.getAttribute('onclick').includes('true')) {
+                        b.classList.add('correct');
+                    }
                 });
             }
 
+            // 3. Afficher la boîte de correction (si elle existe dans le HTML)
             const feedback = card.querySelector('.correction-box');
-            if(feedback) feedback.style.display = 'block';
+            if(feedback) {
+                feedback.style.display = 'block';
+            }
         }
 
         function finishQuiz() {
@@ -425,26 +517,25 @@
                     <div class="share-bar">
                         <div>
                             <h2 style="margin:0; color:var(--gold-btn)">Session Terminée</h2>
-                            <p style="margin:5px 0 0">Vos réponses ont été corrigées. Sauvegardez votre travail.</p>
+                            <p style="margin:5px 0 0">Votre progression a été enregistrée.</p>
                         </div>
                         <div style="display:flex; gap:10px;">
-                            <button class="share-btn btn-pdf" onclick="generatePDF()"><i class="fas fa-file-pdf"></i> Exporter PDF</button>
-                            <button class="share-btn btn-wa" onclick="shareWA()"><i class="fab fa-whatsapp"></i> Partager</button>
+                            <button class="share-btn btn-pdf" onclick="generatePDF()"><i class="fas fa-file-pdf"></i> PDF</button>
+                            <button class="share-btn btn-wa" onclick="shareWA()"><i class="fab fa-whatsapp"></i> WhatsApp</button>
                         </div>
                     </div>
-                </div>`;
-            
+                </div>
+            `;
             const container = document.getElementById('content-container');
             container.insertAdjacentHTML('beforeend', scoreHTML);
             document.getElementById('score-zone').scrollIntoView();
         }
 
-        // --- EXPORTS ---
         function generatePDF() {
             const element = document.getElementById('content-container');
             const opt = {
                 margin: 10,
-                filename: 'ElianMaths_Session.pdf',
+                filename: 'ElianMaths_Resultats.pdf',
                 image: { type: 'jpeg', quality: 0.98 },
                 html2canvas: { scale: 2 },
                 jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
@@ -453,7 +544,7 @@
         }
 
         function shareWA() {
-            const text = "Je viens de terminer une séance de maths sur Elian Maths PCSI !";
+            const text = "J'ai terminé ma session sur Elian Maths !";
             window.open(`https://wa.me/?text=${encodeURIComponent(text)}`);
         }
     </script>
