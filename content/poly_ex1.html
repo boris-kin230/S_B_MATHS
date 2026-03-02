@@ -1,0 +1,117 @@
+<div class="banner">
+    <h1 style="font-size: 2rem; margin: 0;">Exercice 1 : Division Euclidienne</h1>
+    <p style="opacity: 0.9;">Maîtriser l'algorithme de division et les restes remarquables.</p>
+</div>
+
+<div class="qcm-box">
+    <div class="qcm-question">1. Quel est le reste de la division euclidienne de $A = X^n$ par $B = X-1$ ?</div>
+    <div class="qcm-grid">
+        <button class="opt-btn" onclick="checkAnswer(this, false)">$0$</button>
+        <button class="opt-btn" onclick="checkAnswer(this, true)">$1$</button>
+        <button class="opt-btn" onclick="checkAnswer(this, false)">$n$</button>
+        <button class="opt-btn" onclick="checkAnswer(this, false)">$X-1$</button>
+    </div>
+    <button class="share-btn email" style="margin-top:15px; background: var(--navy-dark);" onclick="toggleCorrection(this)">
+        <i class="fas fa-eye"></i> Afficher le corrigé
+    </button>
+    <div class="correction-content" style="display:none; margin-top:15px; padding:15px; background:#f8fafc; border-left:4px solid var(--gold-btn);">
+        D'après le théorème du reste, le reste de la division de $P$ par $(X-a)$ est $P(a)$. Ici $A(1) = 1^n = 1$.
+    </div>
+</div>
+
+<div class="qcm-box">
+    <div class="qcm-question">2. Soit $A = X^4 + X^2 + 1$. Quelle est sa décomposition en produit de facteurs irréductibles dans $\mathbb{R}[X]$ ?</div>
+    <div class="qcm-grid">
+        <button class="opt-btn" onclick="checkAnswer(this, true)">$(X^2+X+1)(X^2-X+1)$</button>
+        <button class="opt-btn" onclick="checkAnswer(this, false)">$(X^2+1)^2$</button>
+        <button class="opt-btn" onclick="checkAnswer(this, false)">$(X^2+X-1)(X^2-X-1)$</button>
+        <button class="opt-btn" onclick="checkAnswer(this, false)">$(X-1)^2(X+1)^2$</button>
+    </div>
+    <button class="share-btn email" style="margin-top:15px; background: var(--navy-dark);" onclick="toggleCorrection(this)">
+        <i class="fas fa-eye"></i> Afficher le corrigé
+    </button>
+    <div class="correction-content" style="display:none; margin-top:15px; padding:15px; background:#f8fafc; border-left:4px solid var(--gold-btn);">
+        $X^4+X^2+1 = (X^4+2X^2+1) - X^2 = (X^2+1)^2 - X^2$. C'est une identité remarquable $a^2-b^2$.
+    </div>
+</div>
+
+<div class="qcm-box">
+    <div class="qcm-question">3. Si $B$ divise $A$, que peut-on dire du degré du reste $R$ ?</div>
+    <div class="qcm-grid">
+        <button class="opt-btn" onclick="checkAnswer(this, false)">$\deg(R) = \deg(B)$</button>
+        <button class="opt-btn" onclick="checkAnswer(this, true)">$R = 0$</button>
+        <button class="opt-btn" onclick="checkAnswer(this, false)">$\deg(R) < 0$</button>
+        <button class="opt-btn" onclick="checkAnswer(this, false)">$R = 1$</button>
+    </div>
+    <button class="share-btn email" style="margin-top:15px; background: var(--navy-dark);" onclick="toggleCorrection(this)">
+        <i class="fas fa-eye"></i> Afficher le corrigé
+    </button>
+    <div class="correction-content" style="display:none; margin-top:15px; padding:15px; background:#f8fafc; border-left:4px solid var(--gold-btn);">
+        Par définition, $B$ divise $A$ si et seulement si le reste de la division euclidienne est nul.
+    </div>
+</div>
+
+<div class="qcm-box">
+    <div class="qcm-question">4. Quel est le reste de $X^3 - 2X^2 + 3$ par $X^2-1$ ?</div>
+    <div class="qcm-grid">
+        <button class="opt-btn" onclick="checkAnswer(this, false)">$X+1$</button>
+        <button class="opt-btn" onclick="checkAnswer(this, true)">$X+1$ (après calcul)</button>
+        <button class="opt-btn" onclick="checkAnswer(this, false)">$X-5$</button>
+        <button class="opt-btn" onclick="checkAnswer(this, false)">$2$</button>
+    </div>
+    <button class="share-btn email" style="margin-top:15px; background: var(--navy-dark);" onclick="toggleCorrection(this)">
+        <i class="fas fa-eye"></i> Afficher le corrigé
+    </button>
+    <div class="correction-content" style="display:none; margin-top:15px; padding:15px; background:#f8fafc; border-left:4px solid var(--gold-btn);">
+        $X^3-2X^2+3 = X(X^2-1) - 2(X^2-1) + X + 1$. Le reste est donc $X+1$.
+    </div>
+</div>
+
+<div class="qcm-box">
+    <div class="qcm-question">5. Le polynôme $X^2+1$ est-il irréductible dans $\mathbb{C}[X]$ ?</div>
+    <div class="qcm-grid">
+        <button class="opt-btn" onclick="checkAnswer(this, false)">Oui</button>
+        <button class="opt-btn" onclick="checkAnswer(this, true)">Non</button>
+    </div>
+    <button class="share-btn email" style="margin-top:15px; background: var(--navy-dark);" onclick="toggleCorrection(this)">
+        <i class="fas fa-eye"></i> Afficher le corrigé
+    </button>
+    <div class="correction-content" style="display:none; margin-top:15px; padding:15px; background:#f8fafc; border-left:4px solid var(--gold-btn);">
+        Dans $\mathbb{C}[X]$, $X^2+1 = (X-i)(X+i)$. Il n'est donc pas irréductible.
+    </div>
+</div>
+
+<div class="qcm-box">
+    <div class="qcm-question">6. Quel est le degré du polynôme nul ?</div>
+    <div class="qcm-grid">
+        <button class="opt-btn" onclick="checkAnswer(this, false)">$0$</button>
+        <button class="opt-btn" onclick="checkAnswer(this, true)">$-\infty$</button>
+        <button class="opt-btn" onclick="checkAnswer(this, false)">$1$</button>
+        <button class="opt-btn" onclick="checkAnswer(this, false)">Indéfini</button>
+    </div>
+    <button class="share-btn email" style="margin-top:15px; background: var(--navy-dark);" onclick="toggleCorrection(this)">
+        <i class="fas fa-eye"></i> Afficher le corrigé
+    </button>
+    <div class="correction-content" style="display:none; margin-top:15px; padding:15px; background:#f8fafc; border-left:4px solid var(--gold-btn);">
+        Par convention en CPGE, $\deg(0) = -\infty$ pour préserver les formules de degré.
+    </div>
+</div>
+
+<div class="qcm-box">
+    <div class="qcm-question">7. Deux polynômes sont égaux si et seulement si :</div>
+    <div class="qcm-grid">
+        <button class="opt-btn" onclick="checkAnswer(this, false)">Ils ont les mêmes racines</button>
+        <button class="opt-btn" onclick="checkAnswer(this, true)">Leurs coefficients sont égaux</button>
+        <button class="opt-btn" onclick="checkAnswer(this, false)">Ils ont le même degré</button>
+    </div>
+    <button class="share-btn email" style="margin-top:15px; background: var(--navy-dark);" onclick="toggleCorrection(this)">
+        <i class="fas fa-eye"></i> Afficher le corrigé
+    </button>
+    <div class="correction-content" style="display:none; margin-top:15px; padding:15px; background:#f8fafc; border-left:4px solid var(--gold-btn);">
+        L'égalité des polynômes est définie par l'égalité de la suite de leurs coefficients.
+    </div>
+</div>
+
+<div id="score-display" style="display:none; margin-top:30px;"></div>
+<div id="congrats-msg" style="display:none;"></div>
+<button id="submit-btn" class="btn-primary" onclick="calculateScore()">Valider mes réponses</button>
