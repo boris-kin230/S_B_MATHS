@@ -4,183 +4,197 @@
 </div>
 
 <style>
-    :root {
-        --navy: #1a202c;
-        --gold: #d4af37;
-        --light-bg: #f8fafc;
-        --text-main: #2d3748;
-    }
-
     .qcm-card {
         background: white;
-        padding: 25px;
-        border-radius: 12px;
-        box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-        margin-bottom: 30px;
+        padding: 30px;
+        border-radius: 16px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        margin-bottom: 35px;
         border: 1px solid #e2e8f0;
+        transition: transform 0.2s ease;
+    }
+
+    .qcm-card:hover {
+        transform: translateY(-2px);
+    }
+
+    .exo-header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+        border-bottom: 2px solid #f1f5f9;
+        padding-bottom: 15px;
     }
 
     .exo-badge {
-        background: linear-gradient(135deg, var(--gold), #f1c40f);
-        color: var(--navy);
-        padding: 4px 12px;
-        border-radius: 6px;
+        background: linear-gradient(135deg, #eab308, #facc15);
+        color: #0f172a;
+        padding: 5px 15px;
+        border-radius: 8px;
         font-weight: 800;
-        font-size: 0.75rem;
+        font-size: 0.8rem;
         text-transform: uppercase;
-        margin-right: 10px;
+        margin-right: 15px;
+        box-shadow: 0 2px 4px rgba(234, 179, 8, 0.3);
     }
 
     .exo-title {
-        font-size: 1rem;
+        font-size: 1.1rem;
         font-weight: 700;
-        color: var(--navy);
-        letter-spacing: -0.5px;
+        color: #1e293b;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
     }
 
     .exo-content {
         margin: 20px 0;
-        line-height: 1.8;
-        color: var(--text-main);
+        line-height: 1.9;
+        color: #334155;
         font-size: 1.05rem;
     }
 
     .btn-reveal {
-        background: var(--navy);
-        color: var(--gold);
-        border: 1px solid var(--gold);
-        padding: 10px 20px;
-        border-radius: 8px;
+        background: #111827;
+        color: #eab308;
+        border: 1px solid #eab308;
+        padding: 12px 24px;
+        border-radius: 10px;
         cursor: pointer;
         font-weight: 600;
         font-size: 0.9rem;
         transition: all 0.3s ease;
-        display: flex;
+        display: inline-flex;
         align-items: center;
-        gap: 8px;
+        gap: 10px;
     }
 
     .btn-reveal:hover {
-        background: var(--gold);
-        color: var(--navy);
+        background: #eab308;
+        color: #111827;
     }
 
     .correction-block {
         display: none;
-        margin-top: 15px;
-        padding: 20px;
-        background: var(--light-bg);
-        border-left: 4px solid var(--gold);
-        border-radius: 0 8px 8px 0;
-        font-size: 0.95rem;
-        line-height: 1.6;
-        animation: slideDown 0.3s ease-out;
+        margin-top: 20px;
+        padding: 25px;
+        background: #f8fafc;
+        border-left: 5px solid #eab308;
+        border-radius: 4px 12px 12px 4px;
+        font-size: 1rem;
+        line-height: 1.7;
+        color: #1e293b;
+        animation: fadeIn 0.4s ease;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
     }
 
     .visual-help {
-        margin: 15px 0;
-        text-align: center;
+        margin-top: 15px;
+        padding: 10px;
+        background: #fff;
+        border: 1px dashed #cbd5e1;
+        border-radius: 8px;
         font-style: italic;
         color: #64748b;
-        font-size: 0.85rem;
-    }
-
-    @keyframes slideDown {
-        from { opacity: 0; transform: translateY(-10px); }
-        to { opacity: 1; transform: translateY(0); }
+        font-size: 0.9rem;
     }
 </style>
 
 <div class="qcm-card">
     <div class="exo-header">
         <span class="exo-badge">Exercice 1</span>
-        <span class="exo-title">POLYNÔMES DE TCHEBYCHEV $T_n$</span>
+        <span class="exo-title">Polynômes de Tchebychev $T_n$</span>
     </div>
     <div class="exo-content">
         1. Justifier l'existence de $T_n$ tel que $T_n(\cos \theta) = \cos(n\theta)$.<br>
         2. Calculer $T_0, T_1, T_2, T_3, T_4$.<br>
-        3. Démontrer $T_{n+2} = 2XT_{n+1} - T_n$.<br>
+        3. Démontrer la relation de récurrence : $T_{n+2} = 2XT_{n+1} - T_n$.<br>
         4. Déterminer le degré de $T_n$.<br>
-        5. Trouver le coefficient dominant de $T_n$.<br>
-        6. Calculer $T_n(1)$ et $T_n(-1)$.<br>
+        5. Trouver le coefficient dominant de $T_n$ pour $n \ge 1$.<br>
+        6. Calculer les valeurs particulières $T_n(1)$ et $T_n(-1)$.<br>
         7. Étudier la parité de $T_n$ en fonction de $n$.<br>
-        8. Déterminer les racines de $T_n$ dans $[-1, 1]$.<br>
-        9. Montrer que $|T_n(x)| \le 1$ pour $x \in [-1, 1]$.<br>
-        10. Exprimer $T_n'(1)$ en fonction de $n$.
+        8. Déterminer l'expression des $n$ racines de $T_n$ dans $[-1, 1]$.<br>
+        9. Montrer que $\forall x \in [-1, 1], |T_n(x)| \le 1$.<br>
+        10. Calculer la dérivée au bord : $T_n'(1)$.
     </div>
     <button class="btn-reveal" onclick="toggleLocalCorrection(this)">
         <i class="fas fa-eye"></i> Afficher le corrigé détaillé
     </button>
     <div class="correction-block">
-        <strong>Corrigé :</strong><br>
-        1. Utiliser $\cos(n\theta) = \text{Re}((\cos\theta+i\sin\theta)^n)$ et le binôme de Newton.<br>
+        <strong>Corrigé Stratégique :</strong><br>
+        1. Formule de Moivre + Binôme : $\cos(n\theta) = \sum_{2k \le n} \binom{n}{2k} (\cos\theta)^{n-2k} (\cos^2\theta - 1)^k$.<br>
         2. $T_0=1, T_1=X, T_2=2X^2-1, T_3=4X^3-3X, T_4=8X^4-8X^2+1$.<br>
         3. Linéarisation : $\cos(n+2)\theta + \cos(n\theta) = 2\cos\theta\cos(n+1)\theta$.<br>
-        4. $\deg(T_n)=n$ (récurrence). 5. $2^{n-1}$ ($n \ge 1$).<br>
-        6. $T_n(1)=1, T_n(-1)=(-1)^n$. 7. Parité de $n$.<br>
-        8. $x_k = \cos(\frac{(2k+1)\pi}{2n})$. 9. Immédiat via $\cos$. 10. $T_n'(1)=n^2$.
-        <div class="visual-help">
-            
-            <br><em>Note : Remarquez l'oscillation régulière entre -1 et 1.</em>
-        </div>
+        4. Par récurrence, $\deg(T_n)=n$. 5. Coeff dominant $\text{dom}(T_n) = 2^{n-1}$ pour $n \ge 1$.<br>
+        6. $T_n(1)=1$ et $T_n(-1)=(-1)^n$. 7. $T_n$ a la parité de $n$.<br>
+        8. $x_k = \cos\left(\frac{(2k+1)\pi}{2n}\right)$ pour $k \in \{0, \dots, n-1\}$.<br>
+        9. Vrai par définition sur $[-1, 1]$ car image d'un cosinus. 10. $T_n'(1)=n^2$.
     </div>
 </div>
 
 <div class="qcm-card">
     <div class="exo-header">
         <span class="exo-badge">Exercice 2</span>
-        <span class="exo-title">DIVISIONS ET ARITHMÉTIQUE</span>
+        <span class="exo-title">Divisions et Arithmétique</span>
     </div>
     <div class="exo-content">
-        1. Division de $X^4-3X^3+X+1$ par $X^2+1$.<br>
-        2. Reste de $X^n$ par $X-a$.<br>
-        3. Reste de $X^n$ par $(X-1)(X-2)$.<br>
-        4. Reste de $(X-2)^{2n} + (X-1)^n - 1$ par $(X-1)(X-2)$.<br>
-        5. $X^2+X+1$ divise $X^{3n+2} + X^{3m+1} + 1$.<br>
-        6. PGCD de $X^n-1$ et $X^m-1$.<br>
-        7. Bézout : $A(X-1) + B(X-2) = 1$.<br>
-        8. Reste de $P$ par $(X-a)^2$.<br>
-        9. Reste de $X^{n+2}+X^n+1$ par $X(X-1)$.<br>
-        10. Montrer $n|m \implies X^n-1 | X^m-1$.
+        1. Effectuer la division euclidienne de $X^4-3X^3+X+1$ par $X^2+1$.<br>
+        2. Quel est le reste de la division de $X^n$ par $(X-a)$ ?<br>
+        3. Déterminer le reste de $X^n$ par $(X-1)(X-2)$.<br>
+        4. Montrer que $(X-1)(X-2)$ divise $(X-2)^{2n} + (X-1)^n - 1$.<br>
+        5. Condition sur $n, m$ pour que $X^2+X+1$ divise $X^{3n+2} + X^{3m+1} + 1$.<br>
+        6. Calculer le $\text{pgcd}(X^n-1, X^m-1)$.<br>
+        7. Trouver $A, B$ tels que $A(X-1) + B(X-2) = 1$.<br>
+        8. Déterminer le reste de la division de $P$ par $(X-a)^2$.<br>
+        9. Reste de $X^{n+2}+X^n+1$ par $X^2-X$.<br>
+        10. Démontrer que si $n|m$, alors $X^n-1$ divise $X^m-1$.
     </div>
     <button class="btn-reveal" onclick="toggleLocalCorrection(this)">
         <i class="fas fa-eye"></i> Afficher le corrigé détaillé
     </button>
     <div class="correction-block">
-        <strong>Corrigé :</strong><br>
-        1. $Q=X^2-3X-1, R=4X+2$. 2. $R=a^n$.<br>
-        3. $R=(2^n-1)X + (2-2^n)$. 4. $P(1)=P(2)=0 \implies R=0$.<br>
-        5. Tester la racine $j$. 6. $X^{\text{pgcd}(n,m)}-1$. 7. $A=1, B=-1$.<br>
-        8. $R=P'(a)(X-a)+P(a)$. 9. $R=2X+1$. 10. Poser $m=nq$.
+        <strong>Corrigé Stratégique :</strong><br>
+        1. $Q=X^2-3X-1, R=4X+2$. 2. $R=P(a)=a^n$.<br>
+        3. $R = (2^n-1)X + (2-2^n)$ (via système $R(1)=1^n, R(2)=2^n$).<br>
+        4. Soit $P$ le polynôme. $P(1)=1+0-1=0$ et $P(2)=0+1-1=0$.<br>
+        5. Toujours vrai : tester la racine $j$ ($j^2+j+1=0$).<br>
+        6. $\text{pgcd} = X^{\text{pgcd}(n,m)}-1$. 7. $A=-1, B=1$.<br>
+        8. $R = P'(a)(X-a) + P(a)$. 9. $R=2X+1$ (évaluer en 0 et 1).<br>
+        10. Poser $m=nq$, alors $X^{nq}-1 = (X^n-1)(1 + X^n + \dots + X^{n(q-1)})$.
     </div>
 </div>
 
 <div class="qcm-card">
     <div class="exo-header">
         <span class="exo-badge">Exercice 3</span>
-        <span class="exo-title">RACINES ET FACTORISATION</span>
+        <span class="exo-title">Racines et Factorisation</span>
     </div>
     <div class="exo-content">
-        1. Multiplicité de 1 dans $X^{2n} - nX^{n+1} + nX^{n-1} - 1$.<br>
-        2. $a, b$ tels que $(X-1)^2 | aX^{n+1} + bX^n + 1$.<br>
-        3. Racines simples de l'exponentielle tronquée $\sum \frac{X^k}{k!}$.<br>
-        4. Factorisation de $X^4+1$ dans $\mathbb{R}[X]$.<br>
-        5. Factorisation de $X^n-1$ dans $\mathbb{C}[X]$.<br>
-        6. Somme des racines de $X^n+X+1=0$ ($n \ge 2$).<br>
-        7. Produit des racines de $2X^3-5X^2+X-10=0$.<br>
-        8. $P'|P \implies P=\lambda(X-a)^n$.<br>
-        9. Discriminant de $X^3+pX+q$.<br>
-        10. Factoriser $X^2-2X\cos\theta+1$.
+        1. Déterminer la multiplicité de 1 dans $X^{2n} - nX^{n+1} + nX^{n-1} - 1$.<br>
+        2. Trouver $(a, b)$ pour que $(X-1)^2$ divise $aX^{n+1} + bX^n + 1$.<br>
+        3. Montrer que l'exponentielle tronquée $P_n = \sum_{k=0}^n \frac{X^k}{k!}$ n'a que des racines simples.<br>
+        4. Factoriser $X^4+1$ dans $\mathbb{R}[X]$.<br>
+        5. Donner la factorisation de $X^n-1$ dans $\mathbb{C}[X]$.<br>
+        6. Calculer la somme des racines de $X^n+X+1=0$ pour $n \ge 2$.<br>
+        7. Calculer le produit des racines de $2X^3-5X^2+X-10=0$.<br>
+        8. Montrer que si $P'$ divise $P$, alors $P = \lambda(X-a)^n$.<br>
+        9. Soit $P=X^3+pX+q$. Condition pour une racine double ?<br>
+        10. Factoriser $X^2 - 2X\cos\theta + 1$ dans $\mathbb{C}[X]$.
     </div>
     <button class="btn-reveal" onclick="toggleLocalCorrection(this)">
         <i class="fas fa-eye"></i> Afficher le corrigé détaillé
     </button>
     <div class="correction-block">
-        <strong>Corrigé :</strong><br>
-        1. Multiplicité 3 (annule $P, P', P''$). 2. $a=n, b=-(n+1)$.<br>
-        3. $P_n = P_n' + X^n/n!$. Si $z$ racine double, $z=0$ (impossible).<br>
-        4. $(X^2-\sqrt{2}X+1)(X^2+\sqrt{2}X+1)$. 5. $\prod (X-e^{2ik\pi/n})$.<br>
-        6. $0$ (pas de terme en $X^{n-1}$). 7. $10/2 = 5$. 8. Degré de $P/P'$ est 1.<br>
+        <strong>Corrigé Stratégique :</strong><br>
+        1. Multiplicité 3 car $P(1)=P'(1)=P''(1)=0$ mais $P'''(1) \neq 0$.<br>
+        2. $a=n, b=-(n+1)$ (résoudre le système $P(1)=0, P'(1)=0$).<br>
+        3. $P_n' = P_{n-1} = P_n - \frac{X^n}{n!}$. Si $P_n(z)=P_n'(z)=0$, alors $z^n/n!=0 \implies z=0$, impossible car $P_n(0)=1$.<br>
+        4. $(X^2-\sqrt{2}X+1)(X^2+\sqrt{2}X+1)$. 5. $\prod_{k=0}^{n-1} (X-e^{i\frac{2k\pi}{n}})$.<br>
+        6. $\sum x_i = 0$ (pas de terme en $X^{n-1}$). 7. $\prod x_i = -(-10)/2 = 5$.<br>
+        8. Considérer le degré et la seule racine possible. 9. $4p^3 + 27q^2 = 0$.<br>
         10. $(X-e^{i\theta})(X-e^{-i\theta})$.
     </div>
 </div>
@@ -188,93 +202,107 @@
 <div class="qcm-card">
     <div class="exo-header">
         <span class="exo-badge">Exercice 4</span>
-        <span class="exo-title">DÉCOMPOSITION EN ÉLÉMENTS SIMPLES</span>
+        <span class="exo-title">Décomposition en Éléments Simples</span>
     </div>
     <div class="exo-content">
-        1. $\frac{1}{X^2-a^2}$. 2. $\frac{X}{(X-1)(X-2)}$. 3. $\frac{1}{X(X+1)^2}$.<br>
-        4. $\sum_{k=1}^n \frac{1}{k(k+1)}$. 5. $\sum_{k=1}^n \frac{1}{k(k+1)(k+2)}$.<br>
-        6. $\frac{X^3}{X^2-1}$. 7. $\frac{1}{X^n-1}$.<br>
-        8. $\frac{X^2+1}{(X-1)^3}$ (par translation). 9. $\frac{1}{X^2+1}$ dans $\mathbb{C}(X)$.<br>
-        10. $\frac{1}{(X^2+1)^2}$ dans $\mathbb{C}(X)$.
+        1. Décomposer $\frac{1}{X^2-a^2}$ ($a \neq 0$).<br>
+        2. Décomposer $\frac{X}{(X-1)(X-2)}$.<br>
+        3. Décomposer $\frac{1}{X(X+1)^2}$.<br>
+        4. Calculer la somme $\sum_{k=1}^n \frac{1}{k(k+1)}$.<br>
+        5. Calculer la somme $\sum_{k=1}^n \frac{1}{k(k+1)(k+2)}$.<br>
+        6. Partie entière et éléments simples de $\frac{X^3}{X^2-1}$.<br>
+        7. Décomposer $\frac{1}{X^n-1}$ dans $\mathbb{C}(X)$.<br>
+        8. Décomposer $\frac{X^2+1}{(X-1)^3}$ par changement de variable $H=X-1$.<br>
+        9. Décomposer $\frac{1}{X^2+1}$ dans $\mathbb{C}(X)$.<br>
+        10. Décomposer $\frac{1}{(X-a)(X-b)(X-c)}$ (distincts).
     </div>
     <button class="btn-reveal" onclick="toggleLocalCorrection(this)">
         <i class="fas fa-eye"></i> Afficher le corrigé détaillé
     </button>
     <div class="correction-block">
-        <strong>Corrigé :</strong><br>
-        1. $\frac{1}{2a}(\frac{1}{X-a}-\frac{1}{X+a})$. 2. $\frac{2}{X-2}-\frac{1}{X-1}$.<br>
-        3. $\frac{1}{X}-\frac{1}{X+1}-\frac{1}{(X+1)^2}$. 4. $1-\frac{1}{n+1}$.<br>
-        5. $\frac{1}{4} - \frac{1}{2(n+1)(n+2)}$. 6. $X+\frac{1/2}{X-1}+\frac{1/2}{X+1}$.<br>
-        7. $\frac{1}{n}\sum \frac{\omega_k}{X-\omega_k}$. 8. $\frac{1}{X-1}+\frac{2}{(X-1)^2}+\frac{2}{(X-1)^3}$.<br>
-        9. $\frac{1}{2i}(\frac{1}{X-i}-\frac{1}{X+i})$.
+        <strong>Corrigé Stratégique :</strong><br>
+        1. $\frac{1}{2a}(\frac{1}{X-a} - \frac{1}{X+a})$. 2. $\frac{2}{X-2} - \frac{1}{X-1}$.<br>
+        3. $\frac{1}{X} - \frac{1}{X+1} - \frac{1}{(X+1)^2}$. 4. $1 - \frac{1}{n+1}$ (télescopage).<br>
+        5. $\frac{1}{4} - \frac{1}{2(n+1)(n+2)}$. 6. $E=X$, $F=X + \frac{1/2}{X-1} + \frac{1/2}{X+1}$.<br>
+        7. $\frac{1}{n} \sum_{k=0}^{n-1} \frac{\omega_k}{X-\omega_k}$ avec $\omega_k = e^{i\frac{2k\pi}{n}}$.<br>
+        8. $\frac{(H+1)^2+1}{H^3} = \frac{H^2+2H+2}{H^3} = \frac{1}{H} + \frac{2}{H^2} + \frac{2}{H^3}$.<br>
+        9. $\frac{1}{2i}(\frac{1}{X-i} - \frac{1}{X+i})$. 10. $\sum \frac{\lambda_i}{X-x_i}$ avec $\lambda_a = \frac{1}{(a-b)(a-c)}$.
     </div>
 </div>
 
 <div class="qcm-card">
     <div class="exo-header">
         <span class="exo-badge">Exercice 5</span>
-        <span class="exo-title">APPLICATIONS MATRICIELLES</span>
+        <span class="exo-title">Polynômes et Matrices</span>
     </div>
     <div class="exo-content">
-        1. $(A-I)(A-2I)$ pour $A = \begin{pmatrix} 1 & 1 \\ 0 & 2 \end{pmatrix}$.<br>
-        2. Calculer $A^n$. 3. $M^2=M$ et inversibilité.<br>
-        4. Exprimer $A^{-1}$ si $P(A)=0$. 5. $A^n$ pour $\begin{pmatrix} a & 1 \\ 0 & a \end{pmatrix}$.<br>
-        6. Racine carrée de $\text{diag}(1, 4)$. 7. Matrices semblables.<br>
-        8. $A^3=0 \implies I-A$ inversible. 9. $A^{10}$ pour $\begin{pmatrix} 0 & 1 \\ -1 & 0 \end{pmatrix}$.<br>
-        10. Polynôme annulateur de $\begin{pmatrix} 1 & 2 \\ 2 & 1 \end{pmatrix}$.
+        1. Calculer $(A-I)(A-2I)$ pour $A = \begin{pmatrix} 1 & 1 \\ 0 & 2 \end{pmatrix}$.<br>
+        2. En déduire $A^n$ par la méthode du reste polynomial.<br>
+        3. Soit $M^2=M$. Quelles sont les valeurs propres possibles ?<br>
+        4. Si $A^2-3A+2I=0$, exprimer $A^{-1}$ en fonction de $A$.<br>
+        5. Calculer $A^n$ pour $A = \begin{pmatrix} a & 1 \\ 0 & a \end{pmatrix}$ via $A=aI+J$.<br>
+        6. Trouver les racines carrées de la matrice $D = \text{diag}(1, 4)$.<br>
+        7. Déterminer le polynôme caractéristique de $\begin{pmatrix} 0 & 1 \\ -c & -b \end{pmatrix}$.<br>
+        8. Montrer que si $A^k=0$, alors $(I-A)^{-1} = \sum_{j=0}^{k-1} A^j$.<br>
+        9. Calculer $A^{10}$ pour $A = \begin{pmatrix} 0 & 1 \\ -1 & 0 \end{pmatrix}$.<br>
+        10. Trouver un polynôme annulateur de $A = \begin{pmatrix} 1 & 2 \\ 2 & 1 \end{pmatrix}$.
     </div>
     <button class="btn-reveal" onclick="toggleLocalCorrection(this)">
         <i class="fas fa-eye"></i> Afficher le corrigé détaillé
     </button>
     <div class="correction-block">
-        <strong>Corrigé :</strong><br>
-        1. Matrice nulle. 2. $A^n = (2^n-1)A + (2-2^n)I$.<br>
-        3. $M^2=M$ et $M$ inv. $\implies M=I$. 4. $A^{-1} = -\frac{1}{a_0}\sum_{k=1}^n a_k A^{k-1}$.<br>
-        5. $\begin{pmatrix} a^n & na^{n-1} \\ 0 & a^n \end{pmatrix}$. 6. 4 matrices diag ($\pm 1, \pm 2$).<br>
-        8. $(I-A)(I+A+A^2)=I$. 9. $A^2=-I \implies A^{10}=-I$. 10. $X^2-2X-3$.
+        <strong>Corrigé Stratégique :</strong><br>
+        1. On obtient la matrice nulle. 2. $X^n = (X-1)(X-2)Q + \alpha X + \beta \implies A^n = (2^n-1)A + (2-2^n)I$.<br>
+        3. $x^2-x=0 \implies \lambda \in \{0, 1\}$. 4. $A(3I-A)=2I \implies A^{-1} = \frac{3}{2}I - \frac{1}{2}A$.<br>
+        5. Formule du binôme : $A^n = a^nI + na^{n-1}J = \begin{pmatrix} a^n & na^{n-1} \\ 0 & a^n \end{pmatrix}$.<br>
+        6. 4 solutions : $\text{diag}(\pm 1, \pm 2)$. 7. $X^2+bX+c$.<br>
+        8. Développement de $(I-A)(I+A+\dots+A^{k-1}) = I-A^k = I$.<br>
+        9. $A^2=-I \implies A^{10}=(A^2)^5=-I$. 10. $(X-1)^2-4 = X^2-2X-3$.
     </div>
 </div>
 
 <div class="qcm-card">
     <div class="exo-header">
         <span class="exo-badge">Exercice 6</span>
-        <span class="exo-title">POLYNÔMES DE BERNOULLI $B_n$</span>
+        <span class="exo-title">Polynômes de Bernoulli $B_n$</span>
     </div>
     <div class="exo-content">
-        1. Définition ($B_0, B_n', \int$). 2. Calculer $B_1, B_2, B_3$.<br>
-        4. $\deg(B_n)=n$. 5. $B_n(1)-B_n(0)=0$ ($n \ge 2$).<br>
-        6. $B_n(X+1)-B_n(X)=nX^{n-1}$.<br>
-        7. Somme des entiers. 8. Somme des carrés.<br>
-        9. Symétrie de $B_n(X+1/2)$. 10. $B_n(1-X) = (-1)^n B_n(X)$.
+        1. Rappeler la définition récursive de $B_n$ ($B_0=1, B_n'=nB_{n-1}, \int_0^1 B_n = 0$).<br>
+        2. Calculer $B_1, B_2, B_3$.<br>
+        3. Montrer par récurrence que $\deg(B_n)=n$.<br>
+        4. Justifier que pour $n \ge 2$, $B_n(1) = B_n(0)$.<br>
+        5. Démontrer la relation : $B_n(X+1) - B_n(X) = nX^{n-1}$.<br>
+        6. En déduire la somme des entiers $\sum_{k=0}^n k$.<br>
+        7. En déduire la somme des carrés $\sum_{k=0}^n k^2$.<br>
+        8. Étudier la parité de $B_n(1/2+X)$.<br>
+        9. Montrer que $B_n(1-X) = (-1)^n B_n(X)$.<br>
+        10. Calculer $B_4(0)$.
     </div>
     <button class="btn-reveal" onclick="toggleLocalCorrection(this)">
         <i class="fas fa-eye"></i> Afficher le corrigé détaillé
     </button>
     <div class="correction-block">
-        <strong>Corrigé :</strong><br>
+        <strong>Corrigé Stratégique :</strong><br>
         2. $B_1=X-1/2, B_2=X^2-X+1/6, B_3=X^3-\frac{3}{2}X^2+\frac{1}{2}X$.<br>
-        5. Vient de $\int_0^1 B_n' = n \int_0^1 B_{n-1} = 0$.<br>
-        6. Propriété fondamentale pour les sommes télescopiques.<br>
-        7. $n(n+1)/2$. 8. $n(n+1)(2n+1)/6$.<br>
-        10. Se démontre en vérifiant que $(-1)^n B_n(1-X)$ suit la même récurrence.
-        <div class="visual-help">
-            
-            <br><em>Note : Observez les symétries par rapport à x = 1/2.</em>
-        </div>
+        4. $\int_0^1 B_n' = n \int_0^1 B_{n-1} = 0$, donc $[B_n]_0^1 = 0$.<br>
+        5. Par récurrence sur la dérivée. 6. $\frac{1}{2}(B_2(n+1)-B_2(0)) = \frac{n(n+1)}{2}$.<br>
+        7. $\frac{1}{3}(B_3(n+1)-B_3(0)) = \frac{n(n+1)(2n+1)}{6}$.<br>
+        9. Les deux membres vérifient la même relation de récurrence.<br>
+        10. $B_4 = X^4-2X^3+X^2-1/30$, donc $B_4(0)=-1/30$.
     </div>
 </div>
 
 <script>
     function toggleLocalCorrection(btn) {
         const block = btn.nextElementSibling;
-        // Correction du bug de chargement initial
-        const isHidden = (block.style.display === "none" || block.style.display === "");
+        const isHidden = (window.getComputedStyle(block).display === "none");
         
         if (isHidden) {
             block.style.display = "block";
             btn.innerHTML = '<i class="fas fa-eye-slash"></i> Masquer le corrigé';
-            if (window.MathJax) {
-                MathJax.typesetPromise([block]);
+            // Force MathJax à traiter le nouveau contenu visible
+            if (window.MathJax && window.MathJax.typesetPromise) {
+                MathJax.typesetPromise([block]).catch((err) => console.log(err));
             }
         } else {
             block.style.display = "none";
