@@ -1,0 +1,217 @@
+<div class="banner">
+    <h1 style="font-size: 2rem; margin: 0;">Entraînement Intensif PCSI</h1>
+    <p style="opacity: 0.9;">Chapitre : Polynômes & Fractions Rationnelles (25 Questions)</p>
+</div>
+
+<div class="course-question">
+    <div class="qcm-box">
+        <div class="qcm-question">Cours 1 : Condition pour que $(X-a)^k$ divise $P$ ?</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, true)">$P(a)=P'(a)=...=P^{(k-1)}(a)=0$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$P^{(k)}(a)=0$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$\deg(P) = k$</button>
+        </div>
+    </div>
+    <div class="qcm-box">
+        <div class="qcm-question">Cours 2 : Un polynôme $P$ est nul si et seulement si :</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, false)">Il a $n$ racines</button>
+            <button class="opt-btn" onclick="checkAnswer(this, true)">Il a une infinité de racines</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$P(0)=0$</button>
+        </div>
+    </div>
+    <div class="qcm-box">
+        <div class="qcm-question">Cours 3 : Degré du produit $PQ$ ($P,Q \neq 0$) :</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, true)">$\deg(P) + \deg(Q)$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$\max(\deg(P), \deg(Q))$</button>
+        </div>
+    </div>
+    <div class="qcm-box">
+        <div class="qcm-question">Cours 4 : Théorème de d'Alembert-Gauss : Tout $P \in \mathbb{C}[X]$ non constant...</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, true)">Admet au moins une racine dans $\mathbb{C}$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">Est irréductible</button>
+        </div>
+    </div>
+    <div class="qcm-box">
+        <div class="qcm-question">Cours 5 : Somme des racines $\sum x_i$ d'un polynôme $a_n X^n + a_{n-1} X^{n-1} \dots$</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, true)">$-a_{n-1}/a_n$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$a_0/a_n$</button>
+        </div>
+    </div>
+    <div class="qcm-box">
+        <div class="qcm-question">Cours 6 : Dans $\mathbb{R}[X]$, les irréductibles sont de degré :</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, true)">1 ou 2 (avec $\Delta < 0$)</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">1 uniquement</button>
+        </div>
+    </div>
+</div>
+
+<div class="app-question">
+    <div class="qcm-box">
+        <div class="qcm-question">App 1 : Reste de $X^n$ par $X-1$ ?</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, true)">$1$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$n$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$0$</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">App 2 : Racines de $X^2 + X + 1$ ?</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, true)">$j$ et $j^2$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$1$ et $-1$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$i$ et $-i$</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">App 3 : Dérivée $n$-ième de $X^n$ ?</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, true)">$n!$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$0$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$n$</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">App 4 : Valeur de $P = \sum_{k=0}^n X^k$ en $1$ ?</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, true)">$n+1$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$n$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$1$</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">App 5 : Si $\text{pgcd}(A,B)=1$, alors $\text{pgcd}(A^2, B^2) = $</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, true)">$1$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$2$</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">App 6 : Multiplicité de $1$ dans $X^n - 1$ ?</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, true)">1</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$n$</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">App 7 : Degré de $P(X^2)$ si $\deg(P)=n$ ?</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, true)">$2n$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$n^2$</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">App 8 : Le polynôme $X^4+1$ est-il irréductible dans $\mathbb{R}[X]$ ?</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, false)">Oui</button>
+            <button class="opt-btn" onclick="checkAnswer(this, true)">Non (Produit de deux deg 2)</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">App 9 : Pôles de $\frac{1}{X^2-3X+2}$ ?</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, true)">$1$ et $2$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$-1$ et $-2$</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">App 10 : Si $P(1)=1, P(2)=2, P(3)=3$ et $\deg(P)=2$, alors $P=$</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, true)">$X$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$X^2-X+1$</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">App 11 : Coefficient dominant de $(2X+1)^n$ ?</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, true)">$2^n$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$2$</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">App 12 : Reste de $P$ par $(X-a)(X-b)$ avec $a \neq b$ ?</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, true)">$\frac{P(a)-P(b)}{a-b}X + \dots$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$P(a)+P(b)$</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">App 13 : Unité du PGCD de $2X$ et $4X^2$ ?</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, true)">$X$ (car unitaire)</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$2X$</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">App 14 : Nombre de racines de $P'$ si $P$ a $n$ racines distinctes (Rolle) ?</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, true)">Au moins $n-1$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">Exactement $n$</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">App 15 : Décomposition de $\frac{1}{X(X+1)}$ ?</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, true)">$\frac{1}{X} - \frac{1}{X+1}$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$\frac{1}{X} + \frac{1}{X+1}$</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">App 16 : $P$ est divisible par $P'$ ssi :</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, true)">$P = \lambda(X-a)^n$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$P$ est constant</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">App 17 : Somme des racines $n$-ièmes de l'unité ?</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, true)">$0$ (pour $n \ge 2$)</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$1$</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">App 18 : Produit des racines $n$-ièmes de l'unité ?</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, true)">$(-1)^{n-1}$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$1$</button>
+        </div>
+    </div>
+
+    <div class="qcm-box">
+        <div class="qcm-question">App 19 : $X^2-1$ divise $P(X)$ ssi :</div>
+        <div class="qcm-grid">
+            <button class="opt-btn" onclick="checkAnswer(this, true)">$P(1)=0$ et $P(-1)=0$</button>
+            <button class="opt-btn" onclick="checkAnswer(this, false)">$P(1)=0$</button>
+        </div>
+    </div>
+</div>
+
+<div style="margin-top: 30px; display: flex; gap: 10px; flex-wrap: wrap;">
+    <button id="submit-btn" class="btn-primary" onclick="calculateScore()">Terminer l'examen</button>
+    <button class="btn-primary" style="background: var(--gold-btn);" onclick="loadTraining()">Nouveau tirage (Reset)</button>
+</div>
+
+<div id="score-display" style="display:none; margin-top:30px;"></div>
+<div id="congrats-msg" style="display:none;"></div>
