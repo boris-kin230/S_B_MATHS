@@ -213,6 +213,9 @@
             box-shadow: var(--shadow-sm);
             border: 1px solid var(--border);
             transition: var(--transition);
+            /* Évite que les questions soient coupées à l'impression PDF */
+            page-break-inside: avoid;
+            break-inside: avoid;
         }
 
         .qcm-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
@@ -284,22 +287,38 @@
         }
 
         /* --- ACTIONS & SCORE --- */
-        #score-zone { margin-top: 50px; }
+        #score-zone { 
+            margin-top: 50px; 
+            page-break-inside: avoid;
+            break-inside: avoid;
+        }
+
+        .score-display {
+            background: var(--surface);
+            border: 2px solid var(--border);
+            border-radius: var(--radius);
+            padding: 30px;
+            text-align: center;
+            margin-bottom: 20px;
+            box-shadow: var(--shadow-md);
+        }
+
+        .score-display h2 { font-size: 2.5rem; margin: 0; color: var(--navy-dark); }
+        .score-display p { font-size: 1.1rem; color: var(--text-muted); margin-top: 10px; font-weight: 500;}
 
         .share-bar {
             background: var(--navy-dark);
-            padding: 30px;
+            padding: 25px;
             border-radius: var(--radius);
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
             flex-wrap: wrap;
-            gap: 20px;
-            color: white;
+            gap: 15px;
         }
 
         .share-btn {
-            padding: 12px 24px;
+            padding: 12px 20px;
             border-radius: 50px;
             border: none;
             cursor: pointer;
@@ -307,13 +326,20 @@
             font-size: 0.9rem;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
             transition: var(--transition);
         }
 
         .btn-pdf { background: white; color: var(--navy-dark); }
         .btn-wa { background: #25D366; color: white; }
+        .btn-mail { background: #ea4335; color: white; }
+        .btn-sms { background: #34d399; color: var(--navy-dark); }
+        .btn-x { background: #000000; color: white; border: 1px solid #333;}
+        
         .share-btn:hover { transform: scale(1.05); filter: brightness(1.1); }
+
+        /* Cacher les éléments inutiles sur le PDF généré */
+        .no-print-pdf { display: block; }
 
         /* --- MOBILE --- */
         .menu-trigger {
@@ -328,6 +354,7 @@
             border-radius: 12px;
             font-size: 1.5rem;
             cursor: pointer;
+            box-shadow: var(--shadow-md);
         }
 
         @media (max-width: 1000px) {
@@ -335,6 +362,8 @@
             #sidebar.open { left: 0; }
             .menu-trigger { display: block; }
             #main-wrapper { margin-left: 0; padding-top: 60px; }
+            .share-bar { flex-direction: column; align-items: stretch; }
+            .share-btn { justify-content: center; }
         }
     </style>
 </head>
@@ -369,6 +398,7 @@
                     <a class="nav-link" onclick="loadPage('poly_exos')"><i class="fas fa-dumbbell"></i> Marathon 60 Questions</a>
                     <a class="nav-link" onclick="loadPage('poly_exos_calc')"><i class="fas fa-calculator"></i> Calcul Technique</a>
                     <a class="nav-link" style="color:#059669; font-weight:700" onclick="loadTraining('poly')"><i class="fas fa-bolt"></i> Test Aléatoire</a>
+                    <a class="nav-link" style="color:#e11d48; font-weight:700" onclick="loadPage('poly_training_v4')"><i class="fas fa-fire-flame-curved"></i> Test Expert v4</a>
                 </div>
             </div>
 
@@ -385,6 +415,7 @@
                     <p class="nav-section-title">Pratique</p>
                     <a class="nav-link" onclick="loadPage('geo_training_v1')"><i class="fas fa-pencil"></i> Exercices v1</a>
                     <a class="nav-link" style="color:#059669; font-weight:700" onclick="loadTraining('geo')"><i class="fas fa-bolt"></i> Test de Niveau</a>
+                    <a class="nav-link" style="color:#e11d48; font-weight:700" onclick="loadPage('geo_training_v4')"><i class="fas fa-fire-flame-curved"></i> Test Expert v4</a>
                 </div>
             </div>
 
@@ -401,6 +432,7 @@
                     <p class="nav-section-title">Pratique</p>
                     <a class="nav-link" onclick="loadPage('training_taylor_rolle')"><i class="fas fa-flask"></i> Mix Analyse</a>
                     <a class="nav-link" style="color:#059669; font-weight:700" onclick="loadTraining('func')"><i class="fas fa-bolt"></i> Test de Rapidité</a>
+                    <a class="nav-link" style="color:#e11d48; font-weight:700" onclick="loadPage('func_training_v4')"><i class="fas fa-fire-flame-curved"></i> Test Expert v4</a>
                 </div>
             </div>
         </nav>
@@ -426,8 +458,12 @@
         const container = document.getElementById('content-container');
         const mainWrapper = document.getElementById('main-wrapper');
 
+        // --- GESTION DES SCORES GLOBALE ---
+        window.currentScore = 0;
+        window.totalQuestions = 0;
+        window.answeredQuestions = 0;
+
         // --- GESTION DES LIENS ACTIFS ---
-        // Écouteur global pour appliquer la classe active-link automatiquement
         document.addEventListener('click', (e) => {
             const link = e.target.closest('.nav-link');
             if (link) {
@@ -456,7 +492,6 @@
             icon.style.transform = isActive ? 'rotate(180deg)' : 'rotate(0deg)';
         }
 
-        // --- FONCTION POUR LES CORRIGÉS ---
         function toggleCor(btn) {
             const block = btn.nextElementSibling;
             if (!block) return;
@@ -480,6 +515,11 @@
                 sidebar.classList.remove('open');
             }
             
+            // Réinitialisation des scores pour la nouvelle page
+            window.currentScore = 0;
+            window.answeredQuestions = 0;
+            window.totalQuestions = 0;
+
             container.innerHTML = '<div style="text-align:center; padding:100px;"><i class="fas fa-circle-notch fa-spin" style="font-size:3rem; color:var(--gold-btn)"></i></div>';
 
             try {
@@ -495,6 +535,8 @@
                     MathJax.typesetPromise([container]).catch(err => console.log(err));
                 }
 
+                // Récupérer le nombre total de questions de la page chargée
+                window.totalQuestions = container.querySelectorAll('.qcm-card').length;
                 mainWrapper.scrollTop = 0;
 
             } catch (error) {
@@ -508,24 +550,33 @@
         }
 
         function loadTraining(subject) {
-            const versions = ['v1', 'v2', 'v3'];
+            // Intégration de la v4 dans l'aléatoire
+            const versions = ['v1', 'v2', 'v3', 'v4'];
             const randomVersion = versions[Math.floor(Math.random() * versions.length)];
             let finalName = `${subject}_training_${randomVersion}`;
             loadPage(finalName);
         }
 
-        // --- MOTEUR QCM ---
-        function checkQCM(btn, isCorrect) {
+        // --- MOTEUR QCM UNIFIÉ (Gère v1, v2, v3, v4) ---
+        window.checkQCM = function(btn, isCorrect) {
             const card = btn.closest('.qcm-card');
             if(!card) return;
+            
+            // Sécurité pour éviter le double comptage
+            if(card.classList.contains('answered')) return;
+            card.classList.add('answered');
 
             const allBtns = card.querySelectorAll('.opt-btn');
             allBtns.forEach(b => b.disabled = true);
 
+            window.answeredQuestions++;
+
             if(isCorrect) {
+                window.currentScore++;
                 btn.classList.add('correct');
             } else {
                 btn.classList.add('wrong');
+                // Trouver la bonne réponse pour la montrer (Fonctionne avec v1 "true")
                 allBtns.forEach(b => {
                     if(b.getAttribute('onclick') && b.getAttribute('onclick').includes('true')) {
                         b.classList.add('correct');
@@ -538,41 +589,98 @@
                 feedback.style.display = 'block';
                 if (window.MathJax) MathJax.typesetPromise([feedback]);
             }
-        }
+        };
 
         function finishQuiz() {
+            // Protection si on clique plusieurs fois
+            if(document.getElementById('score-zone')) return;
+
+            // Masquer le bouton de validation pour le PDF
+            const finishBtn = document.querySelector('.finish-btn');
+            if(finishBtn) finishBtn.classList.add('no-print-pdf');
+
+            let ratio = window.totalQuestions > 0 ? (window.currentScore / window.totalQuestions) : 0;
+            let percentage = Math.round(ratio * 100);
+            
+            let message = "";
+            let colorHex = "";
+            
+            if (ratio === 1) { 
+                message = "Perfection ! La majoration au concours n'est plus très loin."; 
+                colorHex = "#10b981"; 
+            } else if (ratio >= 0.75) { 
+                message = "Excellent travail, tes bases sont très solides."; 
+                colorHex = "#10b981"; 
+            } else if (ratio >= 0.5) { 
+                message = "C'est un bon début, mais relis le cours sur les erreurs commises."; 
+                colorHex = "var(--gold-btn)"; 
+            } else { 
+                message = "Ne te décourage pas ! L'important est d'apprendre de ses erreurs. Prends le temps de lire les corrigés."; 
+                colorHex = "#ef4444"; 
+            }
+
             const scoreHTML = `
                 <div id="score-zone">
-                    <div class="share-bar">
-                        <div>
-                            <h2 style="margin:0; color:var(--gold-btn)">Session Terminée</h2>
-                            <p style="margin:5px 0 0">Votre progression a été enregistrée.</p>
-                        </div>
-                        <div style="display:flex; gap:10px;">
-                            <button class="share-btn btn-pdf" onclick="generatePDF()"><i class="fas fa-file-pdf"></i> PDF</button>
-                            <button class="share-btn btn-wa" onclick="shareWA()"><i class="fab fa-whatsapp"></i> WhatsApp</button>
-                        </div>
+                    <div class="score-display">
+                        <h2 style="color: ${colorHex}">${window.currentScore} / ${window.totalQuestions}</h2>
+                        <p>Score final : ${percentage}%</p>
+                        <p style="font-size: 0.9rem; color: var(--navy-dark); font-weight: 600; margin-top:15px;">${message}</p>
+                    </div>
+
+                    <div class="share-bar no-print-pdf">
+                        <button class="share-btn btn-pdf" onclick="generatePDF()"><i class="fas fa-file-pdf"></i> Sauvegarder PDF</button>
+                        <button class="share-btn btn-wa" onclick="shareWA(${window.currentScore}, ${window.totalQuestions})"><i class="fab fa-whatsapp"></i> WhatsApp</button>
+                        <button class="share-btn btn-x" onclick="shareX(${window.currentScore}, ${window.totalQuestions})"><i class="fab fa-x-twitter"></i> Twitter</button>
+                        <button class="share-btn btn-mail" onclick="shareMail(${window.currentScore}, ${window.totalQuestions})"><i class="fas fa-envelope"></i> Email</button>
+                        <button class="share-btn btn-sms" onclick="shareSMS(${window.currentScore}, ${window.totalQuestions})"><i class="fas fa-comment-sms"></i> SMS</button>
                     </div>
                 </div>
             `;
             container.insertAdjacentHTML('beforeend', scoreHTML);
-            document.getElementById('score-zone').scrollIntoView();
+            document.getElementById('score-zone').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // --- SYSTÈMES DE PARTAGE ---
+        function getShareText(score, total) {
+            return `J'ai terminé ma session sur Elian Maths avec un score de ${score}/${total} ! Prêt pour les concours CPGE. 🚀`;
+        }
+
+        function shareWA(score, total) {
+            window.open(`https://wa.me/?text=${encodeURIComponent(getShareText(score, total))}`);
+        }
+        
+        function shareX(score, total) {
+            window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(getShareText(score, total))}`);
+        }
+
+        function shareMail(score, total) {
+            window.location.href = `mailto:?subject=Mon score sur Elian Maths&body=${encodeURIComponent(getShareText(score, total))}`;
+        }
+
+        function shareSMS(score, total) {
+            // Format compatible iOS & Android
+            window.location.href = `sms:?&body=${encodeURIComponent(getShareText(score, total))}`;
         }
 
         function generatePDF() {
+            // On masque temporairement les boutons de la zone de partage et le bouton valider
+            const noPrintElements = document.querySelectorAll('.no-print-pdf');
+            noPrintElements.forEach(el => el.style.display = 'none');
+
+            // Options optimisées pour éviter de couper les DIV (pagebreak avoid)
             const opt = {
-                margin: 10,
+                margin: [10, 10, 10, 10], // Haut, Droite, Bas, Gauche
                 filename: 'ElianMaths_Resultats.pdf',
                 image: { type: 'jpeg', quality: 0.98 },
-                html2canvas: { scale: 2 },
-                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+                html2canvas: { scale: 2, useCORS: true, letterRendering: true },
+                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+                pagebreak: { mode: ['css', 'legacy'] } // Respecte le page-break-inside: avoid des cartes QCM
             };
-            html2pdf().set(opt).from(container).save();
-        }
 
-        function shareWA() {
-            const text = "J'ai terminé ma session sur Elian Maths !";
-            window.open(`https://wa.me/?text=${encodeURIComponent(text)}`);
+            html2pdf().set(opt).from(container).save().then(() => {
+                // On réaffiche les boutons après génération
+                noPrintElements.forEach(el => el.style.display = '');
+            });
         }
     </script>
 </body>
