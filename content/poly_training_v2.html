@@ -1,312 +1,587 @@
-<div style="animation: fadeIn 0.5s;">
-    <div class="banner" style="background: linear-gradient(135deg, #276749, #38a169); padding: 40px; border-radius: 15px; color: white; text-align: center; margin-bottom: 30px;">
-        <h2 style="margin:0; font-size: 2rem;"><i class="fas fa-bolt"></i> Training Polynômes - Version 2</h2>
-        <p style="opacity:0.9; margin-top:10px; font-size: 1.1rem;">Évaluation aléatoire : Racines, Multiplicité, Factorisation & Calculs (30 Questions)</p>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Training Polynômes v2 : Multiplicité & Factorisation</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <style>
+        :root {
+            --primary: #1e293b; 
+            --accent: #10b981; /* Vert émeraude pour la V2 */
+            --accent-hover: #059669;
+            --success: #10b981;
+            --error: #ef4444; 
+            --bg: #f8fafc; 
+            --card-bg: #ffffff;
+            --text-main: #0f172a; 
+            --text-muted: #64748b;
+        }
+
+        body { 
+            background-color: var(--bg); 
+            font-family: 'Inter', sans-serif; 
+            color: var(--text-main); 
+            line-height: 1.6; 
+            margin: 0; 
+            padding: 20px; 
+        }
+
+        .container { 
+            max-width: 900px; 
+            margin: 0 auto; 
+            animation: fadeIn 0.8s ease-out; 
+        }
+
+        /* Banner stylisée V2 */
+        .hero-section { 
+            background: linear-gradient(135deg, #276749 0%, #38a169 100%); 
+            padding: 60px 40px; 
+            border-radius: 24px; 
+            color: white; 
+            text-align: center; 
+            margin-bottom: 40px; 
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1); 
+        }
+
+        .hero-section h1 { 
+            font-size: 2.5rem; 
+            margin: 0; 
+            font-weight: 800; 
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .hero-section p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-top: 15px;
+        }
+
+        .qcm-card { 
+            background: var(--card-bg); 
+            border-radius: 20px; 
+            padding: 35px; 
+            margin-bottom: 25px; 
+            border: 1px solid #e2e8f0; 
+            transition: all 0.3s ease; 
+        }
+
+        .question-meta { 
+            display: flex; 
+            align-items: center; 
+            gap: 10px; 
+            margin-bottom: 15px; 
+            font-weight: 700; 
+            color: var(--accent); 
+            font-size: 0.9rem; 
+            text-transform: uppercase; 
+        }
+
+        .question-text { 
+            font-size: 1.25rem; 
+            font-weight: 600; 
+            margin-bottom: 25px; 
+            color: var(--primary); 
+        }
+
+        /* Grille 2x2 stricte pour des rectangles symétriques */
+        .options-grid { 
+            display: grid; 
+            grid-template-columns: repeat(2, 1fr); 
+            gap: 15px; 
+        }
+
+        @media (max-width: 600px) {
+            .options-grid {
+                grid-template-columns: 1fr; /* 1 colonne sur mobile */
+            }
+        }
+
+        .opt-btn { 
+            background: #f1f5f9; 
+            border: 2px solid transparent; 
+            padding: 18px; 
+            border-radius: 12px; 
+            cursor: pointer; 
+            text-align: center; 
+            font-size: 1rem; 
+            transition: all 0.2s ease; 
+            min-height: 80px; 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .opt-btn:hover:not(:disabled) {
+            background: #e2e8f0;
+            border-color: #cbd5e1;
+        }
+
+        .opt-btn.correct { 
+            background: #d1fae5 !important; 
+            border-color: var(--success) !important; 
+            color: #065f46 !important; 
+            font-weight: 700; 
+        }
+
+        .opt-btn.wrong { 
+            background: #fee2e2 !important; 
+            border-color: var(--error) !important; 
+            color: #991b1b !important; 
+        }
+
+        .opt-btn:disabled {
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+
+        .footer-action { 
+            text-align: center; 
+            padding: 40px 0; 
+        }
+
+        .btn-submit { 
+            background: var(--accent); 
+            color: white; 
+            border: none; 
+            padding: 20px 50px; 
+            font-size: 1.2rem; 
+            font-weight: 700; 
+            border-radius: 15px; 
+            cursor: pointer; 
+            transition: background 0.3s ease;
+        }
+
+        .btn-submit:hover {
+            background: var(--accent-hover);
+        }
+
+        #score-display {
+            display: none;
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary);
+            border: 2px solid var(--accent);
+            margin-top: 20px;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn { 
+            from { opacity: 0; transform: translateY(20px); } 
+            to { opacity: 1; transform: translateY(0); } 
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="hero-section">
+        <h1><i class="fas fa-bolt"></i> Training Polynômes - Version 2</h1>
+        <p>Évaluation aléatoire : Racines, Multiplicité, Factorisation & Calculs (30 Questions)</p>
     </div>
 
-    <div class="qcm-box">
-        <div class="qcm-question">Q1. Soit $P \in \mathbb{K}[X]$. Le scalaire $a$ est racine de multiplicité $m$ de $P$ si et seulement si :</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$P(a)=0$ et $P'(a)=0$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, true)">$P(a)=\dots=P^{(m-1)}(a)=0$ et $P^{(m)}(a) \neq 0$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$P(a)=0$ et $(X-a)^m$ divise $P'$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$P^{(m)}(a) = 0$</button>
+    <div id="quiz-wrapper">
+        <div class="qcm-card">
+            <div class="question-meta">Question 01</div>
+            <div class="question-text">Soit $P \in \mathbb{K}[X]$. Le scalaire $a$ est racine de multiplicité $m$ de $P$ si et seulement si :</div>
+            <div class="options-grid">
+                <button class="opt-btn" onclick="checkQCM(this, false)">$P(a)=0$ et $P'(a)=0$</button>
+                <button class="opt-btn" onclick="checkQCM(this, true)">$P(a)=\dots=P^{(m-1)}(a)=0$ et $P^{(m)}(a) \neq 0$</button>
+                <button class="opt-btn" onclick="checkQCM(this, false)">$P(a)=0$ et $(X-a)^m$ divise $P'$</button>
+                <button class="opt-btn" onclick="checkQCM(this, false)">$P^{(m)}(a) = 0$</button>
+            </div>
+        </div>
+
+        <div class="qcm-card">
+            <div class="question-meta">Question 02</div>
+            <div class="question-text">D'après le théorème de d'Alembert-Gauss, dans $\mathbb{C}[X]$ :</div>
+            <div class="options-grid">
+                <button class="opt-btn" onclick="checkQCM(this, false)">Tout polynôme a des racines réelles</button>
+                <button class="opt-btn" onclick="checkQCM(this, false)">Il existe des polynômes irréductibles de degré 2</button>
+                <button class="opt-btn" onclick="checkQCM(this, true)">Tout polynôme non constant est scindé</button>
+                <button class="opt-btn" onclick="checkQCM(this, false)">Seuls les polynômes de degré impair ont une racine</button>
+            </div>
+        </div>
+
+        <div class="qcm-card">
+            <div class="question-meta">Question 03</div>
+            <div class="question-text">Si $P \in \mathbb{R}[X]$ admet une racine complexe $z \in \mathbb{C} \setminus \mathbb{R}$ d'ordre de multiplicité $m$, alors :</div>
+            <div class="options-grid">
+                <button class="opt-btn" onclick="checkQCM(this, false)">$-z$ est aussi racine de multiplicité $m$</button>
+                <button class="opt-btn" onclick="checkQCM(this, true)">$\bar{z}$ est aussi racine de multiplicité $m$</button>
+                <button class="opt-btn" onclick="checkQCM(this, false)">$z$ est une racine simple ($m=1$ obligatoirement)</button>
+                <button class="opt-btn" onclick="checkQCM(this, false)">$|z|$ est une racine réelle</button>
+            </div>
+        </div>
+
+        <div class="qcm-card">
+            <div class="question-meta">Question 04</div>
+            <div class="question-text">Le scalaire $a$ est une racine simple (multiplicité exactement 1) de $P$ si et seulement si :</div>
+            <div class="options-grid">
+                <button class="opt-btn" onclick="checkQCM(this, true)">$P(a) = 0$ et $P'(a) \neq 0$</button>
+                <button class="opt-btn" onclick="checkQCM(this, false)">$P(a) = 0$ et $P'(a) = 0$</button>
+                <button class="opt-btn" onclick="checkQCM(this, false)">$P'(a) \neq 0$</button>
+                <button class="opt-btn" onclick="checkQCM(this, false)">$P(a) \neq 0$</button>
+            </div>
+        </div>
+
+        <div class="qcm-card">
+            <div class="question-meta">Question 05</div>
+            <div class="question-text">Un polynôme $P \in \mathbb{C}[X]$ n'admet que des racines simples si et seulement si :</div>
+            <div class="options-grid">
+                <button class="opt-btn" onclick="checkQCM(this, false)">$P$ et $P'$ ont le même degré</button>
+                <button class="opt-btn" onclick="checkQCM(this, false)">$\deg(P) = 1$</button>
+                <button class="opt-btn" onclick="checkQCM(this, true)">$P$ et $P'$ sont premiers entre eux ($\text{pgcd}(P,P')=1$)</button>
+                <button class="opt-btn" onclick="checkQCM(this, false)">$P$ est unitaire</button>
+            </div>
+        </div>
+
+        <div class="qcm-card">
+            <div class="question-meta">Question 06</div>
+            <div class="question-text">Soit $P = a_n X^n + \dots + a_1 X + a_0$ scindé de racines $x_1, \dots, x_n$. Que vaut le produit $x_1 x_2 \dots x_n$ ?</div>
+            <div class="options-grid">
+                <button class="opt-btn" onclick="checkQCM(this, true)">$(-1)^n \frac{a_0}{a_n}$</button>
+                <button class="opt-btn" onclick="checkQCM(this, false)">$\frac{a_0}{a_n}$</button>
+                <button class="opt-btn" onclick="checkQCM(this, false)">$-\frac{a_{n-1}}{a_n}$</button>
+                <button class="opt-btn" onclick="checkQCM(this, false)">$(-1)^n a_0$</button>
+            </div>
+        </div>
+
+        <div class="qcm-card">
+            <div class="question-meta">Question 07</div>
+            <div class="question-text">Pour ce même polynôme $P$, que vaut la somme des racines $x_1 + x_2 + \dots + x_n$ ?</div>
+            <div class="options-grid">
+                <button class="opt-btn" onclick="checkQCM(this, false)">$\frac{a_{n-1}}{a_n}$</button>
+                <button class="opt-btn" onclick="checkQCM(this, true)">$-\frac{a_{n-1}}{a_n}$</button>
+                <button class="opt-btn" onclick="checkQCM(this, false)">$-a_{n-1}$</button>
+                <button class="opt-btn" onclick="checkQCM(this, false)">$(-1)^n \frac{a_1}{a_n}$</button>
+            </div>
+        </div>
+
+        <div class="qcm-card">
+            <div class="question-meta">Question 08</div>
+            <div class="question-text">Si $0$ n'est pas racine ($a_0 \neq 0$), que vaut la somme des inverses des racines $\sum_{i=1}^n \frac{1}{x_i}$ ?</div>
+            <div class="options-grid">
+                <button class="opt-btn" onclick="checkQCM(this, false)">$-\frac{a_{n-1}}{a_0}$</button>
+                <button class="opt-btn" onclick="checkQCM(this, false)">$\frac{a_1}{a_n}$</button>
+                <button class="opt-btn" onclick="checkQCM(this, true)">$-\frac{a_1}{a_0}$</button>
+                <button class="opt-btn" onclick="checkQCM(this, false)">$(-1)^n \frac{a_1}{a_0}$</button>
+            </div>
+        </div>
+
+        <div class="qcm-card">
+            <div class="question-meta">Question 09</div>
+            <div class="question-text">Énoncé du Théorème de Gauss-Lucas : pour $P \in \mathbb{C}[X]$, les racines de $P'$ sont situées...</div>
+            <div class="options-grid">
+                <button class="opt-btn" onclick="checkQCM(this, false)">Sur le cercle trigonométrique</button>
+                <button class="opt-btn" onclick="checkQCM(this, false)">Sur l'axe réel</button>
+                <button class="opt-btn" onclick="checkQCM(this, true)">Dans l'enveloppe convexe des racines de $P$</button>
+                <button class="opt-btn" onclick="checkQCM(this, false)">À l'extérieur du disque contenant les racines de $P$</button>
+            </div>
+        </div>
+
+        <div class="qcm-card">
+            <div class="question-meta">Question 10</div>
+            <div class="question-text">Quelle est la factorisation de $X^n - 1$ dans $\mathbb{C}[X]$ ?</div>
+            <div class="options-grid">
+                <button class="opt-btn" onclick="checkQCM(this, false)">$(X-1)^n$</button>
+                <button class="opt-btn" onclick="checkQCM(this, true)">$\prod_{k=0}^{n-1} (X - e^{i\frac{2k\pi}{n}})$</button>
+                <button class="opt-btn" onclick="checkQCM(this, false)">$(X-1)(X^{n-1} + \dots + 1)$</button>
+                <button class="opt-btn" onclick="checkQCM(this, false)">$\prod_{k=1}^n (X - i^k)$</button>
+            </div>
+        </div>
+
+        <div class="qcm-card">
+            <div class="question-meta">Question 11</div>
+            <div class="question-text">Combien de polynômes de degré exactement $n$ s'annulent en $n$ points distincts donnés ?</div>
+            <div class="options-grid">
+                <button class="opt-btn" onclick="checkQCM(this, false)">Un seul</button>
+                <button class="opt-btn" onclick="checkQCM(this, false)">Aucun</button>
+                <button class="opt-btn" onclick="checkQCM(this, true)">Une infinité</button>
+                <button class="opt-btn" onclick="checkQCM(this, false)">Exactement $n!$</button>
+            </div>
+        </div>
+
+        <div class="qcm-card">
+            <div class="question-meta">Question 12</div>
+            <div class="question-text">Si $P \in \mathbb{K}[X]$ est de degré $\leq n$ et s'annule en $n+1$ points distincts, alors :</div>
+            <div class="options-grid">
+                <button class="opt-btn" onclick="checkQCM(this, false)">$P$ est unitaire</button>
+                <button class="opt-btn" onclick="checkQCM(this, true)">$P$ est le polynôme nul</button>
+                <button class="opt-btn" onclick="checkQCM(this, false)">C'est impossible</button>
+                <button class="opt-btn" onclick="checkQCM(this, false)">$\deg(P) = n+1$</button>
+            </div>
+        </div>
+
+        <div class="qcm-card">
+            <div class="question-meta">Question 13</div>
+            <div class="question-text">Soit $\omega = e^{i\frac{2\pi}{n}}$ avec $n \geq 2$. Que vaut la somme $1 + \omega + \omega^2 + \dots + \omega^{n-1}$ ?</div>
+            <div class="options-grid">
+                <button class="opt-btn" onclick="checkQCM(this, false)">$n$</button>
+                <button class="opt-btn" onclick="checkQCM(this, true)">$0$</button>
+                <button class="opt-btn" onclick="checkQCM(this, false)">$-1$</button>
+                <button class="opt-btn" onclick="checkQCM(this, false)">$1$</button>
+            </div>
+        </div>
+
+        <div class="qcm-card">
+            <div class="question-meta">Question 14</div>
+            <div class="question-text">Dans $\mathbb{C}[X]$, quelles sont les racines du polynôme $P = 1 + X + X^2 + \dots + X^{n-1}$ ?</div>
+            <div class="options-grid">
+                <button class="opt-btn" onclick="checkQCM(this, false)">Toutes les racines $n$-ièmes de l'unité</button>
+                <button class="opt-btn" onclick="checkQCM(this, true)">Les racines $n$-ièmes de l'unité, à l'exception de $1$</button>
+                <button class="opt-btn" onclick="checkQCM(this, false)">Uniquement $1$ avec multiplicité $n-1$</button>
+                <button class="opt-btn" onclick="checkQCM(this, false)">$e^{i\pi/n}$ et ses conjugués</button>
+            </div>
+        </div>
+
+        <div class="qcm-card">
+            <div class="question-meta">Question 15</div>
+            <div class="question-text">Dans $\mathbb{R}[X]$, les polynômes irréductibles sont :</div>
+            <div class="options-grid">
+                <button class="opt-btn" onclick="checkQCM(this, false)">Uniquement ceux de degré 1</button>
+                <button class="opt-btn" onclick="checkQCM(this, true)">Ceux de degré 1, et ceux de degré 2 avec $\Delta < 0$</button>
+                <button class="opt-btn" onclick="checkQCM(this, false)">Ceux de degré impair</button>
+                <button class="opt-btn" onclick="checkQCM(this, false)">Tous les polynômes n'ayant pas de racines réelles</button>
+            </div>
+        </div>
+
+        <div class="qcm-card">
+            <div class="question-meta">Question 16</div>
+            <div class="question-text">Quelle est la multiplicité de la racine $a$ dans $P(X) = (X-a)^k Q(X)$ avec $Q(a) \neq 0$ ?</div>
+            <div class="options-grid">
+                <button class="opt-btn" onclick="checkQCM(this, true)">$k$</button>
+                <button class="opt-btn" onclick="checkQCM(this, false)">$k+1$</button>
+                <button class="opt-btn" onclick="checkQCM(this, false)">$1$</button>
+                <button class="opt-btn" onclick="checkQCM(this, false)">Cela dépend du degré de $Q$</button>
+            </div>
+        </div>
+
+        <div class="qcm-card">
+            <div class="question-meta">Question 17</div>
+            <div class="question-text">Pour $n+1$ points d'interpolation $(x_i, y_i)$ avec les $x_i$ tous distincts, le polynôme de Lagrange est de degré :</div>
+            <div class="options-grid">
+                <button class="opt-btn" onclick="checkQCM(this, false)">Exactement $n+1$</button>
+                <button class="opt-btn" onclick="checkQCM(this, false)">Exactement $n$</button>
+                <button class="opt-btn" onclick="checkQCM(this, true)">Au plus $n$</button>
+                <button class="opt-btn" onclick="checkQCM(this, false)">Infini</button>
+            </div>
+        </div>
+
+        <div class="qcm-card">
+            <div class="question-meta">Question 18</div>
+            <div class="question-text">Sur le corps $\mathbb{Q}$, le polynôme $X^2 - 2$ est :</div>
+            <div class="options-grid">
+                <button class="opt-btn" onclick="checkQCM(this, false)">Scindé</button>
+                <button class="opt-btn" onclick="checkQCM(this, true)">Irréductible</button>
+                <button class="opt-btn" onclick="checkQCM(this, false)">Possède la racine rationnelle $\sqrt{2}$</button>
+                <button class="opt-btn" onclick="checkQCM(this, false)">N'est pas un polynôme</button>
+            </div>
+        </div>
+
+        <div class="qcm-card">
+            <div class="question-meta">Question 19</div>
+            <div class="question-text">Si $P(x) = Q(x)$ pour tout réel $x \in [0, 1]$, que peut-on affirmer ?</div>
+            <div class="options-grid">
+                <button class="opt-btn" onclick="checkQCM(this, true)">Les polynômes $P$ et $Q$ sont égaux ($P=Q$)</button>
+                <button class="opt-btn" onclick="checkQCM(this, false)">$P-Q$ admet $1$ pour racine</button>
+                <button class="opt-btn" onclick="checkQCM(this, false)">Rien hors de l'intervalle $[0, 1]$</button>
+                <button class="opt-btn" onclick="checkQCM(this, false)">$P$ et $Q$ sont constants</button>
+            </div>
+        </div>
+
+        <div class="qcm-card">
+            <div class="question-meta">Question 20</div>
+            <div class="question-text">Dans la décomposition en éléments simples dans $\mathbb{C}(X)$ de $F = \frac{1}{P}$, la factorisation du dénominateur $P$ se fait :</div>
+            <div class="options-grid">
+                <button class="opt-btn" onclick="checkQCM(this, false)">En facteurs irréductibles de degré 1 et 2</button>
+                <button class="opt-btn" onclick="checkQCM(this, true)">Exclusivement en facteurs de degré 1</button>
+                <button class="opt-btn" onclick="checkQCM(this, false)">Sans factoriser $P$</button>
+                <button class="opt-btn" onclick="checkQCM(this, false)">À l'aide de la division euclidienne par $X$</button>
+            </div>
+        </div>
+
+        <div class="qcm-card">
+            <div class="question-meta">Question 21</div>
+            <div class="question-text">Quel est le reste de la division euclidienne de $P(X) = X^{2024} - 1$ par $X + 1$ ?</div>
+            <div class="options-grid">
+                <button class="opt-btn" onclick="checkQCM(this, false)">$1$</button>
+                <button class="opt-btn" onclick="checkQCM(this, false)">$-2$</button>
+                <button class="opt-btn" onclick="checkQCM(this, true)">$0$</button>
+                <button class="opt-btn" onclick="checkQCM(this, false)">$2$</button>
+            </div>
+        </div>
+
+        <div class="qcm-card">
+            <div class="question-meta">Question 22</div>
+            <div class="question-text">Soit la décomposition $F(X) = \frac{2}{X^2 - 1} = \frac{a}{X-1} + \frac{b}{X+1}$. Que valent respectivement $a$ et $b$ ?</div>
+            <div class="options-grid">
+                <button class="opt-btn" onclick="checkQCM(this, false)">$a=1, b=1$</button>
+                <button class="opt-btn" onclick="checkQCM(this, true)">$a=1, b=-1$</button>
+                <button class="opt-btn" onclick="checkQCM(this, false)">$a=-1, b=1$</button>
+                <button class="opt-btn" onclick="checkQCM(this, false)">$a=2, b=2$</button>
+            </div>
+        </div>
+
+        <div class="qcm-card">
+            <div class="question-meta">Question 23</div>
+            <div class="question-text">Que vaut l'intégrale $\int_{-1}^{1} (5X^4 - 3X^2 + 2) \, dX$ ?</div>
+            <div class="options-grid">
+                <button class="opt-btn" onclick="checkQCM(this, false)">$0$</button>
+                <button class="opt-btn" onclick="checkQCM(this, false)">$2$</button>
+                <button class="opt-btn" onclick="checkQCM(this, true)">$4$</button>
+                <button class="opt-btn" onclick="checkQCM(this, false)">$8$</button>
+            </div>
+        </div>
+
+        <div class="qcm-card">
+            <div class="question-meta">Question 24</div>
+            <div class="question-text">Sachant que 1 est racine évidente, quelle est la factorisation de $P(X) = X^3 - 4X^2 + 5X - 2$ sur $\mathbb{R}$ ?</div>
+            <div class="options-grid">
+                <button class="opt-btn" onclick="checkQCM(this, true)">$(X-1)^2(X-2)$</button>
+                <button class="opt-btn" onclick="checkQCM(this, false)">$(X-1)(X-2)^2$</button>
+                <button class="opt-btn" onclick="checkQCM(this, false)">$(X-1)(X+2)^2$</button>
+                <button class="opt-btn" onclick="checkQCM(this, false)">$(X+1)^2(X-2)$</button>
+            </div>
+        </div>
+
+        <div class="qcm-card">
+            <div class="question-meta">Question 25</div>
+            <div class="question-text">En utilisant une décomposition en éléments simples, calculez l'intégrale $\int_{0}^{1} \frac{1}{(X+1)(X+2)} \, dX$ :</div>
+            <div class="options-grid">
+                <button class="opt-btn" onclick="checkQCM(this, false)">$\ln(3/2)$</button>
+                <button class="opt-btn" onclick="checkQCM(this, true)">$\ln(4/3)$</button>
+                <button class="opt-btn" onclick="checkQCM(this, false)">$\ln(2)$</button>
+                <button class="opt-btn" onclick="checkQCM(this, false)">$\ln(3)$</button>
+            </div>
+        </div>
+
+        <div class="qcm-card">
+            <div class="question-meta">Question 26</div>
+            <div class="question-text">Quel est l'ordre de multiplicité de la racine $i$ pour le polynôme $P(X) = (X^2+1)^3 (X-i)^2$ ?</div>
+            <div class="options-grid">
+                <button class="opt-btn" onclick="checkQCM(this, false)">$2$</button>
+                <button class="opt-btn" onclick="checkQCM(this, false)">$3$</button>
+                <button class="opt-btn" onclick="checkQCM(this, true)">$5$</button>
+                <button class="opt-btn" onclick="checkQCM(this, false)">$6$</button>
+            </div>
+        </div>
+
+        <div class="qcm-card">
+            <div class="question-meta">Question 27</div>
+            <div class="question-text">Quel est le quotient exact de la division euclidienne de $X^4 - 1$ par $X^2 - 1$ ?</div>
+            <div class="options-grid">
+                <button class="opt-btn" onclick="checkQCM(this, false)">$X^2 - 1$</button>
+                <button class="opt-btn" onclick="checkQCM(this, true)">$X^2 + 1$</button>
+                <button class="opt-btn" onclick="checkQCM(this, false)">$X - 1$</button>
+                <button class="opt-btn" onclick="checkQCM(this, false)">$X^3 + 1$</button>
+            </div>
+        </div>
+
+        <div class="qcm-card">
+            <div class="question-meta">Question 28</div>
+            <div class="question-text">Quelle est la décomposition en éléments simples sur $\mathbb{R}$ de $F(X) = \frac{X}{(X-1)^2}$ ?</div>
+            <div class="options-grid">
+                <button class="opt-btn" onclick="checkQCM(this, false)">$\frac{1}{(X-1)^2}$</button>
+                <button class="opt-btn" onclick="checkQCM(this, false)">$\frac{X}{X-1} + \frac{1}{(X-1)^2}$</button>
+                <button class="opt-btn" onclick="checkQCM(this, false)">$\frac{1}{X-1} - \frac{1}{(X-1)^2}$</button>
+                <button class="opt-btn" onclick="checkQCM(this, true)">$\frac{1}{X-1} + \frac{1}{(X-1)^2}$</button>
+            </div>
+        </div>
+
+        <div class="qcm-card">
+            <div class="question-meta">Question 29</div>
+            <div class="question-text">Le reste de la division de $P(X)$ par $(X-1)(X-2)$ est de la forme $R(X) = aX+b$. Si $P(1)=3$ et $P(2)=5$, que vaut $R(X)$ ?</div>
+            <div class="options-grid">
+                <button class="opt-btn" onclick="checkQCM(this, true)">$2X + 1$</button>
+                <button class="opt-btn" onclick="checkQCM(this, false)">$3X + 2$</button>
+                <button class="opt-btn" onclick="checkQCM(this, false)">$X + 2$</button>
+                <button class="opt-btn" onclick="checkQCM(this, false)">$2X - 1$</button>
+            </div>
+        </div>
+
+        <div class="qcm-card">
+            <div class="question-meta">Question 30</div>
+            <div class="question-text">Quelle est la primitive sur $\mathbb{R}$ de la fraction rationnelle $F(X) = \frac{2X}{X^2+1}$ ? (à une constante près)</div>
+            <div class="options-grid">
+                <button class="opt-btn" onclick="checkQCM(this, false)">$\arctan(X)$</button>
+                <button class="opt-btn" onclick="checkQCM(this, false)">$\frac{1}{X^2+1}$</button>
+                <button class="opt-btn" onclick="checkQCM(this, true)">$\ln(X^2+1)$</button>
+                <button class="opt-btn" onclick="checkQCM(this, false)">$2\ln(X^2+1)$</button>
+            </div>
         </div>
     </div>
 
-    <div class="qcm-box">
-        <div class="qcm-question">Q2. D'après le théorème de d'Alembert-Gauss, dans $\mathbb{C}[X]$ :</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Tout polynôme a des racines réelles</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Il existe des polynômes irréductibles de degré 2</button>
-            <button class="opt-btn" onclick="checkAnswer(this, true)">Tout polynôme non constant est scindé</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Seuls les polynômes de degré impair ont une racine</button>
-        </div>
+    <div class="footer-action">
+        <button class="btn-submit" onclick="calculateScore()">
+            <i class="fas fa-check-circle"></i> VALIDER MES RÉPONSES
+        </button>
     </div>
 
-    <div class="qcm-box">
-        <div class="qcm-question">Q3. Si $P \in \mathbb{R}[X]$ admet une racine complexe $z \in \mathbb{C} \setminus \mathbb{R}$ d'ordre de multiplicité $m$, alors :</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$-z$ est aussi racine de multiplicité $m$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, true)">$\bar{z}$ est aussi racine de multiplicité $m$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$z$ est une racine simple ($m=1$ obligatoirement)</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$|z|$ est une racine réelle</button>
-        </div>
-    </div>
-
-    <div class="qcm-box">
-        <div class="qcm-question">Q4. Le scalaire $a$ est une racine simple (multiplicité exactement 1) de $P$ si et seulement si :</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, true)">$P(a) = 0$ et $P'(a) \neq 0$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$P(a) = 0$ et $P'(a) = 0$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$P'(a) \neq 0$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$P(a) \neq 0$</button>
-        </div>
-    </div>
-
-    <div class="qcm-box">
-        <div class="qcm-question">Q5. Un polynôme $P \in \mathbb{C}[X]$ n'admet que des racines simples si et seulement si :</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$P$ et $P'$ ont le même degré</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$\deg(P) = 1$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, true)">$P$ et $P'$ sont premiers entre eux ($\text{pgcd}(P,P')=1$)</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$P$ est unitaire</button>
-        </div>
-    </div>
-
-    <div class="qcm-box">
-        <div class="qcm-question">Q6. Soit $P = a_n X^n + \dots + a_1 X + a_0$ scindé de racines $x_1, \dots, x_n$. Que vaut le produit $x_1 x_2 \dots x_n$ ?</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, true)">$(-1)^n \frac{a_0}{a_n}$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$\frac{a_0}{a_n}$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$-\frac{a_{n-1}}{a_n}$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$(-1)^n a_0$</button>
-        </div>
-    </div>
-
-    <div class="qcm-box">
-        <div class="qcm-question">Q7. Pour ce même polynôme $P$, que vaut la somme des racines $x_1 + x_2 + \dots + x_n$ ?</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$\frac{a_{n-1}}{a_n}$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, true)">$-\frac{a_{n-1}}{a_n}$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$-a_{n-1}$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$(-1)^n \frac{a_1}{a_n}$</button>
-        </div>
-    </div>
-
-    <div class="qcm-box">
-        <div class="qcm-question">Q8. Si 0 n'est pas racine ($a_0 \neq 0$), que vaut la somme des inverses des racines $\sum_{i=1}^n \frac{1}{x_i}$ ?</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$-\frac{a_{n-1}}{a_0}$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$\frac{a_1}{a_n}$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, true)">$-\frac{a_1}{a_0}$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$(-1)^n \frac{a_1}{a_0}$</button>
-        </div>
-    </div>
-
-    <div class="qcm-box">
-        <div class="qcm-question">Q9. Énoncé du Théorème de Gauss-Lucas : pour $P \in \mathbb{C}[X]$, les racines de $P'$ sont situées...</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Sur le cercle trigonométrique</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Sur l'axe réel</button>
-            <button class="opt-btn" onclick="checkAnswer(this, true)">Dans l'enveloppe convexe des racines de $P$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">À l'extérieur du disque contenant les racines de $P$</button>
-        </div>
-    </div>
-
-    <div class="qcm-box">
-        <div class="qcm-question">Q10. Quelle est la factorisation de $X^n - 1$ dans $\mathbb{C}[X]$ ?</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$(X-1)^n$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, true)">$\prod_{k=0}^{n-1} (X - e^{i\frac{2k\pi}{n}})$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$(X-1)(X^{n-1} + \dots + 1)$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$\prod_{k=1}^n (X - i^k)$</button>
-        </div>
-    </div>
-
-    <div class="qcm-box">
-        <div class="qcm-question">Q11. Combien de polynômes de degré exactement $n$ s'annulent en $n$ points distincts donnés ?</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Un seul</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Aucun</button>
-            <button class="opt-btn" onclick="checkAnswer(this, true)">Une infinité (ils sont tous proportionnels)</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Exactement $n!$</button>
-        </div>
-    </div>
-
-    <div class="qcm-box">
-        <div class="qcm-question">Q12. Si $P \in \mathbb{K}[X]$ est de degré $\leq n$ et s'annule en $n+1$ points distincts, alors :</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$P$ est unitaire</button>
-            <button class="opt-btn" onclick="checkAnswer(this, true)">$P$ est le polynôme nul</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">C'est impossible</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$\deg(P) = n+1$</button>
-        </div>
-    </div>
-
-    <div class="qcm-box">
-        <div class="qcm-question">Q13. Soit $\omega = e^{i\frac{2\pi}{n}}$ avec $n \geq 2$. Que vaut la somme $1 + \omega + \omega^2 + \dots + \omega^{n-1}$ ?</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$n$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, true)">$0$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$-1$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$1$</button>
-        </div>
-    </div>
-
-    <div class="qcm-box">
-        <div class="qcm-question">Q14. Dans $\mathbb{C}[X]$, quelles sont les racines du polynôme $P = 1 + X + X^2 + \dots + X^{n-1}$ ?</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Toutes les racines $n$-ièmes de l'unité</button>
-            <button class="opt-btn" onclick="checkAnswer(this, true)">Les racines $n$-ièmes de l'unité, à l'exception de $1$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Uniquement $1$ avec multiplicité $n-1$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$e^{i\pi/n}$ et ses conjugués</button>
-        </div>
-    </div>
-
-    <div class="qcm-box">
-        <div class="qcm-question">Q15. Dans $\mathbb{R}[X]$, les polynômes irréductibles sont :</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Uniquement ceux de degré 1</button>
-            <button class="opt-btn" onclick="checkAnswer(this, true)">Ceux de degré 1, et ceux de degré 2 avec $\Delta < 0$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Ceux de degré impair</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Tous les polynômes n'ayant pas de racines réelles</button>
-        </div>
-    </div>
-
-    <div class="qcm-box">
-        <div class="qcm-question">Q16. Quelle est la multiplicité de la racine $a$ dans $P(X) = (X-a)^k Q(X)$ avec $Q(a) \neq 0$ ?</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, true)">$k$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$k+1$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$1$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Cela dépend du degré de $Q$</button>
-        </div>
-    </div>
-
-    <div class="qcm-box">
-        <div class="qcm-question">Q17. Pour $n+1$ points d'interpolation $(x_i, y_i)$ avec les $x_i$ tous distincts, le polynôme de Lagrange est de degré :</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Exactement $n+1$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Exactement $n$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, true)">Au plus $n$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Infini</button>
-        </div>
-    </div>
-
-    <div class="qcm-box">
-        <div class="qcm-question">Q18. Sur le corps $\mathbb{Q}$, le polynôme $X^2 - 2$ est :</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Scindé</button>
-            <button class="opt-btn" onclick="checkAnswer(this, true)">Irréductible</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Possède la racine rationnelle $\sqrt{2}$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">N'est pas un polynôme</button>
-        </div>
-    </div>
-
-    <div class="qcm-box">
-        <div class="qcm-question">Q19. Si $P(x) = Q(x)$ pour tout réel $x \in [0, 1]$, que peut-on affirmer ?</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, true)">Les polynômes $P$ et $Q$ sont égaux ($P=Q$)</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$P-Q$ admet $1$ pour racine</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Rien hors de l'intervalle $[0, 1]$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$P$ et $Q$ sont constants</button>
-        </div>
-    </div>
-
-    <div class="qcm-box">
-        <div class="qcm-question">Q20. Dans la décomposition en éléments simples dans $\mathbb{C}(X)$ de $F = \frac{1}{P}$, la factorisation du dénominateur $P$ se fait :</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, false)">En facteurs irréductibles de degré 1 et 2</button>
-            <button class="opt-btn" onclick="checkAnswer(this, true)">Exclusivement en facteurs de degré 1</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Sans factoriser $P$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">À l'aide de la division euclidienne par $X$</button>
-        </div>
-    </div>
-
-    <div class="qcm-box">
-        <div class="qcm-question">Q21. Quel est le reste de la division euclidienne de $P(X) = X^{2024} - 1$ par $X + 1$ ?</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, false)">1</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$-2$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, true)">0</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">2</button>
-        </div>
-    </div>
-
-    <div class="qcm-box">
-        <div class="qcm-question">Q22. Soit la décomposition $F(X) = \frac{2}{X^2 - 1} = \frac{a}{X-1} + \frac{b}{X+1}$. Que valent respectivement $a$ et $b$ ?</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$a=1, b=1$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, true)">$a=1, b=-1$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$a=-1, b=1$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$a=2, b=2$</button>
-        </div>
-    </div>
-
-    <div class="qcm-box">
-        <div class="qcm-question">Q23. Que vaut l'intégrale $\int_{-1}^{1} (5X^4 - 3X^2 + 2) \, dX$ ?</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, false)">0</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">2</button>
-            <button class="opt-btn" onclick="checkAnswer(this, true)">4</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">8</button>
-        </div>
-    </div>
-
-    <div class="qcm-box">
-        <div class="qcm-question">Q24. Sachant que 1 est racine évidente, quelle est la factorisation de $P(X) = X^3 - 4X^2 + 5X - 2$ sur $\mathbb{R}$ ?</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, true)">$(X-1)^2(X-2)$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$(X-1)(X-2)^2$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$(X-1)(X+2)^2$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$(X+1)^2(X-2)$</button>
-        </div>
-    </div>
-
-    <div class="qcm-box">
-        <div class="qcm-question">Q25. En utilisant une décomposition en éléments simples, calculez l'intégrale $\int_{0}^{1} \frac{1}{(X+1)(X+2)} \, dX$ :</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$\ln(3/2)$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, true)">$\ln(4/3)$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$\ln(2)$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$\ln(3)$</button>
-        </div>
-    </div>
-
-    <div class="qcm-box">
-        <div class="qcm-question">Q26. Quel est l'ordre de multiplicité de la racine $i$ pour le polynôme $P(X) = (X^2+1)^3 (X-i)^2$ ?</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, false)">2</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">3</button>
-            <button class="opt-btn" onclick="checkAnswer(this, true)">5</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">6</button>
-        </div>
-    </div>
-
-    <div class="qcm-box">
-        <div class="qcm-question">Q27. Quel est le quotient exact de la division euclidienne de $X^4 - 1$ par $X^2 - 1$ ?</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$X^2 - 1$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, true)">$X^2 + 1$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$X - 1$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$X^3 + 1$</button>
-        </div>
-    </div>
-
-    <div class="qcm-box">
-        <div class="qcm-question">Q28. Quelle est la décomposition en éléments simples sur $\mathbb{R}$ de $F(X) = \frac{X}{(X-1)^2}$ ?</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$\frac{1}{(X-1)^2}$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$\frac{X}{X-1} + \frac{1}{(X-1)^2}$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$\frac{1}{X-1} - \frac{1}{(X-1)^2}$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, true)">$\frac{1}{X-1} + \frac{1}{(X-1)^2}$</button>
-        </div>
-    </div>
-
-    <div class="qcm-box">
-        <div class="qcm-question">Q29. Le reste de la division de $P(X)$ par $(X-1)(X-2)$ est de la forme $R(X) = aX+b$. Si $P(1)=3$ et $P(2)=5$, que vaut $R(X)$ ?</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, true)">$2X + 1$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$3X + 2$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$X + 2$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$2X - 1$</button>
-        </div>
-    </div>
-
-    <div class="qcm-box">
-        <div class="qcm-question">Q30. Quelle est la primitive sur $\mathbb{R}$ de la fraction rationnelle $F(X) = \frac{2X}{X^2+1}$ ? (à une constante près)</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$\arctan(X)$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$\frac{1}{X^2+1}$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, true)">$\ln(X^2+1)$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$2\ln(X^2+1)$</button>
-        </div>
-    </div>
-
-    <button id="submit-btn" class="btn-primary" onclick="calculateScore()">Valider mes réponses</button>
-    
-    <div id="score-display" style="display: none; margin-top: 40px;"></div>
-    <div id="congrats-msg" style="display: none;"></div>
-
+    <div id="score-display"></div>
 </div>
+
+<script>
+    let score = 0;
+    let questionsAnswered = 0;
+    const totalQuestions = 30;
+
+    // Fonction déclenchée au clic d'une option
+    function checkQCM(btn, isCorrect) {
+        // Bloquer tous les boutons de la même question
+        const grid = btn.parentElement;
+        const buttons = grid.querySelectorAll('.opt-btn');
+        
+        // Empêcher de changer de réponse
+        if(grid.dataset.answered === "true") return;
+        grid.dataset.answered = "true";
+        questionsAnswered++;
+
+        buttons.forEach(b => {
+            b.disabled = true;
+            // Indiquer visuellement la bonne réponse, quoi qu'il arrive
+            if(b.getAttribute('onclick').includes('true')) {
+                b.classList.add('correct');
+            }
+        });
+
+        // Si l'utilisateur a cliqué sur une mauvaise réponse, l'indiquer en rouge
+        if (!isCorrect) {
+            btn.classList.add('wrong');
+        } else {
+            score++;
+        }
+    }
+
+    // Calcul et affichage du score final
+    function calculateScore() {
+        const scoreDisplay = document.getElementById('score-display');
+        
+        if (questionsAnswered < totalQuestions) {
+            scoreDisplay.innerHTML = `⚠️ Tu n'as répondu qu'à ${questionsAnswered}/${totalQuestions} questions. Complète tout pour voir ton score !`;
+            scoreDisplay.style.color = "#ef4444";
+            scoreDisplay.style.borderColor = "#ef4444";
+        } else {
+            let message = "";
+            if(score >= 25) message = "🏆 Impressionnant ! Tu maîtrises les polynômes sur le bout des doigts.";
+            else if(score >= 15) message = "👍 Pas mal ! Encore quelques révisions et tu seras au top.";
+            else message = "💪 Courage ! Les polynômes demandent de l'entraînement.";
+
+            scoreDisplay.innerHTML = `Score final : ${score} / ${totalQuestions} <br><span style="font-size: 1.1rem; color: #64748b;">${message}</span>`;
+            scoreDisplay.style.color = "#0f172a";
+            scoreDisplay.style.borderColor = "#10b981";
+        }
+        
+        scoreDisplay.style.display = "block";
+        scoreDisplay.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+</script>
+
+</body>
+</html>
