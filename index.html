@@ -51,7 +51,7 @@
             overflow: hidden; 
         }
 
-        /* --- SIDEBAR PRESTIGE --- */
+        /* --- SIDEBAR --- */
         #sidebar { 
             width: 320px; 
             min-width: 320px;
@@ -127,7 +127,6 @@
         }
 
         .chap-toggle:hover { background: #f1f5f9; }
-        
         .chap-toggle i.main-icon { width: 25px; color: var(--gold-muted); }
 
         .chap-content {
@@ -167,13 +166,6 @@
         }
 
         .nav-link i { margin-right: 12px; font-size: 0.85rem; width: 18px; text-align: center; }
-        
-        .nav-link.active-link {
-            color: var(--navy-dark);
-            background: #fff;
-            font-weight: 700;
-            box-shadow: inset 4px 0 0 var(--gold-btn);
-        }
 
         /* --- MAIN AREA --- */
         #main-wrapper {
@@ -197,15 +189,11 @@
             padding: 60px 40px;
             color: white;
             margin-bottom: 40px;
-            position: relative;
-            overflow: hidden;
             border-bottom: 5px solid var(--gold-btn);
             box-shadow: var(--shadow-md);
         }
 
-        .hero-banner h1 { margin: 0; font-size: 2.2rem; font-weight: 800; letter-spacing: -1px; }
-        .hero-banner p { opacity: 0.8; margin-top: 10px; font-size: 1.1rem; }
-
+        /* --- MOBILE --- */
         .menu-trigger {
             display: none;
             position: fixed;
@@ -223,7 +211,6 @@
             #sidebar { position: fixed; left: -320px; }
             #sidebar.open { left: 0; }
             .menu-trigger { display: block; }
-            #main-wrapper { margin-left: 0; padding-top: 60px; }
         }
     </style>
 </head>
@@ -243,6 +230,7 @@
         </div>
 
         <div id="nav-scroll">
+            
             <div class="chap-group">
                 <button class="chap-toggle" onclick="toggleAccordeon(this)">
                     <span><i class="fas fa-square-root-variable main-icon"></i> Polynômes</span>
@@ -253,22 +241,50 @@
                     <a class="nav-link" onclick="loadPage('poly_bases')"><i class="fas fa-book"></i> Fondamentaux</a>
                     <a class="nav-link" onclick="loadPage('poly_racines')"><i class="fas fa-bullseye"></i> Racines & Divisibilité</a>
                     <a class="nav-link" onclick="loadPage('poly_fractions')"><i class="fas fa-percentage"></i> Fractions Rationnelles</a>
-                    
                     <p class="nav-section-title">Entraînement</p>
                     <a class="nav-link" onclick="loadPage('poly_exos')"><i class="fas fa-dumbbell"></i> Marathon 60 Questions</a>
-                    <a class="nav-link" onclick="loadPage('poly_exos_calc')"><i class="fas fa-calculator"></i> Calcul Technique</a>
                     <a class="nav-link" style="color:#059669; font-weight:700" onclick="loadTraining('poly')"><i class="fas fa-bolt"></i> Test Aléatoire</a>
                 </div>
             </div>
 
+            <div class="chap-group">
+                <button class="chap-toggle" onclick="toggleAccordeon(this)">
+                    <span><i class="fas fa-draw-polygon main-icon"></i> Géométrie</span>
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="chap-content">
+                    <p class="nav-section-title">Théorie</p>
+                    <a class="nav-link" onclick="loadPage('geo_metrique')"><i class="fas fa-ruler-combined"></i> Relations Métriques</a>
+                    <a class="nav-link" onclick="loadPage('geo_analytique')"><i class="fas fa-location-crosshairs"></i> Géométrie Analytique</a>
+                    <p class="nav-section-title">Pratique</p>
+                    <a class="nav-link" onclick="loadPage('geo_training_v1')"><i class="fas fa-pencil"></i> Exercices v1</a>
+                    <a class="nav-link" style="color:#059669; font-weight:700" onclick="loadTraining('geo')"><i class="fas fa-bolt"></i> Test de Niveau</a>
+                </div>
             </div>
+
+            <div class="chap-group">
+                <button class="chap-toggle" onclick="toggleAccordeon(this)">
+                    <span><i class="fas fa-chart-line main-icon"></i> Fonctions</span>
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="chap-content">
+                    <p class="nav-section-title">Analyse</p>
+                    <a class="nav-link" onclick="loadPage('func_theoremes')"><i class="fas fa-microscope"></i> Rolle & TAF</a>
+                    <a class="nav-link" onclick="loadPage('func_taylor')"><i class="fas fa-infinity"></i> Taylor & DL</a>
+                    <p class="nav-section-title">Pratique</p>
+                    <a class="nav-link" onclick="loadPage('training_taylor_rolle')"><i class="fas fa-flask"></i> Mix Analyse</a>
+                    <a class="nav-link" style="color:#059669; font-weight:700" onclick="loadTraining('func')"><i class="fas fa-bolt"></i> Test de Rapidité</a>
+                </div>
+            </div>
+
+        </div>
     </div>
 
     <div id="main-wrapper">
         <div id="content-container">
             <div class="hero-banner">
                 <h1>Bienvenue, Elian</h1>
-                <p>Préparez vos concours avec rigueur. Sélectionnez un module dans le menu latéral pour commencer votre séance.</p>
+                <p>Préparez vos concours avec rigueur. Sélectionnez un module dans le menu latéral pour commencer.</p>
             </div>
             
             <div style="text-align:center; padding:60px; color:var(--text-muted)">
@@ -279,7 +295,6 @@
     </div>
 
     <script>
-        // --- LOGIQUE NAVIGATION ---
         function toggleSidebar() {
             document.getElementById('sidebar').classList.toggle('open');
         }
@@ -299,7 +314,6 @@
             icon.style.transform = isActive ? 'rotate(180deg)' : 'rotate(0deg)';
         }
 
-        // --- CHARGEMENT DYNAMIQUE AMÉLIORÉ ---
         async function loadPage(fileName) {
             if(window.innerWidth < 1000) toggleSidebar();
             
@@ -307,55 +321,50 @@
             container.innerHTML = '<div style="text-align:center; padding:100px;"><i class="fas fa-circle-notch fa-spin" style="font-size:3rem; color:var(--gold-btn)"></i></div>';
 
             try {
-                const timestamp = new Date().getTime();
-                const response = await fetch(`content/${fileName}.html?v=${timestamp}`);
-                
+                const response = await fetch(`content/${fileName}.html`);
                 if(!response.ok) throw new Error("Fichier introuvable");
                 
                 const html = await response.text();
-                
-                // TECHNIQUE DE FORCE : On crée un élément temporaire pour parser le HTML
-                const tempDiv = document.createElement('div');
-                tempDiv.innerHTML = html;
-                
-                // On vide le conteneur
-                container.innerHTML = '';
-                
-                // On injecte le contenu non-script
-                while (tempDiv.firstChild) {
-                    container.appendChild(tempDiv.firstChild);
-                }
+                container.innerHTML = html;
 
-                // ON FORCE L'EXÉCUTION DES SCRIPTS
-                const scripts = container.querySelectorAll('script');
-                scripts.forEach(oldScript => {
-                    const newScript = document.createElement('script');
-                    Array.from(oldScript.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value));
-                    newScript.appendChild(document.createTextNode(oldScript.innerHTML));
-                    oldScript.parentNode.replaceChild(newScript, oldScript);
-                });
-
-                // Relancer MathJax
                 if(window.MathJax) {
                     MathJax.typesetPromise([container]).catch(err => console.log(err));
                 }
-
                 document.getElementById('main-wrapper').scrollTop = 0;
 
             } catch (error) {
                 container.innerHTML = `
                     <div class="hero-banner" style="background:#ef4444; border-color:#991b1b">
                         <h1>Erreur 404</h1>
-                        <p>Le module <b>content/${fileName}.html</b> est introuvable.</p>
+                        <p>Le fichier <b>content/${fileName}.html</b> est absent de votre dossier.</p>
                     </div>`;
             }
         }
 
         function loadTraining(subject) {
-            const versions = ['v1', 'v2', 'v3'];
+            const versions = ['v1', 'v2'];
             const randomVersion = versions[Math.floor(Math.random() * versions.length)];
-            let finalName = `${subject}_training_${randomVersion}`;
-            loadPage(finalName);
+            loadPage(`${subject}_training_${randomVersion}`);
+        }
+
+        // Système QCM Intégré
+        function checkQCM(btn, isCorrect) {
+            const card = btn.closest('.qcm-card');
+            const allBtns = card.querySelectorAll('.opt-btn');
+            
+            allBtns.forEach(b => b.disabled = true);
+
+            if(isCorrect) {
+                btn.classList.add('correct');
+            } else {
+                btn.classList.add('wrong');
+                allBtns.forEach(b => {
+                    if(b.getAttribute('onclick').includes('true')) b.classList.add('correct');
+                });
+            }
+
+            const feedback = card.querySelector('.correction-box');
+            if(feedback) feedback.style.display = 'block';
         }
     </script>
 </body>
