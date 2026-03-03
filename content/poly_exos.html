@@ -83,12 +83,14 @@
             display: flex;
             align-items: center;
             gap: 10px;
+            outline: none;
         }
 
         .btn-reveal:hover { background: var(--gold-btn); color: var(--navy-dark); }
 
+        /* Bloc caché par défaut */
         .correction-block {
-            display: none;
+            display: none; 
             margin-top: 20px;
             padding: 25px;
             background: #fdfdfd;
@@ -98,7 +100,7 @@
         }
 
         .fade-in { animation: fadeInAnim 0.4s ease forwards; }
-        @keyframes fadeInAnim { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes fadeInAnim { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body>
@@ -125,7 +127,7 @@
         9. Montrer que $|T_n(x)| \le 1$ sur $[-1,1]$.<br>
         10. Calculer $T_n'(1)$ par dérivation de l'équation en $\theta$.
     </div>
-    <button class="btn-reveal" onclick="toggleCor(this)">
+    <button class="btn-reveal">
         <i class="fas fa-eye"></i> Afficher le corrigé détaillé
     </button>
     <div class="correction-block">
@@ -143,196 +145,34 @@
     </div>
 </div>
 
-<div class="qcm-card">
-    <div class="exo-header">
-        <span class="exo-badge">Exo 2</span>
-        <span class="exo-title">Divisions et Divisibilité</span>
-    </div>
-    <div class="exo-content">
-        1. Effectuer la division de $X^4-1$ par $X^2+X+1$.<br>
-        2. Reste de $X^n$ par $X-a$.<br>
-        3. Reste de $X^n$ par $(X-1)(X-2)$.<br>
-        4. Condition sur $n$ pour que $X^2+X+1$ divise $X^{2n}+X^n+1$.<br>
-        5. Calculer $\text{pgcd}(X^6-1, X^8-1)$.<br>
-        6. Montrer que $n|m \implies (X^n-1)|(X^m-1)$.<br>
-        7. Trouver $A, B$ tels que $A(X-1)+B(X-2)=1$.<br>
-        8. Reste de la division de $P$ par $(X-a)^2$ (Formule de Taylor).<br>
-        9. Reste de $(X+1)^n - X^n - 1$ par $X^2+X+1$ pour $n$ impair.<br>
-        10. Déterminer le reste de $X^{100}$ par $X^2+1$.
-    </div>
-    <button class="btn-reveal" onclick="toggleCor(this)">
-        <i class="fas fa-eye"></i> Afficher le corrigé détaillé
-    </button>
-    <div class="correction-block">
-        <strong>Corrigé :</strong><br>
-        1. $Q=X^2-X, R=X-1$.<br>
-        2. $R=a^n$.<br>
-        3. $R=(2^n-1)X + (2-2^n)$.<br>
-        4. $n \equiv 1, 2 \pmod 3$.<br>
-        5. $X^{\text{pgcd}(6,8)}-1 = X^2-1$.<br>
-        6. Utiliser $Y^k-1 = (Y-1)\sum Y^j$.<br>
-        7. $A=-1, B=1$.<br>
-        8. $R = P'(a)(X-a) + P(a)$.<br>
-        9. $R=0$ (tester la racine $j$).<br>
-        10. $X^{100} = (X^2)^{50} \equiv (-1)^{50} = 1 \pmod{X^2+1}$.
-    </div>
-</div>
-
-<div class="qcm-card">
-    <div class="exo-header">
-        <span class="exo-badge">Exo 3</span>
-        <span class="exo-title">Racines et Factorisation</span>
-    </div>
-    <div class="exo-content">
-        1. Multiplicité de 1 dans $X^n-nX+n-1$.<br>
-        2. Factoriser $X^4+1$ dans $\mathbb{R}[X]$.<br>
-        3. Factoriser $X^{2n}-1$ dans $\mathbb{C}[X]$.<br>
-        4. Somme des racines de $X^n+aX+b=0$.<br>
-        5. Produit des racines de $2X^3-4X^2+X-5=0$.<br>
-        6. Montrer que $P_n = \sum_{k=0}^n \frac{X^k}{k!}$ n'a que des racines simples.<br>
-        7. Condition sur $p, q$ pour que $X^3+pX+q$ ait une racine double.<br>
-        8. Déterminer les polynômes $P$ tels que $P' | P$.<br>
-        9. Trouver les racines de $X^2 - 2X\cos\theta + 1$.<br>
-        10. Nombre de racines réelles de $X^n-1$ selon la parité de $n$.
-    </div>
-    <button class="btn-reveal" onclick="toggleCor(this)">
-        <i class="fas fa-eye"></i> Afficher le corrigé détaillé
-    </button>
-    <div class="correction-block">
-        <strong>Corrigé :</strong><br>
-        1. Multiplicité 2 ($P(1)=0, P'(1)=0, P''(1) \neq 0$).<br>
-        2. $(X^2-\sqrt{2}X+1)(X^2+\sqrt{2}X+1)$.<br>
-        3. $\prod_{k=0}^{2n-1} (X-e^{ik\pi/n})$.<br>
-        4. $\sum x_i = 0$ (pour $n \ge 2$).<br>
-        5. $\prod x_i = -(-5)/2 = 2.5$.<br>
-        6. $P_n = P_{n-1} + X^n/n!$, si $z$ racine double $\implies z=0$ impossible.<br>
-        7. $4p^3 + 27q^2 = 0$.<br>
-        8. $P = \lambda(X-a)^n$.<br>
-        9. $e^{i\theta}, e^{-i\theta}$.<br>
-        10. 2 si $n$ pair ($\pm 1$), 1 si $n$ impair ($1$).
-    </div>
-</div>
-
-<div class="qcm-card">
-    <div class="exo-header">
-        <span class="exo-badge">Exo 4</span>
-        <span class="exo-title">Décomposition en Éléments Simples</span>
-    </div>
-    <div class="exo-content">
-        1. Décomposer $\frac{1}{X(X+1)}$.<br>
-        2. Décomposer $\frac{1}{X^2-a^2}$.<br>
-        3. Décomposer $\frac{X}{(X-1)^2}$.<br>
-        4. Partie entière de $\frac{X^3}{X^2-1}$.<br>
-        5. Décomposer $\frac{1}{X^2+1}$ dans $\mathbb{C}(X)$.<br>
-        6. Décomposer $\frac{1}{X^n-1}$ (pôles simples).<br>
-        7. Calculer $\sum_{k=1}^n \frac{1}{k(k+1)}$.<br>
-        8. Décomposer $\frac{X^2+1}{(X-1)^3}$.<br>
-        9. Décomposer $\frac{1}{X(X+1)^2}$.<br>
-        10. Forme de la décomposition de $\frac{P}{Q}$ si $\deg P < \deg Q$ et pôles simples.
-    </div>
-    <button class="btn-reveal" onclick="toggleCor(this)">
-        <i class="fas fa-eye"></i> Afficher le corrigé détaillé
-    </button>
-    <div class="correction-block">
-        <strong>Corrigé :</strong><br>
-        1. $\frac{1}{X} - \frac{1}{X+1}$.<br>
-        2. $\frac{1}{2a}(\frac{1}{X-a} - \frac{1}{X+a})$.<br>
-        3. $\frac{1}{X-1} + \frac{1}{(X-1)^2}$.<br>
-        4. $E=X$.<br>
-        5. $\frac{1}{2i}(\frac{1}{X-i} - \frac{1}{X+i})$.<br>
-        6. $\frac{1}{n} \sum \frac{\omega_k}{X-\omega_k}$.<br>
-        7. $1 - \frac{1}{n+1}$ (télescopique).<br>
-        8. $\frac{1}{X-1} + \frac{2}{(X-1)^2} + \frac{2}{(X-1)^3}$.<br>
-        9. $\frac{1}{X} - \frac{1}{X+1} - \frac{1}{(X+1)^2}$.<br>
-        10. $\sum \frac{\lambda_i}{X-a_i}$ avec $\lambda_i = \frac{P(a_i)}{Q'(a_i)}$.
-    </div>
-</div>
-
-<div class="qcm-card">
-    <div class="exo-header">
-        <span class="exo-badge">Exo 5</span>
-        <span class="exo-title">Polynômes et Matrices</span>
-    </div>
-    <div class="exo-content">
-        1. Soit $P=X^2-3X+2$. Calculer $P(A)$ pour $A=\text{diag}(1,2)$.<br>
-        2. Exprimer $A^n \pmod{X^2-3X+2}$.<br>
-        3. Si $A^k=0$, que dire des valeurs propres de $A$ ?<br>
-        4. Si $A^2=A$, montrer que $\text{Im}(A) \cap \text{Ker}(A) = \{0\}$.<br>
-        5. Calculer $A^{-1}$ si $A^2-5A+6I=0$.<br>
-        6. Polynôme caractéristique de $\begin{pmatrix} a & b \\ c & d \end{pmatrix}$.<br>
-        7. Théorème de Cayley-Hamilton (énoncé simple).<br>
-        8. Lien entre racines du polynôme annulateur et valeurs propres.<br>
-        9. Calculer $\begin{pmatrix} 1 & 1 \\ 0 & 1 \end{pmatrix}^n$.<br>
-        10. Déterminer un polynôme annulateur de $J$ (matrice de uns, taille 3).
-    </div>
-    <button class="btn-reveal" onclick="toggleCor(this)">
-        <i class="fas fa-eye"></i> Afficher le corrigé détaillé
-    </button>
-    <div class="correction-block">
-        <strong>Corrigé :</strong><br>
-        1. $P(A)=0$.<br>
-        2. $A^n = (2^n-1)A + (2-2^n)I$.<br>
-        3. Seule valeur propre : 0.<br>
-        4. Soit $x \in \text{Im}(A) \cap \text{Ker}(A)$, $x=Ay$ et $Ax=0 \implies A^2y=0 \implies Ay=0 \implies x=0$.<br>
-        5. $A^{-1} = \frac{5}{6}I - \frac{1}{6}A$.<br>
-        6. $X^2 - \text{Tr}(A)X + \det(A)$.<br>
-        7. $\chi_A(A)=0$.<br>
-        8. Les valeurs propres sont parmi les racines de tout polynôme annulateur.<br>
-        9. $\begin{pmatrix} 1 & n \\ 0 & 1 \end{pmatrix}$.<br>
-        10. $X^2-3X$ (car $J^2=3J$).
-    </div>
-</div>
-
-<div class="qcm-card">
-    <div class="exo-header">
-        <span class="exo-badge">Exo 6</span>
-        <span class="exo-title">Polynômes de Bernoulli $B_n$</span>
-    </div>
-    <div class="exo-content">
-        1. Définition de $B_n$ par $B_n' = nB_{n-1}$ et $\int_0^1 B_n = 0$.<br>
-        2. Calculer $B_0, B_1, B_2$.<br>
-        3. Montrer que $B_n(1) = B_n(0)$ pour $n \ge 2$.<br>
-        4. Relation entre $B_n(X+1)$ et $B_n(X)$.<br>
-        5. Formule pour $\sum_{k=0}^{n-1} k^p$ via Bernoulli.<br>
-        6. Valeur de $B_1(0)$ et $B_1(1)$.<br>
-        7. Parité de $B_n(X+1/2)$ ?<br>
-        8. Calculer $B_3$.<br>
-        9. Montrer que $B_n(1-X) = (-1)^n B_n(X)$.<br>
-        10. Lien avec la fonction Zeta (Bernoulli et $\sum 1/n^{2k}$).
-    </div>
-    <button class="btn-reveal" onclick="toggleCor(this)">
-        <i class="fas fa-eye"></i> Afficher le corrigé détaillé
-    </button>
-    <div class="correction-block">
-        <strong>Corrigé :</strong><br>
-        1. Suite unique de polynômes.<br>
-        2. $B_0=1, B_1=X-1/2, B_2=X^2-X+1/6$.<br>
-        3. Provient de $\int_0^1 B_n' = B_n(1)-B_n(0) = \int n B_{n-1} = 0$.<br>
-        4. $B_n(X+1)-B_n(X) = nX^{n-1}$.<br>
-        5. $S_p(n) = \frac{1}{p+1}(B_{p+1}(n) - B_{p+1}(0))$.<br>
-        6. $-1/2$ et $1/2$.<br>
-        7. Parité de $n$.<br>
-        8. $X^3 - \frac{3}{2}X^2 + \frac{1}{2}X$.<br>
-        9. Vrai par unicité de la suite définie par les propriétés.<br>
-        10. $\zeta(2k) = (-1)^{k+1} \frac{(2\pi)^{2k} B_{2k}(0)}{2(2k)!}$.
-    </div>
-</div>
-
 <script>
-    function toggleCor(btn) {
-        const block = btn.nextElementSibling;
-        const isHidden = window.getComputedStyle(block).display === "none";
+    document.addEventListener('DOMContentLoaded', () => {
+        const buttons = document.querySelectorAll('.btn-reveal');
         
-        if (isHidden) {
-            block.style.display = "block";
-            block.classList.add('fade-in');
-            btn.innerHTML = '<i class="fas fa-eye-slash"></i> Masquer le corrigé';
-            if (window.MathJax) MathJax.typesetPromise([block]);
-        } else {
-            block.style.display = "none";
-            btn.innerHTML = '<i class="fas fa-eye"></i> Afficher le corrigé détaillé';
-        }
-    }
+        buttons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const block = btn.nextElementSibling;
+                
+                // Vérification si le bloc est affiché ou non
+                const isHidden = window.getComputedStyle(block).display === "none";
+                
+                if (isHidden) {
+                    block.style.display = "block";
+                    block.classList.add('fade-in');
+                    btn.innerHTML = '<i class="fas fa-eye-slash"></i> Masquer le corrigé';
+                    
+                    // Force MathJax à restituer le contenu du nouveau bloc affiché
+                    if (window.MathJax && window.MathJax.typesetPromise) {
+                        MathJax.typesetPromise([block]).catch((err) => console.log(err));
+                    }
+                } else {
+                    block.style.display = "none";
+                    block.classList.remove('fade-in');
+                    btn.innerHTML = '<i class="fas fa-eye"></i> Afficher le corrigé détaillé';
+                }
+            });
+        });
+    });
 </script>
 
 </body>
