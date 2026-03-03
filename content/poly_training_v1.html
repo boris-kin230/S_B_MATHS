@@ -4,7 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Training Polynômes : Elite Edition (20 Qs)</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            },
+            svg: {
+                fontCache: 'global'
+            }
+        };
+    </script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
     <style>
@@ -12,7 +29,9 @@
             --primary: #1e293b; 
             --accent: #3b82f6; 
             --success: #10b981;
+            --success-bg: #d1fae5;
             --error: #ef4444; 
+            --error-bg: #fee2e2;
             --bg: #f8fafc; 
             --card-bg: #ffffff;
             --text-main: #0f172a; 
@@ -23,15 +42,17 @@
             background-color: var(--bg); 
             font-family: 'Inter', sans-serif; 
             color: var(--text-main); 
-            line-height: 1.6; 
+            line-height: 1.7; 
             margin: 0; 
             padding: 20px; 
+            -webkit-font-smoothing: antialiased;
         }
 
         .container { 
             max-width: 900px; 
             margin: 0 auto; 
             animation: fadeIn 0.8s ease-out; 
+            padding-bottom: 40px;
         }
 
         .hero-section { 
@@ -41,123 +62,198 @@
             color: white; 
             text-align: center; 
             margin-bottom: 40px; 
-            position: relative; 
-            overflow: hidden; 
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1); 
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04); 
         }
 
         .hero-section h1 { 
-            font-size: 2.5rem; 
-            margin: 0; 
+            font-size: 2.75rem; 
+            margin: 0 0 10px 0; 
             background: linear-gradient(to right, #60a5fa, #a78bfa); 
             -webkit-background-clip: text; 
             -webkit-text-fill-color: transparent; 
             font-weight: 800; 
+            letter-spacing: -0.02em;
+        }
+
+        .hero-section p {
+            font-size: 1.1rem;
+            color: #94a3b8;
+            margin: 0;
+            font-weight: 500;
         }
 
         .qcm-card { 
             background: var(--card-bg); 
             border-radius: 20px; 
-            padding: 35px; 
-            margin-bottom: 25px; 
+            padding: 40px; 
+            margin-bottom: 30px; 
             border: 1px solid #e2e8f0; 
-            transition: all 0.3s ease; 
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            transition: transform 0.2s ease, box-shadow 0.2s ease; 
+        }
+
+        .qcm-card:hover {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
         }
 
         .question-meta { 
             display: flex; 
             align-items: center; 
             gap: 10px; 
-            margin-bottom: 15px; 
+            margin-bottom: 20px; 
             font-weight: 700; 
             color: var(--accent); 
-            font-size: 0.9rem; 
+            font-size: 0.95rem; 
             text-transform: uppercase; 
+            letter-spacing: 0.05em;
         }
 
         .question-text { 
-            font-size: 1.25rem; 
+            font-size: 1.3rem; 
             font-weight: 600; 
-            margin-bottom: 25px; 
+            margin-bottom: 30px; 
             color: var(--primary); 
+            letter-spacing: -0.01em;
         }
 
-        /* CORRECTION DE LA GRILLE : 2 colonnes strictes pour la symétrie */
         .options-grid { 
             display: grid; 
             grid-template-columns: repeat(2, 1fr); 
-            gap: 15px; 
+            gap: 20px; 
         }
 
-        /* Responsive : passe sur 1 colonne uniquement sur les petits téléphones */
         @media (max-width: 600px) {
             .options-grid {
                 grid-template-columns: 1fr;
+            }
+            .qcm-card {
+                padding: 25px;
             }
         }
 
         .opt-btn { 
             background: #f1f5f9; 
-            border: 2px solid transparent; 
-            padding: 18px; 
-            border-radius: 12px; 
+            border: 2px solid #e2e8f0; 
+            padding: 20px; 
+            border-radius: 14px; 
             cursor: pointer; 
             text-align: center; 
-            font-size: 1rem; 
+            font-size: 1.05rem; 
+            font-family: inherit;
+            color: var(--text-main);
             transition: all 0.2s ease; 
-            min-height: 80px; /* Assure une hauteur uniforme pour des rectangles parfaits */
+            min-height: 85px; 
             display: flex;
             align-items: center;
             justify-content: center;
+            font-weight: 500;
         }
 
         .opt-btn:hover:not(:disabled) {
             background: #e2e8f0;
             border-color: #cbd5e1;
+            transform: translateY(-2px);
+        }
+
+        /* États des boutons après clic */
+        .opt-btn:disabled {
+            cursor: default;
+            opacity: 0.7;
         }
 
         .opt-btn.correct { 
-            background: #d1fae5 !important; 
+            background: var(--success-bg) !important; 
             border-color: var(--success) !important; 
-            color: #065f46 !important; 
+            color: #064e3b !important; 
             font-weight: 700; 
+            opacity: 1 !important;
+            box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.2);
         }
 
         .opt-btn.wrong { 
-            background: #fee2e2 !important; 
+            background: var(--error-bg) !important; 
             border-color: var(--error) !important; 
-            color: #991b1b !important; 
+            color: #7f1d1d !important; 
+            opacity: 1 !important;
         }
 
         .correction-box { 
-            margin-top: 20px; 
-            padding: 20px; 
-            background: #f1f5f9; 
-            border-radius: 10px; 
+            margin-top: 25px; 
+            padding: 25px; 
+            background: #f8fafc; 
+            border-radius: 12px; 
             display: none; 
-            border-left: 4px solid var(--accent); 
-            animation: fadeIn 0.4s ease; 
+            border-left: 5px solid var(--accent); 
+            animation: slideDown 0.4s ease; 
+            font-size: 1.05rem;
+            color: #334155;
+        }
+
+        .correction-box b {
+            color: var(--primary);
         }
 
         .footer-action { 
             text-align: center; 
-            padding: 40px 0; 
+            padding: 20px 0; 
         }
 
         .btn-submit { 
-            background: #1e293b; 
+            background: var(--primary); 
             color: white; 
             border: none; 
             padding: 20px 50px; 
             font-size: 1.2rem; 
             font-weight: 700; 
-            border-radius: 15px; 
+            border-radius: 16px; 
             cursor: pointer; 
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 15px -3px rgba(30, 41, 59, 0.3);
+            font-family: inherit;
+        }
+
+        .btn-submit:hover {
+            background: #0f172a;
+            transform: translateY(-3px);
+            box-shadow: 0 20px 25px -5px rgba(30, 41, 59, 0.4);
+        }
+
+        /* Style pour l'affichage du score final */
+        .score-container {
+            display: none;
+            background: white;
+            padding: 50px;
+            border-radius: 24px;
+            text-align: center;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            margin-top: 40px;
+            animation: fadeIn 0.8s ease-out;
+            border: 2px solid var(--accent);
+        }
+
+        .score-container h2 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .score-container .score-number {
+            font-size: 4rem;
+            font-weight: 800;
+            background: linear-gradient(to right, #3b82f6, #10b981);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin: 20px 0;
         }
 
         @keyframes fadeIn { 
             from { opacity: 0; transform: translateY(20px); } 
             to { opacity: 1; transform: translateY(0); } 
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
@@ -411,12 +507,89 @@
         </div>
     </div>
 
-    <div class="footer-action">
+    <div class="footer-action" id="footer-action">
         <button class="btn-submit" onclick="finishQuiz()">
             <i class="fas fa-check-circle"></i> TERMINER ET VOIR MON SCORE
         </button>
     </div>
+
+    <div class="score-container" id="score-container">
+        <h2>Ton Score Final</h2>
+        <div class="score-number" id="final-score">0 / 20</div>
+        <p id="score-message" style="font-size: 1.2rem; color: var(--text-muted); margin-bottom: 30px;"></p>
+        <button class="btn-submit" onclick="location.reload()">
+            <i class="fas fa-redo"></i> Recommencer l'entraînement
+        </button>
+    </div>
+
 </div>
+
+<script>
+    let score = 0;
+    const totalQuestions = 20;
+    let questionsAnswered = 0;
+
+    function checkQCM(button, isCorrect) {
+        const grid = button.parentElement;
+        const card = grid.parentElement;
+        const correctionBox = card.querySelector('.correction-box');
+        const allButtons = grid.querySelectorAll('.opt-btn');
+
+        // Vérifie si la question a déjà été répondue
+        if (card.classList.contains('answered')) return;
+        card.classList.add('answered');
+        questionsAnswered++;
+
+        // Désactive tous les boutons et affiche les couleurs
+        allButtons.forEach(btn => {
+            btn.disabled = true;
+            
+            // On met en vert la bonne réponse (celle qui a "true" dans son onclick)
+            if (btn.getAttribute('onclick').includes('true')) {
+                btn.classList.add('correct');
+            }
+
+            // Si le bouton cliqué est faux, on le met en rouge
+            if (btn === button && !isCorrect) {
+                btn.classList.add('wrong');
+            }
+        });
+
+        // Mise à jour du score
+        if (isCorrect) {
+            score++;
+        }
+
+        // Affichage de l'explication
+        correctionBox.style.display = 'block';
+    }
+
+    function finishQuiz() {
+        // Cache le bouton "Terminer"
+        document.getElementById('footer-action').style.display = 'none';
+        
+        // Prépare et affiche la div de score
+        const scoreContainer = document.getElementById('score-container');
+        document.getElementById('final-score').innerText = score + " / " + totalQuestions;
+        
+        let message = "";
+        if (score === 20) {
+            message = "Parfait ! Tu maîtrises les polynômes sur le bout des doigts.";
+        } else if (score >= 15) {
+            message = "Excellent travail ! De très bonnes bases.";
+        } else if (score >= 10) {
+            message = "Pas mal ! Encore un peu d'entraînement pour solidifier tout ça.";
+        } else {
+            message = "Il va falloir revoir le cours, courage !";
+        }
+        
+        document.getElementById('score-message').innerText = message;
+        scoreContainer.style.display = 'block';
+
+        // Fait défiler la page vers le score
+        scoreContainer.scrollIntoView({ behavior: 'smooth' });
+    }
+</script>
 
 </body>
 </html>
