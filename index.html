@@ -16,7 +16,6 @@
         };
     </script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -37,6 +36,14 @@
             --shadow-sm: 0 2px 8px rgba(0,0,0,0.05);
             --shadow-md: 0 10px 30px rgba(0,0,0,0.08);
             --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            
+            /* Couleurs pour QCM */
+            --selected-bg: #ebf8ff;
+            --selected-border: #3b82f6;
+            --correct-bg: #ecfdf5;
+            --correct-border: #10b981;
+            --wrong-bg: #fef2f2;
+            --wrong-border: #ef4444;
         }
 
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -79,258 +86,100 @@
             box-shadow: 0 10px 20px rgba(0,0,0,0.15);
         }
 
-        .logo-text { 
-            color: #fff; 
-            font-weight: 800; 
-            font-size: 1.4rem; 
-            margin: 0; 
-            letter-spacing: -1px;
-        }
+        .logo-text { color: #fff; font-weight: 800; font-size: 1.4rem; margin: 0; letter-spacing: -1px; }
         .logo-text span { color: var(--gold-btn); }
 
         .badge-pcsi {
-            display: inline-block;
-            margin-top: 15px;
-            padding: 6px 14px;
+            display: inline-block; margin-top: 15px; padding: 6px 14px;
             background: linear-gradient(135deg, var(--gold-btn), var(--gold-hover));
-            color: var(--navy-dark);
-            font-size: 0.7rem;
-            font-weight: 800;
-            border-radius: 50px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            color: var(--navy-dark); font-size: 0.7rem; font-weight: 800;
+            border-radius: 50px; text-transform: uppercase; letter-spacing: 1px;
         }
 
-        #nav-scroll {
-            flex-grow: 1;
-            overflow-y: auto;
-            padding: 20px 0;
-        }
+        #nav-scroll { flex-grow: 1; overflow-y: auto; padding: 20px 0; }
 
         /* --- ACCORDEON --- */
         .chap-group { margin-bottom: 5px; }
-
         .chap-toggle {
-            width: 100%;
-            padding: 16px 25px;
-            background: none;
-            border: none;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            cursor: pointer;
-            font-weight: 700;
-            font-size: 0.85rem;
-            color: var(--navy-dark);
-            text-transform: uppercase;
-            transition: var(--transition);
+            width: 100%; padding: 16px 25px; background: none; border: none;
+            display: flex; justify-content: space-between; align-items: center;
+            cursor: pointer; font-weight: 700; font-size: 0.85rem; color: var(--navy-dark);
+            text-transform: uppercase; transition: var(--transition);
         }
-
         .chap-toggle:hover { background: #f1f5f9; }
-        
         .chap-toggle i.main-icon { width: 25px; color: var(--gold-muted); }
-
-        .chap-content {
-            display: none;
-            background: #fafbfc;
-            border-bottom: 1px solid var(--border);
-        }
-        
+        .chap-content { display: none; background: #fafbfc; border-bottom: 1px solid var(--border); }
         .chap-content.active { display: block; }
-
-        .nav-section-title {
-            padding: 15px 30px 5px;
-            font-size: 0.65rem;
-            font-weight: 800;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .nav-link {
-            display: flex;
-            align-items: center;
-            padding: 12px 30px 12px 45px;
-            color: var(--text-muted);
-            text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: 500;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-
-        .nav-link:hover {
-            color: var(--navy-dark);
-            background: #fff;
-            padding-left: 50px;
-            box-shadow: inset 4px 0 0 var(--gold-btn);
-        }
-
-        .nav-link i { margin-right: 12px; font-size: 0.85rem; width: 18px; text-align: center; }
+        .nav-section-title { padding: 15px 30px 5px; font-size: 0.65rem; font-weight: 800; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; }
         
-        .nav-link.active-link {
-            color: var(--navy-dark);
-            background: #fff;
-            font-weight: 700;
-            box-shadow: inset 4px 0 0 var(--gold-btn);
+        .nav-link {
+            display: flex; align-items: center; padding: 12px 30px 12px 45px;
+            color: var(--text-muted); text-decoration: none; font-size: 0.9rem;
+            font-weight: 500; cursor: pointer; transition: var(--transition);
         }
+        .nav-link:hover { color: var(--navy-dark); background: #fff; padding-left: 50px; box-shadow: inset 4px 0 0 var(--gold-btn); }
+        .nav-link i { margin-right: 12px; font-size: 0.85rem; width: 18px; text-align: center; }
 
         /* --- MAIN AREA --- */
-        #main-wrapper {
-            flex-grow: 1;
-            height: 100vh;
-            overflow-y: auto;
-            position: relative;
-            background: var(--bg-page);
-            scroll-behavior: smooth;
-        }
-
-        #content-container {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 40px 20px 120px;
-        }
+        #main-wrapper { flex-grow: 1; height: 100vh; overflow-y: auto; position: relative; background: var(--bg-page); scroll-behavior: smooth; }
+        #content-container { max-width: 1000px; margin: 0 auto; padding: 40px 20px 120px; }
 
         .hero-banner {
             background: linear-gradient(145deg, var(--navy-dark), var(--navy-main));
-            border-radius: var(--radius);
-            padding: 60px 40px;
-            color: white;
-            margin-bottom: 40px;
-            position: relative;
-            overflow: hidden;
-            border-bottom: 5px solid var(--gold-btn);
-            box-shadow: var(--shadow-md);
+            border-radius: var(--radius); padding: 60px 40px; color: white; margin-bottom: 40px;
+            border-bottom: 5px solid var(--gold-btn); box-shadow: var(--shadow-md);
         }
-
         .hero-banner h1 { margin: 0; font-size: 2.2rem; font-weight: 800; letter-spacing: -1px; }
         .hero-banner p { opacity: 0.8; margin-top: 10px; font-size: 1.1rem; }
 
-        /* --- DESIGN QCM PRESTIGE --- */
-        .qcm-card {
-            background: var(--surface);
-            border-radius: var(--radius);
-            padding: 35px;
-            margin-bottom: 25px;
-            box-shadow: var(--shadow-sm);
-            border: 1px solid var(--border);
+        /* --- DESIGN QCM UNIFIÉ --- */
+        .qcm-box {
+            background: var(--surface); border-radius: var(--radius); padding: 35px;
+            margin-bottom: 25px; box-shadow: var(--shadow-sm); border: 1px solid var(--border);
             transition: var(--transition);
         }
-
-        .qcm-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
-
-        .qcm-question {
-            font-size: 1.15rem;
-            font-weight: 700;
-            margin-bottom: 25px;
-            line-height: 1.5;
-            color: var(--navy-dark);
-        }
-
-        .options-grid {
-            display: grid;
-            gap: 12px;
-        }
+        .qcm-box:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+        .qcm-question { font-size: 1.15rem; font-weight: 700; margin-bottom: 25px; line-height: 1.5; color: var(--navy-dark); }
+        .qcm-grid { display: grid; gap: 12px; grid-template-columns: 1fr 1fr; }
+        @media (max-width: 768px) { .qcm-grid { grid-template-columns: 1fr; } }
 
         .opt-btn {
-            padding: 16px 22px;
-            border-radius: 12px;
-            border: 2px solid var(--border);
-            background: white;
-            cursor: pointer;
-            text-align: left;
-            font-family: inherit;
-            font-size: 1rem;
-            font-weight: 500;
-            color: var(--text-main);
-            transition: all 0.2s ease;
-            display: flex;
-            align-items: center;
+            padding: 16px 22px; border-radius: 12px; border: 2px solid var(--border);
+            background: white; cursor: pointer; text-align: left; font-family: inherit;
+            font-size: 1rem; font-weight: 500; color: var(--text-main); transition: all 0.2s ease;
+            display: flex; align-items: center;
         }
-
-        .opt-btn:hover:not(:disabled) {
-            border-color: var(--gold-muted);
-            background: #fffdf5;
-            transform: translateX(5px);
-        }
-
-        .opt-btn.correct {
-            background: #ecfdf5 !important;
-            border-color: #10b981 !important;
-            color: #065f46 !important;
-            font-weight: 700;
-        }
-
-        .opt-btn.wrong {
-            background: #fef2f2 !important;
-            border-color: #ef4444 !important;
-            color: #991b1b !important;
-        }
-
+        .opt-btn:hover:not(:disabled) { border-color: var(--gold-muted); background: #fffdf5; }
+        
+        /* États de sélection et correction */
+        .opt-btn.selected { background: var(--selected-bg); border-color: var(--selected-border); font-weight: 700; color: var(--navy-dark); }
+        .opt-btn.correct-reveal { background: var(--correct-bg) !important; border-color: var(--correct-border) !important; color: #065f46 !important; font-weight: 700; }
+        .opt-btn.wrong-reveal { background: var(--wrong-bg) !important; border-color: var(--wrong-border) !important; color: #991b1b !important; opacity: 0.8; }
         .opt-btn:disabled { cursor: default; }
 
-        .correction-box {
-            margin-top: 20px;
-            padding: 20px;
-            background: #f1f5f9;
-            border-radius: 10px;
-            display: none; 
-            border-left: 4px solid var(--navy-main);
-            font-size: 0.95rem;
-            animation: fadeIn 0.4s ease;
+        /* Boutons de soumission */
+        .quiz-footer { margin-top: 40px; padding: 30px; border-top: 2px dashed var(--border); background: var(--surface); border-radius: var(--radius); text-align: center; }
+        .btn-primary {
+            background-color: var(--navy-dark); color: white; border: none; padding: 15px 30px;
+            font-size: 1.1rem; border-radius: 8px; cursor: pointer; font-weight: 600; font-family: inherit;
+            display: inline-flex; align-items: center; gap: 10px; transition: var(--transition);
         }
+        .btn-primary:hover:not(:disabled) { background-color: var(--gold-btn); color: var(--navy-dark); transform: translateY(-2px); }
+        .btn-primary:disabled { background-color: var(--text-muted); cursor: not-allowed; opacity: 0.7; }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+        /* Score & Feedback */
+        #score-display { display: none; margin-top: 25px; font-size: 1.8rem; font-weight: 800; color: var(--navy-dark); }
+        #score-display span { color: var(--gold-btn); font-size: 2.2rem; }
+        #congrats-msg { display: none; margin-top: 15px; padding: 15px 25px; border-radius: 8px; font-weight: 600; }
 
-        /* --- ACTIONS & SCORE --- */
-        #score-zone { margin-top: 50px; }
-
-        .share-bar {
-            background: var(--navy-dark);
-            padding: 30px;
-            border-radius: var(--radius);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 20px;
-            color: white;
-        }
-
-        .share-btn {
-            padding: 12px 24px;
-            border-radius: 50px;
-            border: none;
-            cursor: pointer;
-            font-weight: 700;
-            font-size: 0.9rem;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            transition: var(--transition);
-        }
-
+        .share-bar { margin-top: 30px; background: var(--navy-dark); padding: 25px; border-radius: var(--radius); display: flex; justify-content: space-between; align-items: center; color: white; flex-wrap: wrap; gap: 15px;}
+        .share-btn { padding: 12px 24px; border-radius: 50px; border: none; cursor: pointer; font-weight: 700; display: flex; align-items: center; gap: 10px; transition: var(--transition); }
         .btn-pdf { background: white; color: var(--navy-dark); }
         .btn-wa { background: #25D366; color: white; }
-        .share-btn:hover { transform: scale(1.05); filter: brightness(1.1); }
+        .share-btn:hover { transform: scale(1.05); }
 
         /* --- MOBILE --- */
-        .menu-trigger {
-            display: none;
-            position: fixed;
-            top: 20px; left: 20px;
-            z-index: 2000;
-            background: var(--navy-dark);
-            color: var(--gold-btn);
-            border: none;
-            width: 50px; height: 50px;
-            border-radius: 12px;
-            font-size: 1.5rem;
-        }
-
+        .menu-trigger { display: none; position: fixed; top: 20px; left: 20px; z-index: 2000; background: var(--navy-dark); color: var(--gold-btn); border: none; width: 50px; height: 50px; border-radius: 12px; font-size: 1.5rem; }
         @media (max-width: 1000px) {
             #sidebar { position: fixed; left: -320px; }
             #sidebar.open { left: 0; }
@@ -341,16 +190,11 @@
 </head>
 <body>
 
-    <button class="menu-trigger" onclick="toggleSidebar()">
-        <i class="fas fa-bars"></i>
-    </button>
+    <button class="menu-trigger" onclick="toggleSidebar()"><i class="fas fa-bars"></i></button>
 
     <div id="sidebar">
         <div class="logo-area">
-            <div class="logo-box">
-                <p class="logo-text">ELIAN<span>MATHS</span></p>
-            </div>
-            <br>
+            <div class="logo-box"><p class="logo-text">ELIAN<span>MATHS</span></p></div><br>
             <span class="badge-pcsi">Prestige Edition PCSI</span>
         </div>
 
@@ -361,47 +205,8 @@
                     <i class="fas fa-chevron-down"></i>
                 </button>
                 <div class="chap-content">
-                    <p class="nav-section-title">Cours</p>
-                    <a class="nav-link" onclick="loadPage('poly_bases')"><i class="fas fa-book"></i> Fondamentaux</a>
-                    <a class="nav-link" onclick="loadPage('poly_racines')"><i class="fas fa-bullseye"></i> Racines & Divisibilité</a>
-                    <a class="nav-link" onclick="loadPage('poly_fractions')"><i class="fas fa-percentage"></i> Fractions Rationnelles</a>
-                    
                     <p class="nav-section-title">Entraînement</p>
-                    <a class="nav-link" onclick="loadPage('poly_exos')"><i class="fas fa-dumbbell"></i> Marathon 60 Questions</a>
-                    <a class="nav-link" onclick="loadPage('poly_exos_calc')"><i class="fas fa-calculator"></i> Calcul Technique</a>
-                    <a class="nav-link" style="color:#059669; font-weight:700" onclick="loadTraining('poly')"><i class="fas fa-bolt"></i> Test Aléatoire</a>
-                </div>
-            </div>
-
-            <div class="chap-group">
-                <button class="chap-toggle" onclick="toggleAccordeon(this)">
-                    <span><i class="fas fa-draw-polygon main-icon"></i> Géométrie</span>
-                    <i class="fas fa-chevron-down"></i>
-                </button>
-                <div class="chap-content">
-                    <p class="nav-section-title">Théorie</p>
-                    <a class="nav-link" onclick="loadPage('geo_metrique')"><i class="fas fa-ruler-combined"></i> Relations Métriques</a>
-                    <a class="nav-link" onclick="loadPage('geo_analytique')"><i class="fas fa-location-crosshairs"></i> Géométrie Analytique</a>
-                    
-                    <p class="nav-section-title">Pratique</p>
-                    <a class="nav-link" onclick="loadPage('geo_training_v1')"><i class="fas fa-pencil"></i> Exercices v1</a>
-                    <a class="nav-link" style="color:#059669; font-weight:700" onclick="loadTraining('geo')"><i class="fas fa-bolt"></i> Test de Niveau</a>
-                </div>
-            </div>
-
-            <div class="chap-group">
-                <button class="chap-toggle" onclick="toggleAccordeon(this)">
-                    <span><i class="fas fa-chart-line main-icon"></i> Fonctions</span>
-                    <i class="fas fa-chevron-down"></i>
-                </button>
-                <div class="chap-content">
-                    <p class="nav-section-title">Analyse</p>
-                    <a class="nav-link" onclick="loadPage('func_theoremes')"><i class="fas fa-microscope"></i> Rolle & TAF</a>
-                    <a class="nav-link" onclick="loadPage('func_taylor')"><i class="fas fa-infinity"></i> Taylor & DL</a>
-                    
-                    <p class="nav-section-title">Pratique</p>
-                    <a class="nav-link" onclick="loadPage('training_taylor_rolle')"><i class="fas fa-flask"></i> Mix Analyse</a>
-                    <a class="nav-link" style="color:#059669; font-weight:700" onclick="loadTraining('func')"><i class="fas fa-bolt"></i> Test de Rapidité</a>
+                    <a class="nav-link" style="color:#059669; font-weight:700" onclick="loadTraining('poly')"><i class="fas fa-bolt"></i> Test Aléatoire (v1 à v4)</a>
                 </div>
             </div>
         </div>
@@ -411,158 +216,138 @@
         <div id="content-container">
             <div class="hero-banner">
                 <h1>Bienvenue, Elian</h1>
-                <p>Préparez vos concours avec rigueur. Sélectionnez un module dans le menu latéral pour commencer votre séance.</p>
-            </div>
-            
-            <div style="text-align:center; padding:60px; color:var(--text-muted)">
-                <i class="fas fa-hand-point-left" style="font-size:3rem; margin-bottom:20px; display:block"></i>
-                <p>En attente d'un module...</p>
+                <p>Préparez vos concours avec rigueur. Sélectionnez un module dans le menu latéral pour commencer.</p>
             </div>
         </div>
     </div>
 
     <script>
-        // --- LOGIQUE NAVIGATION ---
-        function toggleSidebar() {
-            document.getElementById('sidebar').classList.toggle('open');
-        }
-
+        // UI Menu
+        function toggleSidebar() { document.getElementById('sidebar').classList.toggle('open'); }
         function toggleAccordeon(btn) {
             const content = btn.nextElementSibling;
             const icon = btn.querySelector('.fa-chevron-down');
-            
-            document.querySelectorAll('.chap-content').forEach(el => {
-                if(el !== content) el.classList.remove('active');
-            });
-            document.querySelectorAll('.chap-toggle i.fa-chevron-down').forEach(i => {
-                if(i !== icon) i.style.transform = 'rotate(0deg)';
-            });
-
+            document.querySelectorAll('.chap-content').forEach(el => { if(el !== content) el.classList.remove('active'); });
             const isActive = content.classList.toggle('active');
             icon.style.transform = isActive ? 'rotate(180deg)' : 'rotate(0deg)';
         }
 
-        // --- NOUVELLE FONCTION POUR LES CORRIGÉS ---
-        function toggleCor(btn) {
-            const block = btn.nextElementSibling;
-            if (!block) return;
-            
-            const isHidden = window.getComputedStyle(block).display === "none";
-            
-            if (isHidden) {
-                block.style.display = "block";
-                block.classList.add('fade-in'); 
-                btn.innerHTML = '<i class="fas fa-eye-slash"></i> Masquer le corrigé';
-                if (window.MathJax) MathJax.typesetPromise([block]);
-            } else {
-                block.style.display = "none";
-                btn.innerHTML = '<i class="fas fa-eye"></i> Afficher le corrigé détaillé';
-            }
-        }
-
-        // --- CHARGEMENT DYNAMIQUE ---
+        // Chargement de page (AJAX)
         async function loadPage(fileName) {
-            if(window.innerWidth < 1000) {
-                document.getElementById('sidebar').classList.remove('open');
-            }
-            
+            if(window.innerWidth < 1000) document.getElementById('sidebar').classList.remove('open');
             const container = document.getElementById('content-container');
             container.innerHTML = '<div style="text-align:center; padding:100px;"><i class="fas fa-circle-notch fa-spin" style="font-size:3rem; color:var(--gold-btn)"></i></div>';
 
             try {
                 const timestamp = new Date().getTime();
                 const response = await fetch(`content/${fileName}.html?v=${timestamp}`);
-                
                 if(!response.ok) throw new Error("Fichier introuvable");
                 
                 const html = await response.text();
                 container.innerHTML = html;
 
-                if(window.MathJax) {
-                    MathJax.typesetPromise([container]).catch(err => console.log(err));
-                }
-
+                if(window.MathJax) MathJax.typesetPromise([container]).catch(err => console.log(err));
                 document.getElementById('main-wrapper').scrollTop = 0;
-
             } catch (error) {
-                container.innerHTML = `
-                    <div class="hero-banner" style="background:#ef4444; border-color:#991b1b">
-                        <h1>Erreur 404</h1>
-                        <p>Le module <b>content/${fileName}.html</b> est introuvable.</p>
-                    </div>`;
+                container.innerHTML = `<div class="hero-banner" style="background:#ef4444; border-color:#991b1b"><h1>Erreur 404</h1><p>Le module <b>content/${fileName}.html</b> est introuvable.</p></div>`;
             }
         }
+
+        // Tirage au sort incluant v4
+        let currentTotalQuestions = 0; // Va stocker le nombre de questions chargées
 
         function loadTraining(subject) {
-            const versions = ['v1', 'v2', 'v3'];
+            const versions = ['v1', 'v2', 'v3', 'v4']; // v4 (Pro) est bien inclus ici !
             const randomVersion = versions[Math.floor(Math.random() * versions.length)];
-            let finalName = `${subject}_training_${randomVersion}`;
-            loadPage(finalName);
+            const finalName = `${subject}_training_${randomVersion}`;
+            
+            // On charge la page, et une fois chargée on compte les questions
+            loadPage(finalName).then(() => {
+                setTimeout(() => {
+                    currentTotalQuestions = document.querySelectorAll('.qcm-grid').length;
+                }, 500); // Petit délai pour laisser le DOM s'insérer
+            });
         }
 
-        // --- MOTEUR QCM ---
-        function checkQCM(btn, isCorrect) {
-            const card = btn.closest('.qcm-card');
-            if(!card) return;
+        // Moteur QCM Unifié
+        function selectAnswer(btn, isCorrect) {
+            const submitBtn = document.getElementById('submit-btn');
+            if (submitBtn && submitBtn.disabled) return; // Bloqué si déjà soumis
 
-            const allBtns = card.querySelectorAll('.opt-btn');
-            allBtns.forEach(b => b.disabled = true);
+            const grid = btn.closest('.qcm-grid');
+            if (!grid) return;
 
-            if(isCorrect) {
-                btn.classList.add('correct');
-            } else {
-                btn.classList.add('wrong');
-                allBtns.forEach(b => {
-                    // On cherche le bouton qui a le "true" dans son onclick
-                    if(b.getAttribute('onclick') && b.getAttribute('onclick').includes('true')) {
-                        b.classList.add('correct');
+            const buttons = grid.querySelectorAll('.opt-btn');
+            buttons.forEach(b => b.classList.remove('selected'));
+            
+            btn.classList.add('selected');
+            grid.dataset.answered = "true";
+            grid.dataset.isCorrect = isCorrect;
+        }
+
+        function calculateScore() {
+            const grids = document.querySelectorAll('.qcm-grid');
+            let score = 0;
+            let answeredQuestions = 0;
+
+            grids.forEach(grid => {
+                if (grid.dataset.answered === "true") answeredQuestions++;
+            });
+
+            if (answeredQuestions < currentTotalQuestions) {
+                const confirmSubmit = confirm(`Vous n'avez répondu qu'à ${answeredQuestions} question(s) sur ${currentTotalQuestions}. Voulez-vous vraiment soumettre ?`);
+                if (!confirmSubmit) return;
+            }
+
+            const submitBtn = document.getElementById('submit-btn');
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fas fa-lock"></i> Examen terminé';
+
+            // Correction visuelle
+            grids.forEach(grid => {
+                const buttons = grid.querySelectorAll('.opt-btn');
+                if (grid.dataset.isCorrect === "true") score++;
+
+                buttons.forEach(btn => {
+                    btn.disabled = true;
+                    if (btn.getAttribute('onclick').includes('true')) {
+                        btn.classList.add('correct-reveal');
+                    } else if (btn.classList.contains('selected')) {
+                        btn.classList.add('wrong-reveal');
                     }
                 });
+            });
+
+            // Affichage du score
+            const scoreDisplay = document.getElementById('score-display');
+            const scoreValue = document.getElementById('score-value');
+            const maxScoreDisplay = document.getElementById('max-score');
+            const congratsMsg = document.getElementById('congrats-msg');
+            const shareBlock = document.getElementById('share-block');
+
+            scoreValue.textContent = score;
+            maxScoreDisplay.textContent = currentTotalQuestions;
+            scoreDisplay.style.display = 'block';
+            congratsMsg.style.display = 'inline-block';
+            shareBlock.style.display = 'flex';
+
+            const ratio = score / currentTotalQuestions;
+            if (ratio === 1) {
+                congratsMsg.style.backgroundColor = "#d1fae5"; congratsMsg.style.color = "#065f46";
+                congratsMsg.innerHTML = "🏆 Perfection ! Esprit PCSI au top.";
+            } else if (ratio >= 0.7) {
+                congratsMsg.style.backgroundColor = "#dbeafe"; congratsMsg.style.color = "#1e3a8a";
+                congratsMsg.innerHTML = "👏 Très bon travail, bases solides.";
+            } else {
+                congratsMsg.style.backgroundColor = "#fee2e2"; congratsMsg.style.color = "#991b1b";
+                congratsMsg.innerHTML = "💪 Des révisions s'imposent, ne lâche rien !";
             }
-
-            const feedback = card.querySelector('.correction-box');
-            if(feedback) {
-                feedback.style.display = 'block';
-                if (window.MathJax) MathJax.typesetPromise([feedback]);
-            }
+            
+            setTimeout(() => { document.querySelector('.quiz-footer').scrollIntoView({ behavior: 'smooth' }); }, 100);
         }
 
-        function finishQuiz() {
-            const scoreHTML = `
-                <div id="score-zone">
-                    <div class="share-bar">
-                        <div>
-                            <h2 style="margin:0; color:var(--gold-btn)">Session Terminée</h2>
-                            <p style="margin:5px 0 0">Votre progression a été enregistrée.</p>
-                        </div>
-                        <div style="display:flex; gap:10px;">
-                            <button class="share-btn btn-pdf" onclick="generatePDF()"><i class="fas fa-file-pdf"></i> PDF</button>
-                            <button class="share-btn btn-wa" onclick="shareWA()"><i class="fab fa-whatsapp"></i> WhatsApp</button>
-                        </div>
-                    </div>
-                </div>
-            `;
-            const container = document.getElementById('content-container');
-            container.insertAdjacentHTML('beforeend', scoreHTML);
-            document.getElementById('score-zone').scrollIntoView();
-        }
-
-        function generatePDF() {
-            const element = document.getElementById('content-container');
-            const opt = {
-                margin: 10,
-                filename: 'ElianMaths_Resultats.pdf',
-                image: { type: 'jpeg', quality: 0.98 },
-                html2canvas: { scale: 2 },
-                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-            };
-            html2pdf().set(opt).from(element).save();
-        }
-
-        function shareWA() {
-            const text = "J'ai terminé ma session sur Elian Maths !";
-            window.open(`https://wa.me/?text=${encodeURIComponent(text)}`);
-        }
+        function generatePDF() { html2pdf().set({ margin: 10, filename: 'Resultats.pdf' }).from(document.getElementById('content-container')).save(); }
+        function shareWA() { window.open(`https://wa.me/?text=${encodeURIComponent("J'ai terminé ma session sur Elian Maths !")}`); }
     </script>
 </body>
 </html>
