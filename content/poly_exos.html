@@ -1,107 +1,139 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Polynômes : Série Intensive PCSI</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <style>
+        :root {
+            --primary: #eab308;
+            --primary-dark: #ca8a04;
+            --slate-900: #0f172a;
+            --slate-800: #1e293b;
+            --slate-100: #f1f5f9;
+        }
+
+        body {
+            background-color: #f8fafc;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            margin: 0;
+            padding: 20px;
+            color: var(--slate-800);
+        }
+
+        .hero-banner {
+            background: linear-gradient(135deg, #111827, #1e293b);
+            padding: 50px 20px;
+            border-radius: 20px;
+            color: white;
+            text-align: center;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1);
+        }
+
+        .hero-banner h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            color: var(--primary);
+        }
+
+        .qcm-card {
+            background: white;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            margin-bottom: 35px;
+            border: 1px solid #e2e8f0;
+            border-top: 5px solid var(--primary);
+        }
+
+        .exo-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--slate-100);
+            padding-bottom: 15px;
+        }
+
+        .exo-badge {
+            background: var(--primary);
+            color: var(--slate-900);
+            padding: 5px 15px;
+            border-radius: 8px;
+            font-weight: 800;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            margin-right: 15px;
+        }
+
+        .exo-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--slate-900);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .exo-content {
+            margin: 20px 0;
+            line-height: 1.9;
+            color: #334155;
+            font-size: 1.05rem;
+        }
+
+        .btn-reveal {
+            background: #111827;
+            color: var(--primary);
+            border: 1px solid var(--primary);
+            padding: 12px 24px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-reveal:hover {
+            background: var(--primary);
+            color: #111827;
+        }
+
+        /* Le bloc est caché par défaut */
+        .correction-block {
+            display: none;
+            margin-top: 20px;
+            padding: 25px;
+            background: #f8fafc;
+            border-left: 5px solid var(--primary);
+            border-radius: 4px 12px 12px 4px;
+            font-size: 1rem;
+            line-height: 1.7;
+            color: var(--slate-900);
+        }
+        
+        /* Animation d'apparition */
+        .fade-in {
+            animation: fadeInAnim 0.4s ease forwards;
+        }
+
+        @keyframes fadeInAnim {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
 <div class="hero-banner">
-    <h1>Polynômes : Série Intensive</h1>
-    <p>60 Questions d'entraînement réparties en 6 thèmes majeurs — Format PCSI Prestige</p>
+    <h1><i class="fas fa-microchip"></i> Polynômes : Série Intensive</h1>
+    <p>60 Questions d'entraînement — Format PCSI Prestige (Version Corrigée)</p>
 </div>
-
-<style>
-    .qcm-card {
-        background: white;
-        padding: 30px;
-        border-radius: 16px;
-        box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-        margin-bottom: 35px;
-        border: 1px solid #e2e8f0;
-        transition: transform 0.2s ease;
-    }
-
-    .qcm-card:hover {
-        transform: translateY(-2px);
-    }
-
-    .exo-header {
-        display: flex;
-        align-items: center;
-        margin-bottom: 20px;
-        border-bottom: 2px solid #f1f5f9;
-        padding-bottom: 15px;
-    }
-
-    .exo-badge {
-        background: linear-gradient(135deg, #eab308, #facc15);
-        color: #0f172a;
-        padding: 5px 15px;
-        border-radius: 8px;
-        font-weight: 800;
-        font-size: 0.8rem;
-        text-transform: uppercase;
-        margin-right: 15px;
-        box-shadow: 0 2px 4px rgba(234, 179, 8, 0.3);
-    }
-
-    .exo-title {
-        font-size: 1.1rem;
-        font-weight: 700;
-        color: #1e293b;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-    }
-
-    .exo-content {
-        margin: 20px 0;
-        line-height: 1.9;
-        color: #334155;
-        font-size: 1.05rem;
-    }
-
-    .btn-reveal {
-        background: #111827;
-        color: #eab308;
-        border: 1px solid #eab308;
-        padding: 12px 24px;
-        border-radius: 10px;
-        cursor: pointer;
-        font-weight: 600;
-        font-size: 0.9rem;
-        transition: all 0.3s ease;
-        display: inline-flex;
-        align-items: center;
-        gap: 10px;
-    }
-
-    .btn-reveal:hover {
-        background: #eab308;
-        color: #111827;
-    }
-
-    .correction-block {
-        display: none;
-        margin-top: 20px;
-        padding: 25px;
-        background: #f8fafc;
-        border-left: 5px solid #eab308;
-        border-radius: 4px 12px 12px 4px;
-        font-size: 1rem;
-        line-height: 1.7;
-        color: #1e293b;
-        animation: fadeIn 0.4s ease;
-    }
-
-    @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(10px); }
-        to { opacity: 1; transform: translateY(0); }
-    }
-
-    .visual-help {
-        margin-top: 15px;
-        padding: 10px;
-        background: #fff;
-        border: 1px dashed #cbd5e1;
-        border-radius: 8px;
-        font-style: italic;
-        color: #64748b;
-        font-size: 0.9rem;
-    }
-</style>
 
 <div class="qcm-card">
     <div class="exo-header">
@@ -120,18 +152,19 @@
         9. Montrer que $\forall x \in [-1, 1], |T_n(x)| \le 1$.<br>
         10. Calculer la dérivée au bord : $T_n'(1)$.
     </div>
-    <button class="btn-reveal" onclick="toggleLocalCorrection(this)">
+    <button class="btn-reveal">
         <i class="fas fa-eye"></i> Afficher le corrigé détaillé
     </button>
     <div class="correction-block">
+        
         <strong>Corrigé Stratégique :</strong><br>
-        1. Formule de Moivre + Binôme : $\cos(n\theta) = \sum_{2k \le n} \binom{n}{2k} (\cos\theta)^{n-2k} (\cos^2\theta - 1)^k$.<br>
+        1. Utiliser la partie réelle de $(\cos\theta + i\sin\theta)^n$ et remplacer $\sin^2\theta$ par $1-\cos^2\theta$.<br>
         2. $T_0=1, T_1=X, T_2=2X^2-1, T_3=4X^3-3X, T_4=8X^4-8X^2+1$.<br>
         3. Linéarisation : $\cos(n+2)\theta + \cos(n\theta) = 2\cos\theta\cos(n+1)\theta$.<br>
         4. Par récurrence, $\deg(T_n)=n$. 5. Coeff dominant $\text{dom}(T_n) = 2^{n-1}$ pour $n \ge 1$.<br>
         6. $T_n(1)=1$ et $T_n(-1)=(-1)^n$. 7. $T_n$ a la parité de $n$.<br>
         8. $x_k = \cos\left(\frac{(2k+1)\pi}{2n}\right)$ pour $k \in \{0, \dots, n-1\}$.<br>
-        9. Vrai par définition sur $[-1, 1]$ car image d'un cosinus. 10. $T_n'(1)=n^2$.
+        9. Vrai par définition car image d'un cosinus. 10. $T_n'(1)=n^2$ (via dérivation de $\cos(n\theta)$).
     </div>
 </div>
 
@@ -152,7 +185,7 @@
         9. Reste de $X^{n+2}+X^n+1$ par $X^2-X$.<br>
         10. Démontrer que si $n|m$, alors $X^n-1$ divise $X^m-1$.
     </div>
-    <button class="btn-reveal" onclick="toggleLocalCorrection(this)">
+    <button class="btn-reveal">
         <i class="fas fa-eye"></i> Afficher le corrigé détaillé
     </button>
     <div class="correction-block">
@@ -162,8 +195,8 @@
         4. Soit $P$ le polynôme. $P(1)=1+0-1=0$ et $P(2)=0+1-1=0$.<br>
         5. Toujours vrai : tester la racine $j$ ($j^2+j+1=0$).<br>
         6. $\text{pgcd} = X^{\text{pgcd}(n,m)}-1$. 7. $A=-1, B=1$.<br>
-        8. $R = P'(a)(X-a) + P(a)$. 9. $R=2X+1$ (évaluer en 0 et 1).<br>
-        10. Poser $m=nq$, alors $X^{nq}-1 = (X^n-1)(1 + X^n + \dots + X^{n(q-1)})$.
+        8. $R = P'(a)(X-a) + P(a)$ (Taylor). 9. $R=2X+1$ (évaluer en 0 et 1).<br>
+        10. $X^{nq}-1 = (X^n-1)(1 + X^n + \dots + X^{n(q-1)})$.
     </div>
 </div>
 
@@ -184,17 +217,17 @@
         9. Soit $P=X^3+pX+q$. Condition pour une racine double ?<br>
         10. Factoriser $X^2 - 2X\cos\theta + 1$ dans $\mathbb{C}[X]$.
     </div>
-    <button class="btn-reveal" onclick="toggleLocalCorrection(this)">
+    <button class="btn-reveal">
         <i class="fas fa-eye"></i> Afficher le corrigé détaillé
     </button>
     <div class="correction-block">
         <strong>Corrigé Stratégique :</strong><br>
         1. Multiplicité 3 car $P(1)=P'(1)=P''(1)=0$ mais $P'''(1) \neq 0$.<br>
-        2. $a=n, b=-(n+1)$ (résoudre le système $P(1)=0, P'(1)=0$).<br>
-        3. $P_n' = P_{n-1} = P_n - \frac{X^n}{n!}$. Si $P_n(z)=P_n'(z)=0$, alors $z^n/n!=0 \implies z=0$, impossible car $P_n(0)=1$.<br>
+        2. $a=n, b=-(n+1)$ (résoudre $P(1)=0, P'(1)=0$).<br>
+        3. $P_n' = P_{n-1}$. Si $P_n(z)=P_n'(z)=0$, alors $z^n/n!=0$, impossible.<br>
         4. $(X^2-\sqrt{2}X+1)(X^2+\sqrt{2}X+1)$. 5. $\prod_{k=0}^{n-1} (X-e^{i\frac{2k\pi}{n}})$.<br>
-        6. $\sum x_i = 0$ (pas de terme en $X^{n-1}$). 7. $\prod x_i = -(-10)/2 = 5$.<br>
-        8. Considérer le degré et la seule racine possible. 9. $4p^3 + 27q^2 = 0$.<br>
+        6. $\sum x_i = 0$. 7. $\prod x_i = 5$ (attention au signe $(-1)^n$).<br>
+        8. Dériver et raisonner sur le degré. 9. $4p^3 + 27q^2 = 0$.<br>
         10. $(X-e^{i\theta})(X-e^{-i\theta})$.
     </div>
 </div>
@@ -216,17 +249,16 @@
         9. Décomposer $\frac{1}{X^2+1}$ dans $\mathbb{C}(X)$.<br>
         10. Décomposer $\frac{1}{(X-a)(X-b)(X-c)}$ (distincts).
     </div>
-    <button class="btn-reveal" onclick="toggleLocalCorrection(this)">
+    <button class="btn-reveal">
         <i class="fas fa-eye"></i> Afficher le corrigé détaillé
     </button>
     <div class="correction-block">
         <strong>Corrigé Stratégique :</strong><br>
         1. $\frac{1}{2a}(\frac{1}{X-a} - \frac{1}{X+a})$. 2. $\frac{2}{X-2} - \frac{1}{X-1}$.<br>
-        3. $\frac{1}{X} - \frac{1}{X+1} - \frac{1}{(X+1)^2}$. 4. $1 - \frac{1}{n+1}$ (télescopage).<br>
-        5. $\frac{1}{4} - \frac{1}{2(n+1)(n+2)}$. 6. $E=X$, $F=X + \frac{1/2}{X-1} + \frac{1/2}{X+1}$.<br>
-        7. $\frac{1}{n} \sum_{k=0}^{n-1} \frac{\omega_k}{X-\omega_k}$ avec $\omega_k = e^{i\frac{2k\pi}{n}}$.<br>
-        8. $\frac{(H+1)^2+1}{H^3} = \frac{H^2+2H+2}{H^3} = \frac{1}{H} + \frac{2}{H^2} + \frac{2}{H^3}$.<br>
-        9. $\frac{1}{2i}(\frac{1}{X-i} - \frac{1}{X+i})$. 10. $\sum \frac{\lambda_i}{X-x_i}$ avec $\lambda_a = \frac{1}{(a-b)(a-c)}$.
+        3. $\frac{1}{X} - \frac{1}{X+1} - \frac{1}{(X+1)^2}$. 4. $1 - \frac{1}{n+1}$.<br>
+        5. $\frac{1}{4} - \frac{1}{2(n+1)(n+2)}$. 6. $E=X, R=X \implies X + \frac{1/2}{X-1} + \frac{1/2}{X+1}$.<br>
+        7. $\frac{1}{n} \sum \frac{\omega_k}{X-\omega_k}$. 8. $\frac{1}{H} + \frac{2}{H^2} + \frac{2}{H^3}$.<br>
+        9. $\frac{1}{2i}(\frac{1}{X-i} - \frac{1}{X+i})$. 10. $\sum \frac{\lambda_i}{X-x_i}$.
     </div>
 </div>
 
@@ -240,24 +272,23 @@
         2. En déduire $A^n$ par la méthode du reste polynomial.<br>
         3. Soit $M^2=M$. Quelles sont les valeurs propres possibles ?<br>
         4. Si $A^2-3A+2I=0$, exprimer $A^{-1}$ en fonction de $A$.<br>
-        5. Calculer $A^n$ pour $A = \begin{pmatrix} a & 1 \\ 0 & a \end{pmatrix}$ via $A=aI+J$.<br>
+        5. Calculer $A^n$ pour $A = \begin{pmatrix} a & 1 \\ 0 & a \end{pmatrix}$.<br>
         6. Trouver les racines carrées de la matrice $D = \text{diag}(1, 4)$.<br>
         7. Déterminer le polynôme caractéristique de $\begin{pmatrix} 0 & 1 \\ -c & -b \end{pmatrix}$.<br>
         8. Montrer que si $A^k=0$, alors $(I-A)^{-1} = \sum_{j=0}^{k-1} A^j$.<br>
         9. Calculer $A^{10}$ pour $A = \begin{pmatrix} 0 & 1 \\ -1 & 0 \end{pmatrix}$.<br>
         10. Trouver un polynôme annulateur de $A = \begin{pmatrix} 1 & 2 \\ 2 & 1 \end{pmatrix}$.
     </div>
-    <button class="btn-reveal" onclick="toggleLocalCorrection(this)">
+    <button class="btn-reveal">
         <i class="fas fa-eye"></i> Afficher le corrigé détaillé
     </button>
     <div class="correction-block">
         <strong>Corrigé Stratégique :</strong><br>
-        1. On obtient la matrice nulle. 2. $X^n = (X-1)(X-2)Q + \alpha X + \beta \implies A^n = (2^n-1)A + (2-2^n)I$.<br>
-        3. $x^2-x=0 \implies \lambda \in \{0, 1\}$. 4. $A(3I-A)=2I \implies A^{-1} = \frac{3}{2}I - \frac{1}{2}A$.<br>
-        5. Formule du binôme : $A^n = a^nI + na^{n-1}J = \begin{pmatrix} a^n & na^{n-1} \\ 0 & a^n \end{pmatrix}$.<br>
-        6. 4 solutions : $\text{diag}(\pm 1, \pm 2)$. 7. $X^2+bX+c$.<br>
-        8. Développement de $(I-A)(I+A+\dots+A^{k-1}) = I-A^k = I$.<br>
-        9. $A^2=-I \implies A^{10}=(A^2)^5=-I$. 10. $(X-1)^2-4 = X^2-2X-3$.
+        1. On obtient la matrice nulle. 2. $A^n = (2^n-1)A + (2-2^n)I$.<br>
+        3. $\lambda \in \{0, 1\}$. 4. $A^{-1} = \frac{3}{2}I - \frac{1}{2}A$.<br>
+        5. $A^n = \begin{pmatrix} a^n & na^{n-1} \\ 0 & a^n \end{pmatrix}$. 6. $\text{diag}(\pm 1, \pm 2)$ (4 sol).<br>
+        7. $X^2+bX+c$. 8. $(I-A)(I+A+\dots) = I-A^k = I$.<br>
+        9. $A^{10}=-I$ (car $A^2=-I$). 10. $X^2-2X-3$.
     </div>
 </div>
 
@@ -267,7 +298,7 @@
         <span class="exo-title">Polynômes de Bernoulli $B_n$</span>
     </div>
     <div class="exo-content">
-        1. Rappeler la définition récursive de $B_n$ ($B_0=1, B_n'=nB_{n-1}, \int_0^1 B_n = 0$).<br>
+        1. Rappeler la définition récursive de $B_n$.<br>
         2. Calculer $B_1, B_2, B_3$.<br>
         3. Montrer par récurrence que $\deg(B_n)=n$.<br>
         4. Justifier que pour $n \ge 2$, $B_n(1) = B_n(0)$.<br>
@@ -278,35 +309,53 @@
         9. Montrer que $B_n(1-X) = (-1)^n B_n(X)$.<br>
         10. Calculer $B_4(0)$.
     </div>
-    <button class="btn-reveal" onclick="toggleLocalCorrection(this)">
+    <button class="btn-reveal">
         <i class="fas fa-eye"></i> Afficher le corrigé détaillé
     </button>
     <div class="correction-block">
         <strong>Corrigé Stratégique :</strong><br>
         2. $B_1=X-1/2, B_2=X^2-X+1/6, B_3=X^3-\frac{3}{2}X^2+\frac{1}{2}X$.<br>
-        4. $\int_0^1 B_n' = n \int_0^1 B_{n-1} = 0$, donc $[B_n]_0^1 = 0$.<br>
-        5. Par récurrence sur la dérivée. 6. $\frac{1}{2}(B_2(n+1)-B_2(0)) = \frac{n(n+1)}{2}$.<br>
-        7. $\frac{1}{3}(B_3(n+1)-B_3(0)) = \frac{n(n+1)(2n+1)}{6}$.<br>
-        9. Les deux membres vérifient la même relation de récurrence.<br>
-        10. $B_4 = X^4-2X^3+X^2-1/30$, donc $B_4(0)=-1/30$.
+        4. Car l'intégrale de la dérivée est nulle. 5. Propriété fondamentale.<br>
+        6. $\frac{n(n+1)}{2}$. 7. $\frac{n(n+1)(2n+1)}{6}$.<br>
+        9. Raisonner par unicité de la suite. 10. $B_4(0) = -1/30$.
     </div>
 </div>
 
 <script>
-    function toggleLocalCorrection(btn) {
-        const block = btn.nextElementSibling;
-        const isHidden = (window.getComputedStyle(block).display === "none");
+    // On attend que le document soit prêt
+    document.addEventListener('DOMContentLoaded', function() {
         
-        if (isHidden) {
-            block.style.display = "block";
-            btn.innerHTML = '<i class="fas fa-eye-slash"></i> Masquer le corrigé';
-            // Force MathJax à traiter le nouveau contenu visible
-            if (window.MathJax && window.MathJax.typesetPromise) {
-                MathJax.typesetPromise([block]).catch((err) => console.log(err));
-            }
-        } else {
-            block.style.display = "none";
-            btn.innerHTML = '<i class="fas fa-eye"></i> Afficher le corrigé détaillé';
-        }
-    }
+        // On récupère tous les boutons de la page
+        const buttons = document.querySelectorAll('.btn-reveal');
+        
+        buttons.forEach(button => {
+            button.addEventListener('click', function() {
+                // On trouve le bloc de correction juste après le bouton
+                const block = this.nextElementSibling;
+                
+                // On vérifie si le bloc est actuellement caché
+                const isHidden = window.getComputedStyle(block).display === "none";
+                
+                if (isHidden) {
+                    // AFFICHAGE
+                    block.style.display = "block";
+                    block.classList.add('fade-in');
+                    this.innerHTML = '<i class="fas fa-eye-slash"></i> Masquer le corrigé';
+                    
+                    // On demande à MathJax de re-scanner ce bloc spécifique
+                    if (window.MathJax && window.MathJax.typesetPromise) {
+                        MathJax.typesetPromise([block]);
+                    }
+                } else {
+                    // MASQUAGE
+                    block.style.display = "none";
+                    block.classList.remove('fade-in');
+                    this.innerHTML = '<i class="fas fa-eye"></i> Afficher le corrigé détaillé';
+                }
+            });
+        });
+    });
 </script>
+
+</body>
+</html>
