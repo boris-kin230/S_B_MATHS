@@ -107,11 +107,6 @@
             padding: 20px 0;
         }
 
-        /* Stylisation de la scrollbar pour le menu */
-        #nav-scroll::-webkit-scrollbar { width: 6px; }
-        #nav-scroll::-webkit-scrollbar-track { background: transparent; }
-        #nav-scroll::-webkit-scrollbar-thumb { background: var(--border); border-radius: 10px; }
-
         /* --- ACCORDEON --- */
         .chap-group { margin-bottom: 5px; }
 
@@ -132,7 +127,6 @@
         }
 
         .chap-toggle:hover { background: #f1f5f9; }
-        
         .chap-toggle i.main-icon { width: 25px; color: var(--gold-muted); }
 
         .chap-content {
@@ -140,7 +134,6 @@
             background: #fafbfc;
             border-bottom: 1px solid var(--border);
         }
-        
         .chap-content.active { display: block; }
 
         .nav-section-title {
@@ -334,6 +327,7 @@
             width: 50px; height: 50px;
             border-radius: 12px;
             font-size: 1.5rem;
+            cursor: pointer;
         }
 
         @media (max-width: 1000px) {
@@ -346,11 +340,11 @@
 </head>
 <body>
 
-    <button class="menu-trigger" onclick="toggleSidebar()">
+    <button class="menu-trigger" onclick="toggleSidebar()" aria-label="Ouvrir le menu">
         <i class="fas fa-bars"></i>
     </button>
 
-    <div id="sidebar">
+    <aside id="sidebar">
         <div class="logo-area">
             <div class="logo-box">
                 <p class="logo-text">ELIAN<span>MATHS</span></p>
@@ -359,54 +353,7 @@
             <span class="badge-pcsi">Prestige Edition PCSI</span>
         </div>
 
-        <div id="nav-scroll">
-
-            <div class="chap-group">
-                <button class="chap-toggle" onclick="toggleAccordeon(this)">
-                    <span><i class="fas fa-sitemap main-icon"></i> Fondements</span>
-                    <i class="fas fa-chevron-down"></i>
-                </button>
-                <div class="chap-content">
-                    <p class="nav-section-title">Cours</p>
-                    <a class="nav-link" onclick="loadPage('fond_logique')"><i class="fas fa-brain"></i> Logique & Raisonnements</a>
-                    <a class="nav-link" onclick="loadPage('fond_ensembles')"><i class="fas fa-object-group"></i> Ensembles & Applications</a>
-                    
-                    <p class="nav-section-title">Entraînement</p>
-                    <a class="nav-link" style="color:#059669; font-weight:700" onclick="loadTraining('fond')"><i class="fas fa-bolt"></i> Test Aléatoire</a>
-                </div>
-            </div>
-
-            <div class="chap-group">
-                <button class="chap-toggle" onclick="toggleAccordeon(this)">
-                    <span><i class="fas fa-compass main-icon"></i> Nombres Complexes</span>
-                    <i class="fas fa-chevron-down"></i>
-                </button>
-                <div class="chap-content">
-                    <p class="nav-section-title">Cours</p>
-                    <a class="nav-link" onclick="loadPage('comp_algebrique')"><i class="fas fa-calculator"></i> Formes & Calculs</a>
-                    <a class="nav-link" onclick="loadPage('comp_trigo')"><i class="fas fa-wave-square"></i> Trigonométrie</a>
-                    
-                    <p class="nav-section-title">Entraînement</p>
-                    <a class="nav-link" style="color:#059669; font-weight:700" onclick="loadTraining('comp')"><i class="fas fa-bolt"></i> QCM Express</a>
-                </div>
-            </div>
-
-            <div class="chap-group">
-                <button class="chap-toggle" onclick="toggleAccordeon(this)">
-                    <span><i class="fas fa-border-all main-icon"></i> Algèbre Linéaire</span>
-                    <i class="fas fa-chevron-down"></i>
-                </button>
-                <div class="chap-content">
-                    <p class="nav-section-title">Théorie</p>
-                    <a class="nav-link" onclick="loadPage('alglin_ev')"><i class="fas fa-layer-group"></i> Espaces Vectoriels</a>
-                    <a class="nav-link" onclick="loadPage('alglin_matrices')"><i class="fas fa-table"></i> Calcul Matriciel</a>
-                    <a class="nav-link" onclick="loadPage('alglin_systemes')"><i class="fas fa-align-left"></i> Systèmes Linéaires</a>
-                    
-                    <p class="nav-section-title">Pratique</p>
-                    <a class="nav-link" style="color:#059669; font-weight:700" onclick="loadTraining('alglin')"><i class="fas fa-bolt"></i> Test Pivot de Gauss</a>
-                </div>
-            </div>
-
+        <nav id="nav-scroll">
             <div class="chap-group">
                 <button class="chap-toggle" onclick="toggleAccordeon(this)">
                     <span><i class="fas fa-square-root-variable main-icon"></i> Polynômes</span>
@@ -419,44 +366,9 @@
                     <a class="nav-link" onclick="loadPage('poly_fractions')"><i class="fas fa-percentage"></i> Fractions Rationnelles</a>
                     
                     <p class="nav-section-title">Entraînement</p>
+                    <a class="nav-link" onclick="loadPage('poly_exos')"><i class="fas fa-dumbbell"></i> Marathon 60 Questions</a>
+                    <a class="nav-link" onclick="loadPage('poly_exos_calc')"><i class="fas fa-calculator"></i> Calcul Technique</a>
                     <a class="nav-link" style="color:#059669; font-weight:700" onclick="loadTraining('poly')"><i class="fas fa-bolt"></i> Test Aléatoire</a>
-                </div>
-            </div>
-
-            <div class="chap-group">
-                <button class="chap-toggle" onclick="toggleAccordeon(this)">
-                    <span><i class="fas fa-chart-line main-icon"></i> Analyse Globale</span>
-                    <i class="fas fa-chevron-down"></i>
-                </button>
-                <div class="chap-content">
-                    <p class="nav-section-title">Suites & Limites</p>
-                    <a class="nav-link" onclick="loadPage('ana_suites')"><i class="fas fa-arrow-trend-up"></i> Suites Numériques</a>
-                    <a class="nav-link" onclick="loadPage('ana_limites')"><i class="fas fa-arrows-to-circle"></i> Limites & Continuité</a>
-                    
-                    <p class="nav-section-title">Dérivation & DL</p>
-                    <a class="nav-link" onclick="loadPage('ana_derivation')"><i class="fas fa-microscope"></i> Dérivation (Rolle, TAF)</a>
-                    <a class="nav-link" onclick="loadPage('ana_taylor')"><i class="fas fa-infinity"></i> Formules de Taylor & DL</a>
-
-                    <p class="nav-section-title">Intégration</p>
-                    <a class="nav-link" onclick="loadPage('ana_integration')"><i class="fas fa-chart-area"></i> Intégration sur un segment</a>
-                    
-                    <p class="nav-section-title">Pratique</p>
-                    <a class="nav-link" style="color:#059669; font-weight:700" onclick="loadTraining('ana')"><i class="fas fa-bolt"></i> Mix Analyse</a>
-                </div>
-            </div>
-
-            <div class="chap-group">
-                <button class="chap-toggle" onclick="toggleAccordeon(this)">
-                    <span><i class="fas fa-wave-square main-icon"></i> Équations Diff.</span>
-                    <i class="fas fa-chevron-down"></i>
-                </button>
-                <div class="chap-content">
-                    <p class="nav-section-title">Cours</p>
-                    <a class="nav-link" onclick="loadPage('equa_ordre1')"><i class="fas fa-1"></i> Ordre 1</a>
-                    <a class="nav-link" onclick="loadPage('equa_ordre2')"><i class="fas fa-2"></i> Ordre 2 linéaires</a>
-                    
-                    <p class="nav-section-title">Entraînement</p>
-                    <a class="nav-link" style="color:#059669; font-weight:700" onclick="loadTraining('equa')"><i class="fas fa-bolt"></i> Résolution Express</a>
                 </div>
             </div>
 
@@ -467,39 +379,38 @@
                 </button>
                 <div class="chap-content">
                     <p class="nav-section-title">Théorie</p>
-                    <a class="nav-link" onclick="loadPage('geo_prehilbertien')"><i class="fas fa-arrows-turn-to-dots"></i> Espaces Préhilbertiens</a>
-                    <a class="nav-link" onclick="loadPage('geo_courbes')"><i class="fas fa-bezier-curve"></i> Courbes Paramétrées</a>
-                    <a class="nav-link" onclick="loadPage('geo_analytique')"><i class="fas fa-location-crosshairs"></i> Géométrie 2D / 3D</a>
+                    <a class="nav-link" onclick="loadPage('geo_metrique')"><i class="fas fa-ruler-combined"></i> Relations Métriques</a>
+                    <a class="nav-link" onclick="loadPage('geo_analytique')"><i class="fas fa-location-crosshairs"></i> Géométrie Analytique</a>
                     
                     <p class="nav-section-title">Pratique</p>
+                    <a class="nav-link" onclick="loadPage('geo_training_v1')"><i class="fas fa-pencil"></i> Exercices v1</a>
                     <a class="nav-link" style="color:#059669; font-weight:700" onclick="loadTraining('geo')"><i class="fas fa-bolt"></i> Test de Niveau</a>
                 </div>
             </div>
 
             <div class="chap-group">
                 <button class="chap-toggle" onclick="toggleAccordeon(this)">
-                    <span><i class="fas fa-dice main-icon"></i> Probabilités</span>
+                    <span><i class="fas fa-chart-line main-icon"></i> Fonctions</span>
                     <i class="fas fa-chevron-down"></i>
                 </button>
                 <div class="chap-content">
-                    <p class="nav-section-title">Cours</p>
-                    <a class="nav-link" onclick="loadPage('proba_denombrement')"><i class="fas fa-layer-group"></i> Dénombrement</a>
-                    <a class="nav-link" onclick="loadPage('proba_univers_fini')"><i class="fas fa-chart-pie"></i> Probas sur Univers Fini</a>
-                    <a class="nav-link" onclick="loadPage('proba_va')"><i class="fas fa-random"></i> Variables Aléatoires</a>
+                    <p class="nav-section-title">Analyse</p>
+                    <a class="nav-link" onclick="loadPage('func_theoremes')"><i class="fas fa-microscope"></i> Rolle & TAF</a>
+                    <a class="nav-link" onclick="loadPage('func_taylor')"><i class="fas fa-infinity"></i> Taylor & DL</a>
                     
-                    <p class="nav-section-title">Entraînement</p>
-                    <a class="nav-link" style="color:#059669; font-weight:700" onclick="loadTraining('proba')"><i class="fas fa-bolt"></i> QCM Probas</a>
+                    <p class="nav-section-title">Pratique</p>
+                    <a class="nav-link" onclick="loadPage('training_taylor_rolle')"><i class="fas fa-flask"></i> Mix Analyse</a>
+                    <a class="nav-link" style="color:#059669; font-weight:700" onclick="loadTraining('func')"><i class="fas fa-bolt"></i> Test de Rapidité</a>
                 </div>
             </div>
+        </nav>
+    </aside>
 
-        </div>
-    </div>
-
-    <div id="main-wrapper">
+    <main id="main-wrapper">
         <div id="content-container">
             <div class="hero-banner">
                 <h1>Bienvenue, Elian</h1>
-                <p>Préparez vos concours avec rigueur. Le programme complet de PCSI est désormais disponible. Sélectionnez un module dans le menu latéral pour commencer votre séance.</p>
+                <p>Préparez vos concours avec rigueur. Sélectionnez un module dans le menu latéral pour commencer votre séance.</p>
             </div>
             
             <div style="text-align:center; padding:60px; color:var(--text-muted)">
@@ -507,12 +418,27 @@
                 <p>En attente d'un module...</p>
             </div>
         </div>
-    </div>
+    </main>
 
     <script>
+        // --- MISE EN CACHE DU DOM ---
+        const sidebar = document.getElementById('sidebar');
+        const container = document.getElementById('content-container');
+        const mainWrapper = document.getElementById('main-wrapper');
+
+        // --- GESTION DES LIENS ACTIFS ---
+        // Écouteur global pour appliquer la classe active-link automatiquement
+        document.addEventListener('click', (e) => {
+            const link = e.target.closest('.nav-link');
+            if (link) {
+                document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active-link'));
+                link.classList.add('active-link');
+            }
+        });
+
         // --- LOGIQUE NAVIGATION ---
         function toggleSidebar() {
-            document.getElementById('sidebar').classList.toggle('open');
+            sidebar.classList.toggle('open');
         }
 
         function toggleAccordeon(btn) {
@@ -530,7 +456,7 @@
             icon.style.transform = isActive ? 'rotate(180deg)' : 'rotate(0deg)';
         }
 
-        // --- NOUVELLE FONCTION POUR LES CORRIGÉS ---
+        // --- FONCTION POUR LES CORRIGÉS ---
         function toggleCor(btn) {
             const block = btn.nextElementSibling;
             if (!block) return;
@@ -551,10 +477,9 @@
         // --- CHARGEMENT DYNAMIQUE ---
         async function loadPage(fileName) {
             if(window.innerWidth < 1000) {
-                document.getElementById('sidebar').classList.remove('open');
+                sidebar.classList.remove('open');
             }
             
-            const container = document.getElementById('content-container');
             container.innerHTML = '<div style="text-align:center; padding:100px;"><i class="fas fa-circle-notch fa-spin" style="font-size:3rem; color:var(--gold-btn)"></i></div>';
 
             try {
@@ -570,14 +495,14 @@
                     MathJax.typesetPromise([container]).catch(err => console.log(err));
                 }
 
-                document.getElementById('main-wrapper').scrollTop = 0;
+                mainWrapper.scrollTop = 0;
 
             } catch (error) {
                 container.innerHTML = `
                     <div class="hero-banner" style="background:#ef4444; border-color:#991b1b">
                         <h1>Erreur 404</h1>
                         <p>Le module <b>content/${fileName}.html</b> est introuvable.</p>
-                        <p><i>C'est normal si nous ne l'avons pas encore créé !</i></p>
+                        <p style="font-size:0.9rem; margin-top:15px; opacity:0.8;">Vérifiez que le fichier existe bien dans le dossier /content/.</p>
                     </div>`;
             }
         }
@@ -630,13 +555,11 @@
                     </div>
                 </div>
             `;
-            const container = document.getElementById('content-container');
             container.insertAdjacentHTML('beforeend', scoreHTML);
             document.getElementById('score-zone').scrollIntoView();
         }
 
         function generatePDF() {
-            const element = document.getElementById('content-container');
             const opt = {
                 margin: 10,
                 filename: 'ElianMaths_Resultats.pdf',
@@ -644,7 +567,7 @@
                 html2canvas: { scale: 2 },
                 jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
             };
-            html2pdf().set(opt).from(element).save();
+            html2pdf().set(opt).from(container).save();
         }
 
         function shareWA() {
