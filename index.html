@@ -274,7 +274,7 @@
             padding: 20px;
             background: #f1f5f9;
             border-radius: 10px;
-            display: none; /* Caché par défaut */
+            display: none; 
             border-left: 4px solid var(--navy-main);
             font-size: 0.95rem;
             animation: fadeIn 0.4s ease;
@@ -442,9 +442,29 @@
             icon.style.transform = isActive ? 'rotate(180deg)' : 'rotate(0deg)';
         }
 
+        // --- NOUVELLE FONCTION POUR LES CORRIGÉS ---
+        function toggleCor(btn) {
+            const block = btn.nextElementSibling;
+            if (!block) return;
+            
+            const isHidden = window.getComputedStyle(block).display === "none";
+            
+            if (isHidden) {
+                block.style.display = "block";
+                block.classList.add('fade-in'); 
+                btn.innerHTML = '<i class="fas fa-eye-slash"></i> Masquer le corrigé';
+                if (window.MathJax) MathJax.typesetPromise([block]);
+            } else {
+                block.style.display = "none";
+                btn.innerHTML = '<i class="fas fa-eye"></i> Afficher le corrigé détaillé';
+            }
+        }
+
         // --- CHARGEMENT DYNAMIQUE ---
         async function loadPage(fileName) {
-            if(window.innerWidth < 1000) toggleSidebar();
+            if(window.innerWidth < 1000) {
+                document.getElementById('sidebar').classList.remove('open');
+            }
             
             const container = document.getElementById('content-container');
             container.innerHTML = '<div style="text-align:center; padding:100px;"><i class="fas fa-circle-notch fa-spin" style="font-size:3rem; color:var(--gold-btn)"></i></div>';
@@ -480,34 +500,29 @@
             loadPage(finalName);
         }
 
-        // --- MOTEUR QCM CORRIGÉ ---
+        // --- MOTEUR QCM ---
         function checkQCM(btn, isCorrect) {
             const card = btn.closest('.qcm-card');
             if(!card) return;
 
             const allBtns = card.querySelectorAll('.opt-btn');
-            
-            // 1. Désactiver tous les boutons pour empêcher de re-cliquer
             allBtns.forEach(b => b.disabled = true);
 
-            // 2. Marquer le bouton cliqué
             if(isCorrect) {
                 btn.classList.add('correct');
             } else {
                 btn.classList.add('wrong');
-                // Révéler la bonne réponse si l'utilisateur s'est trompé
                 allBtns.forEach(b => {
-                    // On cherche le bouton qui a l'argument 'true' dans son onclick
                     if(b.getAttribute('onclick').includes('true')) {
                         b.classList.add('correct');
                     }
                 });
             }
 
-            // 3. Afficher la boîte de correction (si elle existe dans le HTML)
             const feedback = card.querySelector('.correction-box');
             if(feedback) {
                 feedback.style.display = 'block';
+                if (window.MathJax) MathJax.typesetPromise([feedback]);
             }
         }
 
