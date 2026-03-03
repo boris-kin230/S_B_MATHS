@@ -513,7 +513,8 @@
             } else {
                 btn.classList.add('wrong');
                 allBtns.forEach(b => {
-                    if(b.getAttribute('onclick').includes('true')) {
+                    // On cherche le bouton qui a le "true" dans son onclick
+                    if(b.getAttribute('onclick') && b.getAttribute('onclick').includes('true')) {
                         b.classList.add('correct');
                     }
                 });
