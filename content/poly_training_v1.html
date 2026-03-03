@@ -3,126 +3,112 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Training Polynômes : Elite Edition</title>
+    <title>Training Polynômes : Elite Edition (20 Qs)</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
     <style>
         :root {
-            --primary: #1e293b;
-            --accent: #3b82f6;
+            --primary: #1e293b; 
+            --accent: #3b82f6; 
             --success: #10b981;
-            --error: #ef4444;
-            --bg: #f8fafc;
+            --error: #ef4444; 
+            --bg: #f8fafc; 
             --card-bg: #ffffff;
-            --text-main: #0f172a;
+            --text-main: #0f172a; 
             --text-muted: #64748b;
         }
 
-        body {
-            background-color: var(--bg);
-            font-family: 'Inter', -apple-system, sans-serif;
-            color: var(--text-main);
-            line-height: 1.6;
-            margin: 0;
-            padding: 20px;
+        body { 
+            background-color: var(--bg); 
+            font-family: 'Inter', sans-serif; 
+            color: var(--text-main); 
+            line-height: 1.6; 
+            margin: 0; 
+            padding: 20px; 
         }
 
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-            animation: fadeIn 0.8s ease-out;
+        .container { 
+            max-width: 900px; 
+            margin: 0 auto; 
+            animation: fadeIn 0.8s ease-out; 
         }
 
-        /* --- Header / Banner --- */
-        .hero-section {
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-            padding: 60px 40px;
-            border-radius: 24px;
-            color: white;
-            text-align: center;
-            margin-bottom: 40px;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        .hero-section { 
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); 
+            padding: 60px 40px; 
+            border-radius: 24px; 
+            color: white; 
+            text-align: center; 
+            margin-bottom: 40px; 
+            position: relative; 
+            overflow: hidden; 
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1); 
         }
 
-        .hero-section::after {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: url('https://www.transparenttextures.com/patterns/carbon-fibre.png');
-            opacity: 0.1;
+        .hero-section h1 { 
+            font-size: 2.5rem; 
+            margin: 0; 
+            background: linear-gradient(to right, #60a5fa, #a78bfa); 
+            -webkit-background-clip: text; 
+            -webkit-text-fill-color: transparent; 
+            font-weight: 800; 
         }
 
-        .hero-section h1 {
-            font-size: 2.5rem;
-            margin: 0;
-            background: linear-gradient(to right, #60a5fa, #a78bfa);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            font-weight: 800;
+        .qcm-card { 
+            background: var(--card-bg); 
+            border-radius: 20px; 
+            padding: 35px; 
+            margin-bottom: 25px; 
+            border: 1px solid #e2e8f0; 
+            transition: all 0.3s ease; 
         }
 
-        .hero-section p {
-            font-size: 1.1rem;
-            opacity: 0.8;
-            margin-top: 15px;
+        .question-meta { 
+            display: flex; 
+            align-items: center; 
+            gap: 10px; 
+            margin-bottom: 15px; 
+            font-weight: 700; 
+            color: var(--accent); 
+            font-size: 0.9rem; 
+            text-transform: uppercase; 
         }
 
-        /* --- QCM Card --- */
-        .qcm-card {
-            background: var(--card-bg);
-            border-radius: 20px;
-            padding: 35px;
-            margin-bottom: 25px;
-            border: 1px solid #e2e8f0;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            position: relative;
+        .question-text { 
+            font-size: 1.25rem; 
+            font-weight: 600; 
+            margin-bottom: 25px; 
+            color: var(--primary); 
         }
 
-        .qcm-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        /* CORRECTION DE LA GRILLE : 2 colonnes strictes pour la symétrie */
+        .options-grid { 
+            display: grid; 
+            grid-template-columns: repeat(2, 1fr); 
+            gap: 15px; 
         }
 
-        .question-meta {
+        /* Responsive : passe sur 1 colonne uniquement sur les petits téléphones */
+        @media (max-width: 600px) {
+            .options-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .opt-btn { 
+            background: #f1f5f9; 
+            border: 2px solid transparent; 
+            padding: 18px; 
+            border-radius: 12px; 
+            cursor: pointer; 
+            text-align: center; 
+            font-size: 1rem; 
+            transition: all 0.2s ease; 
+            min-height: 80px; /* Assure une hauteur uniforme pour des rectangles parfaits */
             display: flex;
             align-items: center;
-            gap: 10px;
-            margin-bottom: 15px;
-            font-weight: 700;
-            color: var(--accent);
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .question-text {
-            font-size: 1.25rem;
-            font-weight: 600;
-            margin-bottom: 25px;
-            color: var(--primary);
-        }
-
-        /* --- Grid & Buttons --- */
-        .options-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-        }
-
-        .opt-btn {
-            background: #f1f5f9;
-            border: 2px solid transparent;
-            padding: 18px;
-            border-radius: 12px;
-            cursor: pointer;
-            text-align: left;
-            font-size: 1rem;
-            font-weight: 500;
-            transition: all 0.2s ease;
-            color: var(--primary);
+            justify-content: center;
         }
 
         .opt-btn:hover:not(:disabled) {
@@ -130,53 +116,48 @@
             border-color: #cbd5e1;
         }
 
-        /* --- Correction Box --- */
-        .correction-box {
-            margin-top: 20px;
-            padding: 20px;
-            background: #f1f5f9;
-            border-radius: 10px;
+        .opt-btn.correct { 
+            background: #d1fae5 !important; 
+            border-color: var(--success) !important; 
+            color: #065f46 !important; 
+            font-weight: 700; 
+        }
+
+        .opt-btn.wrong { 
+            background: #fee2e2 !important; 
+            border-color: var(--error) !important; 
+            color: #991b1b !important; 
+        }
+
+        .correction-box { 
+            margin-top: 20px; 
+            padding: 20px; 
+            background: #f1f5f9; 
+            border-radius: 10px; 
             display: none; 
-            border-left: 4px solid var(--primary);
-            font-size: 0.95rem;
-            animation: fadeIn 0.4s ease;
+            border-left: 4px solid var(--accent); 
+            animation: fadeIn 0.4s ease; 
         }
 
-        /* Logic Styles */
-        .opt-btn.correct {
-            background: #d1fae5 !important;
-            border-color: var(--success) !important;
-            color: #065f46 !important;
-            font-weight: 700;
+        .footer-action { 
+            text-align: center; 
+            padding: 40px 0; 
         }
 
-        .opt-btn.wrong {
-            background: #fee2e2 !important;
-            border-color: var(--error) !important;
-            color: #991b1b !important;
+        .btn-submit { 
+            background: #1e293b; 
+            color: white; 
+            border: none; 
+            padding: 20px 50px; 
+            font-size: 1.2rem; 
+            font-weight: 700; 
+            border-radius: 15px; 
+            cursor: pointer; 
         }
 
-        /* --- Score & Footer --- */
-        .footer-action {
-            text-align: center;
-            padding: 40px 0;
-        }
-
-        .btn-submit {
-            background: #1e293b;
-            color: white;
-            border: none;
-            padding: 20px 50px;
-            font-size: 1.2rem;
-            font-weight: 700;
-            border-radius: 15px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+        @keyframes fadeIn { 
+            from { opacity: 0; transform: translateY(20px); } 
+            to { opacity: 1; transform: translateY(0); } 
         }
     </style>
 </head>
@@ -184,8 +165,8 @@
 
 <div class="container">
     <div class="hero-section">
-        <h1><i class="fas fa-microchip"></i> Training Polynômes v1</h1>
-        <p>Simulation Intensives : Arithmétique & Structures (Questions Aléatoires)</p>
+        <h1><i class="fas fa-brain"></i> Training Polynômes v1</h1>
+        <p>Arithmétique, Racines et Dérivées (20 Questions)</p>
     </div>
 
     <div id="quiz-wrapper">
@@ -196,11 +177,9 @@
                 <button class="opt-btn" onclick="checkQCM(this, true)">$\deg(P)$</button>
                 <button class="opt-btn" onclick="checkQCM(this, false)">$\max(\deg(P), \deg(Q))$</button>
                 <button class="opt-btn" onclick="checkQCM(this, false)">$\deg(P) + \deg(Q)$</button>
-                <button class="opt-btn" onclick="checkQCM(this, false)">$\deg(P) - \deg(Q)$</button>
+                <button class="opt-btn" onclick="checkQCM(this, false)">Indéterminé</button>
             </div>
-            <div class="correction-box">
-                <b>Explication :</b> Puisque les degrés sont différents, le terme de plus haut degré de $P$ ne peut pas être annulé par $Q$. Le degré est donc exactement celui de $P$.
-            </div>
+            <div class="correction-box"><b>Explication :</b> Si les degrés sont différents, le terme de plus haut degré ne peut pas s'annuler. Le degré du polynôme $P$ l'emporte.</div>
         </div>
 
         <div class="qcm-card">
@@ -209,26 +188,70 @@
             <div class="options-grid">
                 <button class="opt-btn" onclick="checkQCM(this, false)">$\deg(P) + \deg(Q)$</button>
                 <button class="opt-btn" onclick="checkQCM(this, true)">$\deg(P) \times \deg(Q)$</button>
-                <button class="opt-btn" onclick="checkQCM(this, false)">$\max(\deg(P), \deg(Q))$</button>
                 <button class="opt-btn" onclick="checkQCM(this, false)">$\deg(P)^{\deg(Q)}$</button>
+                <button class="opt-btn" onclick="checkQCM(this, false)">$\max(\deg(P), \deg(Q))$</button>
             </div>
-            <div class="correction-box">
-                <b>Explication :</b> Si $P = aX^n$ et $Q = bX^m$, alors $P(Q(X)) = a(bX^m)^n = ab^n X^{mn}$. Le degré est le produit $n \times m$.
-            </div>
+            <div class="correction-box"><b>Explication :</b> En remplaçant $X$ par un polynôme de degré $m$ dans un polynôme de degré $n$, on obtient un terme en $(X^m)^n = X^{mn}$.</div>
         </div>
 
         <div class="qcm-card">
             <div class="question-meta">Question 03</div>
-            <div class="question-text">Division $A = BQ + R$. Quelle condition définit l'unicité du reste $R$ ?</div>
+            <div class="question-text">Division euclidienne $A = BQ + R$. Quelle condition garantit l'unicité de $R$ ?</div>
             <div class="options-grid">
                 <button class="opt-btn" onclick="checkQCM(this, false)">$\deg(R) \leq \deg(B)$</button>
                 <button class="opt-btn" onclick="checkQCM(this, true)">$\deg(R) < \deg(B)$</button>
-                <button class="opt-btn" onclick="checkQCM(this, false)">$R = 0$</button>
-                <button class="opt-btn" onclick="checkQCM(this, false)">$\deg(R) < \deg(Q)$</button>
+                <button class="opt-btn" onclick="checkQCM(this, false)">$B$ est unitaire</button>
+                <button class="opt-btn" onclick="checkQCM(this, false)">$R \neq 0$</button>
             </div>
-            <div class="correction-box">
-                <b>Explication :</b> Par définition de la division euclidienne, le reste doit être de degré strictement inférieur au diviseur $B$.
+            <div class="correction-box"><b>Explication :</b> La clause d'arrêt de l'algorithme de division euclidienne impose un reste de degré strictement inférieur au diviseur.</div>
+        </div>
+
+        <div class="qcm-card">
+            <div class="question-meta">Question 04</div>
+            <div class="question-text">Quel est le reste de la division de $P(X)$ par $(X - a)$ ?</div>
+            <div class="options-grid">
+                <button class="opt-btn" onclick="checkQCM(this, false)">$P'(a)$</button>
+                <button class="opt-btn" onclick="checkQCM(this, true)">$P(a)$</button>
+                <button class="opt-btn" onclick="checkQCM(this, false)">$0$</button>
+                <button class="opt-btn" onclick="checkQCM(this, false)">$X - P(a)$</button>
             </div>
+            <div class="correction-box"><b>Explication :</b> $P(X) = (X-a)Q(X) + R$. Le reste $R$ est une constante. En évaluant en $a$, on obtient $P(a) = 0 + R$.</div>
+        </div>
+
+        <div class="qcm-card">
+            <div class="question-meta">Question 05</div>
+            <div class="question-text">Un polynôme non nul de degré $n$ possède au plus combien de racines (comptées avec multiplicité) ?</div>
+            <div class="options-grid">
+                <button class="opt-btn" onclick="checkQCM(this, false)">$n-1$</button>
+                <button class="opt-btn" onclick="checkQCM(this, true)">$n$</button>
+                <button class="opt-btn" onclick="checkQCM(this, false)">$n+1$</button>
+                <button class="opt-btn" onclick="checkQCM(this, false)">Une infinité</button>
+            </div>
+            <div class="correction-box"><b>Explication :</b> Un polynôme non nul de degré $n$ a au plus $n$ racines. S'il en a plus, c'est obligatoirement le polynôme nul.</div>
+        </div>
+
+        <div class="qcm-card">
+            <div class="question-meta">Question 06</div>
+            <div class="question-text">Si $a$ est une racine de multiplicité $k$, alors $P^{(k)}(a)$ est :</div>
+            <div class="options-grid">
+                <button class="opt-btn" onclick="checkQCM(this, false)">Nul</button>
+                <button class="opt-btn" onclick="checkQCM(this, true)">Non nul</button>
+                <button class="opt-btn" onclick="checkQCM(this, false)">Égal à $a$</button>
+                <button class="opt-btn" onclick="checkQCM(this, false)">Égal à $k!$</button>
+            </div>
+            <div class="correction-box"><b>Explication :</b> Pour une racine de multiplicité $k$, les dérivées s'annulent jusqu'à l'ordre $k-1$. La dérivée d'ordre $k$ est la première à être non nulle.</div>
+        </div>
+
+        <div class="qcm-card">
+            <div class="question-meta">Question 07</div>
+            <div class="question-text">Dans $\mathbb{C}[X]$, tout polynôme de degré $n \geq 1$ est :</div>
+            <div class="options-grid">
+                <button class="opt-btn" onclick="checkQCM(this, false)">Irréductible</button>
+                <button class="opt-btn" onclick="checkQCM(this, true)">Scindé</button>
+                <button class="opt-btn" onclick="checkQCM(this, false)">Pair</button>
+                <button class="opt-btn" onclick="checkQCM(this, false)">Réel</button>
+            </div>
+            <div class="correction-box"><b>Explication :</b> C'est le théorème de d'Alembert-Gauss : tout polynôme complexe non constant admet au moins une racine, et se scinde donc totalement.</div>
         </div>
 
         <div class="qcm-card">
@@ -238,11 +261,93 @@
                 <button class="opt-btn" onclick="checkQCM(this, false)">$8$</button>
                 <button class="opt-btn" onclick="checkQCM(this, true)">$16$</button>
                 <button class="opt-btn" onclick="checkQCM(this, false)">$2$</button>
-                <button class="opt-btn" onclick="checkQCM(this, false)">$12$</button>
+                <button class="opt-btn" onclick="checkQCM(this, false)">$64$</button>
             </div>
-            <div class="correction-box">
-                <b>Explication :</b> Le terme dominant est $(2X^3)^4 = 2^4 X^{12} = 16X^{12}$. Le coefficient est $16$.
+            <div class="correction-box"><b>Explication :</b> Le terme dominant du développement vient de $(2X^3)^4 = 2^4 \cdot X^{12} = 16X^{12}$.</div>
+        </div>
+
+        <div class="qcm-card">
+            <div class="question-meta">Question 09</div>
+            <div class="question-text">Si $P$ est scindé à racines simples $x_i$, alors la somme $\sum \frac{1}{X-x_i}$ est égale à :</div>
+            <div class="options-grid">
+                <button class="opt-btn" onclick="checkQCM(this, true)">$P'/P$</button>
+                <button class="opt-btn" onclick="checkQCM(this, false)">$P/P'$</button>
+                <button class="opt-btn" onclick="checkQCM(this, false)">$(P')^2$</button>
+                <button class="opt-btn" onclick="checkQCM(this, false)">$\ln(P)$</button>
             </div>
+            <div class="correction-box"><b>Explication :</b> C'est la dérivée logarithmique. Si $P = \lambda \prod (X-x_i)$, alors $P'/P = \sum \frac{1}{X-x_i}$.</div>
+        </div>
+
+        <div class="qcm-card">
+            <div class="question-meta">Question 10</div>
+            <div class="question-text">Le polynôme $X^2 + 1$ est irréductible dans :</div>
+            <div class="options-grid">
+                <button class="opt-btn" onclick="checkQCM(this, true)">$\mathbb{R}[X]$</button>
+                <button class="opt-btn" onclick="checkQCM(this, false)">$\mathbb{C}[X]$</button>
+                <button class="opt-btn" onclick="checkQCM(this, false)">Les deux</button>
+                <button class="opt-btn" onclick="checkQCM(this, false)">Aucun</button>
+            </div>
+            <div class="correction-box"><b>Explication :</b> Dans $\mathbb{R}$, son discriminant est négatif (pas de racine réelle). Dans $\mathbb{C}$, il se factorise en $(X-i)(X+i)$.</div>
+        </div>
+
+        <div class="qcm-card">
+            <div class="question-meta">Question 11</div>
+            <div class="question-text">Par convention, quel est le degré du polynôme nul $\deg(0)$ ?</div>
+            <div class="options-grid">
+                <button class="opt-btn" onclick="checkQCM(this, false)">$0$</button>
+                <button class="opt-btn" onclick="checkQCM(this, true)">$-\infty$</button>
+                <button class="opt-btn" onclick="checkQCM(this, false)">$-1$</button>
+                <button class="opt-btn" onclick="checkQCM(this, false)">Non défini</button>
+            </div>
+            <div class="correction-box"><b>Explication :</b> On pose $\deg(0) = -\infty$ pour préserver la formule $\deg(PQ) = \deg(P) + \deg(Q)$ dans tous les cas.</div>
+        </div>
+
+        <div class="qcm-card">
+            <div class="question-meta">Question 12</div>
+            <div class="question-text">Relations de Viète : la somme des racines $\sum x_i$ vaut :</div>
+            <div class="options-grid">
+                <button class="opt-btn" onclick="checkQCM(this, false)">$a_{n-1}/a_n$</button>
+                <button class="opt-btn" onclick="checkQCM(this, true)">$-a_{n-1}/a_n$</button>
+                <button class="opt-btn" onclick="checkQCM(this, false)">$(-1)^n a_0/a_n$</button>
+                <button class="opt-btn" onclick="checkQCM(this, false)">$a_1/a_n$</button>
+            </div>
+            <div class="correction-box"><b>Explication :</b> La somme des racines est toujours l'opposé du coefficient de degré $n-1$ divisé par le coefficient dominant.</div>
+        </div>
+
+        <div class="qcm-card">
+            <div class="question-meta">Question 13</div>
+            <div class="question-text">Quel est le reste de la division de $X^n$ par $X-1$ ?</div>
+            <div class="options-grid">
+                <button class="opt-btn" onclick="checkQCM(this, false)">$0$</button>
+                <button class="opt-btn" onclick="checkQCM(this, true)">$1$</button>
+                <button class="opt-btn" onclick="checkQCM(this, false)">$n$</button>
+                <button class="opt-btn" onclick="checkQCM(this, false)">$X-1$</button>
+            </div>
+            <div class="correction-box"><b>Explication :</b> Le reste de la division par $(X-a)$ est $P(a)$. Ici, on évalue $X^n$ en $1$, ce qui donne $1^n = 1$.</div>
+        </div>
+
+        <div class="qcm-card">
+            <div class="question-meta">Question 14</div>
+            <div class="question-text">Un polynôme de degré 3 dans $\mathbb{R}[X]$ a obligatoirement :</div>
+            <div class="options-grid">
+                <button class="opt-btn" onclick="checkQCM(this, false)">3 racines réelles</button>
+                <button class="opt-btn" onclick="checkQCM(this, true)">Au moins 1 racine réelle</button>
+                <button class="opt-btn" onclick="checkQCM(this, false)">Uniquement des complexes</button>
+                <button class="opt-btn" onclick="checkQCM(this, false)">0 comme racine</button>
+            </div>
+            <div class="correction-box"><b>Explication :</b> Les limites en $+\infty$ et $-\infty$ sont de signes opposés. Par le théorème des valeurs intermédiaires, la courbe coupe l'axe des abscisses au moins une fois.</div>
+        </div>
+
+        <div class="qcm-card">
+            <div class="question-meta">Question 15</div>
+            <div class="question-text">Si $P(X) = X^2 - 5X + 6$, ses racines sont :</div>
+            <div class="options-grid">
+                <button class="opt-btn" onclick="checkQCM(this, false)">1 et 6</button>
+                <button class="opt-btn" onclick="checkQCM(this, true)">2 et 3</button>
+                <button class="opt-btn" onclick="checkQCM(this, false)">-2 et -3</button>
+                <button class="opt-btn" onclick="checkQCM(this, false)">2 et -3</button>
+            </div>
+            <div class="correction-box"><b>Explication :</b> En utilisant somme = $5$ et produit = $6$, on trouve facilement $2$ et $3$ (car $2+3=5$ et $2 \times 3=6$).</div>
         </div>
 
         <div class="qcm-card">
@@ -254,29 +359,61 @@
                 <button class="opt-btn" onclick="checkQCM(this, false)">$\sum_{k=0}^{\infty} \frac{P^{(k)}(a)}{k!} X^k$</button>
                 <button class="opt-btn" onclick="checkQCM(this, false)">$\sum_{k=0}^{n} \frac{P(k)}{k!} a^k$</button>
             </div>
-            <div class="correction-box">
-                <b>Explication :</b> C'est la formule exacte pour les polynômes, où la somme s'arrête au degré $n$.
-            </div>
+            <div class="correction-box"><b>Explication :</b> La formule exacte comprend la division par la factorielle $k!$, et la somme s'arrête au degré $n$ car les dérivées d'ordre supérieur sont nulles.</div>
         </div>
 
         <div class="qcm-card">
-            <div class="question-meta">Question 29</div>
-            <div class="question-text">Ordre de multiplicité de $1$ pour $P(X) = X^3 - 3X + 2$ ?</div>
+            <div class="question-meta">Question 17</div>
+            <div class="question-text">Le polynôme $P$ est divisible par $(X-a)^2$ si et seulement si :</div>
+            <div class="options-grid">
+                <button class="opt-btn" onclick="checkQCM(this, false)">$P(a) = 0$</button>
+                <button class="opt-btn" onclick="checkQCM(this, true)">$P(a) = 0$ et $P'(a) = 0$</button>
+                <button class="opt-btn" onclick="checkQCM(this, false)">$P'(a) = 0$</button>
+                <button class="opt-btn" onclick="checkQCM(this, false)">$P''(a) = 0$</button>
+            </div>
+            <div class="correction-box"><b>Explication :</b> $a$ doit être une racine de multiplicité au moins 2. Cela équivaut à ce que $P$ et $P'$ s'annulent en $a$.</div>
+        </div>
+
+        <div class="qcm-card">
+            <div class="question-meta">Question 18</div>
+            <div class="question-text">L'ensemble des polynômes $\mathbb{K}[X]$ possède la structure de :</div>
+            <div class="options-grid">
+                <button class="opt-btn" onclick="checkQCM(this, false)">Groupe multiplicatif</button>
+                <button class="opt-btn" onclick="checkQCM(this, true)">Anneau commutatif intègre</button>
+                <button class="opt-btn" onclick="checkQCM(this, false)">Corps</button>
+                <button class="opt-btn" onclick="checkQCM(this, false)">Espace de dimension finie</button>
+            </div>
+            <div class="correction-box"><b>Explication :</b> C'est un anneau où $PQ=0 \Rightarrow P=0$ ou $Q=0$ (intègre). Ce n'est pas un corps car $X$ n'a pas d'inverse polynomial.</div>
+        </div>
+
+        <div class="qcm-card">
+            <div class="question-meta">Question 19</div>
+            <div class="question-text">Si $P(X) = \sum a_k X^k$, alors évaluer $P(1)$ donne :</div>
+            <div class="options-grid">
+                <button class="opt-btn" onclick="checkQCM(this, false)">$a_0$</button>
+                <button class="opt-btn" onclick="checkQCM(this, true)">$\sum a_k$</button>
+                <button class="opt-btn" onclick="checkQCM(this, false)">$a_n$</button>
+                <button class="opt-btn" onclick="checkQCM(this, false)">$0$</button>
+            </div>
+            <div class="correction-box"><b>Explication :</b> Remplacer $X$ par 1 annule l'effet des puissances ($1^k = 1$), il reste donc simplement la somme de tous les coefficients.</div>
+        </div>
+
+        <div class="qcm-card">
+            <div class="question-meta">Question 20</div>
+            <div class="question-text">Ordre de multiplicité de $1$ pour le polynôme $P(X) = X^3 - 3X + 2$ ?</div>
             <div class="options-grid">
                 <button class="opt-btn" onclick="checkQCM(this, false)">1</button>
                 <button class="opt-btn" onclick="checkQCM(this, true)">2</button>
                 <button class="opt-btn" onclick="checkQCM(this, false)">3</button>
                 <button class="opt-btn" onclick="checkQCM(this, false)">0</button>
             </div>
-            <div class="correction-box">
-                <b>Explication :</b> $P(1)=0$, $P'(X)=3X^2-3 \Rightarrow P'(1)=0$, $P''(X)=6X \Rightarrow P''(1)=6 \neq 0$. La multiplicité est donc $2$.
-            </div>
+            <div class="correction-box"><b>Explication :</b> $P(1)=0$. $P'(X)=3X^2-3 \Rightarrow P'(1)=0$. $P''(X)=6X \Rightarrow P''(1)=6 \neq 0$. La multiplicité est de 2.</div>
         </div>
     </div>
 
     <div class="footer-action">
         <button class="btn-submit" onclick="finishQuiz()">
-            <i class="fas fa-check-circle"></i> OBTENIR MON BILAN FINAL
+            <i class="fas fa-check-circle"></i> TERMINER ET VOIR MON SCORE
         </button>
     </div>
 </div>
