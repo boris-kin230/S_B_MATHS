@@ -1,324 +1,626 @@
-<div class="quiz-container" style="animation: fadeIn 0.5s; position: relative;">
-    <div class="banner" style="background: linear-gradient(135deg, #7b341e, #dd6b20); padding: 40px; border-radius: 15px; color: white; text-align: center; margin-bottom: 30px; position: relative;">
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Training Polynômes - Version 3</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+        MathJax = {
+            tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script type="text/javascript" id="MathJax-script" async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+    </script>
+
+    <style>
+        :root {
+            --primary-color: #dd6b20;
+            --primary-dark: #c05621;
+            --bg-color: #f7fafc;
+            --text-color: #2d3748;
+            --box-bg: #ffffff;
+            --border-color: #e2e8f0;
+            --correct-bg: #c6f6d5;
+            --correct-border: #48bb78;
+            --wrong-bg: #fed7d7;
+            --wrong-border: #f56565;
+            --selected-bg: #fffaf0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .quiz-container {
+            max-width: 900px;
+            margin: 0 auto;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .banner {
+            background: linear-gradient(135deg, #7b341e, #dd6b20);
+            padding: 40px 20px;
+            border-radius: 12px;
+            color: white;
+            text-align: center;
+            margin-bottom: 40px;
+            box-shadow: 0 4px 15px rgba(221, 107, 32, 0.3);
+        }
+
+        .banner h2 { margin: 0; font-size: 2.2rem; font-weight: 700; letter-spacing: -0.5px; }
+        .banner p { opacity: 0.9; margin-top: 10px; font-size: 1.15rem; font-weight: 400; }
+
+        .qcm-box {
+            background: var(--box-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .qcm-box:hover {
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+
+        .qcm-question {
+            font-size: 1.15rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #1a202c;
+        }
+
+        .qcm-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        @media (max-width: 768px) {
+            .qcm-grid { grid-template-columns: 1fr; }
+        }
+
+        .opt-btn {
+            background-color: #f8fafc;
+            border: 2px solid var(--border-color);
+            color: var(--text-color);
+            padding: 15px 20px;
+            font-size: 1.05rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: left;
+            font-family: inherit;
+            display: flex;
+            align-items: center;
+        }
+
+        .opt-btn:hover:not(:disabled) {
+            background-color: #edf2f7;
+            border-color: #cbd5e0;
+        }
+
+        /* État sélectionné avant soumission */
+        .opt-btn.selected {
+            background-color: var(--selected-bg);
+            border-color: var(--primary-color);
+            color: var(--primary-dark);
+            font-weight: 500;
+        }
+
+        /* États de validation après soumission */
+        .opt-btn.correct-reveal {
+            background-color: var(--correct-bg) !important;
+            border-color: var(--correct-border) !important;
+            color: #22543d !important;
+            font-weight: 600;
+        }
+
+        .opt-btn.wrong-reveal {
+            background-color: var(--wrong-bg) !important;
+            border-color: var(--wrong-border) !important;
+            color: #742a2a !important;
+            opacity: 0.8;
+        }
+
+        .quiz-footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 30px;
+            border-top: 2px dashed #cbd5e0;
+            background: var(--box-bg);
+            border-radius: 12px;
+        }
+
+        #submit-btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 15px 35px;
+            font-size: 1.25rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.1s;
+            font-weight: 600;
+            font-family: inherit;
+            box-shadow: 0 4px 6px rgba(221, 107, 32, 0.2);
+        }
+
+        #submit-btn:hover { background-color: var(--primary-dark); transform: translateY(-2px); }
+        #submit-btn:active { transform: translateY(0); }
+        #submit-btn:disabled { background-color: #a0aec0; cursor: not-allowed; transform: none; box-shadow: none; }
+
+        #score-display {
+            display: none;
+            margin-top: 25px;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text-color);
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        #score-display span {
+            color: var(--primary-color);
+            font-size: 2.5rem;
+        }
+
+        #congrats-msg {
+            display: none;
+            margin-top: 15px;
+            padding: 15px 25px;
+            border-radius: 8px;
+            font-size: 1.2rem;
+            font-weight: 500;
+            display: inline-block;
+            animation: fadeIn 0.5s ease-out;
+        }
+    </style>
+</head>
+<body>
+
+<div class="quiz-container">
+    <div class="banner">
         <div style="font-size: 3rem; margin-bottom: 15px;">
             <i class="fas fa-divide"></i> 
         </div>
-        <h2 style="margin:0; font-size: 2rem;">Training Polynômes - Version 3</h2>
-        <p style="opacity:0.9; margin-top:10px; font-size: 1.1rem;">Évaluation : Fractions Rationnelles & Éléments Simples (30 Questions)</p>
+        <h2>Training Polynômes - Version 3</h2>
+        <p>Évaluation : Fractions Rationnelles & Éléments Simples (30 Questions)</p>
     </div>
 
     <div class="qcm-box">
         <div class="qcm-question">Q1. Par définition, le corps des fractions rationnelles $\mathbb{K}(X)$ est :</div>
         <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, true)">Le corps des fractions de l'anneau $\mathbb{K}[X]$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">L'ensemble des fonctions rationnelles définies sur $\mathbb{K}$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Un sous-anneau de $\mathbb{K}[X]$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">L'ensemble des polynômes inversibles</button>
+            <button class="opt-btn" onclick="selectAnswer(this, true)">Le corps des fractions de l'anneau $\mathbb{K}[X]$</button>
+            <button class="opt-btn" onclick="selectAnswer(this, false)">L'ensemble des fonctions rationnelles définies sur $\mathbb{K}$</button>
+            <button class="opt-btn" onclick="selectAnswer(this, false)">Un sous-anneau de $\mathbb{K}[X]$</button>
+            <button class="opt-btn" onclick="selectAnswer(this, false)">L'ensemble des polynômes inversibles</button>
         </div>
     </div>
 
     <div class="qcm-box">
         <div class="qcm-question">Q2. Quel est le degré de la fraction rationnelle $F = \frac{P}{Q}$ (avec $P, Q \neq 0$) ?</div>
         <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$\max(\deg(P), \deg(Q))$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$\frac{\deg(P)}{\deg(Q)}$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, true)">$\deg(P) - \deg(Q)$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$\deg(P) + \deg(Q)$</button>
+            <button class="opt-btn" onclick="selectAnswer(this, false)">$\max(\deg(P), \deg(Q))$</button>
+            <button class="opt-btn" onclick="selectAnswer(this, false)">$\frac{\deg(P)}{\deg(Q)}$</button>
+            <button class="opt-btn" onclick="selectAnswer(this, true)">$\deg(P) - \deg(Q)$</button>
+            <button class="opt-btn" onclick="selectAnswer(this, false)">$\deg(P) + \deg(Q)$</button>
         </div>
     </div>
 
     <div class="qcm-box">
         <div class="qcm-question">Q3. Qu'est-ce qu'un pôle d'une fraction rationnelle $F = \frac{P}{Q}$ écrite sous forme irréductible ?</div>
         <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Une racine de $P$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, true)">Une racine de $Q$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Une racine commune à $P$ et $Q$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">La limite de $F$ en l'infini</button>
+            <button class="opt-btn" onclick="selectAnswer(this, false)">Une racine de $P$</button>
+            <button class="opt-btn" onclick="selectAnswer(this, true)">Une racine de $Q$</button>
+            <button class="opt-btn" onclick="selectAnswer(this, false)">Une racine commune à $P$ et $Q$</button>
+            <button class="opt-btn" onclick="selectAnswer(this, false)">La limite de $F$ en l'infini</button>
         </div>
     </div>
 
     <div class="qcm-box">
         <div class="qcm-question">Q4. Dans quelle condition la partie entière d'une fraction rationnelle $F = \frac{P}{Q}$ est-elle nulle ?</div>
         <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, true)">Si $\deg(P) < \deg(Q)$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Si $\deg(P) = \deg(Q)$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Si $\deg(P) > \deg(Q)$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Si $P$ et $Q$ sont premiers entre eux</button>
+            <button class="opt-btn" onclick="selectAnswer(this, true)">Si $\deg(P) < \deg(Q)$</button>
+            <button class="opt-btn" onclick="selectAnswer(this, false)">Si $\deg(P) = \deg(Q)$</button>
+            <button class="opt-btn" onclick="selectAnswer(this, false)">Si $\deg(P) > \deg(Q)$</button>
+            <button class="opt-btn" onclick="selectAnswer(this, false)">Si $P$ et $Q$ sont premiers entre eux</button>
         </div>
     </div>
 
     <div class="qcm-box">
         <div class="qcm-question">Q5. Comment calcule-t-on la partie entière d'une fraction $F = \frac{P}{Q}$ ?</div>
         <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, false)">En dérivant $P$ et $Q$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, true)">En effectuant la division euclidienne de $P$ par $Q$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">En évaluant $P$ aux racines de $Q$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">En cherchant le PGCD de $P$ et $Q$</button>
+            <button class="opt-btn" onclick="selectAnswer(this, false)">En dérivant $P$ et $Q$</button>
+            <button class="opt-btn" onclick="selectAnswer(this, true)">En effectuant la division euclidienne de $P$ par $Q$</button>
+            <button class="opt-btn" onclick="selectAnswer(this, false)">En évaluant $P$ aux racines de $Q$</button>
+            <button class="opt-btn" onclick="selectAnswer(this, false)">En cherchant le PGCD de $P$ et $Q$</button>
         </div>
     </div>
 
     <div class="qcm-box">
         <div class="qcm-question">Q6. Dans $\mathbb{C}(X)$, quelle est la forme des éléments simples ?</div>
         <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, true)">$\frac{\lambda}{(X-a)^k}$ avec $\lambda, a \in \mathbb{C}$ et $k \in \mathbb{N}^*$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$\frac{aX+b}{(X^2+cX+d)^k}$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Des polynômes de degré 1 uniquement</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$\frac{\lambda}{X-a}$ uniquement (k=1 obligatoirement)</button>
+            <button class="opt-btn" onclick="selectAnswer(this, true)">$\frac{\lambda}{(X-a)^k}$ avec $\lambda, a \in \mathbb{C}$ et $k \in \mathbb{N}^*$</button>
+            <button class="opt-btn" onclick="selectAnswer(this, false)">$\frac{aX+b}{(X^2+cX+d)^k}$</button>
+            <button class="opt-btn" onclick="selectAnswer(this, false)">Des polynômes de degré 1 uniquement</button>
+            <button class="opt-btn" onclick="selectAnswer(this, false)">$\frac{\lambda}{X-a}$ uniquement (k=1 obligatoirement)</button>
         </div>
     </div>
 
     <div class="qcm-box">
         <div class="qcm-question">Q7. Dans $\mathbb{R}(X)$, en plus des éléments simples de première espèce, on trouve des éléments de seconde espèce de la forme :</div>
         <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$\frac{\lambda}{(X-a)^k}$ avec $\lambda \in \mathbb{C}$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, true)">$\frac{aX+b}{(X^2+pX+q)^k}$ avec $\Delta = p^2-4q < 0$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$\frac{aX+b}{(X^2-1)^k}$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$\frac{\lambda}{X^2+pX+q}$ avec $\Delta > 0$</button>
+            <button class="opt-btn" onclick="selectAnswer(this, false)">$\frac{\lambda}{(X-a)^k}$ avec $\lambda \in \mathbb{C}$</button>
+            <button class="opt-btn" onclick="selectAnswer(this, true)">$\frac{aX+b}{(X^2+pX+q)^k}$ avec $\Delta = p^2-4q < 0$</button>
+            <button class="opt-btn" onclick="selectAnswer(this, false)">$\frac{aX+b}{(X^2-1)^k}$</button>
+            <button class="opt-btn" onclick="selectAnswer(this, false)">$\frac{\lambda}{X^2+pX+q}$ avec $\Delta > 0$</button>
         </div>
     </div>
 
     <div class="qcm-box">
         <div class="qcm-question">Q8. Soit $F = \frac{P}{Q}$ ayant un pôle simple en $a$. Comment calculer rapidement le coefficient $\lambda$ de l'élément simple $\frac{\lambda}{X-a}$ ?</div>
         <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$\lambda = P(a) Q(a)$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, true)">$\lambda = \frac{P(a)}{Q'(a)}$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$\lambda = \frac{P'(a)}{Q(a)}$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$\lambda = F(a)$</button>
+            <button class="opt-btn" onclick="selectAnswer(this, false)">$\lambda = P(a) Q(a)$</button>
+            <button class="opt-btn" onclick="selectAnswer(this, true)">$\lambda = \frac{P(a)}{Q'(a)}$</button>
+            <button class="opt-btn" onclick="selectAnswer(this, false)">$\lambda = \frac{P'(a)}{Q(a)}$</button>
+            <button class="opt-btn" onclick="selectAnswer(this, false)">$\lambda = F(a)$</button>
         </div>
     </div>
 
     <div class="qcm-box">
         <div class="qcm-question">Q9. Pour trouver le coefficient $c_k$ de l'élément $\frac{c_k}{(X-a)^k}$ pour un pôle $a$ de multiplicité $k$, on peut :</div>
         <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, true)">Multiplier $F(X)$ par $(X-a)^k$ puis évaluer en $a$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Multiplier $F(X)$ par $(X-a)$ puis évaluer en $a$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Évaluer directement la dérivée $F'(a)$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Calculer $\frac{P(a)}{Q^{(k)}(a)}$</button>
+            <button class="opt-btn" onclick="selectAnswer(this, true)">Multiplier $F(X)$ par $(X-a)^k$ puis évaluer en $a$</button>
+            <button class="opt-btn" onclick="selectAnswer(this, false)">Multiplier $F(X)$ par $(X-a)$ puis évaluer en $a$</button>
+            <button class="opt-btn" onclick="selectAnswer(this, false)">Évaluer directement la dérivée $F'(a)$</button>
+            <button class="opt-btn" onclick="selectAnswer(this, false)">Calculer $\frac{P(a)}{Q^{(k)}(a)}$</button>
         </div>
     </div>
 
     <div class="qcm-box">
         <div class="qcm-question">Q10. Si $F(X)$ est une fraction rationnelle paire, que peut-on dire des coefficients de sa décomposition en éléments simples (D.E.S) ?</div>
         <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Ils sont tous pairs</button>
-            <button class="opt-btn" onclick="checkAnswer(this, true)">Le pôle $a$ et le pôle $-a$ ont des éléments simples liés par symétrie</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Il n'y a pas de pôles impairs</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">La partie entière est forcément nulle</button>
+            <button class="opt-btn" onclick="selectAnswer(this, false)">Ils sont tous pairs</button>
+            <button class="opt-btn" onclick="selectAnswer(this, true)">Le pôle $a$ et le pôle $-a$ ont des éléments simples liés par symétrie</button>
+            <button class="opt-btn" onclick="selectAnswer(this, false)">Il n'y a pas de pôles impairs</button>
+            <button class="opt-btn" onclick="selectAnswer(this, false)">La partie entière est forcément nulle</button>
         </div>
     </div>
 
     <div class="qcm-box">
         <div class="qcm-question">Q11. Quelle est la décomposition en éléments simples de $F(X) = \frac{1}{X^2-1}$ dans $\mathbb{R}(X)$ ?</div>
         <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, true)">$\frac{1/2}{X-1} - \frac{1/2}{X+1}$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$\frac{1}{X-1} + \frac{1}{X+1}$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$\frac{1}{X-1} - \frac{1}{X+1}$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$\frac{1/2}{X-1} + \frac{1/2}{X+1}$</button>
+            <button class="opt-btn" onclick="selectAnswer(this, true)">$\frac{1/2}{X-1} - \frac{1/2}{X+1}$</button>
+            <button class="opt-btn" onclick="selectAnswer(this, false)">$\frac{1}{X-1} + \frac{1}{X+1}$</button>
+            <button class="opt-btn" onclick="selectAnswer(this, false)">$\frac{1}{X-1} - \frac{1}{X+1}$</button>
+            <button class="opt-btn" onclick="selectAnswer(this, false)">$\frac{1/2}{X-1} + \frac{1/2}{X+1}$</button>
         </div>
     </div>
 
     <div class="qcm-box">
         <div class="qcm-question">Q12. La dérivée logarithmique d'un polynôme $P$ scindé à racines simples $x_1, \dots, x_n$ est $\frac{P'}{P}$. Quelle est sa D.E.S ?</div>
         <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$\sum \frac{x_k}{X-x_k}$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, true)">$\sum \frac{1}{X-x_k}$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$\sum \frac{k}{X-x_k}$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$\sum \frac{1}{(X-x_k)^2}$</button>
+            <button class="opt-btn" onclick="selectAnswer(this, false)">$\sum \frac{x_k}{X-x_k}$</button>
+            <button class="opt-btn" onclick="selectAnswer(this, true)">$\sum \frac{1}{X-x_k}$</button>
+            <button class="opt-btn" onclick="selectAnswer(this, false)">$\sum \frac{k}{X-x_k}$</button>
+            <button class="opt-btn" onclick="selectAnswer(this, false)">$\sum \frac{1}{(X-x_k)^2}$</button>
         </div>
     </div>
 
     <div class="qcm-box">
         <div class="qcm-question">Q13. Si $\deg(F) \leq -2$, que peut-on dire de la somme des résidus (coefficients des éléments simples de degré 1) dans $\mathbb{C}(X)$ ?</div>
         <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Elle vaut 1</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Elle est infinie</button>
-            <button class="opt-btn" onclick="checkAnswer(this, true)">Elle est nulle</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Elle est égale à $\deg(F)$</button>
+            <button class="opt-btn" onclick="selectAnswer(this, false)">Elle vaut 1</button>
+            <button class="opt-btn" onclick="selectAnswer(this, false)">Elle est infinie</button>
+            <button class="opt-btn" onclick="selectAnswer(this, true)">Elle est nulle</button>
+            <button class="opt-btn" onclick="selectAnswer(this, false)">Elle est égale à $\deg(F)$</button>
         </div>
     </div>
 
     <div class="qcm-box">
         <div class="qcm-question">Q14. Que se passe-t-il lors du passage à la limite $x \to \infty$ pour la fraction $F(x) = \frac{x}{x^2+1}$ ?</div>
         <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, true)">$F(x) \to 0$ car $\deg(F) < 0$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$F(x) \to 1$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$F(x) \to \infty$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">La limite n'existe pas</button>
+            <button class="opt-btn" onclick="selectAnswer(this, true)">$F(x) \to 0$ car $\deg(F) < 0$</button>
+            <button class="opt-btn" onclick="selectAnswer(this, false)">$F(x) \to 1$</button>
+            <button class="opt-btn" onclick="selectAnswer(this, false)">$F(x) \to \infty$</button>
+            <button class="opt-btn" onclick="selectAnswer(this, false)">La limite n'existe pas</button>
         </div>
     </div>
 
     <div class="qcm-box">
         <div class="qcm-question">Q15. Comment appelle-t-on le théorème affirmant que toute fraction rationnelle s'écrit de manière unique comme somme de sa partie entière et d'éléments simples ?</div>
         <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Théorème de d'Alembert-Gauss</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Théorème de Bézout</button>
-            <button class="opt-btn" onclick="checkAnswer(this, true)">Théorème d'existence et d'unicité de la D.E.S.</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Lemme de Gauss</button>
+            <button class="opt-btn" onclick="selectAnswer(this, false)">Théorème de d'Alembert-Gauss</button>
+            <button class="opt-btn" onclick="selectAnswer(this, false)">Théorème de Bézout</button>
+            <button class="opt-btn" onclick="selectAnswer(this, true)">Théorème d'existence et d'unicité de la D.E.S.</button>
+            <button class="opt-btn" onclick="selectAnswer(this, false)">Lemme de Gauss</button>
         </div>
     </div>
 
     <div class="qcm-box">
         <div class="qcm-question">Q16. Lors de la D.E.S de $F = \frac{1}{X^3-1}$ dans $\mathbb{C}(X)$, combien trouve-t-on d'éléments simples ?</div>
         <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, false)">1</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">2</button>
-            <button class="opt-btn" onclick="checkAnswer(this, true)">3</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">0</button>
+            <button class="opt-btn" onclick="selectAnswer(this, false)">1</button>
+            <button class="opt-btn" onclick="selectAnswer(this, false)">2</button>
+            <button class="opt-btn" onclick="selectAnswer(this, true)">3</button>
+            <button class="opt-btn" onclick="selectAnswer(this, false)">0</button>
         </div>
     </div>
 
     <div class="qcm-box">
         <div class="qcm-question">Q17. Une fraction rationnelle $F \in \mathbb{K}(X)$ est dite irréductible si :</div>
         <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Son dénominateur est de degré 1</button>
-            <button class="opt-btn" onclick="checkAnswer(this, true)">Son numérateur et son dénominateur sont premiers entre eux</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Elle n'a pas de racines</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Son degré est strictement négatif</button>
+            <button class="opt-btn" onclick="selectAnswer(this, false)">Son dénominateur est de degré 1</button>
+            <button class="opt-btn" onclick="selectAnswer(this, true)">Son numérateur et son dénominateur sont premiers entre eux</button>
+            <button class="opt-btn" onclick="selectAnswer(this, false)">Elle n'a pas de racines</button>
+            <button class="opt-btn" onclick="selectAnswer(this, false)">Son degré est strictement négatif</button>
         </div>
     </div>
 
     <div class="qcm-box">
         <div class="qcm-question">Q18. Soit $F = \frac{X^2+1}{(X-1)^2(X+2)}$. Quelle est la forme théorique de sa D.E.S dans $\mathbb{R}(X)$ ?</div>
         <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$\frac{a}{X-1} + \frac{b}{X+2}$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, true)">$\frac{a}{X-1} + \frac{b}{(X-1)^2} + \frac{c}{X+2}$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$E(X) + \frac{a}{(X-1)^2} + \frac{b}{X+2}$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$\frac{aX+b}{(X-1)^2} + \frac{c}{X+2}$</button>
+            <button class="opt-btn" onclick="selectAnswer(this, false)">$\frac{a}{X-1} + \frac{b}{X+2}$</button>
+            <button class="opt-btn" onclick="selectAnswer(this, true)">$\frac{a}{X-1} + \frac{b}{(X-1)^2} + \frac{c}{X+2}$</button>
+            <button class="opt-btn" onclick="selectAnswer(this, false)">$E(X) + \frac{a}{(X-1)^2} + \frac{b}{X+2}$</button>
+            <button class="opt-btn" onclick="selectAnswer(this, false)">$\frac{aX+b}{(X-1)^2} + \frac{c}{X+2}$</button>
         </div>
     </div>
 
     <div class="qcm-box">
         <div class="qcm-question">Q19. Quelle est une astuce classique pour trouver un coefficient dans la D.E.S liée au passage à la limite ?</div>
         <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Évaluer en 0</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Dériver la fraction</button>
-            <button class="opt-btn" onclick="checkAnswer(this, true)">Multiplier par $X$ et prendre la limite quand $X \to +\infty$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Calculer l'intégrale</button>
+            <button class="opt-btn" onclick="selectAnswer(this, false)">Évaluer en 0</button>
+            <button class="opt-btn" onclick="selectAnswer(this, false)">Dériver la fraction</button>
+            <button class="opt-btn" onclick="selectAnswer(this, true)">Multiplier par $X$ et prendre la limite quand $X \to +\infty$</button>
+            <button class="opt-btn" onclick="selectAnswer(this, false)">Calculer l'intégrale</button>
         </div>
     </div>
 
     <div class="qcm-box">
         <div class="qcm-question">Q20. Pour $P$ scindé, la décomposition de $\frac{P'}{P} = \sum_{k=1}^r \frac{m_k}{X-x_k}$ montre que :</div>
         <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, true)">Les $m_k$ sont les multiplicités des racines $x_k$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Les $m_k$ sont toutes égales à 1</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Les racines de $P'$ sont les mêmes que celles de $P$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">La fraction $\frac{P'}{P}$ est de degré 0</button>
+            <button class="opt-btn" onclick="selectAnswer(this, true)">Les $m_k$ sont les multiplicités des racines $x_k$</button>
+            <button class="opt-btn" onclick="selectAnswer(this, false)">Les $m_k$ sont toutes égales à 1</button>
+            <button class="opt-btn" onclick="selectAnswer(this, false)">Les racines de $P'$ sont les mêmes que celles de $P$</button>
+            <button class="opt-btn" onclick="selectAnswer(this, false)">La fraction $\frac{P'}{P}$ est de degré 0</button>
         </div>
     </div>
 
     <div class="qcm-box">
         <div class="qcm-question">Q21. Quelle est la décomposition en éléments simples de $\frac{1}{X(X-1)}$ dans $\mathbb{R}(X)$ ?</div>
         <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$\frac{1}{X} - \frac{1}{X-1}$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$\frac{1}{X} + \frac{1}{X-1}$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, true)">$\frac{-1}{X} + \frac{1}{X-1}$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$\frac{1/2}{X} - \frac{1/2}{X-1}$</button>
+            <button class="opt-btn" onclick="selectAnswer(this, false)">$\frac{1}{X} - \frac{1}{X-1}$</button>
+            <button class="opt-btn" onclick="selectAnswer(this, false)">$\frac{1}{X} + \frac{1}{X-1}$</button>
+            <button class="opt-btn" onclick="selectAnswer(this, true)">$\frac{-1}{X} + \frac{1}{X-1}$</button>
+            <button class="opt-btn" onclick="selectAnswer(this, false)">$\frac{1/2}{X} - \frac{1/2}{X-1}$</button>
         </div>
     </div>
 
     <div class="qcm-box">
         <div class="qcm-question">Q22. Quelle est la partie entière de la fraction $F(X) = \frac{X^3 + X^2 + 1}{X^2 + 1}$ ?</div>
         <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, true)">$X + 1$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$X$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$X - 1$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$X^2 + 1$</button>
+            <button class="opt-btn" onclick="selectAnswer(this, true)">$X + 1$</button>
+            <button class="opt-btn" onclick="selectAnswer(this, false)">$X$</button>
+            <button class="opt-btn" onclick="selectAnswer(this, false)">$X - 1$</button>
+            <button class="opt-btn" onclick="selectAnswer(this, false)">$X^2 + 1$</button>
         </div>
     </div>
 
     <div class="qcm-box">
         <div class="qcm-question">Q23. Dans la D.E.S de $F(X) = \frac{X^2+1}{(X-1)(X-2)(X-3)}$, quel est le coefficient de l'élément simple $\frac{c}{X-1}$ ?</div>
         <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$-1$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$0$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$1/2$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, true)">$1$</button>
+            <button class="opt-btn" onclick="selectAnswer(this, false)">$-1$</button>
+            <button class="opt-btn" onclick="selectAnswer(this, false)">$0$</button>
+            <button class="opt-btn" onclick="selectAnswer(this, false)">$1/2$</button>
+            <button class="opt-btn" onclick="selectAnswer(this, true)">$1$</button>
         </div>
     </div>
 
     <div class="qcm-box">
         <div class="qcm-question">Q24. Quelle est la décomposition en éléments simples de $\frac{1}{X^2+1}$ dans le corps $\mathbb{C}(X)$ ?</div>
         <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, true)">$\frac{-i/2}{X-i} + \frac{i/2}{X+i}$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$\frac{i/2}{X-i} - \frac{i/2}{X+i}$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$\frac{1/2}{X-i} + \frac{1/2}{X+i}$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$\frac{1}{X-i} - \frac{1}{X+i}$</button>
+            <button class="opt-btn" onclick="selectAnswer(this, true)">$\frac{-i/2}{X-i} + \frac{i/2}{X+i}$</button>
+            <button class="opt-btn" onclick="selectAnswer(this, false)">$\frac{i/2}{X-i} - \frac{i/2}{X+i}$</button>
+            <button class="opt-btn" onclick="selectAnswer(this, false)">$\frac{1/2}{X-i} + \frac{1/2}{X+i}$</button>
+            <button class="opt-btn" onclick="selectAnswer(this, false)">$\frac{1}{X-i} - \frac{1}{X+i}$</button>
         </div>
     </div>
 
     <div class="qcm-box">
         <div class="qcm-question">Q25. Que vaut la limite de $X \cdot F(X)$ en $+\infty$ pour la fraction $F(X) = \frac{2X+1}{X^2-X+1}$ ?</div>
         <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, true)">$2$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$0$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$+\infty$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$1$</button>
+            <button class="opt-btn" onclick="selectAnswer(this, true)">$2$</button>
+            <button class="opt-btn" onclick="selectAnswer(this, false)">$0$</button>
+            <button class="opt-btn" onclick="selectAnswer(this, false)">$+\infty$</button>
+            <button class="opt-btn" onclick="selectAnswer(this, false)">$1$</button>
         </div>
     </div>
 
     <div class="qcm-box">
         <div class="qcm-question">Q26. Quelle est une primitive de la fonction $x \mapsto \frac{1}{x(x+1)}$ sur $]0, +\infty[$ ?</div>
         <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$\ln(x(x+1))$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, true)">$\ln\left(\frac{x}{x+1}\right)$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$\frac{1}{x^2}$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$\ln(x) + \ln(x+1)$</button>
+            <button class="opt-btn" onclick="selectAnswer(this, false)">$\ln(x(x+1))$</button>
+            <button class="opt-btn" onclick="selectAnswer(this, true)">$\ln\left(\frac{x}{x+1}\right)$</button>
+            <button class="opt-btn" onclick="selectAnswer(this, false)">$\frac{1}{x^2}$</button>
+            <button class="opt-btn" onclick="selectAnswer(this, false)">$\ln(x) + \ln(x+1)$</button>
         </div>
     </div>
 
     <div class="qcm-box">
         <div class="qcm-question">Q27. Pour $F(X) = \frac{1}{X(X-1)^2}$, que vaut le coefficient $c$ de l'élément simple $\frac{c}{(X-1)^2}$ ?</div>
         <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, true)">$1$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$-1$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$0$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$1/2$</button>
+            <button class="opt-btn" onclick="selectAnswer(this, true)">$1$</button>
+            <button class="opt-btn" onclick="selectAnswer(this, false)">$-1$</button>
+            <button class="opt-btn" onclick="selectAnswer(this, false)">$0$</button>
+            <button class="opt-btn" onclick="selectAnswer(this, false)">$1/2$</button>
         </div>
     </div>
 
     <div class="qcm-box">
         <div class="qcm-question">Q28. Soit $F(X) = \frac{X}{X^2-4}$. Puisque $F$ est impaire, sa D.E.S est nécessairement de la forme :</div>
         <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, true)">$\frac{a}{X-2} + \frac{a}{X+2}$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$\frac{a}{X-2} - \frac{a}{X+2}$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$\frac{a}{(X-2)^2}$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Il y a une partie entière non nulle</button>
+            <button class="opt-btn" onclick="selectAnswer(this, true)">$\frac{a}{X-2} + \frac{a}{X+2}$</button>
+            <button class="opt-btn" onclick="selectAnswer(this, false)">$\frac{a}{X-2} - \frac{a}{X+2}$</button>
+            <button class="opt-btn" onclick="selectAnswer(this, false)">$\frac{a}{(X-2)^2}$</button>
+            <button class="opt-btn" onclick="selectAnswer(this, false)">Il y a une partie entière non nulle</button>
         </div>
     </div>
 
     <div class="qcm-box">
         <div class="qcm-question">Q29. Une primitive de la fraction rationnelle (élément de 2ème espèce) $\frac{1}{X^2+X+1}$ s'exprime à l'aide de la fonction :</div>
         <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$\ln$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, true)">$\arctan$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$\exp$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Aucune, ce n'est pas intégrable</button>
+            <button class="opt-btn" onclick="selectAnswer(this, false)">$\ln$</button>
+            <button class="opt-btn" onclick="selectAnswer(this, true)">$\arctan$</button>
+            <button class="opt-btn" onclick="selectAnswer(this, false)">$\exp$</button>
+            <button class="opt-btn" onclick="selectAnswer(this, false)">Aucune, ce n'est pas intégrable</button>
         </div>
     </div>
 
     <div class="qcm-box">
         <div class="qcm-question">Q30. Si $F(X) = \frac{X^2+2}{(X-1)(X-2)(X-3)} = \frac{a}{X-1} + \frac{b}{X-2} + \frac{c}{X-3}$, que vaut la somme $a+b+c$ ?</div>
         <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, true)">$1$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$0$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$3$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$-1$</button>
+            <button class="opt-btn" onclick="selectAnswer(this, true)">$1$</button>
+            <button class="opt-btn" onclick="selectAnswer(this, false)">$0$</button>
+            <button class="opt-btn" onclick="selectAnswer(this, false)">$3$</button>
+            <button class="opt-btn" onclick="selectAnswer(this, false)">$-1$</button>
         </div>
     </div>
 
-    <div class="quiz-footer" style="text-align: center; margin-top: 40px; padding: 20px; border-top: 2px dashed #ccc;">
-        
-        <button id="submit-btn" style="background-color: #dd6b20; color: white; border: none; padding: 15px 30px; font-size: 1.2rem; border-radius: 8px; cursor: pointer; transition: background 0.3s; font-weight: bold;" onclick="calculateScore()">
+    <div class="quiz-footer">
+        <button id="submit-btn" onclick="calculateScore()">
             <i class="fas fa-check-circle"></i> Soumettre mes réponses
         </button>
 
-        <div id="score-display" style="display: none; margin-top: 20px; font-size: 1.8rem; font-weight: bold; color: #2d3748;">
+        <div id="score-display">
             Score : <span id="score-value">0</span> / 30
         </div>
 
-        <div id="congrats-msg" style="display: none; margin-top: 15px; padding: 15px; border-radius: 8px; font-size: 1.2rem;">
-        </div>
-        
+        <div id="congrats-msg"></div>
     </div>
 </div>
+
+<script>
+    // Cette fonction gère la sélection d'une réponse SANS afficher tout de suite si c'est juste ou faux
+    function selectAnswer(btn, isCorrect) {
+        // Ne permet pas de changer si le quiz est déjà soumis
+        if (document.getElementById('submit-btn').disabled) return;
+
+        const grid = btn.closest('.qcm-grid');
+        
+        // Retirer la classe "selected" des autres boutons de cette question
+        const buttons = grid.querySelectorAll('.opt-btn');
+        buttons.forEach(b => b.classList.remove('selected'));
+        
+        // Ajouter la classe "selected" au bouton cliqué
+        btn.classList.add('selected');
+        
+        // Sauvegarder l'état (vrai/faux) dans les données de la grille parent
+        grid.dataset.answered = "true";
+        grid.dataset.isCorrect = isCorrect;
+    }
+
+    // Cette fonction calcule le score total et révèle les bonnes réponses
+    function calculateScore() {
+        const grids = document.querySelectorAll('.qcm-grid');
+        let score = 0;
+        let answeredQuestions = 0;
+
+        grids.forEach(grid => {
+            if (grid.dataset.answered === "true") {
+                answeredQuestions++;
+            }
+        });
+
+        // Demander confirmation si toutes les questions ne sont pas répondues
+        if (answeredQuestions < 30) {
+            const confirmSubmit = confirm(`Vous n'avez répondu qu'à ${answeredQuestions} question(s) sur 30. Êtes-vous sûr de vouloir soumettre ?`);
+            if (!confirmSubmit) return;
+        }
+
+        // Désactiver le bouton de soumission pour empêcher de re-soumettre
+        document.getElementById('submit-btn').disabled = true;
+        document.getElementById('submit-btn').innerHTML = '<i class="fas fa-lock"></i> Réponses soumises';
+
+        grids.forEach(grid => {
+            const buttons = grid.querySelectorAll('.opt-btn');
+            
+            // On vérifie si l'utilisateur a eu bon
+            if (grid.dataset.isCorrect === "true") {
+                score++;
+            }
+
+            // Révéler les couleurs
+            buttons.forEach(btn => {
+                btn.disabled = true; // Empêche de cliquer à nouveau
+                btn.style.cursor = "default";
+                
+                // Si ce bouton est la bonne réponse (l'attribut onclick contient "true")
+                if (btn.getAttribute('onclick').includes('true')) {
+                    btn.classList.add('correct-reveal');
+                } 
+                // Si ce bouton est cliqué MAIS faux
+                else if (btn.classList.contains('selected')) {
+                    btn.classList.add('wrong-reveal');
+                }
+            });
+        });
+
+        // Afficher le score
+        const scoreDisplay = document.getElementById('score-display');
+        const scoreValue = document.getElementById('score-value');
+        const congratsMsg = document.getElementById('congrats-msg');
+
+        scoreValue.textContent = score;
+        scoreDisplay.style.display = 'block';
+        congratsMsg.style.display = 'inline-block';
+
+        // Message personnalisé selon le score
+        if (score === 30) {
+            congratsMsg.style.backgroundColor = "#c6f6d5";
+            congratsMsg.style.color = "#22543d";
+            congratsMsg.innerHTML = "🏆 Score parfait ! Tu maîtrises les fractions rationnelles à la perfection !";
+        } else if (score >= 20) {
+            congratsMsg.style.backgroundColor = "#bee3f8";
+            congratsMsg.style.color = "#2c5282";
+            congratsMsg.innerHTML = "👏 Très bon travail ! Tu as de solides bases sur ce chapitre.";
+        } else if (score >= 10) {
+            congratsMsg.style.backgroundColor = "#fefcbf";
+            congratsMsg.style.color = "#744210";
+            congratsMsg.innerHTML = "👍 Pas mal, mais un petit peu de révision sur les éléments simples te fera du bien.";
+        } else {
+            congratsMsg.style.backgroundColor = "#fed7d7";
+            congratsMsg.style.color = "#742a2a";
+            congratsMsg.innerHTML = "💪 Accroche-toi ! Relis bien ton cours sur la décomposition en éléments simples.";
+        }
+        
+        // Scroller automatiquement vers le bas pour voir le score
+        window.scrollTo({
+            top: document.body.scrollHeight,
+            behavior: 'smooth'
+        });
+    }
+</script>
+
+</body>
+</html>
