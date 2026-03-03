@@ -4,7 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Training Polynômes v2 : Multiplicité & Factorisation</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            },
+            svg: {
+                fontCache: 'global'
+            }
+        };
+    </script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
     <style>
@@ -22,11 +39,12 @@
 
         body { 
             background-color: var(--bg); 
-            font-family: 'Inter', sans-serif; 
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; 
             color: var(--text-main); 
             line-height: 1.6; 
             margin: 0; 
             padding: 20px; 
+            font-size: 16px;
         }
 
         .container { 
@@ -50,12 +68,14 @@
             font-size: 2.5rem; 
             margin: 0; 
             font-weight: 800; 
+            letter-spacing: -0.02em;
             text-shadow: 0 2px 4px rgba(0,0,0,0.2);
         }
 
         .hero-section p {
-            font-size: 1.1rem;
-            opacity: 0.9;
+            font-size: 1.15rem;
+            font-weight: 400;
+            opacity: 0.95;
             margin-top: 15px;
         }
 
@@ -65,7 +85,12 @@
             padding: 35px; 
             margin-bottom: 25px; 
             border: 1px solid #e2e8f0; 
-            transition: all 0.3s ease; 
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease; 
+        }
+
+        .qcm-card:hover {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
         }
 
         .question-meta { 
@@ -75,15 +100,23 @@
             margin-bottom: 15px; 
             font-weight: 700; 
             color: var(--accent); 
-            font-size: 0.9rem; 
+            font-size: 0.95rem; 
             text-transform: uppercase; 
+            letter-spacing: 0.05em;
         }
 
         .question-text { 
-            font-size: 1.25rem; 
+            font-size: 1.3rem; 
             font-weight: 600; 
             margin-bottom: 25px; 
             color: var(--primary); 
+            line-height: 1.5;
+            letter-spacing: -0.01em;
+        }
+
+        /* Agrandissement léger des maths pour plus de clarté */
+        mjx-container {
+            font-size: 1.05em !important;
         }
 
         /* Grille 2x2 stricte pour des rectangles symétriques */
@@ -101,17 +134,21 @@
 
         .opt-btn { 
             background: #f1f5f9; 
+            color: var(--primary);
             border: 2px solid transparent; 
-            padding: 18px; 
+            padding: 20px; 
             border-radius: 12px; 
             cursor: pointer; 
             text-align: center; 
-            font-size: 1rem; 
+            font-size: 1.05rem; 
+            font-family: inherit;
+            font-weight: 500;
             transition: all 0.2s ease; 
             min-height: 80px; 
             display: flex;
             align-items: center;
             justify-content: center;
+            line-height: 1.4;
         }
 
         .opt-btn:hover:not(:disabled) {
@@ -124,6 +161,7 @@
             border-color: var(--success) !important; 
             color: #065f46 !important; 
             font-weight: 700; 
+            box-shadow: 0 4px 6px -1px rgba(16, 185, 129, 0.2);
         }
 
         .opt-btn.wrong { 
@@ -134,7 +172,7 @@
 
         .opt-btn:disabled {
             cursor: not-allowed;
-            opacity: 0.7;
+            opacity: 0.75;
         }
 
         .footer-action { 
@@ -148,28 +186,42 @@
             border: none; 
             padding: 20px 50px; 
             font-size: 1.2rem; 
+            font-family: inherit;
             font-weight: 700; 
+            letter-spacing: 0.02em;
             border-radius: 15px; 
             cursor: pointer; 
-            transition: background 0.3s ease;
+            box-shadow: 0 10px 15px -3px rgba(16, 185, 129, 0.3);
+            transition: all 0.3s ease;
         }
 
         .btn-submit:hover {
             background: var(--accent-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 15px 20px -3px rgba(16, 185, 129, 0.4);
         }
 
         #score-display {
             display: none;
             background: var(--card-bg);
-            padding: 30px;
+            padding: 35px;
             border-radius: 15px;
             text-align: center;
-            font-size: 1.5rem;
-            font-weight: bold;
+            font-size: 1.8rem;
+            font-weight: 800;
             color: var(--primary);
-            border: 2px solid var(--accent);
+            border: 3px solid var(--accent);
             margin-top: 20px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
             animation: fadeIn 0.5s ease;
+        }
+
+        .score-warning {
+            color: var(--error);
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            display: block;
         }
 
         @keyframes fadeIn { 
@@ -445,8 +497,8 @@
             <div class="question-text">Sachant que 1 est racine évidente, quelle est la factorisation de $P(X) = X^3 - 4X^2 + 5X - 2$ sur $\mathbb{R}$ ?</div>
             <div class="options-grid">
                 <button class="opt-btn" onclick="checkQCM(this, true)">$(X-1)^2(X-2)$</button>
-                <button class="opt-btn" onclick="checkQCM(this, false)">$(X-1)(X-2)^2$</button>
-                <button class="opt-btn" onclick="checkQCM(this, false)">$(X-1)(X+2)^2$</button>
+                <button class="opt-btn" onclick="checkQCM(this, false)">$(X-1)(X-2)^2</button>
+                <button class="opt-btn" onclick="checkQCM(this, false)">$(X-1)(X+2)^2</button>
                 <button class="opt-btn" onclick="checkQCM(this, false)">$(X+1)^2(X-2)$</button>
             </div>
         </div>
@@ -562,21 +614,20 @@
     // Calcul et affichage du score final
     function calculateScore() {
         const scoreDisplay = document.getElementById('score-display');
-        
-        if (questionsAnswered < totalQuestions) {
-            scoreDisplay.innerHTML = `⚠️ Tu n'as répondu qu'à ${questionsAnswered}/${totalQuestions} questions. Complète tout pour voir ton score !`;
-            scoreDisplay.style.color = "#ef4444";
-            scoreDisplay.style.borderColor = "#ef4444";
-        } else {
-            let message = "";
-            if(score >= 25) message = "🏆 Impressionnant ! Tu maîtrises les polynômes sur le bout des doigts.";
-            else if(score >= 15) message = "👍 Pas mal ! Encore quelques révisions et tu seras au top.";
-            else message = "💪 Courage ! Les polynômes demandent de l'entraînement.";
+        let warningMsg = "";
+        let finalMessage = "";
 
-            scoreDisplay.innerHTML = `Score final : ${score} / ${totalQuestions} <br><span style="font-size: 1.1rem; color: #64748b;">${message}</span>`;
-            scoreDisplay.style.color = "#0f172a";
-            scoreDisplay.style.borderColor = "#10b981";
+        // Si l'utilisateur n'a pas tout complété, on affiche un avertissement sans bloquer le score
+        if (questionsAnswered < totalQuestions) {
+            warningMsg = `<span class="score-warning"><i class="fas fa-exclamation-triangle"></i> Attention : Tu n'as répondu qu'à ${questionsAnswered} question(s) sur ${totalQuestions}.</span>`;
         }
+
+        if(score >= 25) finalMessage = "🏆 Impressionnant ! Tu maîtrises les polynômes sur le bout des doigts.";
+        else if(score >= 15) finalMessage = "👍 Pas mal ! Encore quelques révisions et tu seras au top.";
+        else finalMessage = "💪 Courage ! Les polynômes demandent de l'entraînement.";
+
+        // On affiche systématiquement le score total sur 30
+        scoreDisplay.innerHTML = `${warningMsg}Score final : ${score} / ${totalQuestions} <br><span style="font-size: 1.2rem; color: #64748b; font-weight: 500; display: inline-block; margin-top: 10px;">${finalMessage}</span>`;
         
         scoreDisplay.style.display = "block";
         scoreDisplay.scrollIntoView({ behavior: "smooth", block: "center" });
