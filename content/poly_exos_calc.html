@@ -2,312 +2,305 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Polynômes : Expert PCSI - Calculs & Algorithmes</title>
+    <title>Polynômes : Calcul Technique Expert</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
     <style>
         :root {
-            --navy: #1a202c;
-            --royal: #2b6cb0;
-            --gold: #d4af37;
-            --emerald: #059669;
-            --bg-light: #f8fafc;
-            --border-color: #e2e8f0;
+            --navy-dark: #0a0f1d;
+            --navy-main: #111827;
+            --gold-btn: #eab308;
+            --gold-hover: #facc15;
+            --slate-100: #f1f5f9;
+            --slate-800: #1e293b;
         }
 
         body {
-            background-color: #f1f5f9;
+            background-color: #f8fafc;
             font-family: 'Segoe UI', system-ui, sans-serif;
-            padding: 20px;
             margin: 0;
+            padding: 20px;
+            color: var(--slate-800);
         }
 
         .hero-banner {
-            background: linear-gradient(135deg, var(--navy), var(--royal));
+            background: linear-gradient(135deg, var(--navy-dark), var(--navy-main));
             padding: 50px 20px;
-            border-radius: 15px;
+            border-radius: 20px;
             color: white;
             text-align: center;
             margin-bottom: 40px;
-            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
-            border-bottom: 4px solid var(--gold);
+            border-bottom: 5px solid var(--gold-btn);
         }
+
+        .hero-banner h1 { margin: 0; font-size: 2.2rem; color: var(--gold-btn); }
 
         .qcm-card {
             background: white;
             padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
             margin-bottom: 35px;
-            border: 1px solid var(--border-color);
-            border-top: 5px solid var(--gold);
+            border: 1px solid #e2e8f0;
         }
 
         .exo-header {
             display: flex;
             align-items: center;
-            gap: 12px;
             margin-bottom: 20px;
-            border-bottom: 2px solid var(--bg-light);
+            border-bottom: 2px solid var(--slate-100);
             padding-bottom: 15px;
         }
 
         .exo-badge {
-            background: var(--navy);
-            color: var(--gold);
-            padding: 5px 12px;
-            border-radius: 6px;
+            background: var(--navy-main);
+            color: var(--gold-btn);
+            padding: 5px 15px;
+            border-radius: 8px;
             font-weight: 800;
-            font-size: 0.8rem;
-            text-transform: uppercase;
+            margin-right: 15px;
+            border: 1px solid var(--gold-btn);
         }
 
-        .exo-title {
-            font-size: 1.25rem;
-            font-weight: 700;
-            color: var(--navy);
-        }
+        .exo-title { font-weight: 700; color: var(--navy-dark); text-transform: uppercase; }
 
         .exo-content {
+            margin: 20px 0;
             line-height: 1.8;
-            color: #2d3748;
             font-size: 1.05rem;
-            margin-bottom: 25px;
         }
 
         .btn-reveal {
-            background: var(--navy);
-            color: var(--gold);
-            border: 1px solid var(--gold);
+            background: var(--navy-main);
+            color: var(--gold-btn);
+            border: 1px solid var(--gold-btn);
             padding: 12px 24px;
-            border-radius: 8px;
+            border-radius: 10px;
             cursor: pointer;
             font-weight: 600;
-            transition: all 0.3s ease;
+            transition: 0.3s;
             display: flex;
             align-items: center;
             gap: 10px;
+            margin-top: 10px;
         }
 
-        .btn-reveal:hover {
-            background: var(--gold);
-            color: var(--navy);
-        }
+        .btn-reveal:hover { background: var(--gold-btn); color: var(--navy-dark); }
 
         .correction-block {
-            display: none;
+            display: none; 
             margin-top: 20px;
             padding: 25px;
-            background: var(--bg-light);
-            border-left: 5px solid var(--emerald);
-            border-radius: 0 10px 10px 0;
+            background: #fdfdfd;
+            border-left: 5px solid var(--gold-btn);
+            border-radius: 4px;
             font-size: 1rem;
             line-height: 1.7;
-            animation: slideIn 0.4s ease-out;
         }
 
-        .cor-item { margin-bottom: 15px; padding-bottom: 10px; border-bottom: 1px dashed #cbd5e1; }
+        .cor-item { margin-bottom: 20px; padding-bottom: 10px; border-bottom: 1px solid #f1f5f9; }
         .cor-item:last-child { border-bottom: none; }
-        .step-num { font-weight: 800; color: var(--royal); margin-right: 10px; }
-
-        @keyframes slideIn {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+        .num { font-weight: 800; color: var(--gold-btn); margin-right: 10px; }
+        
+        .fade-in { animation: fadeInAnim 0.4s ease forwards; }
+        @keyframes fadeInAnim { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body>
 
 <div class="hero-banner">
-    <h1><i class="fas fa-calculator"></i> Polynômes : Expert PCSI</h1>
-    <p>Algorithmique, Divisions & Analyse • 50 Questions de Perfectionnement</p>
+    <h1><i class="fas fa-calculator"></i> Calcul Technique : Polynômes</h1>
+    <p>Expertise Algébrique • PCSI Prestige Edition</p>
 </div>
 
 <div class="qcm-card">
     <div class="exo-header">
-        <span class="exo-badge">Thème 1</span>
-        <span class="exo-title">I. Divisions & Congruences Polynomiales</span>
+        <span class="exo-badge">Exo 1</span>
+        <span class="exo-title">Sommes de Newton et Puissances des Racines</span>
     </div>
     <div class="exo-content">
-        1. Trouver le reste de $X^n$ par $X^2-3X+2$ pour $n \ge 2$.<br>
-        2. Déterminer $n \in \mathbb{N}$ tel que $(X+1)^n - X^n - 1$ soit divisible par $X^2+X+1$.<br>
-        3. Reste de la division de $(\cos a + X \sin a)^n$ par $X^2+1$.<br>
-        4. Montrer que $X^2+X+1$ divise $X^{3n+2} + X^{3m+1} + 1$.<br>
-        5. Trouver le reste de $X^{2n} + 2X^n + 1$ par $(X-1)^2$.<br>
-        6. PGCD de $X^n-1$ et $X^m-1$ en fonction de $\text{pgcd}(n,m)$.<br>
-        7. Condition sur $n$ pour que $(X-1)^n$ divise $X^n-1$.<br>
+        Soit $P = X^3 + pX + q$ et $x_1, x_2, x_3$ ses racines.<br>
+        1. Calculer $S_1 = \sum x_i$.<br>
+        2. Calculer $S_2 = \sum x_i^2$.<br>
+        3. Montrer que $S_3 = -3q$.<br>
+        4. En utilisant $x_i^3 + px_i + q = 0$, établir une relation entre $S_{n+3}, S_{n+1}$ et $S_n$.<br>
+        5. En déduire $S_4$.<br>
+        6. Si $p=0$, que vaut $S_n$ pour $n$ non multiple de 3 ?<br>
+        7. Calculer $\sum x_i^2 x_j$.<br>
+        8. Déterminer $P$ si $S_1=0, S_2=-4, S_3=-3$.<br>
+        9. Calculer la somme des cubes des racines de $X^n-1$.<br>
+        10. Exprimer $\sum_{i<j} (x_i-x_j)^2$ en fonction de $p$ et $q$.
+    </div>
+    <button class="btn-reveal" onclick="toggleCor(this)">
+        <i class="fas fa-eye"></i> Voir le corrigé détaillé
+    </button>
+    <div class="correction-block">
+        <div class="cor-item"><span class="num">1.</span> $S_1 = 0$ (pas de terme en $X^2$).</div>
+        <div class="cor-item"><span class="num">2.</span> $S_2 = S_1^2 - 2\sigma_2 = 0^2 - 2p = -2p$.</div>
+        <div class="cor-item"><span class="num">3.</span> $\sum (x_i^3 + px_i + q) = 0 \implies S_3 + pS_1 + 3q = 0 \implies S_3 = -3q$.</div>
+        <div class="cor-item"><span class="num">4.</span> $S_{n+3} + pS_{n+1} + qS_n = 0$.</div>
+        <div class="cor-item"><span class="num">5.</span> $S_4 = -pS_2 - qS_1 = -p(-2p) - q(0) = 2p^2$.</div>
+        <div class="cor-item"><span class="num">6.</span> Si $p=0$, $x_i^3 = -q$, donc $S_n=0$ si 3 ne divise pas $n$.</div>
+        <div class="cor-item"><span class="num">7.</span> $\sum x_i^2 x_j = S_1 S_2 - S_3 = 0 - (-3q) = 3q$.</div>
+        <div class="cor-item"><span class="num">8.</span> $p = -S_2/2 = 2$ et $q = -S_3/3 = 1$. $P = X^3+2X+1$.</div>
+        <div class="cor-item"><span class="num">9.</span> $0$ si $n > 3$, car $S_k=0$ pour $1 \le k < n$.</div>
+        <div class="cor-item"><span class="num">10.</span> $2S_1^2 - 6\sigma_2 = -6p$.</div>
+    </div>
+</div>
+
+<div class="qcm-card">
+    <div class="exo-header">
+        <span class="exo-badge">Exo 2</span>
+        <span class="exo-title">Divisibilité et Restes complexes</span>
+    </div>
+    <div class="exo-content">
+        1. Reste de $X^n+X+1$ par $(X-1)^2$ ?<br>
+        2. Reste de $(X^2+X+1)^n$ par $X^2+1$ ?<br>
+        3. Condition sur $n$ pour que $(X-1)^n - X^n - 1$ soit divisible par $X^2-X+1$ ?<br>
+        4. Reste de $X^n$ par $X^2+1$ si $n=4k+1$ ?<br>
+        5. Reste de $\sin(\theta)X^n - \sin(n\theta)X + \sin((n-1)\theta)$ par $X^2-2\cos(\theta)X+1$.<br>
+        6. Calculer le reste de $P(X^n)$ par $P(X)$ si $P=X-1$.<br>
+        7. Montrer que $X^2+X+1$ divise $X^{3n+1}+X^{3m+2}+1$.<br>
         8. Reste de la division de $X^n$ par $(X-a)(X-b)$ avec $a \neq b$.<br>
-        9. Déterminer $P$ tel que $P(X+1)-P(X)=2X$.<br>
-        10. Montrer que si $P(X) \equiv Q(X) \pmod{A(X)}$, alors $P(X^n) \equiv Q(X^n) \pmod{A(X^n)}$.
+        9. Reste de la division de $X^n$ par $(X-a)^2$.<br>
+        10. Quel est le reste de $(X+1)^n$ par $X^2$ ?
     </div>
-    <button class="btn-reveal" onclick="toggleDisplay(this)">
-        <i class="fas fa-eye"></i> Voir les calculs de division
+    <button class="btn-reveal" onclick="toggleCor(this)">
+        <i class="fas fa-eye"></i> Voir le corrigé détaillé
     </button>
     <div class="correction-block">
-        <div class="cor-item"><span class="step-num">1.</span> Diviseur $= (X-1)(X-2)$. Soit $R=aX+b$. $R(1)=P(1)=1$ et $R(2)=P(2)=2^n$. Système : $a+b=1$ et $2a+b=2^n$. Solution : $a=2^n-1$ et $b=2-2^n$.</div>
-        <div class="cor-item"><span class="step-num">2.</span> Racines de $X^2+X+1$ sont $j, j^2$. En $j$ : $(j+1)^n - j^n - 1 = (-j^2)^n - j^n - 1$. Si $n=6k+1$, $-j^2-j-1=0$. Si $n=6k+5$, $-j^{10}-j^5-1 = -j-j^2-1=0$. Ok pour $n \equiv 1, 5 \pmod 6$.</div>
-        <div class="cor-item"><span class="step-num">3.</span> Modulo $X^2+1$, on travaille avec $i$. $R(i) = (\cos a + i \sin a)^n = e^{ina} = \cos(na) + i \sin(na)$. Donc $R(X) = \sin(na)X + \cos(na)$.</div>
-        <div class="cor-item"><span class="step-num">4.</span> $j^{3n+2} + j^{3m+1} + 1 = (j^3)^n \cdot j^2 + (j^3)^m \cdot j + 1 = 1 \cdot j^2 + 1 \cdot j + 1 = 0$.</div>
-        <div class="cor-item"><span class="step-num">5.</span> $R(X) = P'(1)(X-1) + P(1)$. $P(1)=4$, $P'(1)=2n+2n=4n$. $R(X)=4n(X-1)+4 = 4nX - 4n + 4$.</div>
-        <div class="cor-item"><span class="step-num">6.</span> Par l'algorithme d'Euclide sur les exposants, $\text{pgcd}(X^n-1, X^m-1) = X^{\text{pgcd}(n,m)}-1$.</div>
-        <div class="cor-item"><span class="step-num">7.</span> Si $n=1$, $X-1 | X-1$. Si $n \ge 2$, multiplicité de 1 dans $X^n-1$ est 1 (car $P'(1)=n \neq 0$). Donc $n$ doit être égal à 1.</div>
-        <div class="cor-item"><span class="step-num">8.</span> $R(X) = \frac{a^n-b^n}{a-b}X + \frac{ab^n-ba^n}{a-b}$.</div>
-        <div class="cor-item"><span class="step-num">9.</span> On cherche $\deg(P)=2$. $P=aX^2+bX+c$. $a(X+1)^2+b(X+1) - (aX^2+bx) = 2aX + a + b$. On veut $2a=2$ et $a+b=0$. $P(X)=X^2-X+c$.</div>
-        <div class="cor-item"><span class="step-num">10.</span> $P(X)-Q(X) = K(X)A(X)$. En substituant $X$ par $X^n$, $P(X^n)-Q(X^n) = K(X^n)A(X^n)$.</div>
+        <div class="cor-item"><span class="num">1.</span> Taylor en 1 : $P(1) + P'(1)(X-1) = 3 + (n+1)(X-1) = (n+1)X + (2-n)$.</div>
+        <div class="cor-item"><span class="num">2.</span> Poser $X=i$. $(i^2+i+1)^n = i^n$. Si $n=2k$, le reste est $(-1)^k$.</div>
+        <div class="cor-item"><span class="num">3.</span> Racine $e^{i\pi/3} = -j^2$. On trouve $n \equiv 1, 5 \pmod 6$.</div>
+        <div class="cor-item"><span class="num">4.</span> $i^n = i^{4k+1} = i$. Reste : $X$.</div>
+        <div class="cor-item"><span class="num">5.</span> Le reste est nul (identités trigonométriques classiques).</div>
+        <div class="cor-item"><span class="num">6.</span> $P(1^n) = 0$. Le reste est nul.</div>
+        <div class="cor-item"><span class="num">7.</span> En $j$ : $j^{3n+1}+j^{3m+2}+1 = j + j^2 + 1 = 0$.</div>
+        <div class="cor-item"><span class="num">8.</span> $\frac{a^n-b^n}{a-b}X + \frac{ab^n-ba^n}{a-b}$.</div>
+        <div class="cor-item"><span class="num">9.</span> $na^{n-1}X + (1-n)a^n$.</div>
+        <div class="cor-item"><span class="num">10.</span> $1+nX$.</div>
     </div>
 </div>
 
 <div class="qcm-card">
     <div class="exo-header">
-        <span class="exo-badge">Thème 2</span>
-        <span class="exo-title">II. Tchebychev & Analyse Harmonique</span>
+        <span class="exo-badge">Exo 3</span>
+        <span class="exo-title">Racines de l'Unité et Trigonométrie</span>
     </div>
     <div class="exo-content">
-        1. Calculer $T_n(1)$ et $T_n(-1)$ pour tout $n$.<br>
-        2. Exprimer $T_n(x)$ pour $x > 1$ à l'aide de $\text{ch}$.<br>
-        3. Montrer que $T_n$ vérifie $(1-X^2)T_n'' - XT_n' + n^2T_n = 0$.<br>
-        4. Coefficient dominant de $T_n$ ($n \ge 1$).<br>
-        5. Calculer $\int_{-1}^1 \frac{T_n(x)T_m(x)}{\sqrt{1-x^2}} dx$.<br>
-        6. Exprimer $T_{n+m} + T_{n-m}$ en fonction de $T_n$ et $T_m$.<br>
-        7. Résoudre $T_n(x)=0$.<br>
-        8. Montrer que $T_n \circ T_m = T_{nm}$.<br>
-        9. Calculer $T_n'(1)$.<br>
-        10. Déterminer les extrema de $T_n$ sur $[-1, 1]$.
+        1. Calculer $\prod_{k=0}^{n-1} (2 - \omega^k)$ où $\omega = e^{2i\pi/n}$.<br>
+        2. Calculer $\sum_{k=0}^{n-1} \omega^{2k}$.<br>
+        3. Soit $P = \prod_{k=1}^{n-1} (X-\omega^k)$. Calculer $P(1)$.<br>
+        4. En déduire $\prod_{k=1}^{n-1} \sin(k\pi/n)$.<br>
+        5. Calculer la somme des racines de $X^n-a$.<br>
+        6. Factoriser $X^n+1$ sur $\mathbb{C}$.<br>
+        7. Valeur de $\sum_{k=0}^{n-1} \cos(2k\pi/n)$.<br>
+        8. Produit des racines de $X^n+X^{n-1} \dots + 1$.<br>
+        9. Résoudre $z^n = \bar{z}$.<br>
+        10. Simplifier $\prod_{k=0}^{n-1} e^{2ik\pi/n}$.
     </div>
-    <button class="btn-reveal" onclick="toggleDisplay(this)">
-        <i class="fas fa-eye"></i> Afficher l'analyse
+    <button class="btn-reveal" onclick="toggleCor(this)">
+        <i class="fas fa-eye"></i> Voir le corrigé détaillé
     </button>
     <div class="correction-block">
-        <div class="cor-item"><span class="step-num">1.</span> $T_n(1) = \cos(n \cdot 0) = 1$. $T_n(-1) = \cos(n\pi) = (-1)^n$.</div>
-        <div class="cor-item"><span class="step-num">2.</span> Poser $x = \text{ch}(t)$. Alors $T_n(\text{ch } t) = \text{ch}(nt)$ par prolongement analytique.</div>
-        <div class="cor-item"><span class="step-num">3.</span> Dériver $\cos(n\theta) = T_n(\cos \theta)$ par rapport à $\theta$ deux fois et réinjecter $x=\cos \theta$.</div>
-        <div class="cor-item"><span class="step-num">4.</span> $2^{n-1}$ (par récurrence sur $T_{n+1}=2XT_n-T_{n-1}$).</div>
-        <div class="cor-item"><span class="step-num">5.</span> $x=\cos \theta \implies \int_0^\pi \cos(n\theta)\cos(m\theta)d\theta$. Vaut $0$ si $n \neq m$, $\pi/2$ si $n=m \neq 0$, et $\pi$ si $n=m=0$.</div>
-        <div class="cor-item"><span class="step-num">6.</span> $2\cos(n\theta)\cos(m\theta) = \cos((n+m)\theta) + \cos((n-m)\theta)$, donc $2T_n T_m = T_{n+m} + T_{n-m}$.</div>
-        <div class="cor-item"><span class="step-num">7.</span> $n\theta = \frac{\pi}{2} + k\pi \implies x_k = \cos(\frac{(2k+1)\pi}{2n})$ pour $k \in \{0, \dots, n-1\}$.</div>
-        <div class="cor-item"><span class="step-num">8.</span> $T_n(T_m(\cos \theta)) = T_n(\cos m\theta) = \cos(n(m\theta)) = T_{nm}(\cos \theta)$.</div>
-        <div class="cor-item"><span class="step-num">9.</span> $T_n'(1) = n^2$ (en utilisant la limite de l'EDO ou la dérivée en $\theta$).</div>
-        <div class="cor-item"><span class="step-num">10.</span> Atteints en $y_k = \cos(\frac{k\pi}{n})$, les valeurs sont $(-1)^k$.</div>
+        <div class="cor-item"><span class="num">1.</span> $P(2)$ où $P=X^n-1$, donc $2^n-1$.</div>
+        <div class="cor-item"><span class="num">2.</span> $0$ si $n > 2$, $n$ si $n=1,2$.</div>
+        <div class="cor-item"><span class="num">3.</span> $P = (X^n-1)/(X-1) = X^{n-1} \dots + 1$. $P(1) = n$.</div>
+        <div class="cor-item"><span class="num">4.</span> $n/2^{n-1}$.</div>
+        <div class="cor-item"><span class="num">5.</span> 0 (pour $n \ge 2$).</div>
+        <div class="cor-item"><span class="num">6.</span> $\prod_{k=0}^{n-1} (X - e^{i\frac{\pi+2k\pi}{n}})$.</div>
+        <div class="cor-item"><span class="num">7.</span> Partie réelle de la somme des $\omega^k$, donc 0.</div>
+        <div class="cor-item"><span class="num">8.</span> $(-1)^n \times 1 = (-1)^n$.</div>
+        <div class="cor-item"><span class="num">9.</span> $z=0$ ou $z = e^{2ik\pi/(n+1)}$.</div>
+        <div class="cor-item"><span class="num">10.</span> $e^{i\pi(n-1)} = (-1)^{n-1}$.</div>
     </div>
 </div>
 
 <div class="qcm-card">
     <div class="exo-header">
-        <span class="exo-badge">Thème 3</span>
-        <span class="exo-title">III. Racines & Multiplicités</span>
+        <span class="exo-badge">Exo 4</span>
+        <span class="exo-title">Algorithmique de Horner et Taylor</span>
     </div>
     <div class="exo-content">
-        1. Condition sur $a, b$ pour que $X^n+aX+b$ ait une racine double non nulle.<br>
-        2. Montrer que $\sum_{k=0}^n \frac{X^k}{k!}$ n'a pas de racine multiple.<br>
-        3. Racine double de $P = (X+1)^n - X^n - 1$.<br>
-        4. Soit $P$ tel que $P' | P$. Montrer que $P$ n'a qu'une seule racine distincte.<br>
-        5. Nombre de racines réelles de $X^n-X-1$ pour $n$ pair.<br>
-        6. Multiplicité de 0 dans $P(X+1)-P(X)$.<br>
-        7. Allure de $P = (X-1)^3(X+2)^2$ en $x=1$.<br>
-        8. Relation entre racines de $P$ et de $P'$ (Théorème de Lucas - intro).<br>
-        9. Montrer que si $P$ est scindé sur $\mathbb{R}$, $P'$ l'est aussi.<br>
-        10. Trouver $P$ de degré 3 tel que $(X-1)^2 | P+1$ et $(X+1)^2 | P-1$.
+        Soit $P = 3X^4 - 2X^3 + 5X - 7$ et $a=2$.<br>
+        1. Calculer $P(2)$ par Horner (détailler les $b_i$).<br>
+        2. Déterminer le quotient de $P$ par $X-2$.<br>
+        3. Calculer $P'(2)$ en utilisant le tableau de Horner.<br>
+        4. Écrire le développement de Taylor de $P$ en 2.<br>
+        5. Combien d'opérations (multiplications) pour évaluer un degré $n$ par Horner ?<br>
+        6. Trouver $P$ tel que $P(X+1)-P(X)=X$.<br>
+        7. Calculer la dérivée $n$-ième de $X^n$.<br>
+        8. Calculer la dérivée $n$-ième de $1/(X-a)$.<br>
+        9. Appliquer Taylor à $X^n$ en 1.<br>
+        10. Reste de $P$ par $(X-2)^2$ via Horner.
     </div>
-    <button class="btn-reveal" onclick="toggleDisplay(this)">
-        <i class="fas fa-eye"></i> Voir les multiplicités
+    <button class="btn-reveal" onclick="toggleCor(this)">
+        <i class="fas fa-eye"></i> Voir le corrigé détaillé
     </button>
     <div class="correction-block">
-        <div class="cor-item"><span class="step-num">1.</span> $P'(x)=nX^{n-1}+a=0 \implies x = (-a/n)^{1/(n-1)}$. En injectant dans $P(x)=0$, on obtient $(\frac{a}{n})^n + (\frac{b}{n-1})^{n-1} = 0$.</div>
-        <div class="cor-item"><span class="step-num">2.</span> $P' = P - \frac{X^n}{n!}$. Si $P(z)=P'(z)=0$, alors $z^n/n!=0 \implies z=0$. Mais $P(0)=1 \neq 0$.</div>
-        <div class="cor-item"><span class="step-num">3.</span> $P'(1)=n(2)^{n-1}-n=0 \implies 2^{n-1}=1 \implies n=1$. Pour $n > 1$, pas de racine double réelle évidente (voir complexes $j$).</div>
-        <div class="cor-item"><span class="step-num">4.</span> $P/P'$ est de degré 1, soit $\frac{1}{n}(X-a)$. La décomposition en éléments simples de $P'/P$ montre qu'il n'y a qu'un pôle $a$.</div>
-        <div class="cor-item"><span class="step-num">5.</span> $f'(x)=nx^{n-1}-1$. Un minimum négatif, deux racines réelles (une positive, une négative).</div>
-        <div class="cor-item"><span class="step-num">6.</span> Si $0$ est racine de $P$ d'ordre $k$, il est racine de $P(X+1)-P(X)$ d'ordre $0$ (sauf cas particuliers).</div>
-        <div class="cor-item"><span class="step-num">7.</span> En $x=1$, multiplicité 3 : point d'inflexion avec tangente horizontale.</div>
-        <div class="cor-item"><span class="step-num">8.</span> Les racines de $P'$ sont dans l'enveloppe convexe des racines de $P$.</div>
-        <div class="cor-item"><span class="step-num">9.</span> Application directe du théorème de Rolle entre chaque racine.</div>
-        <div class="cor-item"><span class="step-num">10.</span> $P(X) = \frac{1}{2}X^3 - \frac{3}{2}X$. On vérifie $P(1)=-1, P'(1)=0$ et $P(-1)=1, P'(-1)=0$.</div>
+        <div class="cor-item"><span class="num">1.</span> $b_4=3, b_3=-2+2(3)=4, b_2=0+2(4)=8, b_1=5+2(8)=21, b_0=-7+2(21)=35$. $P(2)=35$.</div>
+        <div class="cor-item"><span class="num">2.</span> $Q = 3X^3+4X^2+8X+21$.</div>
+        <div class="cor-item"><span class="num">3.</span> On réapplique Horner sur $Q$. On trouve $P'(2)=85$.</div>
+        <div class="cor-item"><span class="num">4.</span> $35 + 85(X-2) + \dots$</div>
+        <div class="cor-item"><span class="num">5.</span> $n$ multiplications.</div>
+        <div class="cor-item"><span class="num">6.</span> $P = \frac{1}{2}X^2 - \frac{1}{2}X + C$.</div>
+        <div class="cor-item"><span class="num">7.</span> $n!$.</div>
+        <div class="cor-item"><span class="num">8.</span> $\frac{(-1)^n n!}{(X-a)^{n+1}}$.</div>
+        <div class="cor-item"><span class="num">9.</span> $\sum_{k=0}^n \binom{n}{k} (X-1)^k$.</div>
+        <div class="cor-item"><span class="num">10.</span> $35 + 85(X-2)$.</div>
     </div>
 </div>
 
 <div class="qcm-card">
     <div class="exo-header">
-        <span class="exo-badge">Thème 4</span>
-        <span class="exo-title">IV. Fractions Rationnelles & Résidus</span>
+        <span class="exo-badge">Exo 5</span>
+        <span class="exo-title">Fractions et Décompositions Techniques</span>
     </div>
     <div class="exo-content">
-        1. Décomposer $\frac{1}{X^n-1}$ dans $\mathbb{C}(X)$.<br>
-        2. Somme des résidus de $F = \frac{P}{Q}$ quand $\deg Q \ge \deg P + 2$.<br>
-        3. Décomposer $\frac{1}{(X-1)^2(X+1)}$.<br>
-        4. Calculer $\sum_{k=1}^n \frac{1}{k(k+1)}$.<br>
-        5. Partie entière de $\frac{X^4}{X^2-1}$.<br>
-        6. Décomposer $\frac{X^2+1}{X^4+1}$ dans $\mathbb{R}(X)$.<br>
-        7. Trouver le coefficient de $\frac{1}{X-j}$ dans la D.E.S. de $\frac{1}{X^3-1}$.<br>
-        8. Décomposer $\frac{1}{X^2+X+1}$ dans $\mathbb{C}(X)$.<br>
-        9. Calculer $\sum_{k=0}^{n-1} \frac{1}{X-\omega_k}$ où $\omega_k$ sont les racines $n$-ièmes.<br>
-        10. Intégrer $\int \frac{dx}{x^2-5x+6}$ par D.E.S.
+        1. Décomposer $\frac{X}{(X-1)(X-2)}$.<br>
+        2. Décomposer $\frac{1}{X^2+X+1}$ dans $\mathbb{C}(X)$.<br>
+        3. Trouver la partie entière de $\frac{X^4+1}{X^2-1}$.<br>
+        4. Décomposer $\frac{1}{X^2(X-1)}$.<br>
+        5. Calculer le résidu en $i$ de $\frac{1}{X^4-1}$.<br>
+        6. Décomposer $\frac{X^2}{(X^2+1)^2}$ (Astuce : $X^2 = X^2+1-1$).<br>
+        7. Donner la forme de la DES de $\frac{1}{X^n(X-1)}$.<br>
+        8. Décomposer $\frac{P'(X)}{P(X)}$ si $P = \prod (X-a_i)$.<br>
+        9. Calculer $\sum_{k=1}^n \frac{1}{k(k+1)}$.<br>
+        10. Intégrer $\frac{1}{x^2-1}$ en utilisant la DES.
     </div>
-    <button class="btn-reveal" onclick="toggleDisplay(this)">
-        <i class="fas fa-eye"></i> Afficher les D.E.S.
+    <button class="btn-reveal" onclick="toggleCor(this)">
+        <i class="fas fa-eye"></i> Voir le corrigé détaillé
     </button>
     <div class="correction-block">
-        <div class="cor-item"><span class="step-num">1.</span> $\frac{1}{n} \sum_{k=0}^{n-1} \frac{\omega_k}{X-\omega_k}$.</div>
-        <div class="cor-item"><span class="step-num">2.</span> La somme des résidus est nulle.</div>
-        <div class="cor-item"><span class="step-num">3.</span> $\frac{1/2}{(X-1)^2} - \frac{1/4}{X-1} + \frac{1/4}{X+1}$.</div>
-        <div class="cor-item"><span class="step-num">4.</span> $\sum (\frac{1}{k} - \frac{1}{k+1}) = 1 - \frac{1}{n+1}$.</div>
-        <div class="cor-item"><span class="step-num">5.</span> $X^4 = (X^2-1)(X^2+1) + 1$. Partie entière : $X^2+1$.</div>
-        <div class="cor-item"><span class="step-num">6.</span> $\frac{1/ \sqrt{2}}{X^2-\sqrt{2}X+1} + \frac{1/ \sqrt{2}}{X^2+\sqrt{2}X+1}$.</div>
-        <div class="cor-item"><span class="step-num">7.</span> Résidu $= \frac{1}{P'(j)} = \frac{1}{3j^2} = \frac{j}{3}$.</div>
-        <div class="cor-item"><span class="step-num">8.</span> $\frac{1}{(X-j)(X-j^2)} = \frac{1}{j-j^2}(\frac{1}{X-j} - \frac{1}{X-j^2}) = \frac{-i\sqrt{3}}{3}(\frac{1}{X-j} - \frac{1}{X-j^2})$.</div>
-        <div class="cor-item"><span class="step-num">9.</span> C'est $\frac{P'}{P}$ pour $P=X^n-1$, donc $\frac{nX^{n-1}}{X^n-1}$.</div>
-        <div class="cor-item"><span class="step-num">10.</span> $\frac{1}{(x-3)(x-2)} = \frac{1}{x-3} - \frac{1}{x-2}$. Primitive : $\ln|\frac{x-3}{x-2}| + C$.</div>
-    </div>
-</div>
-
-<div class="qcm-card">
-    <div class="exo-header">
-        <span class="exo-badge">Thème 5</span>
-        <span class="exo-title">V. Interpolation & Algorithmique</span>
-    </div>
-    <div class="exo-content">
-        1. Polynôme $P$ tel que $P(k)=k^2$ pour $k \in \{0, 1, 2\}$.<br>
-        2. Propriété de la somme des $L_i(X)$.<br>
-        3. Formule de Newton pour l'interpolation (différences divisées).<br>
-        4. Complexité de l'algorithme de Horner.<br>
-        5. Calculer le PGCD de $X^4-1$ et $X^3-1$ par Euclide.<br>
-        6. Trouver $U, V$ tels que $UX^2 + V(X-1)^2 = 1$.<br>
-        7. Définition du polynôme de Lagrange $L_i$.<br>
-        8. Erreur d'interpolation de Lagrange (théorème).<br>
-        9. Pourquoi Horner est-il stable numériquement ?<br>
-        10. Calculer $P(2)$ pour $P$ interpole $(0,1), (1,3)$ par la méthode de la droite.
-    </div>
-    <button class="btn-reveal" onclick="toggleDisplay(this)">
-        <i class="fas fa-eye"></i> Voir l'algorithmique
-    </button>
-    <div class="correction-block">
-        <div class="cor-item"><span class="step-num">1.</span> $P(X)=X^2$ (unicité du polynôme d'interpolation de degré $\le 2$).</div>
-        <div class="cor-item"><span class="step-num">2.</span> $\sum L_i(X) = 1$ (interpole la fonction constante égale à 1).</div>
-        <div class="cor-item"><span class="step-num">3.</span> $P(x) = f[x_0] + f[x_0,x_1](x-x_0) + \dots$ Plus efficace pour ajouter des points.</div>
-        <div class="cor-item"><span class="step-num">4.</span> $O(n)$ opérations.</div>
-        <div class="cor-item"><span class="step-num">5.</span> $X^4-1 = X(X^3-1) + X-1$. $X^3-1 = (X^2+X+1)(X-1)$. PGCD $= X-1$.</div>
-        <div class="cor-item"><span class="step-num">6.</span> $X^2 - (X-1)(X+1) = 1$. Donc $U=1, V=-(X+1)$ est faux. Correct : $(2X-1)X^2 - (2X+1)(X-1)^2$ non... Bézout classique : $U=2X-3, V=-2X-1$.</div>
-        <div class="cor-item"><span class="step-num">7.</span> $L_i(X) = \prod_{j \neq i} \frac{X-x_j}{x_i-x_j}$.</div>
-        <div class="cor-item"><span class="step-num">8.</span> $f(x)-P(x) = \frac{f^{(n+1)}(\xi)}{(n+1)!} \prod (x-x_i)$.</div>
-        <div class="cor-item"><span class="step-num">9.</span> Minimise les erreurs d'arrondi en limitant le nombre d'opérations sur les grands exposants.</div>
-        <div class="cor-item"><span class="step-num">10.</span> Droite passant par $(0,1)$ et $(1,3)$ : $y=2x+1$. En $x=2$, $y=5$.</div>
+        <div class="cor-item"><span class="num">1.</span> $\frac{-1}{X-1} + \frac{2}{X-2}$.</div>
+        <div class="cor-item"><span class="num">2.</span> $\frac{1}{(j-j^2)}(\frac{1}{X-j} - \frac{1}{X-j^2}) = \frac{-i/\sqrt{3}}{X-j} + \frac{i/\sqrt{3}}{X-j^2}$.</div>
+        <div class="cor-item"><span class="num">3.</span> $X^2+1$.</div>
+        <div class="cor-item"><span class="num">4.</span> $-\frac{1}{X^2} - \frac{1}{X} + \frac{1}{X-1}$.</div>
+        <div class="cor-item"><span class="num">5.</span> $1/4i^3 = i/4$.</div>
+        <div class="cor-item"><span class="num">6.</span> $\frac{1}{X^2+1} - \frac{1}{(X^2+1)^2}$.</div>
+        <div class="cor-item"><span class="num">7.</span> $\frac{1}{X-1} - \sum_{k=1}^n \frac{1}{X^k}$.</div>
+        <div class="cor-item"><span class="num">8.</span> $\sum \frac{1}{X-a_i}$.</div>
+        <div class="cor-item"><span class="num">9.</span> $1 - \frac{1}{n+1} = \frac{n}{n+1}$.</div>
+        <div class="cor-item"><span class="num">10.</span> $\frac{1}{2}\ln|\frac{x-1}{x+1}| + C$.</div>
     </div>
 </div>
 
 <script>
-    function toggleDisplay(btn) {
+    function toggleCor(btn) {
         const block = btn.nextElementSibling;
-        const isHidden = block.style.display === "none" || block.style.display === "";
+        if (!block) return;
+        
+        const isHidden = window.getComputedStyle(block).display === "none";
         
         if (isHidden) {
             block.style.display = "block";
+            block.classList.add('fade-in'); 
             btn.innerHTML = '<i class="fas fa-eye-slash"></i> Masquer le corrigé';
-            if (window.MathJax) {
-                MathJax.typesetPromise([block]);
-            }
+            if (window.MathJax) MathJax.typesetPromise([block]);
         } else {
             block.style.display = "none";
-            btn.innerHTML = '<i class="fas fa-eye"></i> Afficher le corrigé détaillé';
+            btn.innerHTML = '<i class="fas fa-eye"></i> Voir le corrigé détaillé';
         }
     }
 </script>
