@@ -1,493 +1,394 @@
-<div class="hero-banner">
-    <div style="font-size: 3rem; margin-bottom: 15px;">
-        <i class="fas fa-divide"></i> 
-    </div>
-    <h1>Training Polynômes v2</h1>
-    <p>Évaluation : Fractions Rationnelles & Éléments Simples (30 Questions)</p>
-</div>
-
-<div class="qcm-card">
-    <div class="qcm-question"><b>Question 1 :</b> Par définition, le corps des fractions rationnelles $\mathbb{K}(X)$ est :</div>
-    <div class="options-grid">
-        <button class="opt-btn" onclick="handleAnswer(this, true)">Le corps des fractions de l'anneau $\mathbb{K}[X]$</button>
-        <button class="opt-btn" onclick="handleAnswer(this, false)">L'ensemble des fonctions rationnelles définies sur $\mathbb{K}$</button>
-        <button class="opt-btn" onclick="handleAnswer(this, false)">Un sous-anneau de $\mathbb{K}[X]$</button>
-        <button class="opt-btn" onclick="handleAnswer(this, false)">L'ensemble des polynômes inversibles</button>
-    </div>
-    <div class="correction-box">
-        <i class="fas fa-lightbulb" style="color: var(--gold-btn); margin-right: 8px;"></i>
-        <b>Explication :</b> Formellement, $\mathbb{K}(X)$ se construit à partir de l'anneau intègre $\mathbb{K}[X]$ exactement comme $\mathbb{Q}$ se construit à partir de $\mathbb{Z}$.
-    </div>
-</div>
-
-<div class="qcm-card">
-    <div class="qcm-question"><b>Question 2 :</b> Quel est le degré de la fraction rationnelle $F = \frac{P}{Q}$ (avec $P, Q \neq 0$) ?</div>
-    <div class="options-grid">
-        <button class="opt-btn" onclick="handleAnswer(this, false)">$\max(\deg(P), \deg(Q))$</button>
-        <button class="opt-btn" onclick="handleAnswer(this, false)">$\frac{\deg(P)}{\deg(Q)}$</button>
-        <button class="opt-btn" onclick="handleAnswer(this, true)">$\deg(P) - \deg(Q)$</button>
-        <button class="opt-btn" onclick="handleAnswer(this, false)">$\deg(P) + \deg(Q)$</button>
-    </div>
-    <div class="correction-box">
-        <i class="fas fa-lightbulb" style="color: var(--gold-btn); margin-right: 8px;"></i>
-        <b>Explication :</b> Le degré est défini par la différence des degrés. Cela permet de conserver la propriété $\deg(F \times G) = \deg(F) + \deg(G)$.
-    </div>
-</div>
-
-<div class="qcm-card">
-    <div class="qcm-question"><b>Question 3 :</b> Qu'est-ce qu'un pôle d'une fraction rationnelle $F = \frac{P}{Q}$ écrite sous forme irréductible ?</div>
-    <div class="options-grid">
-        <button class="opt-btn" onclick="handleAnswer(this, false)">Une racine de $P$</button>
-        <button class="opt-btn" onclick="handleAnswer(this, true)">Une racine de $Q$</button>
-        <button class="opt-btn" onclick="handleAnswer(this, false)">Une racine commune à $P$ et $Q$</button>
-        <button class="opt-btn" onclick="handleAnswer(this, false)">La limite de $F$ en l'infini</button>
-    </div>
-    <div class="correction-box">
-        <i class="fas fa-lightbulb" style="color: var(--gold-btn); margin-right: 8px;"></i>
-        <b>Explication :</b> Un pôle est une valeur qui annule le dénominateur sans annuler le numérateur (la fraction étant irréductible, le PGCD de $P$ et $Q$ est 1).
-    </div>
-</div>
-
-<div class="qcm-card">
-    <div class="qcm-question"><b>Question 4 :</b> Dans quelle condition la partie entière d'une fraction rationnelle $F = \frac{P}{Q}$ est-elle nulle ?</div>
-    <div class="options-grid">
-        <button class="opt-btn" onclick="handleAnswer(this, true)">Si $\deg(P) < \deg(Q)$</button>
-        <button class="opt-btn" onclick="handleAnswer(this, false)">Si $\deg(P) = \deg(Q)$</button>
-        <button class="opt-btn" onclick="handleAnswer(this, false)">Si $\deg(P) > \deg(Q)$</button>
-        <button class="opt-btn" onclick="handleAnswer(this, false)">Si $P$ et $Q$ sont premiers entre eux</button>
-    </div>
-    <div class="correction-box">
-        <i class="fas fa-lightbulb" style="color: var(--gold-btn); margin-right: 8px;"></i>
-        <b>Explication :</b> Si $\deg(P) < \deg(Q)$, alors le degré de $F$ est strictement négatif. Le quotient de la division euclidienne de $P$ par $Q$ est 0.
-    </div>
-</div>
-
-<div class="qcm-card">
-    <div class="qcm-question"><b>Question 5 :</b> Comment calcule-t-on la partie entière d'une fraction $F = \frac{P}{Q}$ ?</div>
-    <div class="options-grid">
-        <button class="opt-btn" onclick="handleAnswer(this, false)">En dérivant $P$ et $Q$</button>
-        <button class="opt-btn" onclick="handleAnswer(this, true)">En effectuant la division euclidienne de $P$ par $Q$</button>
-        <button class="opt-btn" onclick="handleAnswer(this, false)">En évaluant $P$ aux racines de $Q$</button>
-        <button class="opt-btn" onclick="handleAnswer(this, false)">En cherchant le PGCD de $P$ et $Q$</button>
-    </div>
-    <div class="correction-box">
-        <i class="fas fa-lightbulb" style="color: var(--gold-btn); margin-right: 8px;"></i>
-        <b>Explication :</b> Si on écrit $P = EQ + R$, alors $\frac{P}{Q} = E + \frac{R}{Q}$. Le polynôme $E$ est la partie entière.
-    </div>
-</div>
-
-<div class="qcm-card">
-    <div class="qcm-question"><b>Question 6 :</b> Dans $\mathbb{C}(X)$, quelle est la forme des éléments simples ?</div>
-    <div class="options-grid">
-        <button class="opt-btn" onclick="handleAnswer(this, true)">$\frac{\lambda}{(X-a)^k}$ avec $\lambda, a \in \mathbb{C}$ et $k \in \mathbb{N}^*$</button>
-        <button class="opt-btn" onclick="handleAnswer(this, false)">$\frac{aX+b}{(X^2+cX+d)^k}$</button>
-        <button class="opt-btn" onclick="handleAnswer(this, false)">Des polynômes de degré 1 uniquement</button>
-        <button class="opt-btn" onclick="handleAnswer(this, false)">$\frac{\lambda}{X-a}$ uniquement (k=1 obligatoirement)</button>
-    </div>
-    <div class="correction-box">
-        <i class="fas fa-lightbulb" style="color: var(--gold-btn); margin-right: 8px;"></i>
-        <b>Explication :</b> D'après le théorème de d'Alembert-Gauss, les seuls polynômes irréductibles de $\mathbb{C}[X]$ sont de degré 1. Il n'y a donc que des éléments de première espèce.
-    </div>
-</div>
-
-<div class="qcm-card">
-    <div class="qcm-question"><b>Question 7 :</b> Dans $\mathbb{R}(X)$, en plus des éléments simples de première espèce, on trouve des éléments de seconde espèce de la forme :</div>
-    <div class="options-grid">
-        <button class="opt-btn" onclick="handleAnswer(this, false)">$\frac{\lambda}{(X-a)^k}$ avec $\lambda \in \mathbb{C}$</button>
-        <button class="opt-btn" onclick="handleAnswer(this, true)">$\frac{aX+b}{(X^2+pX+q)^k}$ avec $\Delta = p^2-4q < 0$</button>
-        <button class="opt-btn" onclick="handleAnswer(this, false)">$\frac{aX+b}{(X^2-1)^k}$</button>
-        <button class="opt-btn" onclick="handleAnswer(this, false)">$\frac{\lambda}{X^2+pX+q}$ avec $\Delta > 0$</button>
-    </div>
-    <div class="correction-box">
-        <i class="fas fa-lightbulb" style="color: var(--gold-btn); margin-right: 8px;"></i>
-        <b>Explication :</b> Les polynômes irréductibles dans $\mathbb{R}[X]$ peuvent être de degré 2 (sans racines réelles, donc $\Delta < 0$).
-    </div>
-</div>
-
-<div class="qcm-card">
-    <div class="qcm-question"><b>Question 8 :</b> Soit $F = \frac{P}{Q}$ ayant un pôle simple en $a$. Comment calculer rapidement le coefficient $\lambda$ de l'élément simple $\frac{\lambda}{X-a}$ ?</div>
-    <div class="options-grid">
-        <button class="opt-btn" onclick="handleAnswer(this, false)">$\lambda = P(a) Q(a)$</button>
-        <button class="opt-btn" onclick="handleAnswer(this, true)">$\lambda = \frac{P(a)}{Q'(a)}$</button>
-        <button class="opt-btn" onclick="handleAnswer(this, false)">$\lambda = \frac{P'(a)}{Q(a)}$</button>
-        <button class="opt-btn" onclick="handleAnswer(this, false)">$\lambda = F(a)$</button>
-    </div>
-    <div class="correction-box">
-        <i class="fas fa-lightbulb" style="color: var(--gold-btn); margin-right: 8px;"></i>
-        <b>Explication :</b> C'est une formule très pratique. Puisque $Q(X) = (X-a)Q_1(X)$ avec $Q_1(a) \neq 0$, la dérivée donne $Q'(a) = Q_1(a)$, d'où le résultat.
-    </div>
-</div>
-
-<div class="qcm-card">
-    <div class="qcm-question"><b>Question 9 :</b> Pour trouver le coefficient $c_k$ de l'élément $\frac{c_k}{(X-a)^k}$ pour un pôle $a$ de multiplicité $k$, on peut :</div>
-    <div class="options-grid">
-        <button class="opt-btn" onclick="handleAnswer(this, true)">Multiplier $F(X)$ par $(X-a)^k$ puis évaluer en $a$</button>
-        <button class="opt-btn" onclick="handleAnswer(this, false)">Multiplier $F(X)$ par $(X-a)$ puis évaluer en $a$</button>
-        <button class="opt-btn" onclick="handleAnswer(this, false)">Évaluer directement la dérivée $F'(a)$</button>
-        <button class="opt-btn" onclick="handleAnswer(this, false)">Calculer $\frac{P(a)}{Q^{(k)}(a)}$</button>
-    </div>
-    <div class="correction-box">
-        <i class="fas fa-lightbulb" style="color: var(--gold-btn); margin-right: 8px;"></i>
-        <b>Explication :</b> Cette méthode annule le dénominateur problématique. L'évaluation en $a$ isole ensuite le coefficient de la plus haute puissance du pôle.
-    </div>
-</div>
-
-<div class="qcm-card">
-    <div class="qcm-question"><b>Question 10 :</b> Si $F(X)$ est une fraction rationnelle paire, que peut-on dire des coefficients de sa décomposition en éléments simples (D.E.S) ?</div>
-    <div class="options-grid">
-        <button class="opt-btn" onclick="handleAnswer(this, false)">Ils sont tous pairs</button>
-        <button class="opt-btn" onclick="handleAnswer(this, true)">Le pôle $a$ et le pôle $-a$ ont des éléments simples liés par symétrie</button>
-        <button class="opt-btn" onclick="handleAnswer(this, false)">Il n'y a pas de pôles impairs</button>
-        <button class="opt-btn" onclick="handleAnswer(this, false)">La partie entière est forcément nulle</button>
-    </div>
-    <div class="correction-box">
-        <i class="fas fa-lightbulb" style="color: var(--gold-btn); margin-right: 8px;"></i>
-        <b>Explication :</b> La parité $F(-X) = F(X)$ implique que si $\frac{\lambda}{X-a}$ est dans la D.E.S, alors un terme correspondant existera pour le pôle $-a$, avec des coefficients opposés ou égaux selon la parité du degré.
-    </div>
-</div>
-
-<div class="qcm-card">
-    <div class="qcm-question"><b>Question 11 :</b> Quelle est la décomposition en éléments simples de $F(X) = \frac{1}{X^2-1}$ dans $\mathbb{R}(X)$ ?</div>
-    <div class="options-grid">
-        <button class="opt-btn" onclick="handleAnswer(this, true)">$\frac{1/2}{X-1} - \frac{1/2}{X+1}$</button>
-        <button class="opt-btn" onclick="handleAnswer(this, false)">$\frac{1}{X-1} + \frac{1}{X+1}$</button>
-        <button class="opt-btn" onclick="handleAnswer(this, false)">$\frac{1}{X-1} - \frac{1}{X+1}$</button>
-        <button class="opt-btn" onclick="handleAnswer(this, false)">$\frac{1/2}{X-1} + \frac{1/2}{X+1}$</button>
-    </div>
-    <div class="correction-box">
-        <i class="fas fa-lightbulb" style="color: var(--gold-btn); margin-right: 8px;"></i>
-        <b>Explication :</b> Les pôles sont $1$ et $-1$. En utilisant la méthode de la limite ou l'identification, on trouve rapidement que $\frac{1}{2(X-1)} - \frac{1}{2(X+1)}$ redonne bien le numérateur $1$.
-    </div>
-</div>
-
-<div class="qcm-card">
-    <div class="qcm-question"><b>Question 12 :</b> La dérivée logarithmique d'un polynôme $P$ scindé à racines simples $x_1, \dots, x_n$ est $\frac{P'}{P}$. Quelle est sa D.E.S ?</div>
-    <div class="options-grid">
-        <button class="opt-btn" onclick="handleAnswer(this, false)">$\sum \frac{x_k}{X-x_k}$</button>
-        <button class="opt-btn" onclick="handleAnswer(this, true)">$\sum \frac{1}{X-x_k}$</button>
-        <button class="opt-btn" onclick="handleAnswer(this, false)">$\sum \frac{k}{X-x_k}$</button>
-        <button class="opt-btn" onclick="handleAnswer(this, false)">$\sum \frac{1}{(X-x_k)^2}$</button>
-    </div>
-    <div class="correction-box">
-        <i class="fas fa-lightbulb" style="color: var(--gold-btn); margin-right: 8px;"></i>
-        <b>Explication :</b> C'est une formule classique très utile. La dérivée d'un produit (ici $\prod (X-x_k)$) donne une somme où chaque terme est privé d'un facteur, ce qui donne $1$ au numérateur.
-    </div>
-</div>
-
-<div class="qcm-card">
-    <div class="qcm-question"><b>Question 13 :</b> Si $\deg(F) \leq -2$, que peut-on dire de la somme des résidus (coefficients des éléments simples de degré 1) dans $\mathbb{C}(X)$ ?</div>
-    <div class="options-grid">
-        <button class="opt-btn" onclick="handleAnswer(this, false)">Elle vaut 1</button>
-        <button class="opt-btn" onclick="handleAnswer(this, false)">Elle est infinie</button>
-        <button class="opt-btn" onclick="handleAnswer(this, true)">Elle est nulle</button>
-        <button class="opt-btn" onclick="handleAnswer(this, false)">Elle est égale à $\deg(F)$</button>
-    </div>
-    <div class="correction-box">
-        <i class="fas fa-lightbulb" style="color: var(--gold-btn); margin-right: 8px;"></i>
-        <b>Explication :</b> En multipliant $F(X)$ par $X$ et en faisant tendre $X$ vers $+\infty$, la somme des résidus apparaît. Or, si le degré initial est $\leq -2$, la limite de $XF(X)$ est 0.
-    </div>
-</div>
-
-<div class="qcm-card">
-    <div class="qcm-question"><b>Question 14 :</b> Que se passe-t-il lors du passage à la limite $x \to \infty$ pour la fraction $F(x) = \frac{x}{x^2+1}$ ?</div>
-    <div class="options-grid">
-        <button class="opt-btn" onclick="handleAnswer(this, true)">$F(x) \to 0$ car $\deg(F) < 0$</button>
-        <button class="opt-btn" onclick="handleAnswer(this, false)">$F(x) \to 1$</button>
-        <button class="opt-btn" onclick="handleAnswer(this, false)">$F(x) \to \infty$</button>
-        <button class="opt-btn" onclick="handleAnswer(this, false)">La limite n'existe pas</button>
-    </div>
-    <div class="correction-box">
-        <i class="fas fa-lightbulb" style="color: var(--gold-btn); margin-right: 8px;"></i>
-        <b>Explication :</b> Le degré de $F$ est $1 - 2 = -1$. Toute fraction rationnelle de degré strictement négatif tend vers 0 en l'infini.
-    </div>
-</div>
-
-<div class="qcm-card">
-    <div class="qcm-question"><b>Question 15 :</b> Comment appelle-t-on le théorème affirmant que toute fraction rationnelle s'écrit de manière unique comme somme de sa partie entière et d'éléments simples ?</div>
-    <div class="options-grid">
-        <button class="opt-btn" onclick="handleAnswer(this, false)">Théorème de d'Alembert-Gauss</button>
-        <button class="opt-btn" onclick="handleAnswer(this, false)">Théorème de Bézout</button>
-        <button class="opt-btn" onclick="handleAnswer(this, true)">Théorème d'existence et d'unicité de la D.E.S.</button>
-        <button class="opt-btn" onclick="handleAnswer(this, false)">Lemme de Gauss</button>
-    </div>
-    <div class="correction-box">
-        <i class="fas fa-lightbulb" style="color: var(--gold-btn); margin-right: 8px;"></i>
-        <b>Explication :</b> C'est le théorème central de ce chapitre, qui garantit que le calcul que vous entreprenez a toujours une et une seule solution.
-    </div>
-</div>
-
-<div class="qcm-card">
-    <div class="qcm-question"><b>Question 16 :</b> Lors de la D.E.S de $F = \frac{1}{X^3-1}$ dans $\mathbb{C}(X)$, combien trouve-t-on d'éléments simples ?</div>
-    <div class="options-grid">
-        <button class="opt-btn" onclick="handleAnswer(this, false)">1</button>
-        <button class="opt-btn" onclick="handleAnswer(this, false)">2</button>
-        <button class="opt-btn" onclick="handleAnswer(this, true)">3</button>
-        <button class="opt-btn" onclick="handleAnswer(this, false)">0</button>
-    </div>
-    <div class="correction-box">
-        <i class="fas fa-lightbulb" style="color: var(--gold-btn); margin-right: 8px;"></i>
-        <b>Explication :</b> Le dénominateur $X^3-1$ admet 3 racines complexes distinctes (les racines cubiques de l'unité : $1, j, j^2$). Il y aura donc 3 éléments simples de degré 1.
-    </div>
-</div>
-
-<div class="qcm-card">
-    <div class="qcm-question"><b>Question 17 :</b> Une fraction rationnelle $F \in \mathbb{K}(X)$ est dite irréductible si :</div>
-    <div class="options-grid">
-        <button class="opt-btn" onclick="handleAnswer(this, false)">Son dénominateur est de degré 1</button>
-        <button class="opt-btn" onclick="handleAnswer(this, true)">Son numérateur et son dénominateur sont premiers entre eux</button>
-        <button class="opt-btn" onclick="handleAnswer(this, false)">Elle n'a pas de racines</button>
-        <button class="opt-btn" onclick="handleAnswer(this, false)">Son degré est strictement négatif</button>
-    </div>
-    <div class="correction-box">
-        <i class="fas fa-lightbulb" style="color: var(--gold-btn); margin-right: 8px;"></i>
-        <b>Explication :</b> Comme pour une fraction numérique usuelle (ex: $\frac{2}{3}$), une fraction est irréductible s'il n'y a plus aucun diviseur commun (PGCD = 1).
-    </div>
-</div>
-
-<div class="qcm-card">
-    <div class="qcm-question"><b>Question 18 :</b> Soit $F = \frac{X^2+1}{(X-1)^2(X+2)}$. Quelle est la forme théorique de sa D.E.S dans $\mathbb{R}(X)$ ?</div>
-    <div class="options-grid">
-        <button class="opt-btn" onclick="handleAnswer(this, false)">$\frac{a}{X-1} + \frac{b}{X+2}$</button>
-        <button class="opt-btn" onclick="handleAnswer(this, true)">$\frac{a}{X-1} + \frac{b}{(X-1)^2} + \frac{c}{X+2}$</button>
-        <button class="opt-btn" onclick="handleAnswer(this, false)">$E(X) + \frac{a}{(X-1)^2} + \frac{b}{X+2}$</button>
-        <button class="opt-btn" onclick="handleAnswer(this, false)">$\frac{aX+b}{(X-1)^2} + \frac{c}{X+2}$</button>
-    </div>
-    <div class="correction-box">
-        <i class="fas fa-lightbulb" style="color: var(--gold-btn); margin-right: 8px;"></i>
-        <b>Explication :</b> Le pôle $1$ est de multiplicité 2, il génère donc deux termes (pour la puissance 1 et la puissance 2). Le degré de la fraction est négatif, il n'y a pas de partie entière.
-    </div>
-</div>
-
-<div class="qcm-card">
-    <div class="qcm-question"><b>Question 19 :</b> Quelle est une astuce classique pour trouver un coefficient dans la D.E.S liée au passage à la limite ?</div>
-    <div class="options-grid">
-        <button class="opt-btn" onclick="handleAnswer(this, false)">Évaluer en 0</button>
-        <button class="opt-btn" onclick="handleAnswer(this, false)">Dériver la fraction</button>
-        <button class="opt-btn" onclick="handleAnswer(this, true)">Multiplier par $X$ et prendre la limite quand $X \to +\infty$</button>
-        <button class="opt-btn" onclick="handleAnswer(this, false)">Calculer l'intégrale</button>
-    </div>
-    <div class="correction-box">
-        <i class="fas fa-lightbulb" style="color: var(--gold-btn); margin-right: 8px;"></i>
-        <b>Explication :</b> Multiplier toute l'expression par $X$ et passer à la limite en l'infini donne une équation très simple reliant les coefficients de plus haut degré (les résidus).
-    </div>
-</div>
-
-<div class="qcm-card">
-    <div class="qcm-question"><b>Question 20 :</b> Pour $P$ scindé, la décomposition de $\frac{P'}{P} = \sum_{k=1}^r \frac{m_k}{X-x_k}$ montre que :</div>
-    <div class="options-grid">
-        <button class="opt-btn" onclick="handleAnswer(this, true)">Les $m_k$ sont les multiplicités des racines $x_k$</button>
-        <button class="opt-btn" onclick="handleAnswer(this, false)">Les $m_k$ sont toutes égales à 1</button>
-        <button class="opt-btn" onclick="handleAnswer(this, false)">Les racines de $P'$ sont les mêmes que celles de $P$</button>
-        <button class="opt-btn" onclick="handleAnswer(this, false)">La fraction $\frac{P'}{P}$ est de degré 0</button>
-    </div>
-    <div class="correction-box">
-        <i class="fas fa-lightbulb" style="color: var(--gold-btn); margin-right: 8px;"></i>
-        <b>Explication :</b> Si la racine $x_k$ est multiple d'ordre $m_k$, sa contribution dans la dérivée logarithmique sera pondérée par cette multiplicité $m_k$.
-    </div>
-</div>
-
-<div class="qcm-card">
-    <div class="qcm-question"><b>Question 21 :</b> Quelle est la décomposition en éléments simples de $\frac{1}{X(X-1)}$ dans $\mathbb{R}(X)$ ?</div>
-    <div class="options-grid">
-        <button class="opt-btn" onclick="handleAnswer(this, false)">$\frac{1}{X} - \frac{1}{X-1}$</button>
-        <button class="opt-btn" onclick="handleAnswer(this, false)">$\frac{1}{X} + \frac{1}{X-1}$</button>
-        <button class="opt-btn" onclick="handleAnswer(this, true)">$\frac{-1}{X} + \frac{1}{X-1}$</button>
-        <button class="opt-btn" onclick="handleAnswer(this, false)">$\frac{1/2}{X} - \frac{1/2}{X-1}$</button>
-    </div>
-    <div class="correction-box">
-        <i class="fas fa-lightbulb" style="color: var(--gold-btn); margin-right: 8px;"></i>
-        <b>Explication :</b> En mettant sur le même dénominateur $\frac{1}{X-1} - \frac{1}{X}$, on obtient bien $\frac{X - (X-1)}{X(X-1)} = \frac{1}{X(X-1)}$.
-    </div>
-</div>
-
-<div class="qcm-card">
-    <div class="qcm-question"><b>Question 22 :</b> Quelle est la partie entière de la fraction $F(X) = \frac{X^3 + X^2 + 1}{X^2 + 1}$ ?</div>
-    <div class="options-grid">
-        <button class="opt-btn" onclick="handleAnswer(this, true)">$X + 1$</button>
-        <button class="opt-btn" onclick="handleAnswer(this, false)">$X$</button>
-        <button class="opt-btn" onclick="handleAnswer(this, false)">$X - 1$</button>
-        <button class="opt-btn" onclick="handleAnswer(this, false)">$X^2 + 1$</button>
-    </div>
-    <div class="correction-box">
-        <i class="fas fa-lightbulb" style="color: var(--gold-btn); margin-right: 8px;"></i>
-        <b>Explication :</b> On peut remarquer que $X^3 + X^2 + 1 = X(X^2+1) + 1(X^2+1) - X$. Le quotient est donc $X+1$, et le reste $-X$.
-    </div>
-</div>
-
-<div class="qcm-card">
-    <div class="qcm-question"><b>Question 23 :</b> Dans la D.E.S de $F(X) = \frac{X^2+1}{(X-1)(X-2)(X-3)}$, quel est le coefficient de l'élément simple $\frac{c}{X-1}$ ?</div>
-    <div class="options-grid">
-        <button class="opt-btn" onclick="handleAnswer(this, false)">$-1$</button>
-        <button class="opt-btn" onclick="handleAnswer(this, false)">0</button>
-        <button class="opt-btn" onclick="handleAnswer(this, false)">$1/2$</button>
-        <button class="opt-btn" onclick="handleAnswer(this, true)">$1$</button>
-    </div>
-    <div class="correction-box">
-        <i class="fas fa-lightbulb" style="color: var(--gold-btn); margin-right: 8px;"></i>
-        <b>Explication :</b> On multiplie par $(X-1)$ et on évalue en 1 : $\frac{1^2+1}{(1-2)(1-3)} = \frac{2}{(-1)(-2)} = \frac{2}{2} = 1$.
-    </div>
-</div>
-
-<div class="qcm-card">
-    <div class="qcm-question"><b>Question 24 :</b> Quelle est la décomposition en éléments simples de $\frac{1}{X^2+1}$ dans le corps $\mathbb{C}(X)$ ?</div>
-    <div class="options-grid">
-        <button class="opt-btn" onclick="handleAnswer(this, true)">$\frac{-i/2}{X-i} + \frac{i/2}{X+i}$</button>
-        <button class="opt-btn" onclick="handleAnswer(this, false)">$\frac{i/2}{X-i} - \frac{i/2}{X+i}$</button>
-        <button class="opt-btn" onclick="handleAnswer(this, false)">$\frac{1/2}{X-i} + \frac{1/2}{X+i}$</button>
-        <button class="opt-btn" onclick="handleAnswer(this, false)">$\frac{1}{X-i} - \frac{1}{X+i}$</button>
-    </div>
-    <div class="correction-box">
-        <i class="fas fa-lightbulb" style="color: var(--gold-btn); margin-right: 8px;"></i>
-        <b>Explication :</b> Les pôles sont $i$ et $-i$. Pour le pôle $i$, on multiplie par $(X-i)$ et on évalue en $i$ : $1/(i+i) = 1/(2i) = -i/2$.
-    </div>
-</div>
-
-<div class="qcm-card">
-    <div class="qcm-question"><b>Question 25 :</b> Que vaut la limite de $X \cdot F(X)$ en $+\infty$ pour la fraction $F(X) = \frac{2X+1}{X^2-X+1}$ ?</div>
-    <div class="options-grid">
-        <button class="opt-btn" onclick="handleAnswer(this, true)">$2$</button>
-        <button class="opt-btn" onclick="handleAnswer(this, false)">0</button>
-        <button class="opt-btn" onclick="handleAnswer(this, false)">$+\infty$</button>
-        <button class="opt-btn" onclick="handleAnswer(this, false)">1</button>
-    </div>
-    <div class="correction-box">
-        <i class="fas fa-lightbulb" style="color: var(--gold-btn); margin-right: 8px;"></i>
-        <b>Explication :</b> $X \cdot F(X) = \frac{2X^2+X}{X^2-X+1}$. La limite en l'infini correspond au rapport des termes de plus haut degré : $2X^2 / X^2 = 2$.
-    </div>
-</div>
-
-<div class="qcm-card">
-    <div class="qcm-question"><b>Question 26 :</b> Quelle est une primitive de la fonction $x \mapsto \frac{1}{x(x+1)}$ sur $]0, +\infty[$ ?</div>
-    <div class="options-grid">
-        <button class="opt-btn" onclick="handleAnswer(this, false)">$\ln(x(x+1))$</button>
-        <button class="opt-btn" onclick="handleAnswer(this, true)">$\ln\left(\frac{x}{x+1}\right)$</button>
-        <button class="opt-btn" onclick="handleAnswer(this, false)">$\frac{1}{x^2}$</button>
-        <button class="opt-btn" onclick="handleAnswer(this, false)">$\ln(x) + \ln(x+1)$</button>
-    </div>
-    <div class="correction-box">
-        <i class="fas fa-lightbulb" style="color: var(--gold-btn); margin-right: 8px;"></i>
-        <b>Explication :</b> La D.E.S donne $\frac{1}{x} - \frac{1}{x+1}$. L'intégration donne $\ln(x) - \ln(x+1)$, ce qui équivaut à $\ln(\frac{x}{x+1})$.
-    </div>
-</div>
-
-<div class="qcm-card">
-    <div class="qcm-question"><b>Question 27 :</b> Pour $F(X) = \frac{1}{X(X-1)^2}$, que vaut le coefficient $c$ de l'élément simple $\frac{c}{(X-1)^2}$ ?</div>
-    <div class="options-grid">
-        <button class="opt-btn" onclick="handleAnswer(this, true)">$1$</button>
-        <button class="opt-btn" onclick="handleAnswer(this, false)">$-1$</button>
-        <button class="opt-btn" onclick="handleAnswer(this, false)">0</button>
-        <button class="opt-btn" onclick="handleAnswer(this, false)">$1/2$</button>
-    </div>
-    <div class="correction-box">
-        <i class="fas fa-lightbulb" style="color: var(--gold-btn); margin-right: 8px;"></i>
-        <b>Explication :</b> Multiplier par $(X-1)^2$ isole $c$ de ce côté. On évalue ensuite l'expression restante $\frac{1}{X}$ en la racine $X=1$, ce qui donne $1$.
-    </div>
-</div>
-
-<div class="qcm-card">
-    <div class="qcm-question"><b>Question 28 :</b> Soit $F(X) = \frac{X}{X^2-4}$. Puisque $F$ est impaire, sa D.E.S est nécessairement de la forme :</div>
-    <div class="options-grid">
-        <button class="opt-btn" onclick="handleAnswer(this, true)">$\frac{a}{X-2} + \frac{a}{X+2}$</button>
-        <button class="opt-btn" onclick="handleAnswer(this, false)">$\frac{a}{X-2} - \frac{a}{X+2}$</button>
-        <button class="opt-btn" onclick="handleAnswer(this, false)">$\frac{a}{(X-2)^2}$</button>
-        <button class="opt-btn" onclick="handleAnswer(this, false)">Il y a une partie entière non nulle</button>
-    </div>
-    <div class="correction-box">
-        <i class="fas fa-lightbulb" style="color: var(--gold-btn); margin-right: 8px;"></i>
-        <b>Explication :</b> Pour une fonction impaire, les pôles symétriques ont des coefficients égaux. (Ici, le calcul donne $a=1/2$).
-    </div>
-</div>
-
-<div class="qcm-card">
-    <div class="qcm-question"><b>Question 29 :</b> Une primitive de la fraction rationnelle (élément de 2ème espèce) $\frac{1}{X^2+X+1}$ s'exprime à l'aide de la fonction :</div>
-    <div class="options-grid">
-        <button class="opt-btn" onclick="handleAnswer(this, false)">$\ln$</button>
-        <button class="opt-btn" onclick="handleAnswer(this, true)">$\arctan$</button>
-        <button class="opt-btn" onclick="handleAnswer(this, false)">$\exp$</button>
-        <button class="opt-btn" onclick="handleAnswer(this, false)">Aucune, ce n'est pas intégrable</button>
-    </div>
-    <div class="correction-box">
-        <i class="fas fa-lightbulb" style="color: var(--gold-btn); margin-right: 8px;"></i>
-        <b>Explication :</b> En mettant sous forme canonique le dénominateur, on se ramène à une forme $\frac{1}{u^2+1}$ dont la primitive est un arc tangente.
-    </div>
-</div>
-
-<div class="qcm-card">
-    <div class="qcm-question"><b>Question 30 :</b> Si $F(X) = \frac{X^2+2}{(X-1)(X-2)(X-3)} = \frac{a}{X-1} + \frac{b}{X-2} + \frac{c}{X-3}$, que vaut la somme $a+b+c$ ?</div>
-    <div class="options-grid">
-        <button class="opt-btn" onclick="handleAnswer(this, true)">$1$</button>
-        <button class="opt-btn" onclick="handleAnswer(this, false)">0</button>
-        <button class="opt-btn" onclick="handleAnswer(this, false)">3</button>
-        <button class="opt-btn" onclick="handleAnswer(this, false)">$-1$</button>
-    </div>
-    <div class="correction-box">
-        <i class="fas fa-lightbulb" style="color: var(--gold-btn); margin-right: 8px;"></i>
-        <b>Explication :</b> En multipliant la fraction par $X$ et en passant à la limite en l'infini, on obtient $\lim \frac{X^3+\dots}{X^3+\dots} = 1$. D'autre part, la limite de $X(a/(X-1) + \dots)$ est $a+b+c$.
-    </div>
-</div>
-
-<div class="qcm-card" style="text-align: center; margin-top: 40px; border-color: var(--gold-btn); border-width: 2px;">
-    <h2 style="color: var(--navy-dark); margin-bottom: 20px;">Fin de l'évaluation</h2>
-    <button class="share-btn btn-pdf" style="margin: 0 auto; background: var(--navy-dark); color: white;" onclick="displayFinalScore()">
-        <i class="fas fa-flag-checkered"></i> Calculer mon score
-    </button>
+<style>
+    .secure-qcm-container {
+        -webkit-touch-callout: none; 
+        -webkit-user-select: none; 
+        -khtml-user-select: none; 
+        -moz-user-select: none; 
+        -ms-user-select: none; 
+        user-select: none; 
+    }
     
-    <div id="result-zone" style="display: none; margin-top: 25px;">
-        <h1 style="font-size: 3rem; color: var(--gold-btn); margin: 0;" id="final-score-text">0 / 30</h1>
-        <p style="color: var(--text-muted); font-weight: 500;" id="score-comment"></p>
+    .module-header.v2-theme {
+        background: linear-gradient(145deg, #312e81, #1e1b4b);
+        border-radius: var(--radius);
+        padding: 40px;
+        color: white;
+        margin-bottom: 40px;
+        border-left: 5px solid #8b5cf6; /* Violet pour indiquer le mode V2 Avancé */
+        box-shadow: var(--shadow-md);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .module-header.v2-theme h2 { margin: 0; font-size: 1.8rem; }
+    .module-header.v2-theme p { margin: 5px 0 0; opacity: 0.8; }
+    
+    .finish-btn {
+        display: block;
+        width: 100%;
+        padding: 20px;
+        background: linear-gradient(135deg, var(--gold-btn), var(--gold-hover));
+        color: var(--navy-dark);
+        font-size: 1.2rem;
+        font-weight: 800;
+        text-align: center;
+        border: none;
+        border-radius: var(--radius);
+        cursor: pointer;
+        margin-top: 40px;
+        transition: var(--transition);
+        box-shadow: var(--shadow-md);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+    .finish-btn:hover {
+        transform: translateY(-3px);
+        filter: brightness(1.05);
+    }
+</style>
+
+<div class="secure-qcm-container">
+    <div class="module-header v2-theme">
+        <div>
+            <h2>Test d'Excellence : Polynômes V2</h2>
+            <p>25 questions - Niveau Avancé (MPSI/PCSI). Sans calculatrice.</p>
+        </div>
+        <div>
+            <i class="fas fa-lock" style="font-size: 2.5rem; color: #8b5cf6;" title="Sécurité Maximale"></i>
+        </div>
     </div>
+
+    <div class="qcm-card">
+        <div class="qcm-question">1. Quel est le PGCD des polynômes $X^n - 1$ et $X^m - 1$ dans $\mathbb{C}[X]$ ?</div>
+        <div class="options-grid">
+            <button class="opt-btn secure-opt" data-q="1" data-idx="0">A) $X^{\max(n,m)} - 1$</button>
+            <button class="opt-btn secure-opt" data-q="1" data-idx="1">B) $X^{n \wedge m} - 1$</button>
+            <button class="opt-btn secure-opt" data-q="1" data-idx="2">C) $X - 1$</button>
+            <button class="opt-btn secure-opt" data-q="1" data-idx="3">D) $1$</button>
+        </div>
+        <div class="correction-box"><strong>Correction :</strong> C'est un résultat classique lié à l'algorithme d'Euclide sur les exposants. Les racines communes sont les racines $(n \wedge m)$-ièmes de l'unité.</div>
+    </div>
+
+    <div class="qcm-card">
+        <div class="qcm-question">2. Soit $(L_0, \dots, L_n)$ la famille des polynômes interpolateurs de Lagrange associés aux points distincts $(x_0, \dots, x_n)$. Que vaut $\sum_{i=0}^n L_i(X)$ ?</div>
+        <div class="options-grid">
+            <button class="opt-btn secure-opt" data-q="2" data-idx="0">A) $X$</button>
+            <button class="opt-btn secure-opt" data-q="2" data-idx="1">B) $0$</button>
+            <button class="opt-btn secure-opt" data-q="2" data-idx="2">C) $1$</button>
+            <button class="opt-btn secure-opt" data-q="2" data-idx="3">D) $X^n$</button>
+        </div>
+        <div class="correction-box"><strong>Correction :</strong> Cette somme est l'unique polynôme de degré $\le n$ qui interpole la fonction constante égale à 1 aux $n+1$ points. Par unicité, c'est le polynôme constant 1.</div>
+    </div>
+
+    <div class="qcm-card">
+        <div class="qcm-question">3. À quelle condition le polynôme $X^2 + X + 1$ divise-t-il $X^{2n} + X^n + 1$ dans $\mathbb{R}[X]$ ?</div>
+        <div class="options-grid">
+            <button class="opt-btn secure-opt" data-q="3" data-idx="0">A) Si $n$ est pair</button>
+            <button class="opt-btn secure-opt" data-q="3" data-idx="1">B) Si $n$ est impair</button>
+            <button class="opt-btn secure-opt" data-q="3" data-idx="2">C) Si $n$ n'est pas un multiple de 3</button>
+            <button class="opt-btn secure-opt" data-q="3" data-idx="3">D) Pour tout entier $n$</button>
+        </div>
+        <div class="correction-box"><strong>Correction :</strong> Les racines de $X^2+X+1$ sont $j$ et $j^2$. Il faut que $j^{2n} + j^n + 1 = 0$. Cela est vrai si et seulement si $n$ n'est pas un multiple de 3 (sinon la somme vaut 3).</div>
+    </div>
+
+    <div class="qcm-card">
+        <div class="qcm-question">4. Soient $x_1, x_2, x_3$ les racines complexes de $P(X) = X^3 - 2X^2 + 3X - 4$. Que vaut $x_1^2 + x_2^2 + x_3^2$ ?</div>
+        <div class="options-grid">
+            <button class="opt-btn secure-opt" data-q="4" data-idx="0">A) $-2$</button>
+            <button class="opt-btn secure-opt" data-q="4" data-idx="1">B) $2$</button>
+            <button class="opt-btn secure-opt" data-q="4" data-idx="2">C) $4$</button>
+            <button class="opt-btn secure-opt" data-q="4" data-idx="3">D) $10$</button>
+        </div>
+        <div class="correction-box"><strong>Correction :</strong> On utilise $\sum x_i^2 = (\sum x_i)^2 - 2 \sum_{i<j} x_i x_j$. D'après Viète : $\sum x_i = 2$ et $\sum x_i x_j = 3$. Donc $2^2 - 2(3) = 4 - 6 = -2$.</div>
+    </div>
+
+    <div class="qcm-card">
+        <div class="qcm-question">5. Lequel de ces polynômes est irréductible dans $\mathbb{R}[X]$ ?</div>
+        <div class="options-grid">
+            <button class="opt-btn secure-opt" data-q="5" data-idx="0">A) $X^4 + 1$</button>
+            <button class="opt-btn secure-opt" data-q="5" data-idx="1">B) $X^2 - 2X + 2$</button>
+            <button class="opt-btn secure-opt" data-q="5" data-idx="2">C) $X^3 - 1$</button>
+            <button class="opt-btn secure-opt" data-q="5" data-idx="3">D) $X^4 - 2X^2 + 1$</button>
+        </div>
+        <div class="correction-box"><strong>Correction :</strong> Dans $\mathbb{R}[X]$, les seuls irréductibles sont les degrés 1 et les degrés 2 à discriminant strictement négatif. Ici $\Delta = 4 - 8 = -4 < 0$ pour la réponse B.</div>
+    </div>
+
+    <div class="qcm-card">
+        <div class="qcm-question">6. Soit $P \in \mathbb{C}[X]$. Si $P$ est scindé à racines simples, que peut-on dire de $P \wedge P'$ ?</div>
+        <div class="options-grid">
+            <button class="opt-btn secure-opt" data-q="6" data-idx="0">A) $P \wedge P' = P$</button>
+            <button class="opt-btn secure-opt" data-q="6" data-idx="1">B) $P \wedge P' = P'$</button>
+            <button class="opt-btn secure-opt" data-q="6" data-idx="2">C) $P \wedge P' = 1$</button>
+            <button class="opt-btn secure-opt" data-q="6" data-idx="3">D) $P \wedge P' = X$</button>
+        </div>
+        <div class="correction-box"><strong>Correction :</strong> Si $P$ n'a que des racines simples, aucune de ses racines n'annule sa dérivée $P'$. Ils n'ont donc aucune racine commune en $\mathbb{C}$, ils sont premiers entre eux.</div>
+    </div>
+
+    <div class="qcm-card">
+        <div class="qcm-question">7. Quel est le reste de la division euclidienne de $X^n$ par $(X-1)^2$ ?</div>
+        <div class="options-grid">
+            <button class="opt-btn secure-opt" data-q="7" data-idx="0">A) $nX - n + 1$</button>
+            <button class="opt-btn secure-opt" data-q="7" data-idx="1">B) $nX + 1$</button>
+            <button class="opt-btn secure-opt" data-q="7" data-idx="2">C) $X - 1$</button>
+            <button class="opt-btn secure-opt" data-q="7" data-idx="3">D) $1$</button>
+        </div>
+        <div class="correction-box"><strong>Correction :</strong> Le reste s'écrit $aX+b$. On évalue en 1 : $1^n = a+b$. On dérive et on évalue en 1 : $n = a$. D'où $a=n$ et $b=1-n$. Le reste est $nX + (1-n)$.</div>
+    </div>
+
+    <div class="qcm-card">
+        <div class="qcm-question">8. Soit l'endomorphisme $\Delta(P) = P(X+1) - P(X)$ défini sur $\mathbb{R}[X]$. Quel est son noyau $\ker(\Delta)$ ?</div>
+        <div class="options-grid">
+            <button class="opt-btn secure-opt" data-q="8" data-idx="0">A) $\{0\}$</button>
+            <button class="opt-btn secure-opt" data-q="8" data-idx="1">B) $\mathbb{R}_1[X]$</button>
+            <button class="opt-btn secure-opt" data-q="8" data-idx="2">C) L'ensemble des polynômes pairs</button>
+            <button class="opt-btn secure-opt" data-q="8" data-idx="3">D) $\mathbb{R}_0[X]$ (les polynômes constants)</button>
+        </div>
+        <div class="correction-box"><strong>Correction :</strong> $\Delta(P)=0 \implies P(X+1)=P(X)$. Un tel polynôme prend la même valeur sur tous les entiers, il a donc une infinité de racines pour l'équation $P(X)-P(0)=0$. Il est donc constant.</div>
+    </div>
+
+    <div class="qcm-card">
+        <div class="qcm-question">9. Que vaut le produit des éléments non nuls de $\mathbb{Z}/p\mathbb{Z}$ (Théorème de Wilson via polynômes) ?</div>
+        <div class="options-grid">
+            <button class="opt-btn secure-opt" data-q="9" data-idx="0">A) $1$</button>
+            <button class="opt-btn secure-opt" data-q="9" data-idx="1">B) $-1$</button>
+            <button class="opt-btn secure-opt" data-q="9" data-idx="2">C) $0$</button>
+            <button class="opt-btn secure-opt" data-q="9" data-idx="3">D) $p-1$</button>
+        </div>
+        <div class="correction-box"><strong>Correction :</strong> Dans $\mathbb{Z}/p\mathbb{Z}$, le polynôme $X^{p-1}-1$ se factorise en $\prod_{k=1}^{p-1}(X-k)$. En évaluant le terme constant, le produit vaut $-1$ (modulo $p$).</div>
+    </div>
+
+    <div class="qcm-card">
+        <div class="qcm-question">10. Soit $P \in \mathbb{R}[X]$ tel que $P(X^2) = (P(X))^2$. Lequel de ces polynômes est solution ?</div>
+        <div class="options-grid">
+            <button class="opt-btn secure-opt" data-q="10" data-idx="0">A) $P(X) = X^2+1$</button>
+            <button class="opt-btn secure-opt" data-q="10" data-idx="1">B) $P(X) = X^n$</button>
+            <button class="opt-btn secure-opt" data-q="10" data-idx="2">C) $P(X) = 2X$</button>
+            <button class="opt-btn secure-opt" data-q="10" data-idx="3">D) $P(X) = X-1$</button>
+        </div>
+        <div class="correction-box"><strong>Correction :</strong> Les solutions non nulles sont exactement les monômes $X^n$. En effet, $(X^n)^2 = X^{2n} = (X^2)^n$.</div>
+    </div>
+
+    <div class="qcm-card">
+        <div class="qcm-question">11. Quel est l'ordre de multiplicité de la racine $0$ dans le polynôme $P(X) = X^5 - 3X^4$ ?</div>
+        <div class="options-grid">
+            <button class="opt-btn secure-opt" data-q="11" data-idx="0">A) 1</button>
+            <button class="opt-btn secure-opt" data-q="11" data-idx="1">B) 3</button>
+            <button class="opt-btn secure-opt" data-q="11" data-idx="2">C) 4</button>
+            <button class="opt-btn secure-opt" data-q="11" data-idx="3">D) 5</button>
+        </div>
+        <div class="correction-box"><strong>Correction :</strong> $P(X) = X^4(X-3)$. La plus grande puissance de $X$ factorisable est 4. 0 est racine de multiplicité 4.</div>
+    </div>
+
+    <div class="qcm-card">
+        <div class="qcm-question">12. L'idéal engendré par les polynômes $X^2+1$ et $X-1$ dans $\mathbb{R}[X]$ est égal à :</div>
+        <div class="options-grid">
+            <button class="opt-btn secure-opt" data-q="12" data-idx="0">A) $(X^2+1)$</button>
+            <button class="opt-btn secure-opt" data-q="12" data-idx="1">B) $(X-1)$</button>
+            <button class="opt-btn secure-opt" data-q="12" data-idx="2">C) $\mathbb{R}[X]$</button>
+            <button class="opt-btn secure-opt" data-q="12" data-idx="3">D) $(X^3-X^2+X-1)$</button>
+        </div>
+        <div class="correction-box"><strong>Correction :</strong> Ces deux polynômes n'ont aucune racine commune dans $\mathbb{C}$ (les racines sont $\pm i$ et $1$). Ils sont donc premiers entre eux. D'après Bézout, l'idéal engendré est l'anneau tout entier $\mathbb{R}[X]$ (engendré par 1).</div>
+    </div>
+
+    <div class="qcm-card">
+        <div class="qcm-question">13. Que donne la décomposition en éléments simples de $\frac{1}{X(X-1)}$ ?</div>
+        <div class="options-grid">
+            <button class="opt-btn secure-opt" data-q="13" data-idx="0">A) $\frac{1}{X} + \frac{1}{X-1}$</button>
+            <button class="opt-btn secure-opt" data-q="13" data-idx="1">B) $\frac{1}{X-1} - \frac{1}{X}$</button>
+            <button class="opt-btn secure-opt" data-q="13" data-idx="2">C) $\frac{-1}{X-1} + \frac{1}{X}$</button>
+            <button class="opt-btn secure-opt" data-q="13" data-idx="3">D) $\frac{2}{X-1} - \frac{1}{X}$</button>
+        </div>
+        <div class="correction-box"><strong>Correction :</strong> $\frac{1}{X(X-1)} = \frac{a}{X} + \frac{b}{X-1}$. En multipliant par $X$ et en évaluant en 0, on trouve $a = -1$. En multipliant par $X-1$ et en évaluant en 1, on trouve $b = 1$.</div>
+    </div>
+
+    <div class="qcm-card">
+        <div class="qcm-question">14. Quel est le degré du polynôme d'interpolation de Lagrange passant par 5 points distincts ?</div>
+        <div class="options-grid">
+            <button class="opt-btn secure-opt" data-q="14" data-idx="0">A) Au plus 4</button>
+            <button class="opt-btn secure-opt" data-q="14" data-idx="1">B) Exactement 4</button>
+            <button class="opt-btn secure-opt" data-q="14" data-idx="2">C) Au plus 5</button>
+            <button class="opt-btn secure-opt" data-q="14" data-idx="3">D) Exactement 5</button>
+        </div>
+        <div class="correction-box"><strong>Correction :</strong> Pour $n+1$ points, le polynôme de Lagrange est de degré inférieur ou égal à $n$. Ici, pour 5 points, le degré est $\le 4$. Il peut être strictement inférieur si les points sont alignés par exemple.</div>
+    </div>
+
+    <div class="qcm-card">
+        <div class="qcm-question">15. Quelle est l'expression de $X^4+X^2+1$ en produit de polynômes de degré 2 ?</div>
+        <div class="options-grid">
+            <button class="opt-btn secure-opt" data-q="15" data-idx="0">A) $(X^2+1)^2$</button>
+            <button class="opt-btn secure-opt" data-q="15" data-idx="1">B) $(X^2+X+1)(X^2-X+1)$</button>
+            <button class="opt-btn secure-opt" data-q="15" data-idx="2">C) $(X^2+1)(X^2-1)$</button>
+            <button class="opt-btn secure-opt" data-q="15" data-idx="3">D) Il est irréductible</button>
+        </div>
+        <div class="correction-box"><strong>Correction :</strong> Astuce d'ajout et de retrait : $X^4+X^2+1 = (X^4+2X^2+1) - X^2 = (X^2+1)^2 - X^2 = (X^2+X+1)(X^2-X+1)$.</div>
+    </div>
+
+    <div class="qcm-card">
+        <div class="qcm-question">16. Que peut-on dire des racines complexes de $P(X) = X^n + a_{n-1}X^{n-1} + \dots + a_0$ si $|a_i| \le M$ pour tout $i$ ?</div>
+        <div class="options-grid">
+            <button class="opt-btn secure-opt" data-q="16" data-idx="0">A) Elles sont réelles.</button>
+            <button class="opt-btn secure-opt" data-q="16" data-idx="1">B) Elles sont toutes de module $\le M+1$.</button>
+            <button class="opt-btn secure-opt" data-q="16" data-idx="2">C) Elles sont toutes de module 1.</button>
+            <button class="opt-btn secure-opt" data-q="16" data-idx="3">D) On ne peut rien dire de leur module.</button>
+        </div>
+        <div class="correction-box"><strong>Correction :</strong> C'est la borne de Cauchy. Toutes les racines $z$ d'un polynôme unitaire vérifient $|z| \le 1 + \max(|a_0|, \dots, |a_{n-1}|)$. Donc $|z| \le 1+M$.</div>
+    </div>
+
+    <div class="qcm-card">
+        <div class="qcm-question">17. Soit $P \in \mathbb{C}[X]$ de degré $n \ge 1$. Que vaut $\sum_{z, P(z)=0} z$ si le polynôme est unitaire ?</div>
+        <div class="options-grid">
+            <button class="opt-btn secure-opt" data-q="17" data-idx="0">A) $-a_0$</button>
+            <button class="opt-btn secure-opt" data-q="17" data-idx="1">B) $a_{n-1}$</button>
+            <button class="opt-btn secure-opt" data-q="17" data-idx="2">C) $-a_{n-1}$</button>
+            <button class="opt-btn secure-opt" data-q="17" data-idx="3">D) $a_n$</button>
+        </div>
+        <div class="correction-box"><strong>Correction :</strong> Par les relations coefficients-racines (Viète), la somme des racines est toujours égale à l'opposé du coefficient de degré $n-1$ divisé par le coefficient dominant (qui vaut 1 ici).</div>
+    </div>
+
+    <div class="qcm-card">
+        <div class="qcm-question">18. Un polynôme est dit réciproque s'il vérifie $X^n P(1/X) = P(X)$. Quelle racine possède-t-il obligatoirement s'il est de degré impair ?</div>
+        <div class="options-grid">
+            <button class="opt-btn secure-opt" data-q="18" data-idx="0">A) $1$</button>
+            <button class="opt-btn secure-opt" data-q="18" data-idx="1">B) $-1$</button>
+            <button class="opt-btn secure-opt" data-q="18" data-idx="2">C) $0$</button>
+            <button class="opt-btn secure-opt" data-q="18" data-idx="3">D) $i$</button>
+        </div>
+        <div class="correction-box"><strong>Correction :</strong> Si on évalue la relation en $-1$, on a $(-1)^n P(-1) = P(-1)$. Comme $n$ est impair, $-P(-1) = P(-1)$, donc $2P(-1) = 0$, ce qui implique que $-1$ est racine.</div>
+    </div>
+
+    <div class="qcm-card">
+        <div class="qcm-question">19. Si $P$ divise $Q$ et $Q$ divise $P$ dans $\mathbb{K}[X]$, alors :</div>
+        <div class="options-grid">
+            <button class="opt-btn secure-opt" data-q="19" data-idx="0">A) $P = Q$</button>
+            <button class="opt-btn secure-opt" data-q="19" data-idx="1">B) $P = -Q$</button>
+            <button class="opt-btn secure-opt" data-q="19" data-idx="2">C) $P = \alpha Q$ avec $\alpha \in \mathbb{K}^*$</button>
+            <button class="opt-btn secure-opt" data-q="19" data-idx="3">D) Ils sont constants.</button>
+        </div>
+        <div class="correction-box"><strong>Correction :</strong> Les polynômes associés (se divisant mutuellement) diffèrent d'une constante multiplicative non nulle.</div>
+    </div>
+
+    <div class="qcm-card">
+        <div class="qcm-question">20. Quel est l'opérateur linéaire $D$ sur $\mathbb{R}[X]$ tel que $\ker(D^k) = \mathbb{R}_{k-1}[X]$ ?</div>
+        <div class="options-grid">
+            <button class="opt-btn secure-opt" data-q="20" data-idx="0">A) La multiplication par $X$</button>
+            <button class="opt-btn secure-opt" data-q="20" data-idx="1">B) La dérivation canonique $P \mapsto P'$</button>
+            <button class="opt-btn secure-opt" data-q="20" data-idx="2">C) L'évaluation $P \mapsto P(0)$</button>
+            <button class="opt-btn secure-opt" data-q="20" data-idx="3">D) L'intégration</button>
+        </div>
+        <div class="correction-box"><strong>Correction :</strong> Si on dérive $k$ fois un polynôme, on obtient $0$ si et seulement si son degré initial était strictement inférieur à $k$. C'est l'opérateur de dérivation.</div>
+    </div>
+
+    <div class="qcm-card">
+        <div class="qcm-question">21. Combien de racines distinctes le polynôme $X^3 - X$ possède-t-il dans $\mathbb{Z}/6\mathbb{Z}$ ?</div>
+        <div class="options-grid">
+            <button class="opt-btn secure-opt" data-q="21" data-idx="0">A) 3</button>
+            <button class="opt-btn secure-opt" data-q="21" data-idx="1">B) 6</button>
+            <button class="opt-btn secure-opt" data-q="21" data-idx="2">C) 1</button>
+            <button class="opt-btn secure-opt" data-q="21" data-idx="3">D) 2</button>
+        </div>
+        <div class="correction-box"><strong>Correction :</strong> On évalue pour $x \in \{0,1,2,3,4,5\}$. $0^3-0=0$, $1^3-1=0$, $2^3-2=6 \equiv 0$, $3^3-3=24 \equiv 0$, $4^3-4=60 \equiv 0$, $5^3-5=120 \equiv 0$. Les 6 éléments sont racines ! (Rappel : $\mathbb{Z}/6\mathbb{Z}$ n'est pas intègre, donc le degré ne borne pas le nombre de racines).</div>
+    </div>
+
+    <div class="qcm-card">
+        <div class="qcm-question">22. La famille $(1, X-a, (X-a)^2, \dots, (X-a)^n)$ forme :</div>
+        <div class="options-grid">
+            <button class="opt-btn secure-opt" data-q="22" data-idx="0">A) Une famille liée de $\mathbb{R}_n[X]$</button>
+            <button class="opt-btn secure-opt" data-q="22" data-idx="1">B) Une base de $\mathbb{R}_n[X]$</button>
+            <button class="opt-btn secure-opt" data-q="22" data-idx="2">C) Un idéal de $\mathbb{R}[X]$</button>
+            <button class="opt-btn secure-opt" data-q="22" data-idx="3">D) Une famille génératrice de $\mathbb{R}[X]$</button>
+        </div>
+        <div class="correction-box"><strong>Correction :</strong> C'est la base de Taylor. Ses polynômes sont de degrés échelonnés de $0$ à $n$, ils forment donc une base de $\mathbb{R}_n[X]$.</div>
+    </div>
+
+    <div class="qcm-card">
+        <div class="qcm-question">23. Si $\deg(A) = n$ et $\deg(B) = m$, quel est le degré de $A \times B$ (si $A, B \neq 0$) ?</div>
+        <div class="options-grid">
+            <button class="opt-btn secure-opt" data-q="23" data-idx="0">A) $\max(n, m)$</button>
+            <button class="opt-btn secure-opt" data-q="23" data-idx="1">B) $n \times m$</button>
+            <button class="opt-btn secure-opt" data-q="23" data-idx="2">C) $n + m$</button>
+            <button class="opt-btn secure-opt" data-q="23" data-idx="3">D) $n^m$</button>
+        </div>
+        <div class="correction-box"><strong>Correction :</strong> Lors du produit, les monômes de plus haut degré $a_n X^n$ et $b_m X^m$ se multiplient pour donner $a_n b_m X^{n+m}$. L'anneau étant intègre, $a_n b_m \neq 0$, donc le degré s'ajoute.</div>
+    </div>
+
+    <div class="qcm-card">
+        <div class="qcm-question">24. Soit $P \in \mathbb{C}[X]$ de degré $n$. Les racines de $P'$ appartiennent à :</div>
+        <div class="options-grid">
+            <button class="opt-btn secure-opt" data-q="24" data-idx="0">A) L'enveloppe convexe des racines de $P$</button>
+            <button class="opt-btn secure-opt" data-q="24" data-idx="1">B) Au cercle unitaire</button>
+            <button class="opt-btn secure-opt" data-q="24" data-idx="2">C) L'axe réel $\mathbb{R}$</button>
+            <button class="opt-btn secure-opt" data-q="24" data-idx="3">D) $\{0\}$</button>
+        </div>
+        <div class="correction-box"><strong>Correction :</strong> C'est le théorème de Gauss-Lucas. Toute racine du polynôme dérivé est un barycentre à coefficients positifs des racines du polynôme initial.</div>
+    </div>
+
+    <div class="qcm-card">
+        <div class="qcm-question">25. On note $P(X) = X^4+4$. Sa factorisation dans $\mathbb{C}[X]$ fait intervenir :</div>
+        <div class="options-grid">
+            <button class="opt-btn secure-opt" data-q="25" data-idx="0">A) Uniquement des racines réelles</button>
+            <button class="opt-btn secure-opt" data-q="25" data-idx="1">B) 4 racines complexes conjuguées deux à deux</button>
+            <button class="opt-btn secure-opt" data-q="25" data-idx="2">C) Une racine double de multiplicité 2</button>
+            <button class="opt-btn secure-opt" data-q="25" data-idx="3">D) Des racines imaginaires pures uniquement</button>
+        </div>
+        <div class="correction-box"><strong>Correction :</strong> Les racines sont les racines quatrièmes de $-4$. Elles valent $\pm 1 \pm i$. Ce sont 4 racines distinctes, conjuguées deux à deux (les coefficients du polynôme étant réels).</div>
+    </div>
+
+    <button class="finish-btn" onclick="finishQuiz()">
+        <i class="fas fa-flag-checkered"></i> Terminer le Test V2
+    </button>
 </div>
 
 <script>
-    // Variables locales au module
-    let currentScore = 0;
-    let questionsAnswered = 0;
-    const totalQ = 30; // Ajusté pour ce test de 30 questions
-
-    // Fonction intermédiaire pour gérer le score avant d'appeler l'UI
-    function handleAnswer(btn, isCorrect) {
-        const card = btn.closest('.qcm-card');
+    (function() {
+        const container = document.querySelector('.secure-qcm-container');
         
-        // Empêcher de répondre plusieurs fois à la même question
-        if (card.hasAttribute('data-answered')) return;
-        card.setAttribute('data-answered', 'true');
+        // Bloque le clic droit
+        container.addEventListener('contextmenu', e => e.preventDefault());
 
-        // Comptage
-        questionsAnswered++;
-        if (isCorrect) currentScore++;
-
-        // Appel à la fonction principale (définie dans index.html) pour gérer les couleurs
-        if (typeof checkQCM === 'function') {
-            checkQCM(btn, isCorrect);
-        }
-    }
-
-    // Affichage des résultats
-    function displayFinalScore() {
-        if (questionsAnswered < totalQ) {
-            alert(`Attention, tu n'as répondu qu'à ${questionsAnswered} question(s) sur ${totalQ} !`);
-        }
+        // Bloque les raccourcis d'inspection
+        document.addEventListener('keydown', e => {
+            if (
+                e.key === 'F12' || 
+                (e.ctrlKey && e.shiftKey && ['I', 'i', 'J', 'j', 'C', 'c'].includes(e.key)) ||
+                (e.ctrlKey && ['U', 'u', 'S', 's'].includes(e.key))
+            ) {
+                e.preventDefault();
+            }
+        });
         
-        const resultZone = document.getElementById('result-zone');
-        const scoreText = document.getElementById('final-score-text');
-        const scoreComment = document.getElementById('score-comment');
-        
-        resultZone.style.display = "block";
-        scoreText.innerText = `${currentScore} / ${totalQ}`;
-        
-        if (currentScore === totalQ) {
-            scoreComment.innerText = "Exceptionnel ! Tu maîtrises les fractions rationnelles sur le bout des doigts.";
-        } else if (currentScore >= 24) {
-            scoreComment.innerText = "Excellent travail, les concepts sont solidement ancrés.";
-        } else if (currentScore >= 15) {
-            scoreComment.innerText = "Bonne base, mais attention aux calculs d'éléments simples.";
-        } else {
-            scoreComment.innerText = "Il faut revoir le théorème de décomposition et les méthodes de calcul. Courage !";
-        }
+        container.addEventListener('copy', e => e.preventDefault());
 
-        // On appelle la fonction de fin d'index.html pour afficher la barre de partage
-        if (typeof finishQuiz === 'function') {
-            finishQuiz();
-        }
-    }
+        // Hachage / Obfuscation de la correction
+        // La clé représente l'index de la bonne réponse (0,1,2,3) pour les questions de 1 à 25
+        const ak = "1220120311221011212111201"; 
+
+        document.querySelectorAll('.secure-opt').forEach(btn => {
+            btn.addEventListener('click', function() {
+                // Ignore si l'utilisateur a déjà répondu à cette question
+                const card = this.closest('.qcm-card');
+                if(card.classList.contains('answered')) return;
+
+                const qNum = parseInt(this.getAttribute('data-q')) - 1;
+                const chosenIdx = this.getAttribute('data-idx');
+                const correctIdx = ak.charAt(qNum);
+                const isCorrect = (chosenIdx === correctIdx);
+
+                // Simulation locale de ta fonction checkQCM ou appel direct si elle existe globalement
+                if (typeof window.checkQCM === 'function') {
+                    // On modifie dynamiquement le comportement pour garder ta compatibilité
+                    window.checkQCM(this, isCorrect); 
+                } else {
+                    // Fallback d'affichage si ton JS parent n'est pas chargé
+                    card.classList.add('answered');
+                    this.style.background = isCorrect ? '#059669' : '#dc2626';
+                    this.style.color = '#fff';
+                    if (!isCorrect) {
+                        card.querySelector(`[data-idx="${correctIdx}"]`).style.background = '#059669';
+                        card.querySelector(`[data-idx="${correctIdx}"]`).style.color = '#fff';
+                    }
+                    card.querySelector('.correction-box').style.display = 'block';
+                }
+            });
+        });
+    })();
 </script>
