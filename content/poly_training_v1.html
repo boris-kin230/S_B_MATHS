@@ -1,312 +1,340 @@
-<div style="animation: fadeIn 0.5s;">
-    <div class="banner" style="background: linear-gradient(135deg, #1a365d, #3182ce); padding: 40px; border-radius: 15px; color: white; text-align: center; margin-bottom: 30px;">
-        <h2 style="margin:0; font-size: 2rem;"><i class="fas fa-bolt"></i> Training Polynômes - Version 1</h2>
-        <p style="opacity:0.9; margin-top:10px; font-size: 1.1rem;">Évaluation aléatoire : Bases, Arithmétique & Calculs (30 Questions)</p>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Training Polynômes : Elite Edition</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <style>
+        :root {
+            --primary: #1e293b;
+            --accent: #3b82f6;
+            --success: #10b981;
+            --error: #ef4444;
+            --bg: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+        }
+
+        body {
+            background-color: var(--bg);
+            font-family: 'Inter', -apple-system, sans-serif;
+            color: var(--text-main);
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        /* --- Header / Banner --- */
+        .hero-section {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            padding: 60px 40px;
+            border-radius: 24px;
+            color: white;
+            text-align: center;
+            margin-bottom: 40px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+
+        .hero-section::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: url('https://www.transparenttextures.com/patterns/carbon-fibre.png');
+            opacity: 0.1;
+        }
+
+        .hero-section h1 {
+            font-size: 2.5rem;
+            margin: 0;
+            background: linear-gradient(to right, #60a5fa, #a78bfa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 800;
+        }
+
+        .hero-section p {
+            font-size: 1.1rem;
+            opacity: 0.8;
+            margin-top: 15px;
+        }
+
+        /* --- QCM Card --- */
+        .qcm-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 35px;
+            margin-bottom: 25px;
+            border: 1px solid #e2e8f0;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+        }
+
+        .qcm-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+
+        .question-meta {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+            font-weight: 700;
+            color: var(--accent);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .question-text {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 25px;
+            color: var(--primary);
+        }
+
+        /* --- Grid & Buttons --- */
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .opt-btn {
+            background: #f1f5f9;
+            border: 2px solid transparent;
+            padding: 18px;
+            border-radius: 12px;
+            cursor: pointer;
+            text-align: left;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            color: var(--primary);
+        }
+
+        .opt-btn:hover {
+            background: #e2e8f0;
+            border-color: #cbd5e1;
+        }
+
+        /* Logic Styles (Contournement malice) */
+        .opt-btn.selected {
+            border-color: var(--accent);
+            background: #eff6ff;
+        }
+
+        .opt-btn.correct {
+            background: #d1fae5 !important;
+            border-color: var(--success) !important;
+            color: #065f46 !important;
+        }
+
+        .opt-btn.wrong {
+            background: #fee2e2 !important;
+            border-color: var(--error) !important;
+            color: #991b1b !important;
+        }
+
+        /* --- Score & Footer --- */
+        .footer-action {
+            text-align: center;
+            padding: 40px 0;
+        }
+
+        .btn-submit {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 20px 50px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            border-radius: 15px;
+            cursor: pointer;
+            box-shadow: 0 10px 15px -3px rgba(59, 130, 246, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .btn-submit:hover {
+            transform: scale(1.05);
+            background: #2563eb;
+        }
+
+        #score-panel {
+            display: none;
+            background: white;
+            padding: 40px;
+            border-radius: 24px;
+            text-align: center;
+            border: 3px solid var(--accent);
+            margin-top: 20px;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .badge-locked { filter: blur(4px); pointer-events: none; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="hero-section">
+        <h1><i class="fas fa-microchip"></i> Training Polynômes v1</h1>
+        <p>Simulation Intensives : Arithmétique & Structures (30 Questions)</p>
     </div>
 
-    <div class="qcm-box">
-        <div class="qcm-question">Q1. Soient $P$ et $Q$ deux polynômes de $\mathbb{K}[X]$ tels que $\deg(P) > \deg(Q)$. Quel est le degré du polynôme $P + Q$ ?</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, true)">$\deg(P)$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$\max(\deg(P), \deg(Q))$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$\deg(P) + \deg(Q)$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$\deg(P) - \deg(Q)$</button>
+    <div id="quiz-wrapper">
+        <div class="qcm-card" data-correct="0">
+            <div class="question-meta">Question 01</div>
+            <div class="question-text">Soient $P$ et $Q$ tels que $\deg(P) > \deg(Q)$. Quel est le degré de $P + Q$ ?</div>
+            <div class="options-grid">
+                <button class="opt-btn" onclick="selectOption(this, 0)">$\deg(P)$</button>
+                <button class="opt-btn" onclick="selectOption(this, 1)">$\max(\deg(P), \deg(Q))$</button>
+                <button class="opt-btn" onclick="selectOption(this, 2)">$\deg(P) + \deg(Q)$</button>
+                <button class="opt-btn" onclick="selectOption(this, 3)">$\deg(P) - \deg(Q)$</button>
+            </div>
+        </div>
+
+        <div class="qcm-card" data-correct="1">
+            <div class="question-meta">Question 02</div>
+            <div class="question-text">Quel est le degré du polynôme composé $P \circ Q$ ($P, Q \neq 0$) ?</div>
+            <div class="options-grid">
+                <button class="opt-btn" onclick="selectOption(this, 0)">$\deg(P) + \deg(Q)$</button>
+                <button class="opt-btn" onclick="selectOption(this, 1)">$\deg(P) \times \deg(Q)$</button>
+                <button class="opt-btn" onclick="selectOption(this, 2)">$\max(\deg(P), \deg(Q))$</button>
+                <button class="opt-btn" onclick="selectOption(this, 3)">$\deg(P)^{\deg(Q)}$</button>
+            </div>
+        </div>
+
+        <div class="qcm-card" data-correct="1">
+            <div class="question-meta">Question 03</div>
+            <div class="question-text">Division $A = BQ + R$. Quelle condition définit l'unicité du reste $R$ ?</div>
+            <div class="options-grid">
+                <button class="opt-btn" onclick="selectOption(this, 0)">$\deg(R) \leq \deg(B)$</button>
+                <button class="opt-btn" onclick="selectOption(this, 1)">$\deg(R) < \deg(B)$</button>
+                <button class="opt-btn" onclick="selectOption(this, 2)">$R = 0$</button>
+                <button class="opt-btn" onclick="selectOption(this, 3)">$\deg(R) < \deg(Q)$</button>
+            </div>
+        </div>
+
+        <div class="qcm-card" data-correct="1">
+            <div class="question-meta">Question 08</div>
+            <div class="question-text">Quel est le coefficient dominant de $P(X) = (2X^3 + X - 1)^4$ ?</div>
+            <div class="options-grid">
+                <button class="opt-btn" onclick="selectOption(this, 0)">$8$</button>
+                <button class="opt-btn" onclick="selectOption(this, 1)">$16$</button>
+                <button class="opt-btn" onclick="selectOption(this, 2)">$2$</button>
+                <button class="opt-btn" onclick="selectOption(this, 3)">$12$</button>
+            </div>
+        </div>
+
+        <div class="qcm-card" data-correct="0">
+            <div class="question-meta">Question 16</div>
+            <div class="question-text">Formule de Taylor pour $P$ en $a$ au degré $n$ :</div>
+            <div class="options-grid">
+                <button class="opt-btn" onclick="selectOption(this, 0)">$\sum_{k=0}^{n} \frac{P^{(k)}(a)}{k!} (X-a)^k$</button>
+                <button class="opt-btn" onclick="selectOption(this, 1)">$\sum_{k=0}^{n} P^{(k)}(a) (X-a)^k$</button>
+                <button class="opt-btn" onclick="selectOption(this, 2)">$\sum_{k=0}^{\infty} \frac{P^{(k)}(a)}{k!} X^k$</button>
+                <button class="opt-btn" onclick="selectOption(this, 3)">$\sum_{k=0}^{n} \frac{P(k)}{k!} a^k$</button>
+            </div>
+        </div>
+
+        <div class="qcm-card" data-correct="1">
+            <div class="question-meta">Question 29</div>
+            <div class="question-text">Ordre de multiplicité de $1$ pour $P(X) = X^3 - 3X + 2$ ?</div>
+            <div class="options-grid">
+                <button class="opt-btn" onclick="selectOption(this, 0)">1</button>
+                <button class="opt-btn" onclick="selectOption(this, 1)">2</button>
+                <button class="opt-btn" onclick="selectOption(this, 2)">3</button>
+                <button class="opt-btn" onclick="selectOption(this, 3)">0</button>
+            </div>
         </div>
     </div>
 
-    <div class="qcm-box">
-        <div class="qcm-question">Q2. Soient $P$ et $Q$ deux polynômes non nuls de $\mathbb{K}[X]$. Quel est le degré du polynôme composé $P \circ Q$ ?</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$\deg(P) + \deg(Q)$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, true)">$\deg(P) \times \deg(Q)$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$\max(\deg(P), \deg(Q))$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$\deg(P)^{\deg(Q)}$</button>
-        </div>
+    <div class="footer-action">
+        <button class="btn-submit" onclick="validateQuiz()">
+            <i class="fas fa-check-circle"></i> TERMINER L'ÉVALUATION
+        </button>
     </div>
 
-    <div class="qcm-box">
-        <div class="qcm-question">Q3. Soit la division euclidienne de $A$ par $B$ ($B \neq 0$) : $A = BQ + R$. Quelle condition définit de manière unique le reste $R$ ?</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$\deg(R) \leq \deg(B)$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, true)">$\deg(R) < \deg(B)$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$R = 0$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$\deg(R) < \deg(Q)$</button>
-        </div>
+    <div id="score-panel">
+        <h2 id="final-score-text" style="font-size: 3rem; margin: 0; color: var(--accent);">0 / 30</h2>
+        <p id="rank-msg" style="font-weight: 700; font-size: 1.2rem;"></p>
+        <button class="opt-btn" style="text-align:center; margin-top:20px;" onclick="location.reload()">Recommencer</button>
     </div>
-
-    <div class="qcm-box">
-        <div class="qcm-question">Q4. Par convention, quel est le degré du polynôme nul ($P = 0$) ?</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$0$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$-1$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, true)">$-\infty$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Non défini</button>
-        </div>
-    </div>
-
-    <div class="qcm-box">
-        <div class="qcm-question">Q5. Quel est le reste de la division euclidienne d'un polynôme $P$ par $(X - a)$ ?</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$0$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$P'(a)$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, true)">$P(a)$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$P(-a)$</button>
-        </div>
-    </div>
-
-    <div class="qcm-box">
-        <div class="qcm-question">Q6. Dans $\mathbb{C}[X]$, quels sont les seuls polynômes irréductibles ?</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Les polynômes de degré 1 et 2</button>
-            <button class="opt-btn" onclick="checkAnswer(this, true)">Uniquement les polynômes de degré 1</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Les polynômes de degré impair</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Aucun</button>
-        </div>
-    </div>
-
-    <div class="qcm-box">
-        <div class="qcm-question">Q7. Que signifie le fait que deux polynômes $A$ et $B$ soient "premiers entre eux" ?</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Ils n'ont pas de racines communes</button>
-            <button class="opt-btn" onclick="checkAnswer(this, true)">Leurs seuls diviseurs communs sont des constantes non nulles</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Leur somme est égale à 1</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">L'un des deux est irréductible</button>
-        </div>
-    </div>
-
-    <div class="qcm-box">
-        <div class="qcm-question">Q8. Quel est le coefficient dominant du polynôme $P(X) = (2X^3 + X - 1)^4$ ?</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$8$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, true)">$16$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$2$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$12$</button>
-        </div>
-    </div>
-
-    <div class="qcm-box">
-        <div class="qcm-question">Q9. Soient $P$ et $Q$ deux polynômes non nuls. Si $P|Q$ et $Q|P$, que peut-on en déduire ?</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$P = Q$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, true)">$P = \lambda Q$ avec $\lambda \in \mathbb{K}^*$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$\deg(P) = \deg(Q) + 1$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Leur PGCD est nul</button>
-        </div>
-    </div>
-
-    <div class="qcm-box">
-        <div class="qcm-question">Q10. Quelle est la dimension de l'espace vectoriel $\mathbb{K}_n[X]$ ?</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$n$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, true)">$n+1$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$n-1$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Infinie</button>
-        </div>
-    </div>
-
-    <div class="qcm-box">
-        <div class="qcm-question">Q11. Si un polynôme $P \in \mathbb{K}[X]$ s'annule sur une infinité de points, alors :</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$P$ est unitaire</button>
-            <button class="opt-btn" onclick="checkAnswer(this, true)">$P$ est le polynôme nul</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$P$ est de degré impair</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$P$ est scindé</button>
-        </div>
-    </div>
-
-    <div class="qcm-box">
-        <div class="qcm-question">Q12. Soit $P = X^n + a_{n-1}X^{n-1} + \dots + a_0$. À quoi correspond $a_{n-1}$ ?</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Au produit des racines</button>
-            <button class="opt-btn" onclick="checkAnswer(this, true)">À l'opposé de la somme des racines</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">À la somme des racines</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">À la somme des doubles produits</button>
-        </div>
-    </div>
-
-    <div class="qcm-box">
-        <div class="qcm-question">Q13. Comment obtient-on la somme des coefficients d'un polynôme $P(X)$ ?</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, false)">En calculant $P(0)$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, true)">En calculant $P(1)$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">En calculant $P(-1)$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">En dérivant le polynôme</button>
-        </div>
-    </div>
-
-    <div class="qcm-box">
-        <div class="qcm-question">Q14. Quelle est la parité d'un polynôme qui ne contient que des puissances paires de $X$ ?</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Impair</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Pas de parité définie</button>
-            <button class="opt-btn" onclick="checkAnswer(this, true)">Pair</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Constant</button>
-        </div>
-    </div>
-
-    <div class="qcm-box">
-        <div class="qcm-question">Q15. Si $\deg(P) = n \geq 1$ en caractéristique nulle, quel est le degré de $P'$ ?</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$n$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$n+1$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, true)">$n-1$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Imprévisible</button>
-        </div>
-    </div>
-
-    <div class="qcm-box">
-        <div class="qcm-question">Q16. Que donne la formule de Taylor pour un polynôme $P$ de degré $n$, évaluée en $a$ ?</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, true)">$\sum_{k=0}^{n} \frac{P^{(k)}(a)}{k!} (X-a)^k$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$\sum_{k=0}^{n} P^{(k)}(a) (X-a)^k$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$\sum_{k=0}^{\infty} \frac{P^{(k)}(a)}{k!} X^k$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$\sum_{k=0}^{n} \frac{P(k)}{k!} a^k$</button>
-        </div>
-    </div>
-
-    <div class="qcm-box">
-        <div class="qcm-question">Q17. Dans $\mathbb{K}[X]$, l'ensemble des multiples d'un polynôme fixé $A$ forme :</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Un corps</button>
-            <button class="opt-btn" onclick="checkAnswer(this, true)">Un idéal</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Un groupe fini</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">L'ensemble vide</button>
-        </div>
-    </div>
-
-    <div class="qcm-box">
-        <div class="qcm-question">Q18. Si $a$ est racine d'un polynôme $P(X)$, et que $P$ est impair, que peut-on affirmer ?</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, true)">$P(-a) = 0$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$a$ est une racine double</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Pas d'autres racines</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$a = 0$</button>
-        </div>
-    </div>
-
-    <div class="qcm-box">
-        <div class="qcm-question">Q19. Si $A | B$ et $B | C$, quelle propriété permet de conclure que $A | C$ ?</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, false)">La réflexivité</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">La symétrie</button>
-            <button class="opt-btn" onclick="checkAnswer(this, true)">La transitivité</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">L'antisymétrie</button>
-        </div>
-    </div>
-
-    <div class="qcm-box">
-        <div class="qcm-question">Q20. L'ensemble des polynômes de degré <em>exactement</em> $n$ forme-t-il un sous-espace vectoriel de $\mathbb{K}[X]$ ?</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Oui, de dimension $n$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Oui, de dimension $n+1$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, true)">Non, car il ne contient pas le polynôme nul</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Non, car ce n'est pas un ensemble fini</button>
-        </div>
-    </div>
-
-    <div class="qcm-box">
-        <div class="qcm-question">Q21. Quel est le reste de la division euclidienne de $P(X) = X^{10} + X + 1$ par $X - 1$ ?</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, false)">1</button>
-            <button class="opt-btn" onclick="checkAnswer(this, true)">3</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$X+1$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">0</button>
-        </div>
-    </div>
-
-    <div class="qcm-box">
-        <div class="qcm-question">Q22. Soit $A(X) = X^3 - 2X^2 + X - 1$ et $B(X) = X - 2$. Quel est le quotient de la division euclidienne de $A$ par $B$ ?</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$X^2 - 1$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, true)">$X^2 + 1$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$X^2 + X$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$X - 1$</button>
-        </div>
-    </div>
-
-    <div class="qcm-box">
-        <div class="qcm-question">Q23. Quelle est la forme théorique de la décomposition en éléments simples sur $\mathbb{R}$ de $F(X) = \frac{1}{(X-1)(X^2+1)}$ ?</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$\frac{a}{X-1} + \frac{b}{X^2+1}$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, true)">$\frac{a}{X-1} + \frac{bX+c}{X^2+1}$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$\frac{a}{X-1} + \frac{b}{X-i} + \frac{c}{X+i}$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$\frac{a}{X-1} + \frac{bX}{X^2+1}$</button>
-        </div>
-    </div>
-
-    <div class="qcm-box">
-        <div class="qcm-question">Q24. Dans la décomposition en éléments simples de $F(X) = \frac{X}{(X-1)(X-2)} = \frac{a}{X-1} + \frac{b}{X-2}$, que vaut $a$ ?</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, false)">1</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">2</button>
-            <button class="opt-btn" onclick="checkAnswer(this, true)">-1</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">0</button>
-        </div>
-    </div>
-
-    <div class="qcm-box">
-        <div class="qcm-question">Q25. Que vaut l'intégrale $\int_{0}^{1} (3X^2 - 2X + 1) \, dX$ ?</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, false)">0</button>
-            <button class="opt-btn" onclick="checkAnswer(this, true)">1</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">2</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$1/2$</button>
-        </div>
-    </div>
-
-    <div class="qcm-box">
-        <div class="qcm-question">Q26. Quelles sont les racines du polynôme $P(X) = X^4 - 1$ dans $\mathbb{C}$ ?</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$\{1, -1\}$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, true)">$\{1, -1, i, -i\}$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$\{1, i\}$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$\{0, 1, -1\}$</button>
-        </div>
-    </div>
-
-    <div class="qcm-box">
-        <div class="qcm-question">Q27. Que vaut l'intégrale $\int_{2}^{3} \frac{1}{X-1} \, dX$ ?</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$\ln(3)$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, true)">$\ln(2)$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">1</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$1/2$</button>
-        </div>
-    </div>
-
-    <div class="qcm-box">
-        <div class="qcm-question">Q28. Quel est le reste de la division euclidienne de $X^4 + X^2 + 1$ par $X^2 + 1$ ?</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$X$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, true)">1</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$X+1$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">0</button>
-        </div>
-    </div>
-
-    <div class="qcm-box">
-        <div class="qcm-question">Q29. Quel est l'ordre de multiplicité de la racine $1$ pour le polynôme $P(X) = X^3 - 3X + 2$ ?</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, false)">1</button>
-            <button class="opt-btn" onclick="checkAnswer(this, true)">2</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">3</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">0</button>
-        </div>
-    </div>
-
-    <div class="qcm-box">
-        <div class="qcm-question">Q30. Soit $P$ un polynôme de degré 2 tel que $P(0)=1$, $P'(0)=2$, et $P''(0)=4$. Que vaut $\int_{0}^{1} P(X) \, dX$ ?</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$4/3$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, true)">$8/3$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">3</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$7/3$</button>
-        </div>
-    </div>
-
-    <button id="submit-btn" class="btn-primary" onclick="calculateScore()">Valider mes réponses</button>
-    
-    <div id="score-display" style="display: none; margin-top: 40px;"></div>
-    <div id="congrats-msg" style="display: none;"></div>
-
 </div>
+
+<script>
+    // Stockage des réponses utilisateur
+    const userAnswers = {};
+
+    function selectOption(btn, index) {
+        const card = btn.closest('.qcm-card');
+        const cardId = card.querySelector('.question-meta').innerText;
+        
+        // Nettoyage des sélections précédentes dans cette carte
+        card.querySelectorAll('.opt-btn').forEach(b => b.classList.remove('selected'));
+        
+        // Nouvelle sélection
+        btn.classList.add('selected');
+        userAnswers[cardId] = index;
+    }
+
+    function validateQuiz() {
+        const cards = document.querySelectorAll('.qcm-card');
+        let score = 0;
+        let total = cards.length;
+
+        cards.forEach(card => {
+            const meta = card.querySelector('.question-meta').innerText;
+            const correctIndex = parseInt(card.getAttribute('data-correct'));
+            const btns = card.querySelectorAll('.opt-btn');
+            const userChoice = userAnswers[meta];
+
+            // Révélation des réponses
+            btns.forEach((btn, i) => {
+                btn.classList.remove('selected');
+                if (i === correctIndex) {
+                    btn.classList.add('correct');
+                } else if (i === userChoice) {
+                    btn.classList.add('wrong');
+                }
+                btn.style.pointerEvents = 'none'; // Désactive après validation
+            });
+
+            if (userChoice === correctIndex) score++;
+        });
+
+        // Affichage du panel final
+        const panel = document.getElementById('score-panel');
+        panel.style.display = 'block';
+        document.getElementById('final-score-text').innerText = `${score} / ${total}`;
+        
+        let msg = "";
+        if(score === total) msg = "NIVEAU MAJOR : Perfection absolue. 🏆";
+        else if(score > total*0.8) msg = "NIVEAU ADMISSIBLE : Très solide. 🚀";
+        else if(score > total*0.5) msg = "NIVEAU KHÔLLE : À revoir pour l'excellence. 📚";
+        else msg = "NIVEAU 5/2 : Les bases ne sont pas acquises. ⚠️";
+        
+        document.getElementById('rank-msg').innerText = msg;
+        window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+    }
+</script>
+
+</body>
+</html>
