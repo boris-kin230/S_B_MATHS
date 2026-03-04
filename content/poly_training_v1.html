@@ -1,153 +1,147 @@
-<style>
-    /* Définition des couleurs (variables) */
-    :root {
-        --navy-dark: #1e293b;
-        --gold-btn: #fbbf24;
-        --text-muted: #64748b;
-        --border: #e2e8f0;
-        --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-        --bg-card: #ffffff;
-        --bg-hover: #f8fafc;
-        --correct-bg: #f0fdf4;
-        --correct-border: #22c55e;
-    }
-
-    /* Typographie globale et design de la carte */
-    .qcm-container {
-        font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-        max-width: 800px;
-        margin: 0 auto;
-        color: #333;
-    }
-
-    .qcm-header {
-        margin-bottom: 30px;
-    }
-
-    .qcm-header h2 {
-        color: var(--navy-dark);
-        border-left: 4px solid var(--gold-btn);
-        padding-left: 15px;
-        margin-bottom: 10px;
-    }
-
-    .qcm-header p {
-        color: var(--text-muted);
-        font-size: 1.1em;
-    }
-
-    .qcm-card {
-        background: var(--bg-card);
-        padding: 25px;
-        border-radius: 10px;
-        box-shadow: var(--shadow-md);
-        margin-bottom: 25px;
-        border: 1px solid var(--border);
-    }
-
-    .qcm-question {
-        font-size: 1.15em;
-        font-weight: 600;
-        margin-bottom: 20px;
-        color: var(--navy-dark);
-        line-height: 1.5;
-    }
-
-    /* La grille magique 2x2 pour les options */
-    .options-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr; /* 2 colonnes de taille égale */
-        gap: 15px; /* Espace entre les boutons */
-        margin-bottom: 20px;
-    }
-
-    /* Design des boutons d'options */
-    .opt-btn {
-        background: white;
-        border: 1px solid var(--border);
-        padding: 15px;
-        border-radius: 8px;
-        text-align: left;
-        font-size: 1em;
-        cursor: pointer;
-        transition: all 0.2s ease-in-out;
-        color: var(--navy-dark);
-        line-height: 1.4;
-    }
-
-    .opt-btn:hover {
-        background: var(--bg-hover);
-        border-color: #cbd5e1;
-    }
-
-    /* Bouton d'affichage du corrigé */
-    .share-btn {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 100%;
-        padding: 12px;
-        background: #f1f5f9;
-        border: 1px solid var(--border);
-        border-radius: 8px;
-        cursor: pointer;
-        font-weight: 600;
-        color: var(--navy-dark);
-        transition: background 0.2s;
-    }
-
-    .share-btn:hover {
-        background: #e2e8f0;
-    }
-
-    .share-btn i {
-        margin-right: 8px;
-    }
-
-    /* Boîte de correction */
-    .correction-box {
-        margin-top: 15px;
-        padding: 15px;
-        background: var(--correct-bg);
-        border-left: 4px solid var(--correct-border);
-        border-radius: 4px;
-        line-height: 1.5;
-        display: none; /* Reste caché jusqu'au clic via JS */
-    }
-
-    /* Bouton final */
-    .finish-btn {
-        display: inline-flex;
-        align-items: center;
-        background: var(--gold-btn);
-        color: var(--navy-dark);
-        font-weight: 800;
-        border: none;
-        border-radius: 8px;
-        box-shadow: var(--shadow-md);
-        padding: 15px 30px;
-        font-size: 1.1em;
-        justify-content: center;
-    }
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Entraînement Polynômes</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
-    .finish-btn:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 6px 8px -1px rgba(0, 0, 0, 0.15);
-    }
-
-    /* Responsive : repasser sur 1 seule colonne sur les petits écrans (téléphones) */
-    @media (max-width: 600px) {
-        .options-grid {
-            grid-template-columns: 1fr;
+    <style>
+        /* Variables de couleurs pour le design */
+        :root {
+            --navy-dark: #112240;
+            --gold-btn: #FFD700;
+            --border: #ccd6f6;
+            --text-main: #333333;
+            --text-muted: #666666;
+            --bg-card: #ffffff;
+            --bg-body: #f4f7f6;
+            --shadow-sm: 0 2px 4px rgba(0,0,0,0.05);
+            --shadow-md: 0 4px 12px rgba(0,0,0,0.1);
         }
-    }
-</style>
 
-<div class="qcm-container">
+        /* Amélioration de la police et du fond */
+        body {
+            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding: 20px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        /* En-tête */
+        .qcm-header {
+            margin-bottom: 30px;
+            background: var(--bg-card);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .qcm-header h2 {
+            margin-top: 0;
+            color: var(--navy-dark);
+            border-left: 5px solid var(--gold-btn);
+            padding-left: 15px;
+        }
+
+        /* Cartes de questions */
+        .qcm-card {
+            background: var(--bg-card);
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: var(--shadow-md);
+            margin-bottom: 25px;
+            border: 1px solid var(--border);
+        }
+
+        .qcm-question {
+            font-size: 1.15em;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: var(--navy-dark);
+        }
+
+        /* LA SOLUTION POUR L'ALIGNEMENT 2x2 SYMÉTRIQUE */
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr); /* 2 colonnes de même largeur */
+            gap: 15px; /* Espace entre les boutons */
+            margin-bottom: 15px;
+        }
+
+        /* Design des boutons (plus aéré, texte non collé) */
+        .opt-btn {
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            padding: 15px 20px;
+            font-size: 1em;
+            font-family: inherit;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: left; /* Aligne le texte à gauche */
+            color: var(--text-main);
+            min-height: 60px; /* Force une hauteur minimale égale */
+            display: flex;
+            align-items: center;
+        }
+
+        .opt-btn:hover {
+            border-color: var(--gold-btn);
+            background: #fffdf5;
+            transform: translateY(-2px);
+        }
+
+        /* Bouton de corrigé */
+        .share-btn {
+            display: flex;
+            align-items: center;
+            background: #f8f9fa;
+            color: var(--text-main);
+            padding: 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 0.95em;
+            font-weight: 500;
+        }
+
+        .share-btn i {
+            margin-right: 8px;
+        }
+
+        .share-btn:hover {
+            background: #e2e6ea;
+        }
+
+        /* Boîte de correction (masquée par défaut dans le JS) */
+        .correction-box {
+            display: none;
+            margin-top: 15px;
+            padding: 15px;
+            background-color: #e8f4f8;
+            border-left: 4px solid #17a2b8;
+            border-radius: 4px;
+            font-size: 0.95em;
+            color: #0c5460;
+        }
+
+        /* Responsive : passe en 1 colonne sur les petits écrans (téléphones) */
+        @media (max-width: 600px) {
+            .options-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
 
     <div class="qcm-header">
         <h2>Entraînement v1 : Polynômes (25 Questions)</h2>
-        <p>Testez vos fondamentaux. Sélectionnez la bonne réponse pour chaque question.</p>
+        <p style="color: var(--text-muted); margin-bottom: 0;">Testez vos fondamentaux. Sélectionnez la bonne réponse pour chaque question.</p>
     </div>
 
     <div class="qcm-card">
@@ -158,7 +152,7 @@
             <button class="opt-btn" onclick="checkQCM(this, true)">C) $\deg(P) + \deg(Q)$</button>
             <button class="opt-btn" onclick="checkQCM(this, false)">D) $\min(\deg(P), \deg(Q))$</button>
         </div>
-        <button class="share-btn btn-pdf" onclick="toggleCor(this)"><i class="fas fa-eye"></i> Afficher le corrigé détaillé</button>
+        <button class="share-btn btn-pdf" style="margin-top:15px; width:100%; justify-content:center; border: 1px solid var(--border);" onclick="toggleCor(this)"><i class="fas fa-eye"></i> Afficher le corrigé détaillé</button>
         <div class="correction-box">
             <strong>Correction :</strong> Le degré d'un produit est la somme des degrés. Par convention, si l'un des polynômes est nul, son degré est $-\infty$, et l'égalité $-\infty + n = -\infty$ reste cohérente.
         </div>
@@ -172,7 +166,7 @@
             <button class="opt-btn" onclick="checkQCM(this, false)">C) $\min(\deg(P), \deg(Q))$</button>
             <button class="opt-btn" onclick="checkQCM(this, false)">D) On ne peut pas savoir</button>
         </div>
-        <button class="share-btn btn-pdf" onclick="toggleCor(this)"><i class="fas fa-eye"></i> Afficher le corrigé détaillé</button>
+        <button class="share-btn btn-pdf" style="margin-top:15px; width:100%; justify-content:center; border: 1px solid var(--border);" onclick="toggleCor(this)"><i class="fas fa-eye"></i> Afficher le corrigé détaillé</button>
         <div class="correction-box">
             <strong>Correction :</strong> Si les degrés sont strictement différents, les termes de plus haut degré ne peuvent pas s'annuler. Le degré de la somme est donc exactement le maximum des deux degrés.
         </div>
@@ -186,7 +180,7 @@
             <button class="opt-btn" onclick="checkQCM(this, true)">C) $P(a)$</button>
             <button class="opt-btn" onclick="checkQCM(this, false)">D) $1$</button>
         </div>
-        <button class="share-btn btn-pdf" onclick="toggleCor(this)"><i class="fas fa-eye"></i> Afficher le corrigé détaillé</button>
+        <button class="share-btn btn-pdf" style="margin-top:15px; width:100%; justify-content:center; border: 1px solid var(--border);" onclick="toggleCor(this)"><i class="fas fa-eye"></i> Afficher le corrigé détaillé</button>
         <div class="correction-box">
             <strong>Correction :</strong> En écrivant $P = Q(X-a) + R$, on sait que $\deg(R) < \deg(X-a) = 1$, donc $R$ est une constante. En évaluant en $X=a$, on obtient $P(a) = Q(a)(a-a) + R = R$.
         </div>
@@ -200,7 +194,7 @@
             <button class="opt-btn" onclick="checkQCM(this, false)">C) $P(a) = P'(a) = \dots = P^{(k)}(a) = 0$</button>
             <button class="opt-btn" onclick="checkQCM(this, false)">D) $P^{(k)}(a) = 0$ et $P^{(k+1)}(a) \neq 0$</button>
         </div>
-        <button class="share-btn btn-pdf" onclick="toggleCor(this)"><i class="fas fa-eye"></i> Afficher le corrigé détaillé</button>
+        <button class="share-btn btn-pdf" style="margin-top:15px; width:100%; justify-content:center; border: 1px solid var(--border);" onclick="toggleCor(this)"><i class="fas fa-eye"></i> Afficher le corrigé détaillé</button>
         <div class="correction-box">
             <strong>Correction :</strong> C'est la définition exacte. L'option C est fausse car la dérivée d'ordre $k$ ne doit justement PAS s'annuler (la condition est $P(a)=...=P^{(k-1)}(a)=0$ et $P^{(k)}(a) \neq 0$).
         </div>
@@ -214,7 +208,7 @@
             <button class="opt-btn" onclick="checkQCM(this, false)">C) $n-1$ racines simples</button>
             <button class="opt-btn" onclick="checkQCM(this, false)">D) Cela dépend de la parité de $n$</button>
         </div>
-        <button class="share-btn btn-pdf" onclick="toggleCor(this)"><i class="fas fa-eye"></i> Afficher le corrigé détaillé</button>
+        <button class="share-btn btn-pdf" style="margin-top:15px; width:100%; justify-content:center; border: 1px solid var(--border);" onclick="toggleCor(this)"><i class="fas fa-eye"></i> Afficher le corrigé détaillé</button>
         <div class="correction-box">
             <strong>Correction :</strong> Ce sont les racines $n$-ièmes de l'unité, données par $e^{2i\pi k/n}$ pour $k \in \{0, \dots, n-1\}$. Elles sont au nombre de $n$ et toutes distinctes.
         </div>
@@ -228,7 +222,7 @@
             <button class="opt-btn" onclick="checkQCM(this, false)">C) Tous les polynômes de degré impair</button>
             <button class="opt-btn" onclick="checkQCM(this, false)">D) Les polynômes de la forme $X^2 + a^2$</button>
         </div>
-        <button class="share-btn btn-pdf" onclick="toggleCor(this)"><i class="fas fa-eye"></i> Afficher le corrigé détaillé</button>
+        <button class="share-btn btn-pdf" style="margin-top:15px; width:100%; justify-content:center; border: 1px solid var(--border);" onclick="toggleCor(this)"><i class="fas fa-eye"></i> Afficher le corrigé détaillé</button>
         <div class="correction-box">
             <strong>Correction :</strong> Théorème fondamental de l'algèbre appliqué à $\mathbb{R}[X]$. Tout polynôme de degré $\ge 3$ est réductible dans $\mathbb{R}[X]$.
         </div>
@@ -242,7 +236,7 @@
             <button class="opt-btn" onclick="checkQCM(this, false)">C) $(-1)^n a_0 / a_n$</button>
             <button class="opt-btn" onclick="checkQCM(this, false)">D) $a_1 / a_0$</button>
         </div>
-        <button class="share-btn btn-pdf" onclick="toggleCor(this)"><i class="fas fa-eye"></i> Afficher le corrigé détaillé</button>
+        <button class="share-btn btn-pdf" style="margin-top:15px; width:100%; justify-content:center; border: 1px solid var(--border);" onclick="toggleCor(this)"><i class="fas fa-eye"></i> Afficher le corrigé détaillé</button>
         <div class="correction-box">
             <strong>Correction :</strong> C'est la première relation de Viète. La somme des racines est toujours donnée par $-\frac{a_{n-1}}{a_n}$.
         </div>
@@ -256,7 +250,7 @@
             <button class="opt-btn" onclick="checkQCM(this, false)">C) $-a_{n-1} / a_n$</button>
             <button class="opt-btn" onclick="checkQCM(this, false)">D) $(-1)^{n-1} a_1 / a_n$</button>
         </div>
-        <button class="share-btn btn-pdf" onclick="toggleCor(this)"><i class="fas fa-eye"></i> Afficher le corrigé détaillé</button>
+        <button class="share-btn btn-pdf" style="margin-top:15px; width:100%; justify-content:center; border: 1px solid var(--border);" onclick="toggleCor(this)"><i class="fas fa-eye"></i> Afficher le corrigé détaillé</button>
         <div class="correction-box">
             <strong>Correction :</strong> Dernière relation de Viète. Le produit des racines est $(-1)^n \frac{a_0}{a_n}$.
         </div>
@@ -270,7 +264,7 @@
             <button class="opt-btn" onclick="checkQCM(this, true)">C) Tout polynôme non constant de $\mathbb{C}[X]$ admet au moins une racine dans $\mathbb{C}$.</button>
             <button class="opt-btn" onclick="checkQCM(this, false)">D) Tout polynôme scindé est irréductible.</button>
         </div>
-        <button class="share-btn btn-pdf" onclick="toggleCor(this)"><i class="fas fa-eye"></i> Afficher le corrigé détaillé</button>
+        <button class="share-btn btn-pdf" style="margin-top:15px; width:100%; justify-content:center; border: 1px solid var(--border);" onclick="toggleCor(this)"><i class="fas fa-eye"></i> Afficher le corrigé détaillé</button>
         <div class="correction-box">
             <strong>Correction :</strong> Conséquence directe : $\mathbb{C}$ est algébriquement clos. Tout polynôme de $\mathbb{C}[X]$ est donc scindé.
         </div>
@@ -284,7 +278,7 @@
             <button class="opt-btn" onclick="checkQCM(this, false)">C) $P$ divise $A+B$ et $A-B$.</button>
             <button class="opt-btn" onclick="checkQCM(this, false)">D) $P$ est le produit des facteurs communs de $A$ et $B$ sans multiplicité.</button>
         </div>
-        <button class="share-btn btn-pdf" onclick="toggleCor(this)"><i class="fas fa-eye"></i> Afficher le corrigé détaillé</button>
+        <button class="share-btn btn-pdf" style="margin-top:15px; width:100%; justify-content:center; border: 1px solid var(--border);" onclick="toggleCor(this)"><i class="fas fa-eye"></i> Afficher le corrigé détaillé</button>
         <div class="correction-box">
             <strong>Correction :</strong> Dans l'anneau principal $\mathbb{K}[X]$, la somme de deux idéaux est un idéal engendré par leur PGCD. On l'impose unitaire par convention.
         </div>
@@ -298,7 +292,7 @@
             <button class="opt-btn" onclick="checkQCM(this, false)">C) $\deg(A) \neq \deg(B)$</button>
             <button class="opt-btn" onclick="checkQCM(this, false)">D) $\exists U, V \in \mathbb{K}[X], AU + BV = A \wedge B$</button>
         </div>
-        <button class="share-btn btn-pdf" onclick="toggleCor(this)"><i class="fas fa-eye"></i> Afficher le corrigé détaillé</button>
+        <button class="share-btn btn-pdf" style="margin-top:15px; width:100%; justify-content:center; border: 1px solid var(--border);" onclick="toggleCor(this)"><i class="fas fa-eye"></i> Afficher le corrigé détaillé</button>
         <div class="correction-box">
             <strong>Correction :</strong> C'est le théorème de Bézout. Attention, la proposition D est vraie même s'ils ne sont pas premiers entre eux (c'est l'identité de Bézout généralisée). L'égalité à 1 caractérise le fait qu'ils soient premiers entre eux.
         </div>
@@ -312,7 +306,7 @@
             <button class="opt-btn" onclick="checkQCM(this, false)">C) Scindé</button>
             <button class="opt-btn" onclick="checkQCM(this, false)">D) Une exception au théorème fondamental de l'algèbre</button>
         </div>
-        <button class="share-btn btn-pdf" onclick="toggleCor(this)"><i class="fas fa-eye"></i> Afficher le corrigé détaillé</button>
+        <button class="share-btn btn-pdf" style="margin-top:15px; width:100%; justify-content:center; border: 1px solid var(--border);" onclick="toggleCor(this)"><i class="fas fa-eye"></i> Afficher le corrigé détaillé</button>
         <div class="correction-box">
             <strong>Correction :</strong> Tout polynôme réel de degré $\ge 3$ est réductible. Ici, $X^4 + 1 = (X^2 - \sqrt{2}X + 1)(X^2 + \sqrt{2}X + 1)$.
         </div>
@@ -326,7 +320,7 @@
             <button class="opt-btn" onclick="checkQCM(this, false)">C) $P$ est scindé dans $\mathbb{R}[X]$</button>
             <button class="opt-btn" onclick="checkQCM(this, false)">D) $\deg(P)$ est obligatoirement impair</button>
         </div>
-        <button class="share-btn btn-pdf" onclick="toggleCor(this)"><i class="fas fa-eye"></i> Afficher le corrigé détaillé</button>
+        <button class="share-btn btn-pdf" style="margin-top:15px; width:100%; justify-content:center; border: 1px solid var(--border);" onclick="toggleCor(this)"><i class="fas fa-eye"></i> Afficher le corrigé détaillé</button>
         <div class="correction-box">
             <strong>Correction :</strong> Comme les coefficients de $P$ sont réels, $P(\bar{z}) = \overline{P(z)}$. Donc si $P(z)=0$, $P(\bar{z})=0$.
         </div>
@@ -340,9 +334,9 @@
             <button class="opt-btn" onclick="checkQCM(this, false)">C) $\sum_{k=0}^n \frac{P(a)}{k!} X^k$</button>
             <button class="opt-btn" onclick="checkQCM(this, false)">D) $\sum_{k=0}^n \frac{P^{(k)}(0)}{k!} (X-a)^k$</button>
         </div>
-        <button class="share-btn btn-pdf" onclick="toggleCor(this)"><i class="fas fa-eye"></i> Afficher le corrigé détaillé</button>
+        <button class="share-btn btn-pdf" style="margin-top:15px; width:100%; justify-content:center; border: 1px solid var(--border);" onclick="toggleCor(this)"><i class="fas fa-eye"></i> Afficher le corrigé détaillé</button>
         <div class="correction-box">
-            <strong>Correction :</strong> C'est la formule de Taylor exacte pour les polynômes, qui est une identité algébrique (le "reste" est nul puisque les dérivées d'ordre >n sont nulles).
+            <strong>Correction :</strong> C'est la formule de Taylor exacte pour les polynômes, qui est une identité algébrique (le "reste" est nul puisque les dérivées d'ordre $>n$ sont nulles).
         </div>
     </div>
 
@@ -354,7 +348,7 @@
             <button class="opt-btn" onclick="checkQCM(this, true)">C) Ses coefficients de rang impair sont nuls (Polynôme pair)</button>
             <button class="opt-btn" onclick="checkQCM(this, false)">D) Ses racines sont toutes réelles</button>
         </div>
-        <button class="share-btn btn-pdf" onclick="toggleCor(this)"><i class="fas fa-eye"></i> Afficher le corrigé détaillé</button>
+        <button class="share-btn btn-pdf" style="margin-top:15px; width:100%; justify-content:center; border: 1px solid var(--border);" onclick="toggleCor(this)"><i class="fas fa-eye"></i> Afficher le corrigé détaillé</button>
         <div class="correction-box">
             <strong>Correction :</strong> L'égalité $P(X) = P(-X)$ implique que pour tout terme $a_k X^k$, on a $a_k = (-1)^k a_k$. Si $k$ est impair, $a_k = -a_k$, d'où $a_k = 0$.
         </div>
@@ -368,7 +362,7 @@
             <button class="opt-btn" onclick="checkQCM(this, false)">C) Tout idéal de $\mathbb{K}[X]$ est principal</button>
             <button class="opt-btn" onclick="checkQCM(this, false)">D) $\deg(A \wedge B) = \deg(A) - \deg(B)$</button>
         </div>
-        <button class="share-btn btn-pdf" onclick="toggleCor(this)"><i class="fas fa-eye"></i> Afficher le corrigé détaillé</button>
+        <button class="share-btn btn-pdf" style="margin-top:15px; width:100%; justify-content:center; border: 1px solid var(--border);" onclick="toggleCor(this)"><i class="fas fa-eye"></i> Afficher le corrigé détaillé</button>
         <div class="correction-box">
             <strong>Correction :</strong> Lemme fondamental de l'arithmétique dans les anneaux principaux, déduit du théorème de Bézout.
         </div>
@@ -382,7 +376,7 @@
             <button class="opt-btn" onclick="checkQCM(this, false)">C) $1$ pour tout $i, j$</button>
             <button class="opt-btn" onclick="checkQCM(this, false)">D) $0$ pour tout $i, j$</button>
         </div>
-        <button class="share-btn btn-pdf" onclick="toggleCor(this)"><i class="fas fa-eye"></i> Afficher le corrigé détaillé</button>
+        <button class="share-btn btn-pdf" style="margin-top:15px; width:100%; justify-content:center; border: 1px solid var(--border);" onclick="toggleCor(this)"><i class="fas fa-eye"></i> Afficher le corrigé détaillé</button>
         <div class="correction-box">
             <strong>Correction :</strong> C'est la propriété fondamentale de la base de Lagrange : chaque polynôme $L_i$ s'annule en tous les points sauf en $x_i$ où il vaut 1.
         </div>
@@ -396,7 +390,7 @@
             <button class="opt-btn" onclick="checkQCM(this, false)">C) $P'$ a exactement $n$ racines</button>
             <button class="opt-btn" onclick="checkQCM(this, false)">D) $P'$ est un polynôme constant</button>
         </div>
-        <button class="share-btn btn-pdf" onclick="toggleCor(this)"><i class="fas fa-eye"></i> Afficher le corrigé détaillé</button>
+        <button class="share-btn btn-pdf" style="margin-top:15px; width:100%; justify-content:center; border: 1px solid var(--border);" onclick="toggleCor(this)"><i class="fas fa-eye"></i> Afficher le corrigé détaillé</button>
         <div class="correction-box">
             <strong>Correction :</strong> D'après le théorème de Rolle, entre deux racines distinctes de $P$, il existe au moins une racine de $P'$.
         </div>
@@ -410,7 +404,7 @@
             <button class="opt-btn" onclick="checkQCM(this, true)">C) $P$ et $P'$ ne sont pas premiers entre eux</button>
             <button class="opt-btn" onclick="checkQCM(this, false)">D) $P$ est pair</button>
         </div>
-        <button class="share-btn btn-pdf" onclick="toggleCor(this)"><i class="fas fa-eye"></i> Afficher le corrigé détaillé</button>
+        <button class="share-btn btn-pdf" style="margin-top:15px; width:100%; justify-content:center; border: 1px solid var(--border);" onclick="toggleCor(this)"><i class="fas fa-eye"></i> Afficher le corrigé détaillé</button>
         <div class="correction-box">
             <strong>Correction :</strong> Si $a$ est racine multiple de $P$, alors $P(a)=P'(a)=0$, donc $(X-a)$ divise le PGCD de $P$ et $P'$, qui n'est donc pas égal à 1.
         </div>
@@ -424,7 +418,7 @@
             <button class="opt-btn" onclick="checkQCM(this, false)">C) $n+1$</button>
             <button class="opt-btn" onclick="checkQCM(this, false)">D) Cela dépend du coefficient dominant</button>
         </div>
-        <button class="share-btn btn-pdf" onclick="toggleCor(this)"><i class="fas fa-eye"></i> Afficher le corrigé détaillé</button>
+        <button class="share-btn btn-pdf" style="margin-top:15px; width:100%; justify-content:center; border: 1px solid var(--border);" onclick="toggleCor(this)"><i class="fas fa-eye"></i> Afficher le corrigé détaillé</button>
         <div class="correction-box">
             <strong>Correction :</strong> En dérivant $a_n X^n$, on obtient $n a_n X^{n-1}$. Comme $n \neq 0$ (caractéristique 0) et $a_n \neq 0$, le degré est exactement $n-1$.
         </div>
@@ -438,7 +432,7 @@
             <button class="opt-btn" onclick="checkQCM(this, false)">C) $\deg(A \vee B) = \deg(A) \times \deg(B)$</button>
             <button class="opt-btn" onclick="checkQCM(this, false)">D) $A \vee B = A \wedge B$</button>
         </div>
-        <button class="share-btn btn-pdf" onclick="toggleCor(this)"><i class="fas fa-eye"></i> Afficher le corrigé détaillé</button>
+        <button class="share-btn btn-pdf" style="margin-top:15px; width:100%; justify-content:center; border: 1px solid var(--border);" onclick="toggleCor(this)"><i class="fas fa-eye"></i> Afficher le corrigé détaillé</button>
         <div class="correction-box">
             <strong>Correction :</strong> Comme dans l'anneau des entiers $\mathbb{Z}$, le produit du PGCD et du PPCM (unitaires) est égal au produit des polynômes (unitaires).
         </div>
@@ -452,7 +446,7 @@
             <button class="opt-btn" onclick="checkQCM(this, false)">C) Non, car ce n'est pas la base canonique</button>
             <button class="opt-btn" onclick="checkQCM(this, false)">D) Oui, mais seulement si $X \neq 0$</button>
         </div>
-        <button class="share-btn btn-pdf" onclick="toggleCor(this)"><i class="fas fa-eye"></i> Afficher le corrigé détaillé</button>
+        <button class="share-btn btn-pdf" style="margin-top:15px; width:100%; justify-content:center; border: 1px solid var(--border);" onclick="toggleCor(this)"><i class="fas fa-eye"></i> Afficher le corrigé détaillé</button>
         <div class="correction-box">
             <strong>Correction :</strong> Toute famille de polynômes non nuls de degrés tous distincts (famille échelonnée en degré) est libre. Comme il y a 4 polynômes, c'est une base de l'espace vectoriel $\mathbb{R}_3[X]$ (dimension 4).
         </div>
@@ -466,7 +460,7 @@
             <button class="opt-btn" onclick="checkQCM(this, false)">C) 6</button>
             <button class="opt-btn" onclick="checkQCM(this, false)">D) On ne peut pas savoir sans développer</button>
         </div>
-        <button class="share-btn btn-pdf" onclick="toggleCor(this)"><i class="fas fa-eye"></i> Afficher le corrigé détaillé</button>
+        <button class="share-btn btn-pdf" style="margin-top:15px; width:100%; justify-content:center; border: 1px solid var(--border);" onclick="toggleCor(this)"><i class="fas fa-eye"></i> Afficher le corrigé détaillé</button>
         <div class="correction-box">
             <strong>Correction :</strong> Le degré du produit est la somme des degrés : $\deg((X-1)^3) + \deg((X+2)^2) = 3 + 2 = 5$.
         </div>
@@ -480,7 +474,7 @@
             <button class="opt-btn" onclick="checkQCM(this, true)">C) $(X+j)(X+j^2)$</button>
             <button class="opt-btn" onclick="checkQCM(this, false)">D) Il est irréductible dans $\mathbb{C}[X]$</button>
         </div>
-        <button class="share-btn btn-pdf" onclick="toggleCor(this)"><i class="fas fa-eye"></i> Afficher le corrigé détaillé</button>
+        <button class="share-btn btn-pdf" style="margin-top:15px; width:100%; justify-content:center; border: 1px solid var(--border);" onclick="toggleCor(this)"><i class="fas fa-eye"></i> Afficher le corrigé détaillé</button>
         <div class="correction-box">
             <strong>Correction :</strong> Les racines de $X^2+X+1$ sont $j$ et $j^2$. Celles de $X^2-X+1$ sont opposées, donc $-j$ et $-j^2$. La factorisation est donc $(X-(-j))(X-(-j^2)) = (X+j)(X+j^2)$.
         </div>
@@ -494,15 +488,17 @@
             <button class="opt-btn" onclick="checkQCM(this, false)">C) L'ordre de la plus haute dérivée de $P$ qui s'annule en $a$</button>
             <button class="opt-btn" onclick="checkQCM(this, false)">D) La valeur de $P(a)$</button>
         </div>
-        <button class="share-btn btn-pdf" onclick="toggleCor(this)"><i class="fas fa-eye"></i> Afficher le corrigé détaillé</button>
+        <button class="share-btn btn-pdf" style="margin-top:15px; width:100%; justify-content:center; border: 1px solid var(--border);" onclick="toggleCor(this)"><i class="fas fa-eye"></i> Afficher le corrigé détaillé</button>
         <div class="correction-box">
             <strong>Correction :</strong> C'est la définition algébrique rigoureuse. On la relie ensuite aux dérivées : si $k$ est l'ordre de multiplicité, alors $P^{(k)}(a) \neq 0$.
         </div>
     </div>
 
     <div style="text-align: center; margin-top: 40px; margin-bottom: 20px;">
-        <button class="opt-btn finish-btn" onclick="finishQuiz()">
+        <button class="opt-btn finish-btn" style="display:inline-flex; background:var(--gold-btn); color:var(--navy-dark); font-weight:800; border:none; box-shadow:var(--shadow-md); padding: 15px 30px; justify-content: center;" onclick="finishQuiz()">
             <i class="fas fa-flag-checkered" style="margin-right:10px;"></i> Terminer l'entraînement
         </button>
     </div>
-</div>
+
+</body>
+</html>
