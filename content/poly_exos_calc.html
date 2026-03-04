@@ -2,7 +2,8 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Polynômes : Calcul Technique Expert</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Polynômes : Calcul Technique Expert - PCSI Prestige</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
@@ -12,278 +13,889 @@
             --navy-main: #111827;
             --gold-btn: #eab308;
             --gold-hover: #facc15;
+            --slate-50: #f8fafc;
             --slate-100: #f1f5f9;
+            --slate-200: #e2e8f0;
+            --slate-700: #334155;
             --slate-800: #1e293b;
+            --blue-accent: #3b82f6;
         }
 
         body {
-            background-color: #f8fafc;
+            background-color: var(--slate-50);
             font-family: 'Segoe UI', system-ui, sans-serif;
             margin: 0;
             padding: 20px;
             color: var(--slate-800);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
         }
 
         .hero-banner {
             background: linear-gradient(135deg, var(--navy-dark), var(--navy-main));
-            padding: 50px 20px;
+            padding: 60px 20px;
             border-radius: 20px;
             color: white;
             text-align: center;
-            margin-bottom: 40px;
+            margin-bottom: 50px;
             border-bottom: 5px solid var(--gold-btn);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
         }
 
-        .hero-banner h1 { margin: 0; font-size: 2.2rem; color: var(--gold-btn); }
+        .hero-banner h1 { 
+            margin: 0 0 10px 0; 
+            font-size: 2.5rem; 
+            color: var(--gold-btn); 
+            letter-spacing: -0.5px;
+        }
+
+        .hero-banner p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin: 0;
+        }
 
         .qcm-card {
             background: white;
-            padding: 30px;
+            padding: 40px;
             border-radius: 16px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
-            margin-bottom: 35px;
-            border: 1px solid #e2e8f0;
+            box-shadow: 0 4px 25px rgba(0,0,0,0.04);
+            margin-bottom: 40px;
+            border: 1px solid var(--slate-200);
+            transition: transform 0.2s ease;
+        }
+
+        .qcm-card:hover {
+            transform: translateY(-2px);
         }
 
         .exo-header {
             display: flex;
             align-items: center;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             border-bottom: 2px solid var(--slate-100);
-            padding-bottom: 15px;
+            padding-bottom: 20px;
         }
 
         .exo-badge {
-            background: var(--navy-main);
-            color: var(--gold-btn);
-            padding: 5px 15px;
+            background: var(--gold-btn);
+            color: var(--navy-dark);
+            padding: 8px 16px;
             border-radius: 8px;
             font-weight: 800;
-            margin-right: 15px;
-            border: 1px solid var(--gold-btn);
+            font-size: 1.1rem;
+            margin-right: 20px;
+            box-shadow: 0 2px 10px rgba(234, 179, 8, 0.3);
         }
 
-        .exo-title { font-weight: 700; color: var(--navy-dark); text-transform: uppercase; }
+        .exo-title { 
+            font-weight: 800; 
+            font-size: 1.4rem;
+            color: var(--navy-dark); 
+            text-transform: uppercase; 
+            letter-spacing: 0.5px;
+        }
 
-        .exo-content {
-            margin: 20px 0;
-            line-height: 1.8;
+        .exo-context {
+            background-color: var(--slate-100);
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid var(--blue-accent);
+            margin-bottom: 30px;
+            font-size: 0.95rem;
+            color: var(--slate-700);
+        }
+
+        .exo-context strong {
+            color: var(--navy-main);
+            display: block;
+            margin-bottom: 5px;
             font-size: 1.05rem;
+        }
+
+        .q-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .q-item {
+            display: flex;
+            align-items: baseline;
+            font-size: 1.05rem;
+        }
+
+        .q-num {
+            font-weight: 700;
+            color: var(--navy-main);
+            min-width: 30px;
         }
 
         .btn-reveal {
             background: var(--navy-main);
             color: var(--gold-btn);
-            border: 1px solid var(--gold-btn);
-            padding: 12px 24px;
+            border: none;
+            padding: 15px 30px;
             border-radius: 10px;
             cursor: pointer;
-            font-weight: 600;
-            transition: 0.3s;
+            font-weight: 700;
+            font-size: 1.05rem;
+            transition: all 0.3s ease;
             display: flex;
             align-items: center;
+            justify-content: center;
             gap: 10px;
-            margin-top: 10px;
+            width: 100%;
+            box-shadow: 0 4px 15px rgba(17, 24, 39, 0.2);
         }
 
-        .btn-reveal:hover { background: var(--gold-btn); color: var(--navy-dark); }
+        .btn-reveal:hover { 
+            background: var(--gold-hover); 
+            color: var(--navy-dark); 
+            transform: translateY(-1px);
+        }
 
         .correction-block {
             display: none; 
-            margin-top: 20px;
-            padding: 25px;
-            background: #fdfdfd;
+            margin-top: 30px;
+            padding: 30px;
+            background: #fafafa;
             border-left: 5px solid var(--gold-btn);
-            border-radius: 4px;
+            border-radius: 8px;
             font-size: 1rem;
-            line-height: 1.7;
+            box-shadow: inset 0 2px 10px rgba(0,0,0,0.02);
         }
 
-        .cor-item { margin-bottom: 20px; padding-bottom: 10px; border-bottom: 1px solid #f1f5f9; }
-        .cor-item:last-child { border-bottom: none; }
-        .num { font-weight: 800; color: var(--gold-btn); margin-right: 10px; }
+        .cor-item { 
+            margin-bottom: 25px; 
+            padding-bottom: 25px; 
+            border-bottom: 1px solid var(--slate-200); 
+            display: flex;
+            flex-direction: column;
+        }
         
-        .fade-in { animation: fadeInAnim 0.4s ease forwards; }
-        @keyframes fadeInAnim { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .cor-item:last-child { 
+            border-bottom: none; 
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .cor-header {
+            display: flex;
+            align-items: baseline;
+            margin-bottom: 10px;
+        }
+
+        .cor-num { 
+            font-weight: 800; 
+            color: var(--gold-btn); 
+            background: var(--navy-dark);
+            padding: 2px 10px;
+            border-radius: 6px;
+            margin-right: 15px; 
+            font-size: 0.9rem;
+        }
+
+        .cor-body {
+            padding-left: 45px;
+            color: var(--slate-800);
+        }
+
+        .math-display {
+            overflow-x: auto;
+            margin: 15px 0;
+            padding: 15px;
+            background: white;
+            border-radius: 6px;
+            border: 1px dashed var(--slate-200);
+        }
+
+        .fade-in { animation: fadeInAnim 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
+        @keyframes fadeInAnim { 
+            from { opacity: 0; transform: translateY(15px); } 
+            to { opacity: 1; transform: translateY(0); } 
+        }
+
+        .highlight { color: var(--blue-accent); font-weight: 600; }
     </style>
 </head>
 <body>
 
-<div class="hero-banner">
-    <h1><i class="fas fa-calculator"></i> Calcul Technique : Polynômes</h1>
-    <p>Expertise Algébrique • PCSI Prestige Edition</p>
-</div>
+<div class="container">
+    <div class="hero-banner">
+        <h1><i class="fas fa-calculator"></i> Calcul Technique : Polynômes</h1>
+        <p>Série d'excellence • Préparation intensive MPSI/PCSI • Corrections Détaillées</p>
+    </div>
 
-<div class="qcm-card">
-    <div class="exo-header">
-        <span class="exo-badge">Exo 1</span>
-        <span class="exo-title">Sommes de Newton et Puissances des Racines</span>
-    </div>
-    <div class="exo-content">
-        Soit $P = X^3 + pX + q$ et $x_1, x_2, x_3$ ses racines.<br>
-        1. Calculer $S_1 = \sum x_i$.<br>
-        2. Calculer $S_2 = \sum x_i^2$.<br>
-        3. Montrer que $S_3 = -3q$.<br>
-        4. En utilisant $x_i^3 + px_i + q = 0$, établir une relation entre $S_{n+3}, S_{n+1}$ et $S_n$.<br>
-        5. En déduire $S_4$.<br>
-        6. Si $p=0$, que vaut $S_n$ pour $n$ non multiple de 3 ?<br>
-        7. Calculer $\sum x_i^2 x_j$.<br>
-        8. Déterminer $P$ si $S_1=0, S_2=-4, S_3=-3$.<br>
-        9. Calculer la somme des cubes des racines de $X^n-1$.<br>
-        10. Exprimer $\sum_{i<j} (x_i-x_j)^2$ en fonction de $p$ et $q$.
-    </div>
-    <button class="btn-reveal" onclick="toggleCor(this)">
-        <i class="fas fa-eye"></i> Voir le corrigé détaillé
-    </button>
-    <div class="correction-block">
-        <div class="cor-item"><span class="num">1.</span> $S_1 = 0$ (pas de terme en $X^2$).</div>
-        <div class="cor-item"><span class="num">2.</span> $S_2 = S_1^2 - 2\sigma_2 = 0^2 - 2p = -2p$.</div>
-        <div class="cor-item"><span class="num">3.</span> $\sum (x_i^3 + px_i + q) = 0 \implies S_3 + pS_1 + 3q = 0 \implies S_3 = -3q$.</div>
-        <div class="cor-item"><span class="num">4.</span> $S_{n+3} + pS_{n+1} + qS_n = 0$.</div>
-        <div class="cor-item"><span class="num">5.</span> $S_4 = -pS_2 - qS_1 = -p(-2p) - q(0) = 2p^2$.</div>
-        <div class="cor-item"><span class="num">6.</span> Si $p=0$, $x_i^3 = -q$, donc $S_n=0$ si 3 ne divise pas $n$.</div>
-        <div class="cor-item"><span class="num">7.</span> $\sum x_i^2 x_j = S_1 S_2 - S_3 = 0 - (-3q) = 3q$.</div>
-        <div class="cor-item"><span class="num">8.</span> $p = -S_2/2 = 2$ et $q = -S_3/3 = 1$. $P = X^3+2X+1$.</div>
-        <div class="cor-item"><span class="num">9.</span> $0$ si $n > 3$, car $S_k=0$ pour $1 \le k < n$.</div>
-        <div class="cor-item"><span class="num">10.</span> $2S_1^2 - 6\sigma_2 = -6p$.</div>
-    </div>
-</div>
+    <div class="qcm-card">
+        <div class="exo-header">
+            <span class="exo-badge">Exo 1</span>
+            <span class="exo-title">Sommes de Newton et Puissances des Racines</span>
+        </div>
+        <div class="exo-context">
+            <strong>Contexte Pédagogique :</strong>
+            Les sommes de Newton permettent d'étudier les puissances des racines d'un polynôme sans jamais avoir à calculer explicitement ces racines. C'est une technique algébrique redoutable qui trouve des applications directes en algèbre linéaire (calcul des traces des puissances d'une matrice via son polynôme caractéristique).
+        </div>
+        
+        <div class="q-list">
+            <div class="q-item">
+                <span class="q-num">1.</span>
+                <div>Soit le polynôme $P(X) = X^3 + pX + q$ admettant pour racines complexes $x_1, x_2, x_3$. En exploitant les relations de Viète, déterminer la valeur exacte de la somme $S_1 = x_1 + x_2 + x_3$.</div>
+            </div>
+            <div class="q-item">
+                <span class="q-num">2.</span>
+                <div>En utilisant une identité remarquable bien choisie, exprimer la somme des carrés des racines $S_2 = x_1^2 + x_2^2 + x_3^2$ en fonction de $p$ et $q$.</div>
+            </div>
+            <div class="q-item">
+                <span class="q-num">3.</span>
+                <div>En remarquant que chaque racine $x_i$ annule le polynôme $P$, démontrer rigoureusement que la somme des cubes $S_3 = x_1^3 + x_2^3 + x_3^3$ est égale à $-3q$.</div>
+            </div>
+            <div class="q-item">
+                <span class="q-num">4.</span>
+                <div>Généraliser la méthode précédente en multipliant l'équation $x_i^3 + px_i + q = 0$ par une puissance judicieuse de $x_i$. Établir ainsi une relation de récurrence linéaire liant $S_{n+3}, S_{n+1}$ et $S_n$.</div>
+            </div>
+            <div class="q-item">
+                <span class="q-num">5.</span>
+                <div>En déduire la valeur explicite de $S_4 = x_1^4 + x_2^4 + x_3^4$ en fonction de $p$.</div>
+            </div>
+            <div class="q-item">
+                <span class="q-num">6.</span>
+                <div>Étude d'un cas particulier : on suppose $p=0$. Que peut-on affirmer sur la valeur de $S_n$ lorsque l'entier $n$ n'est pas un multiple de 3 ? Justifier.</div>
+            </div>
+            <div class="q-item">
+                <span class="q-num">7.</span>
+                <div>Calculer la somme croisée $\sum_{i \neq j} x_i^2 x_j$ en fonction de $p$ et $q$. (Indication : on pourra développer le produit $S_1 \times S_2$).</div>
+            </div>
+            <div class="q-item">
+                <span class="q-num">8.</span>
+                <div>Problème inverse : reconstruire l'unique polynôme unitaire de degré 3 tel que ses sommes de Newton valent $S_1=0$, $S_2=-4$, et $S_3=-3$.</div>
+            </div>
+            <div class="q-item">
+                <span class="q-num">9.</span>
+                <div>On considère maintenant le polynôme $Q(X) = X^n - 1$ (avec $n \ge 4$). Déterminer la somme des cubes de ses racines.</div>
+            </div>
+            <div class="q-item">
+                <span class="q-num">10.</span>
+                <div>Revenir au polynôme $P(X) = X^3+pX+q$. Développer et exprimer la somme des carrés des différences $\sum_{1 \le i < j \le 3} (x_i-x_j)^2$ en fonction de $p$.</div>
+            </div>
+        </div>
 
-<div class="qcm-card">
-    <div class="exo-header">
-        <span class="exo-badge">Exo 2</span>
-        <span class="exo-title">Divisibilité et Restes complexes</span>
+        <button class="btn-reveal" onclick="toggleCor(this)">
+            <i class="fas fa-eye"></i> Afficher la correction détaillée
+        </button>
+        
+        <div class="correction-block">
+            <div class="cor-item">
+                <div class="cor-header"><span class="cor-num">Q1</span></div>
+                <div class="cor-body">
+                    Le polynôme s'écrit sous la forme complète $X^3 + 0X^2 + pX + q$. D'après les relations de Viète, la somme des racines (la fonction symétrique élémentaire $\sigma_1$) est égale à l'opposé du coefficient de degré $n-1$ (ici $X^2$) divisé par le coefficient dominant.
+                    <div class="math-display">
+                        $$ S_1 = x_1 + x_2 + x_3 = -\frac{0}{1} = 0 $$
+                    </div>
+                </div>
+            </div>
+            <div class="cor-item">
+                <div class="cor-header"><span class="cor-num">Q2</span></div>
+                <div class="cor-body">
+                    On utilise l'identité algébrique du développement d'un carré pour une somme de trois termes : $(x_1+x_2+x_3)^2 = x_1^2+x_2^2+x_3^2 + 2(x_1x_2+x_2x_3+x_3x_1)$.
+                    Cela se réécrit en utilisant les fonctions symétriques élémentaires : $S_1^2 = S_2 + 2\sigma_2$.
+                    D'après Viète, $\sigma_2 = p$. Puisque $S_1 = 0$, on obtient :
+                    <div class="math-display">
+                        $$ S_2 = 0^2 - 2(p) = -2p $$
+                    </div>
+                </div>
+            </div>
+            <div class="cor-item">
+                <div class="cor-header"><span class="cor-num">Q3</span></div>
+                <div class="cor-body">
+                    Puisque $x_i$ est racine de $P$, on a $x_i^3 + px_i + q = 0$ pour tout $i \in \{1,2,3\}$.
+                    En sommant ces trois équations, on obtient :
+                    <div class="math-display">
+                        $$ \sum_{i=1}^3 (x_i^3 + px_i + q) = 0 \implies \sum_{i=1}^3 x_i^3 + p\sum_{i=1}^3 x_i + \sum_{i=1}^3 q = 0 $$
+                    </div>
+                    Ce qui donne $S_3 + pS_1 + 3q = 0$. Comme $S_1 = 0$, il vient immédiatement $S_3 = -3q$.
+                </div>
+            </div>
+            <div class="cor-item">
+                <div class="cor-header"><span class="cor-num">Q4</span></div>
+                <div class="cor-body">
+                    On part de l'équation $x_i^3 + px_i + q = 0$ et on la multiplie de chaque côté par $x_i^n$ (avec $n \ge 0$) :
+                    <div class="math-display">
+                        $$ x_i^{n+3} + p x_i^{n+1} + q x_i^n = 0 $$
+                    </div>
+                    En sommant ces égalités pour $i=1, 2, 3$, on fait apparaître les sommes de Newton par linéarité :
+                    <div class="math-display">
+                        $$ S_{n+3} + p S_{n+1} + q S_n = 0 $$
+                    </div>
+                </div>
+            </div>
+            <div class="cor-item">
+                <div class="cor-header"><span class="cor-num">Q5</span></div>
+                <div class="cor-body">
+                    On applique la relation de récurrence trouvée précédemment pour $n=1$ :
+                    <div class="math-display">
+                        $$ S_4 + p S_2 + q S_1 = 0 $$
+                    </div>
+                    On remplace les valeurs connues : $S_1 = 0$ et $S_2 = -2p$.
+                    $S_4 + p(-2p) + q(0) = 0 \implies S_4 = 2p^2$.
+                </div>
+            </div>
+            <div class="cor-item">
+                <div class="cor-header"><span class="cor-num">Q6</span></div>
+                <div class="cor-body">
+                    Si $p=0$, le polynôme est $X^3+q$. Ses racines vérifient $x_i^3 = -q$.
+                    Pour évaluer $S_n$, on effectue la division euclidienne de $n$ par 3 : $n = 3k + r$ avec $r \in \{0, 1, 2\}$.
+                    $S_n = \sum x_i^{3k+r} = \sum (x_i^3)^k x_i^r = \sum (-q)^k x_i^r = (-q)^k S_r$.
+                    - Si $n$ n'est pas un multiple de 3, alors $r=1$ ou $r=2$.
+                    - Or $S_1 = 0$ et $S_2 = -2(0) = 0$.
+                    Conclusion : si $n$ n'est pas multiple de 3, $S_n = 0$.
+                </div>
+            </div>
+            <div class="cor-item">
+                <div class="cor-header"><span class="cor-num">Q7</span></div>
+                <div class="cor-body">
+                    Développons le produit $S_1 \times S_2$ :
+                    <div class="math-display">
+                        $$ (x_1+x_2+x_3)(x_1^2+x_2^2+x_3^2) = (x_1^3+x_2^3+x_3^3) + \sum_{i \neq j} x_i^2 x_j $$
+                    </div>
+                    On a donc $\sum_{i \neq j} x_i^2 x_j = S_1 S_2 - S_3$.
+                    Or $S_1 = 0$ et $S_3 = -3q$. Donc la somme croisée vaut $0 - (-3q) = 3q$.
+                </div>
+            </div>
+            <div class="cor-item">
+                <div class="cor-header"><span class="cor-num">Q8</span></div>
+                <div class="cor-body">
+                    Soit $P(X) = X^3+aX^2+bX+c$.
+                    - $S_1 = 0 \implies a = 0$, donc $P = X^3+pX+q$ avec $p=b, q=c$.
+                    - $S_2 = -2p = -4 \implies p = 2$.
+                    - $S_3 = -3q = -3 \implies q = 1$.
+                    L'unique polynôme correspondant est donc $P(X) = X^3 + 2X + 1$.
+                </div>
+            </div>
+            <div class="cor-item">
+                <div class="cor-header"><span class="cor-num">Q9</span></div>
+                <div class="cor-body">
+                    Soit $Q(X) = X^n-1$. Le coefficient de $X^{n-1}$ est 0, celui de $X^{n-2}$ est 0, et celui de $X^{n-3}$ est 0 (car $n \ge 4$).
+                    D'après les relations de Viète, $\sigma_1 = 0$, $\sigma_2 = 0$ et $\sigma_3 = 0$.
+                    Par la méthode de Newton, on déduit rapidement que $S_1 = 0$, $S_2 = 0$, et $S_3 = S_1^3 - 3S_1\sigma_2 + 3\sigma_3 = 0$.
+                    La somme des cubes des racines $n$-ièmes de l'unité est donc nulle pour $n \ge 4$.
+                </div>
+            </div>
+            <div class="cor-item">
+                <div class="cor-header"><span class="cor-num">Q10</span></div>
+                <div class="cor-body">
+                    On développe chaque terme de la somme : $(x_i-x_j)^2 = x_i^2 - 2x_ix_j + x_j^2$.
+                    Dans la somme totale sur les paires $i < j$ (il y a 3 paires : {1,2}, {2,3}, {1,3}), chaque $x_k^2$ va apparaître exactement 2 fois.
+                    La somme des double-produits est $-2(x_1x_2 + x_2x_3 + x_1x_3) = -2\sigma_2$.
+                    La somme vaut donc $2S_2 - 2\sigma_2$.
+                    Puisque $S_2 = -2p$ et $\sigma_2 = p$, le résultat est $2(-2p) - 2p = -6p$.
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="exo-content">
-        1. Reste de $X^n+X+1$ par $(X-1)^2$ ?<br>
-        2. Reste de $(X^2+X+1)^n$ par $X^2+1$ ?<br>
-        3. Condition sur $n$ pour que $(X-1)^n - X^n - 1$ soit divisible par $X^2-X+1$ ?<br>
-        4. Reste de $X^n$ par $X^2+1$ si $n=4k+1$ ?<br>
-        5. Reste de $\sin(\theta)X^n - \sin(n\theta)X + \sin((n-1)\theta)$ par $X^2-2\cos(\theta)X+1$.<br>
-        6. Calculer le reste de $P(X^n)$ par $P(X)$ si $P=X-1$.<br>
-        7. Montrer que $X^2+X+1$ divise $X^{3n+1}+X^{3m+2}+1$.<br>
-        8. Reste de la division de $X^n$ par $(X-a)(X-b)$ avec $a \neq b$.<br>
-        9. Reste de la division de $X^n$ par $(X-a)^2$.<br>
-        10. Quel est le reste de $(X+1)^n$ par $X^2$ ?
-    </div>
-    <button class="btn-reveal" onclick="toggleCor(this)">
-        <i class="fas fa-eye"></i> Voir le corrigé détaillé
-    </button>
-    <div class="correction-block">
-        <div class="cor-item"><span class="num">1.</span> Taylor en 1 : $P(1) + P'(1)(X-1) = 3 + (n+1)(X-1) = (n+1)X + (2-n)$.</div>
-        <div class="cor-item"><span class="num">2.</span> Poser $X=i$. $(i^2+i+1)^n = i^n$. Si $n=2k$, le reste est $(-1)^k$.</div>
-        <div class="cor-item"><span class="num">3.</span> Racine $e^{i\pi/3} = -j^2$. On trouve $n \equiv 1, 5 \pmod 6$.</div>
-        <div class="cor-item"><span class="num">4.</span> $i^n = i^{4k+1} = i$. Reste : $X$.</div>
-        <div class="cor-item"><span class="num">5.</span> Le reste est nul (identités trigonométriques classiques).</div>
-        <div class="cor-item"><span class="num">6.</span> $P(1^n) = 0$. Le reste est nul.</div>
-        <div class="cor-item"><span class="num">7.</span> En $j$ : $j^{3n+1}+j^{3m+2}+1 = j + j^2 + 1 = 0$.</div>
-        <div class="cor-item"><span class="num">8.</span> $\frac{a^n-b^n}{a-b}X + \frac{ab^n-ba^n}{a-b}$.</div>
-        <div class="cor-item"><span class="num">9.</span> $na^{n-1}X + (1-n)a^n$.</div>
-        <div class="cor-item"><span class="num">10.</span> $1+nX$.</div>
-    </div>
-</div>
 
-<div class="qcm-card">
-    <div class="exo-header">
-        <span class="exo-badge">Exo 3</span>
-        <span class="exo-title">Racines de l'Unité et Trigonométrie</span>
-    </div>
-    <div class="exo-content">
-        1. Calculer $\prod_{k=0}^{n-1} (2 - \omega^k)$ où $\omega = e^{2i\pi/n}$.<br>
-        2. Calculer $\sum_{k=0}^{n-1} \omega^{2k}$.<br>
-        3. Soit $P = \prod_{k=1}^{n-1} (X-\omega^k)$. Calculer $P(1)$.<br>
-        4. En déduire $\prod_{k=1}^{n-1} \sin(k\pi/n)$.<br>
-        5. Calculer la somme des racines de $X^n-a$.<br>
-        6. Factoriser $X^n+1$ sur $\mathbb{C}$.<br>
-        7. Valeur de $\sum_{k=0}^{n-1} \cos(2k\pi/n)$.<br>
-        8. Produit des racines de $X^n+X^{n-1} \dots + 1$.<br>
-        9. Résoudre $z^n = \bar{z}$.<br>
-        10. Simplifier $\prod_{k=0}^{n-1} e^{2ik\pi/n}$.
-    </div>
-    <button class="btn-reveal" onclick="toggleCor(this)">
-        <i class="fas fa-eye"></i> Voir le corrigé détaillé
-    </button>
-    <div class="correction-block">
-        <div class="cor-item"><span class="num">1.</span> $P(2)$ où $P=X^n-1$, donc $2^n-1$.</div>
-        <div class="cor-item"><span class="num">2.</span> $0$ si $n > 2$, $n$ si $n=1,2$.</div>
-        <div class="cor-item"><span class="num">3.</span> $P = (X^n-1)/(X-1) = X^{n-1} \dots + 1$. $P(1) = n$.</div>
-        <div class="cor-item"><span class="num">4.</span> $n/2^{n-1}$.</div>
-        <div class="cor-item"><span class="num">5.</span> 0 (pour $n \ge 2$).</div>
-        <div class="cor-item"><span class="num">6.</span> $\prod_{k=0}^{n-1} (X - e^{i\frac{\pi+2k\pi}{n}})$.</div>
-        <div class="cor-item"><span class="num">7.</span> Partie réelle de la somme des $\omega^k$, donc 0.</div>
-        <div class="cor-item"><span class="num">8.</span> $(-1)^n \times 1 = (-1)^n$.</div>
-        <div class="cor-item"><span class="num">9.</span> $z=0$ ou $z = e^{2ik\pi/(n+1)}$.</div>
-        <div class="cor-item"><span class="num">10.</span> $e^{i\pi(n-1)} = (-1)^{n-1}$.</div>
-    </div>
-</div>
+    <div class="qcm-card">
+        <div class="exo-header">
+            <span class="exo-badge">Exo 2</span>
+            <span class="exo-title">Divisibilité et Restes Complexes</span>
+        </div>
+        <div class="exo-context">
+            <strong>Contexte Pédagogique :</strong>
+            La division euclidienne dans l'anneau des polynômes $\mathbb{K}[X]$ est l'outil maître de l'arithmétique polynomiale. L'évaluation astucieuse aux racines du diviseur (souvent des complexes comme les racines de l'unité $i$ ou $j$) permet de déterminer des restes formels de très haut degré sans effectuer de calculs lourds.
+        </div>
+        
+        <div class="q-list">
+            <div class="q-item">
+                <span class="q-num">1.</span>
+                <div>En utilisant la formule de Taylor, déterminer le reste de la division euclidienne de $P(X) = X^n+X+1$ par $(X-1)^2$.</div>
+            </div>
+            <div class="q-item">
+                <span class="q-num">2.</span>
+                <div>Déterminer le reste de la division euclidienne de $(X^2+X+1)^n$ par $X^2+1$. (Indication : évaluer le polynôme en une racine du diviseur et séparer les cas selon la parité de $n$).</div>
+            </div>
+            <div class="q-item">
+                <span class="q-num">3.</span>
+                <div>Trouver une condition nécessaire et suffisante sur l'entier $n$ pour que le polynôme $(X-1)^n - X^n - 1$ soit divisible par $X^2-X+1$.</div>
+            </div>
+            <div class="q-item">
+                <span class="q-num">4.</span>
+                <div>Quel est le reste de la division euclidienne de $X^n$ par $X^2+1$ dans le cas précis où $n$ s'écrit sous la forme $n=4k+1$ ?</div>
+            </div>
+            <div class="q-item">
+                <span class="q-num">5.</span>
+                <div>Soit $\theta \in \mathbb{R}$. Déterminer le reste de la division de $P(X) = \sin(\theta)X^n - \sin(n\theta)X + \sin((n-1)\theta)$ par $X^2-2\cos(\theta)X+1$.</div>
+            </div>
+            <div class="q-item">
+                <span class="q-num">6.</span>
+                <div>Soit $P(X) = X-1$. Sans aucun calcul complexe, évaluer le reste de la division du polynôme composé $P(X^n)$ par $P(X)$. Que peut-on en conclure ?</div>
+            </div>
+            <div class="q-item">
+                <span class="q-num">7.</span>
+                <div>Démontrer élégamment que pour tous entiers naturels $n$ et $m$, le polynôme $X^2+X+1$ divise $X^{3n+1}+X^{3m+2}+1$.</div>
+            </div>
+            <div class="q-item">
+                <span class="q-num">8.</span>
+                <div>Soient $a$ et $b$ deux scalaires distincts. Exprimer formellement le reste de la division euclidienne de $X^n$ par le produit $(X-a)(X-b)$.</div>
+            </div>
+            <div class="q-item">
+                <span class="q-num">9.</span>
+                <div>Généraliser la question précédente : exprimer le reste de la division euclidienne de $X^n$ par la racine double $(X-a)^2$.</div>
+            </div>
+            <div class="q-item">
+                <span class="q-num">10.</span>
+                <div>À l'aide de la formule du binôme de Newton, déterminer de tête le reste de la division de $(X+1)^n$ par $X^2$.</div>
+            </div>
+        </div>
 
-<div class="qcm-card">
-    <div class="exo-header">
-        <span class="exo-badge">Exo 4</span>
-        <span class="exo-title">Algorithmique de Horner et Taylor</span>
+        <button class="btn-reveal" onclick="toggleCor(this)">
+            <i class="fas fa-eye"></i> Afficher la correction détaillée
+        </button>
+        
+        <div class="correction-block">
+            <div class="cor-item">
+                <div class="cor-header"><span class="cor-num">Q1</span></div>
+                <div class="cor-body">
+                    On applique la formule de Taylor à l'ordre 1 au point $a=1$ : $P(X) = P(1) + P'(1)(X-1) + (X-1)^2 Q(X)$.
+                    Le reste est de degré $\le 1$, il correspond exactement aux deux premiers termes.
+                    $P(1) = 1^n+1+1 = 3$.
+                    $P'(X) = nX^{n-1} + 1 \implies P'(1) = n+1$.
+                    Le reste est donc $R(X) = 3 + (n+1)(X-1) = (n+1)X + (2-n)$.
+                </div>
+            </div>
+            <div class="cor-item">
+                <div class="cor-header"><span class="cor-num">Q2</span></div>
+                <div class="cor-body">
+                    Posons $A(X) = (X^2+X+1)^n$. La division s'écrit $A(X) = (X^2+1)Q(X) + aX+b$.
+                    On évalue en la racine complexe $i$ : $A(i) = (i^2+i+1)^n = (-1+i+1)^n = i^n$.
+                    D'autre part, $A(i) = 0 \times Q(i) + ai+b = ai+b$.
+                    On identifie $ai+b = i^n$.
+                    - Si $n=2k$ : $i^{2k} = (-1)^k \implies a=0, b=(-1)^k$. Le reste est $(-1)^k$.
+                    - Si $n=2k+1$ : $i^{2k+1} = i(-1)^k \implies a=(-1)^k, b=0$. Le reste est $(-1)^k X$.
+                </div>
+            </div>
+            <div class="cor-item">
+                <div class="cor-header"><span class="cor-num">Q3</span></div>
+                <div class="cor-body">
+                    Le diviseur a pour racines $j$ et $\bar{j}$. Le polynôme $P$ est réel, il suffit donc de vérifier $P(j)=0$.
+                    $P(j) = (j-1)^n - j^n - 1$.
+                    Astuce géométrique : $j-1 = e^{2i\pi/3}-1 = e^{i\pi/3}(e^{i\pi/3}-e^{-i\pi/3}) = i\sqrt{3}e^{i\pi/3}$.
+                    Plus algébriquement : on sait que $(j-1)^2 = j^2-2j+1 = -3j$. 
+                    Une étude méticuleuse modulo 6 montre que $P(j)=0$ si et seulement si $n \equiv 1 \pmod 6$ ou $n \equiv 5 \pmod 6$.
+                </div>
+            </div>
+            <div class="cor-item">
+                <div class="cor-header"><span class="cor-num">Q4</span></div>
+                <div class="cor-body">
+                    Division : $X^{4k+1} = (X^2+1)Q(X) + aX+b$.
+                    Évaluation en $i$ : $i^{4k+1} = (i^4)^k \times i = 1^k \times i = i$.
+                    Donc $ai+b = i$. Puisque $a, b \in \mathbb{R}$, par identification des parties réelles et imaginaires : $a=1$ et $b=0$.
+                    Le reste est $R(X) = X$.
+                </div>
+            </div>
+            <div class="cor-item">
+                <div class="cor-header"><span class="cor-num">Q5</span></div>
+                <div class="cor-body">
+                    Le diviseur a pour racines conjuguées $e^{i\theta}$ et $e^{-i\theta}$.
+                    Évaluons $P$ en $z = e^{i\theta}$ :
+                    $P(z) = \sin(\theta)e^{in\theta} - \sin(n\theta)e^{i\theta} + \sin((n-1)\theta)$.
+                    En remplaçant les exponentielles par $\cos + i\sin$ et en développant, toutes les parties réelles et imaginaires s'annulent grâce aux formules d'addition du sinus ($\sin(a-b)$).
+                    Puisque $P(e^{i\theta}) = 0$ et $P$ est à coefficients réels, $P(e^{-i\theta}) = 0$. Le polynôme annule les deux racines du diviseur, le reste est donc nul (divisibilité parfaite).
+                </div>
+            </div>
+            <div class="cor-item">
+                <div class="cor-header"><span class="cor-num">Q6</span></div>
+                <div class="cor-body">
+                    Le théorème du reste affirme que le reste de la division de $A(X)$ par $(X-a)$ est $A(a)$.
+                    Ici, on divise $P(X^n) = X^n-1$ par $P(X) = X-1$.
+                    Le reste est la constante obtenue en évaluant le numérateur en la racine du dénominateur (soit $X=1$).
+                    Or $1^n - 1 = 0$. Le reste est donc nul. On retrouve l'identité classique : $X-1$ divise $X^n-1$.
+                </div>
+            </div>
+            <div class="cor-item">
+                <div class="cor-header"><span class="cor-num">Q7</span></div>
+                <div class="cor-body">
+                    Le diviseur a pour racine complexe $j$. Évaluons le polynôme cible en $j$ :
+                    $j^{3n+1} + j^{3m+2} + 1 = (j^3)^n j + (j^3)^m j^2 + 1$.
+                    Or, par définition, $j^3 = 1$.
+                    L'expression se simplifie donc en $1 \times j + 1 \times j^2 + 1 = j^2 + j + 1$.
+                    Puisque $j$ est racine de $X^2+X+1$, on sait que $j^2+j+1 = 0$. Le reste est nul, la divisibilité est prouvée.
+                </div>
+            </div>
+            <div class="cor-item">
+                <div class="cor-header"><span class="cor-num">Q8</span></div>
+                <div class="cor-body">
+                    On écrit $X^n = (X-a)(X-b)Q(X) + \alpha X + \beta$.
+                    On évalue en $a$ et en $b$ :
+                    <br>1) $a^n = \alpha a + \beta$
+                    <br>2) $b^n = \alpha b + \beta$
+                    En soustrayant (1) - (2) : $a^n - b^n = \alpha(a-b) \implies \alpha = \frac{a^n-b^n}{a-b}$.
+                    En substituant pour trouver $\beta$ : $\beta = a^n - a\left(\frac{a^n-b^n}{a-b}\right) = \frac{a^{n+1}-ba^n-a^{n+1}+ab^n}{a-b} = \frac{ab^n-ba^n}{a-b}$.
+                    Le reste est $R(X) = \frac{a^n-b^n}{a-b}X + \frac{ab^n-ba^n}{a-b}$.
+                </div>
+            </div>
+            <div class="cor-item">
+                <div class="cor-header"><span class="cor-num">Q9</span></div>
+                <div class="cor-body">
+                    C'est un passage à la limite du résultat précédent quand $b \to a$, qui correspond à la dérivation.
+                    Utilisons directement Taylor en $a$ sur $P(X) = X^n$ :
+                    $R(X) = P(a) + P'(a)(X-a) = a^n + na^{n-1}(X-a)$.
+                    En développant : $R(X) = na^{n-1}X + a^n - na^n = na^{n-1}X + (1-n)a^n$.
+                </div>
+            </div>
+            <div class="cor-item">
+                <div class="cor-header"><span class="cor-num">Q10</span></div>
+                <div class="cor-body">
+                    Par le binôme de Newton : $(X+1)^n = \sum_{k=0}^n \binom{n}{k} X^k$.
+                    Tous les termes pour $k \ge 2$ comportent au moins un facteur $X^2$, ils sont donc multiples de $X^2$.
+                    Les seuls termes qui ne sont pas divisibles par $X^2$ sont ceux correspondant à $k=0$ et $k=1$.
+                    La somme de ces termes est $\binom{n}{0}X^0 + \binom{n}{1}X^1 = 1 + nX$.
+                    C'est bien un polynôme de degré $\le 1$, c'est donc notre reste.
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="exo-content">
-        Soit $P = 3X^4 - 2X^3 + 5X - 7$ et $a=2$.<br>
-        1. Calculer $P(2)$ par Horner (détailler les $b_i$).<br>
-        2. Déterminer le quotient de $P$ par $X-2$.<br>
-        3. Calculer $P'(2)$ en utilisant le tableau de Horner.<br>
-        4. Écrire le développement de Taylor de $P$ en 2.<br>
-        5. Combien d'opérations (multiplications) pour évaluer un degré $n$ par Horner ?<br>
-        6. Trouver $P$ tel que $P(X+1)-P(X)=X$.<br>
-        7. Calculer la dérivée $n$-ième de $X^n$.<br>
-        8. Calculer la dérivée $n$-ième de $1/(X-a)$.<br>
-        9. Appliquer Taylor à $X^n$ en 1.<br>
-        10. Reste de $P$ par $(X-2)^2$ via Horner.
-    </div>
-    <button class="btn-reveal" onclick="toggleCor(this)">
-        <i class="fas fa-eye"></i> Voir le corrigé détaillé
-    </button>
-    <div class="correction-block">
-        <div class="cor-item"><span class="num">1.</span> $b_4=3, b_3=-2+2(3)=4, b_2=0+2(4)=8, b_1=5+2(8)=21, b_0=-7+2(21)=35$. $P(2)=35$.</div>
-        <div class="cor-item"><span class="num">2.</span> $Q = 3X^3+4X^2+8X+21$.</div>
-        <div class="cor-item"><span class="num">3.</span> On réapplique Horner sur $Q$. On trouve $P'(2)=85$.</div>
-        <div class="cor-item"><span class="num">4.</span> $35 + 85(X-2) + \dots$</div>
-        <div class="cor-item"><span class="num">5.</span> $n$ multiplications.</div>
-        <div class="cor-item"><span class="num">6.</span> $P = \frac{1}{2}X^2 - \frac{1}{2}X + C$.</div>
-        <div class="cor-item"><span class="num">7.</span> $n!$.</div>
-        <div class="cor-item"><span class="num">8.</span> $\frac{(-1)^n n!}{(X-a)^{n+1}}$.</div>
-        <div class="cor-item"><span class="num">9.</span> $\sum_{k=0}^n \binom{n}{k} (X-1)^k$.</div>
-        <div class="cor-item"><span class="num">10.</span> $35 + 85(X-2)$.</div>
-    </div>
-</div>
 
-<div class="qcm-card">
-    <div class="exo-header">
-        <span class="exo-badge">Exo 5</span>
-        <span class="exo-title">Fractions et Décompositions Techniques</span>
+    <div class="qcm-card">
+        <div class="exo-header">
+            <span class="exo-badge">Exo 3</span>
+            <span class="exo-title">Racines de l'Unité et Trigonométrie</span>
+        </div>
+        <div class="exo-context">
+            <strong>Contexte Pédagogique :</strong>
+            Les racines de l'unité $\omega_k = e^{i\frac{2k\pi}{n}}$ dessinent un polygone régulier dans le plan complexe. Leurs propriétés d'annulation et de symétrie permettent de résoudre des produits trigonométriques complexes sans aucun calcul d'angle fastidieux, simplement en lisant les coefficients du polynôme $X^n-1$.
+        </div>
+        
+        <div class="q-list">
+            <div class="q-item">
+                <span class="q-num">1.</span>
+                <div>En utilisant la factorisation de $X^n-1$, calculer la valeur exacte du produit $\Pi = \prod_{k=0}^{n-1} (2 - \omega_k)$ où $\omega_k = e^{2ik\pi/n}$.</div>
+            </div>
+            <div class="q-item">
+                <span class="q-num">2.</span>
+                <div>Calculer la somme des carrés des racines de l'unité : $\Sigma = \sum_{k=0}^{n-1} \omega_k^2$. Distinguer les cas selon les valeurs de $n$.</div>
+            </div>
+            <div class="q-item">
+                <span class="q-num">3.</span>
+                <div>On considère le polynôme défini par $P(X) = \prod_{k=1}^{n-1} (X-\omega_k)$ (le produit omet $\omega_0=1$). Calculer judicieusement la valeur de $P(1)$.</div>
+            </div>
+            <div class="q-item">
+                <span class="q-num">4.</span>
+                <div>En utilisant le module de $P(1)$ calculé à la question précédente et l'angle moitié, en déduire la valeur du produit trigonométrique $\prod_{k=1}^{n-1} \sin(k\pi/n)$.</div>
+            </div>
+            <div class="q-item">
+                <span class="q-num">5.</span>
+                <div>Soit $a \in \mathbb{C}^*$. Que vaut la somme géométrique des racines du polynôme $X^n-a$ (pour $n \ge 2$) ? Justifier brièvement par Viète.</div>
+            </div>
+            <div class="q-item">
+                <span class="q-num">6.</span>
+                <div>Donner la factorisation formelle du polynôme $X^n+1$ sur le corps $\mathbb{C}$. Quelles sont la forme trigonométrique de ses racines ?</div>
+            </div>
+            <div class="q-item">
+                <span class="q-num">7.</span>
+                <div>En utilisant les propriétés de la partie réelle sur la somme des racines de l'unité, déduire la valeur exacte de $\sum_{k=0}^{n-1} \cos(2k\pi/n)$.</div>
+            </div>
+            <div class="q-item">
+                <span class="q-num">8.</span>
+                <div>Soit le polynôme $Q(X) = X^n+X^{n-1} \dots + X + 1$. Déterminer le produit de toutes ses racines complexes en lisant directement ses coefficients.</div>
+            </div>
+            <div class="q-item">
+                <span class="q-num">9.</span>
+                <div>Résoudre l'équation $z^n = \bar{z}$ dans $\mathbb{C}$. (Indication : passer d'abord au module pour montrer que $|z|$ ne peut prendre que deux valeurs).</div>
+            </div>
+            <div class="q-item">
+                <span class="q-num">10.</span>
+                <div>Simplifier au maximum le produit de toutes les racines $n$-ièmes de l'unité : $\prod_{k=0}^{n-1} e^{2ik\pi/n}$. Comparer avec le théorème de Viète sur $X^n-1$.</div>
+            </div>
+        </div>
+
+        <button class="btn-reveal" onclick="toggleCor(this)">
+            <i class="fas fa-eye"></i> Afficher la correction détaillée
+        </button>
+        
+        <div class="correction-block">
+            <div class="cor-item">
+                <div class="cor-header"><span class="cor-num">Q1</span></div>
+                <div class="cor-body">
+                    On sait que $X^n-1 = \prod_{k=0}^{n-1} (X - \omega_k)$.
+                    Si on évalue cette identité formelle pour la valeur $X = 2$, on obtient directement :
+                    <div class="math-display">
+                        $$ \prod_{k=0}^{n-1} (2 - \omega_k) = 2^n - 1 $$
+                    </div>
+                </div>
+            </div>
+            <div class="cor-item">
+                <div class="cor-header"><span class="cor-num">Q2</span></div>
+                <div class="cor-body">
+                    Posons $\alpha = \omega_1^2 = e^{4i\pi/n}$.
+                    La somme demandée est $\sum_{k=0}^{n-1} \alpha^k$. C'est une suite géométrique.
+                    - Si $\alpha = 1$, ce qui équivaut à $4\pi/n \equiv 0 [2\pi] \implies n=1$ ou $n=2$, alors la somme vaut $n$.
+                    - Si $\alpha \neq 1$ ($n \ge 3$), la somme vaut $\frac{1-\alpha^n}{1-\alpha}$. Or $\alpha^n = (e^{4i\pi/n})^n = e^{4i\pi} = 1$. Donc la somme vaut $0$.
+                </div>
+            </div>
+            <div class="cor-item">
+                <div class="cor-header"><span class="cor-num">Q3</span></div>
+                <div class="cor-body">
+                    Puisque $X^n-1 = (X-1) \prod_{k=1}^{n-1} (X-\omega_k)$, en divisant par $(X-1)$ on a :
+                    $P(X) = \frac{X^n-1}{X-1} = X^{n-1} + X^{n-2} + \dots + X + 1$.
+                    En évaluant ce polynôme en $1$, on somme $n$ fois le chiffre $1$. Donc $P(1) = n$.
+                </div>
+            </div>
+            <div class="cor-item">
+                <div class="cor-header"><span class="cor-num">Q4</span></div>
+                <div class="cor-body">
+                    On calcule le module de $P(1)$ : $|P(1)| = n = \prod_{k=1}^{n-1} |1 - e^{2ik\pi/n}|$.
+                    Par la technique de l'arc moitié : $1 - e^{i\theta} = e^{i\theta/2}(e^{-i\theta/2} - e^{i\theta/2}) = -2i \sin(\theta/2) e^{i\theta/2}$.
+                    Son module est $2|\sin(\theta/2)|$.
+                    Ainsi, $\prod_{k=1}^{n-1} 2\sin(k\pi/n) = n$.
+                    On sort le facteur $2^{n-1}$, ce qui donne $\prod_{k=1}^{n-1} \sin(k\pi/n) = \frac{n}{2^{n-1}}$.
+                </div>
+            </div>
+            <div class="cor-item">
+                <div class="cor-header"><span class="cor-num">Q5</span></div>
+                <div class="cor-body">
+                    Le polynôme est $X^n - a$. Pour tout $n \ge 2$, le terme en $X^{n-1}$ a un coefficient nul.
+                    Or la somme des racines est l'opposé de ce coefficient. La somme géométrique de ces racines (qui dessinent un polygone régulier dilaté) est donc toujours $0$.
+                </div>
+            </div>
+            <div class="cor-item">
+                <div class="cor-header"><span class="cor-num">Q6</span></div>
+                <div class="cor-body">
+                    On cherche les solutions de $z^n = -1 = e^{i\pi}$.
+                    Ces racines sont de la forme $e^{i\frac{\pi+2k\pi}{n}}$ pour $k \in \{0, \dots, n-1\}$.
+                    Le polynôme, unitaire, se factorise donc ainsi :
+                    <div class="math-display">
+                        $$ X^n+1 = \prod_{k=0}^{n-1} \left(X - e^{i\frac{(2k+1)\pi}{n}}\right) $$
+                    </div>
+                </div>
+            </div>
+            <div class="cor-item">
+                <div class="cor-header"><span class="cor-num">Q7</span></div>
+                <div class="cor-body">
+                    $\sum_{k=0}^{n-1} \cos(2k\pi/n)$ est la partie réelle de la somme des racines $n$-ièmes de l'unité $\sum_{k=0}^{n-1} e^{i2k\pi/n}$.
+                    Pour $n \ge 2$, on sait par Viète que cette somme complexe vaut 0.
+                    La partie réelle de 0 est 0. Donc la somme des cosinus vaut 0.
+                </div>
+            </div>
+            <div class="cor-item">
+                <div class="cor-header"><span class="cor-num">Q8</span></div>
+                <div class="cor-body">
+                    Par Viète, le produit des racines de $X^n+a_{n-1}X^{n-1}+\dots+a_0$ vaut $(-1)^n \frac{a_0}{a_n}$.
+                    Ici, $\deg(Q) = n$, $a_n = 1$ et $a_0 = 1$.
+                    Le produit des racines est donc $(-1)^n$.
+                </div>
+            </div>
+            <div class="cor-item">
+                <div class="cor-header"><span class="cor-num">Q9</span></div>
+                <div class="cor-body">
+                    On passe au module : $|z|^n = |\bar{z}| = |z|$.
+                    Donc $|z|(|z|^{n-1}-1) = 0 \implies |z|=0$ ou $|z|=1$.
+                    Si $|z|=0 \implies z=0$.
+                    Si $|z|=1$, on peut multiplier l'équation initiale par $z$ (qui est non nul) : $z^{n+1} = z\bar{z} = |z|^2 = 1$.
+                    Les solutions sont donc $0$ ainsi que les $n+1$ racines $(n+1)$-ièmes de l'unité $e^{2ik\pi/(n+1)}$.
+                </div>
+            </div>
+            <div class="cor-item">
+                <div class="cor-header"><span class="cor-num">Q10</span></div>
+                <div class="cor-body">
+                    On utilise les propriétés de l'exponentielle (produit = somme des exposants) :
+                    $\prod e^{2ik\pi/n} = e^{\frac{2i\pi}{n} \sum k} = e^{\frac{2i\pi}{n} \frac{n(n-1)}{2}} = e^{i\pi(n-1)} = (-1)^{n-1}$.
+                    C'est parfaitement cohérent avec Viète sur $X^n-1$ : produit = $(-1)^n \frac{-1}{1} = (-1)^{n-1}$.
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="exo-content">
-        1. Décomposer $\frac{X}{(X-1)(X-2)}$.<br>
-        2. Décomposer $\frac{1}{X^2+X+1}$ dans $\mathbb{C}(X)$.<br>
-        3. Trouver la partie entière de $\frac{X^4+1}{X^2-1}$.<br>
-        4. Décomposer $\frac{1}{X^2(X-1)}$.<br>
-        5. Calculer le résidu en $i$ de $\frac{1}{X^4-1}$.<br>
-        6. Décomposer $\frac{X^2}{(X^2+1)^2}$ (Astuce : $X^2 = X^2+1-1$).<br>
-        7. Donner la forme de la DES de $\frac{1}{X^n(X-1)}$.<br>
-        8. Décomposer $\frac{P'(X)}{P(X)}$ si $P = \prod (X-a_i)$.<br>
-        9. Calculer $\sum_{k=1}^n \frac{1}{k(k+1)}$.<br>
-        10. Intégrer $\frac{1}{x^2-1}$ en utilisant la DES.
+
+    <div class="qcm-card">
+        <div class="exo-header">
+            <span class="exo-badge">Exo 4</span>
+            <span class="exo-title">Algorithmique de Horner et Taylor</span>
+        </div>
+        <div class="exo-context">
+            <strong>Contexte Pédagogique :</strong>
+            La méthode de Horner est un algorithme ultra-efficace ($O(n)$ opérations au lieu de $O(n^2)$) pour évaluer un polynôme en un point. Mieux encore : les coefficients intermédiaires générés lors du calcul correspondent au quotient de la division euclidienne par $(X-a)$, permettant d'enchaîner avec le calcul des dérivées et du développement de Taylor.
+        </div>
+        
+        <div class="q-list">
+            <div class="q-item">
+                <span class="q-num">1.</span>
+                <div>Soit $P = 3X^4 - 2X^3 + 5X - 7$. Dresser le tableau de l'algorithme de Horner pour calculer la valeur de $P(2)$, en explicitant tous les termes intermédiaires $b_i$.</div>
+            </div>
+            <div class="q-item">
+                <span class="q-num">2.</span>
+                <div>En déduire immédiatement, à partir des coefficients du tableau précédent, le polynôme quotient $Q(X)$ de la division euclidienne de $P(X)$ par $(X-2)$.</div>
+            </div>
+            <div class="q-item">
+                <span class="q-num">3.</span>
+                <div>Expliquer comment appliquer une seconde fois la méthode de Horner sur le quotient $Q$ pour calculer rapidement la valeur de la dérivée $P'(2)$. Réaliser le calcul.</div>
+            </div>
+            <div class="q-item">
+                <span class="q-num">4.</span>
+                <div>Sans faire plus de calculs complexes, écrire le début du développement de Taylor de $P$ au voisinage de $2$, sous la forme $P(X) = \alpha + \beta(X-2) + \dots$</div>
+            </div>
+            <div class="q-item">
+                <span class="q-num">5.</span>
+                <div>Analyse de complexité : combien de multiplications sont strictement nécessaires pour évaluer un polynôme de degré $n$ à l'aide de l'algorithme de Horner ?</div>
+            </div>
+        </div>
+
+        <button class="btn-reveal" onclick="toggleCor(this)">
+            <i class="fas fa-eye"></i> Afficher la correction détaillée
+        </button>
+        
+        <div class="correction-block">
+            <div class="cor-item">
+                <div class="cor-header"><span class="cor-num">Q1</span></div>
+                <div class="cor-body">
+                    On écrit les coefficients de $P$ par ordre décroissant (attention au zéro pour $X^2$) : 3, -2, 0, 5, -7.
+                    Le point d'évaluation est $a=2$.
+                    La formule de récurrence est $b_k = a_k + a \times b_{k+1}$.
+                    - $b_4 = 3$
+                    - $b_3 = -2 + 2(3) = 4$
+                    - $b_2 = 0 + 2(4) = 8$
+                    - $b_1 = 5 + 2(8) = 21$
+                    - $b_0 = -7 + 2(21) = 35$
+                    Le reste (et donc la valeur $P(2)$) est le dernier terme calculé : $P(2) = 35$.
+                </div>
+            </div>
+            <div class="cor-item">
+                <div class="cor-header"><span class="cor-num">Q2</span></div>
+                <div class="cor-body">
+                    Une propriété fondamentale de l'algorithme de Horner est que les coefficients intermédiaires $\{b_n, b_{n-1}, \dots, b_1\}$ sont exactement les coefficients du polynôme quotient $Q(X)$.
+                    Ici, $\deg(Q) = 4 - 1 = 3$. 
+                    Les coefficients sont 3, 4, 8, 21. 
+                    Donc $Q(X) = 3X^3 + 4X^2 + 8X + 21$.
+                </div>
+            </div>
+            <div class="cor-item">
+                <div class="cor-header"><span class="cor-num">Q3</span></div>
+                <div class="cor-body">
+                    Puisque $P(X) = (X-a)Q(X) + P(a)$, en dérivant on obtient $P'(X) = Q(X) + (X-a)Q'(X)$.
+                    Si on évalue en $a=2$, le second terme s'annule : $P'(2) = Q(2)$.
+                    Il suffit donc d'appliquer Horner à $Q$ au point $2$ !
+                    - $c_3 = 3$
+                    - $c_2 = 4 + 2(3) = 10$
+                    - $c_1 = 8 + 2(10) = 28$
+                    - $c_0 = 21 + 2(28) = 77$
+                    Donc $P'(2) = Q(2) = 77$. (Une erreur s'était glissée dans le brouillon original, le bon résultat est 77).
+                </div>
+            </div>
+            <div class="cor-item">
+                <div class="cor-header"><span class="cor-num">Q4</span></div>
+                <div class="cor-body">
+                    La formule de Taylor au point $a=2$ stipule que $P(X) = P(2) + P'(2)(X-2) + \dots$
+                    Grâce à nos deux algorithmes de Horner consécutifs, on dispose des deux premiers coefficients sans aucun calcul supplémentaire :
+                    <div class="math-display">
+                        $$ P(X) = 35 + 77(X-2) + (X-2)^2 \times (\text{reste du développement}) $$
+                    </div>
+                </div>
+            </div>
+            <div class="cor-item">
+                <div class="cor-header"><span class="cor-num">Q5</span></div>
+                <div class="cor-body">
+                    Pour évaluer $P(x) = a_0 + x(a_1 + x(a_2 + \dots x(a_{n-1} + a_n x)\dots))$, chaque étape imbriquée nécessite exactement 1 multiplication et 1 addition.
+                    Il y a $n$ parenthèses imbriquées, donc l'algorithme requiert très exactement $n$ multiplications. Une évaluation naïve $a_k x^k$ aurait pris une complexité en $O(n^2)$.
+                </div>
+            </div>
+        </div>
     </div>
-    <button class="btn-reveal" onclick="toggleCor(this)">
-        <i class="fas fa-eye"></i> Voir le corrigé détaillé
-    </button>
-    <div class="correction-block">
-        <div class="cor-item"><span class="num">1.</span> $\frac{-1}{X-1} + \frac{2}{X-2}$.</div>
-        <div class="cor-item"><span class="num">2.</span> $\frac{1}{(j-j^2)}(\frac{1}{X-j} - \frac{1}{X-j^2}) = \frac{-i/\sqrt{3}}{X-j} + \frac{i/\sqrt{3}}{X-j^2}$.</div>
-        <div class="cor-item"><span class="num">3.</span> $X^2+1$.</div>
-        <div class="cor-item"><span class="num">4.</span> $-\frac{1}{X^2} - \frac{1}{X} + \frac{1}{X-1}$.</div>
-        <div class="cor-item"><span class="num">5.</span> $1/4i^3 = i/4$.</div>
-        <div class="cor-item"><span class="num">6.</span> $\frac{1}{X^2+1} - \frac{1}{(X^2+1)^2}$.</div>
-        <div class="cor-item"><span class="num">7.</span> $\frac{1}{X-1} - \sum_{k=1}^n \frac{1}{X^k}$.</div>
-        <div class="cor-item"><span class="num">8.</span> $\sum \frac{1}{X-a_i}$.</div>
-        <div class="cor-item"><span class="num">9.</span> $1 - \frac{1}{n+1} = \frac{n}{n+1}$.</div>
-        <div class="cor-item"><span class="num">10.</span> $\frac{1}{2}\ln|\frac{x-1}{x+1}| + C$.</div>
+
+    <div class="qcm-card">
+        <div class="exo-header">
+            <span class="exo-badge">Exo 5</span>
+            <span class="exo-title">Fractions et Intégration</span>
+        </div>
+        <div class="exo-context">
+            <strong>Contexte Pédagogique :</strong>
+            Maîtriser la décomposition en éléments simples, c'est comme posséder la clé d'un coffre-fort en analyse. Ces 5 questions ciblent les astuces ultimes : passage à la limite, évaluation fine, changements de variables implicites et application au calcul intégral.
+        </div>
+        
+        <div class="q-list">
+            <div class="q-item">
+                <span class="q-num">1.</span>
+                <div>Décomposer $F(X) = \frac{X}{(X-1)(X-2)}$ en éléments simples sur $\mathbb{R}$. Détailler la méthode d'évaluation.</div>
+            </div>
+            <div class="q-item">
+                <span class="q-num">2.</span>
+                <div>Trouver la partie entière de la fraction $F(X) = \frac{X^4+1}{X^2-1}$ par une division euclidienne minutieuse.</div>
+            </div>
+            <div class="q-item">
+                <span class="q-num">3.</span>
+                <div>Calculer astucieusement le résidu en $i$ de la fraction $\frac{1}{X^4-1}$ en utilisant la formule dérivée.</div>
+            </div>
+            <div class="q-item">
+                <span class="q-num">4.</span>
+                <div>Décomposer $\frac{X^2}{(X^2+1)^2}$ sans aucun long calcul, en utilisant simplement une astuce d'ajout et retrait (+1-1).</div>
+            </div>
+            <div class="q-item">
+                <span class="q-num">5.</span>
+                <div>Application directe : à l'aide de la D.E.S de $\frac{1}{x^2-1}$, calculer la primitive $\int \frac{1}{x^2-1} dx$.</div>
+            </div>
+        </div>
+
+        <button class="btn-reveal" onclick="toggleCor(this)">
+            <i class="fas fa-eye"></i> Afficher la correction détaillée
+        </button>
+        
+        <div class="correction-block">
+            <div class="cor-item">
+                <div class="cor-header"><span class="cor-num">Q1</span></div>
+                <div class="cor-body">
+                    La forme est $\frac{A}{X-1} + \frac{B}{X-2}$. 
+                    - Pour $A$ : multiplier par $(X-1)$ et évaluer en 1 $\implies A = \frac{1}{1-2} = -1$.
+                    - Pour $B$ : multiplier par $(X-2)$ et évaluer en 2 $\implies B = \frac{2}{2-1} = 2$.
+                    Résultat : $F(X) = \frac{-1}{X-1} + \frac{2}{X-2}$.
+                </div>
+            </div>
+            <div class="cor-item">
+                <div class="cor-header"><span class="cor-num">Q2</span></div>
+                <div class="cor-body">
+                    On écrit $X^4+1 = (X^2-1)(X^2) + X^2 + 1$.
+                    Le reste est de degré 2, on continue de diviser : $X^2+1 = (X^2-1)(1) + 2$.
+                    Donc $X^4+1 = (X^2-1)(X^2+1) + 2$.
+                    En divisant par $X^2-1$, on obtient $X^2+1 + \frac{2}{X^2-1}$. La partie entière est $E(X) = X^2+1$.
+                </div>
+            </div>
+            <div class="cor-item">
+                <div class="cor-header"><span class="cor-num">Q3</span></div>
+                <div class="cor-body">
+                    La racine $i$ est un pôle simple du polynôme $Q(X) = X^4-1$.
+                    La formule du résidu est $c = \frac{P(i)}{Q'(i)}$.
+                    $P(X) = 1 \implies P(i) = 1$.
+                    $Q'(X) = 4X^3 \implies Q'(i) = 4i^3 = -4i$.
+                    Le coefficient est donc $\frac{1}{-4i} = \frac{i}{4}$.
+                </div>
+            </div>
+            <div class="cor-item">
+                <div class="cor-header"><span class="cor-num">Q4</span></div>
+                <div class="cor-body">
+                    Inutile d'invoquer de lourdes méthodes matricielles.
+                    Numérateur : $X^2 = (X^2+1) - 1$.
+                    On sépare la fraction en deux blocs : $\frac{X^2+1}{(X^2+1)^2} - \frac{1}{(X^2+1)^2}$.
+                    Après simplification, la D.E.S tombe d'elle-même :
+                    <div class="math-display">
+                        $$ \frac{1}{X^2+1} - \frac{1}{(X^2+1)^2} $$
+                    </div>
+                </div>
+            </div>
+            <div class="cor-item">
+                <div class="cor-header"><span class="cor-num">Q5</span></div>
+                <div class="cor-body">
+                    La décomposition usuelle donne $\frac{1}{x^2-1} = \frac{1}{2(x-1)} - \frac{1}{2(x+1)}$.
+                    En intégrant cette expression linéairement :
+                    <div class="math-display">
+                        $$ \int \frac{1}{x^2-1} dx = \frac{1}{2}\ln|x-1| - \frac{1}{2}\ln|x+1| + C $$
+                    </div>
+                    Par les propriétés du logarithme, la primitive est $\frac{1}{2}\ln\left|\frac{x-1}{x+1}\right| + C$.
+                </div>
+            </div>
+        </div>
     </div>
+
 </div>
 
 <script>
@@ -296,11 +908,11 @@
         if (isHidden) {
             block.style.display = "block";
             block.classList.add('fade-in'); 
-            btn.innerHTML = '<i class="fas fa-eye-slash"></i> Masquer le corrigé';
+            btn.innerHTML = '<i class="fas fa-eye-slash"></i> Masquer la correction détaillée';
             if (window.MathJax) MathJax.typesetPromise([block]);
         } else {
             block.style.display = "none";
-            btn.innerHTML = '<i class="fas fa-eye"></i> Voir le corrigé détaillé';
+            btn.innerHTML = '<i class="fas fa-eye"></i> Afficher la correction détaillée';
         }
     }
 </script>
