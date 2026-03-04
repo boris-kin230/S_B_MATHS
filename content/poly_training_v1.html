@@ -6,6 +6,17 @@
     <title>Entraînement Polynômes</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']]
+            }
+        };
+    </script>
+
     <style>
         /* Variables de couleurs pour le design */
         :root {
@@ -62,17 +73,18 @@
             font-weight: 600;
             margin-bottom: 20px;
             color: var(--navy-dark);
+            word-wrap: break-word; /* Évite que les longues formules cassent la div */
         }
 
-        /* LA SOLUTION POUR L'ALIGNEMENT 2x2 SYMÉTRIQUE */
+        /* L'ALIGNEMENT 2x2 SYMÉTRIQUE - STABLE */
         .options-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr); /* 2 colonnes de même largeur */
-            gap: 15px; /* Espace entre les boutons */
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
             margin-bottom: 15px;
         }
 
-        /* Design des boutons (plus aéré, texte non collé) */
+        /* Design des boutons (plus aéré, texte non collé, STABLE) */
         .opt-btn {
             background: #f8f9fa;
             border: 2px solid #e9ecef;
@@ -82,17 +94,25 @@
             font-family: inherit;
             cursor: pointer;
             transition: all 0.2s ease;
-            text-align: left; /* Aligne le texte à gauche */
+            text-align: left;
             color: var(--text-main);
-            min-height: 60px; /* Force une hauteur minimale égale */
+            min-height: 60px;
+            height: auto; /* Permet au bouton de s'agrandir si le texte est long */
             display: flex;
             align-items: center;
+            word-wrap: break-word; /* Gère les débordements de texte */
+            line-height: 1.4;
         }
 
-        .opt-btn:hover {
+        .opt-btn:hover:not(:disabled) {
             border-color: var(--gold-btn);
             background: #fffdf5;
             transform: translateY(-2px);
+        }
+
+        .opt-btn:disabled {
+            cursor: default;
+            transform: none;
         }
 
         /* Bouton de corrigé */
@@ -117,7 +137,7 @@
             background: #e2e6ea;
         }
 
-        /* Boîte de correction (masquée par défaut dans le JS) */
+        /* Boîte de correction (masquée par défaut) */
         .correction-box {
             display: none;
             margin-top: 15px;
@@ -455,9 +475,9 @@
     <div class="qcm-card">
         <div class="qcm-question">Q23. Soit $P(X) = (X-1)^3(X+2)^2$. Quel est le degré de $P$ ?</div>
         <div class="options-grid">
-            <button class="opt-btn" onclick="checkQCM(this, false)">A) 3</button>
-            <button class="opt-btn" onclick="checkQCM(this, true)">B) 5</button>
-            <button class="opt-btn" onclick="checkQCM(this, false)">C) 6</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">A) $3$</button>
+            <button class="opt-btn" onclick="checkQCM(this, true)">B) $5$</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">C) $6$</button>
             <button class="opt-btn" onclick="checkQCM(this, false)">D) On ne peut pas savoir sans développer</button>
         </div>
         <button class="share-btn btn-pdf" style="margin-top:15px; width:100%; justify-content:center; border: 1px solid var(--border);" onclick="toggleCor(this)"><i class="fas fa-eye"></i> Afficher le corrigé détaillé</button>
@@ -485,20 +505,54 @@
         <div class="options-grid">
             <button class="opt-btn" onclick="checkQCM(this, false)">A) Le nombre de fois où $P$ s'annule sur $\mathbb{R}$</button>
             <button class="opt-btn" onclick="checkQCM(this, true)">B) Le plus grand entier $k$ tel que $(X-a)^k$ divise $P$</button>
-            <button class="opt-btn" onclick="checkQCM(this, false)">C) L'ordre de la plus haute dérivée de $P$ qui s'annule en $a$</button>
-            <button class="opt-btn" onclick="checkQCM(this, false)">D) La valeur de $P(a)$</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">C) La valeur de la dérivée en $a$</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">D) Le degré total du polynôme</button>
         </div>
         <button class="share-btn btn-pdf" style="margin-top:15px; width:100%; justify-content:center; border: 1px solid var(--border);" onclick="toggleCor(this)"><i class="fas fa-eye"></i> Afficher le corrigé détaillé</button>
         <div class="correction-box">
-            <strong>Correction :</strong> C'est la définition algébrique rigoureuse. On la relie ensuite aux dérivées : si $k$ est l'ordre de multiplicité, alors $P^{(k)}(a) \neq 0$.
+            <strong>Correction :</strong> Par définition, $a$ est racine d'ordre $k$ si on peut factoriser $P$ par $(X-a)^k$ mais pas par $(X-a)^{k+1}$.
         </div>
     </div>
 
-    <div style="text-align: center; margin-top: 40px; margin-bottom: 20px;">
-        <button class="opt-btn finish-btn" style="display:inline-flex; background:var(--gold-btn); color:var(--navy-dark); font-weight:800; border:none; box-shadow:var(--shadow-md); padding: 15px 30px; justify-content: center;" onclick="finishQuiz()">
-            <i class="fas fa-flag-checkered" style="margin-right:10px;"></i> Terminer l'entraînement
-        </button>
-    </div>
+    <script>
+        // Fonction pour vérifier la réponse cliquée
+        function checkQCM(btn, isCorrect) {
+            let parentGrid = btn.parentElement;
+            let allButtons = parentGrid.querySelectorAll('.opt-btn');
+            
+            // Désactiver tous les boutons de cette question
+            allButtons.forEach(b => {
+                b.disabled = true;
+                
+                // Colorer les boutons
+                if (b.getAttribute('onclick').includes('true')) {
+                    // La bonne réponse en vert
+                    b.style.backgroundColor = '#d4edda';
+                    b.style.borderColor = '#c3e6cb';
+                    b.style.color = '#155724';
+                } else if (b === btn && !isCorrect) {
+                    // La mauvaise réponse cliquée en rouge
+                    b.style.backgroundColor = '#f8d7da';
+                    b.style.borderColor = '#f5c6cb';
+                    b.style.color = '#721c24';
+                } else {
+                    // Les autres mauvaises réponses grisées
+                    b.style.opacity = '0.5';
+                }
+            });
+        }
 
+        // Fonction pour afficher/masquer le corrigé
+        function toggleCor(btn) {
+            let corBox = btn.nextElementSibling;
+            if (corBox.style.display === 'block') {
+                corBox.style.display = 'none';
+                btn.innerHTML = '<i class="fas fa-eye"></i> Afficher le corrigé détaillé';
+            } else {
+                corBox.style.display = 'block';
+                btn.innerHTML = '<i class="fas fa-eye-slash"></i> Masquer le corrigé';
+            }
+        }
+    </script>
 </body>
 </html>
