@@ -1,360 +1,508 @@
-<div class="qcm-header" style="margin-bottom: 30px;">
-    <h2 style="color: var(--navy-dark); border-left: 4px solid var(--gold-btn); padding-left: 15px;">Entraînement v1 : Polynômes (25 Questions)</h2>
-    <p style="color: var(--text-muted);">Testez vos fondamentaux. Sélectionnez la bonne réponse pour chaque question.</p>
-</div>
+<style>
+    /* Définition des couleurs (variables) */
+    :root {
+        --navy-dark: #1e293b;
+        --gold-btn: #fbbf24;
+        --text-muted: #64748b;
+        --border: #e2e8f0;
+        --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        --bg-card: #ffffff;
+        --bg-hover: #f8fafc;
+        --correct-bg: #f0fdf4;
+        --correct-border: #22c55e;
+    }
 
-<div class="qcm-card" style="margin-bottom: 25px; display: block;">
-    <div class="qcm-question">Q1. Soient $P$ et $Q$ deux polynômes non nuls de $\mathbb{K}[X]$. Quelle est la formule correcte pour le degré du produit $P \times Q$ ?</div>
-    <div class="options-grid">
-        <button class="opt-btn" onclick="checkQCM(this, false)">A) $\max(\deg(P), \deg(Q))$</button>
-        <button class="opt-btn" onclick="checkQCM(this, false)">B) $\deg(P) \times \deg(Q)$</button>
-        <button class="opt-btn" onclick="checkQCM(this, true)">C) $\deg(P) + \deg(Q)$</button>
-        <button class="opt-btn" onclick="checkQCM(this, false)">D) $\min(\deg(P), \deg(Q))$</button>
-    </div>
-    <button class="share-btn btn-pdf" style="margin-top:15px; width:100%; justify-content:center; border: 1px solid var(--border);" onclick="toggleCor(this)"><i class="fas fa-eye"></i> Afficher le corrigé détaillé</button>
-    <div class="correction-box">
-        <strong>Correction :</strong> Le degré d'un produit est la somme des degrés. Par convention, si l'un des polynômes est nul, son degré est $-\infty$, et l'égalité $-\infty + n = -\infty$ reste cohérente.
-    </div>
-</div>
+    /* Typographie globale et design de la carte */
+    .qcm-container {
+        font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        max-width: 800px;
+        margin: 0 auto;
+        color: #333;
+    }
 
-<div class="qcm-card" style="margin-bottom: 25px; display: block;">
-    <div class="qcm-question">Q2. Si $\deg(P) \neq \deg(Q)$, que vaut $\deg(P + Q)$ ?</div>
-    <div class="options-grid">
-        <button class="opt-btn" onclick="checkQCM(this, true)">A) $\max(\deg(P), \deg(Q))$</button>
-        <button class="opt-btn" onclick="checkQCM(this, false)">B) $\deg(P) + \deg(Q)$</button>
-        <button class="opt-btn" onclick="checkQCM(this, false)">C) $\min(\deg(P), \deg(Q))$</button>
-        <button class="opt-btn" onclick="checkQCM(this, false)">D) On ne peut pas savoir</button>
-    </div>
-    <button class="share-btn btn-pdf" style="margin-top:15px; width:100%; justify-content:center; border: 1px solid var(--border);" onclick="toggleCor(this)"><i class="fas fa-eye"></i> Afficher le corrigé détaillé</button>
-    <div class="correction-box">
-        <strong>Correction :</strong> Si les degrés sont strictement différents, les termes de plus haut degré ne peuvent pas s'annuler. Le degré de la somme est donc exactement le maximum des deux degrés.
-    </div>
-</div>
+    .qcm-header {
+        margin-bottom: 30px;
+    }
 
-<div class="qcm-card" style="margin-bottom: 25px; display: block;">
-    <div class="qcm-question">Q3. Soit $P \in \mathbb{K}[X]$ et $a \in \mathbb{K}$. Quel est le reste de la division euclidienne de $P$ par $(X - a)$ ?</div>
-    <div class="options-grid">
-        <button class="opt-btn" onclick="checkQCM(this, false)">A) $0$</button>
-        <button class="opt-btn" onclick="checkQCM(this, false)">B) $P'(a)$</button>
-        <button class="opt-btn" onclick="checkQCM(this, true)">C) $P(a)$</button>
-        <button class="opt-btn" onclick="checkQCM(this, false)">D) $1$</button>
-    </div>
-    <button class="share-btn btn-pdf" style="margin-top:15px; width:100%; justify-content:center; border: 1px solid var(--border);" onclick="toggleCor(this)"><i class="fas fa-eye"></i> Afficher le corrigé détaillé</button>
-    <div class="correction-box">
-        <strong>Correction :</strong> En écrivant $P = Q(X-a) + R$, on sait que $\deg(R) &lt; \deg(X-a) = 1$, donc $R$ est une constante. En évaluant en $X=a$, on obtient $P(a) = Q(a)(a-a) + R = R$.
-    </div>
-</div>
+    .qcm-header h2 {
+        color: var(--navy-dark);
+        border-left: 4px solid var(--gold-btn);
+        padding-left: 15px;
+        margin-bottom: 10px;
+    }
 
-<div class="qcm-card" style="margin-bottom: 25px; display: block;">
-    <div class="qcm-question">Q4. On dit que $a$ est une racine de multiplicité $k \ge 1$ du polynôme $P$ si et seulement si :</div>
-    <div class="options-grid">
-        <button class="opt-btn" onclick="checkQCM(this, false)">A) $(X-a)^k$ divise $P$ mais $(X-a)$ ne divise pas $P'$</button>
-        <button class="opt-btn" onclick="checkQCM(this, true)">B) $(X-a)^k$ divise $P$ et $(X-a)^{k+1}$ ne divise pas $P$</button>
-        <button class="opt-btn" onclick="checkQCM(this, false)">C) $P(a) = P'(a) = \dots = P^{(k)}(a) = 0$</button>
-        <button class="opt-btn" onclick="checkQCM(this, false)">D) $P^{(k)}(a) = 0$ et $P^{(k+1)}(a) \neq 0$</button>
-    </div>
-    <button class="share-btn btn-pdf" style="margin-top:15px; width:100%; justify-content:center; border: 1px solid var(--border);" onclick="toggleCor(this)"><i class="fas fa-eye"></i> Afficher le corrigé détaillé</button>
-    <div class="correction-box">
-        <strong>Correction :</strong> C'est la définition exacte. L'option C est fausse car la dérivée d'ordre $k$ ne doit justement PAS s'annuler (la condition est $P(a)=...=P^{(k-1)}(a)=0$ et $P^{(k)}(a) \neq 0$).
-    </div>
-</div>
+    .qcm-header p {
+        color: var(--text-muted);
+        font-size: 1.1em;
+    }
 
-<div class="qcm-card" style="margin-bottom: 25px; display: block;">
-    <div class="qcm-question">Q5. Combien de racines le polynôme $P(X) = X^n - 1$ possède-t-il dans $\mathbb{C}$ ?</div>
-    <div class="options-grid">
-        <button class="opt-btn" onclick="checkQCM(this, true)">A) $n$ racines simples</button>
-        <button class="opt-btn" onclick="checkQCM(this, false)">B) $1$ racine d'ordre $n$</button>
-        <button class="opt-btn" onclick="checkQCM(this, false)">C) $n-1$ racines simples</button>
-        <button class="opt-btn" onclick="checkQCM(this, false)">D) Cela dépend de la parité de $n$</button>
-    </div>
-    <button class="share-btn btn-pdf" style="margin-top:15px; width:100%; justify-content:center; border: 1px solid var(--border);" onclick="toggleCor(this)"><i class="fas fa-eye"></i> Afficher le corrigé détaillé</button>
-    <div class="correction-box">
-        <strong>Correction :</strong> Ce sont les racines $n$-ièmes de l'unité, données par $e^{2i\pi k/n}$ pour $k \in \{0, \dots, n-1\}$. Elles sont au nombre de $n$ et toutes distinctes.
-    </div>
-</div>
+    .qcm-card {
+        background: var(--bg-card);
+        padding: 25px;
+        border-radius: 10px;
+        box-shadow: var(--shadow-md);
+        margin-bottom: 25px;
+        border: 1px solid var(--border);
+    }
 
-<div class="qcm-card" style="margin-bottom: 25px; display: block;">
-    <div class="qcm-question">Q6. Dans $\mathbb{R}[X]$, quels sont les seuls polynômes irréductibles ?</div>
-    <div class="options-grid">
-        <button class="opt-btn" onclick="checkQCM(this, false)">A) Les polynômes de degré 1 uniquement</button>
-        <button class="opt-btn" onclick="checkQCM(this, true)">B) Les polynômes de degré 1, et ceux de degré 2 avec $\Delta &lt; 0$</button>
-        <button class="opt-btn" onclick="checkQCM(this, false)">C) Tous les polynômes de degré impair</button>
-        <button class="opt-btn" onclick="checkQCM(this, false)">D) Les polynômes de la forme $X^2 + a^2$</button>
-    </div>
-    <button class="share-btn btn-pdf" style="margin-top:15px; width:100%; justify-content:center; border: 1px solid var(--border);" onclick="toggleCor(this)"><i class="fas fa-eye"></i> Afficher le corrigé détaillé</button>
-    <div class="correction-box">
-        <strong>Correction :</strong> Théorème fondamental de l'algèbre appliqué à $\mathbb{R}[X]$. Tout polynôme de degré $\ge 3$ est réductible dans $\mathbb{R}[X]$.
-    </div>
-</div>
+    .qcm-question {
+        font-size: 1.15em;
+        font-weight: 600;
+        margin-bottom: 20px;
+        color: var(--navy-dark);
+        line-height: 1.5;
+    }
 
-<div class="qcm-card" style="margin-bottom: 25px; display: block;">
-    <div class="qcm-question">Q7. Soit $P = a_n X^n + \dots + a_1 X + a_0$ un polynôme scindé. Que vaut la somme de ses racines (comptées avec multiplicité) ?</div>
-    <div class="options-grid">
-        <button class="opt-btn" onclick="checkQCM(this, false)">A) $a_{n-1} / a_n$</button>
-        <button class="opt-btn" onclick="checkQCM(this, true)">B) $-a_{n-1} / a_n$</button>
-        <button class="opt-btn" onclick="checkQCM(this, false)">C) $(-1)^n a_0 / a_n$</button>
-        <button class="opt-btn" onclick="checkQCM(this, false)">D) $a_1 / a_0$</button>
-    </div>
-    <button class="share-btn btn-pdf" style="margin-top:15px; width:100%; justify-content:center; border: 1px solid var(--border);" onclick="toggleCor(this)"><i class="fas fa-eye"></i> Afficher le corrigé détaillé</button>
-    <div class="correction-box">
-        <strong>Correction :</strong> C'est la première relation de Viète. La somme des racines est toujours donnée par $-\frac{a_{n-1}}{a_n}$.
-    </div>
-</div>
+    /* La grille magique 2x2 pour les options */
+    .options-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr; /* 2 colonnes de taille égale */
+        gap: 15px; /* Espace entre les boutons */
+        margin-bottom: 20px;
+    }
 
-<div class="qcm-card" style="margin-bottom: 25px; display: block;">
-    <div class="qcm-question">Q8. Toujours pour ce même polynôme $P$, que vaut le produit de ses racines ?</div>
-    <div class="options-grid">
-        <button class="opt-btn" onclick="checkQCM(this, false)">A) $a_0 / a_n$</button>
-        <button class="opt-btn" onclick="checkQCM(this, true)">B) $(-1)^n a_0 / a_n$</button>
-        <button class="opt-btn" onclick="checkQCM(this, false)">C) $-a_{n-1} / a_n$</button>
-        <button class="opt-btn" onclick="checkQCM(this, false)">D) $(-1)^{n-1} a_1 / a_n$</button>
-    </div>
-    <button class="share-btn btn-pdf" style="margin-top:15px; width:100%; justify-content:center; border: 1px solid var(--border);" onclick="toggleCor(this)"><i class="fas fa-eye"></i> Afficher le corrigé détaillé</button>
-    <div class="correction-box">
-        <strong>Correction :</strong> Dernière relation de Viète. Le produit des racines est $(-1)^n \frac{a_0}{a_n}$.
-    </div>
-</div>
+    /* Design des boutons d'options */
+    .opt-btn {
+        background: white;
+        border: 1px solid var(--border);
+        padding: 15px;
+        border-radius: 8px;
+        text-align: left;
+        font-size: 1em;
+        cursor: pointer;
+        transition: all 0.2s ease-in-out;
+        color: var(--navy-dark);
+        line-height: 1.4;
+    }
 
-<div class="qcm-card" style="margin-bottom: 25px; display: block;">
-    <div class="qcm-question">Q9. Énoncé du théorème de D'Alembert-Gauss :</div>
-    <div class="options-grid">
-        <button class="opt-btn" onclick="checkQCM(this, false)">A) Tout polynôme réel admet au moins une racine réelle.</button>
-        <button class="opt-btn" onclick="checkQCM(this, false)">B) Tout polynôme complexe est de degré pair.</button>
-        <button class="opt-btn" onclick="checkQCM(this, true)">C) Tout polynôme non constant de $\mathbb{C}[X]$ admet au moins une racine dans $\mathbb{C}$.</button>
-        <button class="opt-btn" onclick="checkQCM(this, false)">D) Tout polynôme scindé est irréductible.</button>
-    </div>
-    <button class="share-btn btn-pdf" style="margin-top:15px; width:100%; justify-content:center; border: 1px solid var(--border);" onclick="toggleCor(this)"><i class="fas fa-eye"></i> Afficher le corrigé détaillé</button>
-    <div class="correction-box">
-        <strong>Correction :</strong> Conséquence directe : $\mathbb{C}$ est algébriquement clos. Tout polynôme de $\mathbb{C}[X]$ est donc scindé.
-    </div>
-</div>
+    .opt-btn:hover {
+        background: var(--bg-hover);
+        border-color: #cbd5e1;
+    }
 
-<div class="qcm-card" style="margin-bottom: 25px; display: block;">
-    <div class="qcm-question">Q10. Soient $A, B \in \mathbb{K}[X]$. Le PGCD de $A$ et $B$, noté $P = A \wedge B$, est caractérisé par :</div>
-    <div class="options-grid">
-        <button class="opt-btn" onclick="checkQCM(this, false)">A) $P$ est le polynôme unitaire de plus petit degré divisant $A$ et $B$.</button>
-        <button class="opt-btn" onclick="checkQCM(this, true)">B) $P$ est l'unique polynôme unitaire générant l'idéal $A\mathbb{K}[X] + B\mathbb{K}[X]$.</button>
-        <button class="opt-btn" onclick="checkQCM(this, false)">C) $P$ divise $A+B$ et $A-B$.</button>
-        <button class="opt-btn" onclick="checkQCM(this, false)">D) $P$ est le produit des facteurs communs de $A$ et $B$ sans multiplicité.</button>
-    </div>
-    <button class="share-btn btn-pdf" style="margin-top:15px; width:100%; justify-content:center; border: 1px solid var(--border);" onclick="toggleCor(this)"><i class="fas fa-eye"></i> Afficher le corrigé détaillé</button>
-    <div class="correction-box">
-        <strong>Correction :</strong> Dans l'anneau principal $\mathbb{K}[X]$, la somme de deux idéaux est un idéal engendré par leur PGCD. On l'impose unitaire par convention.
-    </div>
-</div>
+    /* Bouton d'affichage du corrigé */
+    .share-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        padding: 12px;
+        background: #f1f5f9;
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: 600;
+        color: var(--navy-dark);
+        transition: background 0.2s;
+    }
 
-<div class="qcm-card" style="margin-bottom: 25px; display: block;">
-    <div class="qcm-question">Q11. Identité de Bézout : $A$ et $B$ sont premiers entre eux si et seulement si...</div>
-    <div class="options-grid">
-        <button class="opt-btn" onclick="checkQCM(this, true)">A) $\exists U, V \in \mathbb{K}[X], AU + BV = 1$</button>
-        <button class="opt-btn" onclick="checkQCM(this, false)">B) $A$ et $B$ n'ont aucune racine réelle commune</button>
-        <button class="opt-btn" onclick="checkQCM(this, false)">C) $\deg(A) \neq \deg(B)$</button>
-        <button class="opt-btn" onclick="checkQCM(this, false)">D) $\exists U, V \in \mathbb{K}[X], AU + BV = A \wedge B$</button>
-    </div>
-    <button class="share-btn btn-pdf" style="margin-top:15px; width:100%; justify-content:center; border: 1px solid var(--border);" onclick="toggleCor(this)"><i class="fas fa-eye"></i> Afficher le corrigé détaillé</button>
-    <div class="correction-box">
-        <strong>Correction :</strong> C'est le théorème de Bézout. Attention, la proposition D est vraie même s'ils ne sont pas premiers entre eux (c'est l'identité de Bézout généralisée). L'égalité à 1 caractérise le fait qu'ils soient premiers entre eux.
-    </div>
-</div>
+    .share-btn:hover {
+        background: #e2e8f0;
+    }
 
-<div class="qcm-card" style="margin-bottom: 25px; display: block;">
-    <div class="qcm-question">Q12. Le polynôme $X^4 + 1$ dans $\mathbb{R}[X]$ est :</div>
-    <div class="options-grid">
-        <button class="opt-btn" onclick="checkQCM(this, false)">A) Irréductible car il n'a pas de racine réelle</button>
-        <button class="opt-btn" onclick="checkQCM(this, true)">B) Réductible en produit de deux polynômes de degré 2</button>
-        <button class="opt-btn" onclick="checkQCM(this, false)">C) Scindé</button>
-        <button class="opt-btn" onclick="checkQCM(this, false)">D) Une exception au théorème fondamental de l'algèbre</button>
-    </div>
-    <button class="share-btn btn-pdf" style="margin-top:15px; width:100%; justify-content:center; border: 1px solid var(--border);" onclick="toggleCor(this)"><i class="fas fa-eye"></i> Afficher le corrigé détaillé</button>
-    <div class="correction-box">
-        <strong>Correction :</strong> Tout polynôme réel de degré $\ge 3$ est réductible. Ici, $X^4 + 1 = (X^2 - \sqrt{2}X + 1)(X^2 + \sqrt{2}X + 1)$.
-    </div>
-</div>
+    .share-btn i {
+        margin-right: 8px;
+    }
 
-<div class="qcm-card" style="margin-bottom: 25px; display: block;">
-    <div class="qcm-question">Q13. Si $P \in \mathbb{R}[X]$ et $P(a+ib) = 0$ (avec $b \neq 0$), alors :</div>
-    <div class="options-grid">
-        <button class="opt-btn" onclick="checkQCM(this, false)">A) $P(a-ib)$ n'est pas forcément nul</button>
-        <button class="opt-btn" onclick="checkQCM(this, true)">B) $a-ib$ est aussi racine de $P$ avec la même multiplicité</button>
-        <button class="opt-btn" onclick="checkQCM(this, false)">C) $P$ est scindé dans $\mathbb{R}[X]$</button>
-        <button class="opt-btn" onclick="checkQCM(this, false)">D) $\deg(P)$ est obligatoirement impair</button>
-    </div>
-    <button class="share-btn btn-pdf" style="margin-top:15px; width:100%; justify-content:center; border: 1px solid var(--border);" onclick="toggleCor(this)"><i class="fas fa-eye"></i> Afficher le corrigé détaillé</button>
-    <div class="correction-box">
-        <strong>Correction :</strong> Comme les coefficients de $P$ sont réels, $P(\bar{z}) = \overline{P(z)}$. Donc si $P(z)=0$, $P(\bar{z})=0$.
-    </div>
-</div>
+    /* Boîte de correction */
+    .correction-box {
+        margin-top: 15px;
+        padding: 15px;
+        background: var(--correct-bg);
+        border-left: 4px solid var(--correct-border);
+        border-radius: 4px;
+        line-height: 1.5;
+        display: none; /* Reste caché jusqu'au clic via JS */
+    }
 
-<div class="qcm-card" style="margin-bottom: 25px; display: block;">
-    <div class="qcm-question">Q14. Formule de Taylor : Pour $P \in \mathbb{K}[X]$ de degré $n$ et $a \in \mathbb{K}$, $P(X) =$</div>
-    <div class="options-grid">
-        <button class="opt-btn" onclick="checkQCM(this, true)">A) $\sum_{k=0}^n \frac{P^{(k)}(a)}{k!} (X-a)^k$</button>
-        <button class="opt-btn" onclick="checkQCM(this, false)">B) $\sum_{k=0}^n P^{(k)}(a) (X-a)^k$</button>
-        <button class="opt-btn" onclick="checkQCM(this, false)">C) $\sum_{k=0}^n \frac{P(a)}{k!} X^k$</button>
-        <button class="opt-btn" onclick="checkQCM(this, false)">D) $\sum_{k=0}^n \frac{P^{(k)}(0)}{k!} (X-a)^k$</button>
-    </div>
-    <button class="share-btn btn-pdf" style="margin-top:15px; width:100%; justify-content:center; border: 1px solid var(--border);" onclick="toggleCor(this)"><i class="fas fa-eye"></i> Afficher le corrigé détaillé</button>
-    <div class="correction-box">
-        <strong>Correction :</strong> C'est la formule de Taylor exacte pour les polynômes, qui est une identité algébrique (le "reste" est nul puisque les dérivées d'ordre &gt;n sont nulles).
-    </div>
-</div>
+    /* Bouton final */
+    .finish-btn {
+        display: inline-flex;
+        align-items: center;
+        background: var(--gold-btn);
+        color: var(--navy-dark);
+        font-weight: 800;
+        border: none;
+        border-radius: 8px;
+        box-shadow: var(--shadow-md);
+        padding: 15px 30px;
+        font-size: 1.1em;
+        justify-content: center;
+    }
+    
+    .finish-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 8px -1px rgba(0, 0, 0, 0.15);
+    }
 
-<div class="qcm-card" style="margin-bottom: 25px; display: block;">
-    <div class="qcm-question">Q15. Un polynôme $P \in \mathbb{R}[X]$ vérifie $P(X) = P(-X)$. Que peut-on dire de $P$ ?</div>
-    <div class="options-grid">
-        <button class="opt-btn" onclick="checkQCM(this, false)">A) $P$ est nul</button>
-        <button class="opt-btn" onclick="checkQCM(this, false)">B) Tous ses coefficients sont nuls</button>
-        <button class="opt-btn" onclick="checkQCM(this, true)">C) Ses coefficients de rang impair sont nuls (Polynôme pair)</button>
-        <button class="opt-btn" onclick="checkQCM(this, false)">D) Ses racines sont toutes réelles</button>
-    </div>
-    <button class="share-btn btn-pdf" style="margin-top:15px; width:100%; justify-content:center; border: 1px solid var(--border);" onclick="toggleCor(this)"><i class="fas fa-eye"></i> Afficher le corrigé détaillé</button>
-    <div class="correction-box">
-        <strong>Correction :</strong> L'égalité $P(X) = P(-X)$ implique que pour tout terme $a_k X^k$, on a $a_k = (-1)^k a_k$. Si $k$ est impair, $a_k = -a_k$, d'où $a_k = 0$.
-    </div>
-</div>
+    /* Responsive : repasser sur 1 seule colonne sur les petits écrans (téléphones) */
+    @media (max-width: 600px) {
+        .options-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
 
-<div class="qcm-card" style="margin-bottom: 25px; display: block;">
-    <div class="qcm-question">Q16. Que stipule le Lemme de Gauss sur les polynômes ?</div>
-    <div class="options-grid">
-        <button class="opt-btn" onclick="checkQCM(this, false)">A) Si $A$ divise $B$ et $B$ divise $C$, alors $A$ divise $C$</button>
-        <button class="opt-btn" onclick="checkQCM(this, true)">B) Si $A$ divise $BC$ et $A \wedge B = 1$, alors $A$ divise $C$</button>
-        <button class="opt-btn" onclick="checkQCM(this, false)">C) Tout idéal de $\mathbb{K}[X]$ est principal</button>
-        <button class="opt-btn" onclick="checkQCM(this, false)">D) $\deg(A \wedge B) = \deg(A) - \deg(B)$</button>
-    </div>
-    <button class="share-btn btn-pdf" style="margin-top:15px; width:100%; justify-content:center; border: 1px solid var(--border);" onclick="toggleCor(this)"><i class="fas fa-eye"></i> Afficher le corrigé détaillé</button>
-    <div class="correction-box">
-        <strong>Correction :</strong> Lemme fondamental de l'arithmétique dans les anneaux principaux, déduit du théorème de Bézout.
-    </div>
-</div>
+<div class="qcm-container">
 
-<div class="qcm-card" style="margin-bottom: 25px; display: block;">
-    <div class="qcm-question">Q17. On considère les polynômes d'interpolation de Lagrange $(L_i)_{0 \le i \le n}$ associés à $n+1$ points distincts $(x_i)$. Que vaut $L_i(x_j)$ ?</div>
-    <div class="options-grid">
-        <button class="opt-btn" onclick="checkQCM(this, true)">A) $\delta_{i,j}$ (symbole de Kronecker : 1 si $i=j$, 0 sinon)</button>
-        <button class="opt-btn" onclick="checkQCM(this, false)">B) $x_i - x_j$</button>
-        <button class="opt-btn" onclick="checkQCM(this, false)">C) $1$ pour tout $i, j$</button>
-        <button class="opt-btn" onclick="checkQCM(this, false)">D) $0$ pour tout $i, j$</button>
+    <div class="qcm-header">
+        <h2>Entraînement v1 : Polynômes (25 Questions)</h2>
+        <p>Testez vos fondamentaux. Sélectionnez la bonne réponse pour chaque question.</p>
     </div>
-    <button class="share-btn btn-pdf" style="margin-top:15px; width:100%; justify-content:center; border: 1px solid var(--border);" onclick="toggleCor(this)"><i class="fas fa-eye"></i> Afficher le corrigé détaillé</button>
-    <div class="correction-box">
-        <strong>Correction :</strong> C'est la propriété fondamentale de la base de Lagrange : chaque polynôme $L_i$ s'annule en tous les points sauf en $x_i$ où il vaut 1.
-    </div>
-</div>
 
-<div class="qcm-card" style="margin-bottom: 25px; display: block;">
-    <div class="qcm-question">Q18. Si $P$ a $n$ racines réelles distinctes, que peut-on dire de $P'$ ?</div>
-    <div class="options-grid">
-        <button class="opt-btn" onclick="checkQCM(this, false)">A) $P'$ n'a aucune racine réelle</button>
-        <button class="opt-btn" onclick="checkQCM(this, true)">B) $P'$ a au moins $n-1$ racines réelles distinctes</button>
-        <button class="opt-btn" onclick="checkQCM(this, false)">C) $P'$ a exactement $n$ racines</button>
-        <button class="opt-btn" onclick="checkQCM(this, false)">D) $P'$ est un polynôme constant</button>
+    <div class="qcm-card">
+        <div class="qcm-question">Q1. Soient $P$ et $Q$ deux polynômes non nuls de $\mathbb{K}[X]$. Quelle est la formule correcte pour le degré du produit $P \times Q$ ?</div>
+        <div class="options-grid">
+            <button class="opt-btn" onclick="checkQCM(this, false)">A) $\max(\deg(P), \deg(Q))$</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">B) $\deg(P) \times \deg(Q)$</button>
+            <button class="opt-btn" onclick="checkQCM(this, true)">C) $\deg(P) + \deg(Q)$</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">D) $\min(\deg(P), \deg(Q))$</button>
+        </div>
+        <button class="share-btn btn-pdf" onclick="toggleCor(this)"><i class="fas fa-eye"></i> Afficher le corrigé détaillé</button>
+        <div class="correction-box">
+            <strong>Correction :</strong> Le degré d'un produit est la somme des degrés. Par convention, si l'un des polynômes est nul, son degré est $-\infty$, et l'égalité $-\infty + n = -\infty$ reste cohérente.
+        </div>
     </div>
-    <button class="share-btn btn-pdf" style="margin-top:15px; width:100%; justify-content:center; border: 1px solid var(--border);" onclick="toggleCor(this)"><i class="fas fa-eye"></i> Afficher le corrigé détaillé</button>
-    <div class="correction-box">
-        <strong>Correction :</strong> D'après le théorème de Rolle, entre deux racines distinctes de $P$, il existe au moins une racine de $P'$.
-    </div>
-</div>
 
-<div class="qcm-card" style="margin-bottom: 25px; display: block;">
-    <div class="qcm-question">Q19. Quelle est la condition nécessaire et suffisante pour que $P$ admette au moins une racine multiple dans $\mathbb{C}$ ?</div>
-    <div class="options-grid">
-        <button class="opt-btn" onclick="checkQCM(this, false)">A) $\deg(P) \ge 2$</button>
-        <button class="opt-btn" onclick="checkQCM(this, false)">B) $P(0) = 0$</button>
-        <button class="opt-btn" onclick="checkQCM(this, true)">C) $P$ et $P'$ ne sont pas premiers entre eux</button>
-        <button class="opt-btn" onclick="checkQCM(this, false)">D) $P$ est pair</button>
+    <div class="qcm-card">
+        <div class="qcm-question">Q2. Si $\deg(P) \neq \deg(Q)$, que vaut $\deg(P + Q)$ ?</div>
+        <div class="options-grid">
+            <button class="opt-btn" onclick="checkQCM(this, true)">A) $\max(\deg(P), \deg(Q))$</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">B) $\deg(P) + \deg(Q)$</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">C) $\min(\deg(P), \deg(Q))$</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">D) On ne peut pas savoir</button>
+        </div>
+        <button class="share-btn btn-pdf" onclick="toggleCor(this)"><i class="fas fa-eye"></i> Afficher le corrigé détaillé</button>
+        <div class="correction-box">
+            <strong>Correction :</strong> Si les degrés sont strictement différents, les termes de plus haut degré ne peuvent pas s'annuler. Le degré de la somme est donc exactement le maximum des deux degrés.
+        </div>
     </div>
-    <button class="share-btn btn-pdf" style="margin-top:15px; width:100%; justify-content:center; border: 1px solid var(--border);" onclick="toggleCor(this)"><i class="fas fa-eye"></i> Afficher le corrigé détaillé</button>
-    <div class="correction-box">
-        <strong>Correction :</strong> Si $a$ est racine multiple de $P$, alors $P(a)=P'(a)=0$, donc $(X-a)$ divise le PGCD de $P$ et $P'$, qui n'est donc pas égal à 1.
-    </div>
-</div>
 
-<div class="qcm-card" style="margin-bottom: 25px; display: block;">
-    <div class="qcm-question">Q20. Quel est le degré du polynôme dérivé $P'$ si $\deg(P) = n \ge 1$ en caractéristique 0 (ex: dans $\mathbb{R}$ ou $\mathbb{C}$) ?</div>
-    <div class="options-grid">
-        <button class="opt-btn" onclick="checkQCM(this, false)">A) $n$</button>
-        <button class="opt-btn" onclick="checkQCM(this, true)">B) $n-1$</button>
-        <button class="opt-btn" onclick="checkQCM(this, false)">C) $n+1$</button>
-        <button class="opt-btn" onclick="checkQCM(this, false)">D) Cela dépend du coefficient dominant</button>
+    <div class="qcm-card">
+        <div class="qcm-question">Q3. Soit $P \in \mathbb{K}[X]$ et $a \in \mathbb{K}$. Quel est le reste de la division euclidienne de $P$ par $(X - a)$ ?</div>
+        <div class="options-grid">
+            <button class="opt-btn" onclick="checkQCM(this, false)">A) $0$</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">B) $P'(a)$</button>
+            <button class="opt-btn" onclick="checkQCM(this, true)">C) $P(a)$</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">D) $1$</button>
+        </div>
+        <button class="share-btn btn-pdf" onclick="toggleCor(this)"><i class="fas fa-eye"></i> Afficher le corrigé détaillé</button>
+        <div class="correction-box">
+            <strong>Correction :</strong> En écrivant $P = Q(X-a) + R$, on sait que $\deg(R) < \deg(X-a) = 1$, donc $R$ est une constante. En évaluant en $X=a$, on obtient $P(a) = Q(a)(a-a) + R = R$.
+        </div>
     </div>
-    <button class="share-btn btn-pdf" style="margin-top:15px; width:100%; justify-content:center; border: 1px solid var(--border);" onclick="toggleCor(this)"><i class="fas fa-eye"></i> Afficher le corrigé détaillé</button>
-    <div class="correction-box">
-        <strong>Correction :</strong> En dérivant $a_n X^n$, on obtient $n a_n X^{n-1}$. Comme $n \neq 0$ (caractéristique 0) et $a_n \neq 0$, le degré est exactement $n-1$.
-    </div>
-</div>
 
-<div class="qcm-card" style="margin-bottom: 25px; display: block;">
-    <div class="qcm-question">Q21. PPCM et PGCD : Si $A$ et $B$ sont des polynômes unitaires, on a l'égalité :</div>
-    <div class="options-grid">
-        <button class="opt-btn" onclick="checkQCM(this, true)">A) $AB = (A \wedge B) \times (A \vee B)$</button>
-        <button class="opt-btn" onclick="checkQCM(this, false)">B) $A+B = (A \wedge B) + (A \vee B)$</button>
-        <button class="opt-btn" onclick="checkQCM(this, false)">C) $\deg(A \vee B) = \deg(A) \times \deg(B)$</button>
-        <button class="opt-btn" onclick="checkQCM(this, false)">D) $A \vee B = A \wedge B$</button>
+    <div class="qcm-card">
+        <div class="qcm-question">Q4. On dit que $a$ est une racine de multiplicité $k \ge 1$ du polynôme $P$ si et seulement si :</div>
+        <div class="options-grid">
+            <button class="opt-btn" onclick="checkQCM(this, false)">A) $(X-a)^k$ divise $P$ mais $(X-a)$ ne divise pas $P'$</button>
+            <button class="opt-btn" onclick="checkQCM(this, true)">B) $(X-a)^k$ divise $P$ et $(X-a)^{k+1}$ ne divise pas $P$</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">C) $P(a) = P'(a) = \dots = P^{(k)}(a) = 0$</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">D) $P^{(k)}(a) = 0$ et $P^{(k+1)}(a) \neq 0$</button>
+        </div>
+        <button class="share-btn btn-pdf" onclick="toggleCor(this)"><i class="fas fa-eye"></i> Afficher le corrigé détaillé</button>
+        <div class="correction-box">
+            <strong>Correction :</strong> C'est la définition exacte. L'option C est fausse car la dérivée d'ordre $k$ ne doit justement PAS s'annuler (la condition est $P(a)=...=P^{(k-1)}(a)=0$ et $P^{(k)}(a) \neq 0$).
+        </div>
     </div>
-    <button class="share-btn btn-pdf" style="margin-top:15px; width:100%; justify-content:center; border: 1px solid var(--border);" onclick="toggleCor(this)"><i class="fas fa-eye"></i> Afficher le corrigé détaillé</button>
-    <div class="correction-box">
-        <strong>Correction :</strong> Comme dans l'anneau des entiers $\mathbb{Z}$, le produit du PGCD et du PPCM (unitaires) est égal au produit des polynômes (unitaires).
-    </div>
-</div>
 
-<div class="qcm-card" style="margin-bottom: 25px; display: block;">
-    <div class="qcm-question">Q22. La famille de polynômes $(1, X, X(X-1), X(X-1)(X-2))$ forme-t-elle une base de $\mathbb{R}_3[X]$ ?</div>
-    <div class="options-grid">
-        <button class="opt-btn" onclick="checkQCM(this, true)">A) Oui, car c'est une famille de degrés échelonnés</button>
-        <button class="opt-btn" onclick="checkQCM(this, false)">B) Non, car elle n'a pas 4 éléments</button>
-        <button class="opt-btn" onclick="checkQCM(this, false)">C) Non, car ce n'est pas la base canonique</button>
-        <button class="opt-btn" onclick="checkQCM(this, false)">D) Oui, mais seulement si $X \neq 0$</button>
+    <div class="qcm-card">
+        <div class="qcm-question">Q5. Combien de racines le polynôme $P(X) = X^n - 1$ possède-t-il dans $\mathbb{C}$ ?</div>
+        <div class="options-grid">
+            <button class="opt-btn" onclick="checkQCM(this, true)">A) $n$ racines simples</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">B) $1$ racine d'ordre $n$</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">C) $n-1$ racines simples</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">D) Cela dépend de la parité de $n$</button>
+        </div>
+        <button class="share-btn btn-pdf" onclick="toggleCor(this)"><i class="fas fa-eye"></i> Afficher le corrigé détaillé</button>
+        <div class="correction-box">
+            <strong>Correction :</strong> Ce sont les racines $n$-ièmes de l'unité, données par $e^{2i\pi k/n}$ pour $k \in \{0, \dots, n-1\}$. Elles sont au nombre de $n$ et toutes distinctes.
+        </div>
     </div>
-    <button class="share-btn btn-pdf" style="margin-top:15px; width:100%; justify-content:center; border: 1px solid var(--border);" onclick="toggleCor(this)"><i class="fas fa-eye"></i> Afficher le corrigé détaillé</button>
-    <div class="correction-box">
-        <strong>Correction :</strong> Toute famille de polynômes non nuls de degrés tous distincts (famille échelonnée en degré) est libre. Comme il y a 4 polynômes, c'est une base de l'espace vectoriel $\mathbb{R}_3[X]$ (dimension 4).
-    </div>
-</div>
 
-<div class="qcm-card" style="margin-bottom: 25px; display: block;">
-    <div class="qcm-question">Q23. Soit $P(X) = (X-1)^3(X+2)^2$. Quel est le degré de $P$ ?</div>
-    <div class="options-grid">
-        <button class="opt-btn" onclick="checkQCM(this, false)">A) 3</button>
-        <button class="opt-btn" onclick="checkQCM(this, true)">B) 5</button>
-        <button class="opt-btn" onclick="checkQCM(this, false)">C) 6</button>
-        <button class="opt-btn" onclick="checkQCM(this, false)">D) On ne peut pas savoir sans développer</button>
+    <div class="qcm-card">
+        <div class="qcm-question">Q6. Dans $\mathbb{R}[X]$, quels sont les seuls polynômes irréductibles ?</div>
+        <div class="options-grid">
+            <button class="opt-btn" onclick="checkQCM(this, false)">A) Les polynômes de degré 1 uniquement</button>
+            <button class="opt-btn" onclick="checkQCM(this, true)">B) Les polynômes de degré 1, et ceux de degré 2 avec $\Delta < 0$</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">C) Tous les polynômes de degré impair</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">D) Les polynômes de la forme $X^2 + a^2$</button>
+        </div>
+        <button class="share-btn btn-pdf" onclick="toggleCor(this)"><i class="fas fa-eye"></i> Afficher le corrigé détaillé</button>
+        <div class="correction-box">
+            <strong>Correction :</strong> Théorème fondamental de l'algèbre appliqué à $\mathbb{R}[X]$. Tout polynôme de degré $\ge 3$ est réductible dans $\mathbb{R}[X]$.
+        </div>
     </div>
-    <button class="share-btn btn-pdf" style="margin-top:15px; width:100%; justify-content:center; border: 1px solid var(--border);" onclick="toggleCor(this)"><i class="fas fa-eye"></i> Afficher le corrigé détaillé</button>
-    <div class="correction-box">
-        <strong>Correction :</strong> Le degré du produit est la somme des degrés : $\deg((X-1)^3) + \deg((X+2)^2) = 3 + 2 = 5$.
-    </div>
-</div>
 
-<div class="qcm-card" style="margin-bottom: 25px; display: block;">
-    <div class="qcm-question">Q24. Comment factorise-t-on le polynôme $X^2 - X + 1$ dans $\mathbb{C}[X]$ ? On note $j = e^{i2\pi/3}$.</div>
-    <div class="options-grid">
-        <button class="opt-btn" onclick="checkQCM(this, false)">A) $(X-j)(X-j^2)$</button>
-        <button class="opt-btn" onclick="checkQCM(this, false)">B) $(X-1)(X-j)$</button>
-        <button class="opt-btn" onclick="checkQCM(this, true)">C) $(X+j)(X+j^2)$</button>
-        <button class="opt-btn" onclick="checkQCM(this, false)">D) Il est irréductible dans $\mathbb{C}[X]$</button>
+    <div class="qcm-card">
+        <div class="qcm-question">Q7. Soit $P = a_n X^n + \dots + a_1 X + a_0$ un polynôme scindé. Que vaut la somme de ses racines (comptées avec multiplicité) ?</div>
+        <div class="options-grid">
+            <button class="opt-btn" onclick="checkQCM(this, false)">A) $a_{n-1} / a_n$</button>
+            <button class="opt-btn" onclick="checkQCM(this, true)">B) $-a_{n-1} / a_n$</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">C) $(-1)^n a_0 / a_n$</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">D) $a_1 / a_0$</button>
+        </div>
+        <button class="share-btn btn-pdf" onclick="toggleCor(this)"><i class="fas fa-eye"></i> Afficher le corrigé détaillé</button>
+        <div class="correction-box">
+            <strong>Correction :</strong> C'est la première relation de Viète. La somme des racines est toujours donnée par $-\frac{a_{n-1}}{a_n}$.
+        </div>
     </div>
-    <button class="share-btn btn-pdf" style="margin-top:15px; width:100%; justify-content:center; border: 1px solid var(--border);" onclick="toggleCor(this)"><i class="fas fa-eye"></i> Afficher le corrigé détaillé</button>
-    <div class="correction-box">
-        <strong>Correction :</strong> Les racines de $X^2+X+1$ sont $j$ et $j^2$. Celles de $X^2-X+1$ sont opposées, donc $-j$ et $-j^2$. La factorisation est donc $(X-(-j))(X-(-j^2)) = (X+j)(X+j^2)$.
-    </div>
-</div>
 
-<div class="qcm-card" style="margin-bottom: 25px; display: block;">
-    <div class="qcm-question">Q25. Que désigne l'expression "ordre de multiplicité d'une racine $a$ de $P$" ?</div>
-    <div class="options-grid">
-        <button class="opt-btn" onclick="checkQCM(this, false)">A) Le nombre de fois où $P$ s'annule sur $\mathbb{R}$</button>
-        <button class="opt-btn" onclick="checkQCM(this, true)">B) Le plus grand entier $k$ tel que $(X-a)^k$ divise $P$</button>
-        <button class="opt-btn" onclick="checkQCM(this, false)">C) L'ordre de la plus haute dérivée de $P$ qui s'annule en $a$</button>
-        <button class="opt-btn" onclick="checkQCM(this, false)">D) La valeur de $P(a)$</button>
+    <div class="qcm-card">
+        <div class="qcm-question">Q8. Toujours pour ce même polynôme $P$, que vaut le produit de ses racines ?</div>
+        <div class="options-grid">
+            <button class="opt-btn" onclick="checkQCM(this, false)">A) $a_0 / a_n$</button>
+            <button class="opt-btn" onclick="checkQCM(this, true)">B) $(-1)^n a_0 / a_n$</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">C) $-a_{n-1} / a_n$</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">D) $(-1)^{n-1} a_1 / a_n$</button>
+        </div>
+        <button class="share-btn btn-pdf" onclick="toggleCor(this)"><i class="fas fa-eye"></i> Afficher le corrigé détaillé</button>
+        <div class="correction-box">
+            <strong>Correction :</strong> Dernière relation de Viète. Le produit des racines est $(-1)^n \frac{a_0}{a_n}$.
+        </div>
     </div>
-    <button class="share-btn btn-pdf" style="margin-top:15px; width:100%; justify-content:center; border: 1px solid var(--border);" onclick="toggleCor(this)"><i class="fas fa-eye"></i> Afficher le corrigé détaillé</button>
-    <div class="correction-box">
-        <strong>Correction :</strong> C'est la définition algébrique rigoureuse. On la relie ensuite aux dérivées : si $k$ est l'ordre de multiplicité, alors $P^{(k)}(a) \neq 0$.
-    </div>
-</div>
 
-<div style="text-align: center; margin-top: 40px; margin-bottom: 20px;">
-    <button class="opt-btn finish-btn" style="display:inline-flex; background:var(--gold-btn); color:var(--navy-dark); font-weight:800; border:none; box-shadow:var(--shadow-md); padding: 15px 30px;" onclick="finishQuiz()">
-        <i class="fas fa-flag-checkered" style="margin-right:10px;"></i> Terminer l'entraînement
-    </button>
+    <div class="qcm-card">
+        <div class="qcm-question">Q9. Énoncé du théorème de D'Alembert-Gauss :</div>
+        <div class="options-grid">
+            <button class="opt-btn" onclick="checkQCM(this, false)">A) Tout polynôme réel admet au moins une racine réelle.</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">B) Tout polynôme complexe est de degré pair.</button>
+            <button class="opt-btn" onclick="checkQCM(this, true)">C) Tout polynôme non constant de $\mathbb{C}[X]$ admet au moins une racine dans $\mathbb{C}$.</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">D) Tout polynôme scindé est irréductible.</button>
+        </div>
+        <button class="share-btn btn-pdf" onclick="toggleCor(this)"><i class="fas fa-eye"></i> Afficher le corrigé détaillé</button>
+        <div class="correction-box">
+            <strong>Correction :</strong> Conséquence directe : $\mathbb{C}$ est algébriquement clos. Tout polynôme de $\mathbb{C}[X]$ est donc scindé.
+        </div>
+    </div>
+
+    <div class="qcm-card">
+        <div class="qcm-question">Q10. Soient $A, B \in \mathbb{K}[X]$. Le PGCD de $A$ et $B$, noté $P = A \wedge B$, est caractérisé par :</div>
+        <div class="options-grid">
+            <button class="opt-btn" onclick="checkQCM(this, false)">A) $P$ est le polynôme unitaire de plus petit degré divisant $A$ et $B$.</button>
+            <button class="opt-btn" onclick="checkQCM(this, true)">B) $P$ est l'unique polynôme unitaire générant l'idéal $A\mathbb{K}[X] + B\mathbb{K}[X]$.</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">C) $P$ divise $A+B$ et $A-B$.</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">D) $P$ est le produit des facteurs communs de $A$ et $B$ sans multiplicité.</button>
+        </div>
+        <button class="share-btn btn-pdf" onclick="toggleCor(this)"><i class="fas fa-eye"></i> Afficher le corrigé détaillé</button>
+        <div class="correction-box">
+            <strong>Correction :</strong> Dans l'anneau principal $\mathbb{K}[X]$, la somme de deux idéaux est un idéal engendré par leur PGCD. On l'impose unitaire par convention.
+        </div>
+    </div>
+
+    <div class="qcm-card">
+        <div class="qcm-question">Q11. Identité de Bézout : $A$ et $B$ sont premiers entre eux si et seulement si...</div>
+        <div class="options-grid">
+            <button class="opt-btn" onclick="checkQCM(this, true)">A) $\exists U, V \in \mathbb{K}[X], AU + BV = 1$</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">B) $A$ et $B$ n'ont aucune racine réelle commune</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">C) $\deg(A) \neq \deg(B)$</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">D) $\exists U, V \in \mathbb{K}[X], AU + BV = A \wedge B$</button>
+        </div>
+        <button class="share-btn btn-pdf" onclick="toggleCor(this)"><i class="fas fa-eye"></i> Afficher le corrigé détaillé</button>
+        <div class="correction-box">
+            <strong>Correction :</strong> C'est le théorème de Bézout. Attention, la proposition D est vraie même s'ils ne sont pas premiers entre eux (c'est l'identité de Bézout généralisée). L'égalité à 1 caractérise le fait qu'ils soient premiers entre eux.
+        </div>
+    </div>
+
+    <div class="qcm-card">
+        <div class="qcm-question">Q12. Le polynôme $X^4 + 1$ dans $\mathbb{R}[X]$ est :</div>
+        <div class="options-grid">
+            <button class="opt-btn" onclick="checkQCM(this, false)">A) Irréductible car il n'a pas de racine réelle</button>
+            <button class="opt-btn" onclick="checkQCM(this, true)">B) Réductible en produit de deux polynômes de degré 2</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">C) Scindé</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">D) Une exception au théorème fondamental de l'algèbre</button>
+        </div>
+        <button class="share-btn btn-pdf" onclick="toggleCor(this)"><i class="fas fa-eye"></i> Afficher le corrigé détaillé</button>
+        <div class="correction-box">
+            <strong>Correction :</strong> Tout polynôme réel de degré $\ge 3$ est réductible. Ici, $X^4 + 1 = (X^2 - \sqrt{2}X + 1)(X^2 + \sqrt{2}X + 1)$.
+        </div>
+    </div>
+
+    <div class="qcm-card">
+        <div class="qcm-question">Q13. Si $P \in \mathbb{R}[X]$ et $P(a+ib) = 0$ (avec $b \neq 0$), alors :</div>
+        <div class="options-grid">
+            <button class="opt-btn" onclick="checkQCM(this, false)">A) $P(a-ib)$ n'est pas forcément nul</button>
+            <button class="opt-btn" onclick="checkQCM(this, true)">B) $a-ib$ est aussi racine de $P$ avec la même multiplicité</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">C) $P$ est scindé dans $\mathbb{R}[X]$</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">D) $\deg(P)$ est obligatoirement impair</button>
+        </div>
+        <button class="share-btn btn-pdf" onclick="toggleCor(this)"><i class="fas fa-eye"></i> Afficher le corrigé détaillé</button>
+        <div class="correction-box">
+            <strong>Correction :</strong> Comme les coefficients de $P$ sont réels, $P(\bar{z}) = \overline{P(z)}$. Donc si $P(z)=0$, $P(\bar{z})=0$.
+        </div>
+    </div>
+
+    <div class="qcm-card">
+        <div class="qcm-question">Q14. Formule de Taylor : Pour $P \in \mathbb{K}[X]$ de degré $n$ et $a \in \mathbb{K}$, $P(X) =$</div>
+        <div class="options-grid">
+            <button class="opt-btn" onclick="checkQCM(this, true)">A) $\sum_{k=0}^n \frac{P^{(k)}(a)}{k!} (X-a)^k$</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">B) $\sum_{k=0}^n P^{(k)}(a) (X-a)^k$</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">C) $\sum_{k=0}^n \frac{P(a)}{k!} X^k$</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">D) $\sum_{k=0}^n \frac{P^{(k)}(0)}{k!} (X-a)^k$</button>
+        </div>
+        <button class="share-btn btn-pdf" onclick="toggleCor(this)"><i class="fas fa-eye"></i> Afficher le corrigé détaillé</button>
+        <div class="correction-box">
+            <strong>Correction :</strong> C'est la formule de Taylor exacte pour les polynômes, qui est une identité algébrique (le "reste" est nul puisque les dérivées d'ordre >n sont nulles).
+        </div>
+    </div>
+
+    <div class="qcm-card">
+        <div class="qcm-question">Q15. Un polynôme $P \in \mathbb{R}[X]$ vérifie $P(X) = P(-X)$. Que peut-on dire de $P$ ?</div>
+        <div class="options-grid">
+            <button class="opt-btn" onclick="checkQCM(this, false)">A) $P$ est nul</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">B) Tous ses coefficients sont nuls</button>
+            <button class="opt-btn" onclick="checkQCM(this, true)">C) Ses coefficients de rang impair sont nuls (Polynôme pair)</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">D) Ses racines sont toutes réelles</button>
+        </div>
+        <button class="share-btn btn-pdf" onclick="toggleCor(this)"><i class="fas fa-eye"></i> Afficher le corrigé détaillé</button>
+        <div class="correction-box">
+            <strong>Correction :</strong> L'égalité $P(X) = P(-X)$ implique que pour tout terme $a_k X^k$, on a $a_k = (-1)^k a_k$. Si $k$ est impair, $a_k = -a_k$, d'où $a_k = 0$.
+        </div>
+    </div>
+
+    <div class="qcm-card">
+        <div class="qcm-question">Q16. Que stipule le Lemme de Gauss sur les polynômes ?</div>
+        <div class="options-grid">
+            <button class="opt-btn" onclick="checkQCM(this, false)">A) Si $A$ divise $B$ et $B$ divise $C$, alors $A$ divise $C$</button>
+            <button class="opt-btn" onclick="checkQCM(this, true)">B) Si $A$ divise $BC$ et $A \wedge B = 1$, alors $A$ divise $C$</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">C) Tout idéal de $\mathbb{K}[X]$ est principal</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">D) $\deg(A \wedge B) = \deg(A) - \deg(B)$</button>
+        </div>
+        <button class="share-btn btn-pdf" onclick="toggleCor(this)"><i class="fas fa-eye"></i> Afficher le corrigé détaillé</button>
+        <div class="correction-box">
+            <strong>Correction :</strong> Lemme fondamental de l'arithmétique dans les anneaux principaux, déduit du théorème de Bézout.
+        </div>
+    </div>
+
+    <div class="qcm-card">
+        <div class="qcm-question">Q17. On considère les polynômes d'interpolation de Lagrange $(L_i)_{0 \le i \le n}$ associés à $n+1$ points distincts $(x_i)$. Que vaut $L_i(x_j)$ ?</div>
+        <div class="options-grid">
+            <button class="opt-btn" onclick="checkQCM(this, true)">A) $\delta_{i,j}$ (symbole de Kronecker : 1 si $i=j$, 0 sinon)</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">B) $x_i - x_j$</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">C) $1$ pour tout $i, j$</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">D) $0$ pour tout $i, j$</button>
+        </div>
+        <button class="share-btn btn-pdf" onclick="toggleCor(this)"><i class="fas fa-eye"></i> Afficher le corrigé détaillé</button>
+        <div class="correction-box">
+            <strong>Correction :</strong> C'est la propriété fondamentale de la base de Lagrange : chaque polynôme $L_i$ s'annule en tous les points sauf en $x_i$ où il vaut 1.
+        </div>
+    </div>
+
+    <div class="qcm-card">
+        <div class="qcm-question">Q18. Si $P$ a $n$ racines réelles distinctes, que peut-on dire de $P'$ ?</div>
+        <div class="options-grid">
+            <button class="opt-btn" onclick="checkQCM(this, false)">A) $P'$ n'a aucune racine réelle</button>
+            <button class="opt-btn" onclick="checkQCM(this, true)">B) $P'$ a au moins $n-1$ racines réelles distinctes</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">C) $P'$ a exactement $n$ racines</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">D) $P'$ est un polynôme constant</button>
+        </div>
+        <button class="share-btn btn-pdf" onclick="toggleCor(this)"><i class="fas fa-eye"></i> Afficher le corrigé détaillé</button>
+        <div class="correction-box">
+            <strong>Correction :</strong> D'après le théorème de Rolle, entre deux racines distinctes de $P$, il existe au moins une racine de $P'$.
+        </div>
+    </div>
+
+    <div class="qcm-card">
+        <div class="qcm-question">Q19. Quelle est la condition nécessaire et suffisante pour que $P$ admette au moins une racine multiple dans $\mathbb{C}$ ?</div>
+        <div class="options-grid">
+            <button class="opt-btn" onclick="checkQCM(this, false)">A) $\deg(P) \ge 2$</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">B) $P(0) = 0$</button>
+            <button class="opt-btn" onclick="checkQCM(this, true)">C) $P$ et $P'$ ne sont pas premiers entre eux</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">D) $P$ est pair</button>
+        </div>
+        <button class="share-btn btn-pdf" onclick="toggleCor(this)"><i class="fas fa-eye"></i> Afficher le corrigé détaillé</button>
+        <div class="correction-box">
+            <strong>Correction :</strong> Si $a$ est racine multiple de $P$, alors $P(a)=P'(a)=0$, donc $(X-a)$ divise le PGCD de $P$ et $P'$, qui n'est donc pas égal à 1.
+        </div>
+    </div>
+
+    <div class="qcm-card">
+        <div class="qcm-question">Q20. Quel est le degré du polynôme dérivé $P'$ si $\deg(P) = n \ge 1$ en caractéristique 0 (ex: dans $\mathbb{R}$ ou $\mathbb{C}$) ?</div>
+        <div class="options-grid">
+            <button class="opt-btn" onclick="checkQCM(this, false)">A) $n$</button>
+            <button class="opt-btn" onclick="checkQCM(this, true)">B) $n-1$</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">C) $n+1$</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">D) Cela dépend du coefficient dominant</button>
+        </div>
+        <button class="share-btn btn-pdf" onclick="toggleCor(this)"><i class="fas fa-eye"></i> Afficher le corrigé détaillé</button>
+        <div class="correction-box">
+            <strong>Correction :</strong> En dérivant $a_n X^n$, on obtient $n a_n X^{n-1}$. Comme $n \neq 0$ (caractéristique 0) et $a_n \neq 0$, le degré est exactement $n-1$.
+        </div>
+    </div>
+
+    <div class="qcm-card">
+        <div class="qcm-question">Q21. PPCM et PGCD : Si $A$ et $B$ sont des polynômes unitaires, on a l'égalité :</div>
+        <div class="options-grid">
+            <button class="opt-btn" onclick="checkQCM(this, true)">A) $AB = (A \wedge B) \times (A \vee B)$</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">B) $A+B = (A \wedge B) + (A \vee B)$</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">C) $\deg(A \vee B) = \deg(A) \times \deg(B)$</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">D) $A \vee B = A \wedge B$</button>
+        </div>
+        <button class="share-btn btn-pdf" onclick="toggleCor(this)"><i class="fas fa-eye"></i> Afficher le corrigé détaillé</button>
+        <div class="correction-box">
+            <strong>Correction :</strong> Comme dans l'anneau des entiers $\mathbb{Z}$, le produit du PGCD et du PPCM (unitaires) est égal au produit des polynômes (unitaires).
+        </div>
+    </div>
+
+    <div class="qcm-card">
+        <div class="qcm-question">Q22. La famille de polynômes $(1, X, X(X-1), X(X-1)(X-2))$ forme-t-elle une base de $\mathbb{R}_3[X]$ ?</div>
+        <div class="options-grid">
+            <button class="opt-btn" onclick="checkQCM(this, true)">A) Oui, car c'est une famille de degrés échelonnés</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">B) Non, car elle n'a pas 4 éléments</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">C) Non, car ce n'est pas la base canonique</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">D) Oui, mais seulement si $X \neq 0$</button>
+        </div>
+        <button class="share-btn btn-pdf" onclick="toggleCor(this)"><i class="fas fa-eye"></i> Afficher le corrigé détaillé</button>
+        <div class="correction-box">
+            <strong>Correction :</strong> Toute famille de polynômes non nuls de degrés tous distincts (famille échelonnée en degré) est libre. Comme il y a 4 polynômes, c'est une base de l'espace vectoriel $\mathbb{R}_3[X]$ (dimension 4).
+        </div>
+    </div>
+
+    <div class="qcm-card">
+        <div class="qcm-question">Q23. Soit $P(X) = (X-1)^3(X+2)^2$. Quel est le degré de $P$ ?</div>
+        <div class="options-grid">
+            <button class="opt-btn" onclick="checkQCM(this, false)">A) 3</button>
+            <button class="opt-btn" onclick="checkQCM(this, true)">B) 5</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">C) 6</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">D) On ne peut pas savoir sans développer</button>
+        </div>
+        <button class="share-btn btn-pdf" onclick="toggleCor(this)"><i class="fas fa-eye"></i> Afficher le corrigé détaillé</button>
+        <div class="correction-box">
+            <strong>Correction :</strong> Le degré du produit est la somme des degrés : $\deg((X-1)^3) + \deg((X+2)^2) = 3 + 2 = 5$.
+        </div>
+    </div>
+
+    <div class="qcm-card">
+        <div class="qcm-question">Q24. Comment factorise-t-on le polynôme $X^2 - X + 1$ dans $\mathbb{C}[X]$ ? On note $j = e^{i2\pi/3}$.</div>
+        <div class="options-grid">
+            <button class="opt-btn" onclick="checkQCM(this, false)">A) $(X-j)(X-j^2)$</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">B) $(X-1)(X-j)$</button>
+            <button class="opt-btn" onclick="checkQCM(this, true)">C) $(X+j)(X+j^2)$</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">D) Il est irréductible dans $\mathbb{C}[X]$</button>
+        </div>
+        <button class="share-btn btn-pdf" onclick="toggleCor(this)"><i class="fas fa-eye"></i> Afficher le corrigé détaillé</button>
+        <div class="correction-box">
+            <strong>Correction :</strong> Les racines de $X^2+X+1$ sont $j$ et $j^2$. Celles de $X^2-X+1$ sont opposées, donc $-j$ et $-j^2$. La factorisation est donc $(X-(-j))(X-(-j^2)) = (X+j)(X+j^2)$.
+        </div>
+    </div>
+
+    <div class="qcm-card">
+        <div class="qcm-question">Q25. Que désigne l'expression "ordre de multiplicité d'une racine $a$ de $P$" ?</div>
+        <div class="options-grid">
+            <button class="opt-btn" onclick="checkQCM(this, false)">A) Le nombre de fois où $P$ s'annule sur $\mathbb{R}$</button>
+            <button class="opt-btn" onclick="checkQCM(this, true)">B) Le plus grand entier $k$ tel que $(X-a)^k$ divise $P$</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">C) L'ordre de la plus haute dérivée de $P$ qui s'annule en $a$</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">D) La valeur de $P(a)$</button>
+        </div>
+        <button class="share-btn btn-pdf" onclick="toggleCor(this)"><i class="fas fa-eye"></i> Afficher le corrigé détaillé</button>
+        <div class="correction-box">
+            <strong>Correction :</strong> C'est la définition algébrique rigoureuse. On la relie ensuite aux dérivées : si $k$ est l'ordre de multiplicité, alors $P^{(k)}(a) \neq 0$.
+        </div>
+    </div>
+
+    <div style="text-align: center; margin-top: 40px; margin-bottom: 20px;">
+        <button class="opt-btn finish-btn" onclick="finishQuiz()">
+            <i class="fas fa-flag-checkered" style="margin-right:10px;"></i> Terminer l'entraînement
+        </button>
+    </div>
 </div>
