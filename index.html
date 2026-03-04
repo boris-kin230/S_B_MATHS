@@ -1,687 +1,360 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Elian Maths | PCSI Prestige Edition</title>
-    
-    <script>
-        window.MathJax = {
-            tex: { 
-                inlineMath: [['$', '$'], ['\\(', '\\)']], 
-                displayMath: [['$$', '$$']],
-                processEscapes: true
-            },
-            options: { enableMenu: false }
-        };
-    </script>
-    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    
-    <style>
-        :root {
-            --navy-dark: #0a0f1d;     
-            --navy-main: #111827;     
-            --gold-btn: #eab308;      
-            --gold-hover: #facc15;    
-            --gold-muted: #c6a052;    
-            --bg-page: #f8fafc;        
-            --surface: #ffffff;        
-            --text-main: #1e293b;
-            --text-muted: #64748b;
-            --border: #e2e8f0;
-            --radius: 16px;
-            --shadow-sm: 0 2px 8px rgba(0,0,0,0.05);
-            --shadow-md: 0 10px 30px rgba(0,0,0,0.08);
-            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
+<div class="qcm-header" style="margin-bottom: 30px;">
+    <h2 style="color: var(--navy-dark); border-left: 4px solid var(--gold-btn); padding-left: 15px;">Entraînement v1 : Polynômes (25 Questions)</h2>
+    <p style="color: var(--text-muted);">Testez vos fondamentaux. Sélectionnez la bonne réponse pour chaque question.</p>
+</div>
 
-        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+<div class="qcm-card">
+    <div class="qcm-question">Q1. Soient $P$ et $Q$ deux polynômes non nuls de $\mathbb{K}[X]$. Quelle est la formule correcte pour le degré du produit $P \times Q$ ?</div>
+    <div class="options-grid">
+        <button class="opt-btn" onclick="checkQCM(this, false)">A) $\max(\deg(P), \deg(Q))$</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">B) $\deg(P) \times \deg(Q)$</button>
+        <button class="opt-btn" onclick="checkQCM(this, true)">C) $\deg(P) + \deg(Q)$</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">D) $\min(\deg(P), \deg(Q))$</button>
+    </div>
+    <button class="share-btn btn-pdf" style="margin-top:15px; width:100%; justify-content:center; border: 1px solid var(--border);" onclick="toggleCor(this)"><i class="fas fa-eye"></i> Afficher le corrigé détaillé</button>
+    <div class="correction-box">
+        <strong>Correction :</strong> Le degré d'un produit est la somme des degrés. Par convention, si l'un des polynômes est nul, son degré est $-\infty$, et l'égalité $-\infty + n = -\infty$ reste cohérente.
+    </div>
+</div>
 
-        body { 
-            font-family: 'Inter', sans-serif; 
-            margin: 0; 
-            background: var(--bg-page); 
-            color: var(--text-main); 
-            display: flex; 
-            height: 100vh; 
-            overflow: hidden; 
-        }
+<div class="qcm-card">
+    <div class="qcm-question">Q2. Si $\deg(P) \neq \deg(Q)$, que vaut $\deg(P + Q)$ ?</div>
+    <div class="options-grid">
+        <button class="opt-btn" onclick="checkQCM(this, true)">A) $\max(\deg(P), \deg(Q))$</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">B) $\deg(P) + \deg(Q)$</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">C) $\min(\deg(P), \deg(Q))$</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">D) On ne peut pas savoir</button>
+    </div>
+    <button class="share-btn btn-pdf" style="margin-top:15px; width:100%; justify-content:center; border: 1px solid var(--border);" onclick="toggleCor(this)"><i class="fas fa-eye"></i> Afficher le corrigé détaillé</button>
+    <div class="correction-box">
+        <strong>Correction :</strong> Si les degrés sont strictement différents, les termes de plus haut degré ne peuvent pas s'annuler. Le degré de la somme est donc exactement le maximum des deux degrés.
+    </div>
+</div>
 
-        /* --- SIDEBAR PRESTIGE --- */
-        #sidebar { 
-            width: 320px; 
-            min-width: 320px;
-            height: 100vh; 
-            background: var(--surface); 
-            border-right: 1px solid var(--border); 
-            display: flex;
-            flex-direction: column;
-            z-index: 1000;
-            transition: var(--transition);
-        }
+<div class="qcm-card">
+    <div class="qcm-question">Q3. Soit $P \in \mathbb{K}[X]$ et $a \in \mathbb{K}$. Quel est le reste de la division euclidienne de $P$ par $(X - a)$ ?</div>
+    <div class="options-grid">
+        <button class="opt-btn" onclick="checkQCM(this, false)">A) $0$</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">B) $P'(a)$</button>
+        <button class="opt-btn" onclick="checkQCM(this, true)">C) $P(a)$</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">D) $1$</button>
+    </div>
+    <button class="share-btn btn-pdf" style="margin-top:15px; width:100%; justify-content:center; border: 1px solid var(--border);" onclick="toggleCor(this)"><i class="fas fa-eye"></i> Afficher le corrigé détaillé</button>
+    <div class="correction-box">
+        <strong>Correction :</strong> En écrivant $P = Q(X-a) + R$, on sait que $\deg(R) < \deg(X-a) = 1$, donc $R$ est une constante. En évaluant en $X=a$, on obtient $P(a) = Q(a)(a-a) + R = R$.
+    </div>
+</div>
 
-        .logo-area { 
-            padding: 40px 25px; 
-            border-bottom: 1px solid var(--border);
-            text-align: center;
-        }
+<div class="qcm-card">
+    <div class="qcm-question">Q4. On dit que $a$ est une racine de multiplicité $k \ge 1$ du polynôme $P$ si et seulement si :</div>
+    <div class="options-grid">
+        <button class="opt-btn" onclick="checkQCM(this, false)">A) $(X-a)^k$ divise $P$ mais $(X-a)$ ne divise pas $P'$</button>
+        <button class="opt-btn" onclick="checkQCM(this, true)">B) $(X-a)^k$ divise $P$ et $(X-a)^{k+1}$ ne divise pas $P$</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">C) $P(a) = P'(a) = \dots = P^{(k)}(a) = 0$</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">D) $P^{(k)}(a) = 0$ et $P^{(k+1)}(a) \neq 0$</button>
+    </div>
+    <button class="share-btn btn-pdf" style="margin-top:15px; width:100%; justify-content:center; border: 1px solid var(--border);" onclick="toggleCor(this)"><i class="fas fa-eye"></i> Afficher le corrigé détaillé</button>
+    <div class="correction-box">
+        <strong>Correction :</strong> C'est la définition exacte. L'option C est fausse car la dérivée d'ordre $k$ ne doit justement PAS s'annuler (la condition est $P(a)=...=P^{(k-1)}(a)=0$ et $P^{(k)}(a) \neq 0$).
+    </div>
+</div>
 
-        .logo-box {
-            background: var(--navy-dark);
-            padding: 15px 20px;
-            border-radius: 14px;
-            display: inline-block;
-            border: 1px solid rgba(234, 179, 8, 0.3);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
-        }
+<div class="qcm-card">
+    <div class="qcm-question">Q5. Combien de racines le polynôme $P(X) = X^n - 1$ possède-t-il dans $\mathbb{C}$ ?</div>
+    <div class="options-grid">
+        <button class="opt-btn" onclick="checkQCM(this, true)">A) $n$ racines simples</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">B) $1$ racine d'ordre $n$</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">C) $n-1$ racines simples</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">D) Cela dépend de la parité de $n$</button>
+    </div>
+    <button class="share-btn btn-pdf" style="margin-top:15px; width:100%; justify-content:center; border: 1px solid var(--border);" onclick="toggleCor(this)"><i class="fas fa-eye"></i> Afficher le corrigé détaillé</button>
+    <div class="correction-box">
+        <strong>Correction :</strong> Ce sont les racines $n$-ièmes de l'unité, données par $e^{2i\pi k/n}$ pour $k \in \{0, \dots, n-1\}$. Elles sont au nombre de $n$ et toutes distinctes.
+    </div>
+</div>
 
-        .logo-text { 
-            color: #fff; 
-            font-weight: 800; 
-            font-size: 1.4rem; 
-            margin: 0; 
-            letter-spacing: -1px;
-        }
-        .logo-text span { color: var(--gold-btn); }
+<div class="qcm-card">
+    <div class="qcm-question">Q6. Dans $\mathbb{R}[X]$, quels sont les seuls polynômes irréductibles ?</div>
+    <div class="options-grid">
+        <button class="opt-btn" onclick="checkQCM(this, false)">A) Les polynômes de degré 1 uniquement</button>
+        <button class="opt-btn" onclick="checkQCM(this, true)">B) Les polynômes de degré 1, et ceux de degré 2 avec $\Delta < 0$</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">C) Tous les polynômes de degré impair</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">D) Les polynômes de la forme $X^2 + a^2$</button>
+    </div>
+    <button class="share-btn btn-pdf" style="margin-top:15px; width:100%; justify-content:center; border: 1px solid var(--border);" onclick="toggleCor(this)"><i class="fas fa-eye"></i> Afficher le corrigé détaillé</button>
+    <div class="correction-box">
+        <strong>Correction :</strong> Théorème fondamental de l'algèbre appliqué à $\mathbb{R}[X]$. Tout polynôme de degré $\ge 3$ est réductible dans $\mathbb{R}[X]$.
+    </div>
+</div>
 
-        .badge-pcsi {
-            display: inline-block;
-            margin-top: 15px;
-            padding: 6px 14px;
-            background: linear-gradient(135deg, var(--gold-btn), var(--gold-hover));
-            color: var(--navy-dark);
-            font-size: 0.7rem;
-            font-weight: 800;
-            border-radius: 50px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
+<div class="qcm-card">
+    <div class="qcm-question">Q7. Soit $P = a_n X^n + \dots + a_1 X + a_0$ un polynôme scindé. Que vaut la somme de ses racines (comptées avec multiplicité) ?</div>
+    <div class="options-grid">
+        <button class="opt-btn" onclick="checkQCM(this, false)">A) $a_{n-1} / a_n$</button>
+        <button class="opt-btn" onclick="checkQCM(this, true)">B) $-a_{n-1} / a_n$</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">C) $(-1)^n a_0 / a_n$</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">D) $a_1 / a_0$</button>
+    </div>
+    <button class="share-btn btn-pdf" style="margin-top:15px; width:100%; justify-content:center; border: 1px solid var(--border);" onclick="toggleCor(this)"><i class="fas fa-eye"></i> Afficher le corrigé détaillé</button>
+    <div class="correction-box">
+        <strong>Correction :</strong> C'est la première relation de Viète. La somme des racines est toujours donnée par $-\frac{a_{n-1}}{a_n}$.
+    </div>
+</div>
 
-        #nav-scroll {
-            flex-grow: 1;
-            overflow-y: auto;
-            padding: 20px 0;
-        }
+<div class="qcm-card">
+    <div class="qcm-question">Q8. Toujours pour ce même polynôme $P$, que vaut le produit de ses racines ?</div>
+    <div class="options-grid">
+        <button class="opt-btn" onclick="checkQCM(this, false)">A) $a_0 / a_n$</button>
+        <button class="opt-btn" onclick="checkQCM(this, true)">B) $(-1)^n a_0 / a_n$</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">C) $-a_{n-1} / a_n$</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">D) $(-1)^{n-1} a_1 / a_n$</button>
+    </div>
+    <button class="share-btn btn-pdf" style="margin-top:15px; width:100%; justify-content:center; border: 1px solid var(--border);" onclick="toggleCor(this)"><i class="fas fa-eye"></i> Afficher le corrigé détaillé</button>
+    <div class="correction-box">
+        <strong>Correction :</strong> Dernière relation de Viète. Le produit des racines est $(-1)^n \frac{a_0}{a_n}$.
+    </div>
+</div>
 
-        /* --- ACCORDEON --- */
-        .chap-group { margin-bottom: 5px; }
+<div class="qcm-card">
+    <div class="qcm-question">Q9. Énoncé du théorème de D'Alembert-Gauss :</div>
+    <div class="options-grid">
+        <button class="opt-btn" onclick="checkQCM(this, false)">A) Tout polynôme réel admet au moins une racine réelle.</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">B) Tout polynôme complexe est de degré pair.</button>
+        <button class="opt-btn" onclick="checkQCM(this, true)">C) Tout polynôme non constant de $\mathbb{C}[X]$ admet au moins une racine dans $\mathbb{C}$.</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">D) Tout polynôme scindé est irréductible.</button>
+    </div>
+    <button class="share-btn btn-pdf" style="margin-top:15px; width:100%; justify-content:center; border: 1px solid var(--border);" onclick="toggleCor(this)"><i class="fas fa-eye"></i> Afficher le corrigé détaillé</button>
+    <div class="correction-box">
+        <strong>Correction :</strong> Conséquence directe : $\mathbb{C}$ est algébriquement clos. Tout polynôme de $\mathbb{C}[X]$ est donc scindé.
+    </div>
+</div>
 
-        .chap-toggle {
-            width: 100%;
-            padding: 16px 25px;
-            background: none;
-            border: none;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            cursor: pointer;
-            font-weight: 700;
-            font-size: 0.85rem;
-            color: var(--navy-dark);
-            text-transform: uppercase;
-            transition: var(--transition);
-        }
+<div class="qcm-card">
+    <div class="qcm-question">Q10. Soient $A, B \in \mathbb{K}[X]$. Le PGCD de $A$ et $B$, noté $P = A \wedge B$, est caractérisé par :</div>
+    <div class="options-grid">
+        <button class="opt-btn" onclick="checkQCM(this, false)">A) $P$ est le polynôme unitaire de plus petit degré divisant $A$ et $B$.</button>
+        <button class="opt-btn" onclick="checkQCM(this, true)">B) $P$ est l'unique polynôme unitaire générant l'idéal $A\mathbb{K}[X] + B\mathbb{K}[X]$.</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">C) $P$ divise $A+B$ et $A-B$.</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">D) $P$ est le produit des facteurs communs de $A$ et $B$ sans multiplicité.</button>
+    </div>
+    <button class="share-btn btn-pdf" style="margin-top:15px; width:100%; justify-content:center; border: 1px solid var(--border);" onclick="toggleCor(this)"><i class="fas fa-eye"></i> Afficher le corrigé détaillé</button>
+    <div class="correction-box">
+        <strong>Correction :</strong> Dans l'anneau principal $\mathbb{K}[X]$, la somme de deux idéaux est un idéal engendré par leur PGCD. On l'impose unitaire par convention.
+    </div>
+</div>
 
-        .chap-toggle:hover { background: #f1f5f9; }
-        .chap-toggle i.main-icon { width: 25px; color: var(--gold-muted); }
+<div class="qcm-card">
+    <div class="qcm-question">Q11. Identité de Bézout : $A$ et $B$ sont premiers entre eux si et seulement si...</div>
+    <div class="options-grid">
+        <button class="opt-btn" onclick="checkQCM(this, true)">A) $\exists U, V \in \mathbb{K}[X], AU + BV = 1$</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">B) $A$ et $B$ n'ont aucune racine réelle commune</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">C) $\deg(A) \neq \deg(B)$</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">D) $\exists U, V \in \mathbb{K}[X], AU + BV = A \wedge B$</button>
+    </div>
+    <button class="share-btn btn-pdf" style="margin-top:15px; width:100%; justify-content:center; border: 1px solid var(--border);" onclick="toggleCor(this)"><i class="fas fa-eye"></i> Afficher le corrigé détaillé</button>
+    <div class="correction-box">
+        <strong>Correction :</strong> C'est le théorème de Bézout. Attention, la proposition D est vraie même s'ils ne sont pas premiers entre eux (c'est l'identité de Bézout généralisée). L'égalité à 1 caractérise le fait qu'ils soient premiers entre eux.
+    </div>
+</div>
 
-        .chap-content {
-            display: none;
-            background: #fafbfc;
-            border-bottom: 1px solid var(--border);
-        }
-        .chap-content.active { display: block; }
+<div class="qcm-card">
+    <div class="qcm-question">Q12. Le polynôme $X^4 + 1$ dans $\mathbb{R}[X]$ est :</div>
+    <div class="options-grid">
+        <button class="opt-btn" onclick="checkQCM(this, false)">A) Irréductible car il n'a pas de racine réelle</button>
+        <button class="opt-btn" onclick="checkQCM(this, true)">B) Réductible en produit de deux polynômes de degré 2</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">C) Scindé</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">D) Une exception au théorème fondamental de l'algèbre</button>
+    </div>
+    <button class="share-btn btn-pdf" style="margin-top:15px; width:100%; justify-content:center; border: 1px solid var(--border);" onclick="toggleCor(this)"><i class="fas fa-eye"></i> Afficher le corrigé détaillé</button>
+    <div class="correction-box">
+        <strong>Correction :</strong> Tout polynôme réel de degré $\ge 3$ est réductible. Ici, $X^4 + 1 = (X^2 - \sqrt{2}X + 1)(X^2 + \sqrt{2}X + 1)$.
+    </div>
+</div>
 
-        .nav-section-title {
-            padding: 15px 30px 5px;
-            font-size: 0.65rem;
-            font-weight: 800;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
+<div class="qcm-card">
+    <div class="qcm-question">Q13. Si $P \in \mathbb{R}[X]$ et $P(a+ib) = 0$ (avec $b \neq 0$), alors :</div>
+    <div class="options-grid">
+        <button class="opt-btn" onclick="checkQCM(this, false)">A) $P(a-ib)$ n'est pas forcément nul</button>
+        <button class="opt-btn" onclick="checkQCM(this, true)">B) $a-ib$ est aussi racine de $P$ avec la même multiplicité</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">C) $P$ est scindé dans $\mathbb{R}[X]$</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">D) $\deg(P)$ est obligatoirement impair</button>
+    </div>
+    <button class="share-btn btn-pdf" style="margin-top:15px; width:100%; justify-content:center; border: 1px solid var(--border);" onclick="toggleCor(this)"><i class="fas fa-eye"></i> Afficher le corrigé détaillé</button>
+    <div class="correction-box">
+        <strong>Correction :</strong> Comme les coefficients de $P$ sont réels, $P(\bar{z}) = \overline{P(z)}$. Donc si $P(z)=0$, $P(\bar{z})=0$.
+    </div>
+</div>
 
-        .nav-link {
-            display: flex;
-            align-items: center;
-            padding: 12px 30px 12px 45px;
-            color: var(--text-muted);
-            text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: 500;
-            cursor: pointer;
-            transition: var(--transition);
-        }
+<div class="qcm-card">
+    <div class="qcm-question">Q14. Formule de Taylor : Pour $P \in \mathbb{K}[X]$ de degré $n$ et $a \in \mathbb{K}$, $P(X) =$</div>
+    <div class="options-grid">
+        <button class="opt-btn" onclick="checkQCM(this, true)">A) $\sum_{k=0}^n \frac{P^{(k)}(a)}{k!} (X-a)^k$</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">B) $\sum_{k=0}^n P^{(k)}(a) (X-a)^k$</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">C) $\sum_{k=0}^n \frac{P(a)}{k!} X^k$</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">D) $\sum_{k=0}^n \frac{P^{(k)}(0)}{k!} (X-a)^k$</button>
+    </div>
+    <button class="share-btn btn-pdf" style="margin-top:15px; width:100%; justify-content:center; border: 1px solid var(--border);" onclick="toggleCor(this)"><i class="fas fa-eye"></i> Afficher le corrigé détaillé</button>
+    <div class="correction-box">
+        <strong>Correction :</strong> C'est la formule de Taylor exacte pour les polynômes, qui est une identité algébrique (le "reste" est nul puisque les dérivées d'ordre $>n$ sont nulles).
+    </div>
+</div>
 
-        .nav-link:hover {
-            color: var(--navy-dark);
-            background: #fff;
-            padding-left: 50px;
-            box-shadow: inset 4px 0 0 var(--gold-btn);
-        }
+<div class="qcm-card">
+    <div class="qcm-question">Q15. Un polynôme $P \in \mathbb{R}[X]$ vérifie $P(X) = P(-X)$. Que peut-on dire de $P$ ?</div>
+    <div class="options-grid">
+        <button class="opt-btn" onclick="checkQCM(this, false)">A) $P$ est nul</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">B) Tous ses coefficients sont nuls</button>
+        <button class="opt-btn" onclick="checkQCM(this, true)">C) Ses coefficients de rang impair sont nuls (Polynôme pair)</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">D) Ses racines sont toutes réelles</button>
+    </div>
+    <button class="share-btn btn-pdf" style="margin-top:15px; width:100%; justify-content:center; border: 1px solid var(--border);" onclick="toggleCor(this)"><i class="fas fa-eye"></i> Afficher le corrigé détaillé</button>
+    <div class="correction-box">
+        <strong>Correction :</strong> L'égalité $P(X) = P(-X)$ implique que pour tout terme $a_k X^k$, on a $a_k = (-1)^k a_k$. Si $k$ est impair, $a_k = -a_k$, d'où $a_k = 0$.
+    </div>
+</div>
 
-        .nav-link i { margin-right: 12px; font-size: 0.85rem; width: 18px; text-align: center; }
-        
-        .nav-link.active-link {
-            color: var(--navy-dark);
-            background: #fff;
-            font-weight: 700;
-            box-shadow: inset 4px 0 0 var(--gold-btn);
-        }
+<div class="qcm-card">
+    <div class="qcm-question">Q16. Que stipule le Lemme de Gauss sur les polynômes ?</div>
+    <div class="options-grid">
+        <button class="opt-btn" onclick="checkQCM(this, false)">A) Si $A$ divise $B$ et $B$ divise $C$, alors $A$ divise $C$</button>
+        <button class="opt-btn" onclick="checkQCM(this, true)">B) Si $A$ divise $BC$ et $A \wedge B = 1$, alors $A$ divise $C$</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">C) Tout idéal de $\mathbb{K}[X]$ est principal</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">D) $\deg(A \wedge B) = \deg(A) - \deg(B)$</button>
+    </div>
+    <button class="share-btn btn-pdf" style="margin-top:15px; width:100%; justify-content:center; border: 1px solid var(--border);" onclick="toggleCor(this)"><i class="fas fa-eye"></i> Afficher le corrigé détaillé</button>
+    <div class="correction-box">
+        <strong>Correction :</strong> Lemme fondamental de l'arithmétique dans les anneaux principaux, déduit du théorème de Bézout.
+    </div>
+</div>
 
-        /* --- MAIN AREA --- */
-        #main-wrapper {
-            flex-grow: 1;
-            height: 100vh;
-            overflow-y: auto;
-            position: relative;
-            background: var(--bg-page);
-            scroll-behavior: smooth;
-        }
+<div class="qcm-card">
+    <div class="qcm-question">Q17. On considère les polynômes d'interpolation de Lagrange $(L_i)_{0 \le i \le n}$ associés à $n+1$ points distincts $(x_i)$. Que vaut $L_i(x_j)$ ?</div>
+    <div class="options-grid">
+        <button class="opt-btn" onclick="checkQCM(this, true)">A) $\delta_{i,j}$ (symbole de Kronecker : 1 si $i=j$, 0 sinon)</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">B) $x_i - x_j$</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">C) $1$ pour tout $i, j$</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">D) $0$ pour tout $i, j$</button>
+    </div>
+    <button class="share-btn btn-pdf" style="margin-top:15px; width:100%; justify-content:center; border: 1px solid var(--border);" onclick="toggleCor(this)"><i class="fas fa-eye"></i> Afficher le corrigé détaillé</button>
+    <div class="correction-box">
+        <strong>Correction :</strong> C'est la propriété fondamentale de la base de Lagrange : chaque polynôme $L_i$ s'annule en tous les points sauf en $x_i$ où il vaut 1.
+    </div>
+</div>
 
-        #content-container {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 40px 20px 120px;
-        }
+<div class="qcm-card">
+    <div class="qcm-question">Q18. Si $P$ a $n$ racines réelles distinctes, que peut-on dire de $P'$ ?</div>
+    <div class="options-grid">
+        <button class="opt-btn" onclick="checkQCM(this, false)">A) $P'$ n'a aucune racine réelle</button>
+        <button class="opt-btn" onclick="checkQCM(this, true)">B) $P'$ a au moins $n-1$ racines réelles distinctes</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">C) $P'$ a exactement $n$ racines</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">D) $P'$ est un polynôme constant</button>
+    </div>
+    <button class="share-btn btn-pdf" style="margin-top:15px; width:100%; justify-content:center; border: 1px solid var(--border);" onclick="toggleCor(this)"><i class="fas fa-eye"></i> Afficher le corrigé détaillé</button>
+    <div class="correction-box">
+        <strong>Correction :</strong> D'après le théorème de Rolle, entre deux racines distinctes de $P$, il existe au moins une racine de $P'$.
+    </div>
+</div>
 
-        .hero-banner {
-            background: linear-gradient(145deg, var(--navy-dark), var(--navy-main));
-            border-radius: var(--radius);
-            padding: 60px 40px;
-            color: white;
-            margin-bottom: 40px;
-            position: relative;
-            overflow: hidden;
-            border-bottom: 5px solid var(--gold-btn);
-            box-shadow: var(--shadow-md);
-        }
+<div class="qcm-card">
+    <div class="qcm-question">Q19. Quelle est la condition nécessaire et suffisante pour que $P$ admette au moins une racine multiple dans $\mathbb{C}$ ?</div>
+    <div class="options-grid">
+        <button class="opt-btn" onclick="checkQCM(this, false)">A) $\deg(P) \ge 2$</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">B) $P(0) = 0$</button>
+        <button class="opt-btn" onclick="checkQCM(this, true)">C) $P$ et $P'$ ne sont pas premiers entre eux</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">D) $P$ est pair</button>
+    </div>
+    <button class="share-btn btn-pdf" style="margin-top:15px; width:100%; justify-content:center; border: 1px solid var(--border);" onclick="toggleCor(this)"><i class="fas fa-eye"></i> Afficher le corrigé détaillé</button>
+    <div class="correction-box">
+        <strong>Correction :</strong> Si $a$ est racine multiple de $P$, alors $P(a)=P'(a)=0$, donc $(X-a)$ divise le PGCD de $P$ et $P'$, qui n'est donc pas égal à 1.
+    </div>
+</div>
 
-        .hero-banner h1 { margin: 0; font-size: 2.2rem; font-weight: 800; letter-spacing: -1px; }
-        .hero-banner p { opacity: 0.8; margin-top: 10px; font-size: 1.1rem; }
+<div class="qcm-card">
+    <div class="qcm-question">Q20. Quel est le degré du polynôme dérivé $P'$ si $\deg(P) = n \ge 1$ en caractéristique 0 (ex: dans $\mathbb{R}$ ou $\mathbb{C}$) ?</div>
+    <div class="options-grid">
+        <button class="opt-btn" onclick="checkQCM(this, false)">A) $n$</button>
+        <button class="opt-btn" onclick="checkQCM(this, true)">B) $n-1$</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">C) $n+1$</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">D) Cela dépend du coefficient dominant</button>
+    </div>
+    <button class="share-btn btn-pdf" style="margin-top:15px; width:100%; justify-content:center; border: 1px solid var(--border);" onclick="toggleCor(this)"><i class="fas fa-eye"></i> Afficher le corrigé détaillé</button>
+    <div class="correction-box">
+        <strong>Correction :</strong> En dérivant $a_n X^n$, on obtient $n a_n X^{n-1}$. Comme $n \neq 0$ (caractéristique 0) et $a_n \neq 0$, le degré est exactement $n-1$.
+    </div>
+</div>
 
-        /* --- DESIGN QCM PRESTIGE --- */
-        .qcm-card {
-            background: var(--surface);
-            border-radius: var(--radius);
-            padding: 35px;
-            margin-bottom: 25px;
-            box-shadow: var(--shadow-sm);
-            border: 1px solid var(--border);
-            transition: var(--transition);
-            /* Évite que les questions soient coupées à l'impression PDF */
-            page-break-inside: avoid;
-            break-inside: avoid;
-        }
+<div class="qcm-card">
+    <div class="qcm-question">Q21. PPCM et PGCD : Si $A$ et $B$ sont des polynômes unitaires, on a l'égalité :</div>
+    <div class="options-grid">
+        <button class="opt-btn" onclick="checkQCM(this, true)">A) $AB = (A \wedge B) \times (A \vee B)$</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">B) $A+B = (A \wedge B) + (A \vee B)$</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">C) $\deg(A \vee B) = \deg(A) \times \deg(B)$</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">D) $A \vee B = A \wedge B$</button>
+    </div>
+    <button class="share-btn btn-pdf" style="margin-top:15px; width:100%; justify-content:center; border: 1px solid var(--border);" onclick="toggleCor(this)"><i class="fas fa-eye"></i> Afficher le corrigé détaillé</button>
+    <div class="correction-box">
+        <strong>Correction :</strong> Comme dans l'anneau des entiers $\mathbb{Z}$, le produit du PGCD et du PPCM (unitaires) est égal au produit des polynômes (unitaires).
+    </div>
+</div>
 
-        .qcm-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+<div class="qcm-card">
+    <div class="qcm-question">Q22. La famille de polynômes $(1, X, X(X-1), X(X-1)(X-2))$ forme-t-elle une base de $\mathbb{R}_3[X]$ ?</div>
+    <div class="options-grid">
+        <button class="opt-btn" onclick="checkQCM(this, true)">A) Oui, car c'est une famille de degrés échelonnés</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">B) Non, car elle n'a pas 4 éléments</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">C) Non, car ce n'est pas la base canonique</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">D) Oui, mais seulement si $X \neq 0$</button>
+    </div>
+    <button class="share-btn btn-pdf" style="margin-top:15px; width:100%; justify-content:center; border: 1px solid var(--border);" onclick="toggleCor(this)"><i class="fas fa-eye"></i> Afficher le corrigé détaillé</button>
+    <div class="correction-box">
+        <strong>Correction :</strong> Toute famille de polynômes non nuls de degrés tous distincts (famille échelonnée en degré) est libre. Comme il y a 4 polynômes, c'est une base de l'espace vectoriel $\mathbb{R}_3[X]$ (dimension 4).
+    </div>
+</div>
 
-        .qcm-question {
-            font-size: 1.15rem;
-            font-weight: 700;
-            margin-bottom: 25px;
-            line-height: 1.5;
-            color: var(--navy-dark);
-        }
+<div class="qcm-card">
+    <div class="qcm-question">Q23. Soit $P(X) = (X-1)^3(X+2)^2$. Quel est le degré de $P$ ?</div>
+    <div class="options-grid">
+        <button class="opt-btn" onclick="checkQCM(this, false)">A) 3</button>
+        <button class="opt-btn" onclick="checkQCM(this, true)">B) 5</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">C) 6</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">D) On ne peut pas savoir sans développer</button>
+    </div>
+    <button class="share-btn btn-pdf" style="margin-top:15px; width:100%; justify-content:center; border: 1px solid var(--border);" onclick="toggleCor(this)"><i class="fas fa-eye"></i> Afficher le corrigé détaillé</button>
+    <div class="correction-box">
+        <strong>Correction :</strong> Le degré du produit est la somme des degrés : $\deg((X-1)^3) + \deg((X+2)^2) = 3 + 2 = 5$.
+    </div>
+</div>
 
-        .options-grid {
-            display: grid;
-            gap: 12px;
-        }
+<div class="qcm-card">
+    <div class="qcm-question">Q24. Comment factorise-t-on le polynôme $X^2 - X + 1$ dans $\mathbb{C}[X]$ ? On note $j = e^{i2\pi/3}$.</div>
+    <div class="options-grid">
+        <button class="opt-btn" onclick="checkQCM(this, false)">A) $(X-j)(X-j^2)$</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">B) $(X-1)(X-j)$</button>
+        <button class="opt-btn" onclick="checkQCM(this, true)">C) $(X+j)(X+j^2)$</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">D) Il est irréductible dans $\mathbb{C}[X]$</button>
+    </div>
+    <button class="share-btn btn-pdf" style="margin-top:15px; width:100%; justify-content:center; border: 1px solid var(--border);" onclick="toggleCor(this)"><i class="fas fa-eye"></i> Afficher le corrigé détaillé</button>
+    <div class="correction-box">
+        <strong>Correction :</strong> Les racines de $X^2+X+1$ sont $j$ et $j^2$. Celles de $X^2-X+1$ sont opposées, donc $-j$ et $-j^2$. La factorisation est donc $(X-(-j))(X-(-j^2)) = (X+j)(X+j^2)$.
+    </div>
+</div>
 
-        .opt-btn {
-            padding: 16px 22px;
-            border-radius: 12px;
-            border: 2px solid var(--border);
-            background: white;
-            cursor: pointer;
-            text-align: left;
-            font-family: inherit;
-            font-size: 1rem;
-            font-weight: 500;
-            color: var(--text-main);
-            transition: all 0.2s ease;
-            display: flex;
-            align-items: center;
-        }
+<div class="qcm-card">
+    <div class="qcm-question">Q25. Que désigne l'expression "ordre de multiplicité d'une racine $a$ de $P$" ?</div>
+    <div class="options-grid">
+        <button class="opt-btn" onclick="checkQCM(this, false)">A) Le nombre de fois où $P$ s'annule sur $\mathbb{R}$</button>
+        <button class="opt-btn" onclick="checkQCM(this, true)">B) Le plus grand entier $k$ tel que $(X-a)^k$ divise $P$</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">C) L'ordre de la plus haute dérivée de $P$ qui s'annule en $a$</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">D) La valeur de $P(a)$</button>
+    </div>
+    <button class="share-btn btn-pdf" style="margin-top:15px; width:100%; justify-content:center; border: 1px solid var(--border);" onclick="toggleCor(this)"><i class="fas fa-eye"></i> Afficher le corrigé détaillé</button>
+    <div class="correction-box">
+        <strong>Correction :</strong> C'est la définition algébrique rigoureuse. On la relie ensuite aux dérivées : si $k$ est l'ordre de multiplicité, alors $P^{(k)}(a) \neq 0$.
+    </div>
+</div>
 
-        .opt-btn:hover:not(:disabled) {
-            border-color: var(--gold-muted);
-            background: #fffdf5;
-            transform: translateX(5px);
-        }
-
-        .opt-btn.correct {
-            background: #ecfdf5 !important;
-            border-color: #10b981 !important;
-            color: #065f46 !important;
-            font-weight: 700;
-        }
-
-        .opt-btn.wrong {
-            background: #fef2f2 !important;
-            border-color: #ef4444 !important;
-            color: #991b1b !important;
-        }
-
-        .opt-btn:disabled { cursor: default; }
-
-        .correction-box {
-            margin-top: 20px;
-            padding: 20px;
-            background: #f1f5f9;
-            border-radius: 10px;
-            display: none; 
-            border-left: 4px solid var(--navy-main);
-            font-size: 0.95rem;
-            animation: fadeIn 0.4s ease;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* --- ACTIONS & SCORE --- */
-        #score-zone { 
-            margin-top: 50px; 
-            page-break-inside: avoid;
-            break-inside: avoid;
-        }
-
-        .score-display {
-            background: var(--surface);
-            border: 2px solid var(--border);
-            border-radius: var(--radius);
-            padding: 30px;
-            text-align: center;
-            margin-bottom: 20px;
-            box-shadow: var(--shadow-md);
-        }
-
-        .score-display h2 { font-size: 2.5rem; margin: 0; color: var(--navy-dark); }
-        .score-display p { font-size: 1.1rem; color: var(--text-muted); margin-top: 10px; font-weight: 500;}
-
-        .share-bar {
-            background: var(--navy-dark);
-            padding: 25px;
-            border-radius: var(--radius);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 15px;
-        }
-
-        .share-btn {
-            padding: 12px 20px;
-            border-radius: 50px;
-            border: none;
-            cursor: pointer;
-            font-weight: 700;
-            font-size: 0.9rem;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            transition: var(--transition);
-        }
-
-        .btn-pdf { background: white; color: var(--navy-dark); }
-        .btn-wa { background: #25D366; color: white; }
-        .btn-mail { background: #ea4335; color: white; }
-        .btn-sms { background: #34d399; color: var(--navy-dark); }
-        .btn-x { background: #000000; color: white; border: 1px solid #333;}
-        
-        .share-btn:hover { transform: scale(1.05); filter: brightness(1.1); }
-
-        /* Cacher les éléments inutiles sur le PDF généré */
-        .no-print-pdf { display: block; }
-
-        /* --- MOBILE --- */
-        .menu-trigger {
-            display: none;
-            position: fixed;
-            top: 20px; left: 20px;
-            z-index: 2000;
-            background: var(--navy-dark);
-            color: var(--gold-btn);
-            border: none;
-            width: 50px; height: 50px;
-            border-radius: 12px;
-            font-size: 1.5rem;
-            cursor: pointer;
-            box-shadow: var(--shadow-md);
-        }
-
-        @media (max-width: 1000px) {
-            #sidebar { position: fixed; left: -320px; }
-            #sidebar.open { left: 0; }
-            .menu-trigger { display: block; }
-            #main-wrapper { margin-left: 0; padding-top: 60px; }
-            .share-bar { flex-direction: column; align-items: stretch; }
-            .share-btn { justify-content: center; }
-        }
-    </style>
-</head>
-<body>
-
-    <button class="menu-trigger" onclick="toggleSidebar()" aria-label="Ouvrir le menu">
-        <i class="fas fa-bars"></i>
+<div style="text-align: center; margin-top: 40px; margin-bottom: 20px;">
+    <button class="opt-btn finish-btn" style="display:inline-flex; background:var(--gold-btn); color:var(--navy-dark); font-weight:800; border:none; box-shadow:var(--shadow-md); padding: 15px 30px;" onclick="finishQuiz()">
+        <i class="fas fa-flag-checkered" style="margin-right:10px;"></i> Terminer l'entraînement
     </button>
-
-    <aside id="sidebar">
-        <div class="logo-area">
-            <div class="logo-box">
-                <p class="logo-text">ELIAN<span>MATHS</span></p>
-            </div>
-            <br>
-            <span class="badge-pcsi">Prestige Edition PCSI</span>
-        </div>
-
-        <nav id="nav-scroll">
-            <div class="chap-group">
-                <button class="chap-toggle" onclick="toggleAccordeon(this)">
-                    <span><i class="fas fa-square-root-variable main-icon"></i> Polynômes</span>
-                    <i class="fas fa-chevron-down"></i>
-                </button>
-                <div class="chap-content">
-                    <p class="nav-section-title">Cours</p>
-                    <a class="nav-link" onclick="loadPage('poly_bases')"><i class="fas fa-book"></i> Fondamentaux</a>
-                    <a class="nav-link" onclick="loadPage('poly_racines')"><i class="fas fa-bullseye"></i> Racines & Divisibilité</a>
-                    <a class="nav-link" onclick="loadPage('poly_fractions')"><i class="fas fa-percentage"></i> Fractions Rationnelles</a>
-                    
-                    <p class="nav-section-title">Entraînement</p>
-                    <a class="nav-link" onclick="loadPage('poly_exos')"><i class="fas fa-dumbbell"></i> Marathon 60 Questions</a>
-                    <a class="nav-link" onclick="loadPage('poly_exos_calc')"><i class="fas fa-calculator"></i> Calcul Technique</a>
-                    <a class="nav-link" style="color:#059669; font-weight:700" onclick="loadTraining('poly')"><i class="fas fa-bolt"></i> Test Aléatoire</a>
-                    <a class="nav-link" style="color:#e11d48; font-weight:700" onclick="loadPage('poly_training_v4')"><i class="fas fa-fire-flame-curved"></i> Test Expert v4</a>
-                </div>
-            </div>
-
-            <div class="chap-group">
-                <button class="chap-toggle" onclick="toggleAccordeon(this)">
-                    <span><i class="fas fa-draw-polygon main-icon"></i> Géométrie</span>
-                    <i class="fas fa-chevron-down"></i>
-                </button>
-                <div class="chap-content">
-                    <p class="nav-section-title">Théorie</p>
-                    <a class="nav-link" onclick="loadPage('geo_metrique')"><i class="fas fa-ruler-combined"></i> Relations Métriques</a>
-                    <a class="nav-link" onclick="loadPage('geo_analytique')"><i class="fas fa-location-crosshairs"></i> Géométrie Analytique</a>
-                    
-                    <p class="nav-section-title">Pratique</p>
-                    <a class="nav-link" onclick="loadPage('geo_training_v1')"><i class="fas fa-pencil"></i> Exercices v1</a>
-                    <a class="nav-link" style="color:#059669; font-weight:700" onclick="loadTraining('geo')"><i class="fas fa-bolt"></i> Test de Niveau</a>
-                    <a class="nav-link" style="color:#e11d48; font-weight:700" onclick="loadPage('geo_training_v4')"><i class="fas fa-fire-flame-curved"></i> Test Expert v4</a>
-                </div>
-            </div>
-
-            <div class="chap-group">
-                <button class="chap-toggle" onclick="toggleAccordeon(this)">
-                    <span><i class="fas fa-chart-line main-icon"></i> Fonctions</span>
-                    <i class="fas fa-chevron-down"></i>
-                </button>
-                <div class="chap-content">
-                    <p class="nav-section-title">Analyse</p>
-                    <a class="nav-link" onclick="loadPage('func_theoremes')"><i class="fas fa-microscope"></i> Rolle & TAF</a>
-                    <a class="nav-link" onclick="loadPage('func_taylor')"><i class="fas fa-infinity"></i> Taylor & DL</a>
-                    
-                    <p class="nav-section-title">Pratique</p>
-                    <a class="nav-link" onclick="loadPage('training_taylor_rolle')"><i class="fas fa-flask"></i> Mix Analyse</a>
-                    <a class="nav-link" style="color:#059669; font-weight:700" onclick="loadTraining('func')"><i class="fas fa-bolt"></i> Test de Rapidité</a>
-                    <a class="nav-link" style="color:#e11d48; font-weight:700" onclick="loadPage('func_training_v4')"><i class="fas fa-fire-flame-curved"></i> Test Expert v4</a>
-                </div>
-            </div>
-        </nav>
-    </aside>
-
-    <main id="main-wrapper">
-        <div id="content-container">
-            <div class="hero-banner">
-                <h1>Bienvenue, Elian</h1>
-                <p>Préparez vos concours avec rigueur. Sélectionnez un module dans le menu latéral pour commencer votre séance.</p>
-            </div>
-            
-            <div style="text-align:center; padding:60px; color:var(--text-muted)">
-                <i class="fas fa-hand-point-left" style="font-size:3rem; margin-bottom:20px; display:block"></i>
-                <p>En attente d'un module...</p>
-            </div>
-        </div>
-    </main>
-
-    <script>
-        // --- MISE EN CACHE DU DOM ---
-        const sidebar = document.getElementById('sidebar');
-        const container = document.getElementById('content-container');
-        const mainWrapper = document.getElementById('main-wrapper');
-
-        // --- GESTION DES SCORES GLOBALE ---
-        window.currentScore = 0;
-        window.totalQuestions = 0;
-        window.answeredQuestions = 0;
-
-        // --- GESTION DES LIENS ACTIFS ---
-        document.addEventListener('click', (e) => {
-            const link = e.target.closest('.nav-link');
-            if (link) {
-                document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active-link'));
-                link.classList.add('active-link');
-            }
-        });
-
-        // --- LOGIQUE NAVIGATION ---
-        function toggleSidebar() {
-            sidebar.classList.toggle('open');
-        }
-
-        function toggleAccordeon(btn) {
-            const content = btn.nextElementSibling;
-            const icon = btn.querySelector('.fa-chevron-down');
-            
-            document.querySelectorAll('.chap-content').forEach(el => {
-                if(el !== content) el.classList.remove('active');
-            });
-            document.querySelectorAll('.chap-toggle i.fa-chevron-down').forEach(i => {
-                if(i !== icon) i.style.transform = 'rotate(0deg)';
-            });
-
-            const isActive = content.classList.toggle('active');
-            icon.style.transform = isActive ? 'rotate(180deg)' : 'rotate(0deg)';
-        }
-
-        function toggleCor(btn) {
-            const block = btn.nextElementSibling;
-            if (!block) return;
-            
-            const isHidden = window.getComputedStyle(block).display === "none";
-            
-            if (isHidden) {
-                block.style.display = "block";
-                block.classList.add('fade-in'); 
-                btn.innerHTML = '<i class="fas fa-eye-slash"></i> Masquer le corrigé';
-                if (window.MathJax) MathJax.typesetPromise([block]);
-            } else {
-                block.style.display = "none";
-                btn.innerHTML = '<i class="fas fa-eye"></i> Afficher le corrigé détaillé';
-            }
-        }
-
-        // --- CHARGEMENT DYNAMIQUE ---
-        async function loadPage(fileName) {
-            if(window.innerWidth < 1000) {
-                sidebar.classList.remove('open');
-            }
-            
-            // Réinitialisation des scores pour la nouvelle page
-            window.currentScore = 0;
-            window.answeredQuestions = 0;
-            window.totalQuestions = 0;
-
-            container.innerHTML = '<div style="text-align:center; padding:100px;"><i class="fas fa-circle-notch fa-spin" style="font-size:3rem; color:var(--gold-btn)"></i></div>';
-
-            try {
-                const timestamp = new Date().getTime();
-                const response = await fetch(`content/${fileName}.html?v=${timestamp}`);
-                
-                if(!response.ok) throw new Error("Fichier introuvable");
-                
-                const html = await response.text();
-                container.innerHTML = html;
-
-                if(window.MathJax) {
-                    MathJax.typesetPromise([container]).catch(err => console.log(err));
-                }
-
-                // Récupérer le nombre total de questions de la page chargée
-                window.totalQuestions = container.querySelectorAll('.qcm-card').length;
-                mainWrapper.scrollTop = 0;
-
-            } catch (error) {
-                container.innerHTML = `
-                    <div class="hero-banner" style="background:#ef4444; border-color:#991b1b">
-                        <h1>Erreur 404</h1>
-                        <p>Le module <b>content/${fileName}.html</b> est introuvable.</p>
-                        <p style="font-size:0.9rem; margin-top:15px; opacity:0.8;">Vérifiez que le fichier existe bien dans le dossier /content/.</p>
-                    </div>`;
-            }
-        }
-
-        function loadTraining(subject) {
-            // Intégration de la v4 dans l'aléatoire
-            const versions = ['v1', 'v2', 'v3', 'v4'];
-            const randomVersion = versions[Math.floor(Math.random() * versions.length)];
-            let finalName = `${subject}_training_${randomVersion}`;
-            loadPage(finalName);
-        }
-
-        // --- MOTEUR QCM UNIFIÉ (Gère v1, v2, v3, v4) ---
-        window.checkQCM = function(btn, isCorrect) {
-            const card = btn.closest('.qcm-card');
-            if(!card) return;
-            
-            // Sécurité pour éviter le double comptage
-            if(card.classList.contains('answered')) return;
-            card.classList.add('answered');
-
-            const allBtns = card.querySelectorAll('.opt-btn');
-            allBtns.forEach(b => b.disabled = true);
-
-            window.answeredQuestions++;
-
-            if(isCorrect) {
-                window.currentScore++;
-                btn.classList.add('correct');
-            } else {
-                btn.classList.add('wrong');
-                // Trouver la bonne réponse pour la montrer (Fonctionne avec v1 "true")
-                allBtns.forEach(b => {
-                    if(b.getAttribute('onclick') && b.getAttribute('onclick').includes('true')) {
-                        b.classList.add('correct');
-                    }
-                });
-            }
-
-            const feedback = card.querySelector('.correction-box');
-            if(feedback) {
-                feedback.style.display = 'block';
-                if (window.MathJax) MathJax.typesetPromise([feedback]);
-            }
-        };
-
-        function finishQuiz() {
-            // Protection si on clique plusieurs fois
-            if(document.getElementById('score-zone')) return;
-
-            // Masquer le bouton de validation pour le PDF
-            const finishBtn = document.querySelector('.finish-btn');
-            if(finishBtn) finishBtn.classList.add('no-print-pdf');
-
-            let ratio = window.totalQuestions > 0 ? (window.currentScore / window.totalQuestions) : 0;
-            let percentage = Math.round(ratio * 100);
-            
-            let message = "";
-            let colorHex = "";
-            
-            if (ratio === 1) { 
-                message = "Perfection ! La majoration au concours n'est plus très loin."; 
-                colorHex = "#10b981"; 
-            } else if (ratio >= 0.75) { 
-                message = "Excellent travail, tes bases sont très solides."; 
-                colorHex = "#10b981"; 
-            } else if (ratio >= 0.5) { 
-                message = "C'est un bon début, mais relis le cours sur les erreurs commises."; 
-                colorHex = "var(--gold-btn)"; 
-            } else { 
-                message = "Ne te décourage pas ! L'important est d'apprendre de ses erreurs. Prends le temps de lire les corrigés."; 
-                colorHex = "#ef4444"; 
-            }
-
-            const scoreHTML = `
-                <div id="score-zone">
-                    <div class="score-display">
-                        <h2 style="color: ${colorHex}">${window.currentScore} / ${window.totalQuestions}</h2>
-                        <p>Score final : ${percentage}%</p>
-                        <p style="font-size: 0.9rem; color: var(--navy-dark); font-weight: 600; margin-top:15px;">${message}</p>
-                    </div>
-
-                    <div class="share-bar no-print-pdf">
-                        <button class="share-btn btn-pdf" onclick="generatePDF()"><i class="fas fa-file-pdf"></i> Sauvegarder PDF</button>
-                        <button class="share-btn btn-wa" onclick="shareWA(${window.currentScore}, ${window.totalQuestions})"><i class="fab fa-whatsapp"></i> WhatsApp</button>
-                        <button class="share-btn btn-x" onclick="shareX(${window.currentScore}, ${window.totalQuestions})"><i class="fab fa-x-twitter"></i> Twitter</button>
-                        <button class="share-btn btn-mail" onclick="shareMail(${window.currentScore}, ${window.totalQuestions})"><i class="fas fa-envelope"></i> Email</button>
-                        <button class="share-btn btn-sms" onclick="shareSMS(${window.currentScore}, ${window.totalQuestions})"><i class="fas fa-comment-sms"></i> SMS</button>
-                    </div>
-                </div>
-            `;
-            container.insertAdjacentHTML('beforeend', scoreHTML);
-            document.getElementById('score-zone').scrollIntoView({ behavior: 'smooth' });
-        }
-
-        // --- SYSTÈMES DE PARTAGE ---
-        function getShareText(score, total) {
-            return `J'ai terminé ma session sur Elian Maths avec un score de ${score}/${total} ! Prêt pour les concours CPGE. 🚀`;
-        }
-
-        function shareWA(score, total) {
-            window.open(`https://wa.me/?text=${encodeURIComponent(getShareText(score, total))}`);
-        }
-        
-        function shareX(score, total) {
-            window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(getShareText(score, total))}`);
-        }
-
-        function shareMail(score, total) {
-            window.location.href = `mailto:?subject=Mon score sur Elian Maths&body=${encodeURIComponent(getShareText(score, total))}`;
-        }
-
-        function shareSMS(score, total) {
-            // Format compatible iOS & Android
-            window.location.href = `sms:?&body=${encodeURIComponent(getShareText(score, total))}`;
-        }
-
-        function generatePDF() {
-            // On masque temporairement les boutons de la zone de partage et le bouton valider
-            const noPrintElements = document.querySelectorAll('.no-print-pdf');
-            noPrintElements.forEach(el => el.style.display = 'none');
-
-            // Options optimisées pour éviter de couper les DIV (pagebreak avoid)
-            const opt = {
-                margin: [10, 10, 10, 10], // Haut, Droite, Bas, Gauche
-                filename: 'ElianMaths_Resultats.pdf',
-                image: { type: 'jpeg', quality: 0.98 },
-                html2canvas: { scale: 2, useCORS: true, letterRendering: true },
-                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
-                pagebreak: { mode: ['css', 'legacy'] } // Respecte le page-break-inside: avoid des cartes QCM
-            };
-
-            html2pdf().set(opt).from(container).save().then(() => {
-                // On réaffiche les boutons après génération
-                noPrintElements.forEach(el => el.style.display = '');
-            });
-        }
-    </script>
-</body>
-</html>
+</div>
