@@ -1,811 +1,1373 @@
 <!DOCTYPE html>
+
 <html lang="fr">
+
 <head>
+
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Polynômes V2 - Excellence PCSI/MPSI</title>
+
+    <title>Elian Maths | PCSI Prestige Edition</title>
+
+    
+
+    <script>
+
+        window.MathJax = {
+
+            tex: { 
+
+                inlineMath: [['$', '$'], ['\\(', '\\)']], 
+
+                displayMath: [['$$', '$$']],
+
+                processEscapes: true
+
+            },
+
+            options: { enableMenu: false }
+
+        };
+
+    </script>
+
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    
+
     <style>
+
         :root {
-            --navy-dark: #0b1120;
-            --navy-light: #1e293b;
-            --navy-card: #141e30;
-            --gold: #fbbf24;
-            --gold-hover: #f59e0b;
-            --gold-light: rgba(251, 191, 36, 0.15);
-            --white: #f8fafc;
-            --slate: #94a3b8;
-            --success: #10b981;
-            --error: #ef4444;
+
+            --navy-dark: #0a0f1d;     
+
+            --navy-main: #111827;     
+
+            --gold-btn: #eab308;      
+
+            --gold-hover: #facc15;    
+
+            --gold-muted: #c6a052;    
+
+            --bg-page: #f8fafc;        
+
+            --surface: #ffffff;        
+
+            --text-main: #1e293b;
+
+            --text-muted: #64748b;
+
+            --border: #e2e8f0;
+
+            --radius: 16px;
+
+            --shadow-sm: 0 2px 8px rgba(0,0,0,0.05);
+
+            --shadow-md: 0 10px 30px rgba(0,0,0,0.08);
+
             --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
-            --shadow-lg: 0 10px 25px -5px rgba(0, 0, 0, 0.4);
-            --glow: 0 0 15px rgba(251, 191, 36, 0.3);
+
         }
 
-        * {
-            box-sizing: border-box;
+
+
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+
+
+        body { 
+
+            font-family: 'Inter', sans-serif; 
+
+            margin: 0; 
+
+            background: var(--bg-page); 
+
+            color: var(--text-main); 
+
+            display: flex; 
+
+            height: 100vh; 
+
+            overflow: hidden; 
+
         }
 
-        body {
-            background-color: var(--navy-dark);
-            background-image: radial-gradient(circle at 50% 0%, #1e293b 0%, transparent 70%);
-            color: var(--white);
-            font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
-            line-height: 1.6;
-            margin: 0;
-            padding: 0;
+
+
+        /* --- SIDEBAR PRESTIGE --- */
+
+        #sidebar { 
+
+            width: 320px; 
+
+            min-width: 320px;
+
+            height: 100vh; 
+
+            background: var(--surface); 
+
+            border-right: 1px solid var(--border); 
+
             display: flex;
+
             flex-direction: column;
-            align-items: center;
-            min-height: 100vh;
-        }
 
-        /* Navigation Bar */
-        .navbar {
-            width: 100%;
-            background: rgba(11, 17, 32, 0.8);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            padding: 15px 40px;
-            position: sticky;
-            top: 0;
             z-index: 1000;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
 
-        .nav-btn {
-            color: var(--slate);
-            text-decoration: none;
-            font-size: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 8px;
             transition: var(--transition);
+
         }
 
-        .nav-btn:hover {
-            color: var(--gold);
-        }
 
-        .nav-title {
-            color: var(--white);
-            font-weight: 600;
-            font-size: 1.1rem;
-            letter-spacing: 1px;
-        }
 
-        .container {
-            max-width: 900px;
-            width: 100%;
-            padding: 40px 20px;
-        }
+        .logo-area { 
 
-        /* Hero Banner */
-        .hero-banner {
-            background: linear-gradient(135deg, var(--navy-card) 0%, #0f172a 100%);
-            padding: 50px 40px;
-            border-radius: 24px;
+            padding: 40px 25px; 
+
+            border-bottom: 1px solid var(--border);
+
             text-align: center;
-            margin-bottom: 50px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            box-shadow: var(--shadow-lg);
-            position: relative;
-            overflow: hidden;
+
         }
 
-        .hero-banner::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
+
+
+        .logo-box {
+
+            background: var(--navy-dark);
+
+            padding: 15px 20px;
+
+            border-radius: 14px;
+
+            display: inline-block;
+
+            border: 1px solid rgba(234, 179, 8, 0.3);
+
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+
+        }
+
+
+
+        .logo-text { 
+
+            color: #fff; 
+
+            font-weight: 800; 
+
+            font-size: 1.4rem; 
+
+            margin: 0; 
+
+            letter-spacing: -1px;
+
+        }
+
+        .logo-text span { color: var(--gold-btn); }
+
+
+
+        .badge-pcsi {
+
+            display: inline-block;
+
+            margin-top: 15px;
+
+            padding: 6px 14px;
+
+            background: linear-gradient(135deg, var(--gold-btn), var(--gold-hover));
+
+            color: var(--navy-dark);
+
+            font-size: 0.7rem;
+
+            font-weight: 800;
+
+            border-radius: 50px;
+
+            text-transform: uppercase;
+
+            letter-spacing: 1px;
+
+        }
+
+
+
+        #nav-scroll {
+
+            flex-grow: 1;
+
+            overflow-y: auto;
+
+            padding: 20px 0;
+
+        }
+
+
+
+        /* --- ACCORDEON --- */
+
+        .chap-group { margin-bottom: 5px; }
+
+
+
+        .chap-toggle {
+
             width: 100%;
-            height: 4px;
-            background: linear-gradient(90deg, transparent, var(--gold), transparent);
-        }
 
-        .hero-banner h1 {
-            color: var(--white);
-            font-size: 2.8rem;
-            margin: 0 0 15px 0;
-            letter-spacing: -0.02em;
-        }
+            padding: 16px 25px;
 
-        .hero-banner h1 span {
-            color: var(--gold);
-            text-shadow: var(--glow);
-        }
+            background: none;
 
-        .hero-banner p {
-            color: var(--slate);
-            font-size: 1.15rem;
-            max-width: 650px;
-            margin: 0 auto;
-        }
+            border: none;
 
-        /* Progress Bar */
-        .progress-container {
-            background: var(--navy-card);
-            border-radius: 10px;
-            height: 8px;
-            margin-bottom: 40px;
-            overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-        }
+            display: flex;
 
-        .progress-bar {
-            height: 100%;
-            background: var(--gold);
-            width: 0%;
-            transition: width 0.4s ease;
-            box-shadow: var(--glow);
-        }
+            justify-content: space-between;
 
-        /* QCM Cards */
-        .qcm-card {
-            background: var(--navy-card);
-            border-radius: 20px;
-            padding: 35px;
-            margin-bottom: 30px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            box-shadow: var(--shadow-sm);
+            align-items: center;
+
+            cursor: pointer;
+
+            font-weight: 700;
+
+            font-size: 0.85rem;
+
+            color: var(--navy-dark);
+
+            text-transform: uppercase;
+
             transition: var(--transition);
-            position: relative;
+
         }
 
-        .qcm-card:hover {
-            transform: translateY(-4px);
-            border-color: rgba(251, 191, 36, 0.2);
-            box-shadow: var(--shadow-lg);
+
+
+        .chap-toggle:hover { background: #f1f5f9; }
+
+        .chap-toggle i.main-icon { width: 25px; color: var(--gold-muted); }
+
+
+
+        .chap-content {
+
+            display: none;
+
+            background: #fafbfc;
+
+            border-bottom: 1px solid var(--border);
+
         }
+
+        .chap-content.active { display: block; }
+
+
+
+        .nav-section-title {
+
+            padding: 15px 30px 5px;
+
+            font-size: 0.65rem;
+
+            font-weight: 800;
+
+            color: var(--text-muted);
+
+            text-transform: uppercase;
+
+            letter-spacing: 1px;
+
+        }
+
+
+
+        .nav-link {
+
+            display: flex;
+
+            align-items: center;
+
+            padding: 12px 30px 12px 45px;
+
+            color: var(--text-muted);
+
+            text-decoration: none;
+
+            font-size: 0.9rem;
+
+            font-weight: 500;
+
+            cursor: pointer;
+
+            transition: var(--transition);
+
+        }
+
+
+
+        .nav-link:hover {
+
+            color: var(--navy-dark);
+
+            background: #fff;
+
+            padding-left: 50px;
+
+            box-shadow: inset 4px 0 0 var(--gold-btn);
+
+        }
+
+
+
+        .nav-link i { margin-right: 12px; font-size: 0.85rem; width: 18px; text-align: center; }
+
+        
+
+        .nav-link.active-link {
+
+            color: var(--navy-dark);
+
+            background: #fff;
+
+            font-weight: 700;
+
+            box-shadow: inset 4px 0 0 var(--gold-btn);
+
+        }
+
+
+
+        /* --- MAIN AREA --- */
+
+        #main-wrapper {
+
+            flex-grow: 1;
+
+            height: 100vh;
+
+            overflow-y: auto;
+
+            position: relative;
+
+            background: var(--bg-page);
+
+            scroll-behavior: smooth;
+
+        }
+
+
+
+        #content-container {
+
+            max-width: 1000px;
+
+            margin: 0 auto;
+
+            padding: 40px 20px 120px;
+
+        }
+
+
+
+        .hero-banner {
+
+            background: linear-gradient(145deg, var(--navy-dark), var(--navy-main));
+
+            border-radius: var(--radius);
+
+            padding: 60px 40px;
+
+            color: white;
+
+            margin-bottom: 40px;
+
+            position: relative;
+
+            overflow: hidden;
+
+            border-bottom: 5px solid var(--gold-btn);
+
+            box-shadow: var(--shadow-md);
+
+        }
+
+
+
+        .hero-banner h1 { margin: 0; font-size: 2.2rem; font-weight: 800; letter-spacing: -1px; }
+
+        .hero-banner p { opacity: 0.8; margin-top: 10px; font-size: 1.1rem; }
+
+
+
+        /* --- DESIGN QCM PRESTIGE --- */
+
+        .qcm-card {
+
+            background: var(--surface);
+
+            border-radius: var(--radius);
+
+            padding: 35px;
+
+            margin-bottom: 25px;
+
+            box-shadow: var(--shadow-sm);
+
+            border: 1px solid var(--border);
+
+            transition: var(--transition);
+
+            /* Évite que les questions soient coupées à l'impression PDF */
+
+            page-break-inside: avoid;
+
+            break-inside: avoid;
+
+        }
+
+
+
+        .qcm-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+
+
 
         .qcm-question {
-            font-size: 1.25rem;
-            font-weight: 500;
-            margin-bottom: 25px;
-            display: flex;
-            gap: 15px;
-            color: var(--white);
-        }
 
-        .qcm-question::before {
-            content: "Q" counter(question-sec);
-            counter-increment: question-sec;
-            color: var(--gold);
+            font-size: 1.15rem;
+
             font-weight: 700;
-            font-size: 1.1rem;
-            background: var(--gold-light);
-            padding: 4px 12px;
-            border-radius: 8px;
-            height: fit-content;
+
+            margin-bottom: 25px;
+
+            line-height: 1.5;
+
+            color: var(--navy-dark);
+
         }
 
-        body { counter-reset: question-sec; }
 
-        /* Options Grid */
+
         .options-grid {
+
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
+
+            gap: 12px;
+
         }
+
+
 
         .opt-btn {
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            padding: 16px 20px;
+
+            padding: 16px 22px;
+
             border-radius: 12px;
-            color: var(--slate);
+
+            border: 2px solid var(--border);
+
+            background: white;
+
             cursor: pointer;
-            font-size: 1.05rem;
+
             text-align: left;
-            transition: var(--transition);
+
+            font-family: inherit;
+
+            font-size: 1rem;
+
+            font-weight: 500;
+
+            color: var(--text-main);
+
+            transition: all 0.2s ease;
+
             display: flex;
+
             align-items: center;
-            justify-content: flex-start;
-            position: relative;
+
         }
+
+
 
         .opt-btn:hover:not(:disabled) {
-            background: rgba(251, 191, 36, 0.05);
-            border-color: rgba(251, 191, 36, 0.4);
-            color: var(--white);
+
+            border-color: var(--gold-muted);
+
+            background: #fffdf5;
+
+            transform: translateX(5px);
+
         }
 
-        .opt-btn.selected {
-            background: var(--gold-light);
-            color: var(--gold);
-            border-color: var(--gold);
-            font-weight: 600;
-        }
+
 
         .opt-btn.correct {
-            background: rgba(16, 185, 129, 0.15) !important;
-            color: var(--success) !important;
-            border-color: var(--success) !important;
-            font-weight: 600;
+
+            background: #ecfdf5 !important;
+
+            border-color: #10b981 !important;
+
+            color: #065f46 !important;
+
+            font-weight: 700;
+
         }
 
-        .opt-btn.correct::after {
-            content: '\f00c';
-            font-family: 'Font Awesome 6 Free';
-            font-weight: 900;
-            position: absolute;
-            right: 20px;
-            color: var(--success);
-        }
+
 
         .opt-btn.wrong {
-            background: rgba(239, 68, 68, 0.15) !important;
-            color: var(--error) !important;
-            border-color: var(--error) !important;
+
+            background: #fef2f2 !important;
+
+            border-color: #ef4444 !important;
+
+            color: #991b1b !important;
+
         }
 
-        .opt-btn.wrong::after {
-            content: '\f00d';
-            font-family: 'Font Awesome 6 Free';
-            font-weight: 900;
-            position: absolute;
-            right: 20px;
-            color: var(--error);
-        }
 
-        .opt-btn:disabled {
-            cursor: not-allowed;
-        }
 
-        /* Correction Box */
+        .opt-btn:disabled { cursor: default; }
+
+
+
         .correction-box {
-            display: none;
-            margin-top: 25px;
-            padding: 20px 25px;
-            background: rgba(255, 255, 255, 0.02);
-            border-left: 4px solid var(--slate);
-            border-radius: 0 12px 12px 0;
+
+            margin-top: 20px;
+
+            padding: 20px;
+
+            background: #f1f5f9;
+
+            border-radius: 10px;
+
+            display: none; 
+
+            border-left: 4px solid var(--navy-main);
+
             font-size: 0.95rem;
-            color: var(--slate);
-            animation: fadeIn 0.5s ease;
+
+            animation: fadeIn 0.4s ease;
+
         }
 
-        .correction-box strong {
-            color: var(--white);
-            display: block;
-            margin-bottom: 8px;
-        }
 
-        .correction-box.correct-ans { border-left-color: var(--success); }
-        .correction-box.wrong-ans { border-left-color: var(--error); }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-10px); }
+
+            from { opacity: 0; transform: translateY(10px); }
+
             to { opacity: 1; transform: translateY(0); }
+
         }
 
-        /* Validation Button */
-        .finish-btn {
-            background: var(--gold);
-            color: var(--navy-dark);
-            border: none;
-            padding: 20px 60px;
-            font-size: 1.2rem;
-            font-weight: 800;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: var(--transition);
-            box-shadow: var(--glow);
-            margin: 50px auto;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+
+
+        /* --- ACTIONS & SCORE --- */
+
+        #score-zone { 
+
+            margin-top: 50px; 
+
+            page-break-inside: avoid;
+
+            break-inside: avoid;
+
         }
 
-        .finish-btn:hover {
-            background: var(--gold-hover);
-            transform: translateY(-2px);
-            box-shadow: 0 15px 30px rgba(251, 191, 36, 0.4);
-        }
 
-        .finish-btn:disabled {
-            background: var(--slate);
-            box-shadow: none;
-            cursor: not-allowed;
-            transform: none;
-        }
 
-        /* Result Modal */
-        #result-display {
-            display: none;
+        .score-display {
+
+            background: var(--surface);
+
+            border: 2px solid var(--border);
+
+            border-radius: var(--radius);
+
+            padding: 30px;
+
             text-align: center;
-            background: linear-gradient(135deg, var(--gold) 0%, var(--gold-hover) 100%);
-            color: var(--navy-dark);
-            padding: 40px;
-            border-radius: 20px;
-            margin-bottom: 40px;
-            box-shadow: var(--shadow-lg);
-            animation: fadeIn 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+
+            margin-bottom: 20px;
+
+            box-shadow: var(--shadow-md);
+
         }
 
-        #result-display h2 {
-            margin: 0 0 10px 0;
-            font-size: 2.5rem;
-            font-weight: 900;
+
+
+        .score-display h2 { font-size: 2.5rem; margin: 0; color: var(--navy-dark); }
+
+        .score-display p { font-size: 1.1rem; color: var(--text-muted); margin-top: 10px; font-weight: 500;}
+
+
+
+        .share-bar {
+
+            background: var(--navy-dark);
+
+            padding: 25px;
+
+            border-radius: var(--radius);
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            flex-wrap: wrap;
+
+            gap: 15px;
+
         }
 
-        #result-display p {
-            margin: 0;
-            font-size: 1.2rem;
-            font-weight: 600;
-            opacity: 0.9;
+
+
+        .share-btn {
+
+            padding: 12px 20px;
+
+            border-radius: 50px;
+
+            border: none;
+
+            cursor: pointer;
+
+            font-weight: 700;
+
+            font-size: 0.9rem;
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 8px;
+
+            transition: var(--transition);
+
         }
 
-        @media (max-width: 768px) {
-            .options-grid { grid-template-columns: 1fr; }
-            .hero-banner h1 { font-size: 2rem; }
-            .navbar { padding: 15px 20px; }
-            .container { padding: 20px 15px; }
+
+
+        .btn-pdf { background: white; color: var(--navy-dark); }
+
+        .btn-wa { background: #25D366; color: white; }
+
+        .btn-mail { background: #ea4335; color: white; }
+
+        .btn-sms { background: #34d399; color: var(--navy-dark); }
+
+        .btn-x { background: #000000; color: white; border: 1px solid #333;}
+
+        
+
+        .share-btn:hover { transform: scale(1.05); filter: brightness(1.1); }
+
+
+
+        /* Cacher les éléments inutiles sur le PDF généré */
+
+        .no-print-pdf { display: block; }
+
+
+
+        /* --- MOBILE --- */
+
+        .menu-trigger {
+
+            display: none;
+
+            position: fixed;
+
+            top: 20px; left: 20px;
+
+            z-index: 2000;
+
+            background: var(--navy-dark);
+
+            color: var(--gold-btn);
+
+            border: none;
+
+            width: 50px; height: 50px;
+
+            border-radius: 12px;
+
+            font-size: 1.5rem;
+
+            cursor: pointer;
+
+            box-shadow: var(--shadow-md);
+
         }
+
+
+
+        @media (max-width: 1000px) {
+
+            #sidebar { position: fixed; left: -320px; }
+
+            #sidebar.open { left: 0; }
+
+            .menu-trigger { display: block; }
+
+            #main-wrapper { margin-left: 0; padding-top: 60px; }
+
+            .share-bar { flex-direction: column; align-items: stretch; }
+
+            .share-btn { justify-content: center; }
+
+        }
+
     </style>
+
 </head>
+
 <body>
 
-<nav class="navbar">
-    <a href="index.html" class="nav-btn">
-        <i class="fas fa-arrow-left"></i> Retour à l'accueil
-    </a>
-    <div class="nav-title">Prépa Sup - Mathématiques</div>
-</nav>
 
-<div class="container">
-    <div class="hero-banner">
-        <h1><span>Polynômes</span> : Master Class V2</h1>
-        <p>25 défis de niveau PCSI/MPSI. Évaluez votre maîtrise des racines, de la divisibilité, de l'arithmétique et des relations de Viète.</p>
-    </div>
 
-    <div class="progress-container">
-        <div class="progress-bar" id="progress-bar"></div>
-    </div>
+    <button class="menu-trigger" onclick="toggleSidebar()" aria-label="Ouvrir le menu">
 
-    <div id="result-display"></div>
+        <i class="fas fa-bars"></i>
 
-    <div id="quiz-container">
-        <div class="qcm-card" data-correct="2">
-            <div class="qcm-question">Quel est le reste de la division euclidienne de $X^4 + X^2 + 1$ par $X^2 - X + 1$ ?</div>
-            <div class="options-grid">
-                <button class="opt-btn" onclick="selectOption(this, 0)">$2X$</button>
-                <button class="opt-btn" onclick="selectOption(this, 1)">$1$</button>
-                <button class="opt-btn" onclick="selectOption(this, 2)">$0$</button>
-                <button class="opt-btn" onclick="selectOption(this, 3)">$X - 1$</button>
-            </div>
-            <div class="correction-box">
-                <strong>Correction détaillée :</strong> Remarquons l'identité remarquable : $(X^2 - X + 1)(X^2 + X + 1) = X^4 + X^2 + 1$. Le polynôme est donc un multiple exact du diviseur, le reste est par conséquent nul.
-            </div>
-        </div>
-
-        <div class="qcm-card" data-correct="0">
-            <div class="qcm-question">Soit $P(X) = 2X^3 - 4X^2 + 6X - 8$. Que vaut la somme de ses racines complexes ?</div>
-            <div class="options-grid">
-                <button class="opt-btn" onclick="selectOption(this, 0)">$2$</button>
-                <button class="opt-btn" onclick="selectOption(this, 1)">$-2$</button>
-                <button class="opt-btn" onclick="selectOption(this, 2)">$4$</button>
-                <button class="opt-btn" onclick="selectOption(this, 3)">$-4$</button>
-            </div>
-            <div class="correction-box">
-                <strong>Correction détaillée :</strong> D'après les relations de Viète, la somme des racines d'un polynôme $P(X) = a_nX^n + a_{n-1}X^{n-1} + \dots$ est donnée par $\sum x_i = -\frac{a_{n-1}}{a_n}$. Ici, $-\frac{-4}{2} = 2$.
-            </div>
-        </div>
-
-        <div class="qcm-card" data-correct="1">
-            <div class="qcm-question">Trouver $a$ et $b$ réels pour que $P(X) = X^3 + aX + b$ soit divisible par $(X-1)^2$.</div>
-            <div class="options-grid">
-                <button class="opt-btn" onclick="selectOption(this, 0)">$a = 3, b = -2$</button>
-                <button class="opt-btn" onclick="selectOption(this, 1)">$a = -3, b = 2$</button>
-                <button class="opt-btn" onclick="selectOption(this, 2)">$a = -2, b = 1$</button>
-                <button class="opt-btn" onclick="selectOption(this, 3)">$a = 2, b = -3$</button>
-            </div>
-            <div class="correction-box">
-                <strong>Correction détaillée :</strong> $1$ doit être racine de multiplicité au moins 2. Il faut donc $P(1)=0$ et $P'(1)=0$. $P(1) = 1+a+b=0$ et $P'(X) = 3X^2+a \implies P'(1) = 3+a=0$. On en déduit $a=-3$ puis $b=2$.
-            </div>
-        </div>
-
-        <div class="qcm-card" data-correct="1">
-            <div class="qcm-question">Quel est le degré exact de $P(X) = (X^2+1)^n - (X^2-1)^n$ pour $n \geq 1$ ?</div>
-            <div class="options-grid">
-                <button class="opt-btn" onclick="selectOption(this, 0)">$2n$</button>
-                <button class="opt-btn" onclick="selectOption(this, 1)">$2n-2$</button>
-                <button class="opt-btn" onclick="selectOption(this, 2)">$2n-1$</button>
-                <button class="opt-btn" onclick="selectOption(this, 3)">$n$</button>
-            </div>
-            <div class="correction-box">
-                <strong>Correction détaillée :</strong> En développant via le binôme de Newton, les termes de plus haut degré $X^{2n}$ s'annulent. Le terme suivant vient de $\binom{n}{1} X^{2n-2}(1) - \binom{n}{1} X^{2n-2}(-1) = 2nX^{2n-2}$. Comme $2n \neq 0$, le degré est $2n-2$.
-            </div>
-        </div>
-
-        <div class="qcm-card" data-correct="2">
-            <div class="qcm-question">Si pour tout $x \in \mathbb{R}$, on a $P(\sin x) = 0$, que peut-on affirmer sur $P$ ?</div>
-            <div class="options-grid">
-                <button class="opt-btn" onclick="selectOption(this, 0)">$P(X) = X$</button>
-                <button class="opt-btn" onclick="selectOption(this, 1)">Indécidable</button>
-                <button class="opt-btn" onclick="selectOption(this, 2)">$P$ est le polynôme nul</button>
-                <button class="opt-btn" onclick="selectOption(this, 3)">$P = 1$</button>
-            </div>
-            <div class="correction-box">
-                <strong>Correction détaillée :</strong> La fonction sinus prend une infinité de valeurs distinctes sur $\mathbb{R}$ (tout le segment $[-1,1]$). Le polynôme $P$ possède donc une infinité de racines. Or, un polynôme non nul ne peut avoir qu'un nombre fini de racines. Donc $P = 0$.
-            </div>
-        </div>
-
-        <div class="qcm-card" data-correct="0">
-            <div class="qcm-question">Combien le polynôme $X^n - 1$ possède-t-il de racines distinctes dans $\mathbb{C}$ ?</div>
-            <div class="options-grid">
-                <button class="opt-btn" onclick="selectOption(this, 0)">$n$</button>
-                <button class="opt-btn" onclick="selectOption(this, 1)">$1$</button>
-                <button class="opt-btn" onclick="selectOption(this, 2)">$n-1$</button>
-                <button class="opt-btn" onclick="selectOption(this, 3)">Une infinité</button>
-            </div>
-            <div class="correction-box">
-                <strong>Correction détaillée :</strong> Ce sont les racines $n$-ièmes de l'unité, de la forme $e^{2ik\pi/n}$ pour $k \in \{0, ..., n-1\}$. Elles sont au nombre exact de $n$ et toutes distinctes.
-            </div>
-        </div>
-
-        <div class="qcm-card" data-correct="3">
-            <div class="qcm-question">Soit $P(X) = 3X^4 - 2X^3 + X - 5$. Que vaut le produit de ses racines complexes ?</div>
-            <div class="options-grid">
-                <button class="opt-btn" onclick="selectOption(this, 0)">$5/3$</button>
-                <button class="opt-btn" onclick="selectOption(this, 1)">$-5$</button>
-                <button class="opt-btn" onclick="selectOption(this, 2)">$5$</button>
-                <button class="opt-btn" onclick="selectOption(this, 3)">$-5/3$</button>
-            </div>
-            <div class="correction-box">
-                <strong>Correction détaillée :</strong> D'après les relations de Viète, le produit des racines est $\prod x_i = (-1)^n \frac{a_0}{a_n}$. Ici $n=4$ (pair), $a_0 = -5$ et $a_n = 3$. Le produit vaut donc $(-1)^4 \times \frac{-5}{3} = -5/3$.
-            </div>
-        </div>
-
-        <div class="qcm-card" data-correct="1">
-            <div class="qcm-question">Quelle est la multiplicité de la racine $1$ dans le polynôme $P(X) = X^n - nX + n - 1$ (pour $n \geq 2$) ?</div>
-            <div class="options-grid">
-                <button class="opt-btn" onclick="selectOption(this, 0)">$1$</button>
-                <button class="opt-btn" onclick="selectOption(this, 1)">$2$</button>
-                <button class="opt-btn" onclick="selectOption(this, 2)">$3$</button>
-                <button class="opt-btn" onclick="selectOption(this, 3)">$n$</button>
-            </div>
-            <div class="correction-box">
-                <strong>Correction détaillée :</strong> $P(1) = 1 - n + n - 1 = 0$. <br> $P'(X) = nX^{n-1} - n \implies P'(1) = 0$. <br> $P''(X) = n(n-1)X^{n-2} \implies P''(1) = n(n-1)$. Comme $n \geq 2$, $P''(1) \neq 0$. La multiplicité est donc exactement 2.
-            </div>
-        </div>
-
-        <div class="qcm-card" data-correct="3">
-            <div class="qcm-question">Parmi ces complexes, lequel est une racine de $X^2 + X + 1$ ?</div>
-            <div class="options-grid">
-                <button class="opt-btn" onclick="selectOption(this, 0)">$i$</button>
-                <button class="opt-btn" onclick="selectOption(this, 1)">$1$</button>
-                <button class="opt-btn" onclick="selectOption(this, 2)">$-1$</button>
-                <button class="opt-btn" onclick="selectOption(this, 3)">$j = e^{2i\pi/3}$</button>
-            </div>
-            <div class="correction-box">
-                <strong>Correction détaillée :</strong> Les racines de $X^2+X+1$ sont $j$ et $\bar{j}$ (aussi noté $j^2$). En effet, $X^3-1 = (X-1)(X^2+X+1)$. Comme $j^3 = 1$ et $j \neq 1$, $j$ annule $X^2+X+1$.
-            </div>
-        </div>
-
-        <div class="qcm-card" data-correct="0">
-            <div class="qcm-question">Si deux polynômes $A$ et $B$ sont premiers entre eux, le théorème de Bézout affirme qu'il existe $U,V \in \mathbb{K}[X]$ tels que :</div>
-            <div class="options-grid">
-                <button class="opt-btn" onclick="selectOption(this, 0)">$AU + BV = 1$</button>
-                <button class="opt-btn" onclick="selectOption(this, 1)">$A$ divise $B$</button>
-                <button class="opt-btn" onclick="selectOption(this, 2)">$AU + BV = 0$</button>
-                <button class="opt-btn" onclick="selectOption(this, 3)">$A = UB$</button>
-            </div>
-            <div class="correction-box">
-                <strong>Correction détaillée :</strong> Le théorème de Bézout stipule que $A$ et $B$ sont premiers entre eux si et seulement s'il existe deux polynômes $U$ et $V$ tels que la combinaison linéaire $AU + BV$ soit égale à $1$.
-            </div>
-        </div>
-
-        <div class="qcm-card" data-correct="2">
-            <div class="qcm-question">Quel est le coefficient de $X^{n-1}$ dans le polynôme $P(X) = \prod_{k=1}^n (X-k)$ ?</div>
-            <div class="options-grid">
-                <button class="opt-btn" onclick="selectOption(this, 0)">$n!$</button>
-                <button class="opt-btn" onclick="selectOption(this, 1)">$\frac{n(n+1)}{2}$</button>
-                <button class="opt-btn" onclick="selectOption(this, 2)">$-\frac{n(n+1)}{2}$</button>
-                <button class="opt-btn" onclick="selectOption(this, 3)">$0$</button>
-            </div>
-            <div class="correction-box">
-                <strong>Correction détaillée :</strong> Les racines de $P$ sont $1, 2, ..., n$. Le coefficient de $X^{n-1}$ est l'opposé de la somme des racines (Viète). La somme est $\sum_{k=1}^n k = \frac{n(n+1)}{2}$. Le coefficient est donc $-\frac{n(n+1)}{2}$.
-            </div>
-        </div>
-
-        <div class="qcm-card" data-correct="0">
-            <div class="qcm-question">Quel est le reste de la division euclidienne de $X^n$ par $(X-1)(X-2)$ ?</div>
-            <div class="options-grid">
-                <button class="opt-btn" onclick="selectOption(this, 0)">$(2^n-1)X + 2-2^n$</button>
-                <button class="opt-btn" onclick="selectOption(this, 1)">$X+1$</button>
-                <button class="opt-btn" onclick="selectOption(this, 2)">$(2^n)X - 1$</button>
-                <button class="opt-btn" onclick="selectOption(this, 3)">$0$</button>
-            </div>
-            <div class="correction-box">
-                <strong>Correction détaillée :</strong> $X^n = Q(X)(X-1)(X-2) + aX+b$. En évaluant en 1 et 2 (racines du diviseur) : <br> En 1 : $1^n = a+b \implies a+b=1$. <br> En 2 : $2^n = 2a+b$. <br> Par soustraction, $a = 2^n - 1$. Puis $b = 1 - a = 2 - 2^n$. Le reste est $(2^n-1)X + 2-2^n$.
-            </div>
-        </div>
-
-        <div class="qcm-card" data-correct="1">
-            <div class="qcm-question">Soit $P \in \mathbb{C}[X]$. Si $P(X+1) = P(X)$, alors on peut affirmer que :</div>
-            <div class="options-grid">
-                <button class="opt-btn" onclick="selectOption(this, 0)">$P$ est de degré 1</button>
-                <button class="opt-btn" onclick="selectOption(this, 1)">$P$ est constant</button>
-                <button class="opt-btn" onclick="selectOption(this, 2)">$P$ est nul</button>
-                <button class="opt-btn" onclick="selectOption(this, 3)">$P(X) = X$</button>
-            </div>
-            <div class="correction-box">
-                <strong>Correction détaillée :</strong> Soit $z_0$ une racine de $P - P(0)$. Alors $z_0+1, z_0+2, \dots$ le sont aussi. Le polynôme $P - P(0)$ a une infinité de racines, c'est donc le polynôme nul. Ainsi $P = P(0)$, $P$ est constant.
-            </div>
-        </div>
-
-        <div class="qcm-card" data-correct="2">
-            <div class="qcm-question">Tout polynôme $P \in \mathbb{R}[X]$ de degré impair :</div>
-            <div class="options-grid">
-                <button class="opt-btn" onclick="selectOption(this, 0)">N'a pas de racine réelle</button>
-                <button class="opt-btn" onclick="selectOption(this, 1)">N'a que des racines réelles</button>
-                <button class="opt-btn" onclick="selectOption(this, 2)">Admet au moins une racine réelle</button>
-                <button class="opt-btn" onclick="selectOption(this, 3)">Est irréductible</button>
-            </div>
-            <div class="correction-box">
-                <strong>Correction détaillée :</strong> D'après le théorème des valeurs intermédiaires, les limites d'un polynôme de degré impair en $+\infty$ et $-\infty$ sont de signes opposés. La fonction polynomiale étant continue, elle s'annule au moins une fois sur $\mathbb{R}$.
-            </div>
-        </div>
-
-        <div class="qcm-card" data-correct="0">
-            <div class="qcm-question">La formule de Taylor pour les polynômes s'écrit (pour $\deg(P)=n$ et $a \in \mathbb{K}$) :</div>
-            <div class="options-grid">
-                <button class="opt-btn" onclick="selectOption(this, 0)">$P(X) = \sum_{k=0}^n \frac{P^{(k)}(a)}{k!} (X-a)^k$</button>
-                <button class="opt-btn" onclick="selectOption(this, 1)">$P(X) = \sum_{k=0}^n P^{(k)}(a) (X-a)^k$</button>
-                <button class="opt-btn" onclick="selectOption(this, 2)">$P(X) = \sum_{k=0}^n \frac{P^{(k)}(a)}{k!} X^k$</button>
-                <button class="opt-btn" onclick="selectOption(this, 3)">$P(X) = \sum_{k=0}^n \frac{P(a)}{k!} (X-a)^k$</button>
-            </div>
-            <div class="correction-box">
-                <strong>Correction détaillée :</strong> C'est la formule de Taylor exacte pour les polynômes. Le reste de Taylor est nul puisque la somme va jusqu'au degré $n$ du polynôme. La division par factorielle $k!$ est essentielle.
-            </div>
-        </div>
-
-        <div class="qcm-card" data-correct="3">
-            <div class="qcm-question">Quelles sont les racines de $X^4 + 1$ dans $\mathbb{C}$ ?</div>
-            <div class="options-grid">
-                <button class="opt-btn" onclick="selectOption(this, 0)">$1, -1, i, -i$</button>
-                <button class="opt-btn" onclick="selectOption(this, 1)">$e^{i\pi/2}, e^{-i\pi/2}$</button>
-                <button class="opt-btn" onclick="selectOption(this, 2)">$1+i, 1-i, -1+i, -1-i$</button>
-                <button class="opt-btn" onclick="selectOption(this, 3)">$e^{i\pi/4}, e^{3i\pi/4}, e^{-i\pi/4}, e^{-3i\pi/4}$</button>
-            </div>
-            <div class="correction-box">
-                <strong>Correction détaillée :</strong> On résout $z^4 = -1 = e^{i\pi}$. Les solutions sont de la forme $z_k = e^{i(\pi/4 + 2k\pi/4)}$ pour $k \in \{0, 1, 2, 3\}$. Cela donne les quatre racines complexes conjuguées deux à deux.
-            </div>
-        </div>
-
-        <div class="qcm-card" data-correct="0">
-            <div class="qcm-question">Sur quel corps un polynôme est-il scindé si et seulement s'il s'écrit comme produit de facteurs de degré 1 ?</div>
-            <div class="options-grid">
-                <button class="opt-btn" onclick="selectOption(this, 0)">Tout corps $\mathbb{K}$</button>
-                <button class="opt-btn" onclick="selectOption(this, 1)">Uniquement $\mathbb{C}$</button>
-                <button class="opt-btn" onclick="selectOption(this, 2)">Uniquement $\mathbb{R}$</button>
-                <button class="opt-btn" onclick="selectOption(this, 3)">Aucun</button>
-            </div>
-            <div class="correction-box">
-                <strong>Correction détaillée :</strong> C'est la définition même d'un polynôme scindé sur un corps $\mathbb{K}$ quelconque : il se factorise en produit de constantes et de polynômes de degré 1 de la forme $(X-a_i)$.
-            </div>
-        </div>
-
-        <div class="qcm-card" data-correct="1">
-            <div class="qcm-question">Dans $\mathbb{R}[X]$, les polynômes irréductibles sont exactement :</div>
-            <div class="options-grid">
-                <button class="opt-btn" onclick="selectOption(this, 0)">Ceux de degré 1</button>
-                <button class="opt-btn" onclick="selectOption(this, 1)">Ceux de degré 1 et ceux de degré 2 avec $\Delta < 0$</button>
-                <button class="opt-btn" onclick="selectOption(this, 2)">Tous les polynômes sans racine réelle</button>
-                <button class="opt-btn" onclick="selectOption(this, 3)">Ceux de degré 2</button>
-            </div>
-            <div class="correction-box">
-                <strong>Correction détaillée :</strong> D'après le théorème de d'Alembert-Gauss, les polynômes irréductibles de $\mathbb{C}[X]$ sont de degré 1. Par conjugaison des racines complexes, on en déduit que dans $\mathbb{R}[X]$, les seuls irréductibles sont les degrés 1 et les degrés 2 dont le discriminant est strictement négatif.
-            </div>
-        </div>
-
-        <div class="qcm-card" data-correct="2">
-            <div class="qcm-question">Une condition nécessaire et suffisante pour que $(X-a)^k$ divise $P$ est :</div>
-            <div class="options-grid">
-                <button class="opt-btn" onclick="selectOption(this, 0)">$P(a)=0$ et $P^{(k)}(a)=0$</button>
-                <button class="opt-btn" onclick="selectOption(this, 1)">$P(a)=0$</button>
-                <button class="opt-btn" onclick="selectOption(this, 2)">$P(a) = P'(a) = \dots = P^{(k-1)}(a) = 0$</button>
-                <button class="opt-btn" onclick="selectOption(this, 3)">$P^{(k)}(a) \neq 0$</button>
-            </div>
-            <div class="correction-box">
-                <strong>Correction détaillée :</strong> C'est la caractérisation de l'ordre de multiplicité d'une racine : $a$ est racine de multiplicité au moins $k$ si et seulement si le polynôme et ses $k-1$ premières dérivées s'annulent en $a$.
-            </div>
-        </div>
-
-        <div class="qcm-card" data-correct="1">
-            <div class="qcm-question">Si $\deg(P) = n \geq 2$, quel est le degré du polynôme $P' \times P''$ ?</div>
-            <div class="options-grid">
-                <button class="opt-btn" onclick="selectOption(this, 0)">$2n$</button>
-                <button class="opt-btn" onclick="selectOption(this, 1)">$2n-3$</button>
-                <button class="opt-btn" onclick="selectOption(this, 2)">$n-3$</button>
-                <button class="opt-btn" onclick="selectOption(this, 3)">$n^2-3$</button>
-            </div>
-            <div class="correction-box">
-                <strong>Correction détaillée :</strong> $\deg(P') = n-1$ et $\deg(P'') = n-2$. Le degré d'un produit est la somme des degrés, donc $\deg(P' \times P'') = (n-1) + (n-2) = 2n-3$.
-            </div>
-        </div>
-
-        <div class="qcm-card" data-correct="0">
-            <div class="qcm-question">Que vaut l'expression $\sum_{k=0}^n \binom{n}{k} X^k$ ?</div>
-            <div class="options-grid">
-                <button class="opt-btn" onclick="selectOption(this, 0)">$(X+1)^n$</button>
-                <button class="opt-btn" onclick="selectOption(this, 1)">$X^n + 1$</button>
-                <button class="opt-btn" onclick="selectOption(this, 2)">$(X-1)^n$</button>
-                <button class="opt-btn" onclick="selectOption(this, 3)">$2^n X^n$</button>
-            </div>
-            <div class="correction-box">
-                <strong>Correction détaillée :</strong> Il s'agit de l'application directe de la formule du binôme de Newton : $(X+y)^n = \sum_{k=0}^n \binom{n}{k} X^k y^{n-k}$, en choisissant $y = 1$.
-            </div>
-        </div>
-
-        <div class="qcm-card" data-correct="1">
-            <div class="qcm-question">Quel est le degré maximal du polynôme d'interpolation de Lagrange passant par $n+1$ points distincts ?</div>
-            <div class="options-grid">
-                <button class="opt-btn" onclick="selectOption(this, 0)">$n+1$</button>
-                <button class="opt-btn" onclick="selectOption(this, 1)">$n$</button>
-                <button class="opt-btn" onclick="selectOption(this, 2)">$n-1$</button>
-                <button class="opt-btn" onclick="selectOption(this, 3)">$2n$</button>
-            </div>
-            <div class="correction-box">
-                <strong>Correction détaillée :</strong> Le polynôme d'interpolation de Lagrange pour $n+1$ points d'abscisses distinctes est l'unique polynôme de degré inférieur ou égal à $n$ qui vérifie les $n+1$ conditions imposées.
-            </div>
-        </div>
-
-        <div class="qcm-card" data-correct="2">
-            <div class="qcm-question">Soit $P \in \mathbb{C}[X]$. Si pour tout $z \in \mathbb{C}$, $P(\bar{z}) = \overline{P(z)}$, alors :</div>
-            <div class="options-grid">
-                <button class="opt-btn" onclick="selectOption(this, 0)">$P$ est constant</button>
-                <button class="opt-btn" onclick="selectOption(this, 1)">$P(X) = X$</button>
-                <button class="opt-btn" onclick="selectOption(this, 2)">$P \in \mathbb{R}[X]$</button>
-                <button class="opt-btn" onclick="selectOption(this, 3)">$P$ a des racines complexes conjuguées</button>
-            </div>
-            <div class="correction-box">
-                <strong>Correction détaillée :</strong> En écrivant $P(X) = \sum a_k X^k$, on a $\sum a_k \bar{z}^k = \sum \overline{a_k} \bar{z}^k$. Par identification (un polynôme en $\bar{z}$), les coefficients $a_k$ sont égaux à leur conjugué, donc réels. $P$ est donc à coefficients réels.
-            </div>
-        </div>
-
-        <div class="qcm-card" data-correct="1">
-            <div class="qcm-question">À quelle condition le polynôme $X^2-1$ divise-t-il $X^n-1$ ?</div>
-            <div class="options-grid">
-                <button class="opt-btn" onclick="selectOption(this, 0)">Si $n$ est impair</button>
-                <button class="opt-btn" onclick="selectOption(this, 1)">Si $n$ est pair</button>
-                <button class="opt-btn" onclick="selectOption(this, 2)">Toujours</button>
-                <button class="opt-btn" onclick="selectOption(this, 3)">Jamais</button>
-            </div>
-            <div class="correction-box">
-                <strong>Correction détaillée :</strong> $X^2-1 = (X-1)(X+1)$. $1$ est toujours racine de $X^n-1$. Pour que $X^2-1$ divise $X^n-1$, il faut que $-1$ soit aussi racine, donc $(-1)^n - 1 = 0$, ce qui implique $n$ pair.
-            </div>
-        </div>
-
-        <div class="qcm-card" data-correct="0">
-            <div class="qcm-question">Que stipule le théorème de d'Alembert-Gauss (théorème fondamental de l'algèbre) ?</div>
-            <div class="options-grid">
-                <button class="opt-btn" onclick="selectOption(this, 0)">Tout polynôme non constant de $\mathbb{C}[X]$ admet au moins une racine dans $\mathbb{C}$</button>
-                <button class="opt-btn" onclick="selectOption(this, 1)">Tout polynôme a $n$ racines</button>
-                <button class="opt-btn" onclick="selectOption(this, 2)">$\mathbb{R}$ est algébriquement clos</button>
-                <button class="opt-btn" onclick="selectOption(this, 3)">Les racines complexes vont par paires conjuguées</button>
-            </div>
-            <div class="correction-box">
-                <strong>Correction détaillée :</strong> Le théorème énonce que le corps des complexes $\mathbb{C}$ est algébriquement clos. Par conséquent, tout polynôme de degré $\geq 1$ à coefficients dans $\mathbb{C}$ possède au moins une racine complexe (et se scinde totalement sur $\mathbb{C}$).
-            </div>
-        </div>
-
-    </div>
-
-    <button class="finish-btn" id="finishBtn" onclick="validateQuiz()">
-        <i class="fas fa-flag-checkered"></i> Valider mes réponses
     </button>
-</div>
 
-<script>
-    window.MathJax = {
-        tex: {
-            inlineMath: [['$', '$'], ['\\(', '\\)']],
-            displayMath: [['$$', '$$'], ['\\[', '\\]']]
-        },
-        svg: {
-            fontCache: 'global'
-        }
-    };
-</script>
-<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
-<script>
-    let quizValidated = false;
-    const totalQuestions = document.querySelectorAll('.qcm-card').length;
 
-    function updateProgress() {
-        const answered = document.querySelectorAll('.qcm-card[data-user-select]').length;
-        const percentage = (answered / totalQuestions) * 100;
-        document.getElementById('progress-bar').style.width = percentage + '%';
-    }
+    <aside id="sidebar">
 
-    function selectOption(button, index) {
-        if (quizValidated) return; // Empêche la modification après validation
+        <div class="logo-area">
 
-        const card = button.closest('.qcm-card');
-        const buttons = card.querySelectorAll('.opt-btn');
-        
-        buttons.forEach(btn => btn.classList.remove('selected'));
-        button.classList.add('selected');
-        card.setAttribute('data-user-select', index);
-        
-        updateProgress();
-    }
+            <div class="logo-box">
 
-    function validateQuiz() {
-        if (quizValidated) return;
+                <p class="logo-text">ELIAN<span>MATHS</span></p>
 
-        const cards = document.querySelectorAll('.qcm-card');
-        const answered = document.querySelectorAll('.qcm-card[data-user-select]').length;
+            </div>
 
-        if (answered < totalQuestions) {
-            const confirmVal = confirm(`Tu n'as répondu qu'à ${answered} question(s) sur ${totalQuestions}. Es-tu sûr de vouloir valider ?`);
-            if (!confirmVal) return;
-        }
+            <br>
 
-        quizValidated = true;
-        let score = 0;
-        
-        // Désactiver le bouton de validation
-        const finishBtn = document.getElementById('finishBtn');
-        finishBtn.disabled = true;
-        finishBtn.innerHTML = '<i class="fas fa-lock"></i> Entraînement terminé';
+            <span class="badge-pcsi">Prestige Edition PCSI</span>
 
-        cards.forEach(card => {
-            const correctIndex = parseInt(card.getAttribute('data-correct'));
-            const userSelect = card.getAttribute('data-user-select');
-            const buttons = card.querySelectorAll('.opt-btn');
-            const correction = card.querySelector('.correction-box');
+        </div>
 
-            // Désactiver tous les boutons de la carte
-            buttons.forEach(btn => btn.disabled = true);
 
-            if (userSelect !== null) {
-                const userIndex = parseInt(userSelect);
-                if (userIndex === correctIndex) {
-                    score++;
-                    buttons[userIndex].classList.add('correct');
-                    correction.classList.add('correct-ans');
-                } else {
-                    buttons[userIndex].classList.add('wrong');
-                    buttons[correctIndex].classList.add('correct');
-                    correction.classList.add('wrong-ans');
-                }
-            } else {
-                // Si non répondu, on montre juste la bonne réponse
-                buttons[correctIndex].classList.add('correct');
-                correction.classList.add('wrong-ans');
-            }
+
+        <nav id="nav-scroll">
+
+            <div class="chap-group">
+
+                <button class="chap-toggle" onclick="toggleAccordeon(this)">
+
+                    <span><i class="fas fa-square-root-variable main-icon"></i> Polynômes</span>
+
+                    <i class="fas fa-chevron-down"></i>
+
+                </button>
+
+                <div class="chap-content">
+
+                    <p class="nav-section-title">Cours</p>
+
+                    <a class="nav-link" onclick="loadPage('poly_bases')"><i class="fas fa-book"></i> Fondamentaux</a>
+
+                    <a class="nav-link" onclick="loadPage('poly_racines')"><i class="fas fa-bullseye"></i> Racines & Divisibilité</a>
+
+                    <a class="nav-link" onclick="loadPage('poly_fractions')"><i class="fas fa-percentage"></i> Fractions Rationnelles</a>
+
+                    
+
+                    <p class="nav-section-title">Entraînement</p>
+
+                    <a class="nav-link" onclick="loadPage('poly_exos')"><i class="fas fa-dumbbell"></i> Marathon 60 Questions</a>
+
+                    <a class="nav-link" onclick="loadPage('poly_exos_calc')"><i class="fas fa-calculator"></i> Calcul Technique</a>
+
+                    <a class="nav-link" style="color:#059669; font-weight:700" onclick="loadTraining('poly')"><i class="fas fa-bolt"></i> Test Aléatoire</a>
+
+                    <a class="nav-link" style="color:#e11d48; font-weight:700" onclick="loadPage('poly_training_v4')"><i class="fas fa-fire-flame-curved"></i> Test Expert v4</a>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="chap-group">
+
+                <button class="chap-toggle" onclick="toggleAccordeon(this)">
+
+                    <span><i class="fas fa-draw-polygon main-icon"></i> Géométrie</span>
+
+                    <i class="fas fa-chevron-down"></i>
+
+                </button>
+
+                <div class="chap-content">
+
+                    <p class="nav-section-title">Théorie</p>
+
+                    <a class="nav-link" onclick="loadPage('geo_metrique')"><i class="fas fa-ruler-combined"></i> Relations Métriques</a>
+
+                    <a class="nav-link" onclick="loadPage('geo_analytique')"><i class="fas fa-location-crosshairs"></i> Géométrie Analytique</a>
+
+                    
+
+                    <p class="nav-section-title">Pratique</p>
+
+                    <a class="nav-link" onclick="loadPage('geo_training_v1')"><i class="fas fa-pencil"></i> Exercices v1</a>
+
+                    <a class="nav-link" style="color:#059669; font-weight:700" onclick="loadTraining('geo')"><i class="fas fa-bolt"></i> Test de Niveau</a>
+
+                    <a class="nav-link" style="color:#e11d48; font-weight:700" onclick="loadPage('geo_training_v4')"><i class="fas fa-fire-flame-curved"></i> Test Expert v4</a>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="chap-group">
+
+                <button class="chap-toggle" onclick="toggleAccordeon(this)">
+
+                    <span><i class="fas fa-chart-line main-icon"></i> Fonctions</span>
+
+                    <i class="fas fa-chevron-down"></i>
+
+                </button>
+
+                <div class="chap-content">
+
+                    <p class="nav-section-title">Analyse</p>
+
+                    <a class="nav-link" onclick="loadPage('func_theoremes')"><i class="fas fa-microscope"></i> Rolle & TAF</a>
+
+                    <a class="nav-link" onclick="loadPage('func_taylor')"><i class="fas fa-infinity"></i> Taylor & DL</a>
+
+                    
+
+                    <p class="nav-section-title">Pratique</p>
+
+                    <a class="nav-link" onclick="loadPage('training_taylor_rolle')"><i class="fas fa-flask"></i> Mix Analyse</a>
+
+                    <a class="nav-link" style="color:#059669; font-weight:700" onclick="loadTraining('func')"><i class="fas fa-bolt"></i> Test de Rapidité</a>
+
+                    <a class="nav-link" style="color:#e11d48; font-weight:700" onclick="loadPage('func_training_v4')"><i class="fas fa-fire-flame-curved"></i> Test Expert v4</a>
+
+                </div>
+
+            </div>
+
+        </nav>
+
+    </aside>
+
+
+
+    <main id="main-wrapper">
+
+        <div id="content-container">
+
+            <div class="hero-banner">
+
+                <h1>Bienvenue, Elian</h1>
+
+                <p>Préparez vos concours avec rigueur. Sélectionnez un module dans le menu latéral pour commencer votre séance.</p>
+
+            </div>
+
             
-            correction.style.display = 'block';
+
+            <div style="text-align:center; padding:60px; color:var(--text-muted)">
+
+                <i class="fas fa-hand-point-left" style="font-size:3rem; margin-bottom:20px; display:block"></i>
+
+                <p>En attente d'un module...</p>
+
+            </div>
+
+        </div>
+
+    </main>
+
+
+
+    <script>
+
+        // --- MISE EN CACHE DU DOM ---
+
+        const sidebar = document.getElementById('sidebar');
+
+        const container = document.getElementById('content-container');
+
+        const mainWrapper = document.getElementById('main-wrapper');
+
+
+
+        // --- GESTION DES SCORES GLOBALE ---
+
+        window.currentScore = 0;
+
+        window.totalQuestions = 0;
+
+        window.answeredQuestions = 0;
+
+
+
+        // --- GESTION DES LIENS ACTIFS ---
+
+        document.addEventListener('click', (e) => {
+
+            const link = e.target.closest('.nav-link');
+
+            if (link) {
+
+                document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active-link'));
+
+                link.classList.add('active-link');
+
+            }
+
         });
 
-        // Affichage des résultats
-        const display = document.getElementById('result-display');
-        const percentage = Math.round((score / totalQuestions) * 100);
-        let appreciation = "";
 
-        if (percentage === 100) appreciation = "Parfait ! Un vrai major de promo ! 🏆";
-        else if (percentage >= 80) appreciation = "Excellent travail ! 🌟";
-        else if (percentage >= 50) appreciation = "Solide, mais encore des révisions à prévoir. 📚";
-        else appreciation = "Ne te décourage pas, revois le cours et réessaie ! 💪";
 
-        display.innerHTML = `
-            <h2><i class="fas fa-chart-line"></i> Score : ${score} / ${totalQuestions}</h2>
-            <p>${appreciation} (${percentage}%)</p>
-        `;
-        display.style.display = 'block';
+        // --- LOGIQUE NAVIGATION ---
+
+        function toggleSidebar() {
+
+            sidebar.classList.toggle('open');
+
+        }
+
+
+
+        function toggleAccordeon(btn) {
+
+            const content = btn.nextElementSibling;
+
+            const icon = btn.querySelector('.fa-chevron-down');
+
+            
+
+            document.querySelectorAll('.chap-content').forEach(el => {
+
+                if(el !== content) el.classList.remove('active');
+
+            });
+
+            document.querySelectorAll('.chap-toggle i.fa-chevron-down').forEach(i => {
+
+                if(i !== icon) i.style.transform = 'rotate(0deg)';
+
+            });
+
+
+
+            const isActive = content.classList.toggle('active');
+
+            icon.style.transform = isActive ? 'rotate(180deg)' : 'rotate(0deg)';
+
+        }
+
+
+
+        function toggleCor(btn) {
+
+            const block = btn.nextElementSibling;
+
+            if (!block) return;
+
+            
+
+            const isHidden = window.getComputedStyle(block).display === "none";
+
+            
+
+            if (isHidden) {
+
+                block.style.display = "block";
+
+                block.classList.add('fade-in'); 
+
+                btn.innerHTML = '<i class="fas fa-eye-slash"></i> Masquer le corrigé';
+
+                if (window.MathJax) MathJax.typesetPromise([block]);
+
+            } else {
+
+                block.style.display = "none";
+
+                btn.innerHTML = '<i class="fas fa-eye"></i> Afficher le corrigé détaillé';
+
+            }
+
+        }
+
+
+
+        // --- CHARGEMENT DYNAMIQUE ---
+
+        async function loadPage(fileName) {
+
+            if(window.innerWidth < 1000) {
+
+                sidebar.classList.remove('open');
+
+            }
+
+            
+
+            // Réinitialisation des scores pour la nouvelle page
+
+            window.currentScore = 0;
+
+            window.answeredQuestions = 0;
+
+            window.totalQuestions = 0;
+
+
+
+            container.innerHTML = '<div style="text-align:center; padding:100px;"><i class="fas fa-circle-notch fa-spin" style="font-size:3rem; color:var(--gold-btn)"></i></div>';
+
+
+
+            try {
+
+                const timestamp = new Date().getTime();
+
+                const response = await fetch(`content/${fileName}.html?v=${timestamp}`);
+
+                
+
+                if(!response.ok) throw new Error("Fichier introuvable");
+
+                
+
+                const html = await response.text();
+
+                container.innerHTML = html;
+
+
+
+                if(window.MathJax) {
+
+                    MathJax.typesetPromise([container]).catch(err => console.log(err));
+
+                }
+
+
+
+                // Récupérer le nombre total de questions de la page chargée
+
+                window.totalQuestions = container.querySelectorAll('.qcm-card').length;
+
+                mainWrapper.scrollTop = 0;
+
+
+
+            } catch (error) {
+
+                container.innerHTML = `
+
+                    <div class="hero-banner" style="background:#ef4444; border-color:#991b1b">
+
+                        <h1>Erreur 404</h1>
+
+                        <p>Le module <b>content/${fileName}.html</b> est introuvable.</p>
+
+                        <p style="font-size:0.9rem; margin-top:15px; opacity:0.8;">Vérifiez que le fichier existe bien dans le dossier /content/.</p>
+
+                    </div>`;
+
+            }
+
+        }
+
+
+
+        function loadTraining(subject) {
+
+            // Intégration de la v4 dans l'aléatoire
+
+            const versions = ['v1', 'v2', 'v3', 'v4'];
+
+            const randomVersion = versions[Math.floor(Math.random() * versions.length)];
+
+            let finalName = `${subject}_training_${randomVersion}`;
+
+            loadPage(finalName);
+
+        }
+
+
+
+        // --- MOTEUR QCM UNIFIÉ (Gère v1, v2, v3, v4) ---
+
+        window.checkQCM = function(btn, isCorrect) {
+
+            const card = btn.closest('.qcm-card');
+
+            if(!card) return;
+
+            
+
+            // Sécurité pour éviter le double comptage
+
+            if(card.classList.contains('answered')) return;
+
+            card.classList.add('answered');
+
+
+
+            const allBtns = card.querySelectorAll('.opt-btn');
+
+            allBtns.forEach(b => b.disabled = true);
+
+
+
+            window.answeredQuestions++;
+
+
+
+            if(isCorrect) {
+
+                window.currentScore++;
+
+                btn.classList.add('correct');
+
+            } else {
+
+                btn.classList.add('wrong');
+
+                // Trouver la bonne réponse pour la montrer (Fonctionne avec v1 "true")
+
+                allBtns.forEach(b => {
+
+                    if(b.getAttribute('onclick') && b.getAttribute('onclick').includes('true')) {
+
+                        b.classList.add('correct');
+
+                    }
+
+                });
+
+            }
+
+
+
+            const feedback = card.querySelector('.correction-box');
+
+            if(feedback) {
+
+                feedback.style.display = 'block';
+
+                if (window.MathJax) MathJax.typesetPromise([feedback]);
+
+            }
+
+        };
+
+
+
+        function finishQuiz() {
+
+            // Protection si on clique plusieurs fois
+
+            if(document.getElementById('score-zone')) return;
+
+
+
+            // Masquer le bouton de validation pour le PDF
+
+            const finishBtn = document.querySelector('.finish-btn');
+
+            if(finishBtn) finishBtn.classList.add('no-print-pdf');
+
+
+
+            let ratio = window.totalQuestions > 0 ? (window.currentScore / window.totalQuestions) : 0;
+
+            let percentage = Math.round(ratio * 100);
+
+            
+
+            let message = "";
+
+            let colorHex = "";
+
+            
+
+            if (ratio === 1) { 
+
+                message = "Perfection ! La majoration au concours n'est plus très loin."; 
+
+                colorHex = "#10b981"; 
+
+            } else if (ratio >= 0.75) { 
+
+                message = "Excellent travail, tes bases sont très solides."; 
+
+                colorHex = "#10b981"; 
+
+            } else if (ratio >= 0.5) { 
+
+                message = "C'est un bon début, mais relis le cours sur les erreurs commises."; 
+
+                colorHex = "var(--gold-btn)"; 
+
+            } else { 
+
+                message = "Ne te décourage pas ! L'important est d'apprendre de ses erreurs. Prends le temps de lire les corrigés."; 
+
+                colorHex = "#ef4444"; 
+
+            }
+
+
+
+            const scoreHTML = `
+
+                <div id="score-zone">
+
+                    <div class="score-display">
+
+                        <h2 style="color: ${colorHex}">${window.currentScore} / ${window.totalQuestions}</h2>
+
+                        <p>Score final : ${percentage}%</p>
+
+                        <p style="font-size: 0.9rem; color: var(--navy-dark); font-weight: 600; margin-top:15px;">${message}</p>
+
+                    </div>
+
+
+
+                    <div class="share-bar no-print-pdf">
+
+                        <button class="share-btn btn-pdf" onclick="generatePDF()"><i class="fas fa-file-pdf"></i> Sauvegarder PDF</button>
+
+                        <button class="share-btn btn-wa" onclick="shareWA(${window.currentScore}, ${window.totalQuestions})"><i class="fab fa-whatsapp"></i> WhatsApp</button>
+
+                        <button class="share-btn btn-x" onclick="shareX(${window.currentScore}, ${window.totalQuestions})"><i class="fab fa-x-twitter"></i> Twitter</button>
+
+                        <button class="share-btn btn-mail" onclick="shareMail(${window.currentScore}, ${window.totalQuestions})"><i class="fas fa-envelope"></i> Email</button>
+
+                        <button class="share-btn btn-sms" onclick="shareSMS(${window.currentScore}, ${window.totalQuestions})"><i class="fas fa-comment-sms"></i> SMS</button>
+
+                    </div>
+
+                </div>
+
+            `;
+
+            container.insertAdjacentHTML('beforeend', scoreHTML);
+
+            document.getElementById('score-zone').scrollIntoView({ behavior: 'smooth' });
+
+        }
+
+
+
+        // --- SYSTÈMES DE PARTAGE ---
+
+        function getShareText(score, total) {
+
+            return `J'ai terminé ma session sur Elian Maths avec un score de ${score}/${total} ! Prêt pour les concours CPGE. 🚀`;
+
+        }
+
+
+
+        function shareWA(score, total) {
+
+            window.open(`https://wa.me/?text=${encodeURIComponent(getShareText(score, total))}`);
+
+        }
+
         
-        // Scroll fluide vers le haut pour voir le résultat
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-</script>
+
+        function shareX(score, total) {
+
+            window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(getShareText(score, total))}`);
+
+        }
+
+
+
+        function shareMail(score, total) {
+
+            window.location.href = `mailto:?subject=Mon score sur Elian Maths&body=${encodeURIComponent(getShareText(score, total))}`;
+
+        }
+
+
+
+        function shareSMS(score, total) {
+
+            // Format compatible iOS & Android
+
+            window.location.href = `sms:?&body=${encodeURIComponent(getShareText(score, total))}`;
+
+        }
+
+
+
+        function generatePDF() {
+
+            // On masque temporairement les boutons de la zone de partage et le bouton valider
+
+            const noPrintElements = document.querySelectorAll('.no-print-pdf');
+
+            noPrintElements.forEach(el => el.style.display = 'none');
+
+
+
+            // Options optimisées pour éviter de couper les DIV (pagebreak avoid)
+
+            const opt = {
+
+                margin: [10, 10, 10, 10], // Haut, Droite, Bas, Gauche
+
+                filename: 'ElianMaths_Resultats.pdf',
+
+                image: { type: 'jpeg', quality: 0.98 },
+
+                html2canvas: { scale: 2, useCORS: true, letterRendering: true },
+
+                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+
+                pagebreak: { mode: ['css', 'legacy'] } // Respecte le page-break-inside: avoid des cartes QCM
+
+            };
+
+
+
+            html2pdf().set(opt).from(container).save().then(() => {
+
+                // On réaffiche les boutons après génération
+
+                noPrintElements.forEach(el => el.style.display = '');
+
+            });
+
+        }
+
+    </script>
+
 </body>
+
 </html>
