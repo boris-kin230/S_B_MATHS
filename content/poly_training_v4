@@ -1,0 +1,468 @@
+<style> 
+    /* Surcharge de la grille d'options pour un affichage 2x2 symétrique */
+    .options-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+    }
+
+    /* Sécurité maximale pour éviter que le texte ne se chevauche ou soit collé */
+    .opt-btn {
+        background: #f8f9fa;
+        border: 2px solid #e9ecef;
+        border-radius: 8px;
+        padding: 15px;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        text-align: left;
+        color: #333;
+        /* Ajouts vitaux pour la gestion du texte mathématique long */
+        min-height: 75px; 
+        display: flex;
+        align-items: center;
+        line-height: 1.4;
+        word-break: break-word; 
+    }
+
+    .opt-btn:hover {
+        border-color: #b0c4de;
+        background: #f1f3f5;
+    }
+
+    /* Bouton de validation stylisé */
+    .finish-btn {
+        background: var(--gold-btn, #FFD700);
+        color: var(--navy-dark, #112240);
+        border: none;
+        padding: 18px 40px;
+        font-size: 1.1rem;
+        font-weight: 800;
+        border-radius: 50px;
+        cursor: pointer;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+    }
+    .finish-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        background: var(--gold-hover, #ffea00);
+    }
+
+    /* Styles par défaut manquants pour un rendu isolé propre */
+    .qcm-card { background: #fff; padding: 25px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); margin-bottom: 25px; border: 1px solid #e1e4e8;}
+    .qcm-question { font-size: 1.15rem; font-weight: 600; margin-bottom: 20px; color: #112240; }
+    .correction-box { display: none; margin-top: 15px; padding: 15px; background: #eef2f5; border-left: 4px solid #4a90e2; border-radius: 4px; }
+    .hero-banner { text-align: center; padding: 30px; background: #112240; color: white; border-radius: 12px; margin-bottom: 30px; }
+
+    /* Responsive : on repasse en 1 colonne sur mobile (largeur < 768px) */
+    @media (max-width: 768px) {
+        .options-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+
+<div class="hero-banner">
+    <h1><i class="fas fa-pencil"></i> Entraînement : Polynômes (v4 PCSI)</h1>
+    <p>30 questions orientées calculs de haut vol : divisions euclidiennes, D'Alembert-Gauss, complexes, Moivre, et décompositions.</p>
+</div>
+
+<div class="qcm-card">
+    <div class="qcm-question">1. Quel est le reste de la division euclidienne de $X^n$ par $X^2 - 3X + 2$ ?</div>
+    <div class="options-grid">
+        <button class="opt-btn" onclick="checkQCM(this, false)">$(2^n+1)X - 2^n$</button>
+        <button class="opt-btn" onclick="checkQCM(this, true)">$(2^n-1)X + 2 - 2^n$</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">$nX + 1 - n$</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">$(2^n)X - 1$</button>
+    </div>
+    <div class="correction-box">
+        <strong>Explication :</strong> Les racines du diviseur sont $1$ et $2$. On écrit $X^n = Q(X)(X-1)(X-2) + aX + b$. On évalue en 1 et 2 : $1 = a + b$ et $2^n = 2a + b$. En résolvant, $a = 2^n - 1$ et $b = 1 - a = 2 - 2^n$.
+    </div>
+</div>
+
+<div class="qcm-card">
+    <div class="qcm-question">2. Quelles sont les solutions dans $\mathbb{C}$ de l'équation du second degré $z^2 - 2\cos(\theta)z + 1 = 0$ ?</div>
+    <div class="options-grid">
+        <button class="opt-btn" onclick="checkQCM(this, false)">$\cos(\theta)$ et $\sin(\theta)$</button>
+        <button class="opt-btn" onclick="checkQCM(this, true)">$e^{i\theta}$ et $e^{-i\theta}$</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">$1$ et $-1$</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">$\cos(2\theta) + i\sin(2\theta)$</button>
+    </div>
+    <div class="correction-box">
+        <strong>Explication :</strong> Le discriminant réduit est $\Delta' = \cos^2(\theta) - 1 = -\sin^2(\theta) = (i\sin\theta)^2$. Les racines sont donc $\cos(\theta) \pm i\sin(\theta)$, c'est-à-dire $e^{i\theta}$ et $e^{-i\theta}$.
+    </div>
+</div>
+
+<div class="qcm-card">
+    <div class="qcm-question">3. Par la formule de Moivre, comment s'exprime $\cos(3\theta)$ en fonction de $\cos(\theta)$ ?</div>
+    <div class="options-grid">
+        <button class="opt-btn" onclick="checkQCM(this, false)">$3\cos(\theta) - 4\cos^3(\theta)$</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">$\cos^3(\theta) + 3\cos(\theta)$</button>
+        <button class="opt-btn" onclick="checkQCM(this, true)">$4\cos^3(\theta) - 3\cos(\theta)$</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">$8\cos^3(\theta) - 4\cos(\theta)$</button>
+    </div>
+    <div class="correction-box">
+        <strong>Explication :</strong> On développe $(\cos\theta + i\sin\theta)^3$ avec le binôme de Newton. La partie réelle donne $\cos^3\theta - 3\cos\theta\sin^2\theta = \cos^3\theta - 3\cos\theta(1-\cos^2\theta) = 4\cos^3\theta - 3\cos\theta$.
+    </div>
+</div>
+
+<div class="qcm-card">
+    <div class="qcm-question">4. D'après le théorème de D'Alembert-Gauss, que peut-on affirmer sur un polynôme $P \in \mathbb{R}[X]$ de degré impair ?</div>
+    <div class="options-grid">
+        <button class="opt-btn" onclick="checkQCM(this, false)">Il n'admet que des racines complexes non réelles</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">Il est toujours irréductible sur $\mathbb{R}$</button>
+        <button class="opt-btn" onclick="checkQCM(this, true)">Il admet au moins une racine réelle</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">Toutes ses racines réelles sont de multiplicité 1</button>
+    </div>
+    <div class="correction-box">
+        <strong>Explication :</strong> Les racines complexes non réelles d'un polynôme à coefficients réels vont par paires conjuguées. Le degré étant impair, il reste forcément au moins une racine réelle (corollaire du TVI ou de D'Alembert-Gauss).
+    </div>
+</div>
+
+<div class="qcm-card">
+    <div class="qcm-question">5. En notant $j = e^{2i\pi/3}$, que vaut l'expression $(1+j)^{2024}$ ?</div>
+    <div class="options-grid">
+        <button class="opt-btn" onclick="checkQCM(this, false)">$1$</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">$-j^2$</button>
+        <button class="opt-btn" onclick="checkQCM(this, true)">$j$</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">$0$</button>
+    </div>
+    <div class="correction-box">
+        <strong>Explication :</strong> On sait que $1+j+j^2 = 0$, donc $1+j = -j^2$. Ainsi, $(1+j)^{2024} = (-j^2)^{2024} = j^{4048}$. Comme $j^3 = 1$ et $4048 = 3 \times 1349 + 1$, il reste $j^1 = j$.
+    </div>
+</div>
+
+<div class="qcm-card">
+    <div class="qcm-question">6. Trouver les valeurs de $a$ et $b$ pour que $P(X) = X^4 + aX^3 + b$ soit divisible par $(X-1)^2$.</div>
+    <div class="options-grid">
+        <button class="opt-btn" onclick="checkQCM(this, false)">$a=2, b=-3$</button>
+        <button class="opt-btn" onclick="checkQCM(this, true)">$a=-4/3, b=1/3$</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">$a=4/3, b=-1/3$</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">$a=-1, b=0$</button>
+    </div>
+    <div class="correction-box">
+        <strong>Explication :</strong> Il faut $P(1)=0$ et $P'(1)=0$. $P(1) = 1+a+b=0$ et $P'(X) = 4X^3+3aX^2 \Rightarrow P'(1) = 4+3a=0$. Donc $a = -4/3$ et $b = -1 - a = 1/3$.
+    </div>
+</div>
+
+<div class="qcm-card">
+    <div class="qcm-question">7. Dans la décomposition en éléments simples de $\frac{1}{X^3-1}$ sur $\mathbb{C}$, quel est le coefficient de $\frac{1}{X-1}$ ?</div>
+    <div class="options-grid">
+        <button class="opt-btn" onclick="checkQCM(this, false)">$1$</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">$-1/3$</button>
+        <button class="opt-btn" onclick="checkQCM(this, true)">$1/3$</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">$0$</button>
+    </div>
+    <div class="correction-box">
+        <strong>Explication :</strong> Pour une fraction $A/B$ avec un pôle simple en $a$, le résidu vaut $A(a)/B'(a)$. Ici, $A(X)=1$, $B(X)=X^3-1$, et $B'(X)=3X^2$. Évalué en $a=1$, on obtient $1/3$.
+    </div>
+</div>
+
+<div class="qcm-card">
+    <div class="qcm-question">8. Quel est le reste de la division euclidienne du polynôme $(X\sin\theta + \cos\theta)^n$ par $X^2+1$ ?</div>
+    <div class="options-grid">
+        <button class="opt-btn" onclick="checkQCM(this, true)">$X\sin(n\theta) + \cos(n\theta)$</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">$\sin(n\theta) - X\cos(n\theta)$</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">$1$</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">$X^n\sin^n(\theta)$</button>
+    </div>
+    <div class="correction-box">
+        <strong>Explication :</strong> Le reste $R(X) = aX+b$. On évalue aux racines de $X^2+1$, notamment $X=i$. $P(i) = (i\sin\theta+\cos\theta)^n = e^{in\theta} = \cos(n\theta) + i\sin(n\theta)$. Par identification avec $ai+b$, on a $a=\sin(n\theta)$ et $b=\cos(n\theta)$.
+    </div>
+</div>
+
+<div class="qcm-card">
+    <div class="qcm-question">9. Soit le polynôme $P(X) = 2X^3 - 4X^2 + 5X - 10$. Que vaut la somme des inverses de ses racines complexes ($\sum 1/x_i$) ?</div>
+    <div class="options-grid">
+        <button class="opt-btn" onclick="checkQCM(this, true)">$1/2$</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">$-1/2$</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">$2$</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">$-5/10$</button>
+    </div>
+    <div class="correction-box">
+        <strong>Explication :</strong> En réduisant au même dénominateur, $\sum \frac{1}{x_i} = \frac{\sigma_2}{\sigma_3}$. D'après Viète, cela vaut $-\frac{a_1}{a_0}$. Ici, $-\frac{5}{-10} = \frac{1}{2}$.
+    </div>
+</div>
+
+<div class="qcm-card">
+    <div class="qcm-question">10. Combien de solutions complexes distinctes admet l'équation $(z-1)^4 = (z+1)^4$ ?</div>
+    <div class="options-grid">
+        <button class="opt-btn" onclick="checkQCM(this, false)">$4$</button>
+        <button class="opt-btn" onclick="checkQCM(this, true)">$3$</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">$2$</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">$0$</button>
+    </div>
+    <div class="correction-box">
+        <strong>Explication :</strong> En développant, les termes en $z^4$ s'annulent. Il s'agit donc d'une équation polynomiale de degré 3. Par le théorème de D'Alembert-Gauss, elle possède exactement 3 solutions dans $\mathbb{C}$.
+    </div>
+</div>
+
+<div class="qcm-card">
+    <div class="qcm-question">11. Quelle est la factorisation en polynômes irréductibles de $X^4+X^2+1$ dans $\mathbb{R}[X]$ ?</div>
+    <div class="options-grid">
+        <button class="opt-btn" onclick="checkQCM(this, false)">$(X^2+1)^2 - X^2$</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">$(X^2+X-1)(X^2-X-1)$</button>
+        <button class="opt-btn" onclick="checkQCM(this, true)">$(X^2+X+1)(X^2-X+1)$</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">Il est irréductible sur $\mathbb{R}$</button>
+    </div>
+    <div class="correction-box">
+        <strong>Explication :</strong> Astuce d'ajout/soustraction : $X^4+X^2+1 = X^4+2X^2+1 - X^2 = (X^2+1)^2 - X^2$. Par l'identité remarquable $a^2-b^2$, on obtient $(X^2+1-X)(X^2+1+X)$.
+    </div>
+</div>
+
+<div class="qcm-card">
+    <div class="qcm-question">12. Quel est le reste de la division euclidienne de $X^{2026}$ par $X^2+X+1$ ?</div>
+    <div class="options-grid">
+        <button class="opt-btn" onclick="checkQCM(this, true)">$X$</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">$1$</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">$-X-1$</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">$0$</button>
+    </div>
+    <div class="correction-box">
+        <strong>Explication :</strong> Soit $j$ racine de $X^2+X+1$. $P(j) = j^{2026}$. Or $2026 = 3 \times 675 + 1$, donc $j^{2026} = j$. Le reste est de la forme $aX+b$, on a $aj+b = j$, donc par identification (car $1$ et $j$ forment une base de $\mathbb{C}$ sur $\mathbb{R}$), $a=1, b=0$. Le reste est $X$.
+    </div>
+</div>
+
+<div class="qcm-card">
+    <div class="qcm-question">13. Quel est le degré précis du polynôme $P(X) = (X^3+1)^4 - (X^4-1)^3$ ?</div>
+    <div class="options-grid">
+        <button class="opt-btn" onclick="checkQCM(this, false)">$12$</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">$10$</button>
+        <button class="opt-btn" onclick="checkQCM(this, true)">$9$</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">$8$</button>
+    </div>
+    <div class="correction-box">
+        <strong>Explication :</strong> En développant : $(X^3+1)^4 = X^{12} + 4X^9 + \dots$ et $(X^4-1)^3 = X^{12} - 3X^8 + \dots$. Lors de la soustraction, les termes en $X^{12}$ s'annulent. Le terme de plus haut degré restant est $4X^9$.
+    </div>
+</div>
+
+<div class="qcm-card">
+    <div class="qcm-question">14. Quelle condition sur les réels $p$ et $q$ garantit que le polynôme $X^3+pX+q$ admette une racine multiple ?</div>
+    <div class="options-grid">
+        <button class="opt-btn" onclick="checkQCM(this, false)">$p^2 - 4q = 0$</button>
+        <button class="opt-btn" onclick="checkQCM(this, true)">$4p^3 + 27q^2 = 0$</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">$27p^3 + 4q^2 = 0$</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">$p+q = 0$</button>
+    </div>
+    <div class="correction-box">
+        <strong>Explication :</strong> Une racine multiple annule $P$ et $P'$. $P'(X) = 3X^2+p = 0 \Rightarrow X^2 = -p/3$. On remplace dans $P(X) = X(X^2+p)+q = 0 \Rightarrow X(-p/3 + p) + q = 0 \Rightarrow \frac{2p}{3}X = -q$. En élevant au carré, on trouve bien $4p^3 + 27q^2 = 0$.
+    </div>
+</div>
+
+<div class="qcm-card">
+    <div class="qcm-question">15. Dans $\mathbb{C}[X]$, d'après le théorème de D'Alembert-Gauss, tout polynôme de degré $n \ge 1$ est...</div>
+    <div class="options-grid">
+        <button class="opt-btn" onclick="checkQCM(this, true)">Scindé</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">A coefficients réels</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">De degré pair</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">Unitaire</button>
+    </div>
+    <div class="correction-box">
+        <strong>Explication :</strong> Le théorème fondamental de l'algèbre stipule que tout polynôme de degré $n \ge 1$ admet $n$ racines (comptées avec multiplicité) dans $\mathbb{C}$. Il peut donc s'écrire comme produit de facteurs de degré 1 : il est scindé.
+    </div>
+</div>
+
+<div class="qcm-card">
+    <div class="qcm-question">16. Que vaut la somme $\sum_{k=0}^{n-1} e^{2ik\pi/n}$ pour un entier $n \ge 2$ ?</div>
+    <div class="options-grid">
+        <button class="opt-btn" onclick="checkQCM(this, true)">$0$</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">$1$</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">$n$</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">$-1$</button>
+    </div>
+    <div class="correction-box">
+        <strong>Explication :</strong> Il s'agit de la somme des racines $n$-ièmes de l'unité (les racines du polynôme $X^n-1$). Le coefficient en $X^{n-1}$ étant nul, la somme des racines vaut 0.
+    </div>
+</div>
+
+<div class="qcm-card">
+    <div class="qcm-question">17. Quelle est la partie polynomiale (ou partie entière) de la fraction $\frac{X^5+1}{X^2-1}$ ?</div>
+    <div class="options-grid">
+        <button class="opt-btn" onclick="checkQCM(this, false)">$X^3$</button>
+        <button class="opt-btn" onclick="checkQCM(this, true)">$X^3 + X$</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">$X^3 - X$</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">$X^2 + 1$</button>
+    </div>
+    <div class="correction-box">
+        <strong>Explication :</strong> On effectue la division euclidienne du numérateur par le dénominateur : $X^5+1 = X^3(X^2-1) + X^3 + 1 = X^3(X^2-1) + X(X^2-1) + X + 1$. Le quotient est donc $X^3+X$.
+    </div>
+</div>
+
+<div class="qcm-card">
+    <div class="qcm-question">18. Soient $a \neq b$. Quel est le reste de la division euclidienne d'un polynôme $A(X)$ par $(X-a)(X-b)$ ?</div>
+    <div class="options-grid">
+        <button class="opt-btn" onclick="checkQCM(this, false)">$\frac{A(a)+A(b)}{2}$</button>
+        <button class="opt-btn" onclick="checkQCM(this, true)">$\frac{A(a)-A(b)}{a-b}(X-b) + A(b)$</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">$A(a)(X-b) + A(b)(X-a)$</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">$A(a) - A(b)$</button>
+    </div>
+    <div class="correction-box">
+        <strong>Explication :</strong> Le reste est de degré 1 max, soit $R(X) = \alpha X + \beta$. On a $R(a)=A(a)$ et $R(b)=A(b)$. On écrit l'équation de la droite passant par ces deux points, ce qui correspond exactement à la formule proposée.
+    </div>
+</div>
+
+<div class="qcm-card">
+    <div class="qcm-question">19. Quelles sont les racines carrées complexes du nombre $3+4i$ ?</div>
+    <div class="options-grid">
+        <button class="opt-btn" onclick="checkQCM(this, false)">$1+2i$ et $-1-2i$</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">$3+i$ et $-3-i$</button>
+        <button class="opt-btn" onclick="checkQCM(this, true)">$2+i$ et $-2-i$</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">$2-i$ et $-2+i$</button>
+    </div>
+    <div class="correction-box">
+        <strong>Explication :</strong> On pose $z = x+iy$. $z^2 = x^2-y^2 + 2ixy = 3+4i$. L'égalité des modules donne $x^2+y^2 = \sqrt{3^2+4^2} = 5$. Le système $x^2-y^2=3$ et $x^2+y^2=5$ donne $2x^2=8 \Rightarrow x=\pm 2$. Et $2xy=4 > 0$ implique que $x$ et $y$ sont de même signe.
+    </div>
+</div>
+
+<div class="qcm-card">
+    <div class="qcm-question">20. Quel est le produit des racines complexes du polynôme $X^5 - 3X^4 + 2X - 7$ ?</div>
+    <div class="options-grid">
+        <button class="opt-btn" onclick="checkQCM(this, false)">$-7$</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">$3$</button>
+        <button class="opt-btn" onclick="checkQCM(this, true)">$7$</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">$0$</button>
+    </div>
+    <div class="correction-box">
+        <strong>Explication :</strong> Le produit des racines d'un polynôme unitaire de degré $n$ est égal à $(-1)^n a_0$. Ici $n=5$ (impair) et $a_0=-7$, donc le produit vaut $(-1)^5 \times (-7) = 7$.
+    </div>
+</div>
+
+<div class="qcm-card">
+    <div class="qcm-question">21. À l'aide du binôme de Newton, que vaut la somme $\sum_{k=0}^n \binom{n}{k} \cos(k\theta)$ ?</div>
+    <div class="options-grid">
+        <button class="opt-btn" onclick="checkQCM(this, false)">$2^n \cos(n\theta)$</button>
+        <button class="opt-btn" onclick="checkQCM(this, true)">$2^n \cos^n(\frac{\theta}{2}) \cos(\frac{n\theta}{2})$</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">$\cos^n(\theta)$</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">$2^n \sin^n(\frac{\theta}{2}) \cos(\frac{n\theta}{2})$</button>
+    </div>
+    <div class="correction-box">
+        <strong>Explication :</strong> C'est la partie réelle de $\sum \binom{n}{k} (e^{i\theta})^k = (1+e^{i\theta})^n$. Par l'arc moitié, $1+e^{i\theta} = 2\cos(\theta/2)e^{i\theta/2}$. En élevant à la puissance $n$ et en prenant la partie réelle, on trouve le résultat.
+    </div>
+</div>
+
+<div class="qcm-card">
+    <div class="qcm-question">22. Quelle est la décomposition en éléments simples de $\frac{X}{X^2+1}$ sur $\mathbb{C}$ ?</div>
+    <div class="options-grid">
+        <button class="opt-btn" onclick="checkQCM(this, false)">$\frac{1}{2i(X-i)} - \frac{1}{2i(X+i)}$</button>
+        <button class="opt-btn" onclick="checkQCM(this, true)">$\frac{1}{2(X-i)} + \frac{1}{2(X+i)}$</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">$\frac{i}{X-i} - \frac{i}{X+i}$</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">Impossible à décomposer</button>
+    </div>
+    <div class="correction-box">
+        <strong>Explication :</strong> La forme est $\frac{a}{X-i} + \frac{b}{X+i}$. En multipliant par $(X-i)$ et en évaluant en $i$, $a = i/(2i) = 1/2$. De même, $b = -i/(-2i) = 1/2$.
+    </div>
+</div>
+
+<div class="qcm-card">
+    <div class="qcm-question">23. Lors du calcul du PGCD par l'algorithme d'Euclide, quel est le quotient de $X^4-1$ par $X^3-1$ ?</div>
+    <div class="options-grid">
+        <button class="opt-btn" onclick="checkQCM(this, false)">$X-1$</button>
+        <button class="opt-btn" onclick="checkQCM(this, true)">$X$</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">$X^2$</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">$1$</button>
+    </div>
+    <div class="correction-box">
+        <strong>Explication :</strong> On écrit $X^4-1 = X(X^3-1) + X - 1$. Le quotient est donc simplement $X$ et le reste est $X-1$.
+    </div>
+</div>
+
+<div class="qcm-card">
+    <div class="qcm-question">24. Soit $j = e^{2i\pi/3}$ la racine cubique de l'unité. Que vaut exactement $1 + j + j^2$ ?</div>
+    <div class="options-grid">
+        <button class="opt-btn" onclick="checkQCM(this, false)">$3$</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">$i\sqrt{3}$</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">$-1$</button>
+        <button class="opt-btn" onclick="checkQCM(this, true)">$0$</button>
+    </div>
+    <div class="correction-box">
+        <strong>Explication :</strong> C'est une propriété fondamentale. La somme d'une suite géométrique donne $(1-j^3)/(1-j)$. Comme $j^3=1$, le numérateur est nul. $1+j+j^2 = 0$.
+    </div>
+</div>
+
+<div class="qcm-card">
+    <div class="qcm-question">25. Si $P$ est un polynôme de degré $n \ge 1$ et $Q$ de degré $m \ge 1$, quel est le degré du polynôme composé $P(Q(X))$ ?</div>
+    <div class="options-grid">
+        <button class="opt-btn" onclick="checkQCM(this, false)">$n + m$</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">$n^m$</button>
+        <button class="opt-btn" onclick="checkQCM(this, true)">$n \times m$</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">$\max(n, m)$</button>
+    </div>
+    <div class="correction-box">
+        <strong>Explication :</strong> Si le terme dominant de $P$ est $aX^n$ et celui de $Q$ est $bX^m$, alors le terme dominant de $P(Q(X))$ provient de $a(bX^m)^n = a b^n X^{mn}$. Le degré se multiplie.
+    </div>
+</div>
+
+<div class="qcm-card">
+    <div class="qcm-question">26. Quel est le coefficient de $X^{n-1}$ dans le développement du polynôme $\prod_{k=1}^n (X-k)$ ?</div>
+    <div class="options-grid">
+        <button class="opt-btn" onclick="checkQCM(this, false)">$n!$</button>
+        <button class="opt-btn" onclick="checkQCM(this, true)">$-\frac{n(n+1)}{2}$</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">$\frac{n(n-1)}{2}$</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">$0$</button>
+    </div>
+    <div class="correction-box">
+        <strong>Explication :</strong> D'après les relations de Viète, ce coefficient est l'opposé de la somme des racines. Les racines sont les entiers de $1$ à $n$, dont la somme est $n(n+1)/2$. L'opposé donne le résultat.
+    </div>
+</div>
+
+<div class="qcm-card">
+    <div class="qcm-question">27. Quelle est la factorisation de $X^3 - 8$ en produit de polynômes irréductibles dans $\mathbb{R}[X]$ ?</div>
+    <div class="options-grid">
+        <button class="opt-btn" onclick="checkQCM(this, false)">$(X-2)^3$</button>
+        <button class="opt-btn" onclick="checkQCM(this, true)">$(X-2)(X^2+2X+4)$</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">$(X-2)(X-2i)(X+2i)$</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">$(X-2)(X^2-2X+4)$</button>
+    </div>
+    <div class="correction-box">
+        <strong>Explication :</strong> On utilise l'identité remarquable $a^3-b^3 = (a-b)(a^2+ab+b^2)$ avec $a=X$ et $b=2$. Le trinôme $X^2+2X+4$ a un discriminant négatif ($\Delta = -12$), il est donc irréductible sur $\mathbb{R}$.
+    </div>
+</div>
+
+<div class="qcm-card">
+    <div class="qcm-question">28. Que vaut la somme des carrés des racines ($x_1^2 + x_2^2 + x_3^2$) du polynôme $X^3 - 2X^2 + X - 5$ ?</div>
+    <div class="options-grid">
+        <button class="opt-btn" onclick="checkQCM(this, false)">$4$</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">$0$</button>
+        <button class="opt-btn" onclick="checkQCM(this, true)">$2$</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">$5$</button>
+    </div>
+    <div class="correction-box">
+        <strong>Explication :</strong> On sait que $\sum x_i^2 = (\sum x_i)^2 - 2 \sum x_i x_j$. Par Viète : $S_1 = 2$ et $\sigma_2 = 1$. Le calcul donne $2^2 - 2(1) = 2$.
+    </div>
+</div>
+
+<div class="qcm-card">
+    <div class="qcm-question">29. Quelle est la multiplicité de la racine $i$ pour le polynôme $P(X) = (X^2+1)^3 (X^3-i)$ ?</div>
+    <div class="options-grid">
+        <button class="opt-btn" onclick="checkQCM(this, false)">$1$</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">$2$</button>
+        <button class="opt-btn" onclick="checkQCM(this, true)">$3$</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">$4$</button>
+    </div>
+    <div class="correction-box">
+        <strong>Explication :</strong> $X^2+1 = (X-i)(X+i)$, donc le premier bloc contient $(X-i)^3$. Pour le deuxième bloc, on évalue en $i$ : $i^3 - i = -i - i = -2i \neq 0$. La racine $i$ n'est pas présente dans le second bloc. La multiplicité totale est 3.
+    </div>
+</div>
+
+<div class="qcm-card">
+    <div class="qcm-question">30. Quelles sont les 3 solutions de l'équation $z^3 = 1$ dans l'ensemble des complexes ?</div>
+    <div class="options-grid">
+        <button class="opt-btn" onclick="checkQCM(this, false)">$1$, $i$ et $-i$</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">$1$, $-1$ et $0$</button>
+        <button class="opt-btn" onclick="checkQCM(this, true)">$1$, $e^{2i\pi/3}$ et $e^{-2i\pi/3}$</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">$1$, $\sqrt{3}/2 + i/2$ et $\sqrt{3}/2 - i/2$</button>
+    </div>
+    <div class="correction-box">
+        <strong>Explication :</strong> Ce sont les racines cubiques de l'unité. Elles s'écrivent sous la forme $e^{i 2k\pi/n}$ avec $n=3$ et $k \in \{0, 1, 2\}$. On obtient $1$, $j$ et $j^2$ (ce dernier étant le conjugué de $j$, soit $e^{-2i\pi/3}$).
+    </div>
+</div>
+
+<div style="text-align: center; margin-top: 40px; margin-bottom: 20px;">
+    <button class="opt-btn finish-btn" style="display:inline-flex; background:var(--gold-btn, #FFD700); color:var(--navy-dark, #112240); font-weight:800; border:none; padding: 15px 30px; justify-content: center;" onclick="finishQuiz()">
+        <i class="fas fa-flag-checkered" style="margin-right:10px;"></i> Valider mon score
+    </button>
+</div>
