@@ -1,422 +1,327 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Entraînement Polynômes - 15 QCM</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-    <script>
-        window.MathJax = {
-            tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] }
-        };
-    </script>
-    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<style>
+    /* Surcharge de la grille d'options pour un affichage 2x2 symétrique */
+    .options-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+        margin-bottom: 20px;
+    }
 
-    <style>
-        /* --- VARIABLES DE COULEURS --- */
-        :root {
-            --navy-dark: #112240;
-            --gold-btn: #FFD700;
-            --border: #ccd6f6;
-            --text-main: #333333;
-            --text-muted: #666666;
-            --bg-card: #ffffff;
-            --bg-body: #f4f7f6;
-            --shadow-sm: 0 2px 4px rgba(0,0,0,0.05);
-            --shadow-md: 0 4px 12px rgba(0,0,0,0.1);
-        }
+    /* Sécurité pour éviter les textes collés dans les boutons */
+    .opt-btn {
+        background: #f8f9fa;
+        border: 2px solid #e9ecef;
+        border-radius: 8px;
+        padding: 15px;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        text-align: left;
+        color: #333;
+        min-height: 65px; /* Laisse de la place pour les formules */
+        display: flex;
+        align-items: center;
+        line-height: 1.4;
+        word-break: break-word; /* Empêche les débordements */
+    }
 
-        /* --- TYPOGRAPHIE ET STRUCTURE GLOBALE --- */
-        body {
-            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            background-color: var(--bg-body);
-            color: var(--text-main);
-            line-height: 1.6;
-            padding: 20px;
-            max-width: 900px;
-            margin: 0 auto;
-        }
+    /* Bouton de validation stylisé */
+    .finish-btn {
+        background: var(--gold-btn, #FFD700);
+        color: var(--navy-dark, #112240);
+        border: none;
+        padding: 18px 40px;
+        font-size: 1.1rem;
+        font-weight: 800;
+        border-radius: 50px;
+        cursor: pointer;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+    }
+    .finish-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        background: var(--gold-hover, #ffea00);
+    }
 
-        .qcm-header {
-            margin-bottom: 30px;
-            background: var(--bg-card);
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: var(--shadow-sm);
-        }
-
-        .qcm-header h2 {
-            margin-top: 0;
-            color: var(--navy-dark);
-            border-left: 5px solid var(--gold-btn);
-            padding-left: 15px;
-        }
-
-        /* --- CARTES DE QUESTIONS --- */
-        .qcm-card {
-            background: var(--bg-card);
-            border-radius: 10px;
-            padding: 25px;
-            box-shadow: var(--shadow-md);
-            margin-bottom: 30px;
-            border: 1px solid var(--border);
-            display: block; /* Sécurité pour l'espacement */
-        }
-
-        .qcm-question {
-            font-size: 1.15em;
-            font-weight: 600;
-            margin-bottom: 20px;
-            color: var(--navy-dark);
-            word-wrap: break-word;
-        }
-
-        /* --- GRILLE 2x2 SYMÉTRIQUE --- */
+    /* Responsive : on repasse en 1 colonne sur mobile (largeur &lt; 768px) */
+    @media (max-width: 768px) {
         .options-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
-            margin-bottom: 15px;
+            grid-template-columns: 1fr;
         }
+    }
+</style>
 
-        /* --- BOUTONS D'OPTIONS --- */
-        .opt-btn {
-            background: #f8f9fa;
-            border: 2px solid #e9ecef;
-            border-radius: 8px;
-            padding: 15px 20px;
-            font-size: 1em;
-            font-family: inherit;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            text-align: left;
-            color: var(--text-main);
-            min-height: 60px;
-            height: auto;
-            display: flex;
-            align-items: center;
-            word-wrap: break-word;
-            line-height: 1.4;
-        }
+<div class="hero-banner">
+    <h1><i class="fas fa-pencil"></i> Entraînement : Polynômes (v2)</h1>
+    <p>20 questions : divisions euclidiennes, racines complexes, Moivre, D'Alembert-Gauss et relations coefficients-racines. À vous de jouer !</p>
+</div>
 
-        .opt-btn:hover:not(:disabled) {
-            border-color: var(--gold-btn);
-            background: #fffdf5;
-            transform: translateY(-2px);
-        }
-
-        .opt-btn:disabled {
-            cursor: default;
-            transform: none;
-        }
-
-        /* --- BOUTON AFFICHER LE CORRIGÉ --- */
-        .share-btn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 100%;
-            background: #f1f5f9;
-            color: var(--navy-dark);
-            padding: 12px;
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            font-size: 0.95em;
-            font-weight: 600;
-            margin-top: 15px;
-        }
-
-        .share-btn i {
-            margin-right: 8px;
-        }
-
-        .share-btn:hover {
-            background: #e2e8f0;
-        }
-
-        /* --- BOÎTE DE CORRECTION --- */
-        .correction-box {
-            display: none;
-            margin-top: 15px;
-            padding: 15px;
-            background-color: #e8f4f8;
-            border-left: 4px solid #17a2b8;
-            border-radius: 4px;
-            font-size: 0.95em;
-            color: #0c5460;
-            line-height: 1.5;
-        }
-
-        /* --- RESPONSIVE MOBILE --- */
-        @media (max-width: 600px) {
-            .options-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
-</head>
-<body>
-
-    <div class="qcm-header">
-        <h2>Entraînement v1 : Polynômes (15 Questions)</h2>
-        <p style="color: var(--text-muted); margin-bottom: 0;">Testez vos fondamentaux. Sélectionnez la bonne réponse pour afficher la correction.</p>
+<div class="qcm-card">
+    <div class="qcm-question">1. Quel est le reste de la division euclidienne de $X^3 - 2X^2 + X - 1$ par $X - 2$ ?</div>
+    <div class="options-grid">
+        <button class="opt-btn" onclick="checkQCM(this, false)">$-1$</button>
+        <button class="opt-btn" onclick="checkQCM(this, true)">$1$</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">$0$</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">$2$</button>
     </div>
-
-    <div class="qcm-card">
-        <div class="qcm-question">Q1. Soient $P$ et $Q$ deux polynômes non nuls de $\mathbb{K}[X]$. Quelle est la formule correcte pour le degré du produit $P \times Q$ ?</div>
-        <div class="options-grid">
-            <button class="opt-btn" onclick="checkQCM(this, false)">A) $\max(\deg(P), \deg(Q))$</button>
-            <button class="opt-btn" onclick="checkQCM(this, false)">B) $\deg(P) \times \deg(Q)$</button>
-            <button class="opt-btn" onclick="checkQCM(this, true)">C) $\deg(P) + \deg(Q)$</button>
-            <button class="opt-btn" onclick="checkQCM(this, false)">D) $\min(\deg(P), \deg(Q))$</button>
-        </div>
-        <button class="share-btn" onclick="toggleCor(this)"><i class="fas fa-eye"></i> Afficher le corrigé détaillé</button>
-        <div class="correction-box">
-            <strong>Correction :</strong> Le degré d'un produit est la somme des degrés. Par convention, si l'un des polynômes est nul, son degré est $-\infty$, et l'égalité $-\infty + n = -\infty$ reste cohérente.
-        </div>
+    <div class="correction-box">
+        <strong>Explication :</strong> Le reste de la division d'un polynôme $P(X)$ par $X-a$ est égal à $P(a)$. Ici, $P(2) = 2^3 - 2(2^2) + 2 - 1 = 8 - 8 + 2 - 1 = 1$.
     </div>
+</div>
 
-    <div class="qcm-card">
-        <div class="qcm-question">Q2. Si $\deg(P) \neq \deg(Q)$, que vaut le degré de la somme $\deg(P + Q)$ ?</div>
-        <div class="options-grid">
-            <button class="opt-btn" onclick="checkQCM(this, true)">A) $\max(\deg(P), \deg(Q))$</button>
-            <button class="opt-btn" onclick="checkQCM(this, false)">B) $\deg(P) + \deg(Q)$</button>
-            <button class="opt-btn" onclick="checkQCM(this, false)">C) $\min(\deg(P), \deg(Q))$</button>
-            <button class="opt-btn" onclick="checkQCM(this, false)">D) Indéterminable</button>
-        </div>
-        <button class="share-btn" onclick="toggleCor(this)"><i class="fas fa-eye"></i> Afficher le corrigé détaillé</button>
-        <div class="correction-box">
-            <strong>Correction :</strong> Si les degrés sont strictement différents, les termes de plus haut degré ne peuvent pas s'annuler entre eux. Le degré de la somme est donc exactement le maximum des deux degrés.
-        </div>
+<div class="qcm-card">
+    <div class="qcm-question">2. Quelles sont les solutions de l'équation $z^2 - 2z + 2 = 0$ dans $\mathbb{C}$ ?</div>
+    <div class="options-grid">
+        <button class="opt-btn" onclick="checkQCM(this, true)">$1 - i$ et $1 + i$</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">$-1 - i$ et $-1 + i$</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">$2$ et $-2$</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">$1 - 2i$ et $1 + 2i$</button>
     </div>
-
-    <div class="qcm-card">
-        <div class="qcm-question">Q3. Soit $P \in \mathbb{K}[X]$ et $a \in \mathbb{K}$. Quel est le reste de la division euclidienne de $P$ par le binôme $(X - a)$ ?</div>
-        <div class="options-grid">
-            <button class="opt-btn" onclick="checkQCM(this, false)">A) $0$</button>
-            <button class="opt-btn" onclick="checkQCM(this, false)">B) $P'(a)$</button>
-            <button class="opt-btn" onclick="checkQCM(this, true)">C) $P(a)$</button>
-            <button class="opt-btn" onclick="checkQCM(this, false)">D) $1$</button>
-        </div>
-        <button class="share-btn" onclick="toggleCor(this)"><i class="fas fa-eye"></i> Afficher le corrigé détaillé</button>
-        <div class="correction-box">
-            <strong>Correction :</strong> En écrivant $P = Q(X-a) + R$, on sait que le degré de $R$ est strictement inférieur à celui du diviseur (1), donc $R$ est une constante. En évaluant en $X=a$, on obtient $P(a) = 0 + R$.
-        </div>
+    <div class="correction-box">
+        <strong>Explication :</strong> Le discriminant est $\Delta = (-2)^2 - 4(1)(2) = 4 - 8 = -4 = (2i)^2$. Les racines sont donc $\frac{2 \pm 2i}{2} = 1 \pm i$.
     </div>
+</div>
 
-    <div class="qcm-card">
-        <div class="qcm-question">Q4. On dit que le scalaire $a$ est une racine de multiplicité $k \ge 1$ du polynôme $P$ si et seulement si :</div>
-        <div class="options-grid">
-            <button class="opt-btn" onclick="checkQCM(this, false)">A) $P(a) = P'(a) = \dots = P^{(k)}(a) = 0$</button>
-            <button class="opt-btn" onclick="checkQCM(this, true)">B) $(X-a)^k$ divise $P$ et $(X-a)^{k+1}$ ne divise pas $P$</button>
-            <button class="opt-btn" onclick="checkQCM(this, false)">C) $(X-a)^k$ divise $P'$</button>
-            <button class="opt-btn" onclick="checkQCM(this, false)">D) $P^{(k)}(a) = 0$ et $P^{(k+1)}(a) \neq 0$</button>
-        </div>
-        <button class="share-btn" onclick="toggleCor(this)"><i class="fas fa-eye"></i> Afficher le corrigé détaillé</button>
-        <div class="correction-box">
-            <strong>Correction :</strong> C'est la définition algébrique exacte. En termes de dérivées (Option A et D fausses), la condition correcte serait $P(a)=...=P^{(k-1)}(a)=0$ et $P^{(k)}(a) \neq 0$.
-        </div>
+<div class="qcm-card">
+    <div class="qcm-question">3. Trouver les réels $a$ et $b$ pour que $P(X) = X^3 + aX^2 + bX + 1$ soit divisible par $X^2 - 1$.</div>
+    <div class="options-grid">
+        <button class="opt-btn" onclick="checkQCM(this, false)">$a = 1, b = -1$</button>
+        <button class="opt-btn" onclick="checkQCM(this, true)">$a = -1, b = -1$</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">$a = 0, b = 0$</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">$a = -1, b = 1$</button>
     </div>
-
-    <div class="qcm-card">
-        <div class="qcm-question">Q5. Combien de racines le polynôme $P(X) = X^n - 1$ possède-t-il dans le corps des complexes $\mathbb{C}$ ?</div>
-        <div class="options-grid">
-            <button class="opt-btn" onclick="checkQCM(this, true)">A) $n$ racines simples</button>
-            <button class="opt-btn" onclick="checkQCM(this, false)">B) $1$ racine d'ordre $n$</button>
-            <button class="opt-btn" onclick="checkQCM(this, false)">C) $n-1$ racines simples</button>
-            <button class="opt-btn" onclick="checkQCM(this, false)">D) Un nombre dépendant de la parité de $n$</button>
-        </div>
-        <button class="share-btn" onclick="toggleCor(this)"><i class="fas fa-eye"></i> Afficher le corrigé détaillé</button>
-        <div class="correction-box">
-            <strong>Correction :</strong> Ce polynôme admet pour racines les racines $n$-ièmes de l'unité, de la forme $e^{2i\pi k/n}$ pour $k \in \{0, \dots, n-1\}$. Elles sont au nombre de $n$ et toutes distinctes (donc simples).
-        </div>
+    <div class="correction-box">
+        <strong>Explication :</strong> $X^2-1 = (X-1)(X+1)$. $P$ doit s'annuler en $1$ et $-1$. $P(1) = 0 \Rightarrow a+b+2=0$. $P(-1) = 0 \Rightarrow a-b=0$. Ainsi $a=b$, d'où $2a+2=0 \Rightarrow a=-1$ et $b=-1$.
     </div>
+</div>
 
-    <div class="qcm-card">
-        <div class="qcm-question">Q6. D'après le cours, dans $\mathbb{R}[X]$, quels sont les seuls polynômes irréductibles ?</div>
-        <div class="options-grid">
-            <button class="opt-btn" onclick="checkQCM(this, false)">A) Les polynômes de degré 1 uniquement</button>
-            <button class="opt-btn" onclick="checkQCM(this, true)">B) Les degrés 1, et les degrés 2 avec $\Delta &lt; 0$</button>
-            <button class="opt-btn" onclick="checkQCM(this, false)">C) Tous les polynômes n'ayant aucune racine réelle</button>
-            <button class="opt-btn" onclick="checkQCM(this, false)">D) Les polynômes de la forme $X^2 + a^2$</button>
-        </div>
-        <button class="share-btn" onclick="toggleCor(this)"><i class="fas fa-eye"></i> Afficher le corrigé détaillé</button>
-        <div class="correction-box">
-            <strong>Correction :</strong> C'est le théorème de d'Alembert-Gauss appliqué à $\mathbb{R}[X]$. Tout polynôme réel de degré $\ge 3$ peut se factoriser (il est réductible). Les seuls "briques de base" sont les degrés 1 et les trinômes sans racine réelle ($\Delta &lt; 0$).
-        </div>
+<div class="qcm-card">
+    <div class="qcm-question">4. D'après la formule de Moivre, que vaut $(\cos x + i \sin x)^n$ pour $n \in \mathbb{Z}$ ?</div>
+    <div class="options-grid">
+        <button class="opt-btn" onclick="checkQCM(this, false)">$\cos(x^n) + i \sin(x^n)$</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">$\cos^n(x) + i \sin^n(x)$</button>
+        <button class="opt-btn" onclick="checkQCM(this, true)">$\cos(nx) + i \sin(nx)$</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">$e^{i x / n}$</button>
     </div>
-
-    <div class="qcm-card">
-        <div class="qcm-question">Q7. Soit $P = a_n X^n + a_{n-1} X^{n-1} \dots + a_0$ un polynôme scindé. Que vaut la somme de ses $n$ racines ?</div>
-        <div class="options-grid">
-            <button class="opt-btn" onclick="checkQCM(this, false)">A) $a_{n-1} / a_n$</button>
-            <button class="opt-btn" onclick="checkQCM(this, true)">B) $-a_{n-1} / a_n$</button>
-            <button class="opt-btn" onclick="checkQCM(this, false)">C) $(-1)^n a_0 / a_n$</button>
-            <button class="opt-btn" onclick="checkQCM(this, false)">D) $a_1 / a_0$</button>
-        </div>
-        <button class="share-btn" onclick="toggleCor(this)"><i class="fas fa-eye"></i> Afficher le corrigé détaillé</button>
-        <div class="correction-box">
-            <strong>Correction :</strong> C'est la toute première relation de Viète ($\sigma_1$). La somme des racines d'un polynôme est toujours l'opposé du coefficient de degré $n-1$ divisé par le coefficient dominant.
-        </div>
+    <div class="correction-box">
+        <strong>Explication :</strong> C'est la définition même de la formule de Moivre. Elle découle directement de la notation exponentielle : $(e^{ix})^n = e^{inx}$.
     </div>
+</div>
 
-    <div class="qcm-card">
-        <div class="qcm-question">Q8. Toujours pour ce même polynôme $P$ scindé, que vaut le produit de ses $n$ racines ?</div>
-        <div class="options-grid">
-            <button class="opt-btn" onclick="checkQCM(this, false)">A) $a_0 / a_n$</button>
-            <button class="opt-btn" onclick="checkQCM(this, true)">B) $(-1)^n a_0 / a_n$</button>
-            <button class="opt-btn" onclick="checkQCM(this, false)">C) $-a_{n-1} / a_n$</button>
-            <button class="opt-btn" onclick="checkQCM(this, false)">D) $(-1)^{n-1} a_1 / a_n$</button>
-        </div>
-        <button class="share-btn" onclick="toggleCor(this)"><i class="fas fa-eye"></i> Afficher le corrigé détaillé</button>
-        <div class="correction-box">
-            <strong>Correction :</strong> C'est la dernière relation de Viète ($\sigma_n$). Le produit des racines dépend de la parité du degré $n$, d'où la présence indispensable du terme $(-1)^n$.
-        </div>
+<div class="qcm-card">
+    <div class="qcm-question">5. Quelles sont les racines cubiques complexes du nombre $-8$ ?</div>
+    <div class="options-grid">
+        <button class="opt-btn" onclick="checkQCM(this, true)">$-2$, $2e^{i\pi/3}$, $2e^{-i\pi/3}$</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">$-2$, $2i$, $-2i$</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">$-2$, $2e^{2i\pi/3}$, $2e^{-2i\pi/3}$</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">$2$, $-2$, $2i$</button>
     </div>
-
-    <div class="qcm-card">
-        <div class="qcm-question">Q9. Que stipule exactement le théorème de D'Alembert-Gauss (théorème fondamental de l'algèbre) ?</div>
-        <div class="options-grid">
-            <button class="opt-btn" onclick="checkQCM(this, false)">A) Tout polynôme réel admet au moins une racine réelle.</button>
-            <button class="opt-btn" onclick="checkQCM(this, false)">B) Tout polynôme complexe est de degré pair.</button>
-            <button class="opt-btn" onclick="checkQCM(this, true)">C) Tout polynôme non constant de $\mathbb{C}[X]$ admet au moins une racine dans $\mathbb{C}$.</button>
-            <button class="opt-btn" onclick="checkQCM(this, false)">D) Tout polynôme scindé est irréductible.</button>
-        </div>
-        <button class="share-btn" onclick="toggleCor(this)"><i class="fas fa-eye"></i> Afficher le corrigé détaillé</button>
-        <div class="correction-box">
-            <strong>Correction :</strong> Ce théorème fondamental exprime que le corps $\mathbb{C}$ est algébriquement clos. Par récurrence immédiate, tout polynôme de $\mathbb{C}[X]$ se scinde totalement.
-        </div>
+    <div class="correction-box">
+        <strong>Explication :</strong> On cherche $z$ tel que $z^3 = 8e^{i\pi}$. Les solutions sont de la forme $z_k = \sqrt[3]{8} e^{i(\pi/3 + 2k\pi/3)} = 2 e^{i(\pi+2k\pi)/3}$ pour $k \in \{0,1,2\}$. On trouve $-2$ (pour $k=1$) et $2e^{\pm i\pi/3}$.
     </div>
+</div>
 
-    <div class="qcm-card">
-        <div class="qcm-question">Q10. L'identité de Bézout affirme que deux polynômes $A$ et $B$ sont premiers entre eux si et seulement si...</div>
-        <div class="options-grid">
-            <button class="opt-btn" onclick="checkQCM(this, true)">A) $\exists U, V \in \mathbb{K}[X], AU + BV = 1$</button>
-            <button class="opt-btn" onclick="checkQCM(this, false)">B) $A$ et $B$ n'ont aucune racine réelle commune</button>
-            <button class="opt-btn" onclick="checkQCM(this, false)">C) Leurs degrés sont des nombres premiers entre eux</button>
-            <button class="opt-btn" onclick="checkQCM(this, false)">D) $\exists U, V \in \mathbb{K}[X], AU + BV = A \wedge B$</button>
-        </div>
-        <button class="share-btn" onclick="toggleCor(this)"><i class="fas fa-eye"></i> Afficher le corrigé détaillé</button>
-        <div class="correction-box">
-            <strong>Correction :</strong> Attention au piège de l'option D ! L'option D est toujours vraie, même si les polynômes ne sont pas premiers entre eux. Le fait qu'ils le soient impose spécifiquement que leur PGCD vaille 1.
-        </div>
+<div class="qcm-card">
+    <div class="qcm-question">6. Sachant que $j = e^{2i\pi/3}$, que vaut l'expression $1 + j + j^2$ ?</div>
+    <div class="options-grid">
+        <button class="opt-btn" onclick="checkQCM(this, false)">$3$</button>
+        <button class="opt-btn" onclick="checkQCM(this, true)">$0$</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">$i\sqrt{3}$</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">$1$</button>
     </div>
-
-    <div class="qcm-card">
-        <div class="qcm-question">Q11. Comment se factorise le polynôme $X^4 + 1$ dans le corps $\mathbb{R}[X]$ ?</div>
-        <div class="options-grid">
-            <button class="opt-btn" onclick="checkQCM(this, false)">A) Il est irréductible</button>
-            <button class="opt-btn" onclick="checkQCM(this, true)">B) En un produit de deux polynômes de degré 2</button>
-            <button class="opt-btn" onclick="checkQCM(this, false)">C) Il est totalement scindé</button>
-            <button class="opt-btn" onclick="checkQCM(this, false)">D) $(X^2-1)(X^2+1)$</button>
-        </div>
-        <button class="share-btn" onclick="toggleCor(this)"><i class="fas fa-eye"></i> Afficher le corrigé détaillé</button>
-        <div class="correction-box">
-            <strong>Correction :</strong> Bien qu'il n'ait aucune racine réelle, il se factorise en regroupant ses racines complexes conjuguées : $X^4 + 1 = (X^2 - \sqrt{2}X + 1)(X^2 + \sqrt{2}X + 1)$.
-        </div>
+    <div class="correction-box">
+        <strong>Explication :</strong> Il s'agit de la somme d'une suite géométrique de raison $j \neq 1$. La somme des racines $n$-ièmes de l'unité (ici $n=3$) est toujours nulle. $1+j+j^2 = \frac{1-j^3}{1-j} = 0$ car $j^3=1$.
     </div>
+</div>
 
-    <div class="qcm-card">
-        <div class="qcm-question">Q12. Si $P$ est un polynôme à coefficients RÉELS et que $P(a+ib) = 0$ (avec $b \neq 0$), alors :</div>
-        <div class="options-grid">
-            <button class="opt-btn" onclick="checkQCM(this, false)">A) $P(a-ib)$ n'est pas forcément nul</button>
-            <button class="opt-btn" onclick="checkQCM(this, true)">B) $a-ib$ est aussi racine de $P$</button>
-            <button class="opt-btn" onclick="checkQCM(this, false)">C) $P$ est scindé dans $\mathbb{R}[X]$</button>
-            <button class="opt-btn" onclick="checkQCM(this, false)">D) Le degré de $P$ est obligatoirement pair</button>
-        </div>
-        <button class="share-btn" onclick="toggleCor(this)"><i class="fas fa-eye"></i> Afficher le corrigé détaillé</button>
-        <div class="correction-box">
-            <strong>Correction :</strong> Puisque tous les coefficients sont réels, le conjugué de $P(z)$ est $P(\bar{z})$. Donc si $P(z)=0$, son conjugué $P(\bar{z})$ vaut aussi $0$. Les racines complexes non réelles vont toujours par paires conjuguées.
-        </div>
+<div class="qcm-card">
+    <div class="qcm-question">7. Que stipule exactement le théorème de d'Alembert-Gauss pour un polynôme $P \in \mathbb{C}[X]$ de degré $n \ge 1$ ?</div>
+    <div class="options-grid">
+        <button class="opt-btn" onclick="checkQCM(this, false)">Il admet $n$ racines réelles distinctes.</button>
+        <button class="opt-btn" onclick="checkQCM(this, true)">Il admet exactement $n$ racines dans $\mathbb{C}$ (comptées avec multiplicité).</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">Il n'admet aucune racine complexe si ses coefficients sont réels.</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">Il est irréductible s'il est de degré premier.</button>
     </div>
-
-    <div class="qcm-card">
-        <div class="qcm-question">Q13. Quelle est l'expression exacte de la formule de Taylor pour un polynôme $P$ de degré $n$ en un point $a$ ?</div>
-        <div class="options-grid">
-            <button class="opt-btn" onclick="checkQCM(this, true)">A) $P(X) = \sum_{k=0}^n \frac{P^{(k)}(a)}{k!} (X-a)^k$</button>
-            <button class="opt-btn" onclick="checkQCM(this, false)">B) $P(X) = \sum_{k=0}^n P^{(k)}(a) (X-a)^k$</button>
-            <button class="opt-btn" onclick="checkQCM(this, false)">C) $P(X) = \sum_{k=0}^n \frac{P(a)}{k!} X^k$</button>
-            <button class="opt-btn" onclick="checkQCM(this, false)">D) $P(X) = \sum_{k=0}^n \frac{P^{(k)}(0)}{k!} (X-a)^k$</button>
-        </div>
-        <button class="share-btn" onclick="toggleCor(this)"><i class="fas fa-eye"></i> Afficher le corrigé détaillé</button>
-        <div class="correction-box">
-            <strong>Correction :</strong> Contrairement à l'analyse où il y a un "reste" (petit o), la formule de Taylor pour les polynômes est une égalité algébrique stricte, car les dérivées d'ordre &gt; $n$ sont nulles. La division par $k!$ est obligatoire.
-        </div>
+    <div class="correction-box">
+        <strong>Explication :</strong> Le théorème affirme que $\mathbb{C}$ est algébriquement clos. Tout polynôme complexe est donc scindé sur $\mathbb{C}$, et la somme des multiplicités de ses racines vaut exactement son degré $n$.
     </div>
+</div>
 
-    <div class="qcm-card">
-        <div class="qcm-question">Q14. Un polynôme $P \in \mathbb{R}[X]$ vérifie $P(X) = P(-X)$. Que peut-on affirmer avec certitude ?</div>
-        <div class="options-grid">
-            <button class="opt-btn" onclick="checkQCM(this, false)">A) $P$ est le polynôme nul</button>
-            <button class="opt-btn" onclick="checkQCM(this, false)">B) Ses racines sont toutes réelles</button>
-            <button class="opt-btn" onclick="checkQCM(this, true)">C) Ses coefficients de rang impair sont tous nuls</button>
-            <button class="opt-btn" onclick="checkQCM(this, false)">D) $P(0) = 0$</button>
-        </div>
-        <button class="share-btn" onclick="toggleCor(this)"><i class="fas fa-eye"></i> Afficher le corrigé détaillé</button>
-        <div class="correction-box">
-            <strong>Correction :</strong> Il s'agit d'un polynôme pair. L'égalité $P(X) = P(-X)$ implique, par unicité des coefficients, que $a_k = (-1)^k a_k$. Pour $k$ impair, cela donne $a_k = -a_k$, ce qui implique que $a_k = 0$.
-        </div>
+<div class="qcm-card">
+    <div class="qcm-question">8. Quel est le degré maximal du reste $R$ lors de la division euclidienne de $A$ par un polynôme $B$ de degré $5$ ?</div>
+    <div class="options-grid">
+        <button class="opt-btn" onclick="checkQCM(this, false)">$5$</button>
+        <button class="opt-btn" onclick="checkQCM(this, true)">$4$</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">$6$</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">Indéterminable sans connaître le degré de $A$</button>
     </div>
-
-    <div class="qcm-card">
-        <div class="qcm-question">Q15. Soit $P \in \mathbb{R}[X]$. Si $P$ possède $n$ racines réelles distinctes, que peut-on dire de son polynôme dérivé $P'$ ?</div>
-        <div class="options-grid">
-            <button class="opt-btn" onclick="checkQCM(this, false)">A) $P'$ n'a aucune racine réelle</button>
-            <button class="opt-btn" onclick="checkQCM(this, true)">B) $P'$ a au moins $n-1$ racines réelles distinctes</button>
-            <button class="opt-btn" onclick="checkQCM(this, false)">C) $P'$ a exactement $n$ racines</button>
-            <button class="opt-btn" onclick="checkQCM(this, false)">D) $P'$ est scindé dans $\mathbb{C}[X]$ mais pas dans $\mathbb{R}[X]$</button>
-        </div>
-        <button class="share-btn" onclick="toggleCor(this)"><i class="fas fa-eye"></i> Afficher le corrigé détaillé</button>
-        <div class="correction-box">
-            <strong>Correction :</strong> C'est une application directe du théorème de Rolle. Entre deux racines distinctes successives de $P$, la fonction polynomiale passe par un extremum, ce qui implique l'existence d'au moins une racine pour $P'$.
-        </div>
+    <div class="correction-box">
+        <strong>Explication :</strong> Par définition de la division euclidienne $A = BQ + R$, on a $\deg(R) &lt; \deg(B)$. Si $\deg(B) = 5$, alors $\deg(R) \le 4$.
     </div>
+</div>
 
-    <script>
-        // Fonction pour valider la réponse et appliquer les couleurs
-        function checkQCM(btn, isCorrect) {
-            let parentGrid = btn.parentElement;
-            let allButtons = parentGrid.querySelectorAll('.opt-btn');
-            
-            // Désactiver tous les boutons pour empêcher de re-voter
-            allButtons.forEach(b => {
-                b.disabled = true;
-                
-                // Colorer les boutons
-                if (b.getAttribute('onclick').includes('true')) {
-                    // Mettre la bonne réponse en vert
-                    b.style.backgroundColor = '#d4edda';
-                    b.style.borderColor = '#28a745';
-                    b.style.color = '#155724';
-                    b.style.fontWeight = 'bold';
-                } else if (b === btn && !isCorrect) {
-                    // Mettre la mauvaise réponse cliquée en rouge
-                    b.style.backgroundColor = '#f8d7da';
-                    b.style.borderColor = '#dc3545';
-                    b.style.color = '#721c24';
-                    b.style.fontWeight = 'bold';
-                } else {
-                    // Rendre les autres boutons un peu transparents
-                    b.style.opacity = '0.5';
-                }
-            });
-        }
+<div class="qcm-card">
+    <div class="qcm-question">9. Pour quelles valeurs de $a \in \mathbb{R}$ le polynôme $P(X) = X^3 - 3X + a$ admet-il une racine multiple (au moins double) ?</div>
+    <div class="options-grid">
+        <button class="opt-btn" onclick="checkQCM(this, false)">$a = 0$</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">$a = 1$ ou $a = -1$</button>
+        <button class="opt-btn" onclick="checkQCM(this, true)">$a = 2$ ou $a = -2$</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">$a = 3$</button>
+    </div>
+    <div class="correction-box">
+        <strong>Explication :</strong> Une racine multiple annule $P$ et $P'$. $P'(X) = 3X^2 - 3 = 0 \Rightarrow X = 1$ ou $X = -1$. Si la racine multiple est $1$, $P(1) = 0 \Rightarrow -2+a=0 \Rightarrow a=2$. Si c'est $-1$, $P(-1) = 0 \Rightarrow 2+a=0 \Rightarrow a=-2$.
+    </div>
+</div>
 
-        // Fonction pour afficher la correction au clic
-        function toggleCor(btn) {
-            let corBox = btn.nextElementSibling;
-            if (corBox.style.display === 'block') {
-                corBox.style.display = 'none';
-                btn.innerHTML = '<i class="fas fa-eye"></i> Afficher le corrigé détaillé';
-            } else {
-                corBox.style.display = 'block';
-                btn.innerHTML = '<i class="fas fa-eye-slash"></i> Masquer le corrigé';
-            }
-        }
-    </script>
-</body>
-</html>
+<div class="qcm-card">
+    <div class="qcm-question">10. Soit $P(X) = X^3 - 2X^2 + X - 5$. Soient $x_1, x_2, x_3$ ses racines. Que vaut $x_1^2 + x_2^2 + x_3^2$ ?</div>
+    <div class="options-grid">
+        <button class="opt-btn" onclick="checkQCM(this, false)">$4$</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">$-2$</button>
+        <button class="opt-btn" onclick="checkQCM(this, true)">$2$</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">$5$</button>
+    </div>
+    <div class="correction-box">
+        <strong>Explication :</strong> On utilise $\sum x_i^2 = (\sum x_i)^2 - 2 \sum_{i&lt;j} x_i x_j$. Par les relations de Viète, la somme vaut $-(-2)/1 = 2$, et la somme des produits deux à deux vaut $1/1 = 1$. Donc $(2)^2 - 2(1) = 4 - 2 = 2$.
+    </div>
+</div>
+
+<div class="qcm-card">
+    <div class="qcm-question">11. Résoudre l'équation $z^2 + 2iz - 1 = 0$ dans $\mathbb{C}$.</div>
+    <div class="options-grid">
+        <button class="opt-btn" onclick="checkQCM(this, true)">Une racine double : $-i$</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">$i$ et $-i$</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">$1$ et $-1$</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">Une racine double : $i$</button>
+    </div>
+    <div class="correction-box">
+        <strong>Explication :</strong> On reconnaît une identité remarquable complexe : $z^2 + 2iz - 1 = z^2 + 2iz + i^2 = (z+i)^2 = 0$. La seule solution est donc $z = -i$.
+    </div>
+</div>
+
+<div class="qcm-card">
+    <div class="qcm-question">12. Quelle est la décomposition en produit de facteurs irréductibles de $X^3 - 1$ dans $\mathbb{R}[X]$ ?</div>
+    <div class="options-grid">
+        <button class="opt-btn" onclick="checkQCM(this, false)">$(X-1)^3$</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">$(X-1)(X^2-X+1)$</button>
+        <button class="opt-btn" onclick="checkQCM(this, true)">$(X-1)(X^2+X+1)$</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">$(X-1)(X-j)(X-j^2)$</button>
+    </div>
+    <div class="correction-box">
+        <strong>Explication :</strong> $1$ est racine évidente. On factorise : $X^3-1 = (X-1)(X^2+X+1)$. Le trinôme $X^2+X+1$ a un discriminant $\Delta = -3 &lt; 0$, il est donc irréductible dans $\mathbb{R}[X]$. La réponse avec $j$ est la factorisation dans $\mathbb{C}[X]$.
+    </div>
+</div>
+
+<div class="qcm-card">
+    <div class="qcm-question">13. Que vaut le produit des racines complexes du polynôme $P(X) = 2X^3 - 4X^2 + 6X - 8$ ?</div>
+    <div class="options-grid">
+        <button class="opt-btn" onclick="checkQCM(this, true)">$4$</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">$-4$</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">$8$</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">$-8$</button>
+    </div>
+    <div class="correction-box">
+        <strong>Explication :</strong> Pour un polynôme de degré $n$, le produit des racines est $(-1)^n \frac{a_0}{a_n}$. Ici $n=3$, $a_0 = -8$, $a_3 = 2$. Le produit vaut $(-1)^3 \times \frac{-8}{2} = -1 \times -4 = 4$.
+    </div>
+</div>
+
+<div class="qcm-card">
+    <div class="qcm-question">14. Un polynôme $P$ vérifie $P(X) = -P(-X)$. Que peut-on dire de son écriture ?</div>
+    <div class="options-grid">
+        <button class="opt-btn" onclick="checkQCM(this, true)">Il ne contient que des monômes de degré impair</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">Il ne contient que des monômes de degré pair</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">Il a au moins une racine imaginaire pure</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">C'est obligatoirement le polynôme nul</button>
+    </div>
+    <div class="correction-box">
+        <strong>Explication :</strong> La relation définit une fonction polynomiale impaire. En identifiant les coefficients de $P(X)$ et de $-P(-X)$, on obtient que tous les coefficients liés à des puissances paires sont nuls.
+    </div>
+</div>
+
+<div class="qcm-card">
+    <div class="qcm-question">15. Comment factoriser $X^2 + 4$ dans $\mathbb{C}[X]$ ?</div>
+    <div class="options-grid">
+        <button class="opt-btn" onclick="checkQCM(this, false)">$(X-2)(X+2)$</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">Il est irréductible dans $\mathbb{C}[X]$</button>
+        <button class="opt-btn" onclick="checkQCM(this, true)">$(X-2i)(X+2i)$</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">$(X-4i)(X+4i)$</button>
+    </div>
+    <div class="correction-box">
+        <strong>Explication :</strong> On écrit $X^2 + 4 = X^2 - (-4) = X^2 - (2i)^2$. On utilise ensuite l'identité remarquable $A^2 - B^2 = (A-B)(A+B)$ pour obtenir $(X-2i)(X+2i)$.
+    </div>
+</div>
+
+<div class="qcm-card">
+    <div class="qcm-question">16. Soit $P \in \mathbb{R}[X]$. On sait que $P(1+i) = 0$. Quelle autre racine connaît-on avec certitude ?</div>
+    <div class="options-grid">
+        <button class="opt-btn" onclick="checkQCM(this, false)">$-1-i$</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">$-1+i$</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">Il n'y a pas d'autre racine garantie</button>
+        <button class="opt-btn" onclick="checkQCM(this, true)">$1-i$</button>
+    </div>
+    <div class="correction-box">
+        <strong>Explication :</strong> Puisque $P$ est à coefficients réels, si un nombre complexe $z$ est racine de $P$, alors son conjugué $\bar{z}$ l'est aussi. Le conjugué de $1+i$ est $1-i$.
+    </div>
+</div>
+
+<div class="qcm-card">
+    <div class="qcm-question">17. Quel est le PGCD des polynômes $A = X^2 - 1$ et $B = X^2 - 3X + 2$ dans $\mathbb{R}[X]$ ?</div>
+    <div class="options-grid">
+        <button class="opt-btn" onclick="checkQCM(this, true)">$X - 1$</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">$X + 1$</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">$1$ (ils sont premiers entre eux)</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">$X - 2$</button>
+    </div>
+    <div class="correction-box">
+        <strong>Explication :</strong> Les racines de $A$ sont $1$ et $-1$. Les racines de $B$ (racine évidente 1, produit 2) sont $1$ et $2$. La seule racine commune est $1$, d'ordre 1. Le PGCD est donc $X-1$.
+    </div>
+</div>
+
+<div class="qcm-card">
+    <div class="qcm-question">18. Que vaut le produit des $n$ racines $n$-ièmes de l'unité (pour $n \ge 2$) ?</div>
+    <div class="options-grid">
+        <button class="opt-btn" onclick="checkQCM(this, false)">$1$</button>
+        <button class="opt-btn" onclick="checkQCM(this, true)">$(-1)^{n-1}$</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">$(-1)^n$</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">$0$</button>
+    </div>
+    <div class="correction-box">
+        <strong>Explication :</strong> Ce sont les racines de $X^n - 1 = 0$. D'après les relations de Viète, le produit des racines d'un polynôme de la forme $X^n + a_{n-1}X^{n-1} + \dots + a_0$ est $(-1)^n a_0$. Ici $a_0 = -1$, donc le produit vaut $(-1)^n(-1) = (-1)^{n+1} = (-1)^{n-1}$.
+    </div>
+</div>
+
+<div class="qcm-card">
+    <div class="qcm-question">19. Quel est le degré de la partie polynomiale (partie entière) de la fraction $\frac{X^5 + 1}{X^2 + 1}$ ?</div>
+    <div class="options-grid">
+        <button class="opt-btn" onclick="checkQCM(this, false)">$2$</button>
+        <button class="opt-btn" onclick="checkQCM(this, true)">$3$</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">$5$</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">Il n'y en a pas</button>
+    </div>
+    <div class="correction-box">
+        <strong>Explication :</strong> La partie polynomiale est le quotient de la division euclidienne du numérateur par le diviseur. Son degré est simplement la différence des degrés : $5 - 2 = 3$.
+    </div>
+</div>
+
+<div class="qcm-card">
+    <div class="qcm-question">20. Quelle expression correspond à la linéarisation de $\cos^2(x)$ en utilisant les formules d'Euler ?</div>
+    <div class="options-grid">
+        <button class="opt-btn" onclick="checkQCM(this, false)">$\frac{1 - \cos(2x)}{2}$</button>
+        <button class="opt-btn" onclick="checkQCM(this, true)">$\frac{1 + \cos(2x)}{2}$</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">$\cos(2x) - 1$</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">$\frac{\sin(2x)}{2}$</button>
+    </div>
+    <div class="correction-box">
+        <strong>Explication :</strong> $\cos(x) = \frac{e^{ix} + e^{-ix}}{2}$. En élevant au carré, on obtient $\frac{e^{2ix} + 2e^0 + e^{-2ix}}{4} = \frac{2\cos(2x) + 2}{4} = \frac{1+\cos(2x)}{2}$.
+    </div>
+</div>
+
+<div style="text-align: center; margin-top: 40px;">
+    <button class="finish-btn no-print-pdf" onclick="finishQuiz()">
+        <i class="fas fa-flag-checkered"></i> Valider mon score
+    </button>
+</div>
