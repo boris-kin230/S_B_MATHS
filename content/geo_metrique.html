@@ -1,18 +1,125 @@
+<style>
+    :root {
+        --navy-dark: #0f172a;
+        --navy-main: #1e293b;
+        --gold-btn: #eab308;
+        --gold-hover: #facc15;
+        --text-muted: #64748b;
+        --bg-light: #f8fafc;
+    }
+
+    body {
+        font-family: 'Segoe UI', system-ui, sans-serif;
+        background-color: #f1f5f9;
+        color: #334155;
+        padding: 20px;
+    }
+
+    .banner {
+        background: var(--navy-dark);
+        color: white;
+        padding: 30px;
+        border-radius: 12px;
+        margin-bottom: 30px;
+        text-align: center;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+
+    .qcm-box {
+        background: white;
+        padding: 25px;
+        border-radius: 12px;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        margin-bottom: 25px;
+        border: 1px solid #e2e8f0;
+    }
+
+    .qcm-question {
+        font-size: 1.15rem;
+        font-weight: 600;
+        margin-bottom: 20px;
+        color: var(--navy-dark);
+    }
+
+    .qcm-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+    }
+
+    .opt-btn {
+        background: var(--bg-light);
+        border: 2px solid #e2e8f0;
+        border-radius: 8px;
+        padding: 15px;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        text-align: left;
+        color: #333;
+        display: flex;
+        align-items: center;
+        min-height: 60px;
+        line-height: 1.4;
+    }
+
+    .opt-btn:hover {
+        border-color: #cbd5e1;
+        background: #e2e8f0;
+    }
+
+    .opt-btn.correct {
+        background: #dcfce7;
+        border-color: #22c55e;
+        color: #166534;
+    }
+
+    .opt-btn.wrong {
+        background: #fee2e2;
+        border-color: #ef4444;
+        color: #991b1b;
+    }
+
+    .share-btn {
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        font-size: 0.95rem;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: opacity 0.2s;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .share-btn:hover {
+        opacity: 0.9;
+    }
+
+    @media (max-width: 768px) {
+        .qcm-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+
 <div class="banner">
     <h1 style="font-size: 2rem; margin: 0;"><i class="fas fa-vector-square"></i> Géométrie Métrique</h1>
-    <p style="opacity: 0.8;">Produit scalaire, norme et déterminant dans le plan $\mathbb{R}^2$.</p>
+    <p style="opacity: 0.8;">Produit scalaire, norme, déterminant et distances dans le plan $\mathbb{R}^2$.</p>
 </div>
 
 <div class="qcm-box">
-    <h3 style="color: var(--navy-dark);"><i class="fas fa-book-open"></i> Rappels Fondamentaux</h3>
+    <h3 style="color: var(--navy-dark); margin-top: 0;"><i class="fas fa-book-open"></i> Rappels Fondamentaux</h3>
     <p>Soient deux vecteurs $\vec{u}(x, y)$ et $\vec{v}(x', y')$ dans une base orthonormée directe :</p>
     <ul>
         <li><strong>Produit Scalaire :</strong> $\vec{u} \cdot \vec{v} = xx' + yy' = \|\vec{u}\| \|\vec{v}\| \cos(\theta)$</li>
         <li><strong>Déterminant :</strong> $\det(\vec{u}, \vec{v}) = xy' - yx' = \|\vec{u}\| \|\vec{v}\| \sin(\theta)$</li>
         <li><strong>Norme :</strong> $\|\vec{u}\| = \sqrt{x^2 + y^2}$</li>
+        <li><strong>Distance point-droite :</strong> $d(A, \mathcal{D}) = \frac{|ax_A + by_A + c|}{\sqrt{a^2 + b^2}}$</li>
     </ul>
 
-    <div style="text-align: center; margin: 30px 0; background: #f8fafc; padding: 20px; border-radius: 10px;">
+    <div style="text-align: center; margin: 30px 0; background: var(--bg-light); padding: 20px; border-radius: 10px;">
         <svg width="200" height="200" viewBox="0 0 200 200" style="max-width: 100%;">
             <line x1="10" y1="180" x2="190" y2="180" stroke="#cbd5e1" stroke-width="2" />
             <line x1="20" y1="10" x2="20" y2="190" stroke="#cbd5e1" stroke-width="2" />
@@ -32,11 +139,9 @@
                 </marker>
             </defs>
         </svg>
-        <p style="font-size: 0.8rem; color: var(--text-muted);">Représentation de l'angle orienté $(\vec{u}, \vec{v})$</p>
+        <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0;">Représentation de l'angle orienté $(\vec{u}, \vec{v})$</p>
     </div>
 </div>
-
-
 
 <div class="qcm-box">
     <div class="qcm-question">
@@ -67,4 +172,156 @@
         <button class="opt-btn" onclick="checkAnswer(this, false)">Ils sont unitaires</button>
         <button class="opt-btn" onclick="checkAnswer(this, false)">Ils forment une base</button>
     </div>
+    <button class="share-btn pdf" style="margin-top: 20px; background: var(--navy-main);" onclick="toggleCorrection(this)">
+        <i class="fas fa-eye"></i> Afficher le corrigé
+    </button>
+    <div class="correction-box" style="display:none; margin-top:15px; padding:15px; border-left:4px solid var(--gold-btn); background:#fffbeb;">
+        <strong>Solution :</strong> Le déterminant est l'aire algébrique du parallélogramme formé par les deux vecteurs. Si cette aire est nulle, les vecteurs sont alignés (colinéaires).
+    </div>
 </div>
+
+<div class="qcm-box">
+    <div class="qcm-question">
+        3. Quelle est la distance du point $A(2, 1)$ à la droite $\mathcal{D}$ d'équation $3x - 4y + 5 = 0$ ?
+    </div>
+    <div class="qcm-grid">
+        <button class="opt-btn" onclick="checkAnswer(this, true)">$7/5$</button>
+        <button class="opt-btn" onclick="checkAnswer(this, false)">$1$</button>
+        <button class="opt-btn" onclick="checkAnswer(this, false)">$7/25$</button>
+        <button class="opt-btn" onclick="checkAnswer(this, false)">$5/7$</button>
+    </div>
+    <button class="share-btn pdf" style="margin-top: 20px; background: var(--navy-main);" onclick="toggleCorrection(this)">
+        <i class="fas fa-eye"></i> Afficher le corrigé
+    </button>
+    <div class="correction-box" style="display:none; margin-top:15px; padding:15px; border-left:4px solid var(--gold-btn); background:#fffbeb;">
+        <strong>Solution :</strong> On utilise la formule $d(A, \mathcal{D}) = \frac{|ax_A + by_A + c|}{\sqrt{a^2 + b^2}}$.<br>
+        Ici, $d = \frac{|3(2) - 4(1) + 5|}{\sqrt{3^2 + (-4)^2}} = \frac{|6 - 4 + 5|}{5} = \frac{7}{5}$.
+    </div>
+</div>
+
+<div class="qcm-box">
+    <div class="qcm-question">
+        4. Quel est le projeté orthogonal du vecteur $\vec{u}(3, 4)$ sur la droite dirigée par $\vec{i}(1, 0)$ ?
+    </div>
+    <div class="qcm-grid">
+        <button class="opt-btn" onclick="checkAnswer(this, false)">$(0, 4)$</button>
+        <button class="opt-btn" onclick="checkAnswer(this, false)">$(3, 4)$</button>
+        <button class="opt-btn" onclick="checkAnswer(this, true)">$(3, 0)$</button>
+        <button class="opt-btn" onclick="checkAnswer(this, false)">$(1, 0)$</button>
+    </div>
+    <button class="share-btn pdf" style="margin-top: 20px; background: var(--navy-main);" onclick="toggleCorrection(this)">
+        <i class="fas fa-eye"></i> Afficher le corrigé
+    </button>
+    <div class="correction-box" style="display:none; margin-top:15px; padding:15px; border-left:4px solid var(--gold-btn); background:#fffbeb;">
+        <strong>Solution :</strong> La projection orthogonale d'un vecteur $\vec{u}$ sur un vecteur unitaire $\vec{e}$ est donnée par $(\vec{u} \cdot \vec{e})\vec{e}$. Ici, le produit scalaire vaut $3 \times 1 + 4 \times 0 = 3$. Le vecteur projeté est donc $3\vec{i}$, soit $(3, 0)$.
+    </div>
+</div>
+
+<div class="qcm-box">
+    <div class="qcm-question">
+        5. Soit l'inégalité de Cauchy-Schwarz $|\vec{u} \cdot \vec{v}| \le \|\vec{u}\| \|\vec{v}\|$. Dans quel cas a-t-on l'égalité stricte ?
+    </div>
+    <div class="qcm-grid">
+        <button class="opt-btn" onclick="checkAnswer(this, false)">Si et seulement si $\vec{u}$ et $\vec{v}$ sont orthogonaux</button>
+        <button class="opt-btn" onclick="checkAnswer(this, false)">Si et seulement si $\|\vec{u}\| = \|\vec{v}\|$</button>
+        <button class="opt-btn" onclick="checkAnswer(this, true)">Si et seulement si $\vec{u}$ et $\vec{v}$ sont colinéaires</button>
+        <button class="opt-btn" onclick="checkAnswer(this, false)">Jamais</button>
+    </div>
+    <button class="share-btn pdf" style="margin-top: 20px; background: var(--navy-main);" onclick="toggleCorrection(this)">
+        <i class="fas fa-eye"></i> Afficher le corrigé
+    </button>
+    <div class="correction-box" style="display:none; margin-top:15px; padding:15px; border-left:4px solid var(--gold-btn); background:#fffbeb;">
+        <strong>Solution :</strong> Le cas d'égalité de Cauchy-Schwarz est caractérisé par la colinéarité des deux vecteurs étudiés. En effet, $|\cos(\theta)| = 1 \iff \theta \equiv 0 \pmod{\pi}$.
+    </div>
+</div>
+
+<div class="qcm-box">
+    <div class="qcm-question">
+        6. Quelle est l'aire du triangle formé par l'origine $O(0,0)$ et les points $A(3, 1)$ et $B(1, 4)$ ?
+    </div>
+    <div class="qcm-grid">
+        <button class="opt-btn" onclick="checkAnswer(this, false)">$11$</button>
+        <button class="opt-btn" onclick="checkAnswer(this, true)">$11/2$</button>
+        <button class="opt-btn" onclick="checkAnswer(this, false)">$13/2$</button>
+        <button class="opt-btn" onclick="checkAnswer(this, false)">$5$</button>
+    </div>
+    <button class="share-btn pdf" style="margin-top: 20px; background: var(--navy-main);" onclick="toggleCorrection(this)">
+        <i class="fas fa-eye"></i> Afficher le corrigé
+    </button>
+    <div class="correction-box" style="display:none; margin-top:15px; padding:15px; border-left:4px solid var(--gold-btn); background:#fffbeb;">
+        <strong>Solution :</strong> L'aire d'un triangle $OAB$ est donnée par $\frac{1}{2} |\det(\vec{OA}, \vec{OB})|$.<br>
+        $\det(\vec{OA}, \vec{OB}) = (3 \times 4) - (1 \times 1) = 12 - 1 = 11$. L'aire vaut donc $11/2$.
+    </div>
+</div>
+
+<div class="qcm-box">
+    <div class="qcm-question">
+        7. Quel est un vecteur normal à la droite d'équation paramétrique $x = 2 + 3t$ et $y = -1 + 4t$ ?
+    </div>
+    <div class="qcm-grid">
+        <button class="opt-btn" onclick="checkAnswer(this, false)">$\vec{n}(3, 4)$</button>
+        <button class="opt-btn" onclick="checkAnswer(this, true)">$\vec{n}(-4, 3)$</button>
+        <button class="opt-btn" onclick="checkAnswer(this, false)">$\vec{n}(2, -1)$</button>
+        <button class="opt-btn" onclick="checkAnswer(this, false)">$\vec{n}(4, 3)$</button>
+    </div>
+    <button class="share-btn pdf" style="margin-top: 20px; background: var(--navy-main);" onclick="toggleCorrection(this)">
+        <i class="fas fa-eye"></i> Afficher le corrigé
+    </button>
+    <div class="correction-box" style="display:none; margin-top:15px; padding:15px; border-left:4px solid var(--gold-btn); background:#fffbeb;">
+        <strong>Solution :</strong> Le vecteur directeur de la droite est $\vec{u}(3, 4)$ (donné par les coefficients de $t$). Un vecteur normal $\vec{n}(x, y)$ doit vérifier $\vec{u} \cdot \vec{n} = 0$. Le vecteur $(-4, 3)$ vérifie bien $-12 + 12 = 0$.
+    </div>
+</div>
+
+<div class="qcm-box">
+    <div class="qcm-question">
+        8. Quelle est l'équation cartésienne du cercle de centre $\Omega(1, -2)$ et de rayon $R = 3$ ?
+    </div>
+    <div class="qcm-grid">
+        <button class="opt-btn" onclick="checkAnswer(this, true)">$x^2 + y^2 - 2x + 4y - 4 = 0$</button>
+        <button class="opt-btn" onclick="checkAnswer(this, false)">$x^2 + y^2 + 2x - 4y - 4 = 0$</button>
+        <button class="opt-btn" onclick="checkAnswer(this, false)">$x^2 + y^2 - 2x + 4y + 4 = 0$</button>
+        <button class="opt-btn" onclick="checkAnswer(this, false)">$x^2 + y^2 - x + 2y - 9 = 0$</button>
+    </div>
+    <button class="share-btn pdf" style="margin-top: 20px; background: var(--navy-main);" onclick="toggleCorrection(this)">
+        <i class="fas fa-eye"></i> Afficher le corrigé
+    </button>
+    <div class="correction-box" style="display:none; margin-top:15px; padding:15px; border-left:4px solid var(--gold-btn); background:#fffbeb;">
+        <strong>Solution :</strong> L'équation est $(x - 1)^2 + (y + 2)^2 = 3^2$.<br>
+        En développant : $x^2 - 2x + 1 + y^2 + 4y + 4 = 9 \iff x^2 + y^2 - 2x + 4y - 4 = 0$.
+    </div>
+</div>
+
+<script>
+    // Fonction pour vérifier la réponse choisie
+    function checkAnswer(btn, isCorrect) {
+        // Trouve la grille parente pour désactiver les autres boutons
+        const grid = btn.closest('.qcm-grid');
+        const buttons = grid.querySelectorAll('.opt-btn');
+        
+        // Empêche de répondre plusieurs fois
+        if (grid.hasAttribute('data-answered')) return;
+        grid.setAttribute('data-answered', 'true');
+
+        // Applique les couleurs
+        buttons.forEach(b => {
+            b.style.pointerEvents = 'none'; // Désactive le clic
+            if (b.getAttribute('onclick').includes('true')) {
+                b.classList.add('correct');
+            } else if (b === btn && !isCorrect) {
+                b.classList.add('wrong');
+            }
+        });
+    }
+
+    // Fonction pour afficher/masquer le corrigé
+    function toggleCorrection(btn) {
+        const correctionBox = btn.nextElementSibling;
+        if (correctionBox.style.display === 'none') {
+            correctionBox.style.display = 'block';
+            btn.innerHTML = '<i class="fas fa-eye-slash"></i> Masquer le corrigé';
+        } else {
+            correctionBox.style.display = 'none';
+            btn.innerHTML = '<i class="fas fa-eye"></i> Afficher le corrigé';
+        }
+    }
+</script>
