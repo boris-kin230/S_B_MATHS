@@ -1,219 +1,374 @@
-<div class="banner">
-    <h1 style="font-size: 2rem; margin: 0;"><i class="fas fa-bolt"></i> Training : Géométrie</h1>
-    <p style="opacity: 0.8;">Série alternative de 20 questions pour consolider tes acquis.</p>
+<style>
+    /* Surcharge de la grille d'options pour un affichage 2x2 symétrique */
+    .options-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+        margin-bottom: 20px;
+    }
+
+    /* Sécurité pour éviter les textes collés dans les boutons */
+    .opt-btn {
+        background: #f8f9fa;
+        border: 2px solid #e9ecef;
+        border-radius: 8px;
+        padding: 15px;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        text-align: left;
+        color: #333;
+        min-height: 65px;
+        display: flex;
+        align-items: center;
+        line-height: 1.4;
+        word-break: break-word;
+    }
+
+    /* Bouton de validation stylisé */
+    .finish-btn {
+        background: var(--gold-btn, #FFD700);
+        color: var(--navy-dark, #112240);
+        border: none;
+        padding: 18px 40px;
+        font-size: 1.1rem;
+        font-weight: 800;
+        border-radius: 50px;
+        cursor: pointer;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+    }
+    .finish-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        background: var(--gold-hover, #ffea00);
+    }
+
+    /* Boîte de correction masquée par défaut */
+    .correction-box {
+        display: none;
+        margin-top: 15px;
+        padding: 15px;
+        border-left: 4px solid #8b5cf6; /* Violet pour différencier de la 2D */
+        background: #f5f3ff;
+        border-radius: 0 8px 8px 0;
+    }
+
+    /* Responsive : on repasse en 1 colonne sur mobile */
+    @media (max-width: 768px) {
+        .options-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+
+<div class="hero-banner" style="background: linear-gradient(135deg, #2e1065, #8b5cf6); color: white; padding: 30px; border-radius: 12px; margin-bottom: 30px;">
+    <h1 style="font-size: 2.5rem; margin: 0;"><i class="fas fa-cube"></i> Training : Géométrie dans l'Espace (V2)</h1>
+    <p style="opacity: 0.9; font-size: 1.1rem; margin-top: 10px;">20 questions de niveau 2 : plans, produit vectoriel, distances et sphères dans un repère orthonormé $(O; \vec{i}, \vec{j}, \vec{k})$.</p>
 </div>
 
 <div id="quiz-wrapper">
 
-    <div class="qcm-box">
-        <div class="qcm-question">1. Quel est l'angle&nbsp;$(\vec{u}, \vec{v})$&nbsp;si&nbsp;$\vec{u} \cdot \vec{v} = 0$&nbsp;et&nbsp;$\det(\vec{u}, \vec{v}) > 0$&nbsp;?</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$0 \pmod{2\pi}$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, true)">$\pi/2 \pmod{2\pi}$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$\pi \pmod{2\pi}$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$-\pi/2 \pmod{2\pi}$</button>
+    <div class="qcm-card" style="margin-bottom: 40px; padding: 20px; border: 1px solid #e2e8f0; border-radius: 12px;">
+        <div class="qcm-question" style="font-weight: bold; font-size: 1.1rem; margin-bottom: 15px;">1. Quelle est la distance entre les points $A(1, -2, 3)$ et $B(4, 2, 15)$ ?</div>
+        <div class="options-grid">
+            <button class="opt-btn" onclick="checkQCM(this, false)">$15$</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">$17$</button>
+            <button class="opt-btn" onclick="checkQCM(this, true)">$13$</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">$169$</button>
+        </div>
+        <div class="correction-box">
+            <strong>Explication :</strong> On applique la formule de la distance en 3D : $AB = \sqrt{(4-1)^2 + (2-(-2))^2 + (15-3)^2} = \sqrt{3^2 + 4^2 + 12^2} = \sqrt{9 + 16 + 144} = \sqrt{169} = 13$.
         </div>
     </div>
 
-    <div class="qcm-box">
-        <div class="qcm-question">2. La distance du point&nbsp;$O(0, 0)$&nbsp;à la droite&nbsp;$3x + 4y - 10 = 0$&nbsp;est :</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, false)">10</button>
-            <button class="opt-btn" onclick="checkAnswer(this, true)">2</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$\sqrt{10}$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">5</button>
+    <div class="qcm-card" style="margin-bottom: 40px; padding: 20px; border: 1px solid #e2e8f0; border-radius: 12px;">
+        <div class="qcm-question" style="font-weight: bold; font-size: 1.1rem; margin-bottom: 15px;">2. Que vaut le produit scalaire $\vec{u}(2, -1, 3) \cdot \vec{v}(1, 4, 2)$ ?</div>
+        <div class="options-grid">
+            <button class="opt-btn" onclick="checkQCM(this, true)">$4$</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">$0$</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">$-2$</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">$8$</button>
+        </div>
+        <div class="correction-box">
+            <strong>Explication :</strong> $\vec{u} \cdot \vec{v} = (2 \times 1) + (-1 \times 4) + (3 \times 2) = 2 - 4 + 6 = 4$.
         </div>
     </div>
 
-    <div class="qcm-box">
-        <div class="qcm-question">3. Deux droites de vecteurs normaux&nbsp;$\vec{n}$&nbsp;et&nbsp;$\vec{n'}$&nbsp;sont parallèles si :</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$\vec{n} \cdot \vec{n'} = 0$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, true)">$\det(\vec{n}, \vec{n'}) = 0$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$\vec{n} = \vec{n'}$&nbsp;uniquement</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Leur produit scalaire est égal à 1</button>
+    <div class="qcm-card" style="margin-bottom: 40px; padding: 20px; border: 1px solid #e2e8f0; border-radius: 12px;">
+        <div class="qcm-question" style="font-weight: bold; font-size: 1.1rem; margin-bottom: 15px;">3. Que donne le produit vectoriel des vecteurs de base $\vec{i} \wedge \vec{j}$ ?</div>
+        <div class="options-grid">
+            <button class="opt-btn" onclick="checkQCM(this, false)">$\vec{0}$</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">$1$</button>
+            <button class="opt-btn" onclick="checkQCM(this, true)">$\vec{k}$</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">$-\vec{k}$</button>
+        </div>
+        <div class="correction-box">
+            <strong>Explication :</strong> Dans un repère orthonormé direct, le produit vectoriel de deux vecteurs de base donne le troisième en suivant la règle de la main droite : $\vec{i} \wedge \vec{j} = \vec{k}$.
         </div>
     </div>
 
-    <div class="qcm-box">
-        <div class="qcm-question">4. L'équation&nbsp;$x^2 + y^2 + 2x - 1 = 0$&nbsp;est celle d'un cercle de rayon :</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, false)">1</button>
-            <button class="opt-btn" onclick="checkAnswer(this, true)">$\sqrt{2}$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">2</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$\sqrt{3}$</button>
+    <div class="qcm-card" style="margin-bottom: 40px; padding: 20px; border: 1px solid #e2e8f0; border-radius: 12px;">
+        <div class="qcm-question" style="font-weight: bold; font-size: 1.1rem; margin-bottom: 15px;">4. Quelle est l'équation cartésienne du plan passant par $A(1, 1, 1)$ et de vecteur normal $\vec{n}(1, 2, -1)$ ?</div>
+        <div class="options-grid">
+            <button class="opt-btn" onclick="checkQCM(this, true)">$x + 2y - z - 2 = 0$</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">$x + 2y - z + 2 = 0$</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">$x + y + z - 2 = 0$</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">$-x - 2y + z - 2 = 0$</button>
+        </div>
+        <div class="correction-box">
+            <strong>Explication :</strong> Le plan a pour équation $1x + 2y - 1z + d = 0$. On utilise les coordonnées de $A$ pour trouver $d$ : $1(1) + 2(1) - 1(1) + d = 0 \Rightarrow 2 + d = 0 \Rightarrow d = -2$.
         </div>
     </div>
 
-    <div class="qcm-box">
-        <div class="qcm-question">5. Le projeté orthogonal de&nbsp;$M(x, y)$&nbsp;sur la droite&nbsp;$x=0$&nbsp;est :</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$H(x, 0)$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, true)">$H(0, y)$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$H(0, 0)$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$H(-x, y)$</button>
+    <div class="qcm-card" style="margin-bottom: 40px; padding: 20px; border: 1px solid #e2e8f0; border-radius: 12px;">
+        <div class="qcm-question" style="font-weight: bold; font-size: 1.1rem; margin-bottom: 15px;">5. La distance du point $M(1, 2, 3)$ au plan $P : x + 2y - 2z + 5 = 0$ est :</div>
+        <div class="options-grid">
+            <button class="opt-btn" onclick="checkQCM(this, false)">$2$</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">$4$</button>
+            <button class="opt-btn" onclick="checkQCM(this, true)">$4/3$</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">$3/4$</button>
+        </div>
+        <div class="correction-box">
+            <strong>Explication :</strong> $d(M, P) = \frac{|ax_M + by_M + cz_M + d|}{\sqrt{a^2+b^2+c^2}} = \frac{|1(1) + 2(2) - 2(3) + 5|}{\sqrt{1^2 + 2^2 + (-2)^2}} = \frac{|1 + 4 - 6 + 5|}{\sqrt{9}} = \frac{4}{3}$.
         </div>
     </div>
 
-    <div class="qcm-box">
-        <div class="qcm-question">6. Si&nbsp;$\vec{u}(x, y)$, alors le vecteur&nbsp;$\vec{v}(-y, x)$&nbsp;est :</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Colinéaire à&nbsp;$\vec{u}$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, true)">Orthogonal à&nbsp;$\vec{u}$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Opposé à&nbsp;$\vec{u}$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">De norme différente</button>
+    <div class="qcm-card" style="margin-bottom: 40px; padding: 20px; border: 1px solid #e2e8f0; border-radius: 12px;">
+        <div class="qcm-question" style="font-weight: bold; font-size: 1.1rem; margin-bottom: 15px;">6. Quel est le rayon de la sphère d'équation $x^2 + y^2 + z^2 - 2x + 4y - 6z = 2$ ?</div>
+        <div class="options-grid">
+            <button class="opt-btn" onclick="checkQCM(this, false)">$\sqrt{2}$</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">$2$</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">$16$</button>
+            <button class="opt-btn" onclick="checkQCM(this, true)">$4$</button>
+        </div>
+        <div class="correction-box">
+            <strong>Explication :</strong> On met sous forme canonique : $(x-1)^2 - 1 + (y+2)^2 - 4 + (z-3)^2 - 9 = 2$. Ce qui donne $(x-1)^2 + (y+2)^2 + (z-3)^2 = 16$. Le rayon est $\sqrt{16} = 4$.
         </div>
     </div>
 
-    <div class="qcm-box">
-        <div class="qcm-question">7. La droite passant par&nbsp;$A(1, 2)$&nbsp;et de vecteur normal&nbsp;$\vec{n}(3, 1)$&nbsp;a pour équation :</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, true)">$3x + y - 5 = 0$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$x + 3y - 7 = 0$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$3x - y - 1 = 0$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$3x + y + 5 = 0$</button>
+    <div class="qcm-card" style="margin-bottom: 40px; padding: 20px; border: 1px solid #e2e8f0; border-radius: 12px;">
+        <div class="qcm-question" style="font-weight: bold; font-size: 1.1rem; margin-bottom: 15px;">7. Quelle est la représentation paramétrique de la droite passant par $A(1, 0, -1)$ et dirigée par $\vec{u}(2, 3, -4)$ ?</div>
+        <div class="options-grid">
+            <button class="opt-btn" onclick="checkQCM(this, false)">$x=2+t, y=3, z=-4-t$</button>
+            <button class="opt-btn" onclick="checkQCM(this, true)">$x=1+2t, y=3t, z=-1-4t$</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">$x=1+2t, y=t, z=-1-4t$</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">$x=2t, y=3t, z=-4t$</button>
+        </div>
+        <div class="correction-box">
+            <strong>Explication :</strong> Les coordonnées du point $A$ donnent les constantes, et celles du vecteur directeur $\vec{u}$ donnent les coefficients du paramètre $t$. D'où le système : $x = x_A + t \cdot x_u$, etc.
         </div>
     </div>
 
-    <div class="qcm-box">
-        <div class="qcm-question">8. Dans un triangle&nbsp;$ABC$, si&nbsp;$\vec{AB} \cdot \vec{AC} < 0$, alors l'angle en&nbsp;$A$&nbsp;est :</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Aigu</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Droit</button>
-            <button class="opt-btn" onclick="checkAnswer(this, true)">Obtus</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Plat</button>
+    <div class="qcm-card" style="margin-bottom: 40px; padding: 20px; border: 1px solid #e2e8f0; border-radius: 12px;">
+        <div class="qcm-question" style="font-weight: bold; font-size: 1.1rem; margin-bottom: 15px;">8. L'intersection de la droite $(D) : \begin{cases} x = t \\ y = t \\ z = t \end{cases}$ et du plan $(P) : x + y + z = 3$ est :</div>
+        <div class="options-grid">
+            <button class="opt-btn" onclick="checkQCM(this, false)">La droite $(D)$ entière</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">L'ensemble vide (ils sont parallèles)</button>
+            <button class="opt-btn" onclick="checkQCM(this, true)">Le point $(1, 1, 1)$</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">Le point $(3, 3, 3)$</button>
+        </div>
+        <div class="correction-box">
+            <strong>Explication :</strong> On injecte les équations de $(D)$ dans l'équation de $(P)$ : $t + t + t = 3 \Rightarrow 3t = 3 \Rightarrow t = 1$. En remplaçant $t=1$ dans $(D)$, on trouve le point de coordonnées $(1, 1, 1)$.
         </div>
     </div>
 
-    <div class="qcm-box">
-        <div class="qcm-question">9. Soit&nbsp;$(\mathcal{C})$&nbsp;le cercle&nbsp;$x^2 + y^2 = 25$. Le point&nbsp;$P(3, 4)$&nbsp;est :</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, false)">À l'intérieur du cercle</button>
-            <button class="opt-btn" onclick="checkAnswer(this, true)">Sur le cercle</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">À l'extérieur du cercle</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Le centre du cercle</button>
+    <div class="qcm-card" style="margin-bottom: 40px; padding: 20px; border: 1px solid #e2e8f0; border-radius: 12px;">
+        <div class="qcm-question" style="font-weight: bold; font-size: 1.1rem; margin-bottom: 15px;">9. Le volume du parallélépipède construit sur trois vecteurs $\vec{u}, \vec{v}, \vec{w}$ s'obtient avec :</div>
+        <div class="options-grid">
+            <button class="opt-btn" onclick="checkQCM(this, true)">La valeur absolue du produit mixte $|(\vec{u} \wedge \vec{v}) \cdot \vec{w}|$</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">La norme du produit vectoriel $\|\vec{u} \wedge \vec{v}\|$</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">La somme de leurs normes</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">Le produit scalaire $\vec{u} \cdot \vec{v}$</button>
+        </div>
+        <div class="correction-box">
+            <strong>Explication :</strong> Le produit mixte (qui correspond au déterminant des 3 vecteurs dans une base orthonormée) donne le volume orienté du parallélépipède. On en prend la valeur absolue pour un volume géométrique.
         </div>
     </div>
 
-    <div class="qcm-box">
-        <div class="qcm-question">10. L'aire d'un parallélogramme&nbsp;$ABCD$&nbsp;est égale à :</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, true)">$|\det(\vec{AB}, \vec{AD})|$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$\frac{1}{2} |\det(\vec{AB}, \vec{AD})|$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$|\vec{AB} \cdot \vec{AD}|$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$AB \times AD$</button>
+    <div class="qcm-card" style="margin-bottom: 40px; padding: 20px; border: 1px solid #e2e8f0; border-radius: 12px;">
+        <div class="qcm-question" style="font-weight: bold; font-size: 1.1rem; margin-bottom: 15px;">10. Soient les vecteurs $\vec{u}(2, a, 4)$ et $\vec{v}(3, -1.5, b)$. Pour qu'ils soient colinéaires, il faut que :</div>
+        <div class="options-grid">
+            <button class="opt-btn" onclick="checkQCM(this, true)">$a = -1$ et $b = 6$</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">$a = 1$ et $b = -6$</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">$a = 2$ et $b = 3$</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">$a = -1.5$ et $b = 4$</button>
+        </div>
+        <div class="correction-box">
+            <strong>Explication :</strong> Deux vecteurs sont colinéaires si leurs coordonnées sont proportionnelles. Le coefficient de proportionnalité est $3/2 = 1.5$. Donc $-1.5 = a \times 1.5 \Rightarrow a = -1$ et $b = 4 \times 1.5 = 6$.
         </div>
     </div>
 
-    <div class="qcm-box">
-        <div class="qcm-question">11. Deux vecteurs&nbsp;$\vec{u}$&nbsp;et&nbsp;$\vec{v}$&nbsp;sont colinéaires ssi :</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$\vec{u} \cdot \vec{v} = 0$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, true)">$\det(\vec{u}, \vec{v}) = 0$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$\|\vec{u}\| = \|\vec{v}\|$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Leur somme est nulle</button>
+    <div class="qcm-card" style="margin-bottom: 40px; padding: 20px; border: 1px solid #e2e8f0; border-radius: 12px;">
+        <div class="qcm-question" style="font-weight: bold; font-size: 1.1rem; margin-bottom: 15px;">11. Les plans $P_1 : 2x - y + z = 0$ et $P_2 : x + y + cz = 0$ sont perpendiculaires si la constante $c$ vaut :</div>
+        <div class="options-grid">
+            <button class="opt-btn" onclick="checkQCM(this, false)">$1$</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">$0$</button>
+            <button class="opt-btn" onclick="checkQCM(this, true)">$-1$</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">$2$</button>
+        </div>
+        <div class="correction-box">
+            <strong>Explication :</strong> Deux plans sont perpendiculaires si leurs vecteurs normaux le sont. $\vec{n_1}(2, -1, 1)$ et $\vec{n_2}(1, 1, c)$. Leur produit scalaire doit être nul : $2(1) + (-1)(1) + 1(c) = 0 \Rightarrow 1 + c = 0 \Rightarrow c = -1$.
         </div>
     </div>
 
-    <div class="qcm-box">
-        <div class="qcm-question">12. Le milieu du segment reliant&nbsp;$A(-2, 4)$&nbsp;et&nbsp;$B(6, 2)$&nbsp;est :</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$I(4, 3)$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, true)">$I(2, 3)$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$I(2, 1)$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$I(8, 6)$</button>
+    <div class="qcm-card" style="margin-bottom: 40px; padding: 20px; border: 1px solid #e2e8f0; border-radius: 12px;">
+        <div class="qcm-question" style="font-weight: bold; font-size: 1.1rem; margin-bottom: 15px;">12. L'intersection de deux plans non parallèles dans l'espace est toujours :</div>
+        <div class="options-grid">
+            <button class="opt-btn" onclick="checkQCM(this, false)">Un point</button>
+            <button class="opt-btn" onclick="checkQCM(this, true)">Une droite</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">Un plan</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">Deux droites sécantes</button>
+        </div>
+        <div class="correction-box">
+            <strong>Explication :</strong> Propriété fondamentale de géométrie dans l'espace : deux plans strictement sécants s'intersectent toujours selon une droite.
         </div>
     </div>
 
-    <div class="qcm-box">
-        <div class="qcm-question">13. L'équation&nbsp;$y = mx + p$&nbsp;ne peut pas représenter :</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Une droite horizontale</button>
-            <button class="opt-btn" onclick="checkAnswer(this, true)">Une droite verticale</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Une droite passant par l'origine</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Une droite de pente négative</button>
+    <div class="qcm-card" style="margin-bottom: 40px; padding: 20px; border: 1px solid #e2e8f0; border-radius: 12px;">
+        <div class="qcm-question" style="font-weight: bold; font-size: 1.1rem; margin-bottom: 15px;">13. Quatre points $A, B, C$ et $D$ sont coplanaires si et seulement si :</div>
+        <div class="options-grid">
+            <button class="opt-btn" onclick="checkQCM(this, false)">$\vec{AB} \cdot \vec{CD} = 0$</button>
+            <button class="opt-btn" onclick="checkQCM(this, true)">Le produit mixte $(\vec{AB} \wedge \vec{AC}) \cdot \vec{AD} = 0$</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">$\vec{AB} \wedge \vec{CD} = \vec{0}$</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">Ils forment un parallélogramme</button>
+        </div>
+        <div class="correction-box">
+            <strong>Explication :</strong> Dire que les points sont coplanaires revient à dire que les vecteurs $\vec{AB}, \vec{AC}$ et $\vec{AD}$ sont liés, donc que le volume du tétraèdre qu'ils forment est nul (produit mixte nul).
         </div>
     </div>
 
-    <div class="qcm-box">
-        <div class="qcm-question">14. Si&nbsp;$\vec{u}$&nbsp;est un vecteur unitaire, alors&nbsp;$\|\vec{u}\|^2$&nbsp;vaut :</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, false)">0</button>
-            <button class="opt-btn" onclick="checkAnswer(this, true)">1</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$\sqrt{1}$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Inconnu</button>
+    <div class="qcm-card" style="margin-bottom: 40px; padding: 20px; border: 1px solid #e2e8f0; border-radius: 12px;">
+        <div class="qcm-question" style="font-weight: bold; font-size: 1.1rem; margin-bottom: 15px;">14. Quelle est la formule pour calculer la distance d'un point $M$ à une droite $(D)$ passant par $A$ et de vecteur directeur $\vec{u}$ ?</div>
+        <div class="options-grid">
+            <button class="opt-btn" onclick="checkQCM(this, false)">$\frac{|\vec{AM} \cdot \vec{u}|}{\|\vec{u}\|}$</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">$\|\vec{AM} \wedge \vec{u}\|$</button>
+            <button class="opt-btn" onclick="checkQCM(this, true)">$\frac{\|\vec{AM} \wedge \vec{u}\|}{\|\vec{u}\|}$</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">$\vec{AM} \cdot \vec{u}$</button>
+        </div>
+        <div class="correction-box">
+            <strong>Explication :</strong> La norme du produit vectoriel $\|\vec{AM} \wedge \vec{u}\|$ représente l'aire du parallélogramme construit sur $\vec{AM}$ et $\vec{u}$. En divisant cette aire par la base $\|\vec{u}\|$, on obtient la hauteur, qui est précisément la distance du point à la droite.
         </div>
     </div>
 
-    <div class="qcm-box">
-        <div class="qcm-question">15. La distance entre les droites parallèles&nbsp;$y = x$&nbsp;et&nbsp;$y = x + 2$&nbsp;est :</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, false)">2</button>
-            <button class="opt-btn" onclick="checkAnswer(this, true)">$\sqrt{2}$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">1</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$\sqrt{3}$</button>
+    <div class="qcm-card" style="margin-bottom: 40px; padding: 20px; border: 1px solid #e2e8f0; border-radius: 12px;">
+        <div class="qcm-question" style="font-weight: bold; font-size: 1.1rem; margin-bottom: 15px;">15. L'intersection de la sphère de centre $O(0,0,0)$ et de rayon $5$ avec le plan d'équation $z = 3$ est :</div>
+        <div class="options-grid">
+            <button class="opt-btn" onclick="checkQCM(this, false)">Un cercle de rayon $5$</button>
+            <button class="opt-btn" onclick="checkQCM(this, true)">Un cercle de rayon $4$</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">Un cercle de rayon $16$</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">L'ensemble vide</button>
+        </div>
+        <div class="correction-box">
+            <strong>Explication :</strong> La distance du centre de la sphère au plan est $d = 3$. Puisque $d < R$ ($3 < 5$), l'intersection est un cercle. D'après le théorème de Pythagore : $r^2 = R^2 - d^2 = 5^2 - 3^2 = 25 - 9 = 16$. Donc le rayon du cercle est $\sqrt{16} = 4$.
         </div>
     </div>
 
-    <div class="qcm-box">
-        <div class="qcm-question">16. L'équation polaire&nbsp;$r = \frac{1}{\cos \theta}$&nbsp;représente :</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Un cercle</button>
-            <button class="opt-btn" onclick="checkAnswer(this, true)">La droite verticale&nbsp;$x=1$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Une spirale</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">L'axe des ordonnées</button>
+    <div class="qcm-card" style="margin-bottom: 40px; padding: 20px; border: 1px solid #e2e8f0; border-radius: 12px;">
+        <div class="qcm-question" style="font-weight: bold; font-size: 1.1rem; margin-bottom: 15px;">16. L'équation $\vec{OM} = \vec{OA} + t\vec{u} + s\vec{v}$ (avec $t, s \in \mathbb{R}$ et $\vec{u}, \vec{v}$ non colinéaires) caractérise :</div>
+        <div class="options-grid">
+            <button class="opt-btn" onclick="checkQCM(this, false)">Une droite</button>
+            <button class="opt-btn" onclick="checkQCM(this, true)">Un plan</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">Une sphère</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">Un segment</button>
+        </div>
+        <div class="correction-box">
+            <strong>Explication :</strong> C'est la représentation paramétrique vectorielle d'un plan passant par le point $A$ et dirigé par les deux vecteurs directeurs $\vec{u}$ et $\vec{v}$.
         </div>
     </div>
 
-    <div class="qcm-box">
-        <div class="qcm-question">17. Le vecteur&nbsp;$\vec{v}(b, -a)$&nbsp;est un vecteur directeur de :</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$ax + by + c = 0$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$bx - ay + c = 0$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, true)">$ax + by + c = 0$&nbsp;est faux, c'est&nbsp;$(-b, a)$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$ax + by + c = 0$</button>
+    <div class="qcm-card" style="margin-bottom: 40px; padding: 20px; border: 1px solid #e2e8f0; border-radius: 12px;">
+        <div class="qcm-question" style="font-weight: bold; font-size: 1.1rem; margin-bottom: 15px;">17. Quel est l'angle (non orienté) entre les vecteurs $\vec{u}(1, 1, 0)$ et $\vec{v}(0, 1, 1)$ ?</div>
+        <div class="options-grid">
+            <button class="opt-btn" onclick="checkQCM(this, false)">$\pi/2$</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">$\pi/4$</button>
+            <button class="opt-btn" onclick="checkQCM(this, true)">$\pi/3$</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">$\pi/6$</button>
+        </div>
+        <div class="correction-box">
+            <strong>Explication :</strong> On utilise $\vec{u} \cdot \vec{v} = \|\vec{u}\| \|\vec{v}\| \cos(\theta)$. $\vec{u} \cdot \vec{v} = 1$. $\|\vec{u}\| = \sqrt{2}$ et $\|\vec{v}\| = \sqrt{2}$. Donc $1 = \sqrt{2}\sqrt{2}\cos(\theta) \Rightarrow 1 = 2\cos(\theta) \Rightarrow \cos(\theta) = 1/2$. L'angle est donc $\pi/3$ (60°).
         </div>
     </div>
 
-    <script>
-        // Correction manuelle de la logique pour la question 17 si besoin, mais restons sur les boutons
-    </script>
-
-    <div class="qcm-box">
-        <div class="qcm-question">18. La puissance d'un point&nbsp;$P$&nbsp;par rapport à un cercle&nbsp;$(\mathcal{C})$&nbsp;de centre&nbsp;$\Omega$&nbsp;et rayon&nbsp;$R$&nbsp;est :</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, true)">$\Omega P^2 - R^2$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$R^2 - \Omega P^2$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$\Omega P - R$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$(\Omega P - R)^2$</button>
+    <div class="qcm-card" style="margin-bottom: 40px; padding: 20px; border: 1px solid #e2e8f0; border-radius: 12px;">
+        <div class="qcm-question" style="font-weight: bold; font-size: 1.1rem; margin-bottom: 15px;">18. Quelle est la distance entre les plans parallèles $P_1: x+y+z-1=0$ et $P_2: x+y+z-4=0$ ?</div>
+        <div class="options-grid">
+            <button class="opt-btn" onclick="checkQCM(this, false)">$3$</button>
+            <button class="opt-btn" onclick="checkQCM(this, true)">$\sqrt{3}$</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">$1$</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">$5/\sqrt{3}$</button>
+        </div>
+        <div class="correction-box">
+            <strong>Explication :</strong> On choisit un point sur $P_1$, par exemple $A(1, 0, 0)$, et on calcule sa distance à $P_2$. $d(A, P_2) = \frac{|1(1) + 1(0) + 1(0) - 4|}{\sqrt{1^2+1^2+1^2}} = \frac{|-3|}{\sqrt{3}} = \frac{3}{\sqrt{3}} = \sqrt{3}$.
         </div>
     </div>
 
-    <div class="qcm-box">
-        <div class="qcm-question">19. Si&nbsp;$\det(\vec{u}, \vec{v}) = - \det(\vec{v}, \vec{u})$, c'est parce que le déterminant est :</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Bilinéaire</button>
-            <button class="opt-btn" onclick="checkAnswer(this, true)">Alterné</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Symétrique</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Positif</button>
+    <div class="qcm-card" style="margin-bottom: 40px; padding: 20px; border: 1px solid #e2e8f0; border-radius: 12px;">
+        <div class="qcm-question" style="font-weight: bold; font-size: 1.1rem; margin-bottom: 15px;">19. Le centre de gravité (isobarycentre) $G$ d'un tétraèdre $ABCD$ vérifie :</div>
+        <div class="options-grid">
+            <button class="opt-btn" onclick="checkQCM(this, false)">$\vec{GA} + \vec{GB} + \vec{GC} = \vec{GD}$</button>
+            <button class="opt-btn" onclick="checkQCM(this, true)">$\vec{GA} + \vec{GB} + \vec{GC} + \vec{GD} = \vec{0}$</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">$\vec{AB} + \vec{CD} = \vec{0}$</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">$\vec{OG} = \frac{1}{3}(\vec{OA} + \vec{OB} + \vec{OC} + \vec{OD})$</button>
+        </div>
+        <div class="correction-box">
+            <strong>Explication :</strong> Par définition de l'isobarycentre de quatre points de même poids (ici 1), la somme vectorielle des vecteurs reliant ce centre $G$ aux sommets est nulle. (La formule avec $\vec{OG}$ nécessite un facteur $1/4$).
         </div>
     </div>
 
-    <div class="qcm-box">
-        <div class="qcm-question">20. L'ensemble des points&nbsp;$M$&nbsp;tels que&nbsp;$\vec{MA} \cdot \vec{AB} = 0$&nbsp;est :</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, false)">La médiatrice de&nbsp;$[AB]$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, true)">La droite perpendiculaire à&nbsp;$(AB)$&nbsp;passant par&nbsp;$A$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Le cercle de diamètre&nbsp;$[AB]$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">La droite&nbsp;$(AB)$</button>
+    <div class="qcm-card" style="margin-bottom: 40px; padding: 20px; border: 1px solid #e2e8f0; border-radius: 12px;">
+        <div class="qcm-question" style="font-weight: bold; font-size: 1.1rem; margin-bottom: 15px;">20. Dans l'espace, l'ensemble des points $M$ tels que $\vec{MA} \cdot \vec{MB} = 0$ est :</div>
+        <div class="options-grid">
+            <button class="opt-btn" onclick="checkQCM(this, false)">Le plan médiateur de $[AB]$</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">Le cercle de diamètre $[AB]$</button>
+            <button class="opt-btn" onclick="checkQCM(this, true)">La sphère de diamètre $[AB]$</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">La droite orthogonale à $(AB)$</button>
+        </div>
+        <div class="correction-box">
+            <strong>Explication :</strong> Contrairement au plan (2D) où cette équation définit un cercle, dans l'espace (3D), l'ensemble des points $M$ d'où l'on voit le segment $[AB]$ sous un angle droit forme une sphère dont $[AB]$ est un diamètre.
         </div>
     </div>
 
 </div>
 
-<div id="score-display" style="display:none; margin-top: 30px;"></div>
-<div id="congrats-msg" style="display:none;"></div>
+<div style="text-align: center; margin-top: 40px;">
+    <button class="finish-btn no-print-pdf" onclick="finishQuiz()">
+        <i class="fas fa-flag-checkered"></i> Valider mon score
+    </button>
+</div>
 
-<button id="submit-btn" class="btn-primary" onclick="calculateScore()">
-    <i class="fas fa-check-double"></i> Valider mon Test v2
-</button>
+<script>
+    function checkQCM(btn, isCorrect) {
+        let parentGrid = btn.parentElement;
+        let card = parentGrid.parentElement;
+        let correctionBox = card.querySelector('.correction-box');
+        
+        // Désactive les autres boutons de cette question
+        let buttons = parentGrid.querySelectorAll('.opt-btn');
+        buttons.forEach(b => {
+            b.style.pointerEvents = 'none';
+            if (b.getAttribute('onclick').includes('true')) {
+                b.style.backgroundColor = '#dcfce7'; 
+                b.style.borderColor = '#22c55e';
+            }
+        });
+
+        // Si la réponse est fausse, on met en rouge le bouton cliqué
+        if (!isCorrect) {
+            btn.style.backgroundColor = '#fee2e2';
+            btn.style.borderColor = '#ef4444';
+        }
+
+        // Afficher l'explication
+        if(correctionBox) {
+            correctionBox.style.display = 'block';
+        }
+    }
+    
+    function finishQuiz() {
+        alert("Top ! Fin du niveau 2. N'hésite pas à relire les explications pour les points qui ont bloqué.");
+    }
+</script>
