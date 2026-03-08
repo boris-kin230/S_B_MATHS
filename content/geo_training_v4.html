@@ -1,315 +1,241 @@
-<div class="banner">
-    <h1 style="font-size: 2rem; margin: 0;"><i class="fas fa-bolt"></i> Training : Géométrie</h1>
-    <p style="opacity: 0.8;">Série de 30 questions (Niveau 4) : Géométrie avancée, coniques et spatiale.</p>
+<style>
+    /* Surcharge de la grille d'options pour un affichage 2x2 symétrique */
+    .options-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+        margin-bottom: 20px;
+    }
+
+    /* Sécurité pour éviter les textes collés dans les boutons */
+    .opt-btn {
+        background: #f8f9fa;
+        border: 2px solid #e9ecef;
+        border-radius: 8px;
+        padding: 15px;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        text-align: left;
+        color: #333;
+        min-height: 80px; /* Un peu plus grand pour les longues formules V4 */
+        display: flex;
+        align-items: center;
+        line-height: 1.4;
+        word-break: break-word;
+    }
+
+    /* Bouton de validation stylisé */
+    .finish-btn {
+        background: var(--gold-btn, #FFD700);
+        color: var(--navy-dark, #112240);
+        border: none;
+        padding: 18px 40px;
+        font-size: 1.1rem;
+        font-weight: 800;
+        border-radius: 50px;
+        cursor: pointer;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+    }
+    .finish-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        background: var(--gold-hover, #ffea00);
+    }
+
+    /* Boîte de correction masquée par défaut */
+    .correction-box {
+        display: none;
+        margin-top: 15px;
+        padding: 15px;
+        border-left: 4px solid #e11d48; /* Rouge sombre pour le niveau Expert */
+        background: #fff1f2;
+        border-radius: 0 8px 8px 0;
+    }
+
+    /* Responsive : on repasse en 1 colonne sur mobile */
+    @media (max-width: 768px) {
+        .options-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+
+<div class="hero-banner" style="background: linear-gradient(135deg, #881337, #e11d48); color: white; padding: 30px; border-radius: 12px; margin-bottom: 30px;">
+    <h1 style="font-size: 2.5rem; margin: 0;"><i class="fas fa-skull"></i> Training Géométrie : V4 Expert Pro</h1>
+    <p style="opacity: 0.9; font-size: 1.1rem; margin-top: 10px;">10 questions de haut vol. Préparez vos feuilles de brouillon, les calculs sont denses (distances croisées, intersections complexes, orthocentres analytiques).</p>
 </div>
 
 <div id="quiz-wrapper">
 
-    <div class="qcm-box">
-        <div class="qcm-question">1. Le produit mixte&nbsp;$[\vec{u}, \vec{v}, \vec{w}]$&nbsp;est nul si et seulement si :</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, true)">Les trois vecteurs sont coplanaires</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Ils sont deux à deux orthogonaux</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">L'un d'eux est unitaire</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Ils forment une base directe</button>
+    <div class="qcm-card" style="margin-bottom: 40px; padding: 20px; border: 1px solid #e2e8f0; border-radius: 12px;">
+        <div class="qcm-question" style="font-weight: bold; font-size: 1.1rem; margin-bottom: 15px;">1. [3D] Quelle est la distance entre la droite&nbsp;$(D_1)$&nbsp;passant par&nbsp;$A(1,0,-1)$&nbsp;de vecteur directeur&nbsp;$\vec{u_1}(1,2,1)$&nbsp;et la droite&nbsp;$(D_2)$&nbsp;passant par&nbsp;$B(0,1,1)$&nbsp;de vecteur directeur&nbsp;$\vec{u_2}(2,-1,1)$&nbsp;?</div>
+        <div class="options-grid">
+            <button class="opt-btn" onclick="checkQCM(this, false)">$\frac{10}{\sqrt{35}}$</button>
+            <button class="opt-btn" onclick="checkQCM(this, true)">$\frac{12}{\sqrt{35}}$</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">$\frac{\sqrt{35}}{12}$</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">$0$&nbsp;(elles sont sécantes)</button>
+        </div>
+        <div class="correction-box">
+            <strong>Explication :</strong> La distance entre deux droites non coplanaires est&nbsp;$d = \frac{|\vec{AB} \cdot (\vec{u_1} \wedge \vec{u_2})|}{\|\vec{u_1} \wedge \vec{u_2}\|}$. On a&nbsp;$\vec{AB}(-1, 1, 2)$. Le produit vectoriel donne&nbsp;$\vec{n}(3, 1, -5)$&nbsp;de norme&nbsp;$\sqrt{35}$. Le produit scalaire vaut&nbsp;$|-3 + 1 - 10| = 12$. La distance est bien&nbsp;$12/\sqrt{35}$.
         </div>
     </div>
 
-    <div class="qcm-box">
-        <div class="qcm-question">2. La distance du point&nbsp;$A(x_A, y_A, z_A)$&nbsp;au plan&nbsp;$P : ax+by+cz+d=0$&nbsp;est :</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, true)">$\frac{|ax_A+by_A+cz_A+d|}{\sqrt{a^2+b^2+c^2}}$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$\frac{ax_A+by_A+cz_A+d}{a^2+b^2+c^2}$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$|ax_A+by_A+cz_A+d|$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$\frac{|ax_A+by_A+cz_A+d|}{\sqrt{a+b+c}}$</button>
+    <div class="qcm-card" style="margin-bottom: 40px; padding: 20px; border: 1px solid #e2e8f0; border-radius: 12px;">
+        <div class="qcm-question" style="font-weight: bold; font-size: 1.1rem; margin-bottom: 15px;">2. [3D] Quelles sont les coordonnées du projeté orthogonal&nbsp;$H$&nbsp;du point&nbsp;$M(2, 3, -1)$&nbsp;sur le plan d'équation&nbsp;$2x - y + 2z - 4 = 0$&nbsp;?</div>
+        <div class="options-grid">
+            <button class="opt-btn" onclick="checkQCM(this, false)">$(\frac{10}{9}, \frac{-5}{9}, \frac{10}{9})$</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">$(2, 1, 0)$</button>
+            <button class="opt-btn" onclick="checkQCM(this, true)">$(\frac{28}{9}, \frac{22}{9}, \frac{1}{9})$</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">$(1, 0, 1)$</button>
+        </div>
+        <div class="correction-box">
+            <strong>Explication :</strong> La droite orthogonale passant par&nbsp;$M$&nbsp;a pour représentation :&nbsp;$x = 2 + 2t$,&nbsp;$y = 3 - t$,&nbsp;$z = -1 + 2t$. En injectant dans le plan :&nbsp;$2(2+2t) - (3-t) + 2(-1+2t) - 4 = 0 \Rightarrow 9t - 5 = 0 \Rightarrow t = 5/9$. On remplace&nbsp;$t$&nbsp;pour trouver&nbsp;$H(28/9, 22/9, 1/9)$.
         </div>
     </div>
 
-    <div class="qcm-box">
-        <div class="qcm-question">3. L'excentricité&nbsp;$e$&nbsp;d'une parabole vaut :</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$0$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$e < 1$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, true)">$1$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$e > 1$</button>
+    <div class="qcm-card" style="margin-bottom: 40px; padding: 20px; border: 1px solid #e2e8f0; border-radius: 12px;">
+        <div class="qcm-question" style="font-weight: bold; font-size: 1.1rem; margin-bottom: 15px;">3. [2D] Quelle est la longueur de la corde interceptée par le cercle d'équation&nbsp;$x^2 + y^2 - 4x - 2y = 0$&nbsp;sur la droite d'équation&nbsp;$3x + 4y - 20 = 0$&nbsp;?</div>
+        <div class="options-grid">
+            <button class="opt-btn" onclick="checkQCM(this, true)">$2$</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">$\sqrt{5}$</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">$4$</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">$0$&nbsp;(pas d'intersection)</button>
+        </div>
+        <div class="correction-box">
+            <strong>Explication :</strong> Le cercle a pour équation&nbsp;$(x-2)^2 + (y-1)^2 = 5$. Son centre est&nbsp;$\Omega(2,1)$&nbsp;et son rayon est&nbsp;$R=\sqrt{5}$. La distance de&nbsp;$\Omega$&nbsp;à la droite est&nbsp;$d = \frac{|3(2)+4(1)-20|}{5} = 2$. Par Pythagore, la demi-longueur de la corde est&nbsp;$\sqrt{R^2 - d^2} = \sqrt{5 - 4} = 1$. La corde complète mesure donc&nbsp;$2$.
         </div>
     </div>
 
-    <div class="qcm-box">
-        <div class="qcm-question">4. L'équation polaire&nbsp;$r = \frac{p}{1 + e \cos \theta}$&nbsp;avec&nbsp;$e > 1$&nbsp;représente :</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, true)">Une hyperbole</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Une ellipse</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Une parabole</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Un cercle</button>
+    <div class="qcm-card" style="margin-bottom: 40px; padding: 20px; border: 1px solid #e2e8f0; border-radius: 12px;">
+        <div class="qcm-question" style="font-weight: bold; font-size: 1.1rem; margin-bottom: 15px;">4. [3D] Soit&nbsp;$(D)$&nbsp;l'intersection des plans&nbsp;$x + y + z = 1$&nbsp;et&nbsp;$x - y + 2z = 2$. Quelle est la distance de l'origine&nbsp;$O$&nbsp;à la droite&nbsp;$(D)$&nbsp;?</div>
+        <div class="options-grid">
+            <button class="opt-btn" onclick="checkQCM(this, false)">$\frac{\sqrt{14}}{7}$</button>
+            <button class="opt-btn" onclick="checkQCM(this, true)">$\sqrt{\frac{5}{7}}$</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">$\frac{\sqrt{10}}{2}$</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">$1$</button>
+        </div>
+        <div class="correction-box">
+            <strong>Explication :</strong> Le vecteur directeur de&nbsp;$(D)$&nbsp;est&nbsp;$\vec{u} = \vec{n_1} \wedge \vec{n_2} = (1,1,1) \wedge (1,-1,2) = (3,-1,-2)$. Un point de&nbsp;$(D)$&nbsp;est (avec&nbsp;$z=0$)&nbsp;$A(3/2, -1/2, 0)$. La distance est&nbsp;$\frac{\|\vec{OA} \wedge \vec{u}\|}{\|\vec{u}\|}$. Le produit vectoriel donne&nbsp;$(1,3,0)$&nbsp;de norme&nbsp;$\sqrt{10}$. Et&nbsp;$\|\vec{u}\| = \sqrt{14}$. D'où&nbsp;$d = \sqrt{10/14} = \sqrt{5/7}$.
         </div>
     </div>
 
-    <div class="qcm-box">
-        <div class="qcm-question">5. L'image d'une droite ne passant pas par le pôle par une inversion de pôle&nbsp;$O$&nbsp;est :</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Une droite passant par&nbsp;$O$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, true)">Un cercle passant par&nbsp;$O$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Un cercle ne passant pas par&nbsp;$O$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Une autre droite ne passant pas par&nbsp;$O$</button>
+    <div class="qcm-card" style="margin-bottom: 40px; padding: 20px; border: 1px solid #e2e8f0; border-radius: 12px;">
+        <div class="qcm-question" style="font-weight: bold; font-size: 1.1rem; margin-bottom: 15px;">5. [3D] Quelle est l'équation cartésienne de la sphère de centre&nbsp;$\Omega(2, 1, 3)$&nbsp;qui est tangente au plan d'équation&nbsp;$x + 2y - 2z + 5 = 0$&nbsp;?</div>
+        <div class="options-grid">
+            <button class="opt-btn" onclick="checkQCM(this, false)">$x^2 + y^2 + z^2 - 4x - 2y - 6z + 14 = 0$</button>
+            <button class="opt-btn" onclick="checkQCM(this, true)">$x^2 + y^2 + z^2 - 4x - 2y - 6z + 13 = 0$</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">$x^2 + y^2 + z^2 - 4x - 2y - 6z + 5 = 0$</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">$(x-2)^2 + (y-1)^2 + (z-3)^2 = 3$</button>
+        </div>
+        <div class="correction-box">
+            <strong>Explication :</strong> Le rayon de la sphère est la distance de&nbsp;$\Omega$&nbsp;au plan :&nbsp;$R = \frac{|2 + 2 - 6 + 5|}{3} = \frac{3}{3} = 1$. L'équation est&nbsp;$(x-2)^2 + (y-1)^2 + (z-3)^2 = 1^2$. En développant :&nbsp;$x^2-4x+4 + y^2-2y+1 + z^2-6z+9 = 1 \Rightarrow x^2+y^2+z^2-4x-2y-6z+13=0$.
         </div>
     </div>
 
-    <div class="qcm-box">
-        <div class="qcm-question">6. L'ensemble des points&nbsp;$M$&nbsp;tels que&nbsp;$\frac{MA}{MB} = k$&nbsp;(avec&nbsp;$k > 0$&nbsp;et&nbsp;$k \neq 1$) est :</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Une droite</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Une ellipse</button>
-            <button class="opt-btn" onclick="checkAnswer(this, true)">Un cercle</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Un segment</button>
+    <div class="qcm-card" style="margin-bottom: 40px; padding: 20px; border: 1px solid #e2e8f0; border-radius: 12px;">
+        <div class="qcm-question" style="font-weight: bold; font-size: 1.1rem; margin-bottom: 15px;">6. [3D] Quel est le volume du tétraèdre délimité par les plans de coordonnées (&nbsp;$x=0$,&nbsp;$y=0$,&nbsp;$z=0$&nbsp;) et le plan d'équation&nbsp;$2x + 3y + 4z = 12$&nbsp;?</div>
+        <div class="options-grid">
+            <button class="opt-btn" onclick="checkQCM(this, false)">$24$</button>
+            <button class="opt-btn" onclick="checkQCM(this, true)">$12$</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">$6$</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">$72$</button>
+        </div>
+        <div class="correction-box">
+            <strong>Explication :</strong> Les sommets sur les axes sont obtenus en annulant les deux autres variables :&nbsp;$A(6,0,0)$,&nbsp;$B(0,4,0)$, et&nbsp;$C(0,0,3)$. Les arêtes issues de l'origine sont orthogonales deux à deux. Le volume est&nbsp;$\frac{1}{6} \times (6 \times 4 \times 3) = 12$.
         </div>
     </div>
 
-    <div class="qcm-box">
-        <div class="qcm-question">7. La formule du double produit vectoriel&nbsp;$\vec{u} \wedge (\vec{v} \wedge \vec{w})$&nbsp;vaut :</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, true)">$(\vec{u} \cdot \vec{w})\vec{v} - (\vec{u} \cdot \vec{v})\vec{w}$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$(\vec{u} \cdot \vec{v})\vec{w} - (\vec{u} \cdot \vec{w})\vec{v}$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$(\vec{v} \cdot \vec{w})\vec{u} - (\vec{u} \cdot \vec{w})\vec{v}$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$\vec{0}$</button>
+    <div class="qcm-card" style="margin-bottom: 40px; padding: 20px; border: 1px solid #e2e8f0; border-radius: 12px;">
+        <div class="qcm-question" style="font-weight: bold; font-size: 1.1rem; margin-bottom: 15px;">7. [2D] Soit le triangle de sommets&nbsp;$A(-1, 2)$,&nbsp;$B(3, 1)$&nbsp;et&nbsp;$C(2, 4)$. Quelles sont les coordonnées de son orthocentre&nbsp;$H$&nbsp;?</div>
+        <div class="options-grid">
+            <button class="opt-btn" onclick="checkQCM(this, false)">$(\frac{21}{11}, \frac{30}{11})$</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">$(1, 3)$</button>
+            <button class="opt-btn" onclick="checkQCM(this, true)">$(\frac{19}{11}, \frac{32}{11})$</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">$(\frac{4}{3}, \frac{7}{3})$</button>
+        </div>
+        <div class="correction-box">
+            <strong>Explication :</strong> On écrit les équations des hauteurs. La hauteur issue de&nbsp;$A$&nbsp;a pour vecteur normal&nbsp;$\vec{BC}(-1, 3)$, son équation est&nbsp;$-x+3y-7=0$. La hauteur issue de&nbsp;$B$&nbsp;a pour vecteur normal&nbsp;$\vec{AC}(3, 2)$, son équation est&nbsp;$3x+2y-11=0$. La résolution du système donne&nbsp;$y=32/11$&nbsp;et&nbsp;$x=19/11$.
         </div>
     </div>
 
-    <div class="qcm-box">
-        <div class="qcm-question">8. Une symétrie glissée dans le plan est la composée d'une réflexion et d'une :</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, true)">Translation de vecteur directeur parallèle à l'axe</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Rotation d'angle&nbsp;$\pi/2$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Homothétie</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Translation de vecteur normal à l'axe</button>
+    <div class="qcm-card" style="margin-bottom: 40px; padding: 20px; border: 1px solid #e2e8f0; border-radius: 12px;">
+        <div class="qcm-question" style="font-weight: bold; font-size: 1.1rem; margin-bottom: 15px;">8. [3D] Quel est l'angle (diédral) formé par deux faces quelconques d'un tétraèdre régulier ?</div>
+        <div class="options-grid">
+            <button class="opt-btn" onclick="checkQCM(this, true)">$\arccos(1/3)$</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">$\arccos(1/2)$</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">$\arccos(\sqrt{3}/2)$</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">$\pi/4$</button>
+        </div>
+        <div class="correction-box">
+            <strong>Explication :</strong> En plaçant un tétraèdre régulier de sommets alternés sur un cube, on peut définir ses faces avec les plans de type&nbsp;$x+y+z=1$&nbsp;et&nbsp;$x-y-z=1$. Le produit scalaire de leurs vecteurs normaux unitaires donne&nbsp;$\cos(\theta) = 1/3$.
         </div>
     </div>
 
-    <div class="qcm-box">
-        <div class="qcm-question">9. Le déterminant d'une matrice de rotation dans&nbsp;$\mathbb{R}^3$&nbsp;vaut toujours :</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, false)">-1</button>
-            <button class="opt-btn" onclick="checkAnswer(this, true)">1</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">0</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$\pm 1$</button>
+    <div class="qcm-card" style="margin-bottom: 40px; padding: 20px; border: 1px solid #e2e8f0; border-radius: 12px;">
+        <div class="qcm-question" style="font-weight: bold; font-size: 1.1rem; margin-bottom: 15px;">9. [2D] Quel est le rayon du cercle inscrit dans le triangle de sommets&nbsp;$A(0,0)$,&nbsp;$B(4,0)$&nbsp;et&nbsp;$C(0,2)$&nbsp;?</div>
+        <div class="options-grid">
+            <button class="opt-btn" onclick="checkQCM(this, false)">$1$</button>
+            <button class="opt-btn" onclick="checkQCM(this, true)">$3 - \sqrt{5}$</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">$\sqrt{5} - 1$</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">$2 - \frac{\sqrt{5}}{2}$</button>
+        </div>
+        <div class="correction-box">
+            <strong>Explication :</strong> C'est un triangle rectangle en&nbsp;$A$. Ses côtés valent&nbsp;$a=4$,&nbsp;$b=2$, et l'hypoténuse&nbsp;$c=\sqrt{16+4}=2\sqrt{5}$. L'aire est&nbsp;$S=4$. Le demi-périmètre est&nbsp;$p=3+\sqrt{5}$. Le rayon du cercle inscrit s'obtient avec la formule&nbsp;$r = \frac{S}{p} = \frac{4}{3+\sqrt{5}} = 3-\sqrt{5}$.
         </div>
     </div>
 
-    <div class="qcm-box">
-        <div class="qcm-question">10. Dans l'espace, l'ensemble des points vérifiant&nbsp;$\vec{MA} \cdot \vec{MB} = 0$&nbsp;est :</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Le plan médiateur de&nbsp;$[AB]$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, true)">La sphère de diamètre&nbsp;$[AB]$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Le cercle de diamètre&nbsp;$[AB]$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">La droite orthogonale à&nbsp;$(AB)$</button>
+    <div class="qcm-card" style="margin-bottom: 40px; padding: 20px; border: 1px solid #e2e8f0; border-radius: 12px;">
+        <div class="qcm-question" style="font-weight: bold; font-size: 1.1rem; margin-bottom: 15px;">10. [3D] Quelles sont les coordonnées du centre de la sphère passant par l'origine&nbsp;$O(0,0,0)$&nbsp;et les points&nbsp;$A(2,0,0)$,&nbsp;$B(0,2,0)$&nbsp;et&nbsp;$C(0,0,2)$&nbsp;?</div>
+        <div class="options-grid">
+            <button class="opt-btn" onclick="checkQCM(this, true)">$(1, 1, 1)$</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">$(\frac{2}{3}, \frac{2}{3}, \frac{2}{3})$</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">$(2, 2, 2)$</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">$(1/2, 1/2, 1/2)$</button>
         </div>
-    </div>
-
-    <div class="qcm-box">
-        <div class="qcm-question">11. L'aire d'un triangle sphérique d'angles&nbsp;$A, B, C$&nbsp;sur une sphère de rayon&nbsp;$R$&nbsp;est :</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, true)">$R^2(A + B + C - \pi)$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$R(A + B + C)$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$\frac{1}{2}R^2 \sin(A)$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$R^2(A + B + C)$</button>
-        </div>
-    </div>
-
-    <div class="qcm-box">
-        <div class="qcm-question">12. Le foyer de la parabole d'équation&nbsp;$y^2 = 2px$&nbsp;a pour coordonnées :</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$(p, 0)$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, true)">$(p/2, 0)$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$(0, p/2)$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$(-p/2, 0)$</button>
-        </div>
-    </div>
-
-    <div class="qcm-box">
-        <div class="qcm-question">13. La signature de la forme quadratique associée à un hyperboloïde à une nappe est :</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, true)">$(2, 1)$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$(3, 0)$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$(1, 2)$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$(0, 3)$</button>
-        </div>
-    </div>
-
-    <div class="qcm-box">
-        <div class="qcm-question">14. La composée de deux homothéties de rapports&nbsp;$k_1$&nbsp;et&nbsp;$k_2$&nbsp;tels que&nbsp;$k_1 k_2 = 1$&nbsp;est :</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, false)">L'identité uniquement</button>
-            <button class="opt-btn" onclick="checkAnswer(this, true)">Une translation</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Une homothétie de rapport 1</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Une symétrie centrale</button>
-        </div>
-    </div>
-
-    <div class="qcm-box">
-        <div class="qcm-question">15. L'axe radical de deux cercles sécants correspond à :</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, false)">La droite reliant leurs centres</button>
-            <button class="opt-btn" onclick="checkAnswer(this, true)">La droite passant par leurs points d'intersection</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Leur tangente commune</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">La médiatrice du segment reliant leurs centres</button>
-        </div>
-    </div>
-
-    <div class="qcm-box">
-        <div class="qcm-question">16. Le volume d'un tétraèdre construit sur les vecteurs&nbsp;$\vec{u}, \vec{v}, \vec{w}$&nbsp;vaut :</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, true)">$\frac{1}{6}|[\vec{u}, \vec{v}, \vec{w}]|$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$\frac{1}{3}|[\vec{u}, \vec{v}, \vec{w}]|$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$\frac{1}{2}\|\vec{u} \wedge \vec{v}\|\|\vec{w}\|$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$|[\vec{u}, \vec{v}, \vec{w}]|$</button>
-        </div>
-    </div>
-
-    <div class="qcm-box">
-        <div class="qcm-question">17. Les valeurs propres d'une matrice de réflexion orthogonale (symétrie) dans&nbsp;$\mathbb{R}^n$&nbsp;sont :</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Uniquement -1</button>
-            <button class="opt-btn" onclick="checkAnswer(this, true)">Incluses dans {1, -1}</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Uniquement 1</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">0 et 1</button>
-        </div>
-    </div>
-
-    <div class="qcm-box">
-        <div class="qcm-question">18. L'ensemble des points&nbsp;$M$&nbsp;tels que&nbsp;$|MF - MF'| = 2a$&nbsp;(avec&nbsp;$2a < FF'$) est :</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Une ellipse</button>
-            <button class="opt-btn" onclick="checkAnswer(this, true)">Une hyperbole</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Un cercle</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">L'ensemble vide</button>
-        </div>
-    </div>
-
-    <div class="qcm-box">
-        <div class="qcm-question">19. La courbure d'un cercle de rayon&nbsp;$R$&nbsp;vaut en tout point :</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, true)">$1/R$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$R$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$\pi R^2$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$2\pi/R$</button>
-        </div>
-    </div>
-
-    <div class="qcm-box">
-        <div class="qcm-question">20. Une matrice de projection orthogonale&nbsp;$P$&nbsp;vérifie toujours :</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$P^2 = I$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, true)">$P^2 = P$&nbsp;et&nbsp;$P^T = P$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$\det(P) = 1$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$P^T = P^{-1}$</button>
-        </div>
-    </div>
-
-    <div class="qcm-box">
-        <div class="qcm-question">21. Le point d'intersection des trois médianes d'un triangle est le :</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Centre du cercle circonscrit</button>
-            <button class="opt-btn" onclick="checkAnswer(this, true)">Centre de gravité</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Orthocentre</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Centre du cercle inscrit</button>
-        </div>
-    </div>
-
-    <div class="qcm-box">
-        <div class="qcm-question">22. Combien de cercles sont simultanément tangents à 3 droites sécantes non concourantes ?</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, false)">1</button>
-            <button class="opt-btn" onclick="checkAnswer(this, true)">4 (1 inscrit, 3 exinscrits)</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">3</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Une infinité</button>
-        </div>
-    </div>
-
-    <div class="qcm-box">
-        <div class="qcm-question">23. Le cercle de courbure (ou cercle osculateur) en un point régulier d'une courbe plane :</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, true)">Traverse la courbe en ce point (sauf aux sommets)</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Reste toujours du même côté de la courbe</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Est centré sur l'origine</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Est tangent à la normale</button>
-        </div>
-    </div>
-
-    <div class="qcm-box">
-        <div class="qcm-question">24. Dans&nbsp;$\mathbb{R}^3$, l'équation&nbsp;$x^2 + y^2 = R^2$&nbsp;représente :</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Un cercle</button>
-            <button class="opt-btn" onclick="checkAnswer(this, true)">Un cylindre de révolution</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Une sphère</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Un cône</button>
-        </div>
-    </div>
-
-    <div class="qcm-box">
-        <div class="qcm-question">25. Le faisceau de cercles défini par&nbsp;$C_1 + \lambda C_2 = 0$&nbsp;(avec&nbsp;$\lambda \neq -1$) :</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Partage le même centre</button>
-            <button class="opt-btn" onclick="checkAnswer(this, true)">Partage le même axe radical</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">A le même rayon</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Est composé de cercles concentriques</button>
-        </div>
-    </div>
-
-    <div class="qcm-box">
-        <div class="qcm-question">26. Une transformation affine qui multiplie les aires par&nbsp;$k^2$&nbsp;mais ne conserve pas les angles est :</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, true)">Impossible (une telle transformation préserve les angles si c'est une similitude)</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Une affinité</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Une isométrie</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Une translation</button>
-        </div>
-    </div>
-
-    <div class="qcm-box">
-        <div class="qcm-question">27. Les coordonnées barycentriques du centre de gravité&nbsp;$G$&nbsp;d'un triangle&nbsp;$ABC$&nbsp;sont :</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$(a, b, c)$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, true)">$(1, 1, 1)$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$(\sin A, \sin B, \sin C)$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$(1/a, 1/b, 1/c)$</button>
-        </div>
-    </div>
-
-    <div class="qcm-box">
-        <div class="qcm-question">28. Le théorème de Pascal concerne les hexagones inscrits dans :</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Un cercle uniquement</button>
-            <button class="opt-btn" onclick="checkAnswer(this, true)">Une conique quelconque</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Un triangle</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Un cylindre</button>
-        </div>
-    </div>
-
-    <div class="qcm-box">
-        <div class="qcm-question">29. L'équation d'une directrice d'une ellipse d'équation&nbsp;$\frac{x^2}{a^2} + \frac{y^2}{b^2} = 1$&nbsp;(avec&nbsp;$a > b$) est :</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$x = \pm ae$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, true)">$x = \pm a/e$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$x = \pm c$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$y = \pm b/e$</button>
-        </div>
-    </div>
-
-    <div class="qcm-box">
-        <div class="qcm-question">30. La droite d'Euler d'un triangle non équilatéral passe par :</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, true)">L'orthocentre, le centre de gravité et le centre circonscrit</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Le centre inscrit et l'orthocentre</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Les trois sommets</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Le milieu des trois côtés</button>
+        <div class="correction-box">
+            <strong>Explication :</strong> La sphère a une équation de la forme&nbsp;$x^2+y^2+z^2+ax+by+cz+d=0$. Le passage par l'origine donne&nbsp;$d=0$. Le passage par&nbsp;$A$&nbsp;donne&nbsp;$4+2a=0 \Rightarrow a=-2$. Par symétrie,&nbsp;$b=-2$&nbsp;et&nbsp;$c=-2$. L'équation est&nbsp;$(x-1)^2 + (y-1)^2 + (z-1)^2 = 3$. Le centre est bien&nbsp;$(1, 1, 1)$.
         </div>
     </div>
 
 </div>
 
-<div id="score-display" style="display:none; margin-top: 30px;"></div>
-<div id="congrats-msg" style="display:none;"></div>
+<div style="text-align: center; margin-top: 40px;">
+    <button class="finish-btn no-print-pdf" onclick="finishQuiz()">
+        <i class="fas fa-trophy"></i> Valider mon Niveau Expert Pro
+    </button>
+</div>
 
-<button id="submit-btn" class="btn-primary" onclick="calculateScore()">
-    <i class="fas fa-crown"></i> Valider mon Niveau Expert
-</button>
+<script>
+    function checkQCM(btn, isCorrect) {
+        let parentGrid = btn.parentElement;
+        let card = parentGrid.parentElement;
+        let correctionBox = card.querySelector('.correction-box');
+        
+        let buttons = parentGrid.querySelectorAll('.opt-btn');
+        buttons.forEach(b => {
+            b.style.pointerEvents = 'none';
+            if (b.getAttribute('onclick').includes('true')) {
+                b.style.backgroundColor = '#dcfce7'; 
+                b.style.borderColor = '#22c55e';
+            }
+        });
+
+        if (!isCorrect) {
+            btn.style.backgroundColor = '#fee2e2';
+            btn.style.borderColor = '#ef4444';
+        }
+
+        if(correctionBox) {
+            correctionBox.style.display = 'block';
+        }
+    }
+    
+    function finishQuiz() {
+        alert("Impressionnant ! Si tu maîtrises parfaitement ces questions sans hésiter sur les méthodes, tes bases pour les concours sont très solides.");
+    }
+</script>
