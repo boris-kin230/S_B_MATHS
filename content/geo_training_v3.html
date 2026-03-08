@@ -1,215 +1,374 @@
-<div class="banner">
-    <h1 style="font-size: 2rem; margin: 0;"><i class="fas fa-bolt"></i> Training : Géométrie</h1>
-    <p style="opacity: 0.8;">Série de 20 questions (Niveau 3) : Perfectionnement et rapidité.</p>
+<style>
+    /* Surcharge de la grille d'options pour un affichage 2x2 symétrique */
+    .options-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+        margin-bottom: 20px;
+    }
+
+    /* Sécurité pour éviter les textes collés dans les boutons */
+    .opt-btn {
+        background: #f8f9fa;
+        border: 2px solid #e9ecef;
+        border-radius: 8px;
+        padding: 15px;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        text-align: left;
+        color: #333;
+        min-height: 65px;
+        display: flex;
+        align-items: center;
+        line-height: 1.4;
+        word-break: break-word;
+    }
+
+    /* Bouton de validation stylisé */
+    .finish-btn {
+        background: var(--gold-btn, #FFD700);
+        color: var(--navy-dark, #112240);
+        border: none;
+        padding: 18px 40px;
+        font-size: 1.1rem;
+        font-weight: 800;
+        border-radius: 50px;
+        cursor: pointer;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+    }
+    .finish-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        background: var(--gold-hover, #ffea00);
+    }
+
+    /* Boîte de correction masquée par défaut */
+    .correction-box {
+        display: none;
+        margin-top: 15px;
+        padding: 15px;
+        border-left: 4px solid #06b6d4; /* Cyan pour différencier de la V1 et V2 */
+        background: #ecfeff;
+        border-radius: 0 8px 8px 0;
+    }
+
+    /* Responsive : on repasse en 1 colonne sur mobile */
+    @media (max-width: 768px) {
+        .options-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+
+<div class="hero-banner" style="background: linear-gradient(135deg, #0f766e, #06b6d4); color: white; padding: 30px; border-radius: 12px; margin-bottom: 30px;">
+    <h1 style="font-size: 2.5rem; margin: 0;"><i class="fas fa-layer-group"></i> Training : Mixte Plan & Espace (V3)</h1>
+    <p style="opacity: 0.9; font-size: 1.1rem; margin-top: 10px;">20 questions pour jongler entre la 2D et la 3D. Fais bien attention au repère dans lequel tu te trouves !</p>
 </div>
 
 <div id="quiz-wrapper">
 
-    <div class="qcm-box">
-        <div class="qcm-question">1. Le produit scalaire est une forme :</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, true)">Bilinéaire symétrique définie positive</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Bilinéaire alternée</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Linéaire</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Quadratique uniquement</button>
+    <div class="qcm-card" style="margin-bottom: 40px; padding: 20px; border: 1px solid #e2e8f0; border-radius: 12px;">
+        <div class="qcm-question" style="font-weight: bold; font-size: 1.1rem; margin-bottom: 15px;">1. [2D] Quelle est l'équation réduite de la droite passant par $A(1, 2)$ et $B(3, -2)$ ?</div>
+        <div class="options-grid">
+            <button class="opt-btn" onclick="checkQCM(this, false)">$y = 2x$</button>
+            <button class="opt-btn" onclick="checkQCM(this, true)">$y = -2x + 4$</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">$y = -x + 3$</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">$y = 2x - 4$</button>
+        </div>
+        <div class="correction-box">
+            <strong>Explication :</strong> Le coefficient directeur est $m = \frac{-2 - 2}{3 - 1} = \frac{-4}{2} = -2$. L'équation est de la forme $y = -2x + p$. On utilise $A(1,2)$ : $2 = -2(1) + p \Rightarrow p = 4$. Soit $y = -2x + 4$.
         </div>
     </div>
 
-    <div class="qcm-box">
-        <div class="qcm-question">2. L'équation&nbsp;$x^2 + y^2 = 0$&nbsp;représente dans&nbsp;$\mathbb{R}^2$&nbsp;:</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Un cercle de rayon nul</button>
-            <button class="opt-btn" onclick="checkAnswer(this, true)">Le point unique&nbsp;$(0, 0)$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">L'ensemble vide</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Une droite</button>
+    <div class="qcm-card" style="margin-bottom: 40px; padding: 20px; border: 1px solid #e2e8f0; border-radius: 12px;">
+        <div class="qcm-question" style="font-weight: bold; font-size: 1.1rem; margin-bottom: 15px;">2. [3D] Que vaut le produit scalaire $\vec{u}(1, -1, 2) \cdot \vec{v}(2, 3, -1)$ ?</div>
+        <div class="options-grid">
+            <button class="opt-btn" onclick="checkQCM(this, false)">$3$</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">$-1$</button>
+            <button class="opt-btn" onclick="checkQCM(this, true)">$-3$</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">$0$</button>
+        </div>
+        <div class="correction-box">
+            <strong>Explication :</strong> $\vec{u} \cdot \vec{v} = (1 \times 2) + (-1 \times 3) + (2 \times -1) = 2 - 3 - 2 = -3$.
         </div>
     </div>
 
-    <div class="qcm-box">
-        <div class="qcm-question">3. Soient&nbsp;$A(1, 1)$&nbsp;et&nbsp;$B(3, 5)$. Le vecteur&nbsp;$\vec{AB}$&nbsp;a pour coordonnées :</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$(4, 6)$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, true)">$(2, 4)$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$(-2, -4)$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$(1, 2)$</button>
+    <div class="qcm-card" style="margin-bottom: 40px; padding: 20px; border: 1px solid #e2e8f0; border-radius: 12px;">
+        <div class="qcm-question" style="font-weight: bold; font-size: 1.1rem; margin-bottom: 15px;">3. [2D] Quelle est l'équation du cercle de centre $\Omega(1, -1)$ et de rayon $R=3$ ?</div>
+        <div class="options-grid">
+            <button class="opt-btn" onclick="checkQCM(this, false)">$(x+1)^2 + (y-1)^2 = 3$</button>
+            <button class="opt-btn" onclick="checkQCM(this, true)">$(x-1)^2 + (y+1)^2 = 9$</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">$(x-1)^2 + (y+1)^2 = 3$</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">$x^2 + y^2 = 9$</button>
+        </div>
+        <div class="correction-box">
+            <strong>Explication :</strong> L'équation cartésienne d'un cercle dans le plan est $(x - x_\Omega)^2 + (y - y_\Omega)^2 = R^2$. Ici, $(x - 1)^2 + (y - (-1))^2 = 3^2$, donc $(x - 1)^2 + (y + 1)^2 = 9$.
         </div>
     </div>
 
-    <div class="qcm-box">
-        <div class="qcm-question">4. L'angle&nbsp;$(\vec{i}, \vec{u})$&nbsp;avec&nbsp;$\vec{u}(-1, 1)$&nbsp;est :</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$\pi/4$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, true)">$3\pi/4$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$-\pi/4$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$5\pi/4$</button>
+    <div class="qcm-card" style="margin-bottom: 40px; padding: 20px; border: 1px solid #e2e8f0; border-radius: 12px;">
+        <div class="qcm-question" style="font-weight: bold; font-size: 1.1rem; margin-bottom: 15px;">4. [3D] Quel est un vecteur normal au plan d'équation $2x - y + 3z - 4 = 0$ ?</div>
+        <div class="options-grid">
+            <button class="opt-btn" onclick="checkQCM(this, false)">$\vec{n}(-4, 0, 0)$</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">$\vec{n}(2, 1, 3)$</button>
+            <button class="opt-btn" onclick="checkQCM(this, true)">$\vec{n}(2, -1, 3)$</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">$\vec{n}(1, -1, 1)$</button>
+        </div>
+        <div class="correction-box">
+            <strong>Explication :</strong> Dans l'équation cartésienne d'un plan $ax + by + cz + d = 0$, les coefficients $a, b, c$ sont les coordonnées d'un vecteur normal. Ici, $a=2, b=-1, c=3$.
         </div>
     </div>
 
-    <div class="qcm-box">
-        <div class="qcm-question">5. La distance du point&nbsp;$M(1, 1)$&nbsp;à la droite&nbsp;$x + y = 0$&nbsp;est :</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, false)">2</button>
-            <button class="opt-btn" onclick="checkAnswer(this, true)">$\sqrt{2}$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">0</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$1/\sqrt{2}$</button>
+    <div class="qcm-card" style="margin-bottom: 40px; padding: 20px; border: 1px solid #e2e8f0; border-radius: 12px;">
+        <div class="qcm-question" style="font-weight: bold; font-size: 1.1rem; margin-bottom: 15px;">5. [2D/3D] Soient $\vec{u}(m, 2)$ et $\vec{v}(3, -1)$ dans le plan. Pour quelle valeur de $m$ sont-ils orthogonaux ?</div>
+        <div class="options-grid">
+            <button class="opt-btn" onclick="checkQCM(this, false)">$m = -2/3$</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">$m = 3/2$</button>
+            <button class="opt-btn" onclick="checkQCM(this, true)">$m = 2/3$</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">$m = 0$</button>
+        </div>
+        <div class="correction-box">
+            <strong>Explication :</strong> Deux vecteurs sont orthogonaux si leur produit scalaire est nul : $3m + 2(-1) = 0 \Rightarrow 3m - 2 = 0 \Rightarrow m = 2/3$.
         </div>
     </div>
 
-    <div class="qcm-box">
-        <div class="qcm-question">6. Deux droites d'équations&nbsp;$y = mx+p$&nbsp;et&nbsp;$y = m'x+p'$&nbsp;sont perpendiculaires si :</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$m = m'$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, true)">$mm' = -1$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$mm' = 1$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$m + m' = 0$</button>
+    <div class="qcm-card" style="margin-bottom: 40px; padding: 20px; border: 1px solid #e2e8f0; border-radius: 12px;">
+        <div class="qcm-question" style="font-weight: bold; font-size: 1.1rem; margin-bottom: 15px;">6. [3D] Quelle est la distance de l'origine $O(0,0,0)$ au plan d'équation $x + 2y + 2z - 6 = 0$ ?</div>
+        <div class="options-grid">
+            <button class="opt-btn" onclick="checkQCM(this, false)">$6$</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">$3$</button>
+            <button class="opt-btn" onclick="checkQCM(this, true)">$2$</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">$1$</button>
+        </div>
+        <div class="correction-box">
+            <strong>Explication :</strong> $d(O, P) = \frac{|1(0) + 2(0) + 2(0) - 6|}{\sqrt{1^2 + 2^2 + 2^2}} = \frac{|-6|}{\sqrt{1+4+4}} = \frac{6}{\sqrt{9}} = \frac{6}{3} = 2$.
         </div>
     </div>
 
-    <div class="qcm-box">
-        <div class="qcm-question">7. L'aire du triangle dont les sommets sont&nbsp;$(0,0), (1,0)$&nbsp;et&nbsp;$(0,1)$&nbsp;est :</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, false)">1</button>
-            <button class="opt-btn" onclick="checkAnswer(this, true)">0.5</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">2</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$\sqrt{2}$</button>
+    <div class="qcm-card" style="margin-bottom: 40px; padding: 20px; border: 1px solid #e2e8f0; border-radius: 12px;">
+        <div class="qcm-question" style="font-weight: bold; font-size: 1.1rem; margin-bottom: 15px;">7. [2D] Quelle est la distance du point $A(1,1)$ à la droite d'équation $x - y + 2 = 0$ ?</div>
+        <div class="options-grid">
+            <button class="opt-btn" onclick="checkQCM(this, false)">$2$</button>
+            <button class="opt-btn" onclick="checkQCM(this, true)">$\sqrt{2}$</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">$1/\sqrt{2}$</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">$0$</button>
+        </div>
+        <div class="correction-box">
+            <strong>Explication :</strong> $d(A, D) = \frac{|1(1) - 1(1) + 2|}{\sqrt{1^2 + (-1)^2}} = \frac{|1 - 1 + 2|}{\sqrt{2}} = \frac{2}{\sqrt{2}} = \sqrt{2}$.
         </div>
     </div>
 
-    <div class="qcm-box">
-        <div class="qcm-question">8. Le vecteur&nbsp;$\vec{n}(a, b)$&nbsp;est normal à la droite :</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, true)">$ax + by + c = 0$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$bx - ay + c = 0$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$x/a + y/b = 1$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$y = ax + b$</button>
+    <div class="qcm-card" style="margin-bottom: 40px; padding: 20px; border: 1px solid #e2e8f0; border-radius: 12px;">
+        <div class="qcm-question" style="font-weight: bold; font-size: 1.1rem; margin-bottom: 15px;">8. [3D] Que vaut le produit vectoriel $\vec{u}(1,0,0) \wedge \vec{v}(0,2,0)$ ?</div>
+        <div class="options-grid">
+            <button class="opt-btn" onclick="checkQCM(this, false)">$\vec{0}$</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">$(0, 0, 1)$</button>
+            <button class="opt-btn" onclick="checkQCM(this, true)">$(0, 0, 2)$</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">$2$</button>
+        </div>
+        <div class="correction-box">
+            <strong>Explication :</strong> On remarque que $\vec{u} = \vec{i}$ et $\vec{v} = 2\vec{j}$. Donc $\vec{u} \wedge \vec{v} = \vec{i} \wedge (2\vec{j}) = 2(\vec{i} \wedge \vec{j}) = 2\vec{k} = (0, 0, 2)$.
         </div>
     </div>
 
-    <div class="qcm-box">
-        <div class="qcm-question">9. En coordonnées polaires,&nbsp;$x^2 + y^2$&nbsp;s'écrit :</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$r$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, true)">$r^2$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$r \cos \theta$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$1$</button>
+    <div class="qcm-card" style="margin-bottom: 40px; padding: 20px; border: 1px solid #e2e8f0; border-radius: 12px;">
+        <div class="qcm-question" style="font-weight: bold; font-size: 1.1rem; margin-bottom: 15px;">9. [2D] Quel est le point d'intersection des droites $y = 2x - 1$ et $y = -x + 5$ ?</div>
+        <div class="options-grid">
+            <button class="opt-btn" onclick="checkQCM(this, false)">$(3, 2)$</button>
+            <button class="opt-btn" onclick="checkQCM(this, true)">$(2, 3)$</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">$(1, 1)$</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">$(0, 5)$</button>
+        </div>
+        <div class="correction-box">
+            <strong>Explication :</strong> On résout le système : $2x - 1 = -x + 5 \Rightarrow 3x = 6 \Rightarrow x = 2$. On remplace $x$ dans l'une des équations : $y = 2(2) - 1 = 3$. Le point est $(2, 3)$.
         </div>
     </div>
 
-    <div class="qcm-box">
-        <div class="qcm-question">10. Le projeté orthogonal de l'origine sur la droite&nbsp;$x=3$&nbsp;est :</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$(0, 3)$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, true)">$(3, 0)$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$(3, 3)$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">L'origine elle-même</button>
+    <div class="qcm-card" style="margin-bottom: 40px; padding: 20px; border: 1px solid #e2e8f0; border-radius: 12px;">
+        <div class="qcm-question" style="font-weight: bold; font-size: 1.1rem; margin-bottom: 15px;">10. [3D] L'intersection des plans d'équations $x = 0$ et $y = 0$ correspond à :</div>
+        <div class="options-grid">
+            <button class="opt-btn" onclick="checkQCM(this, false)">L'axe des abscisses $(Ox)$</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">L'axe des ordonnées $(Oy)$</button>
+            <button class="opt-btn" onclick="checkQCM(this, true)">L'axe des cotes $(Oz)$</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">Le point origine $O(0,0,0)$</button>
+        </div>
+        <div class="correction-box">
+            <strong>Explication :</strong> L'ensemble des points vérifiant à la fois $x=0$ et $y=0$ a des coordonnées de la forme $(0, 0, z)$. C'est exactement la définition de l'axe vertical $(Oz)$.
         </div>
     </div>
 
-    <div class="qcm-box">
-        <div class="qcm-question">11. Si&nbsp;$\vec{u} \cdot \vec{v} = 3$&nbsp;et&nbsp;$\|\vec{u}\| = 2, \|\vec{v}\| = 3$, alors&nbsp;$\cos(\theta)$&nbsp;vaut :</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, false)">1</button>
-            <button class="opt-btn" onclick="checkAnswer(this, true)">0.5</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$\sqrt{3}/2$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">0</button>
+    <div class="qcm-card" style="margin-bottom: 40px; padding: 20px; border: 1px solid #e2e8f0; border-radius: 12px;">
+        <div class="qcm-question" style="font-weight: bold; font-size: 1.1rem; margin-bottom: 15px;">11. [2D] Quelle est la représentation paramétrique de la droite passant par $A(2, 3)$ et de vecteur directeur $\vec{u}(-1, 2)$ ?</div>
+        <div class="options-grid">
+            <button class="opt-btn" onclick="checkQCM(this, true)">$x = 2 - t$, $y = 3 + 2t$</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">$x = -1 + 2t$, $y = 2 + 3t$</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">$x = 2 + 3t$, $y = -1 + 2t$</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">$x = -t$, $y = 2t$</button>
+        </div>
+        <div class="correction-box">
+            <strong>Explication :</strong> Les constantes correspondent au point de passage $A(2,3)$ et les coefficients de $t$ correspondent aux composantes du vecteur $\vec{u}(-1, 2)$.
         </div>
     </div>
 
-    <div class="qcm-box">
-        <div class="qcm-question">12. L'ensemble des points&nbsp;$M$&nbsp;tels que&nbsp;$MA^2 - MB^2 = k$&nbsp;est :</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Un cercle</button>
-            <button class="opt-btn" onclick="checkAnswer(this, true)">Une droite perpendiculaire à&nbsp;$(AB)$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Une ellipse</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Un point</button>
+    <div class="qcm-card" style="margin-bottom: 40px; padding: 20px; border: 1px solid #e2e8f0; border-radius: 12px;">
+        <div class="qcm-question" style="font-weight: bold; font-size: 1.1rem; margin-bottom: 15px;">12. [3D] Quelle est l'intersection de la sphère $x^2+y^2+z^2 = 25$ et du plan $z = 4$ ?</div>
+        <div class="options-grid">
+            <button class="opt-btn" onclick="checkQCM(this, false)">Un cercle de rayon $5$</button>
+            <button class="opt-btn" onclick="checkQCM(this, true)">Un cercle de rayon $3$</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">Le point $(0,0,4)$</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">L'ensemble vide</button>
+        </div>
+        <div class="correction-box">
+            <strong>Explication :</strong> En remplaçant $z$ par $4$, on obtient $x^2 + y^2 + 16 = 25 \Rightarrow x^2 + y^2 = 9$. C'est l'équation d'un cercle de rayon $\sqrt{9} = 3$ situé dans le plan $z=4$.
         </div>
     </div>
 
-    <div class="qcm-box">
-        <div class="qcm-question">13. L'équation de la tangente au cercle&nbsp;$x^2 + y^2 = R^2$&nbsp;au point&nbsp;$M_0(x_0, y_0)$&nbsp;est :</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, true)">$xx_0 + yy_0 = R^2$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$x/x_0 + y/y_0 = 1$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$(x-x_0)^2 + (y-y_0)^2 = R^2$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$y - y_0 = x - x_0$</button>
+    <div class="qcm-card" style="margin-bottom: 40px; padding: 20px; border: 1px solid #e2e8f0; border-radius: 12px;">
+        <div class="qcm-question" style="font-weight: bold; font-size: 1.1rem; margin-bottom: 15px;">13. [3D] Quelle est la distance entre les points $A(1, 1, 1)$ et $B(3, 3, 2)$ ?</div>
+        <div class="options-grid">
+            <button class="opt-btn" onclick="checkQCM(this, false)">$9$</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">$\sqrt{5}$</button>
+            <button class="opt-btn" onclick="checkQCM(this, true)">$3$</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">$1$</button>
+        </div>
+        <div class="correction-box">
+            <strong>Explication :</strong> $AB = \sqrt{(3-1)^2 + (3-1)^2 + (2-1)^2} = \sqrt{2^2 + 2^2 + 1^2} = \sqrt{4 + 4 + 1} = \sqrt{9} = 3$.
         </div>
     </div>
 
-    <div class="qcm-box">
-        <div class="qcm-question">14. Si&nbsp;$\det(\vec{u}, \vec{v}) < 0$, alors la base&nbsp;$(\vec{u}, \vec{v})$&nbsp;est :</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Directe</button>
-            <button class="opt-btn" onclick="checkAnswer(this, true)">Indirecte</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Orthonormée</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Liée</button>
+    <div class="qcm-card" style="margin-bottom: 40px; padding: 20px; border: 1px solid #e2e8f0; border-radius: 12px;">
+        <div class="qcm-question" style="font-weight: bold; font-size: 1.1rem; margin-bottom: 15px;">14. [2D] Dans un carré $ABCD$ de côté $a$, que vaut $\vec{AB} \cdot \vec{AC}$ ?</div>
+        <div class="options-grid">
+            <button class="opt-btn" onclick="checkQCM(this, false)">$0$</button>
+            <button class="opt-btn" onclick="checkQCM(this, true)">$a^2$</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">$a^2\sqrt{2}$</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">$2a^2$</button>
+        </div>
+        <div class="correction-box">
+            <strong>Explication :</strong> En projetant orthogonalement $C$ sur $(AB)$, on tombe sur $B$. Donc $\vec{AB} \cdot \vec{AC} = \vec{AB} \cdot \vec{AB} = \|\vec{AB}\|^2 = a^2$.
         </div>
     </div>
 
-    <div class="qcm-box">
-        <div class="qcm-question">15. La droite passant par l'origine et de pente&nbsp;$1$&nbsp;a pour équation polaire :</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$r = 1$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, true)">$\theta = \pi/4$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$r = \theta$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$\theta = \pi/2$</button>
+    <div class="qcm-card" style="margin-bottom: 40px; padding: 20px; border: 1px solid #e2e8f0; border-radius: 12px;">
+        <div class="qcm-question" style="font-weight: bold; font-size: 1.1rem; margin-bottom: 15px;">15. [3D] Le volume du tétraèdre construit sur les points $A, B, C, D$ est donné par :</div>
+        <div class="options-grid">
+            <button class="opt-btn" onclick="checkQCM(this, false)">$\frac{1}{3} |(\vec{AB} \wedge \vec{AC}) \cdot \vec{AD}|$</button>
+            <button class="opt-btn" onclick="checkQCM(this, true)">$\frac{1}{6} |(\vec{AB} \wedge \vec{AC}) \cdot \vec{AD}|$</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">$|(\vec{AB} \wedge \vec{AC}) \cdot \vec{AD}|$</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">$\frac{1}{2} \|\vec{AB} \wedge \vec{AC}\|$</button>
+        </div>
+        <div class="correction-box">
+            <strong>Explication :</strong> Le produit mixte (en valeur absolue) donne le volume du parallélépipède. Un tétraèdre représente $1/6$ de ce volume.
         </div>
     </div>
 
-    <div class="qcm-box">
-        <div class="qcm-question">16. Quelle est la norme de&nbsp;$\vec{u} = \cos(\alpha)\vec{i} + \sin(\alpha)\vec{j}$&nbsp;?</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$\alpha$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, true)">1</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$\cos(2\alpha)$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">0</button>
+    <div class="qcm-card" style="margin-bottom: 40px; padding: 20px; border: 1px solid #e2e8f0; border-radius: 12px;">
+        <div class="qcm-question" style="font-weight: bold; font-size: 1.1rem; margin-bottom: 15px;">16. [2D/3D] Soient $A$ et $B$ deux points distincts. L'ensemble des points $M$ tels que $\vec{MA} \cdot \vec{MB} = 0$ est :</div>
+        <div class="options-grid">
+            <button class="opt-btn" onclick="checkQCM(this, false)">La médiatrice de $[AB]$ (en 2D et 3D)</button>
+            <button class="opt-btn" onclick="checkQCM(this, true)">Un cercle (en 2D) ou une sphère (en 3D) de diamètre $[AB]$</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">Le milieu de $[AB]$</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">La droite $(AB)$ privée du segment $[AB]$</button>
+        </div>
+        <div class="correction-box">
+            <strong>Explication :</strong> C'est la caractérisation classique : l'ensemble des points d'où l'on voit un segment sous un angle droit est le cercle (dans le plan) ou la sphère (dans l'espace) dont ce segment est un diamètre.
         </div>
     </div>
 
-    <div class="qcm-box">
-        <div class="qcm-question">17. Le symétrique du point&nbsp;$(x, y)$&nbsp;par rapport à l'axe&nbsp;$(Ox)$&nbsp;est :</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$(-x, y)$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, true)">$(x, -y)$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$(-x, -y)$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$(y, x)$</button>
+    <div class="qcm-card" style="margin-bottom: 40px; padding: 20px; border: 1px solid #e2e8f0; border-radius: 12px;">
+        <div class="qcm-question" style="font-weight: bold; font-size: 1.1rem; margin-bottom: 15px;">17. [3D] Un vecteur normal au plan défini par 3 points non alignés $A, B$ et $C$ est :</div>
+        <div class="options-grid">
+            <button class="opt-btn" onclick="checkQCM(this, false)">$\vec{AB} + \vec{AC}$</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">$\vec{AB} \cdot \vec{AC}$</button>
+            <button class="opt-btn" onclick="checkQCM(this, true)">$\vec{AB} \wedge \vec{AC}$</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">Le vecteur nul $\vec{0}$</button>
+        </div>
+        <div class="correction-box">
+            <strong>Explication :</strong> Le produit vectoriel de deux vecteurs non colinéaires du plan génère un vecteur qui leur est simultanément orthogonal, c'est-à-dire un vecteur normal au plan.
         </div>
     </div>
 
-    <div class="qcm-box">
-        <div class="qcm-question">18. La relation d'Al-Kashi dans un triangle s'écrit&nbsp;$a^2 = b^2 + c^2 - \dots$</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$bc \cos(A)$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, true)">$2bc \cos(A)$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$2bc \sin(A)$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$bc \sin(A)$</button>
+    <div class="qcm-card" style="margin-bottom: 40px; padding: 20px; border: 1px solid #e2e8f0; border-radius: 12px;">
+        <div class="qcm-question" style="font-weight: bold; font-size: 1.1rem; margin-bottom: 15px;">18. [2D] L'isobarycentre $G$ du triangle $ABC$ vérifie la relation :</div>
+        <div class="options-grid">
+            <button class="opt-btn" onclick="checkQCM(this, false)">$\vec{GA} + \vec{GB} = \vec{GC}$</button>
+            <button class="opt-btn" onclick="checkQCM(this, true)">$\vec{GA} + \vec{GB} + \vec{GC} = \vec{0}$</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">$\vec{AG} = \frac{1}{2}(\vec{AB} + \vec{AC})$</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">$\vec{GA} \cdot \vec{GB} \cdot \vec{GC} = 0$</button>
+        </div>
+        <div class="correction-box">
+            <strong>Explication :</strong> L'isobarycentre (centre de gravité) est le point d'équilibre. La somme vectorielle des forces (si on met des masses égales aux sommets) s'annule en ce point.
         </div>
     </div>
 
-    <div class="qcm-box">
-        <div class="qcm-question">19. Pour tout vecteur&nbsp;$\vec{u}$,&nbsp;$\vec{u} \cdot \vec{u}$&nbsp;est :</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Toujours nul</button>
-            <button class="opt-btn" onclick="checkAnswer(this, true)">Toujours positif ou nul</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Toujours strictement positif</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Parfois négatif</button>
+    <div class="qcm-card" style="margin-bottom: 40px; padding: 20px; border: 1px solid #e2e8f0; border-radius: 12px;">
+        <div class="qcm-question" style="font-weight: bold; font-size: 1.1rem; margin-bottom: 15px;">19. [3D] Pour que 3 points distincts de l'espace définissent un plan unique, il faut et il suffit qu'ils soient :</div>
+        <div class="options-grid">
+            <button class="opt-btn" onclick="checkQCM(this, false)">Coplanaires</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">Orthogonaux</button>
+            <button class="opt-btn" onclick="checkQCM(this, true)">Non alignés</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">Équidistants</button>
+        </div>
+        <div class="correction-box">
+            <strong>Explication :</strong> Trois points sont toujours coplanaires (ils appartiennent forcément à au moins un plan). Mais pour que ce plan soit unique, il ne faut pas qu'ils soient alignés (sinon une infinité de plans passe par cette droite).
         </div>
     </div>
 
-    <div class="qcm-box">
-        <div class="qcm-question">20. La condition&nbsp;$\det(\vec{u}, \vec{v}) = \|\vec{u}\|\|\vec{v}\|$&nbsp;implique :</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$\vec{u} \perp \vec{v}$&nbsp;et sens direct</button>
-            <button class="opt-btn" onclick="checkAnswer(this, true)">$\vec{u} \perp \vec{v}$&nbsp;et angle&nbsp;$+\pi/2$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$\vec{u}$&nbsp;et&nbsp;$\vec{v}$&nbsp;colinéaires</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$\vec{u} = \vec{v}$</button>
+    <div class="qcm-card" style="margin-bottom: 40px; padding: 20px; border: 1px solid #e2e8f0; border-radius: 12px;">
+        <div class="qcm-question" style="font-weight: bold; font-size: 1.1rem; margin-bottom: 15px;">20. [2D/3D] L'équation cartésienne $x = 3$ représente :</div>
+        <div class="options-grid">
+            <button class="opt-btn" onclick="checkQCM(this, false)">Un point en 2D et une droite en 3D</button>
+            <button class="opt-btn" onclick="checkQCM(this, true)">Une droite en 2D et un plan en 3D</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">Un plan en 2D et un volume en 3D</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">Uniquement une droite verticale</button>
+        </div>
+        <div class="correction-box">
+            <strong>Explication :</strong> Dans le plan $(x,y)$, $x=3$ est une droite verticale (tous les points d'abscisse 3 quel que soit $y$). Dans l'espace $(x,y,z)$, c'est un plan parallèle au plan $(Oyz)$ (tous les points d'abscisse 3 quels que soient $y$ et $z$).
         </div>
     </div>
 
 </div>
 
-<div id="score-display" style="display:none; margin-top: 30px;"></div>
-<div id="congrats-msg" style="display:none;"></div>
+<div style="text-align: center; margin-top: 40px;">
+    <button class="finish-btn no-print-pdf" onclick="finishQuiz()">
+        <i class="fas fa-flag-checkered"></i> Valider mon score
+    </button>
+</div>
 
-<button id="submit-btn" class="btn-primary" onclick="calculateScore()">
-    <i class="fas fa-trophy"></i> Terminer le Training v3
-</button>
+<script>
+    function checkQCM(btn, isCorrect) {
+        let parentGrid = btn.parentElement;
+        let card = parentGrid.parentElement;
+        let correctionBox = card.querySelector('.correction-box');
+        
+        // Désactive les autres boutons de cette question
+        let buttons = parentGrid.querySelectorAll('.opt-btn');
+        buttons.forEach(b => {
+            b.style.pointerEvents = 'none';
+            if (b.getAttribute('onclick').includes('true')) {
+                b.style.backgroundColor = '#dcfce7'; 
+                b.style.borderColor = '#22c55e';
+            }
+        });
+
+        // Si la réponse est fausse, on met en rouge le bouton cliqué
+        if (!isCorrect) {
+            btn.style.backgroundColor = '#fee2e2';
+            btn.style.borderColor = '#ef4444';
+        }
+
+        // Afficher l'explication
+        if(correctionBox) {
+            correctionBox.style.display = 'block';
+        }
+    }
+    
+    function finishQuiz() {
+        alert("Félicitations pour avoir terminé la V3 ! Maîtriser les bascules entre 2D et 3D est crucial en géométrie.");
+    }
+</script>
