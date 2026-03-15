@@ -409,16 +409,14 @@
         const card = btn.closest('.qcm-card');
         const correctionBox = card.querySelector('.correction-block');
         
-        // Empêcher de répondre plusieurs fois
         if (grid.dataset.answered === 'true') return;
         grid.dataset.answered = 'true';
 
         const isCorrect = btn.dataset.correct === "true";
         const buttons = grid.querySelectorAll('.opt-btn');
 
-        // Applique les styles sur tous les boutons
         buttons.forEach(b => {
-            b.style.pointerEvents = 'none'; // Désactive le clic
+            b.style.pointerEvents = 'none';
             if (b.dataset.correct === "true") {
                 b.classList.add('correct');
             } else if (b === btn && !isCorrect) {
@@ -426,7 +424,6 @@
             }
         });
 
-        // Affiche la correction de manière fluide
         if (correctionBox) {
             correctionBox.style.display = 'block';
             correctionBox.classList.add('fade-in');
