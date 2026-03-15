@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Elian Maths | PCSI</title>
+    <title>Elian Maths | PCSI Dashboard Expert</title>
     
     <script>
         window.MathJax = {
@@ -22,6 +22,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     
     <style>
+        /* ==========================================================================
+           VARIABLES GLOBALES
+           ========================================================================== */
         :root {
             --navy-dark: #0a0f1d;     
             --navy-main: #111827;     
@@ -36,10 +39,22 @@
             --radius: 16px;
             --shadow-sm: 0 2px 8px rgba(0,0,0,0.05);
             --shadow-md: 0 10px 30px rgba(0,0,0,0.08);
+            --shadow-lg: 0 20px 40px rgba(0,0,0,0.15);
             --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            
+            /* Couleurs additionnelles pour les stats et modales */
+            --success: #10b981;
+            --danger: #ef4444;
+            --ia-gradient: linear-gradient(135deg, #8b5cf6, #6d28d9);
         }
 
-        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        /* ==========================================================================
+           RESETS & BASE
+           ========================================================================== */
+        * { 
+            box-sizing: border-box; 
+            -webkit-tap-highlight-color: transparent; 
+        }
 
         body { 
             font-family: 'Inter', sans-serif; 
@@ -51,7 +66,9 @@
             overflow: hidden; 
         }
 
-        /* --- SIDEBAR PRESTIGE --- */
+        /* ==========================================================================
+           SIDEBAR PRESTIGE
+           ========================================================================== */
         #sidebar { 
             width: 320px; 
             min-width: 320px;
@@ -86,7 +103,10 @@
             margin: 0; 
             letter-spacing: -1px;
         }
-        .logo-text span { color: var(--gold-btn); }
+
+        .logo-text span { 
+            color: var(--gold-btn); 
+        }
 
         .badge-pcsi {
             display: inline-block;
@@ -107,8 +127,10 @@
             padding: 20px 0;
         }
 
-        /* --- ACCORDEON --- */
-        .chap-group { margin-bottom: 5px; }
+        /* --- ACCORDEON MENU --- */
+        .chap-group { 
+            margin-bottom: 5px; 
+        }
 
         .chap-toggle {
             width: 100%;
@@ -126,15 +148,24 @@
             transition: var(--transition);
         }
 
-        .chap-toggle:hover { background: #f1f5f9; }
-        .chap-toggle i.main-icon { width: 25px; color: var(--gold-muted); }
+        .chap-toggle:hover { 
+            background: #f1f5f9; 
+        }
+
+        .chap-toggle i.main-icon { 
+            width: 25px; 
+            color: var(--gold-muted); 
+        }
 
         .chap-content {
             display: none;
             background: #fafbfc;
             border-bottom: 1px solid var(--border);
         }
-        .chap-content.active { display: block; }
+
+        .chap-content.active { 
+            display: block; 
+        }
 
         .nav-section-title {
             padding: 15px 30px 5px;
@@ -164,7 +195,12 @@
             box-shadow: inset 4px 0 0 var(--gold-btn);
         }
 
-        .nav-link i { margin-right: 12px; font-size: 0.85rem; width: 18px; text-align: center; }
+        .nav-link i { 
+            margin-right: 12px; 
+            font-size: 0.85rem; 
+            width: 18px; 
+            text-align: center; 
+        }
         
         .nav-link.active-link {
             color: var(--navy-dark);
@@ -173,7 +209,9 @@
             box-shadow: inset 4px 0 0 var(--gold-btn);
         }
 
-        /* --- MAIN AREA --- */
+        /* ==========================================================================
+           ZONE PRINCIPALE (MAIN WRAPPER)
+           ========================================================================== */
         #main-wrapper {
             flex-grow: 1;
             height: 100vh;
@@ -184,20 +222,23 @@
         }
 
         #content-container {
-            max-width: 1000px;
+            max-width: 1100px;
             margin: 0 auto;
             padding: 40px 20px 120px;
         }
 
-        /* --- MISE À JOUR : HERO BANNER AVEC IMAGE EN FOND ET ACTIONS --- */
+        /* ==========================================================================
+           HERO BANNER & DASHBOARD ACTIONS
+           ========================================================================== */
+        /* CORRECTION: Filtre allégé (0.3 et 0.5) pour faire ressortir l'image */
         .hero-banner {
-            background: linear-gradient(145deg, rgba(10, 15, 29, 0.85), rgba(17, 24, 39, 0.95)), url('https://images.unsplash.com/photo-1635070041078-e363dbe005cb?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background: linear-gradient(145deg, rgba(10, 15, 29, 0.3), rgba(17, 24, 39, 0.5)), url('https://images.unsplash.com/photo-1635070041078-e363dbe005cb?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
             background-size: cover;
             background-position: center;
             border-radius: var(--radius);
             padding: 60px 40px;
             color: white;
-            margin-bottom: 40px;
+            margin-bottom: 30px;
             position: relative;
             overflow: hidden;
             border-bottom: 5px solid var(--gold-btn);
@@ -209,8 +250,21 @@
             z-index: 2;
         }
 
-        .hero-banner h1 { margin: 0; font-size: 2.2rem; font-weight: 800; letter-spacing: -1px; }
-        .hero-banner p { opacity: 0.9; margin-top: 10px; font-size: 1.1rem; }
+        .hero-banner h1 { 
+            margin: 0; 
+            font-size: 2.4rem; 
+            font-weight: 800; 
+            letter-spacing: -1px; 
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .hero-banner p { 
+            opacity: 0.95; 
+            margin-top: 10px; 
+            font-size: 1.15rem; 
+            font-weight: 500;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+        }
 
         .dashboard-actions {
             display: flex;
@@ -220,13 +274,13 @@
         }
 
         .dash-btn {
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.3);
             color: white;
-            padding: 10px 18px;
+            padding: 12px 20px;
             border-radius: 8px;
             font-family: inherit;
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             font-weight: 600;
             cursor: pointer;
             display: flex;
@@ -234,22 +288,24 @@
             gap: 8px;
             transition: var(--transition);
             text-decoration: none;
-            backdrop-filter: blur(5px);
+            backdrop-filter: blur(8px);
         }
 
         .dash-btn:hover {
-            background: rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.25);
             transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
         }
 
         .dash-btn.ia-btn {
-            background: linear-gradient(135deg, #8b5cf6, #6d28d9);
+            background: var(--ia-gradient);
             border: none;
             box-shadow: 0 4px 15px rgba(109, 40, 217, 0.4);
         }
         
         .dash-btn.ia-btn:hover {
             filter: brightness(1.1);
+            transform: translateY(-2px) scale(1.02);
         }
 
         .dash-btn.quit-btn {
@@ -263,7 +319,66 @@
             color: white;
         }
 
-        /* --- DESIGN QCM PRESTIGE --- */
+        /* ==========================================================================
+           SECTION STATISTIQUES (NOUVEAU)
+           ========================================================================== */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .stat-card {
+            background: var(--surface);
+            border-radius: var(--radius);
+            padding: 25px;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow-sm);
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            transition: var(--transition);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .stat-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            background: #f1f5f9;
+            color: var(--navy-dark);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.5rem;
+        }
+
+        .stat-icon.gold { background: #fefce8; color: var(--gold-btn); }
+        .stat-icon.blue { background: #eff6ff; color: #3b82f6; }
+        .stat-icon.green { background: #ecfdf5; color: var(--success); }
+
+        .stat-info h3 {
+            margin: 0;
+            font-size: 1.8rem;
+            color: var(--navy-dark);
+        }
+
+        .stat-info p {
+            margin: 5px 0 0 0;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        /* ==========================================================================
+           DESIGN QCM PRESTIGE
+           ========================================================================== */
         .qcm-card {
             background: var(--surface);
             border-radius: var(--radius);
@@ -272,12 +387,14 @@
             box-shadow: var(--shadow-sm);
             border: 1px solid var(--border);
             transition: var(--transition);
-            /* Évite que les questions soient coupées à l'impression PDF */
             page-break-inside: avoid;
             break-inside: avoid;
         }
 
-        .qcm-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+        .qcm-card:hover { 
+            transform: translateY(-3px); 
+            box-shadow: var(--shadow-md); 
+        }
 
         .qcm-question {
             font-size: 1.15rem;
@@ -327,7 +444,9 @@
             color: #991b1b !important;
         }
 
-        .opt-btn:disabled { cursor: default; }
+        .opt-btn:disabled { 
+            cursor: default; 
+        }
 
         .correction-box {
             margin-top: 20px;
@@ -345,7 +464,9 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* --- ACTIONS & SCORE --- */
+        /* ==========================================================================
+           ACTIONS & SCORE (RESULTATS)
+           ========================================================================== */
         #score-zone { 
             margin-top: 50px; 
             page-break-inside: avoid;
@@ -362,8 +483,18 @@
             box-shadow: var(--shadow-md);
         }
 
-        .score-display h2 { font-size: 2.5rem; margin: 0; color: var(--navy-dark); }
-        .score-display p { font-size: 1.1rem; color: var(--text-muted); margin-top: 10px; font-weight: 500;}
+        .score-display h2 { 
+            font-size: 2.5rem; 
+            margin: 0; 
+            color: var(--navy-dark); 
+        }
+
+        .score-display p { 
+            font-size: 1.1rem; 
+            color: var(--text-muted); 
+            margin-top: 10px; 
+            font-weight: 500;
+        }
 
         .share-bar {
             background: var(--navy-dark);
@@ -395,12 +526,206 @@
         .btn-sms { background: #34d399; color: var(--navy-dark); }
         .btn-x { background: #000000; color: white; border: 1px solid #333;}
         
-        .share-btn:hover { transform: scale(1.05); filter: brightness(1.1); }
+        .share-btn:hover { 
+            transform: scale(1.05); 
+            filter: brightness(1.1); 
+        }
 
-        /* Cacher les éléments inutiles sur le PDF généré */
         .no-print-pdf { display: block; }
 
-        /* --- MOBILE --- */
+        /* ==========================================================================
+           MODALES (IA & POMODORO) - NOUVEAU
+           ========================================================================== */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(10, 15, 29, 0.8);
+            backdrop-filter: blur(5px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 3000;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        /* --- Modale Pomodoro --- */
+        .pomodoro-box {
+            background: var(--surface);
+            width: 90%;
+            max-width: 400px;
+            border-radius: 24px;
+            padding: 40px;
+            text-align: center;
+            box-shadow: var(--shadow-lg);
+            position: relative;
+            transform: translateY(20px);
+            transition: transform 0.3s ease;
+        }
+
+        .modal-overlay.active .pomodoro-box { transform: translateY(0); }
+
+        .pomo-close {
+            position: absolute;
+            top: 20px; right: 20px;
+            background: none; border: none;
+            font-size: 1.5rem; color: var(--text-muted);
+            cursor: pointer; transition: var(--transition);
+        }
+        .pomo-close:hover { color: var(--danger); transform: rotate(90deg); }
+
+        .pomo-circle {
+            width: 200px; height: 200px;
+            border-radius: 50%;
+            border: 8px solid #f1f5f9;
+            margin: 0 auto 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: var(--navy-dark);
+            position: relative;
+            box-shadow: inset 0 4px 10px rgba(0,0,0,0.05);
+        }
+
+        .pomo-controls {
+            display: flex; justify-content: center; gap: 15px;
+        }
+
+        .pomo-btn {
+            width: 60px; height: 60px;
+            border-radius: 50%; border: none;
+            font-size: 1.2rem; cursor: pointer;
+            display: flex; justify-content: center; align-items: center;
+            color: white; transition: var(--transition);
+            box-shadow: var(--shadow-md);
+        }
+        .pomo-play { background: var(--success); }
+        .pomo-pause { background: var(--gold-btn); }
+        .pomo-reset { background: var(--danger); }
+        .pomo-btn:hover { transform: scale(1.1); filter: brightness(1.1); }
+
+        /* --- Modale IA Chat --- */
+        .ia-box {
+            background: var(--surface);
+            width: 90%;
+            max-width: 600px;
+            height: 80vh;
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: var(--shadow-lg);
+            overflow: hidden;
+            transform: translateY(20px);
+            transition: transform 0.3s ease;
+        }
+
+        .modal-overlay.active .ia-box { transform: translateY(0); }
+
+        .ia-header {
+            background: var(--ia-gradient);
+            padding: 20px;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .ia-header h3 { margin: 0; font-size: 1.2rem; display: flex; align-items: center; gap: 10px; }
+        .ia-close { background: none; border: none; color: white; font-size: 1.2rem; cursor: pointer; }
+
+        .ia-chat-area {
+            flex-grow: 1;
+            padding: 20px;
+            overflow-y: auto;
+            background: #f8fafc;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .chat-msg {
+            max-width: 80%;
+            padding: 12px 18px;
+            border-radius: 16px;
+            font-size: 0.95rem;
+            line-height: 1.4;
+        }
+
+        .msg-bot {
+            background: white;
+            color: var(--navy-main);
+            align-self: flex-start;
+            border-bottom-left-radius: 4px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            border: 1px solid var(--border);
+        }
+
+        .msg-user {
+            background: var(--navy-main);
+            color: white;
+            align-self: flex-end;
+            border-bottom-right-radius: 4px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .ia-input-area {
+            padding: 15px 20px;
+            background: white;
+            border-top: 1px solid var(--border);
+            display: flex;
+            gap: 10px;
+        }
+
+        .ia-input-area input {
+            flex-grow: 1;
+            padding: 12px 20px;
+            border: 1px solid var(--border);
+            border-radius: 50px;
+            font-family: inherit;
+            font-size: 0.95rem;
+            outline: none;
+            transition: var(--transition);
+        }
+
+        .ia-input-area input:focus { border-color: #8b5cf6; box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1); }
+
+        .ia-send-btn {
+            background: var(--ia-gradient);
+            color: white;
+            width: 45px; height: 45px;
+            border: none; border-radius: 50%;
+            display: flex; justify-content: center; align-items: center;
+            cursor: pointer; transition: var(--transition);
+        }
+
+        .ia-send-btn:hover { transform: scale(1.05); }
+
+        .typing-indicator {
+            display: flex; gap: 4px; align-items: center;
+            padding: 10px 15px;
+        }
+        .typing-dot {
+            width: 6px; height: 6px; background: #cbd5e1; border-radius: 50%;
+            animation: typing 1.4s infinite ease-in-out both;
+        }
+        .typing-dot:nth-child(1) { animation-delay: -0.32s; }
+        .typing-dot:nth-child(2) { animation-delay: -0.16s; }
+        
+        @keyframes typing {
+            0%, 80%, 100% { transform: scale(0); }
+            40% { transform: scale(1); }
+        }
+
+        /* ==========================================================================
+           MOBILE RESPONSIVE
+           ========================================================================== */
         .menu-trigger {
             display: none;
             position: fixed;
@@ -423,6 +748,7 @@
             #main-wrapper { margin-left: 0; padding-top: 60px; }
             .share-bar { flex-direction: column; align-items: stretch; }
             .share-btn { justify-content: center; }
+            .stats-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -450,12 +776,12 @@
                 <div class="chap-content">
                     <p class="nav-section-title">Cours</p>
                     <a class="nav-link" onclick="loadPage('poly_bases')"><i class="fas fa-book"></i> Fondamentaux</a>
-                    <a class="nav-link" onclick="loadPage('poly_racines')"><i class="fas fa-bullseye"></i> Racines & Divisibilité</a>
-                    <a class="nav-link" onclick="loadPage('poly_fractions')"><i class="fas fa-percentage"></i> Fractions Rationnelles</a>
+                    <a class="nav-link" onclick="loadPage('poly_racines')"><i class="fas fa-bullseye"></i> Racines & Div.</a>
+                    <a class="nav-link" onclick="loadPage('poly_fractions')"><i class="fas fa-percentage"></i> Fractions Rat.</a>
                     
                     <p class="nav-section-title">Entraînement</p>
-                    <a class="nav-link" onclick="loadPage('poly_exos')"><i class="fas fa-dumbbell"></i> Exercice Partie 1</a>
-                    <a class="nav-link" onclick="loadPage('poly_exos_calc')"><i class="fas fa-calculator"></i>Exercice Partie 2 </a>
+                    <a class="nav-link" onclick="loadPage('poly_exos')"><i class="fas fa-dumbbell"></i> Exercice P1</a>
+                    <a class="nav-link" onclick="loadPage('poly_exos_calc')"><i class="fas fa-calculator"></i> Exercice P2</a>
                     <a class="nav-link" style="color:#059669; font-weight:700" onclick="loadTraining('poly')"><i class="fas fa-bolt"></i> Entraînement</a>
                     <a class="nav-link" style="color:#e11d48; font-weight:700" onclick="loadPage('poly_training_v4')"><i class="fas fa-fire-flame-curved"></i> Test Expert</a>
                 </div>
@@ -468,12 +794,12 @@
                 </button>
                 <div class="chap-content">
                     <p class="nav-section-title">Théorie</p>
-                    <a class="nav-link" onclick="loadPage('geo_metrique')"><i class="fas fa-ruler-combined"></i> Relations Métriques</a>
-                    <a class="nav-link" onclick="loadPage('geo_analytique')"><i class="fas fa-location-crosshairs"></i> Géométrie Analytique</a>
+                    <a class="nav-link" onclick="loadPage('geo_metrique')"><i class="fas fa-ruler-combined"></i> Rél. Métriques</a>
+                    <a class="nav-link" onclick="loadPage('geo_analytique')"><i class="fas fa-location-crosshairs"></i> Géo Analytique</a>
                     
                     <p class="nav-section-title">Pratique</p>
                     <a class="nav-link" onclick="loadPage('geo_training_v1')"><i class="fas fa-pencil"></i> Exercices v1</a>
-                    <a class="nav-link" style="color:#059669; font-weight:700" onclick="loadTraining('geo')"><i class="fas fa-bolt"></i> Test de Niveau</a>
+                    <a class="nav-link" style="color:#059669; font-weight:700" onclick="loadTraining('geo')"><i class="fas fa-bolt"></i> Test Niveau</a>
                     <a class="nav-link" style="color:#e11d48; font-weight:700" onclick="loadPage('geo_training_v4')"><i class="fas fa-fire-flame-curved"></i> Test Expert v4</a>
                 </div>
             </div>
@@ -490,8 +816,33 @@
                     
                     <p class="nav-section-title">Pratique</p>
                     <a class="nav-link" onclick="loadPage('training_taylor_rolle')"><i class="fas fa-flask"></i> Mix Analyse</a>
-                    <a class="nav-link" style="color:#059669; font-weight:700" onclick="loadTraining('func')"><i class="fas fa-bolt"></i> Test de Rapidité</a>
+                    <a class="nav-link" style="color:#059669; font-weight:700" onclick="loadTraining('func')"><i class="fas fa-bolt"></i> Test Rapidité</a>
                     <a class="nav-link" style="color:#e11d48; font-weight:700" onclick="loadPage('func_training_v4')"><i class="fas fa-fire-flame-curved"></i> Test Expert v4</a>
+                </div>
+            </div>
+
+            <div class="chap-group">
+                <button class="chap-toggle" onclick="toggleAccordeon(this)">
+                    <span><i class="fas fa-layer-group main-icon"></i> Algèbre Linéaire</span>
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="chap-content">
+                    <p class="nav-section-title">Structures</p>
+                    <a class="nav-link" onclick="loadPage('alge_ev')"><i class="fas fa-vector-square"></i> Espaces Vectoriels</a>
+                    <a class="nav-link" onclick="loadPage('alge_dim')"><i class="fas fa-up-down-left-right"></i> Dimension Finie</a>
+                    <a class="nav-link" onclick="loadPage('alge_matrices')"><i class="fas fa-border-all"></i> Matrices</a>
+                </div>
+            </div>
+            
+            <div class="chap-group">
+                <button class="chap-toggle" onclick="toggleAccordeon(this)">
+                    <span><i class="fas fa-dice main-icon"></i> Probabilités</span>
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="chap-content">
+                    <p class="nav-section-title">Dénombrement</p>
+                    <a class="nav-link" onclick="loadPage('proba_ens')"><i class="fas fa-cubes"></i> Ensembles</a>
+                    <a class="nav-link" onclick="loadPage('proba_va')"><i class="fas fa-chart-bar"></i> Var. Aléatoires</a>
                 </div>
             </div>
         </nav>
@@ -499,10 +850,11 @@
 
     <main id="main-wrapper">
         <div id="content-container">
+            
             <div class="hero-banner">
                 <div class="hero-banner-content">
                     <h1>Bienvenue, Elian</h1>
-                    <p>Sélectionnez un module dans le menu latéral pour commencer votre séance.</p>
+                    <p>Sélectionnez un module dans le menu latéral pour commencer votre séance de révision PCSI.</p>
                     
                     <div class="dashboard-actions">
                         <button class="dash-btn" id="btn-heure" disabled>
@@ -513,11 +865,11 @@
                             <i class="fas fa-link"></i> Liens utiles
                         </a>
                         
-                        <button class="dash-btn ia-btn" onclick="lancerIA()">
+                        <button class="dash-btn ia-btn" onclick="openIAModal()">
                             <i class="fas fa-robot"></i> IA Maths PCSI
                         </button>
 
-                        <button class="dash-btn" onclick="lancerPomodoro()">
+                        <button class="dash-btn" onclick="openPomodoro()">
                             <i class="fas fa-stopwatch"></i> Pomodoro
                         </button>
                         
@@ -527,18 +879,81 @@
                     </div>
                 </div>
             </div>
+
+            <div class="stats-grid" id="home-stats">
+                <div class="stat-card">
+                    <div class="stat-icon gold"><i class="fas fa-trophy"></i></div>
+                    <div class="stat-info">
+                        <h3>14</h3>
+                        <p>Modules complétés</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon blue"><i class="fas fa-fire"></i></div>
+                    <div class="stat-info">
+                        <h3>85%</h3>
+                        <p>Taux de précision</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon green"><i class="fas fa-stopwatch"></i></div>
+                    <div class="stat-info">
+                        <h3>12h</h3>
+                        <p>Temps d'étude</p>
+                    </div>
+                </div>
+            </div>
             
-            <div style="text-align:center; padding:60px; color:var(--text-muted)">
+            <div id="dynamic-content-area" style="text-align:center; padding:60px; color:var(--text-muted)">
                 <i class="fas fa-hand-point-left" style="font-size:3rem; margin-bottom:20px; display:block"></i>
                 <p>En attente d'un module...</p>
             </div>
+
         </div>
     </main>
+
+    <div class="modal-overlay" id="pomo-modal">
+        <div class="pomodoro-box">
+            <button class="pomo-close" onclick="closePomodoro()"><i class="fas fa-times"></i></button>
+            <h2 style="margin-top:0; color:var(--navy-dark)">Focus Session</h2>
+            <p style="color:var(--text-muted); margin-bottom:30px">Reste concentré, évite les distractions.</p>
+            
+            <div class="pomo-circle" id="pomo-display">25:00</div>
+            
+            <div class="pomo-controls">
+                <button class="pomo-btn pomo-play" onclick="startPomo()" title="Démarrer"><i class="fas fa-play"></i></button>
+                <button class="pomo-btn pomo-pause" onclick="pausePomo()" title="Pause"><i class="fas fa-pause"></i></button>
+                <button class="pomo-btn pomo-reset" onclick="resetPomo()" title="Réinitialiser"><i class="fas fa-redo"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="ia-modal">
+        <div class="ia-box">
+            <div class="ia-header">
+                <h3><i class="fas fa-robot"></i> Assistant PCSI Expert</h3>
+                <button class="ia-close" onclick="closeIAModal()"><i class="fas fa-times"></i></button>
+            </div>
+            
+            <div class="ia-chat-area" id="ia-chat-history">
+                <div class="chat-msg msg-bot">
+                    Bonjour Elian ! Je suis ton assistant IA calibré pour le programme de PCSI. Tu bloques sur un calcul matriciel, un DL, ou une démo ? Pose-moi ta question.
+                </div>
+            </div>
+            
+            <div class="ia-input-area">
+                <input type="text" id="ia-input" placeholder="Ex: Rappelle-moi la formule de Taylor-Young..." onkeypress="handleIAKeyPress(event)">
+                <button class="ia-send-btn" onclick="sendIAMessage()"><i class="fas fa-paper-plane"></i></button>
+            </div>
+        </div>
+    </div>
+
 
     <script>
         // --- MISE EN CACHE DU DOM ---
         const sidebar = document.getElementById('sidebar');
-        const container = document.getElementById('content-container');
+        const container = document.getElementById('dynamic-content-area'); // Modifié pour préserver le Home
+        const homeStats = document.getElementById('home-stats');
         const mainWrapper = document.getElementById('main-wrapper');
 
         // --- GESTION DES SCORES GLOBALE ---
@@ -546,7 +961,7 @@
         window.totalQuestions = 0;
         window.answeredQuestions = 0;
 
-        // --- NOUVELLES FONCTIONS : DASHBOARD & ACTIONS ---
+        // --- HORLOGE ---
         function updateHorloge() {
             const now = new Date();
             const timeString = now.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
@@ -556,15 +971,107 @@
         setInterval(updateHorloge, 1000);
         updateHorloge();
 
-        function lancerIA() {
-            const question = prompt("🤖 IA Assistant PCSI\nBonjour Elian. Sur quelle notion de maths as-tu besoin d'aide ? (Ex: Matrice de passage, DL de cos(x), etc.)");
-            if(question) {
-                alert(`🤖 Analyse en cours de : "${question}"\n\n(Note : Ceci est une interface préparée pour intégrer l'API de ton choix. L'IA sera capable d'afficher des démonstrations en LaTeX directement ici !)`);
+        // --- GESTION DU POMODORO ---
+        let pomoInterval;
+        let pomoTime = 25 * 60; // 25 minutes
+        let isPomoRunning = false;
+        const pomoDisplay = document.getElementById('pomo-display');
+        const pomoModal = document.getElementById('pomo-modal');
+
+        function openPomodoro() { pomoModal.classList.add('active'); }
+        function closePomodoro() { pomoModal.classList.remove('active'); }
+        
+        function updatePomoDisplay() {
+            let m = Math.floor(pomoTime / 60);
+            let s = pomoTime % 60;
+            pomoDisplay.textContent = `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+        }
+
+        function startPomo() {
+            if(isPomoRunning) return;
+            isPomoRunning = true;
+            pomoInterval = setInterval(() => {
+                if(pomoTime > 0) {
+                    pomoTime--;
+                    updatePomoDisplay();
+                } else {
+                    clearInterval(pomoInterval);
+                    isPomoRunning = false;
+                    alert("⏰ Session terminée ! Prends 5 minutes de pause.");
+                    resetPomo();
+                }
+            }, 1000);
+        }
+
+        function pausePomo() {
+            clearInterval(pomoInterval);
+            isPomoRunning = false;
+        }
+
+        function resetPomo() {
+            clearInterval(pomoInterval);
+            isPomoRunning = false;
+            pomoTime = 25 * 60;
+            updatePomoDisplay();
+        }
+
+        // --- GESTION DE L'IA CHATBOT SIMULE ---
+        const iaModal = document.getElementById('ia-modal');
+        const iaChatHistory = document.getElementById('ia-chat-history');
+        const iaInput = document.getElementById('ia-input');
+
+        function openIAModal() { iaModal.classList.add('active'); iaInput.focus(); }
+        function closeIAModal() { iaModal.classList.remove('active'); }
+
+        function handleIAKeyPress(e) {
+            if(e.key === 'Enter') sendIAMessage();
+        }
+
+        function sendIAMessage() {
+            const text = iaInput.value.trim();
+            if(!text) return;
+
+            // Message utilisateur
+            appendChatMessage(text, 'user');
+            iaInput.value = '';
+
+            // Indicateur de frappe
+            const typingId = "typing-" + Date.now();
+            const typingHTML = `<div class="chat-msg msg-bot" id="${typingId}"><div class="typing-indicator"><div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div></div></div>`;
+            iaChatHistory.insertAdjacentHTML('beforeend', typingHTML);
+            iaChatHistory.scrollTop = iaChatHistory.scrollHeight;
+
+            // Simulation délai de réflexion API
+            setTimeout(() => {
+                document.getElementById(typingId).remove();
+                let botReply = generateBotResponse(text);
+                appendChatMessage(botReply, 'bot');
+            }, 1500);
+        }
+
+        function appendChatMessage(htmlContent, sender) {
+            const msgDiv = document.createElement('div');
+            msgDiv.className = `chat-msg msg-${sender}`;
+            msgDiv.innerHTML = htmlContent;
+            iaChatHistory.appendChild(msgDiv);
+            iaChatHistory.scrollTop = iaChatHistory.scrollHeight;
+
+            if (window.MathJax) {
+                MathJax.typesetPromise([msgDiv]);
             }
         }
 
-        function lancerPomodoro() {
-            alert("⏱️ Session Pomodoro démarrée ! Reste concentré pendant 25 minutes. Bonne session Elian !");
+        function generateBotResponse(text) {
+            const lower = text.toLowerCase();
+            if (lower.includes("taylor") || lower.includes("dl")) {
+                return "Bien sûr. La formule de Taylor-Young à l'ordre $n$ au voisinage de $a$ est :<br><br>$$f(x) = \\sum_{k=0}^{n} \\frac{f^{(k)}(a)}{k!}(x-a)^k + o((x-a)^n)$$<br>Garde en tête qu'elle sert à des développements locaux, contrairement à Taylor-Lagrange qui donne une égalité globale.";
+            } else if (lower.includes("matrice") || lower.includes("inversible")) {
+                return "Une matrice carrée $A \\in \\mathcal{M}_n(\\mathbb{K})$ est inversible si et seulement si son déterminant est non nul : $\\det(A) \\neq 0$. Tu veux que je te rappelle comment calculer la matrice inverse avec la comatrice ?";
+            } else if (lower.includes("merci")) {
+                return "Avec plaisir, Elian ! Reste concentré, tu vas tout déchirer en khôlle.";
+            } else {
+                return "Ceci est une interface de test. Pour répondre précisément à : <i>\"" + text + "\"</i>, il te suffira de relier ce formulaire à l'API OpenAI ou Gemini via un petit script Node.js. L'interface gère déjà le rendu LaTeX !";
+            }
         }
 
         function quitterPlateforme() {
@@ -625,6 +1132,9 @@
                 sidebar.classList.remove('open');
             }
             
+            // Masquer les stats d'accueil si on rentre dans un module
+            if(homeStats) homeStats.style.display = 'none';
+
             // Réinitialisation des scores pour la nouvelle page
             window.currentScore = 0;
             window.answeredQuestions = 0;
@@ -645,35 +1155,31 @@
                     MathJax.typesetPromise([container]).catch(err => console.log(err));
                 }
 
-                // Récupérer le nombre total de questions de la page chargée
                 window.totalQuestions = container.querySelectorAll('.qcm-card').length;
                 mainWrapper.scrollTop = 0;
 
             } catch (error) {
                 container.innerHTML = `
-                    <div class="hero-banner" style="background:#ef4444; border-color:#991b1b">
-                        <h1>Erreur 404</h1>
-                        <p>Le module <b>content/${fileName}.html</b> est introuvable.</p>
-                        <p style="font-size:0.9rem; margin-top:15px; opacity:0.8;">Vérifiez que le fichier existe bien dans le dossier /content/.</p>
+                    <div class="hero-banner" style="background:var(--danger); border-color:#991b1b; padding:40px;">
+                        <h2 style="color:white; margin:0">Erreur 404</h2>
+                        <p style="color:white; opacity:0.9">Le module <b>content/${fileName}.html</b> est introuvable.</p>
+                        <p style="font-size:0.9rem; margin-top:15px; color:white; opacity:0.8;">Vérifiez que le fichier existe bien dans le dossier /content/.</p>
                     </div>`;
             }
         }
 
         function loadTraining(subject) {
-            // Intégration de la v4 dans l'aléatoire
             const versions = ['v1', 'v2', 'v3', 'v4'];
             const randomVersion = versions[Math.floor(Math.random() * versions.length)];
             let finalName = `${subject}_training_${randomVersion}`;
             loadPage(finalName);
         }
 
-        // --- MOTEUR QCM UNIFIÉ (Gère v1, v2, v3, v4) ---
+        // --- MOTEUR QCM UNIFIÉ ---
         window.checkQCM = function(btn, isCorrect) {
             const card = btn.closest('.qcm-card');
-            if(!card) return;
+            if(!card || card.classList.contains('answered')) return;
             
-            // Sécurité pour éviter le double comptage
-            if(card.classList.contains('answered')) return;
             card.classList.add('answered');
 
             const allBtns = card.querySelectorAll('.opt-btn');
@@ -686,7 +1192,6 @@
                 btn.classList.add('correct');
             } else {
                 btn.classList.add('wrong');
-                // Trouver la bonne réponse pour la montrer (Fonctionne avec v1 "true")
                 allBtns.forEach(b => {
                     if(b.getAttribute('onclick') && b.getAttribute('onclick').includes('true')) {
                         b.classList.add('correct');
@@ -702,10 +1207,8 @@
         };
 
         function finishQuiz() {
-            // Protection si on clique plusieurs fois
             if(document.getElementById('score-zone')) return;
 
-            // Masquer le bouton de validation pour le PDF
             const finishBtn = document.querySelector('.finish-btn');
             if(finishBtn) finishBtn.classList.add('no-print-pdf');
 
@@ -717,16 +1220,16 @@
             
             if (ratio === 1) { 
                 message = "Perfection ! La majoration au concours n'est plus très loin."; 
-                colorHex = "#10b981"; 
+                colorHex = "var(--success)"; 
             } else if (ratio >= 0.75) { 
                 message = "Excellent travail, tes bases sont très solides."; 
-                colorHex = "#10b981"; 
+                colorHex = "var(--success)"; 
             } else if (ratio >= 0.5) { 
                 message = "C'est un bon début, mais relis le cours sur les erreurs commises."; 
                 colorHex = "var(--gold-btn)"; 
             } else { 
                 message = "Ne te décourage pas ! L'important est d'apprendre de ses erreurs. Prends le temps de lire les corrigés."; 
-                colorHex = "#ef4444"; 
+                colorHex = "var(--danger)"; 
             }
 
             const scoreHTML = `
@@ -755,40 +1258,25 @@
             return `J'ai terminé ma session sur Elian Maths avec un score de ${score}/${total} ! Prêt pour les concours CPGE. 🚀`;
         }
 
-        function shareWA(score, total) {
-            window.open(`https://wa.me/?text=${encodeURIComponent(getShareText(score, total))}`);
-        }
-        
-        function shareX(score, total) {
-            window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(getShareText(score, total))}`);
-        }
-
-        function shareMail(score, total) {
-            window.location.href = `mailto:?subject=Mon score sur Elian Maths&body=${encodeURIComponent(getShareText(score, total))}`;
-        }
-
-        function shareSMS(score, total) {
-            // Format compatible iOS & Android
-            window.location.href = `sms:?&body=${encodeURIComponent(getShareText(score, total))}`;
-        }
+        function shareWA(score, total) { window.open(`https://wa.me/?text=${encodeURIComponent(getShareText(score, total))}`); }
+        function shareX(score, total) { window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(getShareText(score, total))}`); }
+        function shareMail(score, total) { window.location.href = `mailto:?subject=Mon score sur Elian Maths&body=${encodeURIComponent(getShareText(score, total))}`; }
+        function shareSMS(score, total) { window.location.href = `sms:?&body=${encodeURIComponent(getShareText(score, total))}`; }
 
         function generatePDF() {
-            // On masque temporairement les boutons de la zone de partage et le bouton valider
             const noPrintElements = document.querySelectorAll('.no-print-pdf');
             noPrintElements.forEach(el => el.style.display = 'none');
 
-            // Options optimisées pour éviter de couper les DIV (pagebreak avoid)
             const opt = {
-                margin: [10, 10, 10, 10], // Haut, Droite, Bas, Gauche
+                margin: [10, 10, 10, 10],
                 filename: 'ElianMaths_Resultats.pdf',
                 image: { type: 'jpeg', quality: 0.98 },
                 html2canvas: { scale: 2, useCORS: true, letterRendering: true },
                 jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
-                pagebreak: { mode: ['css', 'legacy'] } // Respecte le page-break-inside: avoid des cartes QCM
+                pagebreak: { mode: ['css', 'legacy'] }
             };
 
             html2pdf().set(opt).from(container).save().then(() => {
-                // On réaffiche les boutons après génération
                 noPrintElements.forEach(el => el.style.display = '');
             });
         }
