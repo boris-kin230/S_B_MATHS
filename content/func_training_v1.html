@@ -77,13 +77,12 @@
             gap: 12px;
         }
 
-        /* Styling the radio buttons to look like modern buttons */
         .qcm-option {
             position: relative;
         }
 
         .qcm-option input[type="radio"] {
-            display: none; /* Hide standard radio */
+            display: none;
         }
 
         .qcm-label {
@@ -107,6 +106,21 @@
             font-weight: 500;
         }
 
+        /* --- NOUVELLES CLASSES POUR LA CORRECTION --- */
+        .qcm-option.show-correct .qcm-label {
+            background: #dcfce7;
+            border-color: var(--correct);
+            color: #166534;
+            font-weight: 600;
+        }
+
+        .qcm-option.show-wrong .qcm-label {
+            background: #fee2e2;
+            border-color: var(--wrong);
+            color: #991b1b;
+            font-weight: 600;
+        }
+
         .btn-primary {
             display: block;
             width: 100%;
@@ -125,6 +139,11 @@
         .btn-primary:hover {
             background-color: var(--primary-hover);
         }
+        
+        .btn-primary:disabled {
+            background-color: var(--text-muted);
+            cursor: not-allowed;
+        }
 
         #score-display {
             margin-top: 20px;
@@ -134,9 +153,16 @@
             font-size: 1.2rem;
             font-weight: bold;
             display: none;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .score-good { background: #dcfce7; color: #166534; }
+        .score-medium { background: #fef08a; color: #854d0e; }
         .score-bad { background: #fee2e2; color: #991b1b; }
     </style>
 </head>
@@ -383,15 +409,10 @@
         let score = 0;
         let answered = 0;
 
-        // Parcourir toutes les questions
+        // Étape 1 : Vérifier que toutes les questions ont une réponse
         for (let i = 1; i <= totalQuestions; i++) {
-            const selectedOption = document.querySelector(`input[name="q${i}"]:checked`);
-            
-            if (selectedOption) {
+            if (document.querySelector(`input[name="q${i}"]:checked`)) {
                 answered++;
-                if (selectedOption.value === "correct") {
-                    score++;
-                }
             }
         }
 
@@ -400,17 +421,43 @@
 
         if (answered < totalQuestions) {
             scoreDisplay.className = 'score-bad';
-            scoreDisplay.innerHTML = `⚠️ Tu n'as répondu qu'à ${answered} question(s) sur ${totalQuestions}. Réponds à tout !`;
+            scoreDisplay.innerHTML = `⚠️ Tu n'as répondu qu'à ${answered} question(s) sur ${totalQuestions}. Réponds à tout pour voir la correction !`;
             return;
         }
 
+        // Étape 2 : Calcul du score ET feedback visuel
+        for (let i = 1; i <= totalQuestions; i++) {
+            const options = document.querySelectorAll(`input[name="q${i}"]`);
+            
+            options.forEach(opt => {
+                const parentDiv = opt.closest('.qcm-option');
+                
+                // Désactiver les inputs pour empêcher de changer la réponse après validation
+                opt.disabled = true;
+
+                if (opt.checked) {
+                    if (opt.value === "correct") {
+                        score++;
+                        parentDiv.classList.add('show-correct');
+                    } else {
+                        parentDiv.classList.add('show-wrong');
+                    }
+                } else if (opt.value === "correct") {
+                    // Montrer la bonne réponse même si l'étudiant s'est trompé
+                    parentDiv.classList.add('show-correct');
+                }
+            });
+        }
+
+        // Désactiver le bouton de validation
+        document.getElementById('submit-btn').disabled = true;
+
+        // Étape 3 : Affichage du résultat
         if (score >= 8) {
             scoreDisplay.className = 'score-good';
             scoreDisplay.innerHTML = `🎉 Excellent ! Ton score est de ${score} / ${totalQuestions}. Tes bases sont solides !`;
         } else if (score >= 5) {
-            scoreDisplay.className = 'score-good';
-            scoreDisplay.style.background = '#fef08a'; // Jaune
-            scoreDisplay.style.color = '#854d0e';
+            scoreDisplay.className = 'score-medium';
             scoreDisplay.innerHTML = `👍 Pas mal ! Ton score est de ${score} / ${totalQuestions}. Encore quelques révisions et ce sera parfait.`;
         } else {
             scoreDisplay.className = 'score-bad';
