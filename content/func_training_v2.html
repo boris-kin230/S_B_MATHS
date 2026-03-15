@@ -1,115 +1,197 @@
-<div class="banner" style="background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);">
+<style>
+    /* Surcharge de la grille d'options pour un affichage 2x2 symétrique */
+    .options-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+        margin-bottom: 20px;
+    }
+
+    /* Sécurité pour éviter les textes collés dans les boutons */
+    .opt-btn {
+        background: #f8f9fa;
+        border: 2px solid #e9ecef;
+        border-radius: 8px;
+        padding: 15px;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        text-align: left;
+        color: #333;
+        min-height: 65px; /* Laisse de la place pour les formules */
+        display: flex;
+        align-items: center;
+        line-height: 1.4;
+        word-break: break-word; /* Empêche les débordements */
+    }
+
+    /* Bouton de validation stylisé */
+    .finish-btn {
+        background: var(--gold-btn, #FFD700);
+        color: var(--navy-dark, #112240);
+        border: none;
+        padding: 18px 40px;
+        font-size: 1.1rem;
+        font-weight: 800;
+        border-radius: 50px;
+        cursor: pointer;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+    }
+    .finish-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        background: var(--gold-hover, #ffea00);
+    }
+
+    /* Responsive : on repasse en 1 colonne sur mobile (largeur < 768px) */
+    @media (max-width: 768px) {
+        .options-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+
+<div class="hero-banner" style="background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%); color: white; padding: 30px; border-radius: 10px; margin-bottom: 30px; text-align: center;">
     <h1 style="font-size: 2rem; margin: 0;"><i class="fas fa-wave-square"></i> Analyse : Fonctions & Dérivées (v2)</h1>
-    <p style="opacity: 0.8;">Approfondissement : trigonométrie, réciproques et limites complexes.</p>
+    <p style="opacity: 0.9; margin-top: 10px;">Approfondissement : trigonométrie, réciproques et limites complexes.</p>
 </div>
 
-<div id="quiz-wrapper">
-
-    <div class="qcm-box">
-        <div class="qcm-question">1. Quel est l'ensemble de définition de $f(x) = \arcsin(x)$ ?</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$\mathbb{R}$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, true)">$[-1, 1]$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$]-\pi/2, \pi/2[$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$[0, \pi]$</button>
-        </div>
+<div class="qcm-card">
+    <div class="qcm-question">1. Quel est l'ensemble de définition de $f(x) = \arcsin(x)$ ?</div>
+    <div class="options-grid">
+        <button class="opt-btn" onclick="checkQCM(this, false)">$\mathbb{R}$</button>
+        <button class="opt-btn" onclick="checkQCM(this, true)">$[-1, 1]$</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">$]-\pi/2, \pi/2[$</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">$[0, \pi]$</button>
     </div>
-
-    <div class="qcm-box">
-        <div class="qcm-question">2. La dérivée de $f(x) = \ln(\cos x)$ sur $]-\pi/2, \pi/2[$ est :</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$1/\cos x$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$\tan x$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, true)">$-\tan x$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$-\sin x$</button>
-        </div>
+    <div class="correction-box">
+        <strong>Explication :</strong> La fonction $\arcsin$ est la réciproque de la restriction de la fonction $\sin$ à l'intervalle $[-\pi/2, \pi/2]$. Puisque l'image de la fonction sinus est $[-1, 1]$, le domaine de définition de $\arcsin$ est logiquement $[-1, 1]$.
     </div>
-
-    <div class="qcm-box">
-        <div class="qcm-question">3. $\lim_{x \to +\infty} \frac{e^x}{x^n}$ (pour $n \in \mathbb{N}$) vaut :</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, false)">0</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">1</button>
-            <button class="opt-btn" onclick="checkAnswer(this, true)">$+\infty$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$n!$</button>
-        </div>
-    </div>
-
-    <div class="qcm-box">
-        <div class="qcm-question">4. La fonction $\text{sh}(x)$ est :</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, true)">Impaire et strictement croissante sur $\mathbb{R}$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Paire et positive</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Bornée par -1 et 1</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Périodique de période $2\pi$</button>
-        </div>
-    </div>
-
-    <div class="qcm-box">
-        <div class="qcm-question">5. La dérivée de $x \mapsto \arctan(x)$ est :</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$\frac{1}{\sqrt{1-x^2}}$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, true)">$\frac{1}{1+x^2}$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$\frac{-1}{1+x^2}$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$1 + \tan^2(x)$</button>
-        </div>
-    </div>
-
-    <div class="qcm-box">
-        <div class="qcm-question">6. Pour tout $x \in \mathbb{R}$, $\text{ch}^2(x) - \text{sh}^2(x)$ vaut :</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$\text{ch}(2x)$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, true)">1</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">0</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$-1$</button>
-        </div>
-    </div>
-
-    <div class="qcm-box">
-        <div class="qcm-question">7. $\cos(\arccos x)$ est égal à $x$ si et seulement si :</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$x \in [0, \pi]$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, true)">$x \in [-1, 1]$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$x \in \mathbb{R}$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$x > 0$</button>
-        </div>
-    </div>
-
-    <div class="qcm-box">
-        <div class="qcm-question">8. Quelle est la limite de $x^x$ en $0^+$ ?</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, false)">0</button>
-            <button class="opt-btn" onclick="checkAnswer(this, true)">1</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$e$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Indéterminée</button>
-        </div>
-    </div>
-
-    <div class="qcm-box">
-        <div class="qcm-question">9. Si $f'(x) > 0$ sur un intervalle $I$, alors $f$ est :</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Positive</button>
-            <button class="opt-btn" onclick="checkAnswer(this, true)">Strictement croissante</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Convexe</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Continue uniquement</button>
-        </div>
-    </div>
-
-    <div class="qcm-box">
-        <div class="qcm-question">10. La dérivée de $f(x) = x^x$ est :</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$x \cdot x^{x-1}$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, true)">$(\ln x + 1)x^x$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$e^x \ln x$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$(\ln x)x^x$</button>
-        </div>
-    </div>
-
 </div>
 
-<div id="score-display" style="display:none; margin-top: 30px;"></div>
-<div id="congrats-msg" style="display:none;"></div>
+<div class="qcm-card">
+    <div class="qcm-question">2. La dérivée de $f(x) = \ln(\cos x)$ sur $]-\pi/2, \pi/2[$ est :</div>
+    <div class="options-grid">
+        <button class="opt-btn" onclick="checkQCM(this, false)">$1/\cos x$</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">$\tan x$</button>
+        <button class="opt-btn" onclick="checkQCM(this, true)">$-\tan x$</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">$-\sin x$</button>
+    </div>
+    <div class="correction-box">
+        <strong>Explication :</strong> On utilise la dérivée des fonctions composées : $(\ln(u))' = \frac{u'}{u}$. Ici, $u(x) = \cos(x)$ et $u'(x) = -\sin(x)$. Donc $f'(x) = \frac{-\sin(x)}{\cos(x)} = -\tan(x)$.
+    </div>
+</div>
 
-<button id="submit-btn" class="btn-primary" onclick="calculateScore()">
-    <i class="fas fa-microscope"></i> Valider l'analyse v2
-</button>
+<div class="qcm-card">
+    <div class="qcm-question">3. $\lim_{x \to +\infty} \frac{e^x}{x^n}$ (pour $n \in \mathbb{N}$) vaut :</div>
+    <div class="options-grid">
+        <button class="opt-btn" onclick="checkQCM(this, false)">0</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">1</button>
+        <button class="opt-btn" onclick="checkQCM(this, true)">$+\infty$</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">$n!$</button>
+    </div>
+    <div class="correction-box">
+        <strong>Explication :</strong> C'est une limite de référence issue du théorème des croissances comparées. En l'infini, l'exponentielle "l'emporte" sur n'importe quelle puissance de $x$.
+    </div>
+</div>
+
+<div class="qcm-card">
+    <div class="qcm-question">4. La fonction $\text{sh}(x)$ est :</div>
+    <div class="options-grid">
+        <button class="opt-btn" onclick="checkQCM(this, true)">Impaire et strictement croissante sur $\mathbb{R}$</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">Paire et positive</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">Bornée par -1 et 1</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">Périodique de période $2\pi$</button>
+    </div>
+    <div class="correction-box">
+        <strong>Explication :</strong> Par définition, $\text{sh}(x) = \frac{e^x - e^{-x}}{2}$. On vérifie facilement que $\text{sh}(-x) = -\text{sh}(x)$ (donc impaire). Sa dérivée est $\text{ch}(x) = \frac{e^x + e^{-x}}{2} > 0$, donc elle est strictement croissante sur $\mathbb{R}$.
+    </div>
+</div>
+
+<div class="qcm-card">
+    <div class="qcm-question">5. La dérivée de $x \mapsto \arctan(x)$ est :</div>
+    <div class="options-grid">
+        <button class="opt-btn" onclick="checkQCM(this, false)">$\frac{1}{\sqrt{1-x^2}}$</button>
+        <button class="opt-btn" onclick="checkQCM(this, true)">$\frac{1}{1+x^2}$</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">$\frac{-1}{1+x^2}$</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">$1 + \tan^2(x)$</button>
+    </div>
+    <div class="correction-box">
+        <strong>Explication :</strong> C'est une dérivée usuelle fondamentale. Elle s'obtient à l'aide de la formule de la dérivée d'une fonction réciproque : $(\arctan)'(x) = \frac{1}{\tan'(\arctan(x))} = \frac{1}{1+\tan^2(\arctan(x))} = \frac{1}{1+x^2}$.
+    </div>
+</div>
+
+<div class="qcm-card">
+    <div class="qcm-question">6. Pour tout $x \in \mathbb{R}$, $\text{ch}^2(x) - \text{sh}^2(x)$ vaut :</div>
+    <div class="options-grid">
+        <button class="opt-btn" onclick="checkQCM(this, false)">$\text{ch}(2x)$</button>
+        <button class="opt-btn" onclick="checkQCM(this, true)">1</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">0</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">$-1$</button>
+    </div>
+    <div class="correction-box">
+        <strong>Explication :</strong> C'est la relation fondamentale de la trigonométrie hyperbolique. Elle se démontre en développant les expressions : $\left(\frac{e^x+e^{-x}}{2}\right)^2 - \left(\frac{e^x-e^{-x}}{2}\right)^2 = \frac{e^{2x}+2+e^{-2x} - (e^{2x}-2+e^{-2x})}{4} = \frac{4}{4} = 1$.
+    </div>
+</div>
+
+<div class="qcm-card">
+    <div class="qcm-question">7. $\cos(\arccos x)$ est égal à $x$ si et seulement si :</div>
+    <div class="options-grid">
+        <button class="opt-btn" onclick="checkQCM(this, false)">$x \in [0, \pi]$</button>
+        <button class="opt-btn" onclick="checkQCM(this, true)">$x \in [-1, 1]$</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">$x \in \mathbb{R}$</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">$x > 0$</button>
+    </div>
+    <div class="correction-box">
+        <strong>Explication :</strong> La fonction $\arccos(x)$ n'est définie que pour $x \in [-1, 1]$. Sur cet intervalle d'existence, la composition d'une fonction avec sa réciproque donne bien la valeur initiale.
+    </div>
+</div>
+
+<div class="qcm-card">
+    <div class="qcm-question">8. Quelle est la limite de $x^x$ en $0^+$ ?</div>
+    <div class="options-grid">
+        <button class="opt-btn" onclick="checkQCM(this, false)">0</button>
+        <button class="opt-btn" onclick="checkQCM(this, true)">1</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">$e$</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">Indéterminée</button>
+    </div>
+    <div class="correction-box">
+        <strong>Explication :</strong> On utilise l'écriture sous forme exponentielle : $x^x = e^{x \ln x}$. Par croissances comparées, $\lim_{x \to 0^+} x \ln x = 0$. Par continuité de la fonction exponentielle, on obtient $e^0 = 1$.
+    </div>
+</div>
+
+<div class="qcm-card">
+    <div class="qcm-question">9. Si $f'(x) > 0$ sur un intervalle $I$, alors $f$ est :</div>
+    <div class="options-grid">
+        <button class="opt-btn" onclick="checkQCM(this, false)">Positive</button>
+        <button class="opt-btn" onclick="checkQCM(this, true)">Strictement croissante</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">Convexe</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">Continue uniquement</button>
+    </div>
+    <div class="correction-box">
+        <strong>Explication :</strong> Le signe de la dérivée étudie les variations d'une fonction. Une dérivée strictement positive sur tout un intervalle caractérise une fonction strictement croissante sur cet intervalle.
+    </div>
+</div>
+
+<div class="qcm-card">
+    <div class="qcm-question">10. La dérivée de $f(x) = x^x$ est :</div>
+    <div class="options-grid">
+        <button class="opt-btn" onclick="checkQCM(this, false)">$x \cdot x^{x-1}$</button>
+        <button class="opt-btn" onclick="checkQCM(this, true)">$(\ln x + 1)x^x$</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">$e^x \ln x$</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">$(\ln x)x^x$</button>
+    </div>
+    <div class="correction-box">
+        <strong>Explication :</strong> Il faut utiliser l'écriture exponentielle $f(x) = e^{x \ln x}$. En utilisant la formule de composition $(e^u)' = u' e^u$ avec $u(x) = x \ln x$, on obtient $u'(x) = 1 \cdot \ln(x) + x \cdot \frac{1}{x} = \ln(x) + 1$. D'où $f'(x) = (\ln x + 1) e^{x \ln x} = (\ln x + 1)x^x$.
+    </div>
+</div>
+
+<div style="text-align: center; margin-top: 40px;">
+    <button class="finish-btn no-print-pdf" onclick="finishQuiz()">
+        <i class="fas fa-microscope"></i> Valider l'analyse v2
+    </button>
+</div>
