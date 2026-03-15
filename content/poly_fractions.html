@@ -14,6 +14,19 @@
             <li><strong>Pôles :</strong> Les racines complexes du dénominateur $Q$ (pour la forme irréductible).</li>
             <li><strong>Zéros :</strong> Les racines complexes du numérateur $P$.</li>
         </ul>
+        
+        
+        <div style="background: #fffff0; padding: 15px; border-left: 4px solid #ecc94b; margin-top: 15px;">
+            <h4 style="margin-top: 0; color: #b7791f;">Application Pratique</h4>
+            <p><strong>Problème :</strong> Déterminer les pôles, les zéros et le degré de la fraction $F(X) = \frac{X^3 - 1}{X^2 - 3X + 2}$.</p>
+            <p><strong>Solution :</strong> Attention, il faut d'abord s'assurer que la fraction est irréductible.</p>
+            <ul>
+                <li>Factorisons le numérateur : $X^3 - 1 = (X - 1)(X^2 + X + 1)$.</li>
+                <li>Factorisons le dénominateur (racines évidente 1 et 2) : $X^2 - 3X + 2 = (X - 1)(X - 2)$.</li>
+            </ul>
+            <p>On simplifie par $(X-1)$ : $F(X) = \frac{X^2 + X + 1}{X - 2}$.</p>
+            <p>Maintenant, on peut conclure : Le seul <strong>pôle</strong> est $2$ (de multiplicité 1). Les <strong>zéros</strong> sont les racines de $X^2+X+1$ (qui sont $j$ et $\bar{j}$ dans $\mathbb{C}$). Le <strong>degré</strong> est $\deg(F) = 2 - 1 = 1$.</p>
+        </div>
     </div>
 
     <h3 style="color: var(--royal-blue); border-bottom: 2px solid var(--border); padding-bottom: 10px;"><i class="fas fa-cut"></i> 2. Partie Entière</h3>
@@ -22,6 +35,25 @@
         <p style="text-align: center;">$$F = E + \frac{R}{Q}$$</p>
         <p>Où $E$ est un polynôme appelé <strong>partie entière</strong> de $F$, et $\deg(R) < \deg(Q)$.</p>
         <p style="margin-bottom: 0;"><strong>Astuce :</strong> $E$ est simplement le quotient de la division euclidienne de $P$ par $Q$. Si $\deg(P) < \deg(Q)$, alors la partie entière est nulle ($E=0$).</p>
+        
+        <div style="background: #f8f9fa; padding: 15px; border-left: 4px solid #a0aec0; margin-top: 15px;">
+            <h4 style="margin-top: 0; color: #4a5568;">Démonstration de l'existence et de l'unicité</h4>
+            <p><strong>Existence :</strong> Effectuons la division euclidienne du polynôme $P$ par le polynôme $Q$ ($Q \neq 0$). Le théorème de la division euclidienne assure l'existence de deux polynômes $E$ (le quotient) et $R$ (le reste) tels que :</p>
+            <p>$$P = E \cdot Q + R \quad \text{avec} \quad \deg(R) < \deg(Q)$$</p>
+            <p>En divisant cette égalité par $Q$, on obtient directement $F = \frac{P}{Q} = E + \frac{R}{Q}$.</p>
+            <p><strong>Unicité :</strong> Supposons qu'il existe une autre décomposition $F = E_1 + \frac{R_1}{Q}$. Alors $E + \frac{R}{Q} = E_1 + \frac{R_1}{Q}$, ce qui donne $E - E_1 = \frac{R_1 - R}{Q}$.</p>
+            <p>Si $E \neq E_1$, le degré du membre de gauche est $\ge 0$. Or, le membre de droite est une fraction dont le degré du numérateur est strictement inférieur à celui du dénominateur, donc son degré est $< 0$. C'est une contradiction. Donc $E = E_1$, ce qui implique $R = R_1$.</p>
+        </div>
+
+        <div style="background: #fffff0; padding: 15px; border-left: 4px solid #ecc94b; margin-top: 15px;">
+            <h4 style="margin-top: 0; color: #b7791f;">Application Pratique</h4>
+            <p><strong>Problème :</strong> Trouver la partie entière de $F(X) = \frac{X^3 + 2X + 1}{X^2 + 1}$.</p>
+            <p><strong>Solution :</strong> On pose la division euclidienne de $X^3 + 2X + 1$ par $X^2 + 1$ :</p>
+            <p>$$X^3 + 2X + 1 = X(X^2 + 1) + X + 1$$</p>
+            <p>Ici, le quotient est $E(X) = X$ et le reste est $R(X) = X + 1$. La décomposition est donc :</p>
+            <p>$$F(X) = X + \frac{X + 1}{X^2 + 1}$$</p>
+            <p>La partie entière est $E(X) = X$.</p>
+        </div>
     </div>
 
     <h3 style="color: var(--royal-blue); border-bottom: 2px solid var(--border); padding-bottom: 10px;"><i class="fas fa-sitemap"></i> 3. Décomposition en Éléments Simples (D.E.S)</h3>
@@ -36,6 +68,14 @@
         <h5 style="color: var(--royal-blue);">Dans $\mathbb{R}(X)$ :</h5>
         <p>S'ajoutent des éléments simples de seconde espèce pour les polynômes irréductibles de degré 2 ($\Delta < 0$) :</p>
         <p style="text-align: center;">$$\frac{\alpha X + \beta}{(X^2+pX+q)^k}$$</p>
+
+        <div style="background: #fffff0; padding: 15px; border-left: 4px solid #ecc94b; margin-top: 15px;">
+            <h4 style="margin-top: 0; color: #b7791f;">Application Pratique</h4>
+            <p><strong>Problème :</strong> Donner la forme théorique de la D.E.S dans $\mathbb{R}(X)$ de $F(X) = \frac{1}{X(X-1)^2(X^2+1)}$.</p>
+            <p><strong>Solution :</strong> Le degré du numérateur (0) est inférieur à celui du dénominateur (5), donc la partie entière est nulle. Les pôles réels sont 0 (simple) et 1 (double). Le terme $X^2+1$ est irréductible dans $\mathbb{R}$. La forme théorique est :</p>
+            <p>$$F(X) = \frac{a}{X} + \frac{b}{X-1} + \frac{c}{(X-1)^2} + \frac{dX + e}{X^2+1}$$</p>
+            <p>Il "suffit" ensuite de trouver les constantes réelles $a, b, c, d, e$.</p>
+        </div>
     </div>
 
     <h3 style="color: var(--royal-blue); border-bottom: 2px solid var(--border); padding-bottom: 10px;"><i class="fas fa-lightbulb"></i> 4. Astuces de calcul des coefficients</h3>
@@ -43,7 +83,44 @@
         <ul style="line-height: 1.8;">
             <li><strong>Pour un pôle simple $a$ :</strong> Le coefficient (résidu) s'obtient en calculant $\left[ (X-a)F(X) \right]_{X=a}$ ou bien avec la formule de Taylor : $\frac{P(a)}{Q'(a)}$.</li>
             <li><strong>Parité :</strong> Si $F$ est paire ou impaire, la D.E.S conserve les symétries, ce qui réduit de moitié les coefficients à calculer.</li>
-            <li><strong>Limite à l'infini :</strong> Multiplier l'égalité de la D.E.S par $X$ et faire tendre $x \to +\infty$ donne une relation simple sur la somme des coefficients de degré 1.</li>
+            <li><strong>Limite à l'infini :</strong> Multiplier l'égalité de la D.E.S par $X$ et faire tendre $X \to +\infty$ donne une relation simple sur la somme des coefficients de degré 1.</li>
         </ul>
+
+        <div style="background: #fffff0; padding: 15px; border-left: 4px solid #ecc94b; margin-top: 15px;">
+            <h4 style="margin-top: 0; color: #b7791f;">Application Pratique (Pôle simple et Limite)</h4>
+            <p><strong>Problème :</strong> Décomposer $F(X) = \frac{X}{(X-1)(X+2)}$.</p>
+            <p><strong>Solution :</strong> La forme théorique est $F(X) = \frac{a}{X-1} + \frac{b}{X+2}$.</p>
+            <ul>
+                <li><strong>Calcul de $a$ :</strong> On multiplie $F(X)$ par $(X-1)$ et on évalue en $X=1$ :<br> $a = \left[ \frac{X}{X+2} \right]_{X=1} = \frac{1}{3}$.</li>
+                <li><strong>Calcul de $b$ (par la limite) :</strong> On multiplie tout par $X$ :<br> $X F(X) = \frac{aX}{X-1} + \frac{bX}{X+2}$.<br> En faisant tendre $X \to +\infty$, $\frac{X^2}{(X-1)(X+2)} \to 1$. À droite, l'expression tend vers $a + b$. Donc $1 = a + b$.<br> Comme $a = \frac{1}{3}$, on en déduit $b = 1 - \frac{1}{3} = \frac{2}{3}$.</li>
+            </ul>
+            <p>Conclusion : $\frac{X}{(X-1)(X+2)} = \frac{1/3}{X-1} + \frac{2/3}{X+2}$.</p>
+        </div>
+    </div>
+
+    <h3 style="color: var(--royal-blue); border-bottom: 2px solid var(--border); padding-bottom: 10px;"><i class="fas fa-layer-group"></i> 5. Astuce pour un pôle multiple</h3>
+    <div style="background: white; padding: 20px; border-radius: 10px; box-shadow: var(--shadow); margin-bottom: 20px;">
+        <p>Lorsqu'on a un pôle $a$ de multiplicité $k > 1$, la méthode classique de la multiplication fonctionne pour le coefficient de plus haut degré, mais pas pour les autres.</p>
+        <p>Pour la partie polaire $\frac{c_1}{X-a} + \frac{c_2}{(X-a)^2} + \dots + \frac{c_k}{(X-a)^k}$ :</p>
+        <ul>
+            <li><strong>Obtenir $c_k$ :</strong> On multiplie par $(X-a)^k$ et on évalue en $a$.</li>
+            <li><strong>Obtenir les autres coefficients :</strong> On peut poser $X = a + h$ (ce qui ramène le pôle en 0) et faire un développement limité, ou bien faire la soustraction $F(X) - \frac{c_k}{(X-a)^k}$ et simplifier.</li>
+        </ul>
+    </div>
+
+    <h3 style="color: var(--royal-blue); border-bottom: 2px solid var(--border); padding-bottom: 10px;"><i class="fas fa-integral"></i> 6. Application : Calcul de Primitives</h3>
+    <div style="background: #e6fffa; padding: 20px; border-left: 5px solid #319795; border-radius: 8px; margin-bottom: 30px; box-shadow: var(--shadow);">
+        <p>La D.E.S est l'outil principal pour intégrer les fonctions rationnelles. Une fois décomposée, chaque élément simple possède une primitive connue :</p>
+        <ul>
+            <li>$\int \frac{a}{x - \lambda} dx = a \ln|x - \lambda| + C$</li>
+            <li>$\int \frac{a}{(x - \lambda)^k} dx = \frac{a}{(1-k)(x - \lambda)^{k-1}} + C \quad (\text{pour } k \ge 2)$</li>
+            <li>Les éléments de seconde espèce $\frac{\alpha x + \beta}{x^2+px+q}$ donnent naissance à des termes en $\ln(x^2+px+q)$ et en $\arctan(\dots)$.</li>
+        </ul>
+
+        <div style="background: white; padding: 15px; border-radius: 5px; margin-top: 15px;">
+            <p><strong>Exemple :</strong> Calculer $\int \frac{1}{x^2-1} dx$.</p>
+            <p>On décompose : $\frac{1}{x^2-1} = \frac{1}{(x-1)(x+1)} = \frac{1/2}{x-1} - \frac{1/2}{x+1}$.</p>
+            <p>On intègre : $\int \frac{1}{x^2-1} dx = \frac{1}{2} \ln|x-1| - \frac{1}{2} \ln|x+1| + C = \frac{1}{2} \ln \left| \frac{x-1}{x+1} \right| + C$.</p>
+        </div>
     </div>
 </div>
