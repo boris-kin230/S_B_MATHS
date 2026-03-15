@@ -1,0 +1,327 @@
+<style>
+    /* Surcharge de la grille d'options pour un affichage 2x2 symétrique */
+    .options-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+        margin-bottom: 20px;
+    }
+
+    /* Sécurité pour éviter les textes collés dans les boutons */
+    .opt-btn {
+        background: #f8f9fa;
+        border: 2px solid #e9ecef;
+        border-radius: 8px;
+        padding: 15px;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        text-align: left;
+        color: #333;
+        min-height: 65px; /* Laisse de la place pour les formules */
+        display: flex;
+        align-items: center;
+        line-height: 1.4;
+        word-break: break-word; /* Empêche les débordements */
+    }
+
+    /* Bouton de validation stylisé */
+    .finish-btn {
+        background: var(--gold-btn, #FFD700);
+        color: var(--navy-dark, #112240);
+        border: none;
+        padding: 18px 40px;
+        font-size: 1.1rem;
+        font-weight: 800;
+        border-radius: 50px;
+        cursor: pointer;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+    }
+    .finish-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        background: var(--gold-hover, #ffea00);
+    }
+
+    /* Responsive : on repasse en 1 colonne sur mobile (largeur < 768px) */
+    @media (max-width: 768px) {
+        .options-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+
+<div class="hero-banner" style="background: linear-gradient(135deg, #991b1b 0%, #ef4444 100%); color: white; padding: 30px; border-radius: 12px; margin-bottom: 30px;">
+    <h1 style="font-size: 2rem; margin: 0;"><i class="fas fa-chart-line"></i> Entraînement : Dérivabilité & TAF</h1>
+    <p style="opacity: 0.9; margin-top: 10px;">20 questions : Continuité, Rolle, TAF, monotonie et calcul de limites. À vous de jouer !</p>
+</div>
+
+<div class="qcm-card">
+    <div class="qcm-question">1. Quel est le lien fondamental entre continuité et dérivabilité en un point a ?</div>
+    <div class="options-grid">
+        <button class="opt-btn" onclick="checkQCM(this, false)">La continuité en a implique la dérivabilité en a</button>
+        <button class="opt-btn" onclick="checkQCM(this, true)">La dérivabilité en a implique la continuité en a</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">Elles sont rigoureusement équivalentes</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">Elles sont totalement indépendantes</button>
+    </div>
+    <div class="correction-box">
+        <strong>Explication :</strong> C'est un théorème fondamental. Toute fonction dérivable en un point y est nécessairement continue. La réciproque est fausse.
+    </div>
+</div>
+
+<div class="qcm-card">
+    <div class="qcm-question">2. Comment démontre-t-on que la dérivabilité en a implique la continuité en a ?</div>
+    <div class="options-grid">
+        <button class="opt-btn" onclick="checkQCM(this, false)">En utilisant le théorème des valeurs intermédiaires</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">En intégrant la dérivée f' entre a et x</button>
+        <button class="opt-btn" onclick="checkQCM(this, true)">En étudiant la limite de f(x) - f(a) = [(f(x)-f(a))/(x-a)] * (x-a)</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">En utilisant le théorème de Rolle sur [a, x]</button>
+    </div>
+    <div class="correction-box">
+        <strong>Explication :</strong> Quand x tend vers a, le quotient tend vers f'(a) et (x-a) tend vers 0. Le produit tend donc vers f'(a) * 0 = 0. Ainsi la limite de f(x) est f(a), ce qui prouve la continuité.
+    </div>
+</div>
+
+<div class="qcm-card">
+    <div class="qcm-question">3. Laquelle de ces fonctions est continue sur R mais NON dérivable en 0 ?</div>
+    <div class="options-grid">
+        <button class="opt-btn" onclick="checkQCM(this, false)">f(x) = x^2</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">f(x) = 1/x</button>
+        <button class="opt-btn" onclick="checkQCM(this, true)">f(x) = |x|</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">f(x) = sin(x)</button>
+    </div>
+    <div class="correction-box">
+        <strong>Explication :</strong> La fonction valeur absolue est continue partout. En 0, son taux d'accroissement vaut 1 à droite et -1 à gauche. Elle n'est donc pas dérivable en 0 (point anguleux).
+    </div>
+</div>
+
+<div class="qcm-card">
+    <div class="qcm-question">4. Soit f(x) = x * sin(1/x) pour x non nul, et f(0) = 0. Que dire de sa régularité en 0 ?</div>
+    <div class="options-grid">
+        <button class="opt-btn" onclick="checkQCM(this, true)">Elle est continue en 0, mais non dérivable en 0</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">Elle est discontinue en 0</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">Elle est dérivable en 0, de dérivée nulle</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">Elle est de classe C^1 sur R</button>
+    </div>
+    <div class="correction-box">
+        <strong>Explication :</strong> Continue car |x*sin(1/x)| &le; |x| qui tend vers 0. Mais le taux d'accroissement en 0 est sin(1/x), qui n'admet pas de limite quand x tend vers 0.
+    </div>
+</div>
+
+<div class="qcm-card">
+    <div class="qcm-question">5. Quelles sont les hypothèses du théorème de Rolle pour une fonction f sur [a, b] ?</div>
+    <div class="options-grid">
+        <button class="opt-btn" onclick="checkQCM(this, false)">Continue et dérivable sur [a,b], et f(a)=0</button>
+        <button class="opt-btn" onclick="checkQCM(this, true)">Continue sur [a,b], dérivable sur ]a,b[, et f(a)=f(b)</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">Continue sur ]a,b[, dérivable sur [a,b], et f(a)=f(b)</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">Dérivable sur [a,b], et f' s'annule en a et b</button>
+    </div>
+    <div class="correction-box">
+        <strong>Explication :</strong> La continuité sur le fermé est requise pour avoir des extrema locaux. La dérivabilité sur l'ouvert suffit. L'égalité aux bornes garantit que la dérivée s'annulera.
+    </div>
+</div>
+
+<div class="qcm-card">
+    <div class="qcm-question">6. Que permet de conclure le théorème de Rolle ?</div>
+    <div class="options-grid">
+        <button class="opt-btn" onclick="checkQCM(this, true)">Il existe au moins un c dans ]a,b[ tel que f'(c) = 0</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">Il existe un unique c dans ]a,b[ tel que f'(c) = 0</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">Il existe c dans ]a,b[ tel que f(c) = 0</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">La fonction f est constante sur [a,b]</button>
+    </div>
+    <div class="correction-box">
+        <strong>Explication :</strong> Le théorème assure l'existence d'au moins une tangente horizontale à l'intérieur de l'intervalle, mais ne garantit pas l'unicité (ex: une fonction sinusoïdale).
+    </div>
+</div>
+
+<div class="qcm-card">
+    <div class="qcm-question">7. Quel argument fondamental utilise-t-on pour démontrer le théorème de Rolle ?</div>
+    <div class="options-grid">
+        <button class="opt-btn" onclick="checkQCM(this, false)">Le théorème des valeurs intermédiaires appliqué à f'</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">L'intégration par parties</button>
+        <button class="opt-btn" onclick="checkQCM(this, true)">Le théorème des bornes atteintes pour une fonction continue sur un segment</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">L'inégalité des accroissements finis</button>
+    </div>
+    <div class="correction-box">
+        <strong>Explication :</strong> f est continue sur un segment, elle atteint donc ses bornes. Si f n'est pas constante, l'un des extrema est atteint à l'intérieur en un point c. Comme f est dérivable sur l'ouvert, f'(c) = 0.
+    </div>
+</div>
+
+<div class="qcm-card">
+    <div class="qcm-question">8. Quel est l'énoncé du Théorème des Accroissements Finis (TAF) pour f continue sur [a,b] et dérivable sur ]a,b[ ?</div>
+    <div class="options-grid">
+        <button class="opt-btn" onclick="checkQCM(this, true)">Il existe c dans ]a,b[ tel que f(b) - f(a) = f'(c)(b - a)</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">Il existe c dans ]a,b[ tel que f(b) - f(a) &le; f'(c)(b - a)</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">Il existe c dans ]a,b[ tel que f'(b) - f'(a) = f(c)(b - a)</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">Il existe c dans ]a,b[ tel que f'(c) = 0</button>
+    </div>
+    <div class="correction-box">
+        <strong>Explication :</strong> Le TAF indique qu'il existe un point c où la pente de la tangente f'(c) est égale à la pente de la corde joignant les points (a, f(a)) et (b, f(b)).
+    </div>
+</div>
+
+<div class="qcm-card">
+    <div class="qcm-question">9. Pour démontrer le TAF à partir du théorème de Rolle, on utilise une fonction auxiliaire g(x). Laquelle ?</div>
+    <div class="options-grid">
+        <button class="opt-btn" onclick="checkQCM(this, false)">g(x) = f(x) - f(a)</button>
+        <button class="opt-btn" onclick="checkQCM(this, true)">g(x) = f(x) - [(f(b)-f(a))/(b-a)] * (x-a)</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">g(x) = f(x) - f'(x)(x-a)</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">g(x) = (x-a)(x-b)f(x)</button>
+    </div>
+    <div class="correction-box">
+        <strong>Explication :</strong> On soustrait à f(x) l'équation de la droite passant par (a, f(a)) et (b, f(b)). Ainsi, g(a) = g(b) = f(a). Rolle s'applique à g, donnant g'(c) = 0, ce qui démontre le TAF.
+    </div>
+</div>
+
+<div class="qcm-card">
+    <div class="qcm-question">10. On veut prouver avec le TAF que si f'(x) > 0 sur I, alors f est strictement croissante. Quelle est la rédaction correcte ?</div>
+    <div class="options-grid">
+        <button class="opt-btn" onclick="checkQCM(this, false)">La dérivée est positive donc la limite est croissante.</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">Si x < y, le TVI donne f(x) < f(y) car f' est continue.</button>
+        <button class="opt-btn" onclick="checkQCM(this, true)">Soient x < y dans I. Par le TAF, f(y)-f(x) = f'(c)(y-x). Comme y-x > 0 et f'(c) > 0, alors f(y) > f(x).</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">L'intégrale de f' est positive, donc f croît.</button>
+    </div>
+    <div class="correction-box">
+        <strong>Explication :</strong> C'est la démonstration classique exigée. On prend deux points x et y avec x < y. Le TAF sur [x,y] donne un c tel que f(y)-f(x) = f'(c)(y-x). Le produit de deux stricts positifs est strict positif, prouvant la stricte croissance.
+    </div>
+</div>
+
+<div class="qcm-card">
+    <div class="qcm-question">11. Pourquoi ne peut-on pas appliquer le théorème de Rolle à f(x) = |x| sur l'intervalle [-1, 1] ?</div>
+    <div class="options-grid">
+        <button class="opt-btn" onclick="checkQCM(this, false)">Parce que f(-1) n'est pas égal à f(1)</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">Parce que f n'est pas continue en 0</button>
+        <button class="opt-btn" onclick="checkQCM(this, true)">Parce que f n'est pas dérivable sur ]-1, 1[</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">Parce que la dérivée ne s'annule jamais</button>
+    </div>
+    <div class="correction-box">
+        <strong>Explication :</strong> On a bien f(-1)=f(1)=1 et f est continue sur [-1, 1]. Mais le point x=0, où f n'est pas dérivable, appartient à l'ouvert ]-1, 1[. L'hypothèse de dérivabilité manque.
+    </div>
+</div>
+
+<div class="qcm-card">
+    <div class="qcm-question">12. Le Théorème (égalité) des Accroissements Finis est-il vrai pour une fonction à valeurs complexes ?</div>
+    <div class="options-grid">
+        <button class="opt-btn" onclick="checkQCM(this, false)">Oui, exactement sous la même forme</button>
+        <button class="opt-btn" onclick="checkQCM(this, true)">Non, seule l'Inégalité (IAF) reste vraie sur C</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">Oui, en prenant les modules</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">Oui, pour les polynômes complexes uniquement</button>
+    </div>
+    <div class="correction-box">
+        <strong>Explication :</strong> L'égalité est fausse dans C. Contre-exemple : f(t) = e^(it) sur [0, 2pi]. f(2pi)-f(0) = 0, mais la dérivée f'(t) = i*e^(it) ne s'annule jamais. Seule l'IAF avec les modules s'applique.
+    </div>
+</div>
+
+<div class="qcm-card">
+    <div class="qcm-question">13. Que stipule l'Inégalité des Accroissements Finis (IAF) si |f'(x)| &le; M sur I ?</div>
+    <div class="options-grid">
+        <button class="opt-btn" onclick="checkQCM(this, true)">Pour tous a,b dans I, |f(b) - f(a)| &le; M|b - a|</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">Pour tous a,b dans I, f(b) - f(a) &le; M</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">Pour tout x dans I, |f(x)| &le; M|x|</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">|f'(b) - f'(a)| &le; M|b - a|</button>
+    </div>
+    <div class="correction-box">
+        <strong>Explication :</strong> L'IAF montre que si la dérivée est bornée par M, alors la fonction est M-lipschitzienne.
+    </div>
+</div>
+
+<div class="qcm-card">
+    <div class="qcm-question">14. Une fonction f est dérivable sur R. Sa dérivée f' est strictement positive, sauf en un nombre fini de points où elle s'annule. Que dire de f ?</div>
+    <div class="options-grid">
+        <button class="opt-btn" onclick="checkQCM(this, false)">Elle est croissante mais pas strictement</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">Elle présente des paliers constants</button>
+        <button class="opt-btn" onclick="checkQCM(this, true)">Elle est strictement croissante sur R</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">Elle n'est pas inversible</button>
+    </div>
+    <div class="correction-box">
+        <strong>Explication :</strong> Corollaire important : si f' &ge; 0 et ne s'annule que sur des points isolés (pas sur un intervalle), f est quand même strictement croissante (ex : x |-> x^3 en 0).
+    </div>
+</div>
+
+<div class="qcm-card">
+    <div class="qcm-question">15. Calculer la limite quand x tend vers 0 de (sin x - x) / x^3.</div>
+    <div class="options-grid">
+        <button class="opt-btn" onclick="checkQCM(this, false)">0</button>
+        <button class="opt-btn" onclick="checkQCM(this, true)">-1/6</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">1/6</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">-infini</button>
+    </div>
+    <div class="correction-box">
+        <strong>Explication :</strong> On utilise un DL d'ordre 3 en 0 : sin(x) = x - x^3/6 + o(x^3). Le numérateur devient -x^3/6 + o(x^3). En divisant par x^3, on trouve bien -1/6.
+    </div>
+</div>
+
+<div class="qcm-card">
+    <div class="qcm-question">16. Que vaut la limite quand x tend vers 0 de (e^x - 1) / x ?</div>
+    <div class="options-grid">
+        <button class="opt-btn" onclick="checkQCM(this, false)">0</button>
+        <button class="opt-btn" onclick="checkQCM(this, true)">1</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">e</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">Indéterminée</button>
+    </div>
+    <div class="correction-box">
+        <strong>Explication :</strong> C'est le taux d'accroissement de la fonction exponentielle en 0. Sa valeur est donc la dérivée de exp en 0, c'est-à-dire exp(0) = 1.
+    </div>
+</div>
+
+<div class="qcm-card">
+    <div class="qcm-question">17. Si f est une bijection dérivable, que vaut la dérivée de sa réciproque en y = f(x) ?</div>
+    <div class="options-grid">
+        <button class="opt-btn" onclick="checkQCM(this, false)">-f'(x)</button>
+        <button class="opt-btn" onclick="checkQCM(this, true)">1 / f'(x)  (si f'(x) n'est pas nul)</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">f'(y)</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">-1 / (f'(x))^2</button>
+    </div>
+    <div class="correction-box">
+        <strong>Explication :</strong> En dérivant l'identité f^(-1)(f(x)) = x par rapport à x, on obtient (f^(-1))'(f(x)) * f'(x) = 1.
+    </div>
+</div>
+
+<div class="qcm-card">
+    <div class="qcm-question">18. Que vaut la limite en 0 par valeurs supérieures de x * ln(x) ?</div>
+    <div class="options-grid">
+        <button class="opt-btn" onclick="checkQCM(this, false)">-infini</button>
+        <button class="opt-btn" onclick="checkQCM(this, true)">0</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">1</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">-1</button>
+    </div>
+    <div class="correction-box">
+        <strong>Explication :</strong> C'est une limite de référence (croissances comparées). La puissance polynomiale x l'emporte toujours sur le logarithme en 0 (et en l'infini).
+    </div>
+</div>
+
+<div class="qcm-card">
+    <div class="qcm-question">19. Quelle est l'approximation affine locale d'une fonction f dérivable en a ?</div>
+    <div class="options-grid">
+        <button class="opt-btn" onclick="checkQCM(this, false)">f(x) &approx; f(a) + f'(x)(x-a)</button>
+        <button class="opt-btn" onclick="checkQCM(this, true)">f(x) &approx; f(a) + f'(a)(x-a)</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">f(x) &approx; f'(a) + f(a)(x-a)</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">f(x) &approx; f(a) - f'(a)(x-a)</button>
+    </div>
+    <div class="correction-box">
+        <strong>Explication :</strong> C'est l'équation de la tangente à la courbe au point d'abscisse a. Elle donne la meilleure approximation de la fonction par une droite au voisinage de a.
+    </div>
+</div>
+
+<div class="qcm-card">
+    <div class="qcm-question">20. Que garantit le théorème de la limite de la dérivée (Prolongement C^1) ?</div>
+    <div class="options-grid">
+        <button class="opt-btn" onclick="checkQCM(this, true)">Si f est continue en a et lim(x->a) f'(x) = L, alors f est dérivable en a et f'(a) = L</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">Si f' a une limite, alors f est intégrable</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">Si f est dérivable, sa limite est la limite de f'</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">C'est une autre formulation de la règle de l'Hôpital</button>
+    </div>
+    <div class="correction-box">
+        <strong>Explication :</strong> Ce théorème puissant repose sur le TAF. Il est primordial de s'assurer que f est bien continue en a avant d'étudier la limite de sa dérivée.
+    </div>
+</div>
+
+<div style="text-align: center; margin-top: 40px; margin-bottom: 20px;">
+    <button class="finish-btn no-print-pdf" onclick="finishQuiz()">
+        <i class="fas fa-flag-checkered" style="margin-right:10px;"></i> Terminer le Bilan (v4)
+    </button>
+</div>
