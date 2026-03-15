@@ -1,85 +1,23 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cours : Géométrie dans l'Espace</title>
-    
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-    <script>
-        MathJax = {
-            tex: {
-                inlineMath: [['$', '$'], ['\\(', '\\)']]
-            }
-        };
-    </script>
-    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-
-    <style>
-        :root {
-            --navy-dark: #1e293b;
-            --text-muted: #64748b;
-        }
-        body {
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #f8fafc;
-        }
-        .opt-btn {
-            background-color: white;
-            border: 2px solid #e2e8f0;
-            border-radius: 8px;
-            font-size: 1rem;
-            transition: all 0.2s ease;
-        }
-        .opt-btn:hover {
-            background-color: #f1f5f9;
-            border-color: #cbd5e1;
-        }
-        .share-btn {
-            background-color: #3b82f6;
-            color: white;
-            border: none;
-            border-radius: 6px;
-            font-size: 0.95rem;
-            transition: background-color 0.2s ease;
-        }
-        .share-btn:hover {
-            background-color: #2563eb;
-        }
-        .qcm-box {
-            background-color: white;
-        }
-    </style>
-</head>
-<body>
-
-    <div class="banner" style="background: linear-gradient(135deg, #1e293b, #3b82f6); color: white; padding: 30px; border-radius: 12px; margin-bottom: 30px;">
-        <h1 style="font-size: 2.5rem; margin: 0;"><i class="fas fa-cube"></i> Cours Complet : Géométrie dans l'Espace</h1>
-        <p style="opacity: 0.9; font-size: 1.1rem; margin-top: 10px;">Repères, vecteurs, plans, droites, distances et sphères.</p>
+<div style="animation: fadeIn 0.5s;">
+    <div class="banner" style="background: linear-gradient(135deg, #1e293b, #3b82f6); padding: 40px; border-radius: 15px; color: white; margin-bottom: 30px;">
+        <h2 style="margin:0; font-size: 2.2rem;"><i class="fas fa-cube"></i> Cours Complet : Géométrie dans l'Espace</h2>
+        <p style="opacity:0.9; margin-top:10px; font-size: 1.1rem;">Repères, vecteurs, plans, droites, distances et sphères.</p>
     </div>
 
-    <div class="qcm-box" style="margin-bottom: 40px; padding: 20px; border: 1px solid #e2e8f0; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
-        <h2 style="color: var(--navy-dark); border-bottom: 2px solid #3b82f6; padding-bottom: 10px;"><i class="fas fa-arrows-alt"></i> 1. Repères, Bases et Vecteurs 3D</h2>
-        
+    <h3 style="color: var(--royal-blue); border-bottom: 2px solid var(--border); padding-bottom: 10px;"><i class="fas fa-arrows-alt"></i> 1. Repères, Bases et Vecteurs 3D</h3>
+    <div style="background: white; padding: 20px; border-radius: 10px; box-shadow: var(--shadow); margin-bottom: 30px;">
         <p>L'espace est muni d'un repère orthonormé direct $(O; \vec{i}, \vec{j}, \vec{k})$. Un point $M$ ou un vecteur $\vec{u}$ possède 3 coordonnées : abscisse ($x$), ordonnée ($y$) et cote ($z$).</p>
+        
         <ul>
-            <li><strong>Norme d'un vecteur :</strong> $\|\vec{u}\| = \sqrt{x^2 + y^2 + z^2}$</li>
-            <li><strong>Vecteurs colinéaires :</strong> $\vec{v} = k\vec{u}$ (ils dirigent la même droite).</li>
-            <li><strong>Vecteurs coplanaires :</strong> Trois vecteurs $\vec{u}, \vec{v}, \vec{w}$ sont coplanaires s'ils peuvent s'exprimer sous la forme $\vec{w} = a\vec{u} + b\vec{v}$, ou si leur <strong>déterminant</strong> (produit mixte) est nul : $\det(\vec{u}, \vec{v}, \vec{w}) = 0$.</li>
+            <li><strong>Norme d'un vecteur :</strong> $\|\vec{u}\|=\sqrt{x^2+y^2+z^2}$</li>
+            <li><strong>Vecteurs colinéaires :</strong> $\vec{v}=k\vec{u}$ (ils dirigent la même droite).</li>
+            <li><strong>Vecteurs coplanaires :</strong> Trois vecteurs $\vec{u}, \vec{v}, \vec{w}$ sont coplanaires s'ils peuvent s'exprimer sous la forme $\vec{w}=a\vec{u}+b\vec{v}$, ou si leur <strong>déterminant</strong> (produit mixte) est nul : $\det(\vec{u},\vec{v},\vec{w})=0$.</li>
         </ul>
 
         <div style="text-align: center; margin: 30px 0; background: #f8fafc; padding: 20px; border-radius: 10px;">
             <svg width="300" height="250" viewBox="0 0 300 250">
                 <path d="M 150 150 L 150 20" stroke="#1e293b" stroke-width="2" /> <path d="M 150 150 L 280 150" stroke="#1e293b" stroke-width="2" /> <path d="M 150 150 L 50 220" stroke="#1e293b" stroke-width="2" /> <path d="M 150 150 L 150 100" stroke="#ef4444" stroke-width="3" marker-end="url(#arrow)" /> <path d="M 150 150 L 200 150" stroke="#22c55e" stroke-width="3" marker-end="url(#arrow)" /> <path d="M 150 150 L 100 185" stroke="#3b82f6" stroke-width="3" marker-end="url(#arrow)" /> <circle cx="200" cy="70" r="4" fill="#8b5cf6" />
                 <path d="M 150 150 L 200 70" stroke="#8b5cf6" stroke-width="2" stroke-dasharray="5" />
-                
                 <text x="135" y="165" font-weight="bold">O</text>
                 <text x="135" y="90" fill="#ef4444" font-weight="bold">k</text>
                 <text x="190" y="140" fill="#22c55e" font-weight="bold">j</text>
@@ -89,34 +27,30 @@
                 <text x="285" y="155" font-weight="bold">y (ordonnée)</text>
                 <text x="20" y="235" font-weight="bold">x (abscisse)</text>
             </svg>
-            <p style="font-size: 0.8rem; color: var(--text-muted);">Repère orthonormé de l'espace.</p>
         </div>
 
-        <div class="qcm-question" style="font-weight: bold; margin-top: 20px;">
-            Test 1 : Si $\vec{u}(1, -2, 3)$ et $\vec{v}(-2, 4, -6)$, que peut-on dire de ces vecteurs ?
-        </div>
-        <div class="qcm-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px;">
-            <button class="opt-btn" onclick="checkAnswer(this, false)" style="padding: 10px; cursor: pointer;">Ils sont orthogonaux</button>
-            <button class="opt-btn" onclick="checkAnswer(this, true)" style="padding: 10px; cursor: pointer;">Ils sont colinéaires</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)" style="padding: 10px; cursor: pointer;">Ils sont coplanaires mais non colinéaires</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)" style="padding: 10px; cursor: pointer;">Leur norme est égale</button>
-        </div>
-        <button class="share-btn pdf" style="margin-top: 15px; padding: 8px 15px; cursor: pointer;" onclick="toggleCorrection(this)">
-            <i class="fas fa-eye"></i> Afficher le corrigé
-        </button>
-        <div class="correction-box" style="display:none; margin-top:15px; padding:15px; border-left:4px solid #f59e0b; background:#fffbeb;">
-            <strong>Solution :</strong> On remarque que $\vec{v} = -2 \times \vec{u}$. Il existe un réel $k$ tel que $\vec{v} = k\vec{u}$, les vecteurs sont donc <strong>colinéaires</strong> (ils ont la même direction).
+        <div style="background: #ebf8ff; padding: 15px; border-left: 4px solid #3182ce; margin-top: 20px; border-radius: 0 8px 8px 0;">
+            <div style="font-weight: bold; margin-bottom: 10px;">Test 1 : Si $\vec{u}(1,-2,3)$ et $\vec{v}(-2,4,-6)$, que peut-on dire de ces vecteurs ?</div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                <button class="opt-btn" onclick="checkAnswer(this, false)" style="padding: 10px; cursor: pointer; border-radius: 6px; border: 1px solid #cbd5e1; background: white;">Ils sont orthogonaux</button>
+                <button class="opt-btn" onclick="checkAnswer(this, true)" style="padding: 10px; cursor: pointer; border-radius: 6px; border: 1px solid #cbd5e1; background: white;">Ils sont colinéaires</button>
+                <button class="opt-btn" onclick="checkAnswer(this, false)" style="padding: 10px; cursor: pointer; border-radius: 6px; border: 1px solid #cbd5e1; background: white;">Ils sont coplanaires mais non colinéaires</button>
+                <button class="opt-btn" onclick="checkAnswer(this, false)" style="padding: 10px; cursor: pointer; border-radius: 6px; border: 1px solid #cbd5e1; background: white;">Leur norme est égale</button>
+            </div>
+            <button style="margin-top: 15px; padding: 8px 15px; cursor: pointer; background: #3b82f6; color: white; border: none; border-radius: 6px;" onclick="toggleCorrection(this)"><i class="fas fa-eye"></i> Afficher le corrigé</button>
+            <div style="display:none; margin-top:15px; padding:15px; border-left:4px solid #f59e0b; background:#fffbeb;">
+                <strong>Solution :</strong> On remarque que $\vec{v}=-2\times\vec{u}$. Il existe un réel $k$ tel que $\vec{v}=k\vec{u}$, les vecteurs sont donc <strong>colinéaires</strong>.
+            </div>
         </div>
     </div>
 
-    <div class="qcm-box" style="margin-bottom: 40px; padding: 20px; border: 1px solid #e2e8f0; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
-        <h2 style="color: var(--navy-dark); border-bottom: 2px solid #3b82f6; padding-bottom: 10px;"><i class="fas fa-ruler-combined"></i> 2. Produit Scalaire et Orthogonalité</h2>
-        
+    <h3 style="color: var(--royal-blue); border-bottom: 2px solid var(--border); padding-bottom: 10px;"><i class="fas fa-ruler-combined"></i> 2. Produit Scalaire et Orthogonalité</h3>
+    <div style="background: white; padding: 20px; border-radius: 10px; box-shadow: var(--shadow); margin-bottom: 30px;">
         <p>Le produit scalaire permet de vérifier l'orthogonalité et de calculer des angles.</p>
         <ul>
-            <li><strong>Expression analytique :</strong> $\vec{u} \cdot \vec{v} = xx' + yy' + zz'$.</li>
-            <li><strong>Condition d'orthogonalité :</strong> $\vec{u} \perp \vec{v} \iff \vec{u} \cdot \vec{v} = 0$.</li>
-            <li><strong>Expression géométrique :</strong> $\vec{u} \cdot \vec{v} = \|\vec{u}\| \times \|\vec{v}\| \times \cos(\vec{u}, \vec{v})$.</li>
+            <li><strong>Expression analytique :</strong> $\vec{u}\cdot\vec{v}=xx'+yy'+zz'$.</li>
+            <li><strong>Condition d'orthogonalité :</strong> $\vec{u}\perp\vec{v}\iff\vec{u}\cdot\vec{v}=0$.</li>
+            <li><strong>Expression géométrique :</strong> $\vec{u}\cdot\vec{v}=\|\vec{u}\|\times\|\vec{v}\|\times\cos(\vec{u},\vec{v})$.</li>
         </ul>
 
         <div style="text-align: center; margin: 30px 0; background: #f8fafc; padding: 20px; border-radius: 10px;">
@@ -129,293 +63,99 @@
                 <text x="185" y="160" font-weight="bold" fill="#3b82f6">u</text>
                 <text x="125" y="45" font-weight="bold" fill="#ef4444">v</text>
                 <text x="80" y="130" fill="#1e293b" font-style="italic">θ</text>
-                <text x="125" y="165" font-weight="bold">H (Projeté orthogonal)</text>
+                <text x="125" y="165" font-weight="bold">H (Projeté)</text>
             </svg>
-            <p style="font-size: 0.8rem; color: var(--text-muted);">Projeté orthogonal et produit scalaire : $\vec{u} \cdot \vec{v} = \overline{AH} \times \|\vec{u}\|$.</p>
         </div>
 
-        <div class="qcm-question" style="font-weight: bold; margin-top: 20px;">
-            Test 2 : Soient $\vec{u}(2, 1, -1)$ et $\vec{v}(1, a, 3)$. Pour quelle valeur de $a$ les vecteurs sont-ils orthogonaux ?
-        </div>
-        <div class="qcm-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px;">
-            <button class="opt-btn" onclick="checkAnswer(this, false)" style="padding: 10px; cursor: pointer;">$a = 0$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, true)" style="padding: 10px; cursor: pointer;">$a = 1$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)" style="padding: 10px; cursor: pointer;">$a = -1$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)" style="padding: 10px; cursor: pointer;">$a = 5$</button>
-        </div>
-        <button class="share-btn pdf" style="margin-top: 15px; padding: 8px 15px; cursor: pointer;" onclick="toggleCorrection(this)">
-            <i class="fas fa-eye"></i> Afficher le corrigé
-        </button>
-        <div class="correction-box" style="display:none; margin-top:15px; padding:15px; border-left:4px solid #f59e0b; background:#fffbeb;">
-            <strong>Solution :</strong> On calcule le produit scalaire : $\vec{u} \cdot \vec{v} = (2 \times 1) + (1 \times a) + (-1 \times 3) = 2 + a - 3 = a - 1$.<br>
-            Pour qu'ils soient orthogonaux, il faut $\vec{u} \cdot \vec{v} = 0$, donc $a - 1 = 0 \implies a = 1$.
+        <div style="background: #ebf8ff; padding: 15px; border-left: 4px solid #3182ce; margin-top: 20px; border-radius: 0 8px 8px 0;">
+            <div style="font-weight: bold; margin-bottom: 10px;">Test 2 : Soient $\vec{u}(2,1,-1)$ et $\vec{v}(1,a,3)$. Pour quelle valeur de $a$ les vecteurs sont-ils orthogonaux ?</div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                <button class="opt-btn" onclick="checkAnswer(this, false)" style="padding: 10px; cursor: pointer; border-radius: 6px; border: 1px solid #cbd5e1; background: white;">$a=0$</button>
+                <button class="opt-btn" onclick="checkAnswer(this, true)" style="padding: 10px; cursor: pointer; border-radius: 6px; border: 1px solid #cbd5e1; background: white;">$a=1$</button>
+                <button class="opt-btn" onclick="checkAnswer(this, false)" style="padding: 10px; cursor: pointer; border-radius: 6px; border: 1px solid #cbd5e1; background: white;">$a=-1$</button>
+                <button class="opt-btn" onclick="checkAnswer(this, false)" style="padding: 10px; cursor: pointer; border-radius: 6px; border: 1px solid #cbd5e1; background: white;">$a=5$</button>
+            </div>
+            <button style="margin-top: 15px; padding: 8px 15px; cursor: pointer; background: #3b82f6; color: white; border: none; border-radius: 6px;" onclick="toggleCorrection(this)"><i class="fas fa-eye"></i> Afficher le corrigé</button>
+            <div style="display:none; margin-top:15px; padding:15px; border-left:4px solid #f59e0b; background:#fffbeb;">
+                <strong>Solution :</strong> $\vec{u}\cdot\vec{v}=(2\times1)+(1\times a)+(-1\times3)=a-1$. Pour l'orthogonalité : $a-1=0\implies a=1$.
+            </div>
         </div>
     </div>
 
-    <div class="qcm-box" style="margin-bottom: 40px; padding: 20px; border: 1px solid #e2e8f0; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
-        <h2 style="color: var(--navy-dark); border-bottom: 2px solid #3b82f6; padding-bottom: 10px;"><i class="fas fa-layer-group"></i> 3. Le Plan dans l'Espace</h2>
+    <h3 style="color: var(--royal-blue); border-bottom: 2px solid var(--border); padding-bottom: 10px;"><i class="fas fa-layer-group"></i> 3. Le Plan dans l'Espace</h3>
+    <div style="background: white; padding: 20px; border-radius: 10px; box-shadow: var(--shadow); margin-bottom: 30px;">
+        <p>Un plan $P$ est défini par un point $A$ et un <strong>vecteur normal $\vec{n}(a,b,c)$</strong>, ou par un point et deux vecteurs directeurs non colinéaires.</p>
         
-        <p>Un plan $P$ est défini par un point $A$ et un <strong>vecteur normal $\vec{n}(a, b, c)$</strong> (orthogonal à tous les vecteurs du plan), ou par un point et deux vecteurs directeurs non colinéaires.</p>
         <ul>
-            <li><strong>Équation cartésienne d'un plan :</strong> $ax + by + cz + d = 0$. Les coefficients $a, b, c$ sont les coordonnées d'un vecteur normal $\vec{n}$.</li>
-            <li><strong>Représentation paramétrique d'un plan :</strong> Passant par $A(x_A, y_A, z_A)$ et dirigé par $\vec{u}(u_1, u_2, u_3)$ et $\vec{v}(v_1, v_2, v_3)$ :<br>
-            $\begin{cases} x = x_A + tu_1 + t'v_1 \\ y = y_A + tu_2 + t'v_2 \\ z = z_A + tu_3 + t'v_3 \end{cases} \quad (t, t' \in \mathbb{R})$</li>
+            <li><strong>Équation cartésienne :</strong> $ax+by+cz+d=0$. Les coefficients $a,b,c$ sont les coordonnées de $\vec{n}$.</li>
+            <li><strong>Représentation paramétrique :</strong> Passant par $A$ et dirigé par $\vec{u}(u_1,u_2,u_3)$ et $\vec{v}(v_1,v_2,v_3)$ :<br>
+            $\begin{cases} x=x_A+tu_1+t'v_1 \\ y=y_A+tu_2+t'v_2 \\ z=z_A+tu_3+t'v_3 \end{cases}$</li>
         </ul>
 
-        <div style="text-align: center; margin: 30px 0; background: #f8fafc; padding: 20px; border-radius: 10px;">
-            <svg width="280" height="200" viewBox="0 0 280 200">
-                <polygon points="50,150 200,150 250,80 100,80" fill="rgba(59, 130, 246, 0.2)" stroke="#3b82f6" stroke-width="2" />
-                <path d="M 150,115 L 150,30" stroke="#ef4444" stroke-width="3" marker-end="url(#arrow)" />
-                <path d="M 150,115 L 190,115" stroke="#10b981" stroke-width="2" marker-end="url(#arrow)" />
-                <path d="M 150,115 L 170,85" stroke="#10b981" stroke-width="2" marker-end="url(#arrow)" />
-                <circle cx="150" cy="115" r="4" fill="#1e293b" />
-                <text x="140" y="130" font-weight="bold">A</text>
-                <text x="160" y="50" font-weight="bold" fill="#ef4444">n (Vecteur Normal)</text>
-                <text x="60" y="140" font-weight="bold" fill="#3b82f6">Plan P</text>
-                <text x="195" y="130" font-size="12" fill="#10b981">u</text>
-                <text x="175" y="80" font-size="12" fill="#10b981">v</text>
-                <path d="M 150,105 L 160,105 L 160,115" stroke="#ef4444" fill="none" stroke-width="1.5" />
-            </svg>
-            <p style="font-size: 0.8rem; color: var(--text-muted);">Un plan est parfaitement défini par un point et son vecteur normal.</p>
-        </div>
-
-        <div class="qcm-question" style="font-weight: bold; margin-top: 20px;">
-            Test 3 : Quel est le vecteur normal au plan d'équation $2x - y + 4z - 5 = 0$ ?
-        </div>
-        <div class="qcm-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px;">
-            <button class="opt-btn" onclick="checkAnswer(this, false)" style="padding: 10px; cursor: pointer;">$\vec{n}(2, 1, 4)$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, true)" style="padding: 10px; cursor: pointer;">$\vec{n}(2, -1, 4)$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)" style="padding: 10px; cursor: pointer;">$\vec{n}(-5, 2, -1)$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)" style="padding: 10px; cursor: pointer;">$\vec{n}(2, -1, -5)$</button>
-        </div>
-        <button class="share-btn pdf" style="margin-top: 15px; padding: 8px 15px; cursor: pointer;" onclick="toggleCorrection(this)">
-            <i class="fas fa-eye"></i> Afficher le corrigé
-        </button>
-        <div class="correction-box" style="display:none; margin-top:15px; padding:15px; border-left:4px solid #f59e0b; background:#fffbeb;">
-            <strong>Solution :</strong> Dans l'équation cartésienne $ax + by + cz + d = 0$, les coefficients devant $x, y, z$ donnent directement les coordonnées du vecteur normal $\vec{n}(a, b, c)$. Ici $a=2$, $b=-1$, $c=4$.
+        <div style="background: #ebf8ff; padding: 15px; border-left: 4px solid #3182ce; margin-top: 20px; border-radius: 0 8px 8px 0;">
+            <div style="font-weight: bold; margin-bottom: 10px;">Test 3 : Quel est le vecteur normal au plan d'équation $2x-y+4z-5=0$ ?</div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                <button class="opt-btn" onclick="checkAnswer(this, false)" style="padding: 10px; cursor: pointer; border-radius: 6px; border: 1px solid #cbd5e1; background: white;">$\vec{n}(2,1,4)$</button>
+                <button class="opt-btn" onclick="checkAnswer(this, true)" style="padding: 10px; cursor: pointer; border-radius: 6px; border: 1px solid #cbd5e1; background: white;">$\vec{n}(2,-1,4)$</button>
+                <button class="opt-btn" onclick="checkAnswer(this, false)" style="padding: 10px; cursor: pointer; border-radius: 6px; border: 1px solid #cbd5e1; background: white;">$\vec{n}(-5,2,-1)$</button>
+                <button class="opt-btn" onclick="checkAnswer(this, false)" style="padding: 10px; cursor: pointer; border-radius: 6px; border: 1px solid #cbd5e1; background: white;">$\vec{n}(2,-1,-5)$</button>
+            </div>
+            <button style="margin-top: 15px; padding: 8px 15px; cursor: pointer; background: #3b82f6; color: white; border: none; border-radius: 6px;" onclick="toggleCorrection(this)"><i class="fas fa-eye"></i> Afficher le corrigé</button>
+            <div style="display:none; margin-top:15px; padding:15px; border-left:4px solid #f59e0b; background:#fffbeb;">
+                <strong>Solution :</strong> Les coefficients devant $x,y,z$ donnent $\vec{n}(a,b,c)$. Ici $a=2$, $b=-1$, $c=4$.
+            </div>
         </div>
     </div>
 
-    <div class="qcm-box" style="margin-bottom: 40px; padding: 20px; border: 1px solid #e2e8f0; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
-        <h2 style="color: var(--navy-dark); border-bottom: 2px solid #3b82f6; padding-bottom: 10px;"><i class="fas fa-road"></i> 4. La Droite dans l'Espace</h2>
-        
+    <h3 style="color: var(--royal-blue); border-bottom: 2px solid var(--border); padding-bottom: 10px;"><i class="fas fa-road"></i> 4. La Droite dans l'Espace</h3>
+    <div style="background: white; padding: 20px; border-radius: 10px; box-shadow: var(--shadow); margin-bottom: 30px;">
         <p>Une droite $D$ est définie par un point $A$ et un <strong>vecteur directeur $\vec{u}$</strong>.</p>
-        <ul>
-            <li><strong>Attention :</strong> Il n'y a <strong>pas</strong> d'équation cartésienne unique pour une droite en 3D (contrairement à la 2D). Une droite est définie cartésiennement comme l'intersection de 2 plans : $\begin{cases} ax+by+cz+d=0 \\ a'x+b'y+c'z+d'=0 \end{cases}$.</li>
-            <li><strong>Représentation paramétrique :</strong> C'est la forme la plus utilisée. Pour $A(x_A, y_A, z_A)$ et $\vec{u}(a, b, c)$ :<br>
-            $M(x,y,z) \in D \iff \vec{AM} = t\vec{u} \iff \begin{cases} x = x_A + ta \\ y = y_A + tb \\ z = z_A + tc \end{cases} \quad (t \in \mathbb{R})$</li>
-        </ul>
+        <div style="background: #fffaf0; padding: 15px; border-left: 5px solid var(--gold); border-radius: 8px; margin-bottom: 15px;">
+            <strong>Attention :</strong> Il n'y a <strong>pas</strong> d'équation cartésienne unique pour une droite en 3D. C'est l'intersection de 2 plans : $\begin{cases} ax+by+cz+d=0 \\ a'x+b'y+c'z+d'=0 \end{cases}$.
+        </div>
+        <p><strong>Représentation paramétrique :</strong> $M(x,y,z) \in D \iff \vec{AM}=t\vec{u} \iff \begin{cases} x=x_A+ta \\ y=y_A+tb \\ z=z_A+tc \end{cases}$</p>
 
-        <div style="text-align: center; margin: 30px 0; background: #f8fafc; padding: 20px; border-radius: 10px;">
-            <svg width="250" height="200" viewBox="0 0 250 200">
-                <path d="M 30 180 L 220 20" stroke="#1e293b" stroke-width="2" />
-                <path d="M 125 100 L 172.5 60" stroke="#f59e0b" stroke-width="3" marker-end="url(#arrow)" />
-                <circle cx="77.5" cy="140" r="4" fill="#3b82f6" />
-                <circle cx="125" cy="100" r="4" fill="#ef4444" />
-                <text x="55" y="155" font-weight="bold" fill="#3b82f6">A</text>
-                <text x="105" y="90" font-weight="bold" fill="#ef4444">M</text>
-                <text x="160" y="50" font-weight="bold" fill="#f59e0b">u</text>
-                <text x="210" y="15" font-weight="bold">Droite D</text>
-            </svg>
-            <p style="font-size: 0.8rem; color: var(--text-muted);">Un point $M$ appartient à $D$ si $\vec{AM}$ et $\vec{u}$ sont colinéaires.</p>
-        </div>
-
-        <div class="qcm-question" style="font-weight: bold; margin-top: 20px;">
-            Test 4 : Quel est un vecteur directeur de la droite de représentation paramétrique $\begin{cases} x = 2 - t \\ y = 3t \\ z = 4 + 5t \end{cases}$ ?
-        </div>
-        <div class="qcm-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px;">
-            <button class="opt-btn" onclick="checkAnswer(this, false)" style="padding: 10px; cursor: pointer;">$\vec{u}(2, 0, 4)$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)" style="padding: 10px; cursor: pointer;">$\vec{u}(2, 3, 5)$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, true)" style="padding: 10px; cursor: pointer;">$\vec{u}(-1, 3, 5)$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)" style="padding: 10px; cursor: pointer;">$\vec{u}(1, 3, 5)$</button>
-        </div>
-        <button class="share-btn pdf" style="margin-top: 15px; padding: 8px 15px; cursor: pointer;" onclick="toggleCorrection(this)">
-            <i class="fas fa-eye"></i> Afficher le corrigé
-        </button>
-        <div class="correction-box" style="display:none; margin-top:15px; padding:15px; border-left:4px solid #f59e0b; background:#fffbeb;">
-            <strong>Solution :</strong> Dans une représentation paramétrique, les coefficients devant le paramètre $t$ donnent les coordonnées du vecteur directeur. Ici : $-1$ pour $x$, $3$ pour $y$, et $5$ pour $z$. Le point d'origine utilisé est $A(2, 0, 4)$.
+        <div style="background: #ebf8ff; padding: 15px; border-left: 4px solid #3182ce; margin-top: 20px; border-radius: 0 8px 8px 0;">
+            <div style="font-weight: bold; margin-bottom: 10px;">Test 4 : Vecteur directeur de $\begin{cases} x=2-t \\ y=3t \\ z=4+5t \end{cases}$ ?</div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                <button class="opt-btn" onclick="checkAnswer(this, false)" style="padding: 10px; cursor: pointer; border-radius: 6px; border: 1px solid #cbd5e1; background: white;">$\vec{u}(2,0,4)$</button>
+                <button class="opt-btn" onclick="checkAnswer(this, true)" style="padding: 10px; cursor: pointer; border-radius: 6px; border: 1px solid #cbd5e1; background: white;">$\vec{u}(-1,3,5)$</button>
+            </div>
+            <button style="margin-top: 15px; padding: 8px 15px; cursor: pointer; background: #3b82f6; color: white; border: none; border-radius: 6px;" onclick="toggleCorrection(this)"><i class="fas fa-eye"></i> Afficher le corrigé</button>
+            <div style="display:none; margin-top:15px; padding:15px; border-left:4px solid #f59e0b; background:#fffbeb;">
+                <strong>Solution :</strong> Les coefficients devant $t$ donnent le vecteur directeur. Ici $-1, 3, 5$.
+            </div>
         </div>
     </div>
 
-    <div class="qcm-box" style="margin-bottom: 40px; padding: 20px; border: 1px solid #e2e8f0; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
-        <h2 style="color: var(--navy-dark); border-bottom: 2px solid #3b82f6; padding-bottom: 10px;"><i class="fas fa-compress-arrows-alt"></i> 5. Distances et Projections Orthogonales</h2>
+    <h3 style="color: var(--royal-blue); border-bottom: 2px solid var(--border); padding-bottom: 10px;"><i class="fas fa-compress-arrows-alt"></i> 5. Distances et Projections</h3>
+    <div style="background: white; padding: 20px; border-radius: 10px; box-shadow: var(--shadow); margin-bottom: 30px;">
+        <p>La distance d'un point $A(x_A,y_A,z_A)$ à un plan $P:ax+by+cz+d=0$ est :</p>
+        <p style="text-align: center;">$$d(A, P) = \frac{|ax_A+by_A+cz_A+d|}{\sqrt{a^2+b^2+c^2}}$$</p>
+    </div>
+
+    <h3 style="color: var(--royal-blue); border-bottom: 2px solid var(--border); padding-bottom: 10px;"><i class="fas fa-exchange-alt"></i> 6. Positions Relatives</h3>
+    <div style="background: white; padding: 20px; border-radius: 10px; box-shadow: var(--shadow); margin-bottom: 30px;">
+        <ul>
+            <li><strong>Deux plans :</strong> Si $\vec{n_1}$ et $\vec{n_2}$ sont colinéaires $\implies$ parallèles. Sinon $\implies$ sécants selon une droite.</li>
+            <li><strong>Droite et plan :</strong> Si $\vec{u}\cdot\vec{n}=0 \implies$ parallèles. Sinon $\implies$ sécants en un point.</li>
+        </ul>
+    </div>
+
+    <h3 style="color: var(--royal-blue); border-bottom: 2px solid var(--border); padding-bottom: 10px;"><i class="fas fa-globe"></i> 7. La Sphère</h3>
+    <div style="background: white; padding: 20px; border-radius: 10px; box-shadow: var(--shadow); margin-bottom: 30px;">
+        <p>Équation cartésienne d'une sphère de centre $\Omega(x_0,y_0,z_0)$ et de rayon $R$ : $(x-x_0)^2+(y-y_0)^2+(z-z_0)^2=R^2$.</p>
         
-        <p>La distance d'un point à un plan est la plus courte distance séparant ce point du plan, atteinte en son <strong>projeté orthogonal</strong>.</p>
-        <ul>
-            <li><strong>Distance Point-Plan :</strong> Soit un point $A(x_A, y_A, z_A)$ et un plan $P : ax+by+cz+d=0$.<br>
-            $d(A, P) = \frac{|ax_A + by_A + cz_A + d|}{\sqrt{a^2 + b^2 + c^2}}$</li>
-            <li><strong>Projeté orthogonal $H$ de $A$ sur $P$ :</strong> C'est l'intersection de $P$ avec la droite passant par $A$ et de vecteur directeur $\vec{n}$ (le vecteur normal au plan).</li>
-        </ul>
-
-        <div style="text-align: center; margin: 30px 0; background: #f8fafc; padding: 20px; border-radius: 10px;">
-            <svg width="250" height="220" viewBox="0 0 250 220">
-                <polygon points="30,170 180,170 230,120 80,120" fill="rgba(16, 185, 129, 0.2)" stroke="#10b981" stroke-width="2" />
-                <circle cx="130" cy="40" r="5" fill="#ef4444" />
-                <circle cx="130" cy="145" r="5" fill="#3b82f6" />
-                <path d="M 130 40 L 130 145" stroke="#1e293b" stroke-width="2" stroke-dasharray="6" />
-                <path d="M 130 135 L 140 135 L 140 145" stroke="#1e293b" fill="none" stroke-width="1.5" />
-                <text x="145" y="45" font-weight="bold" fill="#ef4444">A</text>
-                <text x="145" y="155" font-weight="bold" fill="#3b82f6">H</text>
-                <text x="90" y="100" font-weight="bold">d(A, P)</text>
-                <text x="40" y="160" font-weight="bold" fill="#10b981">Plan P</text>
-            </svg>
-            <p style="font-size: 0.8rem; color: var(--text-muted);">La distance $d(A, P)$ est la longueur $AH$.</p>
-        </div>
-
-        <div class="qcm-question" style="font-weight: bold; margin-top: 20px;">
-            Test 5 : Quelle est la distance du point $A(1, 1, 1)$ au plan $P : 2x - y + 2z - 1 = 0$ ?
-        </div>
-        <div class="qcm-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px;">
-            <button class="opt-btn" onclick="checkAnswer(this, false)" style="padding: 10px; cursor: pointer;">$1/3$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, true)" style="padding: 10px; cursor: pointer;">$2/3$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)" style="padding: 10px; cursor: pointer;">$1$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)" style="padding: 10px; cursor: pointer;">$2$</button>
-        </div>
-        <button class="share-btn pdf" style="margin-top: 15px; padding: 8px 15px; cursor: pointer;" onclick="toggleCorrection(this)">
-            <i class="fas fa-eye"></i> Afficher le corrigé
-        </button>
-        <div class="correction-box" style="display:none; margin-top:15px; padding:15px; border-left:4px solid #f59e0b; background:#fffbeb;">
-            <strong>Solution :</strong> On applique la formule : <br>
-            Numérateur : $|2(1) - 1(1) + 2(1) - 1| = |2 - 1 + 2 - 1| = |2| = 2$. <br>
-            Dénominateur : $\sqrt{2^2 + (-1)^2 + 2^2} = \sqrt{4 + 1 + 4} = \sqrt{9} = 3$. <br>
-            La distance est donc $2/3$.
+        <div style="background: #ebf8ff; padding: 15px; border-left: 4px solid #3182ce; margin-top: 20px; border-radius: 0 8px 8px 0;">
+            <div style="font-weight: bold; margin-bottom: 10px;">Test 7 : Rayon de $x^2+y^2+z^2-2x+2y-4z+2=0$ (centre $\Omega(1,-1,2)$) ?</div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                <button class="opt-btn" onclick="checkAnswer(this, false)" style="padding: 10px; cursor: pointer; border-radius: 6px; border: 1px solid #cbd5e1; background: white;">$R=4$</button>
+                <button class="opt-btn" onclick="checkAnswer(this, true)" style="padding: 10px; cursor: pointer; border-radius: 6px; border: 1px solid #cbd5e1; background: white;">$R=2$</button>
+            </div>
+            <button style="margin-top: 15px; padding: 8px 15px; cursor: pointer; background: #3b82f6; color: white; border: none; border-radius: 6px;" onclick="toggleCorrection(this)"><i class="fas fa-eye"></i> Afficher le corrigé</button>
+            <div style="display:none; margin-top:15px; padding:15px; border-left:4px solid #f59e0b; background:#fffbeb;">
+                <strong>Solution :</strong> Forme canonique : $(x-1)^2+(y+1)^2+(z-2)^2=4 \implies R^2=4 \implies R=2$.
+            </div>
         </div>
     </div>
-
-    <div class="qcm-box" style="margin-bottom: 40px; padding: 20px; border: 1px solid #e2e8f0; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
-        <h2 style="color: var(--navy-dark); border-bottom: 2px solid #3b82f6; padding-bottom: 10px;"><i class="fas fa-exchange-alt"></i> 6. Positions Relatives</h2>
-        
-        <p>Étudier la position relative de deux objets, c'est déterminer comment ils se coupent.</p>
-        <ul>
-            <li><strong>Deux plans $P_1$ et $P_2$ :</strong>
-                <ul>
-                    <li>Si leurs vecteurs normaux $\vec{n_1}$ et $\vec{n_2}$ sont colinéaires, ils sont parallèles (strictement ou confondus).</li>
-                    <li>Sinon, ils sont sécants selon <strong>une droite</strong>.</li>
-                </ul>
-            </li>
-            <li><strong>Une droite $D$ et un plan $P$ :</strong>
-                <ul>
-                    <li>Si $\vec{u}$ (dirigeant $D$) et $\vec{n}$ (normal à $P$) sont orthogonaux ($\vec{u} \cdot \vec{n} = 0$), $D$ est parallèle à $P$.</li>
-                    <li>Sinon, ils sont sécants en <strong>un point d'intersection</strong>.</li>
-                </ul>
-            </li>
-            <li><strong>Deux droites $D_1$ et $D_2$ :</strong> Dans l'espace, deux droites non parallèles ne sont pas forcément sécantes, elles peuvent être <strong>non coplanaires</strong> (elles se croisent sans se toucher).</li>
-        </ul>
-
-        <div style="text-align: center; margin: 30px 0; background: #f8fafc; padding: 20px; border-radius: 10px;">
-            <svg width="250" height="220" viewBox="0 0 250 220">
-                <polygon points="20,130 170,130 220,80 70,80" fill="rgba(59, 130, 246, 0.2)" stroke="#3b82f6" stroke-width="1" />
-                <path d="M 60,110 L 190,110" stroke="#ef4444" stroke-width="3" />
-                <polygon points="125,20 125,200 160,180 160,40" fill="rgba(16, 185, 129, 0.3)" stroke="#10b981" stroke-width="1" />
-                <text x="30" y="120" font-weight="bold" fill="#3b82f6">P1</text>
-                <text x="135" y="35" font-weight="bold" fill="#10b981">P2</text>
-                <text x="180" y="105" font-weight="bold" fill="#ef4444">Droite d'intersection</text>
-            </svg>
-            <p style="font-size: 0.8rem; color: var(--text-muted);">Deux plans non parallèles se coupent selon une droite.</p>
-        </div>
-
-        <div class="qcm-question" style="font-weight: bold; margin-top: 20px;">
-            Test 6 : Soit $P_1 : x + y + z - 1 = 0$ et $P_2 : 2x + 2y + 2z + 5 = 0$. Quelle est leur position relative ?
-        </div>
-        <div class="qcm-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px;">
-            <button class="opt-btn" onclick="checkAnswer(this, false)" style="padding: 10px; cursor: pointer;">Sécants selon une droite</button>
-            <button class="opt-btn" onclick="checkAnswer(this, true)" style="padding: 10px; cursor: pointer;">Strictement parallèles</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)" style="padding: 10px; cursor: pointer;">Confondus</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)" style="padding: 10px; cursor: pointer;">Perpendiculaires</button>
-        </div>
-        <button class="share-btn pdf" style="margin-top: 15px; padding: 8px 15px; cursor: pointer;" onclick="toggleCorrection(this)">
-            <i class="fas fa-eye"></i> Afficher le corrigé
-        </button>
-        <div class="correction-box" style="display:none; margin-top:15px; padding:15px; border-left:4px solid #f59e0b; background:#fffbeb;">
-            <strong>Solution :</strong> $\vec{n_1}(1, 1, 1)$ et $\vec{n_2}(2, 2, 2)$. On voit que $\vec{n_2} = 2\vec{n_1}$. Les vecteurs normaux sont colinéaires, donc les plans sont parallèles. Comme $-1 \neq 5/2$, ils n'ont aucun point commun, ils sont strictement parallèles.
-        </div>
-    </div>
-
-    <div class="qcm-box" style="margin-bottom: 40px; padding: 20px; border: 1px solid #e2e8f0; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
-        <h2 style="color: var(--navy-dark); border-bottom: 2px solid #3b82f6; padding-bottom: 10px;"><i class="fas fa-globe"></i> 7. La Sphère</h2>
-        
-        <p>Une sphère $S$ de centre $\Omega(x_0, y_0, z_0)$ et de rayon $R$ est l'ensemble des points $M(x,y,z)$ tels que la distance $\Omega M = R$.</p>
-        <ul>
-            <li><strong>Équation cartésienne :</strong> $(x - x_0)^2 + (y - y_0)^2 + (z - z_0)^2 = R^2$.</li>
-            <li><strong>Intersection Sphère / Plan :</strong> En calculant la distance $d$ entre $\Omega$ et le plan :
-                <ul>
-                    <li>Si $d > R$ : intersection vide.</li>
-                    <li>Si $d = R$ : le plan est tangent à la sphère en un point.</li>
-                    <li>Si $d < R$ : l'intersection est un <strong>cercle</strong>.</li>
-                </ul>
-            </li>
-        </ul>
-
-        <div style="text-align: center; margin: 30px 0; background: #f8fafc; padding: 20px; border-radius: 10px;">
-            <svg width="220" height="220" viewBox="0 0 220 220">
-                <circle cx="110" cy="110" r="80" fill="rgba(139, 92, 246, 0.1)" stroke="#8b5cf6" stroke-width="2" />
-                <ellipse cx="110" cy="110" rx="80" ry="25" fill="none" stroke="#8b5cf6" stroke-width="1.5" stroke-dasharray="4" />
-                <path d="M 30 110 A 80 25 0 0 0 190 110" fill="none" stroke="#8b5cf6" stroke-width="1.5" />
-                <circle cx="110" cy="110" r="4" fill="#1e293b" />
-                <path d="M 110 110 L 175 65" stroke="#1e293b" stroke-width="2" />
-                <circle cx="175" cy="65" r="3" fill="#ef4444" />
-                <text x="95" y="125" font-weight="bold">Ω</text>
-                <text x="135" y="80" font-weight="bold" fill="#1e293b">R</text>
-                <text x="185" y="60" font-weight="bold" fill="#ef4444">M</text>
-            </svg>
-            <p style="font-size: 0.8rem; color: var(--text-muted);">Sphère de centre $\Omega$ et de rayon $R$.</p>
-        </div>
-
-        <div class="qcm-question" style="font-weight: bold; margin-top: 20px;">
-            Test 7 : Le point $\Omega(1, -1, 2)$ est le centre de la sphère d'équation $x^2 + y^2 + z^2 - 2x + 2y - 4z + 2 = 0$. Quel est son rayon $R$ ?
-        </div>
-        <div class="qcm-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px;">
-            <button class="opt-btn" onclick="checkAnswer(this, false)" style="padding: 10px; cursor: pointer;">$R = 4$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, true)" style="padding: 10px; cursor: pointer;">$R = 2$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)" style="padding: 10px; cursor: pointer;">$R = \sqrt{2}$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)" style="padding: 10px; cursor: pointer;">$R = 8$</button>
-        </div>
-        <button class="share-btn pdf" style="margin-top: 15px; padding: 8px 15px; cursor: pointer;" onclick="toggleCorrection(this)">
-            <i class="fas fa-eye"></i> Afficher le corrigé
-        </button>
-        <div class="correction-box" style="display:none; margin-top:15px; padding:15px; border-left:4px solid #f59e0b; background:#fffbeb;">
-            <strong>Solution :</strong> On utilise la forme canonique : <br>
-            $x^2 - 2x = (x - 1)^2 - 1$ <br>
-            $y^2 + 2y = (y + 1)^2 - 1$ <br>
-            $z^2 - 4z = (z - 2)^2 - 4$ <br>
-            L'équation devient : $(x - 1)^2 - 1 + (y + 1)^2 - 1 + (z - 2)^2 - 4 + 2 = 0$ <br>
-            $(x - 1)^2 + (y + 1)^2 + (z - 2)^2 - 4 = 0 \implies (x - 1)^2 + (y + 1)^2 + (z - 2)^2 = 4$. <br>
-            Donc $R^2 = 4$, ce qui donne $R = 2$.
-        </div>
-    </div>
-
-    <script>
-        function checkAnswer(btn, isCorrect) {
-            let parentGrid = btn.parentElement;
-            let buttons = parentGrid.querySelectorAll('.opt-btn');
-            
-            // Désactive les autres clics une fois une réponse choisie
-            buttons.forEach(b => {
-                b.style.pointerEvents = 'none'; 
-                // Affiche la bonne réponse en vert quoi qu'il arrive
-                if (b.getAttribute('onclick').includes('true')) {
-                    b.style.backgroundColor = '#dcfce7'; 
-                    b.style.borderColor = '#22c55e';
-                }
-            });
-            
-            // Si la réponse cliquée est fausse, on la met en rouge
-            if (!isCorrect) {
-                btn.style.backgroundColor = '#fee2e2'; 
-                btn.style.borderColor = '#ef4444';
-            }
-        }
-
-        function toggleCorrection(btn) {
-            let correctionBox = btn.nextElementSibling;
-            if (correctionBox.style.display === 'none' || correctionBox.style.display === '') {
-                correctionBox.style.display = 'block';
-                btn.innerHTML = '<i class="fas fa-eye-slash"></i> Masquer le corrigé';
-            } else {
-                correctionBox.style.display = 'none';
-                btn.innerHTML = '<i class="fas fa-eye"></i> Afficher le corrigé';
-            }
-        }
-    </script>
-</body>
-</html>
+</div>
