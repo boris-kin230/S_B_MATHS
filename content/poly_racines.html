@@ -33,12 +33,102 @@
         <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 0;"><em>Note : Dans $\mathbb{R}[X]$, les polynômes irréductibles sont ceux de degré 1 et ceux de degré 2 ayant un discriminant $\Delta < 0$.</em></p>
     </div>
 
-    <h3 style="color: var(--royal-blue); border-bottom: 2px solid var(--border); padding-bottom: 10px;"><i class="fas fa-exchange-alt"></i> 4. Relations de Viète</h3>
-    <div style="background: white; padding: 20px; border-radius: 10px; box-shadow: var(--shadow); margin-bottom: 20px;">
-        <p>Soit $P = a_n X^n + a_{n-1} X^{n-1} + \dots + a_1 X + a_0$ un polynôme scindé de racines $x_1, x_2, \dots, x_n$ (comptées avec leur multiplicité).</p>
+    <h3 style="color: var(--royal-blue); border-bottom: 2px solid var(--border); padding-bottom: 10px;"><i class="fas fa-exchange-alt"></i> 4. Relations de Viète (Somme et Produit des racines)</h3>
+    <div style="background: white; padding: 20px; border-radius: 10px; box-shadow: var(--shadow); margin-bottom: 30px;">
+        <p>Soit $P = a_n X^n + a_{n-1} X^{n-1} + \dots + a_1 X + a_0$ un polynôme scindé de degré $n \geq 1$ avec $a_n \neq 0$. Soient $x_1, x_2, \dots, x_n$ ses racines complexes (répétées selon leur multiplicité).</p>
         <ul>
             <li style="margin-bottom: 10px;"><strong>Somme des racines :</strong> $\displaystyle \sum_{k=1}^n x_k = -\frac{a_{n-1}}{a_n}$</li>
             <li><strong>Produit des racines :</strong> $\displaystyle \prod_{k=1}^n x_k = (-1)^n \frac{a_0}{a_n}$</li>
         </ul>
+
+        <div style="background: #f8f9fa; padding: 15px; border-left: 4px solid #a0aec0; margin-top: 15px;">
+            <h4 style="margin-top: 0; color: #4a5568;">Démonstration</h4>
+            <p>Puisque $P$ est scindé, on peut l'écrire sous sa forme factorisée : $P(X) = a_n \prod_{k=1}^n (X - x_k)$.</p>
+            <p>Développons ce produit. Les termes de plus haut degré et de plus bas degré s'obtiennent ainsi :</p>
+            <p>$$P(X) = a_n \left( X^n - (x_1 + x_2 + \dots + x_n)X^{n-1} + \dots + (-1)^n(x_1 x_2 \dots x_n) \right)$$</p>
+            <p>En identifiant les coefficients avec la forme développée $P(X) = a_n X^n + a_{n-1} X^{n-1} + \dots + a_0$, on obtient par unicité de l'écriture polynomiale :</p>
+            <ul>
+                <li>Pour $X^{n-1}$ : $a_{n-1} = -a_n \sum_{k=1}^n x_k \implies \sum_{k=1}^n x_k = -\frac{a_{n-1}}{a_n}$</li>
+                <li>Pour $X^0$ (terme constant) : $a_0 = a_n (-1)^n \prod_{k=1}^n x_k \implies \prod_{k=1}^n x_k = (-1)^n \frac{a_0}{a_n}$</li>
+            </ul>
+        </div>
+
+        <div style="background: #fffff0; padding: 15px; border-left: 4px solid #ecc94b; margin-top: 15px;">
+            <h4 style="margin-top: 0; color: #b7791f;">Application Pratique</h4>
+            <p><strong>Problème :</strong> Trouver les racines du polynôme $P(X) = X^3 - 6X^2 + 11X - 6$, sachant que l'une des racines est $1$.</p>
+            <p><strong>Solution :</strong> Posons $x_1 = 1$, $x_2$ et $x_3$ les trois racines. D'après les relations de Viète :</p>
+            <ul>
+                <li>Somme : $x_1 + x_2 + x_3 = -\frac{-6}{1} = 6 \implies 1 + x_2 + x_3 = 6 \implies x_2 + x_3 = 5$</li>
+                <li>Produit : $x_1 x_2 x_3 = (-1)^3 \frac{-6}{1} = 6 \implies 1 \cdot x_2 \cdot x_3 = 6 \implies x_2 x_3 = 6$</li>
+            </ul>
+            <p>On cherche donc deux nombres dont la somme est $5$ et le produit est $6$. Il s'agit des solutions de l'équation $Y^2 - 5Y + 6 = 0$. De façon évidente, ces racines sont $2$ et $3$. L'ensemble des racines de $P$ est donc $\{1, 2, 3\}$.</p>
+        </div>
+    </div>
+
+    <h3 style="color: var(--royal-blue); border-bottom: 2px solid var(--border); padding-bottom: 10px;"><i class="fas fa-cut"></i> 5. Formule de Taylor pour les polynômes</h3>
+    <div style="background: white; padding: 20px; border-radius: 10px; box-shadow: var(--shadow); margin-bottom: 30px;">
+        <p>Soit $P \in \mathbb{K}[X]$ un polynôme de degré $n$ et $a \in \mathbb{K}$. Le polynôme $P$ peut s'exprimer dans la base $(1, (X-a), (X-a)^2, \dots, (X-a)^n)$ grâce à ses dérivées successives évaluées en $a$ :</p>
+        <p style="text-align: center; font-size: 1.1em;">$$P(X) = \sum_{k=0}^n \frac{P^{(k)}(a)}{k!} (X-a)^k$$</p>
+
+        <div style="background: #f8f9fa; padding: 15px; border-left: 4px solid #a0aec0; margin-top: 15px;">
+            <h4 style="margin-top: 0; color: #4a5568;">Démonstration</h4>
+            <p>La famille $\mathcal{B} = (1, (X-a), (X-a)^2, \dots, (X-a)^n)$ est une famille de polynômes de degrés étagés (de $0$ à $n$). C'est donc une base de $\mathbb{K}_n[X]$. Il existe alors des scalaires uniques $c_0, c_1, \dots, c_n$ tels que :</p>
+            <p>$$P(X) = \sum_{i=0}^n c_i (X-a)^i$$</p>
+            <p>Dérivons cette expression $k$ fois ($0 \leq k \leq n$). Pour tout $i < k$, la dérivée $k$-ième de $(X-a)^i$ est nulle. Pour $i \geq k$, la dérivée $k$-ième est $\frac{i!}{(i-k)!}(X-a)^{i-k}$. Ainsi :</p>
+            <p>$$P^{(k)}(X) = \sum_{i=k}^n c_i \frac{i!}{(i-k)!} (X-a)^{i-k}$$</p>
+            <p>En évaluant cette expression en $X=a$, tous les termes s'annulent sauf celui pour lequel $i=k$. Il reste donc :</p>
+            <p>$$P^{(k)}(a) = c_k \frac{k!}{0!} (a-a)^0 = c_k k!$$</p>
+            <p>On en déduit immédiatement que $c_k = \frac{P^{(k)}(a)}{k!}$, ce qui prouve la formule.</p>
+        </div>
+
+        <div style="background: #fffff0; padding: 15px; border-left: 4px solid #ecc94b; margin-top: 15px;">
+            <h4 style="margin-top: 0; color: #b7791f;">Application Pratique</h4>
+            <p><strong>Problème :</strong> Réécrire $P(X) = X^3 - 2X^2 + 5X - 1$ en fonction des puissances de $(X-2)$.</p>
+            <p><strong>Solution :</strong> Calculons les dérivées successives de $P$ évaluées en $a=2$ :</p>
+            <ul>
+                <li>$P(X) = X^3 - 2X^2 + 5X - 1 \implies P(2) = 8 - 8 + 10 - 1 = 9$</li>
+                <li>$P'(X) = 3X^2 - 4X + 5 \implies P'(2) = 12 - 8 + 5 = 9$</li>
+                <li>$P''(X) = 6X - 4 \implies P''(2) = 12 - 4 = 8$</li>
+                <li>$P'''(X) = 6 \implies P'''(2) = 6$</li>
+            </ul>
+            <p>En appliquant la formule de Taylor :</p>
+            <p>$$P(X) = P(2) + \frac{P'(2)}{1!}(X-2) + \frac{P''(2)}{2!}(X-2)^2 + \frac{P'''(2)}{3!}(X-2)^3$$</p>
+            <p>$$P(X) = 9 + 9(X-2) + \frac{8}{2}(X-2)^2 + \frac{6}{6}(X-2)^3 = 9 + 9(X-2) + 4(X-2)^2 + (X-2)^3$$</p>
+        </div>
+    </div>
+
+    <h3 style="color: var(--royal-blue); border-bottom: 2px solid var(--border); padding-bottom: 10px;"><i class="fas fa-link"></i> 6. Formule de Leibniz</h3>
+    <div style="background: white; padding: 20px; border-radius: 10px; box-shadow: var(--shadow); margin-bottom: 30px;">
+        <p>Soient $P$ et $Q$ deux polynômes de $\mathbb{K}[X]$ et $n \in \mathbb{N}$. La dérivée $n$-ième du produit $PQ$ est donnée par la formule (analogue à la formule du binôme de Newton) :</p>
+        <p style="text-align: center; font-size: 1.1em;">$$(PQ)^{(n)} = \sum_{k=0}^n \binom{n}{k} P^{(k)} Q^{(n-k)}$$</p>
+
+        <div style="background: #f8f9fa; padding: 15px; border-left: 4px solid #a0aec0; margin-top: 15px;">
+            <h4 style="margin-top: 0; color: #4a5568;">Démonstration (par récurrence)</h4>
+            <p><strong>Initialisation :</strong> Pour $n=0$, la formule donne $\sum_{k=0}^0 \binom{0}{0} P^{(0)} Q^{(0)} = PQ = (PQ)^{(0)}$. L'initialisation est vérifiée.</p>
+            <p><strong>Hérédité :</strong> Supposons la formule vraie pour un certain entier $n \ge 0$. Démontrons-la au rang $n+1$.</p>
+            <p>$$(PQ)^{(n+1)} = \left( (PQ)^{(n)} \right)' = \left( \sum_{k=0}^n \binom{n}{k} P^{(k)} Q^{(n-k)} \right)'$$</p>
+            <p>Par linéarité de la dérivation et en appliquant $(UV)' = U'V + UV'$, on obtient :</p>
+            <p>$$(PQ)^{(n+1)} = \sum_{k=0}^n \binom{n}{k} \left( P^{(k+1)} Q^{(n-k)} + P^{(k)} Q^{(n-k+1)} \right)$$</p>
+            <p>On sépare en deux sommes :</p>
+            <p>$$(PQ)^{(n+1)} = \sum_{k=0}^n \binom{n}{k} P^{(k+1)} Q^{(n-k)} + \sum_{k=0}^n \binom{n}{k} P^{(k)} Q^{(n+1-k)}$$</p>
+            <p>Dans la première somme, on pose le changement d'indice $j = k+1$ (donc $k = j-1$). Quand $k$ va de $0$ à $n$, $j$ va de $1$ à $n+1$ :</p>
+            <p>$$\sum_{k=0}^n \binom{n}{k} P^{(k+1)} Q^{(n-k)} = \sum_{j=1}^{n+1} \binom{n}{j-1} P^{(j)} Q^{(n+1-j)}$$</p>
+            <p>En reprenant l'indice $k$ et en additionnant les deux sommes (en isolant les termes $k=0$ et $k=n+1$), on obtient :</p>
+            <p>$$(PQ)^{(n+1)} = P^{(0)}Q^{(n+1)} + \sum_{k=1}^n \left[ \binom{n}{k-1} + \binom{n}{k} \right] P^{(k)} Q^{(n+1-k)} + P^{(n+1)}Q^{(0)}$$</p>
+            <p>D'après la formule du triangle de Pascal, $\binom{n}{k-1} + \binom{n}{k} = \binom{n+1}{k}$. On réintègre les termes extrêmes, ce qui achève la récurrence :</p>
+            <p>$$(PQ)^{(n+1)} = \sum_{k=0}^{n+1} \binom{n+1}{k} P^{(k)} Q^{(n+1-k)}$$</p>
+        </div>
+
+        <div style="background: #fffff0; padding: 15px; border-left: 4px solid #ecc94b; margin-top: 15px;">
+            <h4 style="margin-top: 0; color: #b7791f;">Application Pratique</h4>
+            <p><strong>Problème :</strong> Calculer la dérivée $n$-ième du polynôme $H(X) = X^2 (X-1)^n$.</p>
+            <p><strong>Solution :</strong> Posons $P(X) = X^2$ et $Q(X) = (X-1)^n$. Les dérivées de $P$ sont très simples : $P'(X) = 2X$, $P''(X) = 2$, et $P^{(k)}(X) = 0$ pour $k \ge 3$. Ainsi, la somme de Leibniz ne contiendra que 3 termes non nuls ($k=0, 1, 2$) !</p>
+            <p>$$H^{(n)}(X) = \sum_{k=0}^n \binom{n}{k} P^{(k)}(X) Q^{(n-k)}(X)$$</p>
+            <p>Calculons les dérivées nécessaires de $Q(X)$ : $Q^{(n)}(X) = n!$, $Q^{(n-1)}(X) = \frac{n!}{1!}(X-1)$, $Q^{(n-2)}(X) = \frac{n!}{2!}(X-1)^2$.</p>
+            <p>En appliquant la formule (pour $n \ge 2$) :</p>
+            <p>$$H^{(n)}(X) = \binom{n}{0} X^2 \cdot n! + \binom{n}{1} (2X) \cdot \frac{n!}{1!}(X-1) + \binom{n}{2} (2) \cdot \frac{n!}{2!}(X-1)^2$$</p>
+            <p>$$H^{(n)}(X) = n! X^2 + 2n \cdot n! X(X-1) + n(n-1) \cdot \frac{2}{2} \cdot n! (X-1)^2$$</p>
+            <p>$$H^{(n)}(X) = n! \left( X^2 + 2nX(X-1) + n(n-1)(X-1)^2 \right)$$</p>
+        </div>
     </div>
 </div>
