@@ -1,115 +1,423 @@
-<div class="banner" style="background: linear-gradient(135deg, #0f172a 0%, #334155 100%);">
-    <h1 style="font-size: 2rem; margin: 0;"><i class="fas fa-chart-line"></i> Analyse : Fonctions Usuelles (v1)</h1>
-    <p style="opacity: 0.8;">Test de rapidité sur les bases de l'analyse en PCSI.</p>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QCM Analyse PCSI</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        }
+      };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+
+    <style>
+        :root {
+            --primary: #3b82f6;
+            --primary-hover: #2563eb;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --correct: #22c55e;
+            --wrong: #ef4444;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0 0 50px 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .banner {
+            background: linear-gradient(135deg, #0f172a 0%, #334155 100%);
+            color: white;
+            padding: 30px 20px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .banner h1 { margin: 0 0 10px 0; font-size: 2rem; }
+        .banner p { margin: 0; opacity: 0.8; }
+
+        .qcm-box {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            border: 1px solid #e2e8f0;
+        }
+
+        .qcm-question {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .qcm-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 12px;
+        }
+
+        /* Styling the radio buttons to look like modern buttons */
+        .qcm-option {
+            position: relative;
+        }
+
+        .qcm-option input[type="radio"] {
+            display: none; /* Hide standard radio */
+        }
+
+        .qcm-label {
+            display: block;
+            padding: 12px 16px;
+            background: var(--bg-color);
+            border: 2px solid transparent;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: center;
+        }
+
+        .qcm-label:hover {
+            background: #e2e8f0;
+        }
+
+        .qcm-option input[type="radio"]:checked + .qcm-label {
+            border-color: var(--primary);
+            background: #eff6ff;
+            font-weight: 500;
+        }
+
+        .btn-primary {
+            display: block;
+            width: 100%;
+            padding: 16px;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+            margin-top: 30px;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-hover);
+        }
+
+        #score-display {
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: bold;
+            display: none;
+        }
+
+        .score-good { background: #dcfce7; color: #166534; }
+        .score-bad { background: #fee2e2; color: #991b1b; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="banner">
+        <h1><i class="fas fa-chart-line"></i> Analyse : Fonctions Usuelles (v1)</h1>
+        <p>Test de rapidité sur les bases de l'analyse en PCSI.</p>
+    </div>
+
+    <form id="quiz-form">
+        <div class="qcm-box">
+            <div class="qcm-question">1. Quel est le domaine de définition de la fonction $f(x) = \ln(x^2 - 1)$ ?</div>
+            <div class="qcm-grid">
+                <div class="qcm-option">
+                    <input type="radio" name="q1" id="q1a" value="wrong">
+                    <label class="qcm-label" for="q1a">$]-1, 1[$</label>
+                </div>
+                <div class="qcm-option">
+                    <input type="radio" name="q1" id="q1b" value="correct">
+                    <label class="qcm-label" for="q1b">$]-\infty, -1[ \cup ]1, +\infty[$</label>
+                </div>
+                <div class="qcm-option">
+                    <input type="radio" name="q1" id="q1c" value="wrong">
+                    <label class="qcm-label" for="q1c">$[1, +\infty[$</label>
+                </div>
+                <div class="qcm-option">
+                    <input type="radio" name="q1" id="q1d" value="wrong">
+                    <label class="qcm-label" for="q1d">$\mathbb{R} \setminus \{-1, 1\}$</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="qcm-box">
+            <div class="qcm-question">2. La dérivée de $f(x) = e^{u(x)}$ est :</div>
+            <div class="qcm-grid">
+                <div class="qcm-option">
+                    <input type="radio" name="q2" id="q2a" value="wrong">
+                    <label class="qcm-label" for="q2a">$e^{u(x)}$</label>
+                </div>
+                <div class="qcm-option">
+                    <input type="radio" name="q2" id="q2b" value="correct">
+                    <label class="qcm-label" for="q2b">$u'(x)e^{u(x)}$</label>
+                </div>
+                <div class="qcm-option">
+                    <input type="radio" name="q2" id="q2c" value="wrong">
+                    <label class="qcm-label" for="q2c">$u(x)e^{u(x)-1}$</label>
+                </div>
+                <div class="qcm-option">
+                    <input type="radio" name="q2" id="q2d" value="wrong">
+                    <label class="qcm-label" for="q2d">$\frac{u'(x)}{e^{u(x)}}$</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="qcm-box">
+            <div class="qcm-question">3. La limite de $\frac{\ln(1+x)}{x}$ quand $x \to 0$ est :</div>
+            <div class="qcm-grid">
+                <div class="qcm-option">
+                    <input type="radio" name="q3" id="q3a" value="wrong">
+                    <label class="qcm-label" for="q3a">0</label>
+                </div>
+                <div class="qcm-option">
+                    <input type="radio" name="q3" id="q3b" value="correct">
+                    <label class="qcm-label" for="q3b">1</label>
+                </div>
+                <div class="qcm-option">
+                    <input type="radio" name="q3" id="q3c" value="wrong">
+                    <label class="qcm-label" for="q3c">$+\infty$</label>
+                </div>
+                <div class="qcm-option">
+                    <input type="radio" name="q3" id="q3d" value="wrong">
+                    <label class="qcm-label" for="q3d">$e$</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="qcm-box">
+            <div class="qcm-question">4. La fonction $\text{ch}(x)$ est définie par :</div>
+            <div class="qcm-grid">
+                <div class="qcm-option">
+                    <input type="radio" name="q4" id="q4a" value="correct">
+                    <label class="qcm-label" for="q4a">$\frac{e^x + e^{-x}}{2}$</label>
+                </div>
+                <div class="qcm-option">
+                    <input type="radio" name="q4" id="q4b" value="wrong">
+                    <label class="qcm-label" for="q4b">$\frac{e^x - e^{-x}}{2}$</label>
+                </div>
+                <div class="qcm-option">
+                    <input type="radio" name="q4" id="q4c" value="wrong">
+                    <label class="qcm-label" for="q4c">$e^x + e^{-x}$</label>
+                </div>
+                <div class="qcm-option">
+                    <input type="radio" name="q4" id="q4d" value="wrong">
+                    <label class="qcm-label" for="q4d">$\frac{1}{\cos(x)}$</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="qcm-box">
+            <div class="qcm-question">5. Quelle est la valeur de $\arctan(1)$ ?</div>
+            <div class="qcm-grid">
+                <div class="qcm-option">
+                    <input type="radio" name="q5" id="q5a" value="wrong">
+                    <label class="qcm-label" for="q5a">0</label>
+                </div>
+                <div class="qcm-option">
+                    <input type="radio" name="q5" id="q5b" value="wrong">
+                    <label class="qcm-label" for="q5b">$\pi/2$</label>
+                </div>
+                <div class="qcm-option">
+                    <input type="radio" name="q5" id="q5c" value="correct">
+                    <label class="qcm-label" for="q5c">$\pi/4$</label>
+                </div>
+                <div class="qcm-option">
+                    <input type="radio" name="q5" id="q5d" value="wrong">
+                    <label class="qcm-label" for="q5d">$\pi/3$</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="qcm-box">
+            <div class="qcm-question">6. La fonction $x \mapsto |x|$ est-elle dérivable en 0 ?</div>
+            <div class="qcm-grid">
+                <div class="qcm-option">
+                    <input type="radio" name="q6" id="q6a" value="wrong">
+                    <label class="qcm-label" for="q6a">Oui, de dérivée 0</label>
+                </div>
+                <div class="qcm-option">
+                    <input type="radio" name="q6" id="q6b" value="correct">
+                    <label class="qcm-label" for="q6b">Non</label>
+                </div>
+                <div class="qcm-option">
+                    <input type="radio" name="q6" id="q6c" value="wrong">
+                    <label class="qcm-label" for="q6c">Oui, de dérivée 1</label>
+                </div>
+                <div class="qcm-option">
+                    <input type="radio" name="q6" id="q6d" value="wrong">
+                    <label class="qcm-label" for="q6d">Seulement à droite</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="qcm-box">
+            <div class="qcm-question">7. $\ln(a) - \ln(b)$ est égal à :</div>
+            <div class="qcm-grid">
+                <div class="qcm-option">
+                    <input type="radio" name="q7" id="q7a" value="wrong">
+                    <label class="qcm-label" for="q7a">$\ln(a-b)$</label>
+                </div>
+                <div class="qcm-option">
+                    <input type="radio" name="q7" id="q7b" value="correct">
+                    <label class="qcm-label" for="q7b">$\ln(a/b)$</label>
+                </div>
+                <div class="qcm-option">
+                    <input type="radio" name="q7" id="q7c" value="wrong">
+                    <label class="qcm-label" for="q7c">$\ln(a) / \ln(b)$</label>
+                </div>
+                <div class="qcm-option">
+                    <input type="radio" name="q7" id="q7d" value="wrong">
+                    <label class="qcm-label" for="q7d">$\ln(ab)$</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="qcm-box">
+            <div class="qcm-question">8. La fonction réciproque de $\exp$ est :</div>
+            <div class="qcm-grid">
+                <div class="qcm-option">
+                    <input type="radio" name="q8" id="q8a" value="wrong">
+                    <label class="qcm-label" for="q8a">$1/x$</label>
+                </div>
+                <div class="qcm-option">
+                    <input type="radio" name="q8" id="q8b" value="correct">
+                    <label class="qcm-label" for="q8b">$\ln$</label>
+                </div>
+                <div class="qcm-option">
+                    <input type="radio" name="q8" id="q8c" value="wrong">
+                    <label class="qcm-label" for="q8c">$x^e$</label>
+                </div>
+                <div class="qcm-option">
+                    <input type="radio" name="q8" id="q8d" value="wrong">
+                    <label class="qcm-label" for="q8d">$\ln(1/x)$</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="qcm-box">
+            <div class="qcm-question">9. Quelle est la limite de $x \ln(x)$ en $0^+$ ?</div>
+            <div class="qcm-grid">
+                <div class="qcm-option">
+                    <input type="radio" name="q9" id="q9a" value="wrong">
+                    <label class="qcm-label" for="q9a">$-\infty$</label>
+                </div>
+                <div class="qcm-option">
+                    <input type="radio" name="q9" id="q9b" value="correct">
+                    <label class="qcm-label" for="q9b">0</label>
+                </div>
+                <div class="qcm-option">
+                    <input type="radio" name="q9" id="q9c" value="wrong">
+                    <label class="qcm-label" for="q9c">1</label>
+                </div>
+                <div class="qcm-option">
+                    <input type="radio" name="q9" id="q9d" value="wrong">
+                    <label class="qcm-label" for="q9d">$-1$</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="qcm-box">
+            <div class="qcm-question">10. Si $f$ est impaire, alors sa courbe est symétrique par rapport à :</div>
+            <div class="qcm-grid">
+                <div class="qcm-option">
+                    <input type="radio" name="q10" id="q10a" value="wrong">
+                    <label class="qcm-label" for="q10a">L'axe des ordonnées</label>
+                </div>
+                <div class="qcm-option">
+                    <input type="radio" name="q10" id="q10b" value="correct">
+                    <label class="qcm-label" for="q10b">L'origine du repère</label>
+                </div>
+                <div class="qcm-option">
+                    <input type="radio" name="q10" id="q10c" value="wrong">
+                    <label class="qcm-label" for="q10c">L'axe des abscisses</label>
+                </div>
+                <div class="qcm-option">
+                    <input type="radio" name="q10" id="q10d" value="wrong">
+                    <label class="qcm-label" for="q10d">La droite $y=x$</label>
+                </div>
+            </div>
+        </div>
+
+        <button type="button" id="submit-btn" class="btn-primary" onclick="calculateScore()">
+            <i class="fas fa-check"></i> Vérifier mes bases d'analyse
+        </button>
+    </form>
+
+    <div id="score-display"></div>
 </div>
 
-<div id="quiz-wrapper">
+<script>
+    function calculateScore() {
+        const totalQuestions = 10;
+        let score = 0;
+        let answered = 0;
 
-    <div class="qcm-box">
-        <div class="qcm-question">1. Quel est le domaine de définition de la fonction $f(x) = \ln(x^2 - 1)$ ?</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$]-1, 1[$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, true)">$]-\infty, -1[ \cup ]1, +\infty[$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$[1, +\infty[$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$\mathbb{R} \setminus \{-1, 1\}$</button>
-        </div>
-    </div>
+        // Parcourir toutes les questions
+        for (let i = 1; i <= totalQuestions; i++) {
+            const selectedOption = document.querySelector(`input[name="q${i}"]:checked`);
+            
+            if (selectedOption) {
+                answered++;
+                if (selectedOption.value === "correct") {
+                    score++;
+                }
+            }
+        }
 
-    <div class="qcm-box">
-        <div class="qcm-question">2. La dérivée de $f(x) = e^{u(x)}$ est :</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$e^{u(x)}$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, true)">$u'(x)e^{u(x)}$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$u(x)e^{u(x)-1}$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$\frac{u'(x)}{e^{u(x)}}$</button>
-        </div>
-    </div>
+        const scoreDisplay = document.getElementById('score-display');
+        scoreDisplay.style.display = 'block';
 
-    <div class="qcm-box">
-        <div class="qcm-question">3. La limite de $\frac{\ln(1+x)}{x}$ quand $x \to 0$ est :</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, false)">0</button>
-            <button class="opt-btn" onclick="checkAnswer(this, true)">1</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$+\infty$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$e$</button>
-        </div>
-    </div>
+        if (answered < totalQuestions) {
+            scoreDisplay.className = 'score-bad';
+            scoreDisplay.innerHTML = `⚠️ Tu n'as répondu qu'à ${answered} question(s) sur ${totalQuestions}. Réponds à tout !`;
+            return;
+        }
 
-    <div class="qcm-box">
-        <div class="qcm-question">4. La fonction $\text{ch}(x)$ est définie par :</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, true)">$\frac{e^x + e^{-x}}{2}$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$\frac{e^x - e^{-x}}{2}$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$e^x + e^{-x}$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$\frac{1}{\cos(x)}$</button>
-        </div>
-    </div>
+        if (score >= 8) {
+            scoreDisplay.className = 'score-good';
+            scoreDisplay.innerHTML = `🎉 Excellent ! Ton score est de ${score} / ${totalQuestions}. Tes bases sont solides !`;
+        } else if (score >= 5) {
+            scoreDisplay.className = 'score-good';
+            scoreDisplay.style.background = '#fef08a'; // Jaune
+            scoreDisplay.style.color = '#854d0e';
+            scoreDisplay.innerHTML = `👍 Pas mal ! Ton score est de ${score} / ${totalQuestions}. Encore quelques révisions et ce sera parfait.`;
+        } else {
+            scoreDisplay.className = 'score-bad';
+            scoreDisplay.innerHTML = `📚 Aïe... Ton score est de ${score} / ${totalQuestions}. Il va falloir revoir le cours d'analyse !`;
+        }
+    }
+</script>
 
-    <div class="qcm-box">
-        <div class="qcm-question">5. Quelle est la valeur de $\arctan(1)$ ?</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, false)">0</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$\pi/2$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, true)">$\pi/4$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$\pi/3$</button>
-        </div>
-    </div>
-
-    <div class="qcm-box">
-        <div class="qcm-question">6. La fonction $x \mapsto |x|$ est-elle dérivable en 0 ?</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Oui, de dérivée 0</button>
-            <button class="opt-btn" onclick="checkAnswer(this, true)">Non</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Oui, de dérivée 1</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">Seulement à droite</button>
-        </div>
-    </div>
-
-    <div class="qcm-box">
-        <div class="qcm-question">7. $\ln(a) - \ln(b)$ est égal à :</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$\ln(a-b)$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, true)">$\ln(a/b)$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$\ln(a) / \ln(b)$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$\ln(ab)$</button>
-        </div>
-    </div>
-
-    <div class="qcm-box">
-        <div class="qcm-question">8. La fonction réciproque de $\exp$ est :</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$1/x$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, true)">$\ln$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$x^e$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$\ln(1/x)$</button>
-        </div>
-    </div>
-
-    <div class="qcm-box">
-        <div class="qcm-question">9. Quelle est la limite de $x \ln(x)$ en $0^+$ ?</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$-\infty$</button>
-            <button class="opt-btn" onclick="checkAnswer(this, true)">0</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">1</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">$-1$</button>
-        </div>
-    </div>
-
-    <div class="qcm-box">
-        <div class="qcm-question">10. Si $f$ est impaire, alors sa courbe est symétrique par rapport à :</div>
-        <div class="qcm-grid">
-            <button class="opt-btn" onclick="checkAnswer(this, false)">L'axe des ordonnées</button>
-            <button class="opt-btn" onclick="checkAnswer(this, true)">L'origine du repère</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">L'axe des abscisses</button>
-            <button class="opt-btn" onclick="checkAnswer(this, false)">La droite $y=x$</button>
-        </div>
-    </div>
-
-</div>
-
-<div id="score-display" style="display:none; margin-top: 30px;"></div>
-<div id="congrats-msg" style="display:none;"></div>
-
-<button id="submit-btn" class="btn-primary" onclick="calculateScore()">
-    <i class="fas fa-check"></i> Vérifier mes bases d'analyse
-</button>
+</body>
+</html>
