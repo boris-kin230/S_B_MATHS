@@ -585,5 +585,133 @@
                 <strong>Un supplémentaire de G est donc $F = Vect((1,0,0,0), (0,1,0,0))$.</strong>
             </div>
         </details>
+        <details style="margin-bottom: 15px; background: #f8fafc; border-radius: 8px; border: 1px solid #e2e8f0;">
+            <summary style="background: #3b82f6; color: white; padding: 12px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; outline: none; list-style: none;">🔍 Voir la correction - Exercice 22 (Somme directe dans $\mathbb{R}_3[X]$)</summary>
+            <div style="padding: 20px; color: #334155;">
+                <strong>1. Sous-espaces et dimensions :</strong><br>
+                Soit $E = \mathbb{R}_3[X]$. $\dim(E) = 4$.<br><br>
+                - <strong>Pour l'ensemble $G$ :</strong> $G = \{P \in E \mid P \text{ est impair}\}$.<br>
+                Si $P \in \mathbb{R}_3[X]$, il s'écrit $P(X) = aX^3 + bX^2 + cX + d$.<br>
+                $P$ est impair si et seulement si pour tout $x$, $P(-x) = -P(x)$.<br>
+                $-aX^3 + bX^2 - cX + d = -aX^3 - bX^2 - cX - d$<br>
+                Par identification, cela impose $b = -b \implies b=0$ et $d = -d \implies d=0$.<br>
+                Les polynômes de $G$ sont de la forme $P(X) = aX^3 + cX$.<br>
+                Ainsi, $G = Vect(X^3, X)$. C'est un sous-espace vectoriel et comme $(X^3, X)$ est libre, <strong>$\dim(G) = 2$</strong>.<br><br>
+                
+                - <strong>Pour l'ensemble $F$ :</strong> $F = \{P \in E \mid P(1) - P'(-1) = P(-1) = 0\}$.<br>
+                Traduisons ces conditions sur $P(X) = aX^3 + bX^2 + cX + d$ (et $P'(X) = 3aX^2 + 2bX + c$) :<br>
+                Condition $P(-1) = 0 \implies -a + b - c + d = 0 \quad (1)$<br>
+                Condition $P(1) - P'(-1) = 0 \implies (a+b+c+d) - (3a(-1)^2 + 2b(-1) + c) = 0$<br>
+                $a+b+c+d - (3a - 2b + c) = 0 \implies -2a + 3b + d = 0 \quad (2)$<br>
+                Exprimons les variables en fonction de $a$ et $b$ :<br>
+                De $(2)$, on tire $d = 2a - 3b$.<br>
+                On remplace dans $(1)$ : $-a + b - c + (2a - 3b) = 0 \implies a - 2b - c = 0 \implies c = a - 2b$.<br>
+                On réécrit $P$ avec ces contraintes :<br>
+                $P(X) = aX^3 + bX^2 + (a-2b)X + (2a-3b) = a(X^3+X+2) + b(X^2-2X-3)$.<br>
+                Ainsi, $F = Vect(X^3+X+2, X^2-2X-3)$. C'est un sous-espace vectoriel engendré par 2 polynômes non colinéaires, donc <strong>$\dim(F) = 2$</strong>.<br><br>
+
+                <strong>2. Montrer que $E = F \oplus G$ :</strong><br>
+                On a $\dim(F) + \dim(G) = 2 + 2 = 4 = \dim(E)$. Il suffit donc de montrer que $F \cap G = \{0\}$.<br>
+                Soit $P \in F \cap G$. Puisque $P \in G$, il est de la forme $P(X) = \alpha X^3 + \gamma X$.<br>
+                Puisque $P \in F$, il vérifie $P(-1) = 0 \implies -\alpha - \gamma = 0 \implies \gamma = -\alpha$. Donc $P(X) = \alpha X^3 - \alpha X$.<br>
+                Il vérifie aussi $P(1) - P'(-1) = 0$.<br>
+                $P(1) = \alpha - \alpha = 0$.<br>
+                $P'(X) = 3\alpha X^2 - \alpha \implies P'(-1) = 3\alpha - \alpha = 2\alpha$.<br>
+                Donc $0 - 2\alpha = 0 \implies \alpha = 0$.<br>
+                Si $\alpha=0$, alors $\gamma=0$, donc $P=0$.<br>
+                On a bien $F \cap G = \{0\}$, ce qui prouve que <strong>$E = F \oplus G$</strong>.
+            </div>
+        </details>
+
+        <details style="margin-bottom: 15px; background: #f8fafc; border-radius: 8px; border: 1px solid #e2e8f0;">
+            <summary style="background: #3b82f6; color: white; padding: 12px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; outline: none; list-style: none;">🔍 Voir la correction - Exercice 23 (Famille de fonctions trigonométriques)</summary>
+            <div style="padding: 20px; color: #334155;">
+                <strong>1. $F$ est un espace vectoriel :</strong><br>
+                Par définition, $F = Vect\left(x \mapsto \tan(x), \ x \mapsto \frac{1}{\tan(x)}, \ x \mapsto \frac{1}{\tan(2x)}\right)$.<br>
+                Puisqu'il s'écrit comme l'ensemble des combinaisons linéaires de trois fonctions de $E$, c'est un sous-espace vectoriel de $E$, donc un espace vectoriel.<br><br>
+
+                <strong>2. Dimension de $F$ :</strong><br>
+                Il faut vérifier si la famille génératrice est libre. Utilisons la formule de duplication de la tangente :<br>
+                $\tan(2x) = \frac{2\tan(x)}{1 - \tan^2(x)}$<br>
+                En inversant cette relation, on obtient :<br>
+                $\frac{1}{\tan(2x)} = \frac{1 - \tan^2(x)}{2\tan(x)} = \frac{1}{2\tan(x)} - \frac{\tan(x)}{2}$<br>
+                Cette égalité montre que la 3ème fonction est une combinaison linéaire des deux premières !<br>
+                Donc $F = Vect\left(\tan(x), \frac{1}{\tan(x)}\right)$.<br>
+                Ces deux fonctions sont-elles libres ? Si $\alpha \tan(x) + \frac{\beta}{\tan(x)} = 0$ pour tout $x \in ]0, \pi/4[$, on peut multiplier par $\tan(x)$ pour obtenir $\alpha \tan^2(x) + \beta = 0$. Cela voudrait dire que la fonction $\tan^2(x)$ est constante (égale à $-\beta/\alpha$), ce qui est faux. Donc $\alpha = 0$ et $\beta = 0$.<br>
+                La famille de deux fonctions est libre et génératrice, c'est une base. <strong>$\dim(F) = 2$</strong>.
+            </div>
+        </details>
+
+        <details style="margin-bottom: 15px; background: #f8fafc; border-radius: 8px; border: 1px solid #e2e8f0;">
+            <summary style="background: #3b82f6; color: white; padding: 12px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; outline: none; list-style: none;">🔍 Voir la correction - Exercice 24 (Espace de polynômes de degré 4)</summary>
+            <div style="padding: 20px; color: #334155;">
+                <strong>1. Base et dimension de $F$ :</strong><br>
+                Soit $P \in \mathbb{R}_4[X]$. $P(X) = aX^4 + bX^3 + cX^2 + dX + e$. Et $P'(X) = 4aX^3 + 3bX^2 + 2cX + d$.<br>
+                Traduisons les contraintes de $F$ :<br>
+                - $P(0) = 0 \implies e = 0$<br>
+                - $P'(0) = 0 \implies d = 0$<br>
+                - $P'(1) = 0 \implies 4a(1)^3 + 3b(1)^2 + 2c(1) = 0 \implies 4a + 3b + 2c = 0 \implies c = -2a - \frac{3}{2}b$.<br>
+                Remplaçons dans l'expression de $P$ :<br>
+                $P(X) = aX^4 + bX^3 + (-2a - \frac{3}{2}b)X^2 = a(X^4 - 2X^2) + b(X^3 - \frac{3}{2}X^2)$.<br>
+                Donc $F = Vect(X^4 - 2X^2, \ X^3 - \frac{3}{2}X^2)$. <br>
+                C'est un sous-espace vectoriel. Les deux polynômes générateurs ne sont pas proportionnels (degrés différents), ils forment une base. <strong>$\dim(F) = 2$</strong>.<br><br>
+
+                <strong>2. $G$ supplémentaire de $F$ :</strong><br>
+                On a $G = Vect(1, X, 1+X+X^2) = Vect(1, X, X^2)$. Donc $\dim(G) = 3$.<br>
+                L'espace total $E = \mathbb{R}_4[X]$ a pour dimension 5.<br>
+                On a bien $\dim(F) + \dim(G) = 2 + 3 = 5$. Il reste à montrer que $F \cap G = \{0\}$.<br>
+                Soit $P \in F \cap G$. <br>
+                Comme $P \in G$, son degré est inférieur ou égal à 2, donc $P(X) = \alpha X^2 + \beta X + \gamma$.<br>
+                Comme $P \in F$, il vérifie les conditions de $F$ :<br>
+                - $P(0) = 0 \implies \gamma = 0$<br>
+                - $P'(0) = 0 \implies \beta = 0$<br>
+                - $P'(1) = 0 \implies 2\alpha(1) = 0 \implies \alpha = 0$<br>
+                Donc $P = 0$. Ainsi $F \cap G = \{0\}$. <strong>$G$ est bien un supplémentaire de $F$ dans $E$.</strong>
+            </div>
+        </details>
+
+        <details style="margin-bottom: 15px; background: #f8fafc; border-radius: 8px; border: 1px solid #e2e8f0;">
+            <summary style="background: #3b82f6; color: white; padding: 12px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; outline: none; list-style: none;">🔍 Voir la correction - Exercice 25 (Famille libre de produits trigonométriques)</summary>
+            <div style="padding: 20px; color: #334155;">
+                <strong>Énoncé :</strong> Étudier la liberté de la famille de fonctions $f_0(x)=\sin^3(x)$, $f_1(x)=\sin^2(x)\cos(x)$, $f_2(x)=\sin(x)\cos^2(x)$, $f_3(x)=\cos^3(x)$.<br><br>
+                <strong>Solution :</strong> Posons une combinaison linéaire nulle pour tout $x \in \mathbb{R}$ :<br>
+                $a \sin^3(x) + b \sin^2(x)\cos(x) + c \sin(x)\cos^2(x) + d \cos^3(x) = 0$<br><br>
+                Évaluons cette égalité en des points stratégiques pour éliminer des termes :<br>
+                - Pour $x = 0$ : $\sin(0)=0$ et $\cos(0)=1$. L'équation devient $d(1)^3 = 0 \implies <strong>d = 0</strong>$.<br>
+                - Pour $x = \frac{\pi}{2}$ : $\sin(\frac{\pi}{2})=1$ et $\cos(\frac{\pi}{2})=0$. L'équation devient $a(1)^3 = 0 \implies <strong>a = 0</strong>$.<br><br>
+                L'équation se réduit donc à : $b \sin^2(x)\cos(x) + c \sin(x)\cos^2(x) = 0$.<br>
+                - Pour $x = \frac{\pi}{4}$ : $\sin(\frac{\pi}{4}) = \frac{\sqrt{2}}{2}$ et $\cos(\frac{\pi}{4}) = \frac{\sqrt{2}}{2}$.<br>
+                $b (\frac{1}{2})(\frac{\sqrt{2}}{2}) + c (\frac{\sqrt{2}}{2})(\frac{1}{2}) = 0 \implies (b+c)\frac{\sqrt{2}}{4} = 0 \implies b + c = 0 \quad (L_1)$<br>
+                - Pour $x = -\frac{\pi}{4}$ : $\sin(-\frac{\pi}{4}) = -\frac{\sqrt{2}}{2}$ et $\cos(-\frac{\pi}{4}) = \frac{\sqrt{2}}{2}$.<br>
+                $b (\frac{1}{2})(\frac{\sqrt{2}}{2}) + c (-\frac{\sqrt{2}}{2})(\frac{1}{2}) = 0 \implies (b-c)\frac{\sqrt{2}}{4} = 0 \implies b - c = 0 \quad (L_2)$<br><br>
+                En additionnant $(L_1)$ et $(L_2)$, on obtient $2b = 0 \implies <strong>b=0</strong>$, et par suite $<strong>c=0</strong>$.<br>
+                Puisque $a=b=c=d=0$, <strong>la famille est libre</strong>.
+            </div>
+        </details>
+
+        <details style="margin-bottom: 15px; background: #f8fafc; border-radius: 8px; border: 1px solid #e2e8f0;">
+            <summary style="background: #3b82f6; color: white; padding: 12px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; outline: none; list-style: none;">🔍 Voir la correction - Exercice 26 (Preuves de supplémentaires dans des espaces infinis)</summary>
+            <div style="padding: 20px; color: #334155;">
+                Pour ces démonstrations dans des espaces de dimension infinie, on utilise la méthode d'analyse-synthèse ou la caractérisation $E = F+G$ et $F \cap G = \{0\}$.<br><br>
+                <strong>1. $F = \{P \mid P(0)=0\}$, $G = \{P \mid \deg(P) \le 0\}$, $E=\mathbb{R}[X]$</strong><br>
+                - <strong>Somme ($E = F + G$) :</strong> Soit $P \in \mathbb{R}[X]$ un polynôme quelconque. On cherche à l'écrire comme la somme d'un polynôme de $F$ et d'un de $G$.<br>
+                Astuce : on pose la constante $c = P(0)$. On peut écrire : $P(X) = (P(X) - c) + c$.<br>
+                Notons $P_G(X) = c$. Comme c'est une constante, $P_G \in G$.<br>
+                Notons $P_F(X) = P(X) - c$. Évaluons-le en zéro : $P_F(0) = P(0) - c = c - c = 0$. Donc $P_F \in F$.<br>
+                On a bien décomposé $P$ en somme d'un élément de $F$ et d'un de $G$.<br>
+                - <strong>Intersection ($F \cap G = \{0\}$) :</strong> Soit $P \in F \cap G$. Puisque $P \in G$, $P(X) = k$ (une constante). Puisque $P \in F$, $P(0) = 0$, donc la constante $k=0$. Le seul élément commun est le polynôme nul.<br>
+                <strong>Conclusion : $E = F \oplus G$.</strong><br><br>
+
+                <strong>2. $F = \{f \mid \int_0^1 f = 0\}$, $G = \{\text{fonctions constantes}\}$, $E = C([0,1])$</strong><br>
+                - <strong>Somme ($E = F + G$) :</strong> Soit $h \in C([0,1])$ une fonction continue quelconque. On utilise la même logique. Posons la constante $c = \int_0^1 h(t)dt$.<br>
+                On écrit $h(x) = (h(x) - c) + c$.<br>
+                Notons $f_G(x) = c$. C'est une fonction constante, donc $f_G \in G$.<br>
+                Notons $f_F(x) = h(x) - c$. Calculons son intégrale :<br>
+                $\int_0^1 f_F(x)dx = \int_0^1 (h(x) - c)dx = \int_0^1 h(x)dx - \int_0^1 c \, dx = c - c[x]_0^1 = c - c(1-0) = 0$.<br>
+                Donc $f_F \in F$. On a bien $E = F + G$.<br>
+                - <strong>Intersection ($F \cap G = \{0\}$) :</strong> Soit $f \in F \cap G$. Puisque $f \in G$, $f(x) = k$ pour tout $x$. Puisque $f \in F$, $\int_0^1 f(x)dx = 0 \implies \int_0^1 k \, dx = k = 0$. Donc la fonction est la fonction nulle.<br>
+                <strong>Conclusion : $E = F \oplus G$.</strong>
+            </div>
+        </details>
     </div>
 </div>
