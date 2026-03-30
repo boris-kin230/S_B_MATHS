@@ -141,5 +141,135 @@
             Ainsi, $\dim(F \cap G) = 3 + 3 - 4 = 2$. L'intersection de deux hyperplans distincts de $\mathbb{R}^4$ est toujours un plan vectoriel de dimension 2.
         </div>
     </div>
+<div style="background: white; padding: 25px; border-radius: 10px; margin-bottom: 30px; box-shadow: 0 2px 4px rgba(0,0,0,0.02); border: 1px solid #e2e8f0;">
+        <h2 style="color: #0a0f1d; border-bottom: 2px solid #e2e8f0; padding-bottom: 10px;">6. Théorème de la base extraite</h2>
+        
+        <div style="background: #eff6ff; border-left: 4px solid #3b82f6; padding: 15px; margin-bottom: 20px; border-radius: 0 8px 8px 0;">
+            <strong style="color: #1d4ed8;">Théorème :</strong> De toute famille génératrice $\mathcal{G}$ d'un espace vectoriel $E$ (de dimension finie), on peut extraire une sous-famille $\mathcal{B}$ qui est une base de $E$.
+        </div>
 
+        <div style="background: #fdf4ff; border-left: 4px solid #d946ef; padding: 15px; margin-bottom: 20px; border-radius: 0 8px 8px 0;">
+            <strong style="color: #a21caf;">Démonstration :</strong><br>
+            Soit $\mathcal{G}$ une famille génératrice de $E$. Deux cas se présentent :<br>
+            1. Soit $\mathcal{G}$ est libre. Étant déjà génératrice, c'est alors une base de $E$ et le théorème est démontré (on a extrait $\mathcal{G}$ d'elle-même).<br>
+            2. Soit $\mathcal{G}$ est liée. Il existe donc au moins un vecteur de $\mathcal{G}$ qui est combinaison linéaire des autres. Retirons ce vecteur de la famille.<br>
+            La nouvelle famille obtenue génère toujours le même espace vectoriel $E$ (puisque le vecteur retiré n'apportait aucune "nouvelle" direction).<br>
+            On répète ce processus : tant que la famille est liée, on retire un vecteur qui est combinaison linéaire des autres. L'espace étant de dimension finie (donc engendré par un nombre fini de vecteurs), ce processus va s'arrêter. On aboutira à une famille génératrice qui ne contient plus de combinaisons linéaires internes, c'est-à-dire une famille libre. Cette sous-famille finale est donc libre et génératrice : c'est une base.
+        </div>
+
+        <div style="background: #f0fdf4; border-left: 4px solid #22c55e; padding: 15px; border-radius: 0 8px 8px 0;">
+            <strong style="color: #15803d;">Application Directe (Mini-Exercice) :</strong><br>
+            <strong>Énoncé :</strong> Dans $\mathbb{R}^2$, extraire une base de la famille génératrice $\mathcal{G} = ((1,0), (0,1), (2,3))$.<br>
+            <strong>Solution :</strong> La famille contient 3 vecteurs dans $\mathbb{R}^2$ (de dimension 2), elle est donc forcément liée. On remarque que le vecteur $v_3(2,3)$ s'écrit comme une combinaison linéaire des deux premiers : $v_3 = 2 \cdot (1,0) + 3 \cdot (0,1)$.<br>
+            On peut donc retirer $v_3$. La famille restante $\mathcal{B} = ((1,0), (0,1))$ est libre et génère toujours $\mathbb{R}^2$. C'est une base extraite de $\mathcal{G}$.
+        </div>
+    </div>
+
+    <div style="background: white; padding: 25px; border-radius: 10px; margin-bottom: 30px; box-shadow: 0 2px 4px rgba(0,0,0,0.02); border: 1px solid #e2e8f0;">
+        <h2 style="color: #0a0f1d; border-bottom: 2px solid #e2e8f0; padding-bottom: 10px;">7. Théorème de la base incomplète</h2>
+        
+        <div style="background: #eff6ff; border-left: 4px solid #3b82f6; padding: 15px; margin-bottom: 20px; border-radius: 0 8px 8px 0;">
+            <strong style="color: #1d4ed8;">Théorème :</strong> Toute famille libre $\mathcal{L}$ d'un espace vectoriel $E$ de dimension finie $n$ peut être complétée par des vecteurs d'une famille génératrice $\mathcal{G}$ (souvent la base canonique) pour former une base de $E$.
+        </div>
+
+        <div style="background: #fdf4ff; border-left: 4px solid #d946ef; padding: 15px; margin-bottom: 20px; border-radius: 0 8px 8px 0;">
+            <strong style="color: #a21caf;">Démonstration :</strong><br>
+            Soit $\mathcal{L} = (u_1, \dots, u_k)$ une famille libre de $E$ et $\mathcal{G} = (v_1, \dots, v_p)$ une famille génératrice.<br>
+            Si $\mathcal{L}$ est génératrice, c'est déjà une base et le théorème est prouvé.<br>
+            Sinon, $Vect(\mathcal{L}) \neq E$. Comme $\mathcal{G}$ génère $E$, il existe au moins un vecteur $v_i \in \mathcal{G}$ tel que $v_i \notin Vect(\mathcal{L})$.<br>
+            Ajoutons ce vecteur à $\mathcal{L}$. La nouvelle famille $\mathcal{L}' = (u_1, \dots, u_k, v_i)$ est toujours libre (car on a ajouté un vecteur n'appartenant pas à l'espace engendré par les précédents).<br>
+            On répète cette opération en piochant dans $\mathcal{G}$. À chaque étape, la taille de la famille libre augmente strictement d'une unité. Or, dans un espace de dimension finie $n$, la taille maximale d'une famille libre est $n$. Le processus va donc s'arrêter en un nombre fini d'étapes. À l'arrêt, on ne peut plus trouver de vecteur dans $\mathcal{G}$ à ajouter sans casser la liberté : cela signifie que $\mathcal{L}$ complétée génère tout $E$. C'est donc devenue une base.
+        </div>
+
+        <div style="background: #f0fdf4; border-left: 4px solid #22c55e; padding: 15px; border-radius: 0 8px 8px 0;">
+            <strong style="color: #15803d;">Application Directe (Mini-Exercice) :</strong><br>
+            <strong>Énoncé :</strong> Dans $\mathbb{R}^3$, la famille $\mathcal{L} = ((1,1,0), (0,1,1))$ est libre. Complétez-la pour en faire une base de $\mathbb{R}^3$.<br>
+            <strong>Solution :</strong> $\mathbb{R}^3$ est de dimension 3, il nous manque 1 vecteur. Prenons la base canonique $\mathcal{G} = (e_1, e_2, e_3)$. Testons $e_1(1,0,0)$.<br>
+            Est-ce que $(1,0,0)$ appartient à $Vect(\mathcal{L})$ ? Si oui, $(1,0,0) = a(1,1,0) + b(0,1,1) = (a, a+b, b)$. Par identification, $a=1, b=0$ et $a+b=0$, ce qui donnerait $1=0$ (impossible). Donc $e_1 \notin Vect(\mathcal{L})$.<br>
+            On peut l'ajouter ! La famille complétée $((1,1,0), (0,1,1), (1,0,0))$ est libre. Avec 3 vecteurs en dimension 3, c'est une base.
+        </div>
+    </div>
+
+    <div style="background: white; padding: 25px; border-radius: 10px; margin-bottom: 30px; box-shadow: 0 2px 4px rgba(0,0,0,0.02); border: 1px solid #e2e8f0;">
+        <h2 style="color: #0a0f1d; border-bottom: 2px solid #e2e8f0; padding-bottom: 10px;">Correction des Exercices d'Application</h2>
+        
+        <details style="margin-bottom: 15px; background: #f8fafc; border-radius: 8px; border: 1px solid #e2e8f0;">
+            <summary style="background: #3b82f6; color: white; padding: 12px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; outline: none; list-style: none;">🔍 Voir la correction - Exercice 1 (Reconnaître les espaces vectoriels)</summary>
+            <div style="padding: 20px; color: #334155;">
+                <ul style="line-height: 1.8;">
+                    <li><strong>1. $F = \{(x,y) \in \mathbb{R}^2 \mid x+y=3\}$ :</strong> 🔴 <strong>NON.</strong> Le vecteur nul $(0,0)$ n'y appartient pas car $0+0 \neq 3$.</li>
+                    <li><strong>2. $F = \{(x,y) \in \mathbb{R}^2 \mid ax+by=0\}$ :</strong> 🟢 <strong>OUI.</strong> C'est l'équation d'une droite passant par l'origine, c'est le noyau de la forme linéaire $\phi(x,y)=ax+by$.</li>
+                    <li><strong>3. $F = \{(x,y) \in \mathbb{R}^2 \mid xy=3\}$ :</strong> 🔴 <strong>NON.</strong> Le vecteur nul $(0,0)$ n'y appartient pas.</li>
+                    <li><strong>4. $F = \{(x,y) \in \mathbb{R}^2 \mid |x|=|y|\}$ :</strong> 🔴 <strong>NON.</strong> Non stable par addition. Les vecteurs $u=(1,1)$ et $v=(1,-1)$ appartiennent à $F$. Mais $u+v = (2,0) \notin F$ car $|2| \neq |0|$.</li>
+                    <li><strong>5. $F = \{(x,y,z) \in \mathbb{R}^3 \mid x-y=0 \text{ et } x+3y+z=0\}$ :</strong> 🟢 <strong>OUI.</strong> C'est l'intersection de deux plans passant par l'origine (c'est donc une droite vectorielle).</li>
+                    <li><strong>6. $F = \{(x,y,z) \in \mathbb{R}^3 \mid x+2y-z=1\}$ :</strong> 🔴 <strong>NON.</strong> Le vecteur nul $(0,0,0)$ n'y appartient pas.</li>
+                    <li><strong>7. $F = \{(x,y,z) \in \mathbb{R}^3 \mid x+y+z \le 0\}$ :</strong> 🔴 <strong>NON.</strong> Non stable par multiplication externe. Soit $u=(1,1,-3) \in F$ car $1+1-3 = -1 \le 0$. Si on multiplie par le scalaire $-1$, on a $-1 \cdot u = (-1,-1,3)$, mais $-1-1+3 = 1 > 0$, donc $-u \notin F$.</li>
+                    <li><strong>8. $F =$ suites complexes bornées :</strong> 🟢 <strong>OUI.</strong> La suite nulle est bornée. La somme de deux suites bornées est bornée, et une suite bornée multipliée par un scalaire reste bornée.</li>
+                    <li><strong>9. $F =$ suites convergeant vers 0 :</strong> 🟢 <strong>OUI.</strong> La suite nulle converge vers 0. L'addition de deux suites convergeant vers 0 donne une suite convergeant vers 0 (idem pour la multiplication externe).</li>
+                    <li><strong>10. $F =$ suites convergeant vers 1 :</strong> 🔴 <strong>NON.</strong> La suite nulle (qui converge vers 0) n'y appartient pas. De plus, la somme de deux telles suites convergerait vers 2.</li>
+                </ul>
+            </div>
+        </details>
+
+        <details style="margin-bottom: 15px; background: #f8fafc; border-radius: 8px; border: 1px solid #e2e8f0;">
+            <summary style="background: #3b82f6; color: white; padding: 12px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; outline: none; list-style: none;">🔍 Voir la correction - Exercice 2 (Sous-espaces de fonctions)</summary>
+            <div style="padding: 20px; color: #334155;">
+                <ul style="line-height: 1.8;">
+                    <li><strong>1. $F = \{f \in E \mid f(1)=a\}$ :</strong> 🔴 <strong>OUI si et seulement si $a=0$.</strong> Sinon, la fonction nulle (qui associe 0 à tout réel, donc $0(1)=0$) n'y appartient pas.</li>
+                    <li><strong>2. $G = \{f \in E \mid f(1)=f(0)\}$ :</strong> 🟢 <strong>OUI.</strong> La fonction nulle vérifie $0=0$. Si $f, g \in G$ et $\lambda \in \mathbb{R}$, alors $(\lambda f + g)(1) = \lambda f(1) + g(1) = \lambda f(0) + g(0) = (\lambda f + g)(0)$.</li>
+                    <li><strong>3. $H = \{f \in E \mid f \text{ croissante}\}$ :</strong> 🔴 <strong>NON.</strong> Non stable par multiplication par un scalaire négatif. $f(x)=x$ est croissante, mais multipliée par $-1$, $-f(x)=-x$ est décroissante, donc $\notin H$.</li>
+                    <li><strong>4. $L = \{f \in E \mid f(x) \text{ s'annule une infinité de fois}\}$ :</strong> 🔴 <strong>NON.</strong> Non stable par addition. Soit $f$ nulle sur les entiers pairs et valant 1 ailleurs, et $g$ nulle sur les entiers impairs et valant 1 ailleurs. $f$ et $g$ ont une infinité de zéros ($f,g \in L$). Mais $(f+g)(x) \ge 1$ partout, elle ne s'annule jamais !</li>
+                </ul>
+            </div>
+        </details>
+
+        <details style="margin-bottom: 15px; background: #f8fafc; border-radius: 8px; border: 1px solid #e2e8f0;">
+            <summary style="background: #3b82f6; color: white; padding: 12px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; outline: none; list-style: none;">🔍 Voir la correction - Exercice 3 (Matrice s.e.v)</summary>
+            <div style="padding: 20px; color: #334155;">
+                <strong>Question :</strong> $F$ est-il un s.e.v de $\mathcal{M}_2(\mathbb{R})$ ? Si oui, trouver une base.<br><br>
+                <strong>Solution :</strong> Écrivons une matrice $A \in F$ sous forme de combinaison linéaire :<br>
+                $$A = \begin{pmatrix} a+b & c \\ 2c & -b \end{pmatrix} = a\begin{pmatrix} 1 & 0 \\ 0 & 0 \end{pmatrix} + b\begin{pmatrix} 1 & 0 \\ 0 & -1 \end{pmatrix} + c\begin{pmatrix} 0 & 1 \\ 2 & 0 \end{pmatrix}$$
+                On pose $M_1 = \begin{pmatrix} 1 & 0 \\ 0 & 0 \end{pmatrix}$, $M_2 = \begin{pmatrix} 1 & 0 \\ 0 & -1 \end{pmatrix}$, $M_3 = \begin{pmatrix} 0 & 1 \\ 2 & 0 \end{pmatrix}$.<br>
+                Ainsi, $F = Vect(M_1, M_2, M_3)$. Étant défini par un Vect, <strong>$F$ est bien un sous-espace vectoriel</strong>.<br><br>
+                La famille $\mathcal{B} = (M_1, M_2, M_3)$ est génératrice de $F$. Montrons qu'elle est libre. Soit $\alpha, \beta, \gamma$ tels que $\alpha M_1 + \beta M_2 + \gamma M_3 = 0_2$.<br>
+                Cela donne $\begin{pmatrix} \alpha+\beta & \gamma \\ 2\gamma & -\beta \end{pmatrix} = \begin{pmatrix} 0 & 0 \\ 0 & 0 \end{pmatrix}$.<br>
+                Par identification : $\gamma = 0$, $-\beta = 0 \implies \beta = 0$, et $\alpha + 0 = 0 \implies \alpha = 0$.<br>
+                La famille est génératrice et libre, c'est donc une <strong>base</strong> de $F$, et $\dim(F) = 3$.
+            </div>
+        </details>
+
+        <details style="margin-bottom: 15px; background: #f8fafc; border-radius: 8px; border: 1px solid #e2e8f0;">
+            <summary style="background: #3b82f6; color: white; padding: 12px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; outline: none; list-style: none;">🔍 Voir la correction - Exercice 4 (Famille liée)</summary>
+            <div style="padding: 20px; color: #334155;">
+                <strong>Énoncé :</strong> Montrer que $a(9,-3,7), b(1,8,8), c(5,-5,1)$ est liée.<br><br>
+                <strong>Solution :</strong> On cherche une combinaison linéaire non triviale qui donne le vecteur nul : $x \cdot a + y \cdot b + z \cdot c = (0,0,0)$. Cela nous donne le système :<br>
+                $$\begin{cases} 9x + y + 5z = 0 \quad (1) \\ -3x + 8y - 5z = 0 \quad (2) \\ 7x + 8y + z = 0 \quad (3) \end{cases}$$
+                Additionnons $(1)$ et $(2)$ pour éliminer $z$ :<br>
+                $(9x - 3x) + (y + 8y) = 0 \implies 6x + 9y = 0 \implies 2x = -3y \implies x = -1.5y$<br>
+                Substituons $x$ dans $(3)$ :<br>
+                $7(-1.5y) + 8y + z = 0 \implies -10.5y + 8y + z = 0 \implies z = 2.5y$<br>
+                Vérifions si cela fonctionne dans $(1)$ : $9(-1.5y) + y + 5(2.5y) = -13.5y + y + 12.5y = 0$. Ça marche parfaitement !<br>
+                En prenant par exemple $y = 2$, on obtient $x = -3$ et $z = 5$.<br>
+                On a donc : <strong>$-3a + 2b + 5c = 0$</strong>. Les vecteurs admettent une relation de dépendance linéaire, la famille est donc <strong>liée</strong>.<br>
+                <em>(Méthode alternative : Le déterminant $\det(a,b,c)$ vaut 0).</em>
+            </div>
+        </details>
+
+        <details style="margin-bottom: 15px; background: #f8fafc; border-radius: 8px; border: 1px solid #e2e8f0;">
+            <summary style="background: #3b82f6; color: white; padding: 12px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; outline: none; list-style: none;">🔍 Voir la correction - Exercice 5 (Famille libre de fonctions)</summary>
+            <div style="padding: 20px; color: #334155;">
+                <strong>Énoncé :</strong> $(f_1, f_2, f_3)$ avec $f_1(x)=x, f_2(x)=\ln x, f_3(x)=e^x$ est-elle libre sur $C(\mathbb{R}^{+*}, \mathbb{R})$ ?<br><br>
+                <strong>Solution :</strong> Soient $a, b, c \in \mathbb{R}$ tels que pour TOUT $x > 0$ :<br>
+                $ax + b \ln x + c e^x = 0$<br>
+                L'idée est d'utiliser les limites (croissances comparées) pour isoler les coefficients.<br><br>
+                1. Divisons tout par $e^x$ et prenons la limite en $+\infty$ :<br>
+                $a\frac{x}{e^x} + b\frac{\ln x}{e^x} + c = 0$. En $+\infty$, les quotients tendent vers 0. Il reste <strong>$c = 0$</strong>.<br><br>
+                2. L'équation se réduit à : $ax + b \ln x = 0$ pour tout $x > 0$.<br>
+                Prenons la limite en $0^+$ : $\ln x$ tend vers $-\infty$ tandis que $ax$ tend vers 0. Le seul moyen pour que la somme reste nulle pour un $x$ proche de $0$ est que <strong>$b = 0$</strong>.<br>
+                <em>(Méthode formelle : on divise par $\ln x$ et on passe à la limite).</em><br><br>
+                3. Il reste $ax = 0$ pour tout $x>0$. En évaluant en $x=1$ par exemple, on trouve $a(1) = 0 \implies$ <strong>$a = 0$</strong>.<br><br>
+                Conclusion : $a = b = c = 0$. La famille de fonctions est <strong>libre</strong>.
+            </div>
+        </details>
+    </div>
 </div>
