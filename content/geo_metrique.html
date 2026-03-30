@@ -1,434 +1,145 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Géométrie Métrique : QCM</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<div style="font-family: 'Segoe UI', system-ui, sans-serif; max-width: 1000px; margin: 0 auto; padding: 30px; color: #1e293b; line-height: 1.6; background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
 
-    <style>
-        :root {
-            --navy-dark: #0a0f1d;
-            --navy-main: #111827;
-            --gold-btn: #eab308;
-            --gold-hover: #facc15;
-            --slate-50: #f8fafc;
-            --slate-100: #f1f5f9;
-            --slate-200: #e2e8f0;
-            --slate-700: #334155;
-            --slate-800: #1e293b;
-            --blue-accent: #3b82f6;
-            --correct-bg: #dcfce7;
-            --correct-border: #22c55e;
-            --correct-text: #166534;
-            --wrong-bg: #fee2e2;
-            --wrong-border: #ef4444;
-            --wrong-text: #991b1b;
-        }
-
-        body {
-            background-color: var(--slate-50);
-            font-family: 'Segoe UI', system-ui, sans-serif;
-            margin: 0;
-            padding: 20px;
-            color: var(--slate-800);
-            line-height: 1.6;
-        }
-
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-
-        .hero-banner {
-            background: linear-gradient(135deg, var(--navy-dark), var(--navy-main));
-            padding: 60px 20px;
-            border-radius: 20px;
-            color: white;
-            text-align: center;
-            margin-bottom: 50px;
-            border-bottom: 5px solid var(--gold-btn);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-        }
-
-        .hero-banner h1 { 
-            margin: 0 0 10px 0; 
-            font-size: 2.5rem; 
-            color: var(--gold-btn); 
-            letter-spacing: -0.5px;
-        }
-
-        .hero-banner p {
-            font-size: 1.2rem;
-            opacity: 0.9;
-            margin: 0;
-        }
-
-        .qcm-card {
-            background: white;
-            padding: 40px;
-            border-radius: 16px;
-            box-shadow: 0 4px 25px rgba(0,0,0,0.04);
-            margin-bottom: 40px;
-            border: 1px solid var(--slate-200);
-            transition: transform 0.2s ease;
-        }
-
-        .qcm-card:hover {
-            transform: translateY(-2px);
-        }
-
-        .exo-header {
-            display: flex;
-            align-items: center;
-            margin-bottom: 25px;
-            border-bottom: 2px solid var(--slate-100);
-            padding-bottom: 20px;
-        }
-
-        .exo-badge {
-            background: var(--gold-btn);
-            color: var(--navy-dark);
-            padding: 8px 16px;
-            border-radius: 8px;
-            font-weight: 800;
-            font-size: 1.1rem;
-            margin-right: 20px;
-            box-shadow: 0 2px 10px rgba(234, 179, 8, 0.3);
-        }
-
-        .exo-title { 
-            font-weight: 800; 
-            font-size: 1.4rem;
-            color: var(--navy-dark); 
-            text-transform: uppercase; 
-            letter-spacing: 0.5px;
-        }
-
-        .exo-context {
-            background-color: var(--slate-100);
-            padding: 20px;
-            border-radius: 10px;
-            border-left: 4px solid var(--blue-accent);
-            margin-bottom: 30px;
-            font-size: 0.95rem;
-            color: var(--slate-700);
-        }
-
-        .exo-context strong {
-            color: var(--navy-main);
-            display: block;
-            margin-bottom: 5px;
-            font-size: 1.05rem;
-        }
-
-        .qcm-question {
-            font-size: 1.15rem;
-            font-weight: 600;
-            margin-bottom: 20px;
-            color: var(--navy-dark);
-        }
-
-        .qcm-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-
-        .opt-btn {
-            background: var(--slate-50);
-            border: 2px solid var(--slate-200);
-            border-radius: 10px;
-            padding: 18px;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            text-align: left;
-            color: var(--slate-800);
-            display: flex;
-            align-items: center;
-            min-height: 60px;
-            line-height: 1.4;
-            font-weight: 500;
-        }
-
-        .opt-btn:hover {
-            border-color: var(--slate-700);
-            background: var(--slate-100);
-            transform: translateY(-1px);
-        }
-
-        .opt-btn.correct {
-            background: var(--correct-bg) !important;
-            border-color: var(--correct-border) !important;
-            color: var(--correct-text) !important;
-        }
-
-        .opt-btn.wrong {
-            background: var(--wrong-bg) !important;
-            border-color: var(--wrong-border) !important;
-            color: var(--wrong-text) !important;
-        }
-
-        .correction-block {
-            display: none; 
-            margin-top: 20px;
-            padding: 25px;
-            background: #fafafa;
-            border-left: 5px solid var(--gold-btn);
-            border-radius: 8px;
-            font-size: 1rem;
-            box-shadow: inset 0 2px 10px rgba(0,0,0,0.02);
-            color: var(--slate-800);
-        }
-
-        .fade-in { animation: fadeInAnim 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
-        @keyframes fadeInAnim { 
-            from { opacity: 0; transform: translateY(10px); } 
-            to { opacity: 1; transform: translateY(0); } 
-        }
-
-        @media (max-width: 768px) {
-            .qcm-grid {
-                grid-template-columns: 1fr;
-            }
-            .hero-banner h1 { font-size: 2rem; }
-        }
-    </style>
-</head>
-<body>
-
-<div class="container">
-    <div class="hero-banner">
-        <h1><i class="fas fa-vector-square"></i> Géométrie Métrique</h1>
-        <p>Produit scalaire, norme, déterminant et distances dans le plan $\mathbb{R}^2$.</p>
+    <div style="background: linear-gradient(135deg, #0a0f1d, #111827); padding: 40px 20px; border-radius: 10px; color: white; text-align: center; margin-bottom: 40px; border-bottom: 5px solid #eab308;">
+        <h1 style="margin: 0 0 10px 0; font-size: 2.2rem; color: #eab308;">Espaces Vectoriels et Dimension</h1>
+        <p style="font-size: 1.1rem; opacity: 0.9; margin: 0;">Cours approfondi : Définitions, Démonstrations et Applications</p>
     </div>
 
-    <div class="qcm-card">
-        <div class="exo-header">
-            <span class="exo-badge"><i class="fas fa-book-open"></i></span>
-            <span class="exo-title">Rappels Fondamentaux</span>
-        </div>
-        <div class="exo-context">
-            <strong>À retenir :</strong>
-            Soient deux vecteurs $\vec{u}(x, y)$ et $\vec{v}(x', y')$ dans une base orthonormée directe :
-            <ul style="margin-top: 10px;">
-                <li><strong>Produit Scalaire :</strong> $\vec{u} \cdot \vec{v} = xx' + yy' = \|\vec{u}\| \|\vec{v}\| \cos(\theta)$</li>
-                <li><strong>Déterminant :</strong> $\det(\vec{u}, \vec{v}) = xy' - yx' = \|\vec{u}\| \|\vec{v}\| \sin(\theta)$</li>
-                <li><strong>Norme :</strong> $\|\vec{u}\| = \sqrt{x^2 + y^2}$</li>
-                <li><strong>Distance point-droite :</strong> $d(A, \mathcal{D}) = \frac{|ax_A + by_A + c|}{\sqrt{a^2 + b^2}}$</li>
-            </ul>
-        </div>
+    <div style="background: white; padding: 25px; border-radius: 10px; margin-bottom: 30px; box-shadow: 0 2px 4px rgba(0,0,0,0.02); border: 1px solid #e2e8f0;">
+        <h2 style="color: #0a0f1d; border-bottom: 2px solid #e2e8f0; padding-bottom: 10px;">1. Sous-espace engendré par une famille (Vect)</h2>
         
-        <div style="text-align: center; margin: 30px 0; background: var(--slate-50); padding: 20px; border-radius: 10px; border: 1px dashed var(--slate-200);">
-            <svg width="200" height="200" viewBox="0 0 200 200" style="max-width: 100%;">
-                <line x1="10" y1="180" x2="190" y2="180" stroke="#cbd5e1" stroke-width="2" />
-                <line x1="20" y1="10" x2="20" y2="190" stroke="#cbd5e1" stroke-width="2" />
-                <line x1="20" y1="180" x2="150" y2="180" stroke="#1e293b" stroke-width="3" marker-end="url(#arrow)" />
-                <text x="155" y="185" font-weight="bold" fill="#1e293b">u</text>
-                <line x1="20" y1="180" x2="120" y2="80" stroke="#eab308" stroke-width="3" marker-end="url(#arrowGold)" />
-                <text x="125" y="75" font-weight="bold" fill="#eab308">v</text>
-                <path d="M 50 180 A 30 30 0 0 0 42 158" fill="none" stroke="#64748b" stroke-width="2" />
-                <text x="55" y="165" font-size="12" fill="#64748b">θ</text>
-                <defs>
-                    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
-                        <path d="M0,0 L0,6 L9,3 z" fill="#1e293b" />
-                    </marker>
-                    <marker id="arrowGold" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
-                        <path d="M0,0 L0,6 L9,3 z" fill="#eab308" />
-                    </marker>
-                </defs>
-            </svg>
-            <p style="font-size: 0.85rem; color: var(--slate-700); margin-top: 10px; font-weight: 500;">Représentation de l'angle orienté $(\vec{u}, \vec{v})$</p>
+        <div style="background: #eff6ff; border-left: 4px solid #3b82f6; padding: 15px; margin-bottom: 20px; border-radius: 0 8px 8px 0;">
+            <strong style="color: #1d4ed8;">Définition :</strong> Soit $E$ un espace vectoriel sur un corps $\mathbb{K}$ (souvent $\mathbb{R}$ ou $\mathbb{C}$) et $\mathcal{F} = (v_1, \dots, v_p)$ une famille de $p>0$ vecteurs de $E$. On appelle sous-espace engendré par $\mathcal{F}$, noté $Vect(\mathcal{F})$ ou $Vect(v_1, \dots, v_p)$, l'ensemble de toutes les combinaisons linéaires des vecteurs de $\mathcal{F}$.<br>
+            $$Vect(v_1, \dots, v_p) = \left\{ \sum_{i=1}^p \lambda_i v_i \mid (\lambda_1, \dots, \lambda_p) \in \mathbb{K}^p \right\}$$
+        </div>
+
+        <div style="background: #fdf4ff; border-left: 4px solid #d946ef; padding: 15px; margin-bottom: 20px; border-radius: 0 8px 8px 0;">
+            <strong style="color: #a21caf;">Démonstration (C'est un sous-espace vectoriel) :</strong><br>
+            Pour montrer que $Vect(\mathcal{F})$ est un sous-espace vectoriel (s.e.v.) de $E$, il faut vérifier deux choses :<br>
+            1. <strong>Il est non vide :</strong> En choisissant tous les scalaires $\lambda_i = 0$, on obtient $\sum_{i=1}^p 0 \cdot v_i = 0_E$. Donc $0_E \in Vect(\mathcal{F})$, l'ensemble n'est pas vide.<br>
+            2. <strong>Il est stable par combinaison linéaire :</strong> Soient $x, y \in Vect(\mathcal{F})$ et $\alpha \in \mathbb{K}$. Par définition, il existe des scalaires $(a_i)$ et $(b_i)$ tels que $x = \sum_{i=1}^p a_i v_i$ et $y = \sum_{i=1}^p b_i v_i$.<br>
+            Calculons $\alpha x + y = \alpha \left(\sum_{i=1}^p a_i v_i\right) + \sum_{i=1}^p b_i v_i = \sum_{i=1}^p (\alpha a_i + b_i) v_i$.<br>
+            Puisque $(\alpha a_i + b_i) \in \mathbb{K}$, $\alpha x + y$ s'écrit bien comme une combinaison linéaire des $v_i$. Donc $\alpha x + y \in Vect(\mathcal{F})$.<br>
+            <em>Conclusion :</em> $Vect(\mathcal{F})$ est bien un s.e.v. de $E$. C'est d'ailleurs le plus petit s.e.v. contenant la famille $\mathcal{F}$.
+        </div>
+
+        <div style="background: #f0fdf4; border-left: 4px solid #22c55e; padding: 15px; border-radius: 0 8px 8px 0;">
+            <strong style="color: #15803d;">Application Directe (Mini-Exercice) :</strong><br>
+            <strong>Énoncé :</strong> Dans $\mathbb{R}^3$, montrer que le plan $P$ d'équation cartésienne $z = 0$ est un sous-espace vectoriel.<br>
+            <strong>Solution :</strong> Un vecteur $(x,y,z) \in P \iff z = 0 \iff (x,y,z) = (x,y,0) = x(1,0,0) + y(0,1,0)$.<br>
+            On en déduit que $P = Vect((1,0,0), (0,1,0))$. Étant donné qu'il s'écrit comme un Vect, le cours nous affirme (par la démonstration ci-dessus) que $P$ est obligatoirement un sous-espace vectoriel de $\mathbb{R}^3$.
         </div>
     </div>
 
-    <div class="qcm-card">
-        <div class="exo-header">
-            <span class="exo-badge">Q1</span>
-            <span class="exo-title">Produit Scalaire Analytique</span>
+    <div style="background: white; padding: 25px; border-radius: 10px; margin-bottom: 30px; box-shadow: 0 2px 4px rgba(0,0,0,0.02); border: 1px solid #e2e8f0;">
+        <h2 style="color: #0a0f1d; border-bottom: 2px solid #e2e8f0; padding-bottom: 10px;">2. Famille Libre de taille maximale</h2>
+        
+        <div style="background: #eff6ff; border-left: 4px solid #3b82f6; padding: 15px; margin-bottom: 20px; border-radius: 0 8px 8px 0;">
+            <strong style="color: #1d4ed8;">Théorème :</strong> Si $\mathcal{F} = (v_1, \dots, v_p)$ est une famille libre d’un espace vectoriel $E$ de dimension $p$ (avec $p>0$), alors $\mathcal{F}$ est une base de $E$.
         </div>
-        <div class="qcm-question">
-            Soient $\vec{u}(1, \sqrt{3})$ et $\vec{v}(-1, 1)$. Quelle est la valeur de leur produit scalaire $\vec{u} \cdot \vec{v}$ ?
+
+        <div style="background: #fdf4ff; border-left: 4px solid #d946ef; padding: 15px; margin-bottom: 20px; border-radius: 0 8px 8px 0;">
+            <strong style="color: #a21caf;">Démonstration :</strong><br>
+            Nous savons que $\dim(E) = p$ et que $\mathcal{F}$ possède $p$ éléments et est libre. Pour prouver que c'est une base, il reste à prouver qu'elle est génératrice.<br>
+            Raisonnement par l'absurde : Supposons que $\mathcal{F}$ n'est <strong>pas</strong> génératrice. Alors, il existe un vecteur $x \in E$ tel que $x \notin Vect(\mathcal{F})$.<br>
+            Considérons la famille $\mathcal{F}' = \mathcal{F} \cup \{x\} = (v_1, \dots, v_p, x)$. Montrons qu'elle est libre. Soient des scalaires tels que $\lambda_1 v_1 + \dots + \lambda_p v_p + \mu x = 0_E$.<br>
+            - Si $\mu \neq 0$, alors $x = -\frac{1}{\mu}(\lambda_1 v_1 + \dots + \lambda_p v_p)$, ce qui signifie que $x \in Vect(\mathcal{F})$. C'est une contradiction.<br>
+            - Donc $\mu = 0$. Il reste $\lambda_1 v_1 + \dots + \lambda_p v_p = 0_E$. Puisque $\mathcal{F}$ est libre, cela implique $\lambda_1 = \dots = \lambda_p = 0$.<br>
+            La famille $\mathcal{F}'$ est donc libre. Or, elle contient $p+1$ éléments dans un espace de dimension $p$. Un théorème fondamental affirme que le cardinal de toute famille libre est inférieur ou égal à la dimension de l'espace. Nous avons $p+1 \le p$, ce qui est absurde.<br>
+            <em>Conclusion :</em> L'hypothèse de départ est fausse, $\mathcal{F}$ est donc génératrice. Libre et génératrice, $\mathcal{F}$ est une base.
         </div>
-        <div class="qcm-grid">
-            <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">$1 + \sqrt{3}$</button>
-            <button class="opt-btn" data-correct="true" onclick="checkAnswer(this)">$\sqrt{3} - 1$</button>
-            <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">$0$</button>
-            <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">$2$</button>
-        </div>
-        <div class="correction-block">
-            <strong>Solution :</strong> On applique la formule $xx' + yy'$. <br>
-            $\vec{u} \cdot \vec{v} = (1 \times -1) + (\sqrt{3} \times 1) = -1 + \sqrt{3} = \sqrt{3} - 1$.
+
+        <div style="background: #f0fdf4; border-left: 4px solid #22c55e; padding: 15px; border-radius: 0 8px 8px 0;">
+            <strong style="color: #15803d;">Application Directe (Mini-Exercice) :</strong><br>
+            <strong>Énoncé :</strong> Les vecteurs $u = (1, 2)$ et $v = (-1, 3)$ forment-ils une base de $\mathbb{R}^2$ ?<br>
+            <strong>Solution :</strong> $\mathbb{R}^2$ est de dimension 2. La famille $(u, v)$ contient 2 vecteurs. Montrons qu'elle est libre. On cherche $\lambda, \mu$ tels que $\lambda u + \mu v = 0$.<br>
+            $\lambda(1) - \mu(1) = 0 \implies \lambda = \mu$<br>
+            $\lambda(2) + \mu(3) = 0 \implies 2\lambda + 3\lambda = 0 \implies 5\lambda = 0 \implies \lambda = 0$ et $\mu = 0$.<br>
+            La famille est libre, de cardinal 2 dans un espace de dimension 2, c'est donc automatiquement une base (inutile de vérifier qu'elle est génératrice).
         </div>
     </div>
 
-    <div class="qcm-card">
-        <div class="exo-header">
-            <span class="exo-badge">Q2</span>
-            <span class="exo-title">Propriété du Déterminant</span>
+    <div style="background: white; padding: 25px; border-radius: 10px; margin-bottom: 30px; box-shadow: 0 2px 4px rgba(0,0,0,0.02); border: 1px solid #e2e8f0;">
+        <h2 style="color: #0a0f1d; border-bottom: 2px solid #e2e8f0; padding-bottom: 10px;">3. Famille Génératrice de taille minimale</h2>
+        
+        <div style="background: #eff6ff; border-left: 4px solid #3b82f6; padding: 15px; margin-bottom: 20px; border-radius: 0 8px 8px 0;">
+            <strong style="color: #1d4ed8;">Théorème :</strong> Si $\mathcal{F} = (v_1, \dots, v_p)$ est une famille génératrice d’un espace vectoriel $E$ de dimension $p$, alors $\mathcal{F}$ est une base de $E$.
         </div>
-        <div class="qcm-question">
-            Si $\det(\vec{u}, \vec{v}) = 0$, que peut-on dire des vecteurs $\vec{u}$ et $\vec{v}$ ?
+
+        <div style="background: #fdf4ff; border-left: 4px solid #d946ef; padding: 15px; margin-bottom: 20px; border-radius: 0 8px 8px 0;">
+            <strong style="color: #a21caf;">Démonstration :</strong><br>
+            Nous savons que $\dim(E) = p$ et que $\mathcal{F}$ est génératrice de cardinal $p$. Pour prouver que c'est une base, il faut montrer qu'elle est libre.<br>
+            D'après le théorème de la base incomplète (ou extraction de base), de toute famille génératrice, on peut extraire une base de $E$.<br>
+            Soit $\mathcal{B}$ la sous-famille extraite de $\mathcal{F}$ qui forme une base de $E$.<br>
+            Puisque $\mathcal{B}$ est une base de $E$, le nombre d'éléments de $\mathcal{B}$ doit être exactement égal à $\dim(E)$, soit $p$.<br>
+            Or, $\mathcal{B}$ est incluse dans $\mathcal{F}$ qui possède elle-même $p$ éléments. Le seul moyen pour qu'une partie à $p$ éléments d'un ensemble à $p$ éléments existe est que la partie soit l'ensemble tout entier.<br>
+            Donc $\mathcal{B} = \mathcal{F}$. Puisque $\mathcal{B}$ est une base (donc libre), $\mathcal{F}$ est libre.
         </div>
-        <div class="qcm-grid">
-            <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">Ils sont orthogonaux</button>
-            <button class="opt-btn" data-correct="true" onclick="checkAnswer(this)">Ils sont colinéaires</button>
-            <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">Ils sont unitaires</button>
-            <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">Ils forment une base</button>
-        </div>
-        <div class="correction-block">
-            <strong>Solution :</strong> Le déterminant est l'aire algébrique du parallélogramme formé par les deux vecteurs. Si cette aire est nulle, les vecteurs sont alignés (colinéaires).
+
+        <div style="background: #f0fdf4; border-left: 4px solid #22c55e; padding: 15px; border-radius: 0 8px 8px 0;">
+            <strong style="color: #15803d;">Application Directe (Mini-Exercice) :</strong><br>
+            <strong>Énoncé :</strong> Soit $P_2[X]$ l'espace des polynômes de degré $\le 2$. On donne $P_1 = 1, P_2 = X, P_3 = X^2$. Soit $\mathcal{G} = (1+X, 1-X, X^2)$. Montrer que $\mathcal{G}$ est une base.<br>
+            <strong>Solution :</strong> $\dim(P_2[X]) = 3$. La famille $\mathcal{G}$ compte 3 éléments. Montrons qu'elle est génératrice : tout polynôme $aX^2 + bX + c$ peut s'écrire avec cette famille.<br>
+            Remarquons que $X = \frac{1}{2}(1+X) - \frac{1}{2}(1-X)$ et $1 = \frac{1}{2}(1+X) + \frac{1}{2}(1-X)$.<br>
+            Ainsi, n'importe quel $aX^2 + bX + c$ peut être reconstruit à partir de $\mathcal{G}$. Étant génératrice de cardinal 3 en dimension 3, c'est une base.
         </div>
     </div>
 
-    <div class="qcm-card">
-        <div class="exo-header">
-            <span class="exo-badge">Q3</span>
-            <span class="exo-title">Distance Point-Droite</span>
+    <div style="background: white; padding: 25px; border-radius: 10px; margin-bottom: 30px; box-shadow: 0 2px 4px rgba(0,0,0,0.02); border: 1px solid #e2e8f0;">
+        <h2 style="color: #0a0f1d; border-bottom: 2px solid #e2e8f0; padding-bottom: 10px;">4. Intersection de deux sous-espaces vectoriels</h2>
+        
+        <div style="background: #eff6ff; border-left: 4px solid #3b82f6; padding: 15px; margin-bottom: 20px; border-radius: 0 8px 8px 0;">
+            <strong style="color: #1d4ed8;">Théorème :</strong> Soient $F$ et $G$ deux sous-espaces vectoriels d'un espace vectoriel $E$. Alors leur intersection $F \cap G$ est également un sous-espace vectoriel de $E$.
         </div>
-        <div class="qcm-question">
-            Quelle est la distance du point $A(2, 1)$ à la droite $\mathcal{D}$ d'équation $3x - 4y + 5 = 0$ ?
+
+        <div style="background: #fdf4ff; border-left: 4px solid #d946ef; padding: 15px; margin-bottom: 20px; border-radius: 0 8px 8px 0;">
+            <strong style="color: #a21caf;">Démonstration :</strong><br>
+            1. <strong>Non vide :</strong> $F$ et $G$ étant des s.e.v. de $E$, ils contiennent tous les deux le vecteur nul $0_E$. Par conséquent, $0_E \in F \cap G$. L'intersection n'est pas vide.<br>
+            2. <strong>Stabilité :</strong> Soient $x, y \in F \cap G$ et $\alpha \in \mathbb{K}$.<br>
+            - Comme $x, y \in F$ et que $F$ est un s.e.v., la combinaison $\alpha x + y \in F$.<br>
+            - Comme $x, y \in G$ et que $G$ est un s.e.v., la combinaison $\alpha x + y \in G$.<br>
+            Puisque $\alpha x + y$ appartient à la fois à $F$ et à $G$, on a bien $\alpha x + y \in F \cap G$.<br>
+            <em>Conclusion :</em> $F \cap G$ vérifie les axiomes d'un sous-espace vectoriel. <em>(Attention : l'union $F \cup G$ n'est en général PAS un s.e.v.)</em>
         </div>
-        <div class="qcm-grid">
-            <button class="opt-btn" data-correct="true" onclick="checkAnswer(this)">$7/5$</button>
-            <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">$1$</button>
-            <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">$7/25$</button>
-            <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">$5/7$</button>
-        </div>
-        <div class="correction-block">
-            <strong>Solution :</strong> On utilise la formule $d(A, \mathcal{D}) = \frac{|ax_A + by_A + c|}{\sqrt{a^2 + b^2}}$.<br>
-            Ici, $d = \frac{|3(2) - 4(1) + 5|}{\sqrt{3^2 + (-4)^2}} = \frac{|6 - 4 + 5|}{5} = \frac{7}{5}$.
+
+        <div style="background: #f0fdf4; border-left: 4px solid #22c55e; padding: 15px; border-radius: 0 8px 8px 0;">
+            <strong style="color: #15803d;">Application Directe (Mini-Exercice) :</strong><br>
+            <strong>Énoncé :</strong> Dans $\mathbb{R}^3$, soient les plans vectoriels $F : x + y + z = 0$ et $G : x - y = 0$. Déterminer $F \cap G$.<br>
+            <strong>Solution :</strong> Un vecteur $(x,y,z) \in F \cap G$ vérifie le système : $\begin{cases} x + y + z = 0 \\ x - y = 0 \end{cases} \implies \begin{cases} y = x \\ 2x + z = 0 \implies z = -2x \end{cases}$.<br>
+            Donc $(x,y,z) = (x, x, -2x) = x(1, 1, -2)$. L'intersection est donc $Vect((1, 1, -2))$, qui est bien un sous-espace vectoriel (c'est une droite vectorielle).
         </div>
     </div>
 
-    <div class="qcm-card">
-        <div class="exo-header">
-            <span class="exo-badge">Q4</span>
-            <span class="exo-title">Projection Orthogonale</span>
+    <div style="background: white; padding: 25px; border-radius: 10px; box-shadow: 0 2px 4px rgba(0,0,0,0.02); border: 1px solid #e2e8f0;">
+        <h2 style="color: #0a0f1d; border-bottom: 2px solid #e2e8f0; padding-bottom: 10px;">5. Formule de Grassmann</h2>
+        
+        <div style="background: #eff6ff; border-left: 4px solid #3b82f6; padding: 15px; margin-bottom: 20px; border-radius: 0 8px 8px 0;">
+            <strong style="color: #1d4ed8;">Théorème (Formule de Grassmann) :</strong> Si $F$ et $G$ sont deux sous-espaces vectoriels de dimension finie d'un espace vectoriel $E$, alors la somme $F+G$ est de dimension finie et :<br>
+            $$\dim(F + G) = \dim(F) + \dim(G) - \dim(F \cap G)$$
         </div>
-        <div class="qcm-question">
-            Quel est le projeté orthogonal du vecteur $\vec{u}(3, 4)$ sur la droite dirigée par $\vec{i}(1, 0)$ ?
-        </div>
-        <div class="qcm-grid">
-            <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">$(0, 4)$</button>
-            <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">$(3, 4)$</button>
-            <button class="opt-btn" data-correct="true" onclick="checkAnswer(this)">$(3, 0)$</button>
-            <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">$(1, 0)$</button>
-        </div>
-        <div class="correction-block">
-            <strong>Solution :</strong> La projection orthogonale d'un vecteur $\vec{u}$ sur un vecteur unitaire $\vec{e}$ est donnée par $(\vec{u} \cdot \vec{e})\vec{e}$. Ici, le produit scalaire vaut $3 \times 1 + 4 \times 0 = 3$. Le vecteur projeté est donc $3\vec{i}$, soit $(3, 0)$.
-        </div>
-    </div>
 
-    <div class="qcm-card">
-        <div class="exo-header">
-            <span class="exo-badge">Q5</span>
-            <span class="exo-title">Inégalité de Cauchy-Schwarz</span>
+        <div style="background: #fdf4ff; border-left: 4px solid #d946ef; padding: 15px; margin-bottom: 20px; border-radius: 0 8px 8px 0;">
+            <strong style="color: #a21caf;">Démonstration :</strong><br>
+            Soit $k = \dim(F \cap G)$. Soit $(e_1, \dots, e_k)$ une base de $F \cap G$.<br>
+            Puisque $F \cap G \subset F$, on peut compléter cette base pour obtenir une base de $F$ selon le théorème de la base incomplète : $\mathcal{B}_F = (e_1, \dots, e_k, f_1, \dots, f_p)$. Ainsi $\dim(F) = k + p$.<br>
+            De même, $F \cap G \subset G$, complétons pour avoir une base de $G$ : $\mathcal{B}_G = (e_1, \dots, e_k, g_1, \dots, g_q)$. Ainsi $\dim(G) = k + q$.<br>
+            Considérons la famille $\mathcal{B} = (e_1, \dots, e_k, f_1, \dots, f_p, g_1, \dots, g_q)$.<br>
+            1. <strong>Génératrice pour $F+G$ :</strong> Tout vecteur de $F+G$ s'écrit $x+y$ avec $x \in F$ et $y \in G$. $x$ est combinaison des $(e_i, f_j)$ et $y$ des $(e_i, g_l)$. Donc $x+y$ est une combinaison linéaire des éléments de $\mathcal{B}$.<br>
+            2. <strong>Libre :</strong> Supposons $\sum \alpha_i e_i + \sum \beta_j f_j + \sum \gamma_l g_l = 0_E$.<br>
+            Alors $\underbrace{\sum \gamma_l g_l}_{\in G} = \underbrace{- \sum \alpha_i e_i - \sum \beta_j f_j}_{\in F}$.<br>
+            Ce vecteur appartient donc à $F \cap G$. Il s'écrit alors uniquement en fonction des $e_i$. On en déduit que $\sum \gamma_l g_l = \sum \delta_i e_i$, soit $\sum \delta_i e_i - \sum \gamma_l g_l = 0$. Mais $\mathcal{B}_G$ est libre, donc tous les $\gamma_l = 0$ et $\delta_i = 0$.<br>
+            En reportant $\gamma_l = 0$ dans l'équation initiale, on a $\sum \alpha_i e_i + \sum \beta_j f_j = 0_E$. Or $\mathcal{B}_F$ est libre, donc les $\alpha_i = 0$ et $\beta_j = 0$. La famille $\mathcal{B}$ est bien libre.<br>
+            <em>Conclusion :</em> $\mathcal{B}$ est une base de $F+G$. Son cardinal est $k + p + q$.<br>
+            $\dim(F+G) = k + p + q = (k + p) + (k + q) - k = \dim(F) + \dim(G) - \dim(F \cap G)$.
         </div>
-        <div class="qcm-question">
-            Soit l'inégalité de Cauchy-Schwarz $|\vec{u} \cdot \vec{v}| \le \|\vec{u}\| \|\vec{v}\|$. Dans quel cas a-t-on l'égalité stricte ?
-        </div>
-        <div class="qcm-grid">
-            <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">Si $\vec{u}$ et $\vec{v}$ sont orthogonaux</button>
-            <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">Si $\|\vec{u}\| = \|\vec{v}\|$</button>
-            <button class="opt-btn" data-correct="true" onclick="checkAnswer(this)">Si $\vec{u}$ et $\vec{v}$ sont colinéaires</button>
-            <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">Jamais</button>
-        </div>
-        <div class="correction-block">
-            <strong>Solution :</strong> Le cas d'égalité de Cauchy-Schwarz est caractérisé par la colinéarité des deux vecteurs étudiés. En effet, $|\cos(\theta)| = 1 \iff \theta \equiv 0 \pmod{\pi}$.
-        </div>
-    </div>
 
-    <div class="qcm-card">
-        <div class="exo-header">
-            <span class="exo-badge">Q6</span>
-            <span class="exo-title">Calcul d'Aire</span>
-        </div>
-        <div class="qcm-question">
-            Quelle est l'aire du triangle formé par l'origine $O(0,0)$ et les points $A(3, 1)$ et $B(1, 4)$ ?
-        </div>
-        <div class="qcm-grid">
-            <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">$11$</button>
-            <button class="opt-btn" data-correct="true" onclick="checkAnswer(this)">$11/2$</button>
-            <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">$13/2$</button>
-            <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">$5$</button>
-        </div>
-        <div class="correction-block">
-            <strong>Solution :</strong> L'aire d'un triangle $OAB$ est donnée par $\frac{1}{2} |\det(\vec{OA}, \vec{OB})|$.<br>
-            $\det(\vec{OA}, \vec{OB}) = (3 \times 4) - (1 \times 1) = 12 - 1 = 11$. L'aire vaut donc $11/2$.
-        </div>
-    </div>
-
-    <div class="qcm-card">
-        <div class="exo-header">
-            <span class="exo-badge">Q7</span>
-            <span class="exo-title">Vecteur Normal</span>
-        </div>
-        <div class="qcm-question">
-            Quel est un vecteur normal à la droite d'équation paramétrique $x = 2 + 3t$ et $y = -1 + 4t$ ?
-        </div>
-        <div class="qcm-grid">
-            <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">$\vec{n}(3, 4)$</button>
-            <button class="opt-btn" data-correct="true" onclick="checkAnswer(this)">$\vec{n}(-4, 3)$</button>
-            <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">$\vec{n}(2, -1)$</button>
-            <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">$\vec{n}(4, 3)$</button>
-        </div>
-        <div class="correction-block">
-            <strong>Solution :</strong> Le vecteur directeur de la droite est $\vec{u}(3, 4)$ (donné par les coefficients de $t$). Un vecteur normal $\vec{n}(x, y)$ doit vérifier $\vec{u} \cdot \vec{n} = 0$. Le vecteur $(-4, 3)$ vérifie bien $-12 + 12 = 0$.
-        </div>
-    </div>
-
-    <div class="qcm-card">
-        <div class="exo-header">
-            <span class="exo-badge">Q8</span>
-            <span class="exo-title">Équation de Cercle</span>
-        </div>
-        <div class="qcm-question">
-            Quelle est l'équation cartésienne du cercle de centre $\Omega(1, -2)$ et de rayon $R = 3$ ?
-        </div>
-        <div class="qcm-grid">
-            <button class="opt-btn" data-correct="true" onclick="checkAnswer(this)">$x^2 + y^2 - 2x + 4y - 4 = 0$</button>
-            <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">$x^2 + y^2 + 2x - 4y - 4 = 0$</button>
-            <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">$x^2 + y^2 - 2x + 4y + 4 = 0$</button>
-            <button class="opt-btn" data-correct="false" onclick="checkAnswer(this)">$x^2 + y^2 - x + 2y - 9 = 0$</button>
-        </div>
-        <div class="correction-block">
-            <strong>Solution :</strong> L'équation est $(x - 1)^2 + (y + 2)^2 = 3^2$.<br>
-            En développant : $x^2 - 2x + 1 + y^2 + 4y + 4 = 9 \iff x^2 + y^2 - 2x + 4y - 4 = 0$.
+        <div style="background: #f0fdf4; border-left: 4px solid #22c55e; padding: 15px; border-radius: 0 8px 8px 0;">
+            <strong style="color: #15803d;">Application Directe (Mini-Exercice) :</strong><br>
+            <strong>Énoncé :</strong> Dans $\mathbb{R}^4$, soit $F$ et $G$ deux hyperplans (donc de dimension 3). Quelle est la dimension possible de leur intersection $F \cap G$ si $F \neq G$ ?<br>
+            <strong>Solution :</strong> D'après la formule de Grassmann : $\dim(F \cap G) = \dim(F) + \dim(G) - \dim(F + G)$.<br>
+            Ici, $\dim(F) = \dim(G) = 3$. Puisque $F \neq G$, le sous-espace $F+G$ contient strictement $F$, donc $\dim(F+G) > 3$. Or $F+G$ est un sous-espace de $\mathbb{R}^4$, donc $\dim(F+G) \le 4$. Par conséquent, $\dim(F+G) = 4$.<br>
+            Ainsi, $\dim(F \cap G) = 3 + 3 - 4 = 2$. L'intersection de deux hyperplans distincts de $\mathbb{R}^4$ est toujours un plan vectoriel de dimension 2.
         </div>
     </div>
 
 </div>
-
-<script>
-    function checkAnswer(btn) {
-        const grid = btn.closest('.qcm-grid');
-        const card = btn.closest('.qcm-card');
-        const correctionBox = card.querySelector('.correction-block');
-        
-        if (grid.dataset.answered === 'true') return;
-        grid.dataset.answered = 'true';
-
-        const isCorrect = btn.dataset.correct === "true";
-        const buttons = grid.querySelectorAll('.opt-btn');
-
-        buttons.forEach(b => {
-            b.style.pointerEvents = 'none';
-            if (b.dataset.correct === "true") {
-                b.classList.add('correct');
-            } else if (b === btn && !isCorrect) {
-                b.classList.add('wrong');
-            }
-        });
-
-        if (correctionBox) {
-            correctionBox.style.display = 'block';
-            correctionBox.classList.add('fade-in');
-        }
-    }
-</script>
-</body>
-</html>
