@@ -149,19 +149,30 @@
         </div>
 
         <div style="background: #fdf4ff; border-left: 4px solid #d946ef; padding: 15px; margin-bottom: 20px; border-radius: 0 8px 8px 0;">
-            <strong style="color: #a21caf;">Démonstration :</strong><br>
-            Soit $\mathcal{G}$ une famille génératrice de $E$. Deux cas se présentent :<br>
-            1. Soit $\mathcal{G}$ est libre. Étant déjà génératrice, c'est alors une base de $E$ et le théorème est démontré (on a extrait $\mathcal{G}$ d'elle-même).<br>
-            2. Soit $\mathcal{G}$ est liée. Il existe donc au moins un vecteur de $\mathcal{G}$ qui est combinaison linéaire des autres. Retirons ce vecteur de la famille.<br>
-            La nouvelle famille obtenue génère toujours le même espace vectoriel $E$ (puisque le vecteur retiré n'apportait aucune "nouvelle" direction).<br>
-            On répète ce processus : tant que la famille est liée, on retire un vecteur qui est combinaison linéaire des autres. L'espace étant de dimension finie (donc engendré par un nombre fini de vecteurs), ce processus va s'arrêter. On aboutira à une famille génératrice qui ne contient plus de combinaisons linéaires internes, c'est-à-dire une famille libre. Cette sous-famille finale est donc libre et génératrice : c'est une base.
+            <strong style="color: #a21caf;">Démonstration détaillée :</strong><br>
+            Soit $E$ un espace vectoriel engendré par une famille finie $\mathcal{G} = (v_1, v_2, \dots, v_p)$.<br>
+            <strong>Étape 1 :</strong> Si $\mathcal{G}$ est une famille libre, alors c'est une base par définition, et le théorème est vérifié.<br>
+            <strong>Étape 2 :</strong> Si $\mathcal{G}$ est liée, il existe des scalaires $\lambda_1, \lambda_2, \dots, \lambda_p$ <strong>non tous nuls</strong> tels que :
+            $$\lambda_1 v_1 + \lambda_2 v_2 + \dots + \lambda_p v_p = 0$$
+            Supposons sans perte de généralité que $\lambda_p \neq 0$. On peut alors isoler $v_p$ en divisant par $\lambda_p$ :
+            $$\lambda_p v_p = - \lambda_1 v_1 - \lambda_2 v_2 - \dots - \lambda_{p-1} v_{p-1}$$
+            $$v_p = \left(-\frac{\lambda_1}{\lambda_p}\right) v_1 + \left(-\frac{\lambda_2}{\lambda_p}\right) v_2 + \dots + \left(-\frac{\lambda_{p-1}}{\lambda_p}\right) v_{p-1}$$
+            Ceci prouve par le calcul que $v_p$ est une combinaison linéaire des autres vecteurs. L'espace engendré reste donc strictement le même si on retire $v_p$ :
+            $$Vect(v_1, v_2, \dots, v_p) = Vect(v_1, v_2, \dots, v_{p-1}) = E$$
+            <strong>Étape 3 :</strong> On pose $\mathcal{G}_1 = (v_1, \dots, v_{p-1})$. Si $\mathcal{G}_1$ est libre, c'est une base. Sinon, on réitère ce calcul. Puisque la famille de départ contient un nombre fini $p$ de vecteurs, ce processus d'élimination s'arrête obligatoirement. La sous-famille finale $\mathcal{B}$ sera libre et génératrice : c'est une base extraite.
         </div>
 
         <div style="background: #f0fdf4; border-left: 4px solid #22c55e; padding: 15px; border-radius: 0 8px 8px 0;">
             <strong style="color: #15803d;">Application Directe (Mini-Exercice) :</strong><br>
-            <strong>Énoncé :</strong> Dans $\mathbb{R}^2$, extraire une base de la famille génératrice $\mathcal{G} = ((1,0), (0,1), (2,3))$.<br>
-            <strong>Solution :</strong> La famille contient 3 vecteurs dans $\mathbb{R}^2$ (de dimension 2), elle est donc forcément liée. On remarque que le vecteur $v_3(2,3)$ s'écrit comme une combinaison linéaire des deux premiers : $v_3 = 2 \cdot (1,0) + 3 \cdot (0,1)$.<br>
-            On peut donc retirer $v_3$. La famille restante $\mathcal{B} = ((1,0), (0,1))$ est libre et génère toujours $\mathbb{R}^2$. C'est une base extraite de $\mathcal{G}$.
+            <strong>Énoncé :</strong> Dans $\mathbb{R}^2$, extraire une base de la famille génératrice $\mathcal{G} = (v_1, v_2, v_3)$ avec $v_1=(1,0)$, $v_2=(0,1)$ et $v_3=(2,3)$.<br>
+            <strong>Solution :</strong> Cherchons explicitement une relation de liaison $\alpha v_1 + \beta v_2 + \gamma v_3 = 0$ :
+            $$\alpha(1,0) + \beta(0,1) + \gamma(2,3) = (0,0)$$
+            $$(\alpha + 2\gamma, \beta + 3\gamma) = (0,0)$$
+            Par identification, on obtient le système suivant : 
+            $$\begin{cases} \alpha + 2\gamma = 0 \\ \beta + 3\gamma = 0 \end{cases} \implies \begin{cases} \alpha = -2\gamma \\ \beta = -3\gamma \end{cases}$$
+            En fixant par exemple $\gamma = 1$, on obtient $\alpha = -2$ et $\beta = -3$. La relation de liaison est donc :
+            $$-2v_1 - 3v_2 + v_3 = 0 \implies v_3 = 2v_1 + 3v_2$$
+            Puisque $v_3 \in Vect(v_1, v_2)$, ce vecteur est redondant. On le retire. La sous-famille $\mathcal{B} = (v_1, v_2) = ((1,0), (0,1))$ engendre toujours $\mathbb{R}^2$ et est libre (c'est la base canonique). C'est la base extraite recherchée.
         </div>
     </div>
 
@@ -173,28 +184,40 @@
         </div>
 
         <div style="background: #fdf4ff; border-left: 4px solid #d946ef; padding: 15px; margin-bottom: 20px; border-radius: 0 8px 8px 0;">
-            <strong style="color: #a21caf;">Démonstration :</strong><br>
-            Soit $\mathcal{L} = (u_1, \dots, u_k)$ une famille libre de $E$ et $\mathcal{G} = (v_1, \dots, v_p)$ une famille génératrice.<br>
-            Si $\mathcal{L}$ est génératrice, c'est déjà une base et le théorème est prouvé.<br>
-            Sinon, $Vect(\mathcal{L}) \neq E$. Comme $\mathcal{G}$ génère $E$, il existe au moins un vecteur $v_i \in \mathcal{G}$ tel que $v_i \notin Vect(\mathcal{L})$.<br>
-            Ajoutons ce vecteur à $\mathcal{L}$. La nouvelle famille $\mathcal{L}' = (u_1, \dots, u_k, v_i)$ est toujours libre (car on a ajouté un vecteur n'appartenant pas à l'espace engendré par les précédents).<br>
-            On répète cette opération en piochant dans $\mathcal{G}$. À chaque étape, la taille de la famille libre augmente strictement d'une unité. Or, dans un espace de dimension finie $n$, la taille maximale d'une famille libre est $n$. Le processus va donc s'arrêter en un nombre fini d'étapes. À l'arrêt, on ne peut plus trouver de vecteur dans $\mathcal{G}$ à ajouter sans casser la liberté : cela signifie que $\mathcal{L}$ complétée génère tout $E$. C'est donc devenue une base.
+            <strong style="color: #a21caf;">Démonstration détaillée :</strong><br>
+            Soit $\mathcal{L} = (u_1, \dots, u_k)$ une famille libre et $\mathcal{G} = (v_1, \dots, v_p)$ une famille génératrice de $E$.<br>
+            <strong>Étape 1 :</strong> Si $Vect(\mathcal{L}) = E$, la famille est génératrice et libre, c'est déjà une base.<br>
+            <strong>Étape 2 :</strong> Si $Vect(\mathcal{L}) \subsetneq E$, il existe au moins un vecteur $v_i \in \mathcal{G}$ tel que $v_i \notin Vect(\mathcal{L})$.<br>
+            Montrons par le calcul que la famille complétée $\mathcal{L}' = (u_1, \dots, u_k, v_i)$ reste libre. Posons l'équation :
+            $$\lambda_1 u_1 + \dots + \lambda_k u_k + \mu v_i = 0$$
+            Raisonnons par l'absurde : si $\mu \neq 0$, on pourrait diviser par $\mu$ :
+            $$\mu v_i = -\lambda_1 u_1 - \dots - \lambda_k u_k \implies v_i = \sum_{j=1}^{k} \left(-\frac{\lambda_j}{\mu}\right) u_j$$
+            Cela signifierait que $v_i \in Vect(\mathcal{L})$, ce qui contredit notre choix de départ. Donc obligatoirement, <strong>$\mu = 0$</strong>.<br>
+            En remplaçant $\mu = 0$ dans l'équation initiale, il reste :
+            $$\lambda_1 u_1 + \dots + \lambda_k u_k = 0$$
+            Or, $\mathcal{L}$ est une famille libre par hypothèse. Cela impose que tous les coefficients soient nuls : <strong>$\lambda_1 = \dots = \lambda_k = 0$</strong>.<br>
+            La nouvelle famille $\mathcal{L}'$ est donc strictement libre.<br>
+            <strong>Étape 3 :</strong> On répète cette opération. En dimension finie $n$, la taille maximale d'une famille libre est $n$. Le processus s'arrête forcément, aboutissant à une famille libre de $n$ vecteurs, qui constitue une base de $E$.
         </div>
 
         <div style="background: #f0fdf4; border-left: 4px solid #22c55e; padding: 15px; border-radius: 0 8px 8px 0;">
             <strong style="color: #15803d;">Application Directe (Mini-Exercice) :</strong><br>
-            <strong>Énoncé :</strong> Dans $\mathbb{R}^3$, la famille $\mathcal{L} = ((1,1,0), (0,1,1))$ est libre. Complétez-la pour en faire une base de $\mathbb{R}^3$.<br>
-            <strong>Solution :</strong> $\mathbb{R}^3$ est de dimension 3, il nous manque 1 vecteur. Prenons la base canonique $\mathcal{G} = (e_1, e_2, e_3)$. Testons $e_1(1,0,0)$.<br>
-            Est-ce que $(1,0,0)$ appartient à $Vect(\mathcal{L})$ ? Si oui, $(1,0,0) = a(1,1,0) + b(0,1,1) = (a, a+b, b)$. Par identification, $a=1, b=0$ et $a+b=0$, ce qui donnerait $1=0$ (impossible). Donc $e_1 \notin Vect(\mathcal{L})$.<br>
-            On peut l'ajouter ! La famille complétée $((1,1,0), (0,1,1), (1,0,0))$ est libre. Avec 3 vecteurs en dimension 3, c'est une base.
+            <strong>Énoncé :</strong> Dans $\mathbb{R}^3$, la famille $\mathcal{L} = (u_1, u_2)$ avec $u_1=(1,1,0)$ et $u_2=(0,1,1)$ est libre. Complétez-la pour en faire une base de $\mathbb{R}^3$.<br>
+            <strong>Solution :</strong> $\mathbb{R}^3$ est de dimension 3, il manque 1 vecteur. Prenons la base canonique $\mathcal{G} = (e_1, e_2, e_3)$. Testons l'ajout de $e_1=(1,0,0)$.<br>
+            Vérifions si $e_1 \in Vect(\mathcal{L})$. Si c'était le cas, il existerait des scalaires $a, b$ tels que :
+            $$a(1,1,0) + b(0,1,1) = (1,0,0)$$
+            $$(a, a+b, b) = (1,0,0)$$
+            Par identification, on résout le système :
+            $$\begin{cases} a = 1 \\ a + b = 0 \\ b = 0 \end{cases}$$
+            La première ligne donne $a=1$ et la troisième $b=0$. En remplaçant dans la deuxième ligne, on obtient $1 + 0 = 0 \implies 1 = 0$, ce qui est <strong>absurde</strong>.<br>
+            Le système n'ayant pas de solution, $e_1 \notin Vect(\mathcal{L})$. D'après le théorème, la famille complétée $((1,1,0), (0,1,1), (1,0,0))$ est libre. Avec 3 vecteurs en dimension 3, c'est une base.
         </div>
     </div>
-
     <div style="background: white; padding: 25px; border-radius: 10px; margin-bottom: 30px; box-shadow: 0 2px 4px rgba(0,0,0,0.02); border: 1px solid #e2e8f0;">
         <h2 style="color: #0a0f1d; border-bottom: 2px solid #e2e8f0; padding-bottom: 10px;">Correction des Exercices d'Application</h2>
         
         <details style="margin-bottom: 15px; background: #f8fafc; border-radius: 8px; border: 1px solid #e2e8f0;">
-            <summary style="background: #3b82f6; color: white; padding: 12px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; outline: none; list-style: none;">🔍 Voir la correction - Exercice 1 (Reconnaître les espaces vectoriels)</summary>
+            <summary style="background: #3b82f6; color: white; padding: 12px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; outline: none; list-style: none;">🔍 Voir la correction - Exercice 1</summary>
             <div style="padding: 20px; color: #334155;">
                 <ul style="line-height: 1.8;">
                     <li><strong>1. $F = \{(x,y) \in \mathbb{R}^2 \mid x+y=3\}$ :</strong> 🔴 <strong>NON.</strong> Le vecteur nul $(0,0)$ n'y appartient pas car $0+0 \neq 3$.</li>
@@ -212,7 +235,7 @@
         </details>
 
         <details style="margin-bottom: 15px; background: #f8fafc; border-radius: 8px; border: 1px solid #e2e8f0;">
-            <summary style="background: #3b82f6; color: white; padding: 12px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; outline: none; list-style: none;">🔍 Voir la correction - Exercice 2 (Sous-espaces de fonctions)</summary>
+            <summary style="background: #3b82f6; color: white; padding: 12px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; outline: none; list-style: none;">🔍 Voir la correction - Exercice 2</summary>
             <div style="padding: 20px; color: #334155;">
                 <ul style="line-height: 1.8;">
                     <li><strong>1. $F = \{f \in E \mid f(1)=a\}$ :</strong> 🔴 <strong>OUI si et seulement si $a=0$.</strong> Sinon, la fonction nulle (qui associe 0 à tout réel, donc $0(1)=0$) n'y appartient pas.</li>
@@ -224,7 +247,7 @@
         </details>
 
         <details style="margin-bottom: 15px; background: #f8fafc; border-radius: 8px; border: 1px solid #e2e8f0;">
-            <summary style="background: #3b82f6; color: white; padding: 12px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; outline: none; list-style: none;">🔍 Voir la correction - Exercice 3 (Matrice s.e.v)</summary>
+            <summary style="background: #3b82f6; color: white; padding: 12px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; outline: none; list-style: none;">🔍 Voir la correction - Exercice 3</summary>
             <div style="padding: 20px; color: #334155;">
                 <strong>Question :</strong> $F$ est-il un s.e.v de $\mathcal{M}_2(\mathbb{R})$ ? Si oui, trouver une base.<br><br>
                 <strong>Solution :</strong> Écrivons une matrice $A \in F$ sous forme de combinaison linéaire :<br>
@@ -239,7 +262,7 @@
         </details>
 
         <details style="margin-bottom: 15px; background: #f8fafc; border-radius: 8px; border: 1px solid #e2e8f0;">
-            <summary style="background: #3b82f6; color: white; padding: 12px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; outline: none; list-style: none;">🔍 Voir la correction - Exercice 4 (Famille liée)</summary>
+            <summary style="background: #3b82f6; color: white; padding: 12px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; outline: none; list-style: none;">🔍 Voir la correction - Exercice 4</summary>
             <div style="padding: 20px; color: #334155;">
                 <strong>Énoncé :</strong> Montrer que $a(9,-3,7), b(1,8,8), c(5,-5,1)$ est liée.<br><br>
                 <strong>Solution :</strong> On cherche une combinaison linéaire non triviale qui donne le vecteur nul : $x \cdot a + y \cdot b + z \cdot c = (0,0,0)$. Cela nous donne le système :<br>
@@ -256,7 +279,7 @@
         </details>
 
         <details style="margin-bottom: 15px; background: #f8fafc; border-radius: 8px; border: 1px solid #e2e8f0;">
-            <summary style="background: #3b82f6; color: white; padding: 12px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; outline: none; list-style: none;">🔍 Voir la correction - Exercice 5 (Famille libre de fonctions)</summary>
+            <summary style="background: #3b82f6; color: white; padding: 12px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; outline: none; list-style: none;">🔍 Voir la correction - Exercice 5</summary>
             <div style="padding: 20px; color: #334155;">
                 <strong>Énoncé :</strong> $(f_1, f_2, f_3)$ avec $f_1(x)=x, f_2(x)=\ln x, f_3(x)=e^x$ est-elle libre sur $C(\mathbb{R}^{+*}, \mathbb{R})$ ?<br><br>
                 <strong>Solution :</strong> Soient $a, b, c \in \mathbb{R}$ tels que pour TOUT $x > 0$ :<br>
@@ -272,7 +295,7 @@
             </div>
         </details>
         <details style="margin-bottom: 15px; background: #f8fafc; border-radius: 8px; border: 1px solid #e2e8f0;">
-            <summary style="background: #3b82f6; color: white; padding: 12px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; outline: none; list-style: none;">🔍 Voir la correction - Exercice 6 (Extraire une base)</summary>
+            <summary style="background: #3b82f6; color: white; padding: 12px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; outline: none; list-style: none;">🔍 Voir la correction - Exercice 6</summary>
             <div style="padding: 20px; color: #334155;">
                 <strong>Énoncé :</strong> Extraire une famille libre de $\mathbb{R}^4$ de cardinal maximal de la famille : $\{(1,0,0,0), (1,1,0,0), (1,2,3,4), (1,3,5,7), (0,-2,0,0)\}$.<br><br>
                 <strong>Solution :</strong> Notons ces vecteurs $v_1, v_2, v_3, v_4, v_5$. On remarque tout de suite que $v_5$ est colinéaire à une combinaison des premiers : $v_5 = (0,-2,0,0) = 2 \cdot (1,0,0,0) - 2 \cdot (1,1,0,0) = 2v_1 - 2v_2$. On peut donc éliminer $v_5$ de notre extraction.<br><br>
@@ -286,7 +309,7 @@
         </details>
 
         <details style="margin-bottom: 15px; background: #f8fafc; border-radius: 8px; border: 1px solid #e2e8f0;">
-            <summary style="background: #3b82f6; color: white; padding: 12px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; outline: none; list-style: none;">🔍 Voir la correction - Exercice 7 (Dimension de sous-espaces)</summary>
+            <summary style="background: #3b82f6; color: white; padding: 12px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; outline: none; list-style: none;">🔍 Voir la correction - Exercice 7</summary>
             <div style="padding: 20px; color: #334155;">
                 <strong>a)</strong> Soit $F = Vect(u, v)$ avec $u=(1,2,0)$ et $v=(-1,1,1)$.<br>
                 On remarque que les vecteurs $u$ et $v$ ne sont pas colinéaires (il n'existe aucun réel $k$ tel que $u = kv$). La famille $(u,v)$ est donc libre et génératrice de $F$. C'est une base de $F$.<br>
@@ -305,7 +328,7 @@
         </details>
 
         <details style="margin-bottom: 15px; background: #f8fafc; border-radius: 8px; border: 1px solid #e2e8f0;">
-            <summary style="background: #3b82f6; color: white; padding: 12px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; outline: none; list-style: none;">🔍 Voir la correction - Exercice 8 (Espaces de suites et de polynômes)</summary>
+            <summary style="background: #3b82f6; color: white; padding: 12px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; outline: none; list-style: none;">🔍 Voir la correction - Exercice 8</summary>
             <div style="padding: 20px; color: #334155;">
                 <strong>1. Suites arithmétiques :</strong><br>
                 Toute suite arithmétique $u$ de premier terme $u_0$ et de raison $r$ s'écrit pour tout $n \in \mathbb{N}$ : $u_n = u_0 \cdot 1 + r \cdot n$.<br>
@@ -327,7 +350,7 @@
         </details>
 
         <details style="margin-bottom: 15px; background: #f8fafc; border-radius: 8px; border: 1px solid #e2e8f0;">
-            <summary style="background: #3b82f6; color: white; padding: 12px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; outline: none; list-style: none;">🔍 Voir la correction - Exercice 9 (Égalité de sous-espaces)</summary>
+            <summary style="background: #3b82f6; color: white; padding: 12px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; outline: none; list-style: none;">🔍 Voir la correction - Exercice 9</summary>
             <div style="padding: 20px; color: #334155;">
                 <strong>Énoncé :</strong> Montrer que $F = Vect(u_1, u_2)$ et $G = Vect(w_1, w_2)$ sont égaux, avec :<br>
                 $u_1=(1,0,0,1)$, $u_2=(2,1,-1,0)$ et $w_1=(3,1,-1,1)$, $w_2=(5,2,-2,1)$.<br><br>
@@ -342,7 +365,7 @@
         </details>
 
         <details style="margin-bottom: 15px; background: #f8fafc; border-radius: 8px; border: 1px solid #e2e8f0;">
-            <summary style="background: #3b82f6; color: white; padding: 12px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; outline: none; list-style: none;">🔍 Voir la correction - Exercice 10 (Espaces sous forme de Vect)</summary>
+            <summary style="background: #3b82f6; color: white; padding: 12px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; outline: none; list-style: none;">🔍 Voir la correction - Exercice 10</summary>
             <div style="padding: 20px; color: #334155;">
                 <strong>a) $G = \{P \in \mathbb{R}_3[X] \mid P(1)=P(2)=0\}$ :</strong><br>
                 Si un polynôme de degré $\le 3$ s'annule en 1 et en 2, il est factorisable par $(X-1)(X-2)$.<br>
@@ -358,7 +381,7 @@
             </div>
         </details>
         <details style="margin-bottom: 15px; background: #f8fafc; border-radius: 8px; border: 1px solid #e2e8f0;">
-            <summary style="background: #3b82f6; color: white; padding: 12px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; outline: none; list-style: none;">🔍 Voir la correction - Exercice 11 (Famille libre de fonctions trigonométriques)</summary>
+            <summary style="background: #3b82f6; color: white; padding: 12px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; outline: none; list-style: none;">🔍 Voir la correction - Exercice 11</summary>
             <div style="padding: 20px; color: #334155;">
                 <strong>Énoncé :</strong> $(f_1, f_2, f_3, f_4)$ avec $f_1(x)=\sin x, f_2(x)=\cos x, f_3(x)=x\sin x, f_4(x)=\sin 2x$ est-elle libre ?<br><br>
                 <strong>Solution :</strong> Soient $a, b, c, d \in \mathbb{R}$ tels que pour tout $x \in \mathbb{R}$ :<br>
@@ -377,7 +400,7 @@
         </details>
 
         <details style="margin-bottom: 15px; background: #f8fafc; border-radius: 8px; border: 1px solid #e2e8f0;">
-            <summary style="background: #3b82f6; color: white; padding: 12px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; outline: none; list-style: none;">🔍 Voir la correction - Exercice 12 (Espace de polynômes)</summary>
+            <summary style="background: #3b82f6; color: white; padding: 12px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; outline: none; list-style: none;">🔍 Voir la correction - Exercice 12</summary>
             <div style="padding: 20px; color: #334155;">
                 <strong>Énoncé :</strong> $F = \{P \in \mathbb{R}_2[X] \mid \exists(a,b,c) \in \mathbb{R}^3 / P = a + (2a-3b)X + cX^2\}$. Montrer que $F$ est un s.e.v, donner base et dimension.<br><br>
                 <strong>Solution :</strong> Écrivons le polynôme en regroupant selon les paramètres $a, b, c$ :<br>
@@ -394,7 +417,7 @@
         </details>
 
         <details style="margin-bottom: 15px; background: #f8fafc; border-radius: 8px; border: 1px solid #e2e8f0;">
-            <summary style="background: #3b82f6; color: white; padding: 12px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; outline: none; list-style: none;">🔍 Voir la correction - Exercice 13 (Famille de polynômes et degrés échelonnés)</summary>
+            <summary style="background: #3b82f6; color: white; padding: 12px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; outline: none; list-style: none;">🔍 Voir la correction - Exercice 13</summary>
             <div style="padding: 20px; color: #334155;">
                 <strong>Énoncé :</strong> $Q_0=3$, $Q_1=2X$, $Q_2=X^3+X$, $Q_3=X^3$, $Q_4=X^2+1$.<br><br>
                 <strong>Solution :</strong><br>
@@ -408,7 +431,7 @@
         </details>
 
         <details style="margin-bottom: 15px; background: #f8fafc; border-radius: 8px; border: 1px solid #e2e8f0;">
-            <summary style="background: #3b82f6; color: white; padding: 12px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; outline: none; list-style: none;">🔍 Voir la correction - Exercice 14 (Base de polynômes interpolateurs)</summary>
+            <summary style="background: #3b82f6; color: white; padding: 12px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; outline: none; list-style: none;">🔍 Voir la correction - Exercice 14</summary>
             <div style="padding: 20px; color: #334155;">
                 <strong>1. Montrer que c'est une base :</strong><br>
                 On a 4 polynômes de degré 3 dans $E = \mathbb{R}_3[X]$ (qui est de dimension 4). Il suffit de montrer que la famille est libre. Soit $aP_1 + bP_2 + cP_3 + dP_4 = 0$.<br>
@@ -430,7 +453,7 @@
         </details>
 
         <details style="margin-bottom: 15px; background: #f8fafc; border-radius: 8px; border: 1px solid #e2e8f0;">
-            <summary style="background: #3b82f6; color: white; padding: 12px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; outline: none; list-style: none;">🔍 Voir la correction - Exercice 15 (Opérations sur les s.e.v dans $\mathbb{R}^4$)</summary>
+            <summary style="background: #3b82f6; color: white; padding: 12px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; outline: none; list-style: none;">🔍 Voir la correction - Exercice 15</summary>
             <div style="padding: 20px; color: #334155;">
                 <strong>1. S.E.V :</strong> $F$ est défini par un $Vect$, c'est donc un s.e.v. $G$ est l'ensemble des solutions d'une équation linéaire homogène (c'est le noyau de la forme linéaire $\phi(x,y,z,t) = x+y-z+2t$), donc $G$ est un s.e.v (hyperplan).<br><br>
 
@@ -454,7 +477,7 @@
         </details>
 
         <details style="margin-bottom: 15px; background: #f8fafc; border-radius: 8px; border: 1px solid #e2e8f0;">
-            <summary style="background: #3b82f6; color: white; padding: 12px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; outline: none; list-style: none;">🔍 Voir la correction - Exercice 16 (Base et coordonnées dans un système d'équations)</summary>
+            <summary style="background: #3b82f6; color: white; padding: 12px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; outline: none; list-style: none;">🔍 Voir la correction - Exercice 16</summary>
             <div style="padding: 20px; color: #334155;">
                 <strong>Énoncé :</strong> Base de $F=\{(x,y,z,t) \in \mathbb{R}^4 \mid x+y = 0 \text{ et } z+t = 0\}$. Coordonnées de $a=(2,-2,-1,1)$.<br><br>
                 <strong>Solution :</strong> Un vecteur appartenant à $F$ vérifie $y = -x$ et $t = -z$.<br>
@@ -469,7 +492,7 @@
         </details>
 
         <details style="margin-bottom: 15px; background: #f8fafc; border-radius: 8px; border: 1px solid #e2e8f0;">
-            <summary style="background: #3b82f6; color: white; padding: 12px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; outline: none; list-style: none;">🔍 Voir la correction - Exercice 17 (Équivalence de deux s.e.v)</summary>
+            <summary style="background: #3b82f6; color: white; padding: 12px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; outline: none; list-style: none;">🔍 Voir la correction - Exercice 17</summary>
             <div style="padding: 20px; color: #334155;">
                 <strong>1. $F_1$ est un s.e.v :</strong> Il est défini par l'équation linéaire homogène $x+y-2z=0$ (c'est l'équation d'un plan passant par l'origine dans $\mathbb{R}^3$). C'est donc un sous-espace vectoriel.<br><br>
 
@@ -488,7 +511,7 @@
             </div>
         </details>
         <details style="margin-bottom: 15px; background: #f8fafc; border-radius: 8px; border: 1px solid #e2e8f0;">
-            <summary style="background: #3b82f6; color: white; padding: 12px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; outline: none; list-style: none;">🔍 Voir la correction - Exercice 18 (Somme directe dans M₂(ℝ))</summary>
+            <summary style="background: #3b82f6; color: white; padding: 12px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; outline: none; list-style: none;">🔍 Voir la correction - Exercice 18</summary>
             <div style="padding: 20px; color: #334155;">
                 <strong>Énoncé :</strong> Montrer que $M_2(\mathbb{R}) = F \oplus G$.<br><br>
                 <strong>Solution :</strong> L'espace $M_2(\mathbb{R})$ est de dimension 4. Pour montrer que $F \oplus G = M_2(\mathbb{R})$, il suffit de montrer que $\dim(F) + \dim(G) = 4$ et que $F \cap G = \{0\}$.<br><br>
@@ -508,7 +531,7 @@
         </details>
 
         <details style="margin-bottom: 15px; background: #f8fafc; border-radius: 8px; border: 1px solid #e2e8f0;">
-            <summary style="background: #3b82f6; color: white; padding: 12px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; outline: none; list-style: none;">🔍 Voir la correction - Exercice 19 (Familles libres, bases et somme dans ℝ⁴)</summary>
+            <summary style="background: #3b82f6; color: white; padding: 12px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; outline: none; list-style: none;">🔍 Voir la correction - Exercice 19</summary>
             <div style="padding: 20px; color: #334155;">
                 <strong>1. Familles libres :</strong><br>
                 - $(v_1, v_2)$ : Les deux vecteurs ne sont manifestement pas proportionnels, la famille est donc <strong>libre</strong>.<br>
@@ -536,7 +559,7 @@
         </details>
 
         <details style="margin-bottom: 15px; background: #f8fafc; border-radius: 8px; border: 1px solid #e2e8f0;">
-            <summary style="background: #3b82f6; color: white; padding: 12px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; outline: none; list-style: none;">🔍 Voir la correction - Exercice 20 (Équations et bases dans ℝ³)</summary>
+            <summary style="background: #3b82f6; color: white; padding: 12px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; outline: none; list-style: none;">🔍 Voir la correction - Exercice 20</summary>
             <div style="padding: 20px; color: #334155;">
                 <strong>1. Base de F :</strong><br>
                 $F$ est le noyau d'une forme linéaire ($x+y+2z=0$), c'est un plan vectoriel de $\mathbb{R}^3$.<br>
@@ -564,7 +587,7 @@
         </details>
 
         <details style="margin-bottom: 15px; background: #f8fafc; border-radius: 8px; border: 1px solid #e2e8f0;">
-            <summary style="background: #3b82f6; color: white; padding: 12px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; outline: none; list-style: none;">🔍 Voir la correction - Exercice 21 (Base et supplémentaire dans ℝ⁴)</summary>
+            <summary style="background: #3b82f6; color: white; padding: 12px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; outline: none; list-style: none;">🔍 Voir la correction - Exercice 21</summary>
             <div style="padding: 20px; color: #334155;">
                 <strong>1. Trouver une base de G :</strong><br>
                 On résout le système définissant $G$ :<br>
@@ -586,7 +609,7 @@
             </div>
         </details>
         <details style="margin-bottom: 15px; background: #f8fafc; border-radius: 8px; border: 1px solid #e2e8f0;">
-            <summary style="background: #3b82f6; color: white; padding: 12px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; outline: none; list-style: none;">🔍 Voir la correction - Exercice 22 (Somme directe dans $\mathbb{R}_3[X]$)</summary>
+            <summary style="background: #3b82f6; color: white; padding: 12px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; outline: none; list-style: none;">🔍 Voir la correction - Exercice 22</summary>
             <div style="padding: 20px; color: #334155;">
                 <strong>1. Sous-espaces et dimensions :</strong><br>
                 Soit $E = \mathbb{R}_3[X]$. $\dim(E) = 4$.<br><br>
@@ -624,7 +647,7 @@
         </details>
 
         <details style="margin-bottom: 15px; background: #f8fafc; border-radius: 8px; border: 1px solid #e2e8f0;">
-            <summary style="background: #3b82f6; color: white; padding: 12px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; outline: none; list-style: none;">🔍 Voir la correction - Exercice 23 (Famille de fonctions trigonométriques)</summary>
+            <summary style="background: #3b82f6; color: white; padding: 12px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; outline: none; list-style: none;">🔍 Voir la correction - Exercice 23</summary>
             <div style="padding: 20px; color: #334155;">
                 <strong>1. $F$ est un espace vectoriel :</strong><br>
                 Par définition, $F = Vect\left(x \mapsto \tan(x), \ x \mapsto \frac{1}{\tan(x)}, \ x \mapsto \frac{1}{\tan(2x)}\right)$.<br>
@@ -643,7 +666,7 @@
         </details>
 
         <details style="margin-bottom: 15px; background: #f8fafc; border-radius: 8px; border: 1px solid #e2e8f0;">
-            <summary style="background: #3b82f6; color: white; padding: 12px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; outline: none; list-style: none;">🔍 Voir la correction - Exercice 24 (Espace de polynômes de degré 4)</summary>
+            <summary style="background: #3b82f6; color: white; padding: 12px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; outline: none; list-style: none;">🔍 Voir la correction - Exercice 24</summary>
             <div style="padding: 20px; color: #334155;">
                 <strong>1. Base et dimension de $F$ :</strong><br>
                 Soit $P \in \mathbb{R}_4[X]$. $P(X) = aX^4 + bX^3 + cX^2 + dX + e$. Et $P'(X) = 4aX^3 + 3bX^2 + 2cX + d$.<br>
@@ -671,7 +694,7 @@
         </details>
 
         <details style="margin-bottom: 15px; background: #f8fafc; border-radius: 8px; border: 1px solid #e2e8f0;">
-            <summary style="background: #3b82f6; color: white; padding: 12px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; outline: none; list-style: none;">🔍 Voir la correction - Exercice 25 (Famille libre de produits trigonométriques)</summary>
+            <summary style="background: #3b82f6; color: white; padding: 12px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; outline: none; list-style: none;">🔍 Voir la correction - Exercice 25</summary>
             <div style="padding: 20px; color: #334155;">
                 <strong>Énoncé :</strong> Étudier la liberté de la famille de fonctions $f_0(x)=\sin^3(x)$, $f_1(x)=\sin^2(x)\cos(x)$, $f_2(x)=\sin(x)\cos^2(x)$, $f_3(x)=\cos^3(x)$.<br><br>
                 <strong>Solution :</strong> Posons une combinaison linéaire nulle pour tout $x \in \mathbb{R}$ :<br>
@@ -690,7 +713,7 @@
         </details>
 
         <details style="margin-bottom: 15px; background: #f8fafc; border-radius: 8px; border: 1px solid #e2e8f0;">
-            <summary style="background: #3b82f6; color: white; padding: 12px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; outline: none; list-style: none;">🔍 Voir la correction - Exercice 26 (Preuves de supplémentaires dans des espaces infinis)</summary>
+            <summary style="background: #3b82f6; color: white; padding: 12px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; outline: none; list-style: none;">🔍 Voir la correction - Exercice 26</summary>
             <div style="padding: 20px; color: #334155;">
                 Pour ces démonstrations dans des espaces de dimension infinie, on utilise la méthode d'analyse-synthèse ou la caractérisation $E = F+G$ et $F \cap G = \{0\}$.<br><br>
                 <strong>1. $F = \{P \mid P(0)=0\}$, $G = \{P \mid \deg(P) \le 0\}$, $E=\mathbb{R}[X]$</strong><br>
