@@ -42,7 +42,7 @@
         </ul>
 
         <div style="background: #f8f9fa; padding: 15px; border-left: 4px solid #a0aec0; margin-top: 15px;">
-            <h4 style="margin-top: 0; color: #4a5568;">Démonstration</h4>
+            <h4 style="margin-top: 0; color: #4a5568;">Démonstration 1 (Par développement et identification)</h4>
             <p>Puisque $P$ est scindé, on peut l'écrire sous sa forme factorisée : $P(X) = a_n \prod_{k=1}^n (X - x_k)$.</p>
             <p>Développons ce produit. Les termes de plus haut degré et de plus bas degré s'obtiennent ainsi :</p>
             <p>$$P(X) = a_n \left( X^n - (x_1 + x_2 + \dots + x_n)X^{n-1} + \dots + (-1)^n(x_1 x_2 \dots x_n) \right)$$</p>
@@ -51,6 +51,16 @@
                 <li>Pour $X^{n-1}$ : $a_{n-1} = -a_n \sum_{k=1}^n x_k \implies \sum_{k=1}^n x_k = -\frac{a_{n-1}}{a_n}$</li>
                 <li>Pour $X^0$ (terme constant) : $a_0 = a_n (-1)^n \prod_{k=1}^n x_k \implies \prod_{k=1}^n x_k = (-1)^n \frac{a_0}{a_n}$</li>
             </ul>
+        </div>
+
+        <div style="background: #f8f9fa; padding: 15px; border-left: 4px solid #a0aec0; margin-top: 15px;">
+            <h4 style="margin-top: 0; color: #4a5568;">Démonstration 2 (Par récurrence sur le degré $n$)</h4>
+            <p><strong>Initialisation ($n=1$) :</strong> Soit $P(X) = a_1 X + a_0$. Son unique racine est $x_1 = -\frac{a_0}{a_1}$. La somme vaut $-\frac{a_0}{a_1}$ (formule vérifiée) et le produit vaut $-\frac{a_0}{a_1} = (-1)^1 \frac{a_0}{a_1}$ (formule vérifiée).</p>
+            <p><strong>Hérédité :</strong> Supposons les formules vraies pour un polynôme scindé de degré $n-1$. Soit $P$ de degré $n$ de racines $x_1, \dots, x_n$. On peut écrire $P(X) = (X - x_n)Q(X)$ où $Q(X) = a_n X^{n-1} + b_{n-2} X^{n-2} + \dots + b_0$ a pour racines $x_1, \dots, x_{n-1}$.</p>
+            <p>Par hypothèse de récurrence sur $Q$, on a : $\sum_{k=1}^{n-1} x_k = -\frac{b_{n-2}}{a_n}$ et $\prod_{k=1}^{n-1} x_k = (-1)^{n-1} \frac{b_0}{a_n}$.</p>
+            <p>Développons $P(X) = (X-x_n)(a_n X^{n-1} + b_{n-2}X^{n-2} + \dots + b_0)$. On trouve pour le coefficient de degré $n-1$ : $a_{n-1} = b_{n-2} - a_n x_n$. D'où $b_{n-2} = a_{n-1} + a_n x_n$.</p>
+            <p>En remplaçant dans la somme : $\sum_{k=1}^{n-1} x_k = -\frac{a_{n-1} + a_n x_n}{a_n} = -\frac{a_{n-1}}{a_n} - x_n$. En passant $x_n$ de l'autre côté, on obtient la somme des $n$ racines : $\sum_{k=1}^n x_k = -\frac{a_{n-1}}{a_n}$.</p>
+            <p>Pour le terme constant, $a_0 = -x_n b_0$, donc $b_0 = -\frac{a_0}{x_n}$. En remplaçant dans le produit : $\prod_{k=1}^{n-1} x_k = (-1)^{n-1} \frac{-a_0/x_n}{a_n} \implies x_n \prod_{k=1}^{n-1} x_k = (-1)^n \frac{a_0}{a_n}$, ce qui achève la récurrence.</p>
         </div>
 
         <div style="background: #fffff0; padding: 15px; border-left: 4px solid #ecc94b; margin-top: 15px;">
@@ -71,7 +81,7 @@
         <p style="text-align: center; font-size: 1.1em;">$$P(X) = \sum_{k=0}^n \frac{P^{(k)}(a)}{k!} (X-a)^k$$</p>
 
         <div style="background: #f8f9fa; padding: 15px; border-left: 4px solid #a0aec0; margin-top: 15px;">
-            <h4 style="margin-top: 0; color: #4a5568;">Démonstration</h4>
+            <h4 style="margin-top: 0; color: #4a5568;">Démonstration 1 (Par changement de base)</h4>
             <p>La famille $\mathcal{B} = (1, (X-a), (X-a)^2, \dots, (X-a)^n)$ est une famille de polynômes de degrés étagés (de $0$ à $n$). C'est donc une base de $\mathbb{K}_n[X]$. Il existe alors des scalaires uniques $c_0, c_1, \dots, c_n$ tels que :</p>
             <p>$$P(X) = \sum_{i=0}^n c_i (X-a)^i$$</p>
             <p>Dérivons cette expression $k$ fois ($0 \leq k \leq n$). Pour tout $i < k$, la dérivée $k$-ième de $(X-a)^i$ est nulle. Pour $i \geq k$, la dérivée $k$-ième est $\frac{i!}{(i-k)!}(X-a)^{i-k}$. Ainsi :</p>
@@ -79,6 +89,19 @@
             <p>En évaluant cette expression en $X=a$, tous les termes s'annulent sauf celui pour lequel $i=k$. Il reste donc :</p>
             <p>$$P^{(k)}(a) = c_k \frac{k!}{0!} (a-a)^0 = c_k k!$$</p>
             <p>On en déduit immédiatement que $c_k = \frac{P^{(k)}(a)}{k!}$, ce qui prouve la formule.</p>
+        </div>
+
+        <div style="background: #f8f9fa; padding: 15px; border-left: 4px solid #a0aec0; margin-top: 15px;">
+            <h4 style="margin-top: 0; color: #4a5568;">Démonstration 2 (Par récurrence et intégration)</h4>
+            <p>Démontrons la formule par récurrence sur le degré du polynôme.</p>
+            <p><strong>Initialisation :</strong> Pour $n=0$, $P(X) = c$ (constante). La formule donne $\sum_{k=0}^0 \frac{P^{(k)}(a)}{k!} (X-a)^k = \frac{P(a)}{0!} \cdot 1 = c$. Vrai.</p>
+            <p><strong>Hérédité :</strong> Supposons la formule vraie pour tout polynôme de degré $\le n$. Soit $P$ un polynôme de degré $n+1$. Sa dérivée $P'$ est de degré $n$. On peut donc lui appliquer l'hypothèse de récurrence :</p>
+            <p>$$P'(X) = \sum_{k=0}^n \frac{(P')^{(k)}(a)}{k!} (X-a)^k = \sum_{k=0}^n \frac{P^{(k+1)}(a)}{k!} (X-a)^k$$</p>
+            <p>Intégrons cette relation entre $a$ et $X$ en utilisant la linéarité de l'intégrale :</p>
+            <p>$$\int_a^X P'(t) dt = \sum_{k=0}^n \frac{P^{(k+1)}(a)}{k!} \int_a^X (t-a)^k dt$$</p>
+            <p>On sait que $\int_a^X (t-a)^k dt = \left[ \frac{(t-a)^{k+1}}{k+1} \right]_a^X = \frac{(X-a)^{k+1}}{k+1}$. On a donc :</p>
+            <p>$$P(X) - P(a) = \sum_{k=0}^n \frac{P^{(k+1)}(a)}{k!(k+1)} (X-a)^{k+1} = \sum_{k=0}^n \frac{P^{(k+1)}(a)}{(k+1)!} (X-a)^{k+1}$$</p>
+            <p>En effectuant un décalage d'indice $j = k+1$ (donc $j$ varie de $1$ à $n+1$) et en passant $P(a)$ de l'autre côté (qui correspond au terme $j=0$), on retrouve exactement la formule de Taylor à l'ordre $n+1$.</p>
         </div>
 
         <div style="background: #fffff0; padding: 15px; border-left: 4px solid #ecc94b; margin-top: 15px;">
@@ -103,7 +126,7 @@
         <p style="text-align: center; font-size: 1.1em;">$$(PQ)^{(n)} = \sum_{k=0}^n \binom{n}{k} P^{(k)} Q^{(n-k)}$$</p>
 
         <div style="background: #f8f9fa; padding: 15px; border-left: 4px solid #a0aec0; margin-top: 15px;">
-            <h4 style="margin-top: 0; color: #4a5568;">Démonstration (par récurrence)</h4>
+            <h4 style="margin-top: 0; color: #4a5568;">Démonstration 1 (Par récurrence)</h4>
             <p><strong>Initialisation :</strong> Pour $n=0$, la formule donne $\sum_{k=0}^0 \binom{0}{0} P^{(0)} Q^{(0)} = PQ = (PQ)^{(0)}$. L'initialisation est vérifiée.</p>
             <p><strong>Hérédité :</strong> Supposons la formule vraie pour un certain entier $n \ge 0$. Démontrons-la au rang $n+1$.</p>
             <p>$$(PQ)^{(n+1)} = \left( (PQ)^{(n)} \right)' = \left( \sum_{k=0}^n \binom{n}{k} P^{(k)} Q^{(n-k)} \right)'$$</p>
@@ -117,6 +140,18 @@
             <p>$$(PQ)^{(n+1)} = P^{(0)}Q^{(n+1)} + \sum_{k=1}^n \left[ \binom{n}{k-1} + \binom{n}{k} \right] P^{(k)} Q^{(n+1-k)} + P^{(n+1)}Q^{(0)}$$</p>
             <p>D'après la formule du triangle de Pascal, $\binom{n}{k-1} + \binom{n}{k} = \binom{n+1}{k}$. On réintègre les termes extrêmes, ce qui achève la récurrence :</p>
             <p>$$(PQ)^{(n+1)} = \sum_{k=0}^{n+1} \binom{n+1}{k} P^{(k)} Q^{(n+1-k)}$$</p>
+        </div>
+
+        <div style="background: #f8f9fa; padding: 15px; border-left: 4px solid #a0aec0; margin-top: 15px;">
+            <h4 style="margin-top: 0; color: #4a5568;">Démonstration 2 (Par le binôme de Newton sur les opérateurs)</h4>
+            <p>Soit $\mathcal{D}$ l'opérateur de dérivation défini par $\mathcal{D}(f) = f'$. On cherche à calculer $\mathcal{D}^n(PQ)$.</p>
+            <p>Définissons deux opérateurs $\mathcal{D}_P$ et $\mathcal{D}_Q$ agissant sur le produit $PQ$ de la manière suivante : $\mathcal{D}_P(PQ) = P'Q$ (on ne dérive que $P$) et $\mathcal{D}_Q(PQ) = PQ'$ (on ne dérive que $Q$).</p>
+            <p>On a donc $\mathcal{D}(PQ) = \mathcal{D}_P(PQ) + \mathcal{D}_Q(PQ) = (\mathcal{D}_P + \mathcal{D}_Q)(PQ)$.</p>
+            <p>Remarquons que ces deux opérateurs <strong>commutent</strong> : $\mathcal{D}_P(\mathcal{D}_Q(PQ)) = \mathcal{D}_P(PQ') = P'Q'$ et $\mathcal{D}_Q(\mathcal{D}_P(PQ)) = \mathcal{D}_Q(P'Q) = P'Q'$.</p>
+            <p>Puisque $\mathcal{D}_P \circ \mathcal{D}_Q = \mathcal{D}_Q \circ \mathcal{D}_P$, on peut appliquer la formule du <strong>binôme de Newton</strong> dans l'anneau des endomorphismes :</p>
+            <p>$$\mathcal{D}^n = (\mathcal{D}_P + \mathcal{D}_Q)^n = \sum_{k=0}^n \binom{n}{k} \mathcal{D}_P^k \circ \mathcal{D}_Q^{n-k}$$</p>
+            <p>En appliquant cette identité opératorielle au produit $(PQ)$, on obtient :</p>
+            <p>$$\mathcal{D}^n(PQ) = \sum_{k=0}^n \binom{n}{k} \mathcal{D}_P^k \left( \mathcal{D}_Q^{n-k} (PQ) \right) = \sum_{k=0}^n \binom{n}{k} P^{(k)} Q^{(n-k)}$$</p>
         </div>
 
         <div style="background: #fffff0; padding: 15px; border-left: 4px solid #ecc94b; margin-top: 15px;">
