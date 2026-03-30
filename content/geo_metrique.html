@@ -145,21 +145,25 @@
         <h2 style="color: #0a0f1d; border-bottom: 2px solid #e2e8f0; padding-bottom: 10px;">6. Théorème de la base extraite</h2>
         
         <div style="background: #eff6ff; border-left: 4px solid #3b82f6; padding: 15px; margin-bottom: 20px; border-radius: 0 8px 8px 0;">
-            <strong style="color: #1d4ed8;">Théorème :</strong> De toute famille génératrice $\mathcal{G}$ d'un espace vectoriel $E$ (de dimension finie), on peut extraire une sous-famille $\mathcal{B}$ qui est une base de $E$.
+            <strong style="color: #1d4ed8;">Théorème :</strong> De toute famille génératrice finie d'un espace vectoriel $E$ (avec $E \neq \{0_E\}$), on peut extraire une base de cet espace.
         </div>
 
         <div style="background: #fdf4ff; border-left: 4px solid #d946ef; padding: 15px; margin-bottom: 20px; border-radius: 0 8px 8px 0;">
             <strong style="color: #a21caf;">Démonstration détaillée :</strong><br>
-            Soit $E$ un espace vectoriel engendré par une famille finie $\mathcal{G} = (v_1, v_2, \dots, v_p)$.<br>
-            <strong>Étape 1 :</strong> Si $\mathcal{G}$ est une famille libre, alors c'est une base par définition, et le théorème est vérifié.<br>
-            <strong>Étape 2 :</strong> Si $\mathcal{G}$ est liée, il existe des scalaires $\lambda_1, \lambda_2, \dots, \lambda_p$ <strong>non tous nuls</strong> tels que :
-            $$\lambda_1 v_1 + \lambda_2 v_2 + \dots + \lambda_p v_p = 0$$
-            Supposons sans perte de généralité que $\lambda_p \neq 0$. On peut alors isoler $v_p$ en divisant par $\lambda_p$ :
-            $$\lambda_p v_p = - \lambda_1 v_1 - \lambda_2 v_2 - \dots - \lambda_{p-1} v_{p-1}$$
-            $$v_p = \left(-\frac{\lambda_1}{\lambda_p}\right) v_1 + \left(-\frac{\lambda_2}{\lambda_p}\right) v_2 + \dots + \left(-\frac{\lambda_{p-1}}{\lambda_p}\right) v_{p-1}$$
-            Ceci prouve par le calcul que $v_p$ est une combinaison linéaire des autres vecteurs. L'espace engendré reste donc strictement le même si on retire $v_p$ :
-            $$Vect(v_1, v_2, \dots, v_p) = Vect(v_1, v_2, \dots, v_{p-1}) = E$$
-            <strong>Étape 3 :</strong> On pose $\mathcal{G}_1 = (v_1, \dots, v_{p-1})$. Si $\mathcal{G}_1$ est libre, c'est une base. Sinon, on réitère ce calcul. Puisque la famille de départ contient un nombre fini $p$ de vecteurs, ce processus d'élimination s'arrête obligatoirement. La sous-famille finale $\mathcal{B}$ sera libre et génératrice : c'est une base extraite.
+            Soit $E$ un espace vectoriel non réduit à $\{0_E\}$. Soit $\mathcal{G} = (g_1, g_2, \dots, g_n)$ une famille génératrice finie de $E$.<br><br>
+            <strong>1. Ensemble des sous-familles libres :</strong><br>
+            Soit $\mathcal{S}$ l'ensemble de toutes les sous-familles libres formées à partir des vecteurs de $\mathcal{G}$. Puisque $E \neq \{0_E\}$ et que $\mathcal{G}$ engendre $E$, il existe au moins un vecteur non nul dans $\mathcal{G}$, disons $g_i$. La famille constituée du seul vecteur $(g_i)$ est libre. Donc l'ensemble $\mathcal{S}$ n'est pas vide.<br><br>
+            <strong>2. Existence d'une sous-famille libre de taille maximale :</strong><br>
+            Toute sous-famille de $\mathcal{G}$ contient au maximum $n$ vecteurs. Les tailles des familles appartenant à $\mathcal{S}$ sont donc des entiers naturels majorés par $n$. Toute partie non vide et majorée de $\mathbb{N}$ admet un plus grand élément. Il existe donc un entier $p$ ($1 \le p \le n$) qui est la taille maximale d'une famille libre extraite de $\mathcal{G}$. Soit $\mathcal{B} = (e_1, e_2, \dots, e_p)$ une telle famille.<br><br>
+            <strong>3. Montrons que $\mathcal{B}$ est génératrice de $E$ :</strong><br>
+            Étant déjà libre, il suffit de montrer qu'elle engendre $E$. Soit $g_k$ un vecteur de $\mathcal{G}$.<br>
+            - <em>Cas 1 :</em> $g_k \in \mathcal{B}$. Alors $g_k \in \text{Vect}(\mathcal{B})$ de manière évidente.<br>
+            - <em>Cas 2 :</em> $g_k \notin \mathcal{B}$. Si on ajoute $g_k$, la nouvelle famille $\mathcal{B}' = (e_1, \dots, e_p, g_k)$ de taille $p+1$ est liée (par maximalité de $p$). Il existe donc des scalaires $\lambda_1, \dots, \lambda_p, \mu$, non tous nuls, tels que :
+            $$\sum_{i=1}^p \lambda_i e_i + \mu g_k = 0_E$$
+            Si $\mu$ était nul, on aurait $\sum_{i=1}^p \lambda_i e_i = 0_E$. Or $\mathcal{B}$ est libre, ce qui forcerait tous les $\lambda_i$ à être nuls, ce qui est absurde. Donc $\mu \neq 0$. On isole $g_k$ :
+            $$g_k = -\frac{1}{\mu} \sum_{i=1}^p \lambda_i e_i$$
+            Ceci prouve que $g_k \in \text{Vect}(\mathcal{B})$.<br><br>
+            <strong>Conclusion :</strong> Tout vecteur de $\mathcal{G}$ appartient à $\text{Vect}(\mathcal{B})$. Par conséquent, $\mathcal{G} \subset \text{Vect}(\mathcal{B}) \implies \text{Vect}(\mathcal{G}) \subset \text{Vect}(\mathcal{B})$. Comme $\text{Vect}(\mathcal{G}) = E$, on a $\text{Vect}(\mathcal{B}) = E$. $\mathcal{B}$ est une base extraite de $\mathcal{G}$. $\blacksquare$
         </div>
 
         <div style="background: #f0fdf4; border-left: 4px solid #22c55e; padding: 15px; border-radius: 0 8px 8px 0;">
@@ -172,7 +176,7 @@
             $$\begin{cases} \alpha + 2\gamma = 0 \\ \beta + 3\gamma = 0 \end{cases} \implies \begin{cases} \alpha = -2\gamma \\ \beta = -3\gamma \end{cases}$$
             En fixant par exemple $\gamma = 1$, on obtient $\alpha = -2$ et $\beta = -3$. La relation de liaison est donc :
             $$-2v_1 - 3v_2 + v_3 = 0 \implies v_3 = 2v_1 + 3v_2$$
-            Puisque $v_3 \in Vect(v_1, v_2)$, ce vecteur est redondant. On le retire. La sous-famille $\mathcal{B} = (v_1, v_2) = ((1,0), (0,1))$ engendre toujours $\mathbb{R}^2$ et est libre (c'est la base canonique). C'est la base extraite recherchée.
+            Puisque $v_3 \in \text{Vect}(v_1, v_2)$, ce vecteur est redondant. On le retire. La sous-famille $\mathcal{B} = (v_1, v_2) = ((1,0), (0,1))$ engendre toujours $\mathbb{R}^2$ et est libre (c'est la base canonique). C'est la base extraite recherchée.
         </div>
     </div>
 
@@ -180,37 +184,37 @@
         <h2 style="color: #0a0f1d; border-bottom: 2px solid #e2e8f0; padding-bottom: 10px;">7. Théorème de la base incomplète</h2>
         
         <div style="background: #eff6ff; border-left: 4px solid #3b82f6; padding: 15px; margin-bottom: 20px; border-radius: 0 8px 8px 0;">
-            <strong style="color: #1d4ed8;">Théorème :</strong> Toute famille libre $\mathcal{L}$ d'un espace vectoriel $E$ de dimension finie $n$ peut être complétée par des vecteurs d'une famille génératrice $\mathcal{G}$ (souvent la base canonique) pour former une base de $E$.
+            <strong style="color: #1d4ed8;">Théorème :</strong> Toute famille libre d'un espace de dimension finie peut être complétée (en lui ajoutant des vecteurs d'une famille génératrice) pour former une base de cet espace.
         </div>
 
         <div style="background: #fdf4ff; border-left: 4px solid #d946ef; padding: 15px; margin-bottom: 20px; border-radius: 0 8px 8px 0;">
             <strong style="color: #a21caf;">Démonstration détaillée :</strong><br>
-            Soit $\mathcal{L} = (u_1, \dots, u_k)$ une famille libre et $\mathcal{G} = (v_1, \dots, v_p)$ une famille génératrice de $E$.<br>
-            <strong>Étape 1 :</strong> Si $Vect(\mathcal{L}) = E$, la famille est génératrice et libre, c'est déjà une base.<br>
-            <strong>Étape 2 :</strong> Si $Vect(\mathcal{L}) \subsetneq E$, il existe au moins un vecteur $v_i \in \mathcal{G}$ tel que $v_i \notin Vect(\mathcal{L})$.<br>
-            Montrons par le calcul que la famille complétée $\mathcal{L}' = (u_1, \dots, u_k, v_i)$ reste libre. Posons l'équation :
-            $$\lambda_1 u_1 + \dots + \lambda_k u_k + \mu v_i = 0$$
-            Raisonnons par l'absurde : si $\mu \neq 0$, on pourrait diviser par $\mu$ :
-            $$\mu v_i = -\lambda_1 u_1 - \dots - \lambda_k u_k \implies v_i = \sum_{j=1}^{k} \left(-\frac{\lambda_j}{\mu}\right) u_j$$
-            Cela signifierait que $v_i \in Vect(\mathcal{L})$, ce qui contredit notre choix de départ. Donc obligatoirement, <strong>$\mu = 0$</strong>.<br>
-            En remplaçant $\mu = 0$ dans l'équation initiale, il reste :
-            $$\lambda_1 u_1 + \dots + \lambda_k u_k = 0$$
-            Or, $\mathcal{L}$ est une famille libre par hypothèse. Cela impose que tous les coefficients soient nuls : <strong>$\lambda_1 = \dots = \lambda_k = 0$</strong>.<br>
-            La nouvelle famille $\mathcal{L}'$ est donc strictement libre.<br>
-            <strong>Étape 3 :</strong> On répète cette opération. En dimension finie $n$, la taille maximale d'une famille libre est $n$. Le processus s'arrête forcément, aboutissant à une famille libre de $n$ vecteurs, qui constitue une base de $E$.
+            Soit $E$ un espace vectoriel de dimension finie. Soit $\mathcal{L} = (u_1, u_2, \dots, u_p)$ une famille libre de $E$ et $\mathcal{G} = (v_1, v_2, \dots, v_n)$ une famille génératrice finie de $E$.<br><br>
+            <strong>1. Initialisation :</strong><br>
+            On pose $\mathcal{B}_0 = \mathcal{L}$. La famille $\mathcal{B}_0$ est libre.<br><br>
+            <strong>2. Itération (pour $k$ allant de $1$ à $n$) :</strong><br>
+            Supposons construite une famille libre $\mathcal{B}_{k-1}$. On considère le vecteur $v_k \in \mathcal{G}$.<br>
+            - Si la famille $\mathcal{B}_{k-1} \cup \{v_k\}$ est libre : on l'adopte et $\mathcal{B}_k = \mathcal{B}_{k-1} \cup \{v_k\}$.<br>
+            - Si la famille $\mathcal{B}_{k-1} \cup \{v_k\}$ est liée : on rejette $v_k$ et $\mathcal{B}_k = \mathcal{B}_{k-1}$.<br><br>
+            <strong>3. Analyse de la famille finale $\mathcal{B}_n$ :</strong><br>
+            Après $n$ étapes, $\mathcal{B}_n$ est une famille libre (on a préservé cette propriété à chaque ajout) et $\mathcal{L} \subset \mathcal{B}_n$. Montrons qu'elle est génératrice en prouvant que tout $v_k \in \mathcal{G}$ est combinaison linéaire de $\mathcal{B}_n$ :<br>
+            - Si $v_k$ a été ajouté, $v_k \in \mathcal{B}_k \subset \mathcal{B}_n \implies v_k \in \text{Vect}(\mathcal{B}_n)$.<br>
+            - Si $v_k$ a été rejeté, c'est que $\mathcal{B}_{k-1} \cup \{v_k\}$ était liée. Comme $\mathcal{B}_{k-1}$ était libre, cela signifie (par le même raisonnement que l'étape 3 du théorème précédent) que $v_k \in \text{Vect}(\mathcal{B}_{k-1}) \subset \text{Vect}(\mathcal{B}_n)$.<br><br>
+            <strong>Conclusion :</strong><br>
+            Dans tous les cas, $v_k \in \text{Vect}(\mathcal{B}_n)$. On a donc $\mathcal{G} \subset \text{Vect}(\mathcal{B}_n) \implies \text{Vect}(\mathcal{G}) \subset \text{Vect}(\mathcal{B}_n)$. Puisque $\mathcal{G}$ engendre $E$, on a $\text{Vect}(\mathcal{B}_n) = E$. $\mathcal{B}_n$ est libre et génératrice : c'est une base de $E$ contenant $\mathcal{L}$. $\blacksquare$
         </div>
 
         <div style="background: #f0fdf4; border-left: 4px solid #22c55e; padding: 15px; border-radius: 0 8px 8px 0;">
             <strong style="color: #15803d;">Application Directe (Mini-Exercice) :</strong><br>
             <strong>Énoncé :</strong> Dans $\mathbb{R}^3$, la famille $\mathcal{L} = (u_1, u_2)$ avec $u_1=(1,1,0)$ et $u_2=(0,1,1)$ est libre. Complétez-la pour en faire une base de $\mathbb{R}^3$.<br>
             <strong>Solution :</strong> $\mathbb{R}^3$ est de dimension 3, il manque 1 vecteur. Prenons la base canonique $\mathcal{G} = (e_1, e_2, e_3)$. Testons l'ajout de $e_1=(1,0,0)$.<br>
-            Vérifions si $e_1 \in Vect(\mathcal{L})$. Si c'était le cas, il existerait des scalaires $a, b$ tels que :
+            Vérifions si $e_1 \in \text{Vect}(\mathcal{L})$. Si c'était le cas, il existerait des scalaires $a, b$ tels que :
             $$a(1,1,0) + b(0,1,1) = (1,0,0)$$
             $$(a, a+b, b) = (1,0,0)$$
             Par identification, on résout le système :
             $$\begin{cases} a = 1 \\ a + b = 0 \\ b = 0 \end{cases}$$
             La première ligne donne $a=1$ et la troisième $b=0$. En remplaçant dans la deuxième ligne, on obtient $1 + 0 = 0 \implies 1 = 0$, ce qui est <strong>absurde</strong>.<br>
-            Le système n'ayant pas de solution, $e_1 \notin Vect(\mathcal{L})$. D'après le théorème, la famille complétée $((1,1,0), (0,1,1), (1,0,0))$ est libre. Avec 3 vecteurs en dimension 3, c'est une base.
+            Le système n'ayant pas de solution, $e_1 \notin \text{Vect}(\mathcal{L})$. D'après le théorème, la famille complétée $((1,1,0), (0,1,1), (1,0,0))$ est libre. Avec 3 vecteurs en dimension 3, c'est une base.
         </div>
     </div>
     <div style="background: white; padding: 25px; border-radius: 10px; margin-bottom: 30px; box-shadow: 0 2px 4px rgba(0,0,0,0.02); border: 1px solid #e2e8f0;">
