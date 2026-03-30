@@ -487,5 +487,103 @@
                 Or on a vu que $\dim(F_1) = 2$ et $\dim(F_2) = 2$. L'inclusion avec égalité des dimensions implique <strong>$F_1 = F_2$</strong>.
             </div>
         </details>
+        <details style="margin-bottom: 15px; background: #f8fafc; border-radius: 8px; border: 1px solid #e2e8f0;">
+            <summary style="background: #3b82f6; color: white; padding: 12px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; outline: none; list-style: none;">🔍 Voir la correction - Exercice 18 (Somme directe dans M₂(ℝ))</summary>
+            <div style="padding: 20px; color: #334155;">
+                <strong>Énoncé :</strong> Montrer que $M_2(\mathbb{R}) = F \oplus G$.<br><br>
+                <strong>Solution :</strong> L'espace $M_2(\mathbb{R})$ est de dimension 4. Pour montrer que $F \oplus G = M_2(\mathbb{R})$, il suffit de montrer que $\dim(F) + \dim(G) = 4$ et que $F \cap G = \{0\}$.<br><br>
+                - <strong>Dimension de F :</strong> Une matrice de $F$ s'écrit $a \begin{pmatrix} 1 & 2 \\ 0 & -1 \end{pmatrix} + b \begin{pmatrix} 0 & 1 \\ -1 & 0 \end{pmatrix}$. Ces deux matrices de base ne sont pas colinéaires, donc $\dim(F) = 2$.<br>
+                - <strong>Dimension de G :</strong> Une matrice de $G$ s'écrit $a \begin{pmatrix} 1 & 3 \\ 0 & -2 \end{pmatrix} + b \begin{pmatrix} 0 & 1 \\ -1 & 1 \end{pmatrix}$. Ces deux matrices ne sont pas colinéaires, donc $\dim(G) = 2$.<br>
+                On a bien $\dim(F) + \dim(G) = 2 + 2 = 4$.<br><br>
+                - <strong>Intersection $F \cap G$ :</strong> Soit $M \in F \cap G$. Il existe $a,b,a',b'$ tels que :<br>
+                $M = \begin{pmatrix} a & 2a+b \\ -b & -a \end{pmatrix} = \begin{pmatrix} a' & 3a'+b' \\ -b' & -2a'+b' \end{pmatrix}$<br>
+                Par identification des coefficients :<br>
+                1) $a = a'$<br>
+                2) $-b = -b' \implies b = b'$<br>
+                3) $2a+b = 3a'+b' \implies 2a+b = 3a+b \implies a = 0$<br>
+                4) $-a = -2a'+b' \implies 0 = 0+b \implies b = 0$<br>
+                Puisque $a=b=0$, alors $M = \begin{pmatrix} 0 & 0 \\ 0 & 0 \end{pmatrix}$. Donc $F \cap G = \{0\}$.<br><br>
+                <strong>Conclusion :</strong> Les espaces sont en somme directe et remplissent l'espace entier : $M_2(\mathbb{R}) = F \oplus G$.
+            </div>
+        </details>
+
+        <details style="margin-bottom: 15px; background: #f8fafc; border-radius: 8px; border: 1px solid #e2e8f0;">
+            <summary style="background: #3b82f6; color: white; padding: 12px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; outline: none; list-style: none;">🔍 Voir la correction - Exercice 19 (Familles libres, bases et somme dans ℝ⁴)</summary>
+            <div style="padding: 20px; color: #334155;">
+                <strong>1. Familles libres :</strong><br>
+                - $(v_1, v_2)$ : Les deux vecteurs ne sont manifestement pas proportionnels, la famille est donc <strong>libre</strong>.<br>
+                - $(w_1, w_2, w_3)$ : On résout $a w_1 + b w_2 + c w_3 = 0$. Le système aboutit rapidement à $a=b=c=0$. La famille est <strong>libre</strong>.<br>
+                - $(v_1, v_2, w_1, w_2)$ : De même, la résolution de $\alpha v_1 + \beta v_2 + \gamma w_1 + \delta w_2 = 0$ donne l'unique solution triviale $(0,0,0,0)$. La famille est <strong>libre</strong>.<br><br>
+                
+                <strong>2. Base de G :</strong><br>
+                $G = Vect(v_1, v_2, v_3)$. On remarque que $v_3 = (2,0,4,2) = 2 \times (1,0,2,1) = 2v_2$.<br>
+                Donc $v_3$ est redondant. On a $G = Vect(v_1, v_2)$. Puisque $(v_1, v_2)$ est libre (vu à la Q1), c'est une <strong>base de G</strong>. $\dim(G)=2$.<br><br>
+
+                <strong>3. Dimension de H :</strong><br>
+                $H = Vect(w_1, w_2, w_3, w_4)$. On a vu que $(w_1, w_2, w_3)$ est libre. Cherchons si $w_4 \in Vect(w_1, w_2, w_3)$.<br>
+                On remarque que $w_1 + w_2 + w_3 = (1-1+2, 2+1-1, 1+1+0, 0+1+1) = (2, 2, 2, 2) = w_4$.<br>
+                Puisque $w_4$ est une combinaison linéaire des trois autres, on peut l'éliminer. $H = Vect(w_1, w_2, w_3)$.<br>
+                La famille $(w_1, w_2, w_3)$ étant libre, c'est une base de $H$. Donc <strong>$\dim(H) = 3$</strong>.<br><br>
+
+                <strong>4. Somme G+H et intersection :</strong><br>
+                D'après la Q1, la famille $(v_1, v_2, w_1, w_2)$ est libre. Ces 4 vecteurs appartiennent à $G+H$, donc $\dim(G+H) \ge 4$.<br>
+                Comme $G+H \subset \mathbb{R}^4$, on a forcément $\dim(G+H) = 4$, c'est-à-dire <strong>$G+H = \mathbb{R}^4$</strong>.<br>
+                Par la formule de Grassmann : $\dim(G+H) = \dim(G) + \dim(H) - \dim(G \cap H)$.<br>
+                $4 = 2 + 3 - \dim(G \cap H) \implies \dim(G \cap H) = 1$. <strong>La somme n'est donc pas directe.</strong><br>
+                Pour trouver $G \cap H$, cherchons un vecteur commun. On remarque que $v_1 + v_2 = (2,2,2,2) = w_4$.<br>
+                Or $v_1+v_2 \in G$ et $w_4 \in H$. Ce vecteur non nul appartient aux deux espaces. Ainsi, <strong>$G \cap H = Vect((2,2,2,2))$</strong>.
+            </div>
+        </details>
+
+        <details style="margin-bottom: 15px; background: #f8fafc; border-radius: 8px; border: 1px solid #e2e8f0;">
+            <summary style="background: #3b82f6; color: white; padding: 12px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; outline: none; list-style: none;">🔍 Voir la correction - Exercice 20 (Équations et bases dans ℝ³)</summary>
+            <div style="padding: 20px; color: #334155;">
+                <strong>1. Base de F :</strong><br>
+                $F$ est le noyau d'une forme linéaire ($x+y+2z=0$), c'est un plan vectoriel de $\mathbb{R}^3$.<br>
+                On a $x = -y-2z$. Un vecteur s'écrit $(-y-2z, y, z) = y(-1,1,0) + z(-2,0,1)$.<br>
+                <strong>Base de F : $((-1,1,0), (-2,0,1))$</strong>.<br><br>
+
+                <strong>2. Équation de G :</strong><br>
+                $G = Vect((1,1,0), (1,-1,1))$. C'est un s.e.v engendré par deux vecteurs non colinéaires (c'est un plan).<br>
+                Soit $(x,y,z) \in G$. Il existe $a,b$ tels que $(x,y,z) = a(1,1,0) + b(1,-1,1)$.<br>
+                $x = a+b$, $y = a-b$, $z = b$.<br>
+                On tire $b=z$, puis en remplaçant dans les deux premières : $x = a+z \implies a = x-z$.<br>
+                Enfin pour $y$ : $y = a-b \implies y = (x-z) - z \implies y = x-2z$.<br>
+                <strong>Une équation cartésienne de G est : $x - y - 2z = 0$.</strong><br><br>
+
+                <strong>3. $D \subset F$ :</strong><br>
+                $D = Vect((1,1,-1))$. Pour montrer que $D \subset F$, il suffit de vérifier que son vecteur générateur vérifie l'équation de $F$.<br>
+                $x+y+2z = 1 + 1 + 2(-1) = 0$. C'est le cas, donc <strong>$D \subset F$</strong>.<br><br>
+
+                <strong>4. Somme directe $D \oplus G = \mathbb{R}^3$ :</strong><br>
+                On sait que $\dim(D)=1$ et $\dim(G)=2$. $\dim(D)+\dim(G)=3=\dim(\mathbb{R}^3)$.<br>
+                Il suffit de vérifier que $D \cap G = \{0\}$. Regardons si le vecteur $(1,1,-1)$ générateur de $D$ appartient à $G$ (vérifie son équation).<br>
+                Équation de $G$ : $x-y-2z = 1 - 1 - 2(-1) = 2 \neq 0$.<br>
+                Le vecteur n'est pas dans $G$, donc $D \cap G = \{0\}$. <strong>On a bien $D \oplus G = \mathbb{R}^3$.</strong>
+            </div>
+        </details>
+
+        <details style="margin-bottom: 15px; background: #f8fafc; border-radius: 8px; border: 1px solid #e2e8f0;">
+            <summary style="background: #3b82f6; color: white; padding: 12px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; outline: none; list-style: none;">🔍 Voir la correction - Exercice 21 (Base et supplémentaire dans ℝ⁴)</summary>
+            <div style="padding: 20px; color: #334155;">
+                <strong>1. Trouver une base de G :</strong><br>
+                On résout le système définissant $G$ :<br>
+                1) $x+y-z+t=0$<br>
+                2) $x-3y-2z=0 \implies x = 3y+2z$<br>
+                On remplace $x$ dans la 1ère équation : $(3y+2z) + y - z + t = 0 \implies 4y + z + t = 0 \implies t = -4y - z$.<br>
+                Un vecteur de $G$ s'écrit en fonction des paramètres libres $y$ et $z$ :<br>
+                $(3y+2z, y, z, -4y-z) = y(3,1,0,-4) + z(2,0,1,-1)$.<br>
+                Ces deux vecteurs sont générateurs et non colinéaires, ils forment une <strong>base de G : $((3,1,0,-4), (2,0,1,-1))$</strong>. $\dim(G)=2$.<br><br>
+
+                <strong>2. Trouver un supplémentaire :</strong><br>
+                On cherche un espace $F$ tel que $G \oplus F = \mathbb{R}^4$. Puisque $\dim(G)=2$, il faut que $\dim(F)=2$.<br>
+                D'après le théorème de la base incomplète, il suffit de trouver 2 vecteurs $e_3, e_4$ tels que la concaténation de la base de $G$ et de $(e_3,e_4)$ forme une base de $\mathbb{R}^4$.<br>
+                Prenons les deux premiers vecteurs de la base canonique pour faire simple : $e_3=(1,0,0,0)$ et $e_4=(0,1,0,0)$.<br>
+                Vérifions que la famille $((3,1,0,-4), (2,0,1,-1), (1,0,0,0), (0,1,0,0))$ est libre en calculant son déterminant :<br>
+                $$ \begin{vmatrix} 3 & 2 & 1 & 0 \\ 1 & 0 & 0 & 1 \\ 0 & 1 & 0 & 0 \\ -4 & -1 & 0 & 0 \end{vmatrix} = 1 \times \begin{vmatrix} 1 & 0 & 1 \\ 0 & 1 & 0 \\ -4 & -1 & 0 \end{vmatrix} = 1 \times (-1) \times \begin{vmatrix} 1 & 1 \\ -4 & 0 \end{vmatrix} = - (0 - (-4)) = -4 \neq 0$$
+                Puisque le déterminant est non nul, la famille forme bien une base de $\mathbb{R}^4$.<br>
+                <strong>Un supplémentaire de G est donc $F = Vect((1,0,0,0), (0,1,0,0))$.</strong>
+            </div>
+        </details>
     </div>
 </div>
