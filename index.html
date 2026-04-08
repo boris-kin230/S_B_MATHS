@@ -27,7 +27,6 @@
             --radius-xl: 28px; --radius-lg: 20px; --radius-md: 14px;
             --glass-bg: rgba(255, 255, 255, 0.85); --glass-blur: blur(16px);
             --transition-bouncy: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            --transition-smooth: all 0.3s ease;
         }
 
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; outline: none; }
@@ -42,6 +41,7 @@
             background: linear-gradient(180deg, rgba(58,154,217,0.08) 0%, rgba(244,247,246,1) 30%, rgba(184,212,51,0.05) 100%);
         }
 
+        /* --- HEADER --- */
         header {
             position: absolute; top: 0; left: 0; right: 0; height: var(--header-height);
             display: flex; align-items: center; justify-content: space-between;
@@ -55,6 +55,7 @@
         .logo-text { font-weight: 900; font-size: 1.3rem; margin: 0; letter-spacing: -0.5px;}
         .logo-text span { color: var(--v-yellow); }
 
+        /* --- MAIN CONTENT --- */
         main {
             position: absolute; top: var(--header-height); bottom: 0; left: 0; right: 0;
             overflow-y: auto; -webkit-overflow-scrolling: touch; 
@@ -62,6 +63,7 @@
         }
         .content-container { max-width: 800px; margin: 0 auto; width: 100%; }
 
+        /* --- DOCK --- */
         nav.floating-dock {
             position: fixed; bottom: calc(var(--safe-bottom) + 15px); left: 50%; transform: translateX(-50%);
             width: calc(100% - 20px); max-width: 600px; height: var(--dock-height);
@@ -69,18 +71,16 @@
             border: 1px solid rgba(255,255,255,0.5); border-radius: var(--radius-xl);
             display: grid; grid-template-columns: repeat(5, 1fr); box-shadow: 0 15px 35px rgba(0,0,0,0.1); z-index: 1000; padding: 5px;
         }
-
         .dock-item { display: flex; flex-direction: column; align-items: center; justify-content: center; border-radius: var(--radius-lg); color: var(--text-muted); cursor: pointer; transition: var(--transition-bouncy); gap: 4px; }
-        .dock-item i { font-size: 1.3rem; }
-        .dock-item span { font-size: 0.60rem; font-weight: 700; text-transform: uppercase; }
         .dock-item.active { background: var(--v-blue); color: white; box-shadow: 0 8px 20px rgba(58, 154, 217, 0.4); transform: translateY(-5px); }
+        .dock-item span { font-size: 0.60rem; font-weight: 700; text-transform: uppercase; }
 
+        /* --- HERO & DASHBOARD --- */
         .hero-banner {
             background: var(--v-blue); border-radius: var(--radius-xl); padding: 30px 25px; margin-bottom: 25px;
             color: white; text-align: center; position: relative; overflow: hidden; box-shadow: 0 15px 30px rgba(58, 154, 217, 0.2);
         }
         .hero-banner h1 { margin: 0; font-size: 3rem; font-weight: 900; line-height: 1; }
-
         .dashboard-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 25px; }
         .action-card {
             background: var(--bg-card); border-radius: var(--radius-lg); padding: 20px 15px;
@@ -89,6 +89,7 @@
         }
         .ac-icon { width: 50px; height: 50px; border-radius: 15px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; }
 
+        /* --- CHAPTER PANEL --- */
         #chapter-panel {
             position: fixed; top: 0; left: -100%; width: 85vw; max-width: 380px; height: 100%;
             background: var(--glass-bg); backdrop-filter: var(--glass-blur); z-index: 2000; transition: left 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
@@ -97,19 +98,19 @@
         #chapter-panel.open { left: 0; }
         .cp-header { background: var(--v-blue); color: white; padding: 40px 25px 25px; display: flex; justify-content: space-between; align-items: center; }
         .chap-group { margin: 10px 20px; background: white; border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-soft); }
-        .chap-toggle { width: 100%; padding: 15px; border: none; background: transparent; display: flex; justify-content: space-between; font-weight: 800; cursor: pointer; }
+        .chap-toggle { width: 100%; padding: 18px; border: none; background: transparent; display: flex; justify-content: space-between; font-weight: 800; cursor: pointer; }
         .chap-content { display: none; padding: 10px; background: #fafafa; }
         .chap-content.active { display: block; }
-        .nav-link { display: flex; align-items: center; gap: 10px; padding: 10px; text-decoration: none; color: var(--text-muted); font-weight: 600; cursor: pointer; }
+        .nav-link { display: flex; align-items: center; gap: 10px; padding: 12px; text-decoration: none; color: var(--text-muted); font-weight: 600; cursor: pointer; border-radius: 10px; }
 
-        /* QCM */
+        /* --- QCM --- */
         .qcm-card { background: white; border-radius: var(--radius-xl); padding: 25px; margin-bottom: 20px; border-top: 6px solid var(--v-blue); box-shadow: var(--shadow-soft); }
-        .options-grid { display: flex; flex-direction: column; gap: 10px; margin-top: 15px; }
-        .opt-btn { padding: 15px; border-radius: var(--radius-md); border: 2px solid #e2e8f0; background: white; font-weight: 600; text-align: left; cursor: pointer; }
-        .opt-btn.correct { background: var(--v-green) !important; color: #3d4a0a; }
-        .opt-btn.wrong { background: var(--v-red) !important; color: white; }
+        .opt-btn { width: 100%; padding: 16px; margin-top: 10px; border-radius: var(--radius-md); border: 2px solid #e2e8f0; background: white; font-weight: 600; text-align: left; cursor: pointer; transition: 0.2s; }
+        .opt-btn.correct { background: var(--v-green) !important; color: #3d4a0a; border-color: var(--v-green); }
+        .opt-btn.wrong { background: var(--v-red) !important; color: white; border-color: var(--v-red); }
         .correction-box { margin-top: 15px; padding: 15px; background: #f8fafc; border-left: 4px solid var(--v-yellow); display: none; }
 
+        /* --- MODALS --- */
         .overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.6); backdrop-filter: blur(8px); z-index: 3000; display: none; align-items: center; justify-content: center; opacity: 0; transition: 0.3s; }
         .overlay.show { opacity: 1; }
         .timer-circle { width: 180px; height: 180px; border-radius: 50%; border: 8px solid #f1f5f9; margin: 20px auto; display: flex; justify-content: center; align-items: center; font-size: 3rem; font-weight: 900; }
@@ -134,15 +135,22 @@
             <h2>Programme</h2>
             <button onclick="closeChapterPanel()" style="background:none; border:none; color:white; font-size:1.5rem;"><i class="fas fa-times"></i></button>
         </div>
-        <div style="overflow-y:auto;">
+        <div style="overflow-y:auto; padding-bottom: 20px;">
             <div class="chap-group">
                 <button class="chap-toggle" onclick="toggleAccordeon(this)">Dénombrement <i class="fas fa-chevron-down"></i></button>
                 <div class="chap-content">
                     <a class="nav-link" onclick="loadPage('denom_ensembles')"><i class="fas fa-book"></i> Cours</a>
-                    <a class="nav-link" onclick="loadTraining('denom')" style="color:var(--v-green)"><i class="fas fa-bolt"></i> Entraînement</a>
+                    <a class="nav-link" onclick="loadTraining('denom')" style="color:var(--v-green)"><i class="fas fa-bolt"></i> Test Niveau</a>
                 </div>
             </div>
+            <div class="chap-group">
+                <button class="chap-toggle" onclick="toggleAccordeon(this)">Polynômes <i class="fas fa-chevron-down"></i></button>
+                <div class="chap-content">
+                    <a class="nav-link" onclick="loadPage('poly_bases')"><i class="fas fa-book"></i> Cours</a>
+                    <a class="nav-link" onclick="loadTraining('poly')" style="color:var(--v-green)"><i class="fas fa-bolt"></i> Test Niveau</a>
+                </div>
             </div>
+        </div>
     </aside>
 
     <main id="main-wrapper">
@@ -150,12 +158,12 @@
             <div id="home-view">
                 <div class="hero-banner">
                     <h1>Maths PCSI</h1>
-                    <p>L'excellence en prépa.</p>
+                    <p>Réussir en classe préparatoire</p>
                 </div>
                 <div class="dashboard-grid">
                     <div class="action-card" onclick="openPomodoroModal()" style="border-bottom:4px solid var(--v-red)">
                         <div class="ac-icon" style="color:var(--v-red)"><i class="fas fa-stopwatch"></i></div>
-                        <span style="font-weight:800">Focus</span>
+                        <span style="font-weight:800">Mode Focus</span>
                     </div>
                     <div class="action-card" style="border-bottom:4px solid var(--v-blue)">
                         <div class="ac-icon" style="color:var(--v-blue)"><i class="fas fa-clock"></i></div>
@@ -177,12 +185,12 @@
 
     <div class="overlay" id="overlay-pomo">
         <div style="background:white; width:90%; max-width:400px; border-radius:var(--radius-xl); padding:20px; text-align:center;">
-            <h3 style="margin:0; color:var(--v-red)">Mode Focus</h3>
+            <h3 style="margin:0; color:var(--v-red)">Focus Session</h3>
             <div class="timer-circle" id="timer-display">25:00</div>
-            <div style="display:flex; justify-content:center; gap:10px;">
-                <button onclick="startPomodoro()" style="background:var(--v-green); border:none; padding:10px 20px; border-radius:50px; font-weight:800;">Démarrer</button>
-                <button onclick="pausePomodoro()" style="background:var(--v-yellow); border:none; padding:10px 20px; border-radius:50px; font-weight:800;">Pause</button>
-                <button onclick="closeModal('overlay-pomo')" style="background:#eee; border:none; padding:10px 20px; border-radius:50px;">Fermer</button>
+            <div style="display:flex; justify-content:center; gap:10px; padding-bottom: 10px;">
+                <button onclick="startPomodoro()" style="background:var(--v-green); border:none; padding:12px 25px; border-radius:50px; font-weight:800; color:white;">Start</button>
+                <button onclick="pausePomodoro()" style="background:var(--v-yellow); border:none; padding:12px 25px; border-radius:50px; font-weight:800;">Pause</button>
+                <button onclick="closeModal('overlay-pomo')" style="background:#eee; border:none; padding:12px 25px; border-radius:50px;">Fermer</button>
             </div>
         </div>
     </div>
@@ -200,20 +208,17 @@
         }, 1000);
 
         // Navigation
-        function updateActiveTab(element) {
-            document.querySelectorAll('.dock-item').forEach(card => card.classList.remove('active'));
-            element.classList.add('active');
-        }
-
         function navigateHome(element) {
-            updateActiveTab(element);
+            document.querySelectorAll('.dock-item').forEach(d => d.classList.remove('active'));
+            element.classList.add('active');
             closeChapterPanel();
             moduleView.style.display = 'none';
             homeView.style.display = 'block';
         }
 
         function navigateChapter(name, element) {
-            updateActiveTab(element);
+            document.querySelectorAll('.dock-item').forEach(d => d.classList.remove('active'));
+            element.classList.add('active');
             chapterPanel.classList.add('open');
         }
 
@@ -221,22 +226,25 @@
 
         function toggleAccordeon(btn) {
             btn.nextElementSibling.classList.toggle('active');
+            btn.classList.toggle('active');
         }
 
-        // Chargement dynamique
+        // Chargement pages
         async function loadPage(fileName) {
             closeChapterPanel();
             homeView.style.display = 'none';
             moduleView.style.display = 'block';
-            moduleView.innerHTML = '<p>Chargement...</p>';
+            moduleView.innerHTML = '<div style="text-align:center; padding:50px;"><i class="fas fa-spinner fa-spin"></i></div>';
             
             try {
                 const response = await fetch(`content/${fileName}.html?v=${Date.now()}`);
                 if(!response.ok) throw new Error();
                 moduleView.innerHTML = await response.text();
                 if(window.MathJax) MathJax.typesetPromise([moduleView]);
+                window.currentScore = 0;
+                window.totalQuestions = moduleView.querySelectorAll('.qcm-card').length;
             } catch (e) {
-                moduleView.innerHTML = '<div class="qcm-card">Erreur de chargement.</div>';
+                moduleView.innerHTML = '<div class="qcm-card">Module non trouvé.</div>';
             }
         }
 
@@ -251,6 +259,7 @@
             
             if(isCorrect) {
                 btn.classList.add('correct');
+                window.currentScore++;
             } else {
                 btn.classList.add('wrong');
                 card.querySelectorAll('.opt-btn').forEach(b => {
@@ -261,19 +270,7 @@
             if(feedback) feedback.style.display = 'block';
         };
 
-        // Modales & Pomodoro
-        function openModal(id) { 
-            const el = document.getElementById(id); 
-            el.style.display = 'flex'; 
-            setTimeout(() => el.classList.add('show'), 10); 
-        }
-        function closeModal(id) { 
-            const el = document.getElementById(id); 
-            el.classList.remove('show'); 
-            setTimeout(() => el.style.display = 'none', 300); 
-        }
-        function openPomodoroModal() { openModal('overlay-pomo'); }
-
+        // Pomodoro
         let pomoInterval; let timeLeft = 1500;
         function updateDisplayPomo() {
             const m = Math.floor(timeLeft / 60); const s = timeLeft % 60;
@@ -282,10 +279,20 @@
         function startPomodoro() { 
             if(!pomoInterval) pomoInterval = setInterval(() => { 
                 if(timeLeft>0) { timeLeft--; updateDisplayPomo(); } 
-                else { clearInterval(pomoInterval); alert('Terminé !'); } 
+                else { clearInterval(pomoInterval); alert('Session terminée !'); } 
             }, 1000); 
         }
         function pausePomodoro() { clearInterval(pomoInterval); pomoInterval = null; }
+        function openPomodoroModal() { 
+            const el = document.getElementById('overlay-pomo');
+            el.style.display = 'flex';
+            setTimeout(() => el.classList.add('show'), 10);
+        }
+        function closeModal(id) { 
+            const el = document.getElementById(id);
+            el.classList.remove('show');
+            setTimeout(() => el.style.display = 'none', 300);
+        }
     </script>
 </body>
 </html>
