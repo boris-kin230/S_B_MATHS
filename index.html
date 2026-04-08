@@ -170,9 +170,10 @@
         .chap-group { margin-bottom: 15px; background: white; border-radius: var(--radius-lg); box-shadow: var(--shadow-soft); overflow: hidden;}
         .chap-toggle { width: 100%; padding: 18px 20px; border: none; background: transparent; display: flex; justify-content: space-between; align-items: center; font-weight: 800; cursor: pointer; }
         .chap-content { display: none; padding: 10px 15px 15px; background: #fafafa; }
-        .chap-content.active { display: block; animation: fadeIn 0.3s ease; }
+        .chap-content.active { display: block; }
         .nav-link { display: flex; align-items: center; gap: 12px; padding: 12px 15px; text-decoration: none; color: var(--text-muted); font-size: 0.95rem; font-weight: 600; border-radius: var(--radius-md); transition: all 0.2s; cursor: pointer; }
         .nav-link.niveau-link { color: #65a30d; background: rgba(184, 212, 51, 0.1); border: 1px solid rgba(184, 212, 51, 0.2); margin-top: 5px; font-weight: 800;}
+        .nav-link.expert-link { color: var(--v-red); background: rgba(211, 69, 55, 0.05); border: 1px solid rgba(211, 69, 55, 0.1); margin-top: 5px; font-weight: 800;}
 
         /* --- QCM & ENTRAINEMENT --- */
         .qcm-card {
@@ -207,7 +208,6 @@
 
         @keyframes slideDown { from { transform: translateY(-30px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
         @keyframes slideUp { from { transform: translateY(30px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     </style>
 </head>
 <body>
@@ -227,8 +227,8 @@
 
     <aside id="chapter-panel">
         <div class="cp-header">
-            <h2>Programme</h2>
-            <button onclick="closeChapterPanel()" style="background:none; border:none; color:white; font-size:1.5rem;"><i class="fas fa-times"></i></button>
+            <h2>Programme PCSI</h2>
+            <button onclick="closeChapterPanel()" style="background:none; border:none; color:white; font-size:1.5rem; cursor:pointer;"><i class="fas fa-times"></i></button>
         </div>
         <nav class="cp-content">
             <div class="chap-group">
@@ -237,10 +237,10 @@
                     <i class="fas fa-chevron-down"></i>
                 </button>
                 <div class="chap-content">
-                    <p style="font-size:0.7rem; font-weight:800; color:var(--text-muted); text-transform:uppercase;">Cours</p>
                     <a class="nav-link" onclick="loadPage('denom_ensembles')"><i class="fas fa-cubes"></i> Ensembles</a>
                     <a class="nav-link" onclick="loadPage('denom_combinaisons')"><i class="fas fa-list-ol"></i> Combinaisons</a>
                     <a class="nav-link niveau-link" onclick="loadTraining('denom')"><i class="fas fa-bolt"></i> Test Niveau</a>
+                    <a class="nav-link expert-link" onclick="loadPage('denom_expert')"><i class="fas fa-fire"></i> Test Expert</a>
                 </div>
             </div>
 
@@ -251,10 +251,10 @@
                 </button>
                 <div class="chap-content">
                     <a class="nav-link" onclick="loadPage('poly_bases')"><i class="fas fa-book"></i> Fondamentaux</a>
-                    <a class="nav-link niveau-link" onclick="loadTraining('poly')"><i class="fas fa-bolt"></i> Test Niveau</a>
+                    <a class="nav-link niveau-link" onclick="loadTraining('poly')"><i class="fas fa-bolt"></i> Entraînement</a>
                 </div>
             </div>
-        </nav>
+            </nav>
     </aside>
 
     <main id="main-wrapper">
@@ -279,7 +279,7 @@
                         <span class="sub">Heure actuelle</span>
                     </div>
                     <div class="action-card" onclick="window.open('https://www.devinck-mpsi.fr/devoirs-surveilles','_blank')" style="grid-column: span 2; flex-direction: row; justify-content: space-around;">
-                         <span class="main"><i class="fas fa-link"></i> Ressources MPSI/PCSI</span>
+                         <span class="main"><i class="fas fa-link"></i> Ressources Devoirs Surveillés</span>
                          <i class="fas fa-arrow-right"></i>
                     </div>
                 </div>
@@ -299,7 +299,7 @@
     <div class="overlay" id="overlay-pomo">
         <div class="modal-box">
             <div class="modal-header pomo-head">
-                <h3><i class="fas fa-fire"></i> Focus Session</h3>
+                <h3><i class="fas fa-fire"></i> Session Focus</h3>
                 <button onclick="closeModal('overlay-pomo')" style="background:none; border:none; color:white; cursor:pointer;"><i class="fas fa-times"></i></button>
             </div>
             <div style="text-align:center; padding: 20px;">
@@ -314,18 +314,18 @@
     </div>
 
     <script>
+        // --- VARIABLES ET INITIALISATION ---
         const mainWrapper = document.getElementById('main-wrapper');
         const homeView = document.getElementById('home-view');
         const moduleView = document.getElementById('module-view');
         const chapterPanel = document.getElementById('chapter-panel');
 
-        // HORLOGE
         setInterval(() => {
             const d = document.getElementById('clock-display');
             if (d) d.textContent = new Date().toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
         }, 1000);
 
-        // NAVIGATION
+        // --- NAVIGATION ---
         function navigateHome(element) {
             document.querySelectorAll('.dock-item').forEach(card => card.classList.remove('active'));
             element.classList.add('active');
@@ -349,30 +349,41 @@
             content.classList.toggle('active');
         }
 
-        // CHARGEMENT DE PAGES
+        // --- MOTEUR DE CHARGEMENT ---
         async function loadPage(fileName) {
             closeChapterPanel();
             homeView.style.display = 'none';
             moduleView.style.display = 'block';
             mainWrapper.scrollTop = 0; 
-            window.currentScore = 0; window.totalQuestions = 0;
+
+            window.currentScore = 0; 
+            window.totalQuestions = 0;
 
             moduleView.innerHTML = `<div style="text-align:center; padding:100px 20px; color:var(--v-blue);"><i class="fas fa-spinner fa-spin" style="font-size:3rem; margin-bottom:15px;"></i><h2 style="margin:0;">Chargement...</h2></div>`;
 
             try {
                 const response = await fetch(`content/${fileName}.html?v=${new Date().getTime()}`);
-                if(!response.ok) throw new Error("Absent");
+                if(!response.ok) throw new Error("Fichier introuvable");
                 moduleView.innerHTML = await response.text();
+                
+                // Rendu MathJax si présent
                 if(window.MathJax) MathJax.typesetPromise([moduleView]);
+                
+                // Compter les questions
                 window.totalQuestions = moduleView.querySelectorAll('.qcm-card').length;
             } catch (e) {
-                moduleView.innerHTML = `<div class="qcm-card"><div class="qcm-question">Fichier "${fileName}.html" introuvable dans le dossier /content/</div><button class="opt-btn" onclick="location.reload()">Réessayer</button></div>`;
+                moduleView.innerHTML = `
+                    <div class="qcm-card">
+                        <div class="qcm-question"><i class="fas fa-circle-exclamation" style="color:var(--v-red)"></i> Erreur : Le fichier "${fileName}.html" est introuvable.</div>
+                        <button class="opt-btn" onclick="navigateHome(document.querySelector('.dock-item'))">Retourner à l'accueil</button>
+                    </div>
+                `;
             }
         }
 
         function loadTraining(subject) { loadPage(`${subject}_training_1`); }
 
-        // MOTEUR QCM
+        // --- LOGIQUE QCM ---
         window.checkQCM = function(btn, isCorrect) {
             const card = btn.closest('.qcm-card');
             if(card.classList.contains('answered')) return;
@@ -384,33 +395,39 @@
                 btn.classList.add('correct');
             } else {
                 btn.classList.add('wrong');
+                // Montrer la bonne réponse
                 card.querySelectorAll('.opt-btn').forEach(b => {
                     if(b.getAttribute('onclick').includes('true')) b.classList.add('correct');
                 });
             }
+            
             const feedback = card.querySelector('.correction-box');
             if(feedback) feedback.style.display = 'block';
-            
-            // Si c'est la dernière question, afficher le score final
-            const allAnswered = moduleView.querySelectorAll('.qcm-card.answered').length;
-            if(allAnswered === window.totalQuestions) finishQuiz();
+
+            // Vérifier si c'est fini
+            const answeredCount = moduleView.querySelectorAll('.qcm-card.answered').length;
+            if(answeredCount === window.totalQuestions) finishQuiz();
         };
 
         function finishQuiz() {
             if(document.getElementById('score-zone')) return;
             const ratio = window.totalQuestions > 0 ? (window.currentScore / window.totalQuestions) : 0;
-            let color = ratio >= 0.7 ? "var(--v-green)" : (ratio >= 0.4 ? "var(--v-blue)" : "var(--v-red)");
+            let msg = "Continue tes efforts !", color = "var(--v-red)";
             
+            if (ratio === 1) { msg = "Parfait ! Maîtrise totale."; color = "var(--v-green)"; }
+            else if (ratio >= 0.6) { msg = "Très bien ! C'est solide."; color = "var(--v-blue)"; }
+
             moduleView.insertAdjacentHTML('beforeend', `
                 <div id="score-zone" style="background:white; padding:40px; border-radius:var(--radius-xl); text-align:center; box-shadow:var(--shadow-soft); margin:30px 0; border: 4px solid ${color};">
                     <h2 style="font-size:3rem; margin:0; color:${color};">${window.currentScore} / ${window.totalQuestions}</h2>
-                    <p style="font-weight:800; font-size:1.2rem;">${ratio >= 0.7 ? "Excellent travail !" : "Continue tes efforts !"}</p>
-                    <button onclick="location.reload()" style="background:var(--v-blue); color:white; padding:12px 25px; border-radius:50px; border:none; font-weight:700; cursor:pointer;">Refaire un module</button>
+                    <p style="font-weight:800; font-size:1.2rem; margin-top:10px;">${msg}</p>
+                    <button onclick="window.print()" style="margin-top:20px; background:#1e293b; color:white; padding:12px 25px; border-radius:50px; border:none; font-weight:700; cursor:pointer;"><i class="fas fa-file-pdf"></i> Exporter PDF</button>
                 </div>
             `);
+            setTimeout(() => document.getElementById('score-zone').scrollIntoView({behavior: "smooth"}), 200);
         }
 
-        // MODALES
+        // --- UTILITAIRES MODALES ---
         function openModal(id) { 
             const el = document.getElementById(id); 
             el.style.display = 'flex'; 
@@ -423,7 +440,7 @@
         }
         function openPomodoroModal() { openModal('overlay-pomo'); }
 
-        // POMODORO
+        // --- POMODORO ---
         let pomoInterval; let timeLeft = 1500;
         function updateDisplayPomo() {
             const m = Math.floor(timeLeft / 60); const s = timeLeft % 60;
@@ -433,7 +450,7 @@
             if(!pomoInterval) {
                 pomoInterval = setInterval(() => { 
                     if(timeLeft > 0) { timeLeft--; updateDisplayPomo(); } 
-                    else { resetPomodoro(); alert('Session terminée !'); } 
+                    else { resetPomodoro(); alert('Session terminée ! Prenez une pause.'); } 
                 }, 1000); 
             }
         }
