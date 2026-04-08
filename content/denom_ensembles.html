@@ -1,0 +1,68 @@
+<div class="hero-banner" style="background: linear-gradient(135deg, var(--navy-dark) 0%, #1e3a8a 100%); border-left-color: var(--accent-cyan);">
+    <div class="hero-banner-content">
+        <h1>Ensembles & Injections</h1>
+        <p>Démonstrations combinatoires fondamentales sur le cardinal de l'ensemble des parties et le nombre d'applications injectives.</p>
+    </div>
+</div>
+
+<div class="qcm-card" style="border-left: 4px solid var(--accent-cyan);">
+    <h2 style="color: var(--navy-dark); margin-top: 0;">1. Nombre de parties d'un ensemble à $n$ éléments</h2>
+    <p><strong>Théorème :</strong> Soit $E$ un ensemble de cardinal $n$. Le nombre de parties de $E$, noté $\text{Card}(\mathcal{P}(E))$, est égal à $2^n$.</p>
+    
+    <div style="background: #f8fafc; padding: 20px; border-radius: 10px; margin-bottom: 20px;">
+        <h3 style="margin-top:0; color: var(--text-muted); font-size: 0.9rem; text-transform: uppercase;">Démonstration combinatoire</h3>
+        <p>Construire une partie $A$ de $E$, c'est décider, pour chaque élément $x \in E$, s'il appartient à $A$ ou non. Pour chaque élément, nous avons donc exactement <strong>2 choix possibles</strong> (oui ou non).</p>
+        <p>Comme l'ensemble $E$ contient $n$ éléments distincts, et que les choix sont indépendants, le nombre total de parties possibles est le produit des choix pour chaque élément :</p>
+        $$ \underbrace{2 \times 2 \times \dots \times 2}_{n \text{ fois}} = 2^n $$
+    </div>
+
+    <div class="qcm-question">
+        <i class="fas fa-bolt" style="color: var(--gold-btn);"></i> Application : Une pizzeria propose 6 suppléments (champignons, poivrons, œuf, merguez, oignons, olives). Combien de pizzas différentes peut-on créer sachant qu'une pizza est uniquement définie par les suppléments qu'elle contient (et qu'on peut n'en choisir aucun) ?
+    </div>
+    <div class="options-grid">
+        <button class="opt-btn" onclick="checkQCM(this, false)">A) 36 pizzas</button>
+        <button class="opt-btn" onclick="checkQCM(this, true)">B) 64 pizzas</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">C) 12 pizzas</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">D) 720 pizzas</button>
+    </div>
+    <div class="correction-box">
+        <strong>Explication :</strong> Créer une pizza revient à choisir un sous-ensemble de l'ensemble des 6 suppléments. Le nombre de sous-ensembles (ou parties) d'un ensemble à 6 éléments est $2^6 = 64$.
+    </div>
+</div>
+
+<div class="qcm-card" style="border-left: 4px solid var(--accent-green);">
+    <h2 style="color: var(--navy-dark); margin-top: 0;">2. Nombre d'injections d'un ensemble à $n$ éléments vers un à $p$ éléments</h2>
+    <p><strong>Théorème :</strong> Soient $E$ un ensemble à $n$ éléments et $F$ un ensemble à $p$ éléments. Si $n \le p$, le nombre d'injections de $E$ dans $F$ est :</p>
+    $$ A_p^n = \frac{p!}{(p-n)!} = p \times (p-1) \times \dots \times (p-n+1) $$
+    <p><em>(Si $n > p$, il n'y a aucune injection selon le principe des tiroirs).</em></p>
+    
+    <div style="background: #f8fafc; padding: 20px; border-radius: 10px; margin-bottom: 20px;">
+        <h3 style="margin-top:0; color: var(--text-muted); font-size: 0.9rem; text-transform: uppercase;">Démonstration combinatoire</h3>
+        <p>Soit $E = \{x_1, x_2, \dots, x_n\}$. Construire une fonction injective $f : E \to F$ revient à choisir les images des éléments de $E$ dans $F$ une par une, sans jamais reprendre une image déjà utilisée.</p>
+        <ul>
+            <li>Pour $f(x_1)$, j'ai <strong>$p$</strong> choix possibles dans $F$.</li>
+            <li>Pour $f(x_2)$, l'image $f(x_1)$ étant prise, il me reste <strong>$p - 1$</strong> choix.</li>
+            <li>Pour $f(x_3)$, il me reste <strong>$p - 2$</strong> choix.</li>
+            <li>...</li>
+            <li>Pour le $n$-ième élément $f(x_n)$, il me reste <strong>$p - (n - 1) = p - n + 1$</strong> choix.</li>
+        </ul>
+        <p>Le nombre total de choix possibles est donc le produit : $p \times (p-1) \times \dots \times (p-n+1)$.</p>
+    </div>
+
+    <div class="qcm-question">
+        <i class="fas fa-bolt" style="color: var(--gold-btn);"></i> Application : Dans une course de 8 chevaux, on s'intéresse au tiercé dans l'ordre (les 3 premiers chevaux de la course, sans ex-aequo). Combien y a-t-il de tiercés dans l'ordre possibles ?
+    </div>
+    <div class="options-grid">
+        <button class="opt-btn" onclick="checkQCM(this, false)">A) 512</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">B) 56</button>
+        <button class="opt-btn" onclick="checkQCM(this, true)">C) 336</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">D) 24</button>
+    </div>
+    <div class="correction-box">
+        <strong>Explication :</strong> Il s'agit du nombre d'injections d'un ensemble de 3 éléments (les places sur le podium) vers un ensemble de 8 éléments (les chevaux). On calcule l'arrangement $A_8^3 = 8 \times 7 \times 6 = 336$.
+    </div>
+</div>
+
+<div style="text-align: center; margin-top: 30px;">
+    <button class="dash-btn ia-btn" style="display:inline-block; margin-bottom:20px;" onclick="finishQuiz()">Valider mes acquis</button>
+</div>
