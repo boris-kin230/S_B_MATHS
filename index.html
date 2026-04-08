@@ -24,9 +24,10 @@
            ============================================================================== */
         :root {
             --v-blue: #3A9AD9;      /* Bleu Cyan principal */
-            --v-green: #B8D433;     /* Vert Anis */
-            --v-red: #D34537;       /* Rouge brique */
-            --v-yellow: #F6C831;    /* Jaune vif */
+            --v-green: #B8D433;     /* Vert Anis bas de page */
+            --v-red: #D34537;       /* Rouge brique (boutons/alertes) */
+            --v-yellow: #F6C831;    /* Jaune vif (titres/badges) */
+            --v-purple: #6A2B7A;    /* Violet (IA/Entraînement) */
             
             --bg-app: #f4f7f6;
             --bg-card: #ffffff;
@@ -92,20 +93,22 @@
             width: 40px; height: 40px; border-radius: 12px; font-size: 1.1rem;
             backdrop-filter: blur(5px); cursor: pointer; transition: var(--transition-smooth);
         }
+        .header-actions button:active { transform: scale(0.9); }
 
-        /* --- ZONE DE CONTENU --- */
+        /* --- ZONE DE CONTENU (SCROLL FIXÉ) --- */
         main {
             position: absolute;
             top: var(--header-height);
             bottom: 0; left: 0; right: 0;
             overflow-y: auto;
+            overflow-x: hidden;
             -webkit-overflow-scrolling: touch; 
             padding: 20px 20px calc(var(--dock-height) + var(--safe-bottom) + 30px) 20px;
         }
 
         .content-container { max-width: 800px; margin: 0 auto; width: 100%; }
 
-        /* --- MENU DOCK FLOTTANT --- */
+        /* --- MENU DOCK FLOTTANT iOS --- */
         nav.floating-dock {
             position: fixed;
             bottom: calc(var(--safe-bottom) + 15px);
@@ -115,7 +118,7 @@
             background: var(--glass-bg); backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
             border: 1px solid rgba(255,255,255,0.5);
             border-radius: var(--radius-xl);
-            display: grid; grid-template-columns: repeat(5, 1fr);
+            display: grid; grid-template-columns: repeat(5, 1fr); /* 5 éléments maintenant */
             box-shadow: 0 15px 35px rgba(0,0,0,0.1);
             z-index: 1000; padding: 5px;
         }
@@ -123,11 +126,13 @@
         .dock-item {
             display: flex; flex-direction: column; align-items: center; justify-content: center;
             border-radius: var(--radius-lg); color: var(--text-muted); cursor: pointer;
-            transition: var(--transition-bouncy); gap: 4px;
+            transition: var(--transition-bouncy); gap: 4px; position: relative;
         }
-        .dock-item i { font-size: 1.3rem; }
-        .dock-item span { font-size: 0.60rem; font-weight: 700; text-transform: uppercase; }
+        .dock-item i { font-size: 1.3rem; transition: transform 0.3s; }
+        .dock-item span { font-size: 0.60rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
+        
         .dock-item.active { background: var(--v-blue); color: white; box-shadow: 0 8px 20px rgba(58, 154, 217, 0.4); transform: translateY(-5px); }
+        .dock-item.active i { transform: scale(1.1); }
 
         /* --- HERO BANNER --- */
         .hero-banner {
@@ -137,61 +142,127 @@
             box-shadow: 0 15px 30px rgba(58, 154, 217, 0.2);
             animation: slideDown 0.6s cubic-bezier(0.16, 1, 0.3, 1);
         }
+        .hero-banner::before { 
+            content: ''; position: absolute; top: -50px; right: -50px;
+            width: 150px; height: 150px; background: rgba(255,255,255,0.1); border-radius: 50%;
+        }
         .hero-badge {
             display: inline-block; background: var(--v-yellow); color: var(--text-main);
             padding: 6px 15px; border-radius: 50px; font-weight: 800; font-size: 0.8rem;
             margin-bottom: 15px; text-transform: uppercase; transform: rotate(-2deg);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
         }
-        .hero-banner h1 { margin: 0; font-size: 3rem; font-weight: 900; letter-spacing: -1px; line-height: 1; }
-        .hero-banner p { margin: 15px 0 0; font-weight: 600; opacity: 0.9; }
+        .hero-banner h1 { margin: 0; font-size: 3rem; font-weight: 900; letter-spacing: -1px; line-height: 1; text-shadow: 2px 2px 0px rgba(0,0,0,0.1); }
+        .hero-banner p { margin: 15px 0 0; font-weight: 600; font-size: 1rem; opacity: 0.9; }
 
         /* --- DASHBOARD GRILLE --- */
         .dashboard-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 25px; }
+        
         .action-card {
             background: var(--bg-card); border-radius: var(--radius-lg); padding: 20px 15px;
-            text-align: center; border: 2px solid transparent;
+            text-align: center; text-decoration: none; border: 2px solid transparent;
             box-shadow: var(--shadow-soft); transition: var(--transition-bouncy);
             display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; cursor: pointer;
         }
+        .action-card:active { transform: scale(0.95); }
+        
         .ac-icon { width: 50px; height: 50px; border-radius: 15px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; }
         .action-card span.main { font-weight: 800; font-size: 0.95rem; color: var(--text-main); }
         .action-card span.sub { font-size: 0.75rem; color: var(--text-muted); font-weight: 600;}
+
+        .card-ia .ac-icon { background: rgba(106, 43, 122, 0.1); color: var(--v-purple); }
+        .card-ia { border-bottom: 4px solid var(--v-purple); }
+        
+        .card-docs .ac-icon { background: rgba(184, 212, 51, 0.2); color: #7a8f1a; }
+        .card-docs { border-bottom: 4px solid var(--v-green); }
+        
+        .card-pomo .ac-icon { background: rgba(211, 69, 55, 0.1); color: var(--v-red); }
+        .card-pomo { border-bottom: 4px solid var(--v-red); }
+        
+        .card-clock .ac-icon { background: rgba(58, 154, 217, 0.1); color: var(--v-blue); }
+        .card-clock { border-bottom: 4px solid var(--v-blue); }
 
         /* --- PANNEAU DE CHAPITRES --- */
         #chapter-panel {
             position: fixed; top: 0; left: -100%; width: 85vw; max-width: 380px; height: 100%;
             background: var(--glass-bg); backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
             z-index: 2000; transition: left 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
-            box-shadow: 20px 0 50px rgba(0,0,0,0.1); display: flex; flex-direction: column;
+            box-shadow: 20px 0 50px rgba(0,0,0,0.1); padding: 0;
+            display: flex; flex-direction: column;
         }
         #chapter-panel.open { left: 0; }
-        .cp-header { background: var(--v-blue); color: white; padding: 50px 25px 25px; display: flex; justify-content: space-between; align-items: center; border-bottom-right-radius: 30px; }
+        
+        .cp-header {
+            background: var(--v-blue); color: white; padding: calc(env(safe-area-inset-top, 20px) + 20px) 25px 25px;
+            display: flex; justify-content: space-between; align-items: center;
+            border-bottom-right-radius: 30px; margin-bottom: 10px;
+        }
+        .cp-header h2 { margin: 0; font-size: 1.4rem; font-weight: 900; }
+        .cp-close { background: rgba(255,255,255,0.2); border: none; color: white; width: 36px; height: 36px; border-radius: 50%; font-size: 1.2rem; cursor: pointer; }
+        
         .cp-content { overflow-y: auto; padding: 15px 20px; flex: 1; }
-        .chap-group { margin-bottom: 15px; background: white; border-radius: var(--radius-lg); box-shadow: var(--shadow-soft); overflow: hidden;}
-        .chap-toggle { width: 100%; padding: 18px 20px; border: none; background: transparent; display: flex; justify-content: space-between; align-items: center; font-weight: 800; cursor: pointer; }
-        .chap-content { display: none; padding: 10px 15px 15px; background: #fafafa; }
-        .chap-content.active { display: block; }
-        .nav-link { display: flex; align-items: center; gap: 12px; padding: 12px 15px; text-decoration: none; color: var(--text-muted); font-size: 0.95rem; font-weight: 600; border-radius: var(--radius-md); transition: all 0.2s; cursor: pointer; }
-        .nav-link.niveau-link { color: #65a30d; background: rgba(184, 212, 51, 0.1); border: 1px solid rgba(184, 212, 51, 0.2); margin-top: 5px; font-weight: 800;}
-        .nav-link.expert-link { color: var(--v-red); background: rgba(211, 69, 55, 0.05); border: 1px solid rgba(211, 69, 55, 0.1); margin-top: 5px; font-weight: 800;}
 
-        /* --- QCM & ENTRAINEMENT --- */
+        .chap-group { margin-bottom: 15px; background: white; border-radius: var(--radius-lg); box-shadow: var(--shadow-soft); overflow: hidden;}
+        .chap-toggle {
+            width: 100%; padding: 18px 20px; border: none; background: transparent;
+            display: flex; justify-content: space-between; align-items: center;
+            font-weight: 800; font-size: 1rem; color: var(--text-main); cursor: pointer; transition: background 0.3s;
+        }
+        .chap-toggle .icon-wrap { 
+            display: inline-flex; align-items: center; justify-content: center;
+            width: 35px; height: 35px; border-radius: 10px; margin-right: 12px;
+        }
+        .chap-toggle.active { background: #fafafa; border-bottom: 1px solid #eee; }
+        .chap-toggle.active .fa-chevron-down { transform: rotate(180deg); }
+        .chap-content { display: none; padding: 10px 15px 15px; background: #fafafa; }
+        .chap-content.active { display: block; animation: fadeIn 0.3s ease; }
+        
+        .nav-section-title { font-size: 0.7rem; font-weight: 800; color: var(--text-muted); text-transform: uppercase; padding: 15px 15px 5px; margin: 0; letter-spacing: 0.5px; }
+        
+        .nav-link {
+            display: flex; align-items: center; gap: 12px; padding: 12px 15px;
+            text-decoration: none; color: var(--text-muted); font-size: 0.95rem; font-weight: 600;
+            border-radius: var(--radius-md); transition: all 0.2s; cursor: pointer;
+        }
+        .nav-link:active { background: #eee; transform: scale(0.98); }
+        .nav-link i { font-size: 1.1rem; width: 20px; text-align: center; color: var(--v-blue); }
+        
+        /* Styles pour les liens d'entraînement (Reprise de tes couleurs) */
+        .nav-link.expert-link { color: var(--v-red); background: rgba(211, 69, 55, 0.05); border: 1px solid rgba(211, 69, 55, 0.1); margin-top: 5px; font-weight: 800;}
+        .nav-link.expert-link i { color: var(--v-red); }
+        
+        .nav-link.niveau-link { color: #65a30d; background: rgba(184, 212, 51, 0.1); border: 1px solid rgba(184, 212, 51, 0.2); margin-top: 5px; font-weight: 800;}
+        .nav-link.niveau-link i { color: #65a30d; }
+
+        /* --- QCM V3.0 --- */
         .qcm-card {
             background: var(--bg-card); border-radius: var(--radius-xl); padding: 30px;
-            margin-bottom: 25px; box-shadow: var(--shadow-soft); border-top: 6px solid var(--v-blue);
+            margin-bottom: 25px; box-shadow: var(--shadow-soft); position: relative;
+            border-top: 6px solid var(--v-blue); transition: var(--transition-smooth);
             animation: slideUp 0.5s ease backwards;
         }
+        
         .qcm-question { font-size: 1.15rem; font-weight: 800; color: var(--text-main); margin-bottom: 25px; line-height: 1.5; }
+        
         .options-grid { display: flex; flex-direction: column; gap: 12px; }
         .opt-btn {
             padding: 16px 20px; border-radius: var(--radius-md);
             border: 2px solid #e2e8f0; background: #ffffff;
             text-align: left; font-family: inherit; font-size: 1rem; font-weight: 600; color: var(--text-main);
             transition: var(--transition-bouncy); cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
         }
-        .opt-btn.correct { background: var(--v-green) !important; border-color: #9cb824 !important; color: #3d4a0a !important; }
-        .opt-btn.wrong { background: var(--v-red) !important; border-color: #a83529 !important; color: white !important; }
-        .correction-box { margin-top: 25px; padding: 20px; background: #f8fafc; border-radius: var(--radius-md); border-left: 4px solid var(--v-yellow); display: none; }
+        .opt-btn:active:not(:disabled) { transform: scale(0.98); border-color: var(--v-blue); }
+        
+        .opt-btn.correct { background: var(--v-green) !important; border-color: #9cb824 !important; color: #3d4a0a !important; box-shadow: 0 4px 15px rgba(184, 212, 51, 0.4); }
+        .opt-btn.wrong { background: var(--v-red) !important; border-color: #a83529 !important; color: white !important; box-shadow: 0 4px 15px rgba(211, 69, 55, 0.4); }
+        .opt-btn:disabled { cursor: not-allowed; opacity: 0.8; }
+
+        .correction-box {
+            margin-top: 25px; padding: 20px; background: #f8fafc; border-radius: var(--radius-md);
+            border-left: 4px solid var(--v-yellow); font-size: 0.95rem; font-weight: 500; display: none;
+            animation: fadeIn 0.4s ease;
+        }
 
         /* --- MODALES --- */
         .overlay {
@@ -201,13 +272,33 @@
             opacity: 0; transition: opacity 0.3s;
         }
         .overlay.show { opacity: 1; }
-        .modal-box { background: var(--bg-card); width: 90%; max-width: 450px; border-radius: var(--radius-xl); overflow: hidden; box-shadow: 0 25px 50px rgba(0,0,0,0.25); transform: scale(0.95); transition: var(--transition-bouncy); }
-        .overlay.show .modal-box { transform: scale(1); }
-        .modal-header.pomo-head { background: var(--v-red); padding: 20px; color: white; display: flex; justify-content: space-between; }
-        .timer-circle { width: 180px; height: 180px; border-radius: 50%; border: 10px solid #f1f5f9; margin: 30px auto; display: flex; justify-content: center; align-items: center; font-size: 3.5rem; font-weight: 900; }
 
+        .modal-box {
+            background: var(--bg-card); width: 90%; max-width: 450px;
+            border-radius: var(--radius-xl); overflow: hidden;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.25);
+            transform: scale(0.95) translateY(20px); transition: var(--transition-bouncy);
+        }
+        .overlay.show .modal-box { transform: scale(1) translateY(0); }
+
+        .modal-header { padding: 20px 25px; display: flex; justify-content: space-between; align-items: center; color: white; }
+        .modal-header.ia-head { background: var(--v-purple); }
+        .modal-header.pomo-head { background: var(--v-red); }
+        .modal-header h3 { margin: 0; font-weight: 800; font-size: 1.2rem; }
+        
+        .timer-circle {
+            width: 200px; height: 200px; border-radius: 50%; border: 10px solid #f1f5f9;
+            margin: 30px auto; display: flex; justify-content: center; align-items: center;
+            font-size: 4rem; font-weight: 900; color: var(--text-main); position: relative;
+        }
+        .timer-controls { display: flex; justify-content: center; gap: 15px; padding-bottom: 30px; }
+        .btn-ctrl { padding: 12px 25px; border-radius: 50px; border: none; font-weight: 800; font-size: 1rem; color: white; cursor: pointer; transition: transform 0.2s;}
+        .btn-ctrl:active { transform: scale(0.9); }
+        
         @keyframes slideDown { from { transform: translateY(-30px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
         @keyframes slideUp { from { transform: translateY(30px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
     </style>
 </head>
 <body>
@@ -220,125 +311,237 @@
             <p class="logo-text">ELIAN<span>MATHS</span></p>
         </div>
         <div class="header-actions">
-            <button onclick="location.reload()"><i class="fas fa-rotate"></i></button>
-            <button onclick="alert('Au revoir !')"><i class="fas fa-power-off"></i></button>
+            <button onclick="openIAModal()"><i class="fas fa-bolt"></i></button>
+            <button onclick="alert('Déconnexion...')"><i class="fas fa-power-off"></i></button>
         </div>
     </header>
 
     <aside id="chapter-panel">
         <div class="cp-header">
-            <h2>Programme PCSI</h2>
-            <button onclick="closeChapterPanel()" style="background:none; border:none; color:white; font-size:1.5rem; cursor:pointer;"><i class="fas fa-times"></i></button>
+            <h2>Programme</h2>
+            <button class="cp-close" onclick="closeChapterPanel()"><i class="fas fa-times"></i></button>
         </div>
+        
         <nav class="cp-content">
+            
             <div class="chap-group">
                 <button class="chap-toggle" onclick="toggleAccordeon(this)">
-                    <div><i class="fas fa-layer-group" style="color:var(--v-blue)"></i> Dénombrement</div>
+                    <div><span class="icon-wrap" style="background:#e0f2fe; color:#0284c7;"><i class="fas fa-layer-group"></i></span> Dénombrement</div>
                     <i class="fas fa-chevron-down"></i>
                 </button>
                 <div class="chap-content">
-                    <a class="nav-link" onclick="loadPage('denom_ensembles')"><i class="fas fa-cubes"></i> Ensembles</a>
-                    <a class="nav-link" onclick="loadPage('denom_combinaisons')"><i class="fas fa-list-ol"></i> Combinaisons</a>
-                    <a class="nav-link niveau-link" onclick="loadTraining('denom')"><i class="fas fa-bolt"></i> Test Niveau</a>
-                    <a class="nav-link expert-link" onclick="loadPage('denom_expert')"><i class="fas fa-fire"></i> Test Expert</a>
+                    <p class="nav-section-title">Cours</p>
+                    <a class="nav-link" onclick="loadPage('denom_ensembles')"><i class="fas fa-cubes"></i> Ensembles & Injections</a>
+                    <a class="nav-link" onclick="loadPage('denom_arrangements')"><i class="fas fa-arrows-turn-to-dots"></i> Arrangements & Permutations</a>
+                    <a class="nav-link" onclick="loadPage('denom_combinaisons')"><i class="fas fa-hands-holding-circle"></i> Combinaisons</a>
+                    
+                    <p class="nav-section-title">Entraînement</p>
+                    <a class="nav-link niveau-link" onclick="loadTraining('denom')"><i class="fas fa-bolt"></i> Test de Niveau</a>
+                    <a class="nav-link expert-link" onclick="loadPage('denom_expert')"><i class="fas fa-fire-flame-curved"></i> Test Expert</a>
                 </div>
             </div>
 
             <div class="chap-group">
                 <button class="chap-toggle" onclick="toggleAccordeon(this)">
-                    <div><i class="fas fa-square-root-variable" style="color:var(--v-yellow)"></i> Polynômes</div>
+                    <div><span class="icon-wrap" style="background:#fef08a; color:#ca8a04;"><i class="fas fa-square-root-variable"></i></span> Polynômes</div>
                     <i class="fas fa-chevron-down"></i>
                 </button>
                 <div class="chap-content">
+                    <p class="nav-section-title">Cours</p>
                     <a class="nav-link" onclick="loadPage('poly_bases')"><i class="fas fa-book"></i> Fondamentaux</a>
+                    <a class="nav-link" onclick="loadPage('poly_racines')"><i class="fas fa-bullseye"></i> Racines & Divisibilité</a>
+                    <a class="nav-link" onclick="loadPage('poly_fractions')"><i class="fas fa-percentage"></i> Fractions Rationnelles</a>
+                    
+                    <p class="nav-section-title">Entraînement</p>
+                    <a class="nav-link" onclick="loadPage('poly_exos')"><i class="fas fa-dumbbell"></i> Exercice Partie 1</a>
+                    <a class="nav-link" onclick="loadPage('poly_exos_calc')"><i class="fas fa-calculator"></i> Exercice Partie 2</a>
                     <a class="nav-link niveau-link" onclick="loadTraining('poly')"><i class="fas fa-bolt"></i> Entraînement</a>
+                    <a class="nav-link expert-link" onclick="loadPage('poly_training_v4')"><i class="fas fa-fire-flame-curved"></i> Test Expert</a>
                 </div>
             </div>
-            </nav>
+
+            <div class="chap-group">
+                <button class="chap-toggle" onclick="toggleAccordeon(this)">
+                    <div><span class="icon-wrap" style="background:#dcfce7; color:#16a34a;"><i class="fas fa-draw-polygon"></i></span> Géométrie</div>
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="chap-content">
+                    <p class="nav-section-title">Théorie</p>
+                    <a class="nav-link" onclick="loadPage('geo_metrique')"><i class="fas fa-ruler-combined"></i> Relations Métriques</a>
+                    <a class="nav-link" onclick="loadPage('geo_analytique')"><i class="fas fa-location-crosshairs"></i> Géométrie Analytique</a>
+                    
+                    <p class="nav-section-title">Pratique</p>
+                    <a class="nav-link" onclick="loadPage('geo_training_v1')"><i class="fas fa-pencil"></i> Exercices v1</a>
+                    <a class="nav-link niveau-link" onclick="loadTraining('geo')"><i class="fas fa-bolt"></i> Test de Niveau</a>
+                    <a class="nav-link expert-link" onclick="loadPage('geo_training_v4')"><i class="fas fa-fire-flame-curved"></i> Test Expert v4</a>
+                </div>
+            </div>
+
+            <div class="chap-group">
+                <button class="chap-toggle" onclick="toggleAccordeon(this)">
+                    <div><span class="icon-wrap" style="background:#f3e8ff; color:#9333ea;"><i class="fas fa-chart-line"></i></span> Fonctions</div>
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="chap-content">
+                    <p class="nav-section-title">Analyse</p>
+                    <a class="nav-link" onclick="loadPage('func_theoremes')"><i class="fas fa-microscope"></i> Rolle & TAF</a>
+                    <a class="nav-link" onclick="loadPage('func_taylor')"><i class="fas fa-infinity"></i> Taylor & DL</a>
+                    
+                    <p class="nav-section-title">Pratique</p>
+                    <a class="nav-link" onclick="loadPage('training_taylor_rolle')"><i class="fas fa-flask"></i> Mix Analyse</a>
+                    <a class="nav-link niveau-link" onclick="loadTraining('func')"><i class="fas fa-bolt"></i> Test de Rapidité</a>
+                    <a class="nav-link expert-link" onclick="loadPage('func_training_v4')"><i class="fas fa-fire-flame-curved"></i> Test Expert v4</a>
+                </div>
+            </div>
+        </nav>
     </aside>
 
     <main id="main-wrapper">
         <div class="content-container">
+            
             <div id="home-view">
                 <div class="hero-banner">
                     <span class="hero-badge">Objectif Concours</span>
-                    <h1>Maths PCSI</h1>
-                    <p>Tout le programme pour réussir sa prépa.</p>
+                    <h1>Maths<br>PCSI</h1>
+                    <p>Je réussis mon année en prépa.</p>
                 </div>
                 
-                <h3 style="font-weight:800; margin-top:30px;">Outils rapides</h3>
+                <h3 style="font-weight:800; margin-top:30px; font-size:1.3rem;">Outils rapides</h3>
                 <div class="dashboard-grid">
-                    <div class="action-card" onclick="openPomodoroModal()" style="border-bottom: 4px solid var(--v-red);">
-                        <div class="ac-icon" style="background:rgba(211, 69, 55, 0.1); color:var(--v-red);"><i class="fas fa-stopwatch"></i></div>
-                        <span class="main">Mode Focus</span>
-                        <span class="sub">Pomodoro</span>
+                    <div class="action-card card-ia" onclick="openIAModal()">
+                        <div class="ac-icon"><i class="fas fa-robot"></i></div>
+                        <span class="main">Tuteur IA</span>
+                        <span class="sub">Assistance H24</span>
                     </div>
-                    <div class="action-card" style="border-bottom: 4px solid var(--v-blue);">
-                        <div class="ac-icon" style="background:rgba(58, 154, 217, 0.1); color:var(--v-blue);"><i class="fas fa-clock"></i></div>
+<div class="action-card card-docs" style="padding: 10px; gap: 6px; justify-content: center; cursor: default;">
+                        <span class="main" style="margin-bottom: 4px; font-size: 0.85rem;"><i class="fas fa-link"></i> Devoirs & Fiches</span>
+                        
+                        <a href="https://www.devinck-mpsi.fr/devoirs-surveilles" target="_blank" style="width: 100%; padding: 6px 5px; background: rgba(184, 212, 51, 0.15); color: #5a6b0d; border-radius: 8px; text-decoration: none; font-size: 0.75rem; font-weight: 700; transition: transform 0.2s; display:block;" onmouseover="this.style.transform='scale(0.97)'" onmouseout="this.style.transform='scale(1)'">
+                            Devinck MPSI
+                        </a>
+                        
+                        <a href="https://cahier-de-prepa.fr/pcsi-lessouriau/?maths/dmds" target="_blank" style="width: 100%; padding: 6px 5px; background: rgba(184, 212, 51, 0.15); color: #5a6b0d; border-radius: 8px; text-decoration: none; font-size: 0.75rem; font-weight: 700; transition: transform 0.2s; display:block;" onmouseover="this.style.transform='scale(0.97)'" onmouseout="this.style.transform='scale(1)'">
+                            Lessouriau PCSI
+                        </a>
+                        
+                        <a href="https://mathsmpsi2iwallon.sitew.fr/Devoirs.b.htm" target="_blank" style="width: 100%; padding: 6px 5px; background: rgba(184, 212, 51, 0.15); color: #5a6b0d; border-radius: 8px; text-decoration: none; font-size: 0.75rem; font-weight: 700; transition: transform 0.2s; display:block;" onmouseover="this.style.transform='scale(0.97)'" onmouseout="this.style.transform='scale(1)'">
+                            Wallon MPSI2I
+                        </a>
+                    </div>
+                    <div class="action-card card-pomo" onclick="openPomodoroModal()">
+                        <div class="ac-icon"><i class="fas fa-stopwatch"></i></div>
+                        <span class="main">Focus</span>
+                        <span class="sub">Mode Pomodoro</span>
+                    </div>
+                    <div class="action-card card-clock">
+                        <div class="ac-icon"><i class="fas fa-clock"></i></div>
                         <span class="main" id="clock-display">--:--</span>
-                        <span class="sub">Heure actuelle</span>
-                    </div>
-                    <div class="action-card" onclick="window.open('https://www.devinck-mpsi.fr/devoirs-surveilles','_blank')" style="grid-column: span 2; flex-direction: row; justify-content: space-around;">
-                         <span class="main"><i class="fas fa-link"></i> Ressources Devoirs Surveillés</span>
-                         <i class="fas fa-arrow-right"></i>
+                        <span class="sub">Aujourd'hui</span>
                     </div>
                 </div>
             </div>
+
             <div id="module-view" style="display:none;"></div>
         </div>
     </main>
 
     <nav class="floating-dock">
-        <div class="dock-item active" onclick="navigateHome(this)"><i class="fas fa-house"></i><span>Accueil</span></div>
-        <div class="dock-item" onclick="navigateChapter('dénombrement', this)"><i class="fas fa-layer-group"></i><span>Dénombr.</span></div>
-        <div class="dock-item" onclick="navigateChapter('polynômes', this)"><i class="fas fa-square-root-variable"></i><span>Polyn.</span></div>
-        <div class="dock-item" onclick="navigateChapter('géométrie', this)"><i class="fas fa-draw-polygon"></i><span>Géom.</span></div>
-        <div class="dock-item" onclick="navigateChapter('fonctions', this)"><i class="fas fa-chart-line"></i><span>Fonct.</span></div>
+        <div class="dock-item active" onclick="navigateHome(this)">
+            <i class="fas fa-house"></i>
+            <span>Accueil</span>
+        </div>
+        <div class="dock-item" onclick="navigateChapter('dénombrement', this)">
+            <i class="fas fa-layer-group"></i>
+            <span>Dénombr.</span>
+        </div>
+        <div class="dock-item" onclick="navigateChapter('polynômes', this)">
+            <i class="fas fa-square-root-variable"></i>
+            <span>Polyn.</span>
+        </div>
+        <div class="dock-item" onclick="navigateChapter('géométrie', this)">
+            <i class="fas fa-draw-polygon"></i>
+            <span>Géom.</span>
+        </div>
+        <div class="dock-item" onclick="navigateChapter('fonctions', this)">
+            <i class="fas fa-chart-line"></i>
+            <span>Fonct.</span>
+        </div>
     </nav>
 
     <div class="overlay" id="overlay-pomo">
         <div class="modal-box">
             <div class="modal-header pomo-head">
-                <h3><i class="fas fa-fire"></i> Session Focus</h3>
-                <button onclick="closeModal('overlay-pomo')" style="background:none; border:none; color:white; cursor:pointer;"><i class="fas fa-times"></i></button>
+                <h3><i class="fas fa-fire"></i> Entraînement Intensif</h3>
+                <button onclick="closeModal('overlay-pomo')" style="background:none;border:none;color:white;font-size:1.2rem;cursor:pointer;"><i class="fas fa-times"></i></button>
             </div>
-            <div style="text-align:center; padding: 20px;">
+            <div style="text-align:center;">
                 <div class="timer-circle" id="timer-display">25:00</div>
-                <div style="display:flex; justify-content:center; gap:15px; margin-bottom: 20px;">
-                    <button onclick="startPomodoro()" style="background:var(--v-green); border:none; padding:12px 25px; border-radius:50px; color:white; font-weight:800; cursor:pointer;">Go</button>
-                    <button onclick="pausePomodoro()" style="background:var(--v-yellow); border:none; padding:12px 25px; border-radius:50px; font-weight:800; cursor:pointer;">Pause</button>
-                    <button onclick="resetPomodoro()" style="background:#eee; border:none; padding:12px 25px; border-radius:50px; cursor:pointer;"><i class="fas fa-redo"></i></button>
+                <div class="timer-controls">
+                    <button class="btn-ctrl" style="background:var(--v-green);color:#3d4a0a;" onclick="startPomodoro()"><i class="fas fa-play"></i> Go</button>
+                    <button class="btn-ctrl" style="background:var(--v-yellow);color:#714f00;" onclick="pausePomodoro()"><i class="fas fa-pause"></i> Pause</button>
+                    <button class="btn-ctrl" style="background:#e2e8f0;color:#475569;" onclick="resetPomodoro()"><i class="fas fa-redo"></i></button>
                 </div>
             </div>
         </div>
     </div>
 
+    <div class="overlay" id="overlay-ia">
+        <div class="modal-box" style="height:70vh; display:flex; flex-direction:column;">
+            <div class="modal-header ia-head">
+                <h3><i class="fas fa-robot"></i> Assistant PCSI</h3>
+                <button onclick="closeModal('overlay-ia')" style="background:none;border:none;color:white;font-size:1.2rem;cursor:pointer;"><i class="fas fa-times"></i></button>
+            </div>
+            <div id="ia-chat-box" style="flex:1; background:#f8fafc; padding:20px; overflow-y:auto; display:flex; flex-direction:column; gap:15px;">
+                <div style="background:white; padding:15px; border-radius:15px; border-bottom-left-radius:0; max-width:85%; font-size:0.95rem; box-shadow:0 2px 5px rgba(0,0,0,0.05); align-self:flex-start;">
+                    Prêt pour les maths ? Pose-moi tes questions sur le programme de PCSI !
+                </div>
+            </div>
+            <div style="padding:15px; background:white; display:flex; gap:10px; border-top:1px solid #eee;">
+                <input type="text" id="ia-input" placeholder="Écris ta question..." style="flex:1; padding:12px 15px; border-radius:50px; border:1px solid #cbd5e1; background:#f1f5f9; font-family:inherit;" onkeypress="if(event.key === 'Enter') sendIAMessage()">
+                <button onclick="sendIAMessage()" style="width:45px; height:45px; border-radius:50%; border:none; background:var(--v-purple); color:white; cursor:pointer;"><i class="fas fa-paper-plane"></i></button>
+            </div>
+        </div>
+    </div>
+
     <script>
-        // --- VARIABLES ET INITIALISATION ---
         const mainWrapper = document.getElementById('main-wrapper');
         const homeView = document.getElementById('home-view');
         const moduleView = document.getElementById('module-view');
         const chapterPanel = document.getElementById('chapter-panel');
 
+        // HORLOGE
         setInterval(() => {
             const d = document.getElementById('clock-display');
             if (d) d.textContent = new Date().toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
         }, 1000);
 
-        // --- NAVIGATION ---
-        function navigateHome(element) {
+        // NAVIGATION DOCK
+        function updateActiveTab(element) {
             document.querySelectorAll('.dock-item').forEach(card => card.classList.remove('active'));
             element.classList.add('active');
+        }
+
+        function navigateHome(element) {
+            updateActiveTab(element);
             closeChapterPanel();
             moduleView.style.display = 'none';
+            moduleView.innerHTML = '';
             homeView.style.display = 'block';
             mainWrapper.scrollTop = 0; 
         }
 
-        function navigateChapter(name, element) {
-            document.querySelectorAll('.dock-item').forEach(card => card.classList.remove('active'));
-            element.classList.add('active');
+        function navigateChapter(chapterName, element) {
+            updateActiveTab(element);
             chapterPanel.classList.add('open');
+            
+            document.querySelectorAll('.chap-toggle').forEach(toggle => {
+                const text = toggle.textContent.toLowerCase();
+                if(text.includes(chapterName.toLowerCase())) {
+                    if(!toggle.classList.contains('active')) toggleAccordeon(toggle);
+                } else if (toggle.classList.contains('active')) {
+                    toggleAccordeon(toggle);
+                }
+            });
         }
 
         function closeChapterPanel() { chapterPanel.classList.remove('open'); }
@@ -349,33 +552,31 @@
             content.classList.toggle('active');
         }
 
-        // --- MOTEUR DE CHARGEMENT ---
+        // CHARGEMENT DE PAGES
         async function loadPage(fileName) {
             closeChapterPanel();
             homeView.style.display = 'none';
             moduleView.style.display = 'block';
             mainWrapper.scrollTop = 0; 
 
-            window.currentScore = 0; 
-            window.totalQuestions = 0;
+            window.currentScore = 0; window.totalQuestions = 0;
 
             moduleView.innerHTML = `<div style="text-align:center; padding:100px 20px; color:var(--v-blue);"><i class="fas fa-spinner fa-spin" style="font-size:3rem; margin-bottom:15px;"></i><h2 style="margin:0;">Chargement...</h2></div>`;
 
             try {
                 const response = await fetch(`content/${fileName}.html?v=${new Date().getTime()}`);
-                if(!response.ok) throw new Error("Fichier introuvable");
+                if(!response.ok) throw new Error("Fichier absent");
                 moduleView.innerHTML = await response.text();
-                
-                // Rendu MathJax si présent
                 if(window.MathJax) MathJax.typesetPromise([moduleView]);
-                
-                // Compter les questions
                 window.totalQuestions = moduleView.querySelectorAll('.qcm-card').length;
             } catch (e) {
+                // FALLBACK POUR DÉMO
                 moduleView.innerHTML = `
                     <div class="qcm-card">
-                        <div class="qcm-question"><i class="fas fa-circle-exclamation" style="color:var(--v-red)"></i> Erreur : Le fichier "${fileName}.html" est introuvable.</div>
-                        <button class="opt-btn" onclick="navigateHome(document.querySelector('.dock-item'))">Retourner à l'accueil</button>
+                        <div class="qcm-question"><i class="fas fa-circle-question" style="color:var(--v-blue)"></i> Module en cours de construction ou fichier introuvable.</div>
+                        <div class="options-grid">
+                            <button class="opt-btn" onclick="checkQCM(this, false)">Retourner à l'accueil</button>
+                        </div>
                     </div>
                 `;
             }
@@ -383,7 +584,7 @@
 
         function loadTraining(subject) { loadPage(`${subject}_training_1`); }
 
-        // --- LOGIQUE QCM ---
+        // MOTEUR QCM
         window.checkQCM = function(btn, isCorrect) {
             const card = btn.closest('.qcm-card');
             if(card.classList.contains('answered')) return;
@@ -395,39 +596,33 @@
                 btn.classList.add('correct');
             } else {
                 btn.classList.add('wrong');
-                // Montrer la bonne réponse
                 card.querySelectorAll('.opt-btn').forEach(b => {
                     if(b.getAttribute('onclick').includes('true')) b.classList.add('correct');
                 });
             }
-            
             const feedback = card.querySelector('.correction-box');
             if(feedback) feedback.style.display = 'block';
-
-            // Vérifier si c'est fini
-            const answeredCount = moduleView.querySelectorAll('.qcm-card.answered').length;
-            if(answeredCount === window.totalQuestions) finishQuiz();
         };
 
+        // FIN DE QUIZ
         function finishQuiz() {
             if(document.getElementById('score-zone')) return;
             const ratio = window.totalQuestions > 0 ? (window.currentScore / window.totalQuestions) : 0;
-            let msg = "Continue tes efforts !", color = "var(--v-red)";
-            
-            if (ratio === 1) { msg = "Parfait ! Maîtrise totale."; color = "var(--v-green)"; }
-            else if (ratio >= 0.6) { msg = "Très bien ! C'est solide."; color = "var(--v-blue)"; }
+            let msg = "Continue !", color = "var(--v-red)";
+            if (ratio === 1) { msg = "Parfait !"; color = "var(--v-green)"; }
+            else if (ratio >= 0.5) { msg = "Solide !"; color = "var(--v-blue)"; }
 
             moduleView.insertAdjacentHTML('beforeend', `
-                <div id="score-zone" style="background:white; padding:40px; border-radius:var(--radius-xl); text-align:center; box-shadow:var(--shadow-soft); margin:30px 0; border: 4px solid ${color};">
+                <div id="score-zone" style="background:white; padding:40px; border-radius:var(--radius-xl); text-align:center; box-shadow:var(--shadow-soft); margin-top:30px; border: 4px solid ${color};">
                     <h2 style="font-size:3rem; margin:0; color:${color};">${window.currentScore} / ${window.totalQuestions}</h2>
                     <p style="font-weight:800; font-size:1.2rem; margin-top:10px;">${msg}</p>
-                    <button onclick="window.print()" style="margin-top:20px; background:#1e293b; color:white; padding:12px 25px; border-radius:50px; border:none; font-weight:700; cursor:pointer;"><i class="fas fa-file-pdf"></i> Exporter PDF</button>
+                    <button onclick="window.print()" style="margin-top:20px; background:#1e293b; color:white; padding:12px 25px; border-radius:50px; border:none; font-weight:700;"><i class="fas fa-file-pdf"></i> Générer PDF</button>
                 </div>
             `);
-            setTimeout(() => document.getElementById('score-zone').scrollIntoView({behavior: "smooth"}), 200);
+            setTimeout(() => document.getElementById('score-zone').scrollIntoView({behavior: "smooth"}), 100);
         }
 
-        // --- UTILITAIRES MODALES ---
+        // MODALES
         function openModal(id) { 
             const el = document.getElementById(id); 
             el.style.display = 'flex'; 
@@ -438,22 +633,35 @@
             el.classList.remove('show'); 
             setTimeout(() => el.style.display = 'none', 300); 
         }
+        function openIAModal() { openModal('overlay-ia'); }
         function openPomodoroModal() { openModal('overlay-pomo'); }
 
-        // --- POMODORO ---
+        // IA SIMULATION
+        function sendIAMessage() {
+            const input = document.getElementById('ia-input');
+            if(!input.value.trim()) return;
+            const chat = document.getElementById('ia-chat-box');
+            
+            chat.innerHTML += `<div style="background:var(--v-blue); color:white; padding:15px; border-radius:15px; border-bottom-right-radius:0; max-width:85%; font-size:0.95rem; align-self:flex-end;">${input.value}</div>`;
+            input.value = '';
+            chat.scrollTop = chat.scrollHeight;
+            
+            setTimeout(() => {
+                chat.innerHTML += `<div style="background:white; padding:15px; border-radius:15px; border-bottom-left-radius:0; max-width:85%; font-size:0.95rem; box-shadow:0 2px 5px rgba(0,0,0,0.05); align-self:flex-start;"><i class="fas fa-circle-notch fa-spin" style="color:var(--v-blue)"></i></div>`;
+                chat.scrollTop = chat.scrollHeight;
+                setTimeout(() => {
+                    chat.lastElementChild.innerHTML = "L'IA n'est pas encore connectée au backend, mais l'interface est prête !";
+                }, 1000);
+            }, 500);
+        }
+
+        // POMODORO
         let pomoInterval; let timeLeft = 1500;
         function updateDisplayPomo() {
             const m = Math.floor(timeLeft / 60); const s = timeLeft % 60;
             document.getElementById('timer-display').textContent = `${m}:${s.toString().padStart(2, '0')}`;
         }
-        function startPomodoro() { 
-            if(!pomoInterval) {
-                pomoInterval = setInterval(() => { 
-                    if(timeLeft > 0) { timeLeft--; updateDisplayPomo(); } 
-                    else { resetPomodoro(); alert('Session terminée ! Prenez une pause.'); } 
-                }, 1000); 
-            }
-        }
+        function startPomodoro() { if(!pomoInterval) pomoInterval = setInterval(() => { if(timeLeft>0) { timeLeft--; updateDisplayPomo(); } else { resetPomodoro(); alert('Session terminée!'); } }, 1000); }
         function pausePomodoro() { clearInterval(pomoInterval); pomoInterval = null; }
         function resetPomodoro() { pausePomodoro(); timeLeft = 1500; updateDisplayPomo(); }
 
