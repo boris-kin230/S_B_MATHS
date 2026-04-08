@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dénombrement Expert - Prépa MP/PCSI</title>
+    <title>Algèbre Linéaire Expert - Prépa MP/PCSI</title>
     
     <script>
         MathJax = {
@@ -20,7 +20,7 @@
 
     <style>
         :root {
-            --bg-main: #0f172a; /* Fond sombre global pour le mode expert */
+            --bg-main: #0f172a;
             --card-bg: #1e293b;
             --navy-dark: #0f172a;
             --blue-accent: #3b82f6;
@@ -232,152 +232,141 @@
     
     <div class="hero-banner">
         <span style="background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); padding: 5px 15px; border-radius: 20px; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; font-weight: 700; display: inline-block; margin-bottom: 15px;">Mathématiques - Niveau Expert</span>
-        <h1>Masterclass : Dénombrement</h1>
-        <p>Preuves combinatoires, Récurrences, Crible de Poincaré et Nombres remarquables (MPSI/MP*)</p>
+        <h1>Masterclass : Algèbre Linéaire</h1>
+        <p>Réduction, Topologie Matricielle, Espaces Euclidiens et Endomorphismes (MPSI/MP*)</p>
     </div>
 
     <div class="exo-card exo-1">
         <div class="exo-title">
-            <div class="exo-icon"><i class="fas fa-balance-scale"></i></div>
-            Exercice 1 : Preuves combinatoires d'identités
+            <div class="exo-icon"><i class="fas fa-arrow-down-short-wide"></i></div>
+            Exercice 1 : Endomorphismes nilpotents
         </div>
         <div class="context-box">
-            L'objectif est d'établir des identités algébriques classiques <strong>exclusivement</strong> par des arguments de double dénombrement, sans utiliser ni récurrence ni calcul analytique. Soient $n, k, p \in \mathbb{N}$.
+            Soit $E$ un $\mathbb{K}$-espace vectoriel de dimension $n$. On étudie les endomorphismes $u \in \mathcal{L}(E)$ dits <em>nilpotents</em>, c'est-à-dire qu'il existe un entier $p \in \mathbb{N}^*$ tel que $u^p = 0$. Le plus petit de ces entiers est appelé l'indice de nilpotence de $u$.
         </div>
         <ul class="questions-list">
-            <li>Démontrer combinatoirement que $\sum_{k=0}^n \binom{n}{k} = 2^n$.</li>
-            <li>Démontrer l'identité du capitaine : $k\binom{n}{k} = n\binom{n-1}{k-1}$.</li>
-            <li>En déduire, par un argument de dénombrement sur des comités avec un président, que $\sum_{k=1}^n k\binom{n}{k} = n2^{n-1}$.</li>
-            <li>Démontrer que $\binom{n}{k}\binom{k}{p} = \binom{n}{p}\binom{n-p}{k-p}$ (avec $p \le k \le n$).</li>
-            <li>Soient $m, n, p \in \mathbb{N}$. Démontrer la formule de Vandermonde : $\sum_{k=0}^p \binom{n}{k}\binom{m}{p-k} = \binom{n+m}{p}$.</li>
-            <li>En déduire la valeur de la somme des carrés des coefficients binomiaux : $\sum_{k=0}^n \binom{n}{k}^2$.</li>
+            <li>Soit $u$ nilpotent d'indice $p$. Montrer qu'il existe $x \in E$ tel que la famille $(x, u(x), \dots, u^{p-1}(x))$ soit libre.</li>
+            <li>En déduire que l'indice de nilpotence $p$ vérifie toujours $p \le n$, puis que $u^n = 0$.</li>
+            <li>Que vaut la trace d'un endomorphisme nilpotent ? (Justifier avec le polynôme caractéristique ou par trigonalisation).</li>
+            <li>Soit $v \in \mathcal{L}(E)$ un automorphisme (inversible) tel que $u \circ v = v \circ u$. Montrer que l'endomorphisme $u+v$ est inversible.</li>
         </ul>
         <button class="toggle-btn" onclick="toggleCorr('corr-1')">
             <i class="fas fa-eye"></i> Afficher le corrigé
         </button>
         <div id="corr-1" class="correction-box">
-            <div class="correction-item"><strong>Q1.</strong> On compte le nombre de parties d'un ensemble $E$ à $n$ éléments. Méthode 1 : pour chaque élément, on a 2 choix (le prendre ou non), soit $2^n$. Méthode 2 : on regroupe les parties par leur cardinal $k$. Pour un $k$ fixé, il y a $\binom{n}{k}$ parties. La somme sur tous les $k$ donne le total. D'où l'égalité.</div>
-            <div class="correction-item"><strong>Q2.</strong> On compte le nombre de façons de former une équipe de $k$ joueurs parmi $n$, dont un est désigné "capitaine". Méthode 1 : on choisit l'équipe ($\binom{n}{k}$), puis on choisit le capitaine parmi les $k$ joueurs (soit $k$ choix) $\implies k\binom{n}{k}$. Méthode 2 : on choisit d'abord le capitaine parmi les $n$ personnes ($n$ choix), puis on choisit les $k-1$ autres joueurs parmi les $n-1$ restants ($\binom{n-1}{k-1}$) $\implies n\binom{n-1}{k-1}$.</div>
-            <div class="correction-item"><strong>Q3.</strong> On veut former un comité de taille quelconque $k \ge 1$, et y désigner un président. Méthode 1 : pour une taille $k$ fixée, il y a $k\binom{n}{k}$ choix (cf Q2). En sommant sur toutes les tailles $k$, on obtient le membre de gauche. Méthode 2 : on nomme d'abord le président parmi les $n$ personnes ($n$ choix). Pour les $n-1$ personnes restantes, on choisit librement si elles intègrent ou non le comité ($2^{n-1}$ choix). D'où le membre de droite.</div>
-            <div class="correction-item"><strong>Q4.</strong> On veut choisir un comité de $k$ personnes parmi $n$, puis au sein de ce comité, un sous-comité directeur de $p$ personnes. Méthode 1 : Choix du comité ($\binom{n}{k}$) puis du sous-comité ($\binom{k}{p}$). Méthode 2 : On choisit directement le sous-comité directeur de $p$ personnes parmi $n$ ($\binom{n}{p}$), puis on choisit les $k-p$ membres restants du comité "normal" parmi les $n-p$ personnes non élues au directoire ($\binom{n-p}{k-p}$).</div>
-            <div class="correction-item"><strong>Q5.</strong> On considère une urne contenant $n$ boules rouges et $m$ boules bleues. On veut tirer simultanément $p$ boules. Le total est $\binom{n+m}{p}$. D'autre part, un tel tirage est constitué de $k$ boules rouges ($0 \le k \le p$) et de $p-k$ boules bleues. Pour un $k$ fixé, il y a $\binom{n}{k}\binom{m}{p-k}$ façons de faire. On somme sur les cas incompatibles $k$.</div>
-            <div class="correction-item"><strong>Q6.</strong> On applique Vandermonde avec $m=n$ et $p=n$. La somme devient $\sum_{k=0}^n \binom{n}{k}\binom{n}{n-k} = \binom{2n}{n}$. Or, par symétrie des combinaisons, $\binom{n}{n-k} = \binom{n}{k}$. Donc $\sum_{k=0}^n \binom{n}{k}^2 = \binom{2n}{n}$.</div>
+            <div class="correction-item"><strong>Q1.</strong> Puisque $p$ est l'indice de nilpotence, $u^{p-1} \neq 0$. Il existe donc $x \in E$ tel que $u^{p-1}(x) \neq 0$. Supposons $\sum_{k=0}^{p-1} \lambda_k u^k(x) = 0$. Appliquons $u^{p-1}$ à cette égalité. Comme $u^k(x)$ s'annule pour tout terme multiplié par $u^{p-1}$ si $k \ge 1$, il reste $\lambda_0 u^{p-1}(x) = 0 \implies \lambda_0 = 0$. On réitère le procédé en appliquant $u^{p-2}, u^{p-3}$, etc., pour prouver que tous les $\lambda_k = 0$. La famille est libre.</div>
+            <div class="correction-item"><strong>Q2.</strong> La famille libre $(x, u(x), \dots, u^{p-1}(x))$ contient $p$ vecteurs. Dans un espace de dimension $n$, toute famille libre a un cardinal inférieur ou égal à $n$. Donc $p \le n$. Puisque $u^p = 0$ et $n \ge p$, on a $u^n = u^p \circ u^{n-p} = 0 \circ u^{n-p} = 0$.</div>
+            <div class="correction-item"><strong>Q3.</strong> Le polynôme annulateur $X^n$ scindé sur $\mathbb{K}$ annule $u$. Donc le spectre de $u$ est inclus dans les racines de $X^n$, c'est-à-dire $\{0\}$. L'unique valeur propre dans $\mathbb{C}$ (ou $\mathbb{K}$) est $0$. Or la trace est la somme des valeurs propres (comptées avec multiplicité), donc $\operatorname{Tr}(u) = 0$.</div>
+            <div class="correction-item"><strong>Q4.</strong> On factorise : $u+v = v \circ (I + v^{-1}u)$. Puisque $u$ et $v$ commutent, $v^{-1}$ et $u$ commutent également. Donc $(v^{-1}u)^p = v^{-p}u^p = 0$. L'endomorphisme $N = v^{-1}u$ est nilpotent. Or l'identité algébrique $(I+N)(I - N + N^2 - \dots + (-1)^{p-1}N^{p-1}) = I + (-1)^{p-1}N^p = I$ prouve que $I+N$ est inversible. La composée de deux automorphismes ($v$ et $I+N$) étant un automorphisme, $u+v$ est inversible.</div>
         </div>
     </div>
 
     <div class="exo-card exo-2">
         <div class="exo-title">
-            <div class="exo-icon"><i class="fas fa-random"></i></div>
-            Exercice 2 : Dérangements et Crible de Poincaré
+            <div class="exo-icon"><i class="fas fa-circle-nodes"></i></div>
+            Exercice 2 : Topologie Matricielle et Cayley-Hamilton
         </div>
         <div class="context-box">
-            On note $S_n$ le groupe symétrique des permutations de $\llbracket 1, n \rrbracket$. Un <em>dérangement</em> est une permutation sans point fixe. On note $D_n$ leur nombre.
+            On munit $\mathcal{M}_n(\mathbb{C})$ d'une norme quelconque (équivalence des normes en dimension finie). On note $\mathcal{D}_n(\mathbb{C})$ l'ensemble des matrices diagonalisables. L'objectif est d'utiliser des arguments de densité.
         </div>
         <ul class="questions-list">
-            <li>Énoncer le principe d'Inclusion-Exclusion (formule du crible de Poincaré) pour le cardinal de l'union $\bigcup_{i=1}^n A_i$.</li>
-            <li>Soit $A_i$ l'ensemble des permutations de $S_n$ fixant l'élément $i$. Quel est le cardinal de l'intersection de $k$ ensembles distincts $A_{i_1} \cap \dots \cap A_{i_k}$ ?</li>
-            <li>En utilisant le passage au complémentaire et le crible, démontrer que : $D_n = n! \sum_{k=0}^n \frac{(-1)^k}{k!}$.</li>
-            <li>En déduire la probabilité qu'une permutation prise au hasard soit un dérangement, et la limite de cette probabilité quand $n \to +\infty$.</li>
-            <li>Établir combinatoirement la relation de récurrence : $D_n = (n-1)(D_{n-1} + D_{n-2})$. (Indice : discuter selon la position de l'élément 1).</li>
-            <li>Prouver algébriquement (à partir de la somme) ou combinatoirement la relation plus forte : $D_n = n D_{n-1} + (-1)^n$.</li>
+            <li>Démontrer que l'ensemble des matrices à valeurs propres simples (polynôme caractéristique scindé à racines simples) est dense dans $\mathcal{M}_n(\mathbb{C})$.</li>
+            <li>En déduire que $\mathcal{D}_n(\mathbb{C})$ est dense dans $\mathcal{M}_n(\mathbb{C})$.</li>
+            <li>Démontrer le théorème de Cayley-Hamilton ($\chi_M(M) = 0$) pour une matrice $D \in \mathcal{D}_n(\mathbb{C})$.</li>
+            <li>En utilisant l'application continue $\phi : M \mapsto \chi_M(M)$, étendre le théorème de Cayley-Hamilton à tout $\mathcal{M}_n(\mathbb{C})$.</li>
         </ul>
         <button class="toggle-btn" onclick="toggleCorr('corr-2')">
             <i class="fas fa-eye"></i> Afficher le corrigé
         </button>
         <div id="corr-2" class="correction-box">
-            <div class="correction-item"><strong>Q1.</strong> Formule du crible : $\left| \bigcup_{i=1}^n A_i \right| = \sum_{k=1}^n (-1)^{k-1} \sum_{1 \le i_1 < i_2 < \dots < i_k \le n} \left| A_{i_1} \cap A_{i_2} \cap \dots \cap A_{i_k} \right|$.</div>
-            <div class="correction-item"><strong>Q2.</strong> L'intersection représente les permutations fixant <em>au moins</em> les $k$ éléments $\{i_1, \dots, i_k\}$. Les $n-k$ autres éléments peuvent être permutés librement. Le cardinal est donc $(n-k)!$.</div>
-            <div class="correction-item"><strong>Q3.</strong> L'ensemble des dérangements est le complémentaire de $\bigcup_{i=1}^n A_i$. Donc $D_n = n! - |\bigcup_{i=1}^n A_i|$.<br>Il y a $\binom{n}{k}$ intersections possibles de $k$ ensembles. Ainsi, la somme du crible devient $\sum_{k=1}^n (-1)^{k-1} \binom{n}{k} (n-k)!$.<br>Or $\binom{n}{k}(n-k)! = \frac{n!}{k!(n-k)!}(n-k)! = \frac{n!}{k!}$.<br>Donc $D_n = n! - \sum_{k=1}^n (-1)^{k-1} \frac{n!}{k!} = n! \sum_{k=0}^n \frac{(-1)^k}{k!}$.</div>
-            <div class="correction-item"><strong>Q4.</strong> La probabilité est $\mathbb{P} = \frac{D_n}{n!} = \sum_{k=0}^n \frac{(-1)^k}{k!}$. En passant à la limite $n \to +\infty$, on reconnaît le développement en série entière de la fonction exponentielle évaluée en $-1$. La limite est donc $e^{-1} \approx 0.368$.</div>
-            <div class="correction-item"><strong>Q5.</strong> Soit $f$ un dérangement. Considérons l'image de $n$, notons-la $k = f(n)$. Comme $f$ n'a pas de point fixe, $k \neq n$ ($n-1$ choix possibles pour $k$). Regardons maintenant $f(k)$ :<br>- Cas 1 : $f(k) = n$. Les éléments $k$ et $n$ sont échangés. La restriction de $f$ aux $n-2$ autres éléments est un dérangement de taille $n-2$. Il y a $D_{n-2}$ tels dérangements.<br>- Cas 2 : $f(k) \neq n$. Alors $f$ restreinte à $\llbracket 1, n-1 \rrbracket$ agit comme une bijection, où $k$ a "hérité" de l'interdiction d'aller sur $n$. Cela se comporte exactement comme un dérangement de taille $n-1$. Il y a $D_{n-1}$ tels cas.<br>Bilan : $(n-1)$ choix pour $k$, multiplié par $(D_{n-2} + D_{n-1})$.</div>
-            <div class="correction-item"><strong>Q6.</strong> Preuve algébrique : on a $D_n - n D_{n-1} = n! \sum_{k=0}^n \frac{(-1)^k}{k!} - n (n-1)! \sum_{k=0}^{n-1} \frac{(-1)^k}{k!} = n! \left( \sum_{k=0}^n \frac{(-1)^k}{k!} - \sum_{k=0}^{n-1} \frac{(-1)^k}{k!} \right)$. Le terme survivant de la parenthèse est le dernier, pour $k=n$, soit $\frac{(-1)^n}{n!}$. En multipliant par $n!$, il reste $(-1)^n$.</div>
+            <div class="correction-item"><strong>Q1.</strong> Toute matrice $M \in \mathcal{M}_n(\mathbb{C})$ est trigonalisable : $M = P T P^{-1}$ avec $T$ triangulaire supérieure. Les coefficients diagonaux de $T$ sont les valeurs propres $(\lambda_1, \dots, \lambda_n)$. On construit $T_k$ en ajoutant de très petites valeurs $\epsilon_i/k$ aux coefficients diagonaux de manière à ce que les éléments de la diagonale de $T_k$ soient tous deux à deux distincts. Posons $M_k = P T_k P^{-1}$. $M_k \to M$ quand $k \to \infty$, et par construction, chaque $M_k$ admet $n$ valeurs propres distinctes.</div>
+            <div class="correction-item"><strong>Q2.</strong> Le cours stipule qu'une matrice de taille $n$ possédant $n$ valeurs propres distinctes est diagonalisable. Donc la suite $(M_k)$ construite à la Q1 est une suite de matrices diagonalisables qui converge vers $M$. Cela prouve que l'adhérence de $\mathcal{D}_n(\mathbb{C})$ est $\mathcal{M}_n(\mathbb{C})$, d'où la densité.</div>
+            <div class="correction-item"><strong>Q3.</strong> Soit $D \in \mathcal{D}_n(\mathbb{C})$. Il existe $P$ inversible et $\Delta = \operatorname{Diag}(\lambda_1, \dots, \lambda_n)$ telles que $D = P \Delta P^{-1}$. Le polynôme caractéristique est $\chi_D(X) = \prod_{i=1}^n (X - \lambda_i)$. Évaluons-le en $D$ : $\chi_D(D) = P \chi_D(\Delta) P^{-1}$. Or $\chi_D(\Delta)$ est une matrice diagonale dont le $i$-ème coefficient est $\chi_D(\lambda_i) = 0$. Donc $\chi_D(\Delta) = 0$, et par suite $\chi_D(D) = 0$.</div>
+            <div class="correction-item"><strong>Q4.</strong> Les coefficients de $\chi_M(X)$ sont des polynômes en les coefficients de $M$ (par définition du déterminant). Ainsi, l'application $\phi : \mathcal{M}_n(\mathbb{C}) \to \mathcal{M}_n(\mathbb{C})$ définie par $M \mapsto \chi_M(M)$ est continue (ses composantes sont polynomiales). D'après Q3, $\phi$ est nulle sur $\mathcal{D}_n(\mathbb{C})$. Or, $\mathcal{D}_n(\mathbb{C})$ est dense (Q2). Deux fonctions continues (ici $\phi$ et l'application nulle) qui coïncident sur une partie dense sont partout égales. Donc pour toute matrice $M$, $\chi_M(M) = 0$.</div>
         </div>
     </div>
 
     <div class="exo-card exo-3">
         <div class="exo-title">
-            <div class="exo-icon"><i class="fas fa-layer-group"></i></div>
-            Exercice 3 : Surjections et Partitions (Stirling)
+            <div class="exo-icon"><i class="fas fa-puzzle-piece"></i></div>
+            Exercice 3 : Lemme des Noyaux et Projecteurs spectraux
         </div>
         <div class="context-box">
-            On note $S_{n,p}$ le nombre de surjections d'un ensemble de cardinal $n$ vers un ensemble de cardinal $p$. Les Nombres de Stirling de seconde espèce, notés $\left\{\begin{matrix} n \\ p \end{matrix}\right\}$, comptent les partitions d'un $n$-ensemble en $p$ parties non vides.
+            Soit $u \in \mathcal{L}(E)$ et soient $A, B \in \mathbb{K}[X]$ deux polynômes <strong>premiers entre eux</strong>. On pose $P = AB$.
         </div>
         <ul class="questions-list">
-            <li>Que valent $S_{n,1}$ et $S_{n,2}$ (pour $n \ge 2$) ?</li>
-            <li>Démontrer que pour tout $n \ge p$, on a : $p^n = \sum_{k=1}^p \binom{p}{k} S_{n,k}$.</li>
-            <li>En utilisant le crible de Poincaré sur les ensembles $A_i$ = "les applications où $i$ n'a pas d'antécédent", prouver que : $S_{n,p} = \sum_{j=0}^p (-1)^{p-j} \binom{p}{j} j^n$.</li>
-            <li>Justifier la relation fondamentale : $S_{n,p} = p! \left\{\begin{matrix} n \\ p \end{matrix}\right\}$.</li>
-            <li>En isolant le $n$-ième élément de l'ensemble de départ, prouver la récurrence : $\left\{\begin{matrix} n \\ p \end{matrix}\right\} = \left\{\begin{matrix} n-1 \\ p-1 \end{matrix}\right\} + p \left\{\begin{matrix} n-1 \\ p \end{matrix}\right\}$.</li>
-            <li>Le nombre de Bell $B_n$ est le nombre total de partitions d'un $n$-ensemble. Calculer $B_4$.</li>
+            <li>Énoncer et démontrer le Lemme des Noyaux : $\ker(P(u)) = \ker(A(u)) \oplus \ker(B(u))$. (On utilisera le théorème de Bézout).</li>
+            <li>En déduire que si $P$ annule $u$, alors $E = \ker(A(u)) \oplus \ker(B(u))$.</li>
+            <li>Expliciter le projecteur $p_A$ sur $\ker(A(u))$ parallèlement à $\ker(B(u))$ en fonction de $u$ et des polynômes de l'identité de Bézout.</li>
+            <li>Montrer que $p_A$ est un polynôme en $u$. Quel en est l'avantage théorique majeur ?</li>
         </ul>
         <button class="toggle-btn" onclick="toggleCorr('corr-3')">
             <i class="fas fa-eye"></i> Afficher le corrigé
         </button>
         <div id="corr-3" class="correction-box">
-            <div class="correction-item"><strong>Q1.</strong> $S_{n,1} = 1$ (la fonction constante). Pour $p=2$, il y a $2^n$ fonctions au total. Il faut enlever les 2 fonctions constantes qui ne sont pas surjectives. Donc $S_{n,2} = 2^n - 2$.</div>
-            <div class="correction-item"><strong>Q2.</strong> Considérons l'ensemble de toutes les fonctions de $E$ (cardinal $n$) vers $F$ (cardinal $p$). Il y en a $p^n$. On regroupe ces fonctions selon leur ensemble image (qui est de cardinal $k \in \llbracket 1, p \rrbracket$). Pour un cardinal d'image $k$ fixé, il y a $\binom{p}{k}$ choix possibles pour ce sous-ensemble image. Et par définition, la fonction est surjective sur son image, d'où $S_{n,k}$ possibilités. La somme sur $k$ partitionne toutes les fonctions.</div>
-            <div class="correction-item"><strong>Q3.</strong> Les fonctions non-surjectives sont dans l'union des $A_i$ (l'élément $i$ n'est pas atteint). Le cardinal de l'intersection de $k$ tels ensembles est $(p-k)^n$ (les images se font dans les $p-k$ éléments restants). Le crible donne le nombre de non-surjections : $\sum_{k=1}^p (-1)^{k-1} \binom{p}{k} (p-k)^n$. On soustrait cela de $p^n$, on fait le changement d'indice $j = p-k$, et on obtient la formule demandée.</div>
-            <div class="correction-item"><strong>Q4.</strong> Toute surjection $f : E \to F$ définit canoniquement une partition de l'ensemble de départ $E$ en $p$ classes (les préimages $f^{-1}(\{y\})$ pour $y \in F$, qui sont non vides car $f$ est surjective). À une partition donnée de $E$ en $p$ blocs, il faut affecter bijectivement ces $p$ blocs aux $p$ éléments de $F$ pour créer la surjection. Il y a $p!$ bijections possibles. D'où $S_{n,p} = p! \left\{\begin{matrix} n \\ p \end{matrix}\right\}$.</div>
-            <div class="correction-item"><strong>Q5.</strong> Considérons un élément particulier $x \in E$. Pour partitionner $E$ en $p$ blocs, on a deux cas disjoncts. Cas 1 : le singleton $\{x\}$ est un bloc à lui tout seul. Il faut alors partitionner les $n-1$ éléments restants en $p-1$ blocs. ($\left\{\begin{matrix} n-1 \\ p-1 \end{matrix}\right\}$). Cas 2 : $x$ n'est pas seul. Il faut d'abord partitionner les $n-1$ autres éléments en $p$ blocs ($\left\{\begin{matrix} n-1 \\ p \end{matrix}\right\}$), puis "insérer" $x$ dans l'un des $p$ blocs existants ($p$ choix). D'où la relation.</div>
-            <div class="correction-item"><strong>Q6.</strong> $B_n = \sum_{p=1}^n \left\{\begin{matrix} n \\ p \end{matrix}\right\}$. En utilisant la récurrence (ou la formule), on trouve pour $n=4$ : $\left\{\begin{matrix} 4 \\ 1 \end{matrix}\right\} = 1$, $\left\{\begin{matrix} 4 \\ 2 \end{matrix}\right\} = \frac{2^4-2}{2} = 7$, $\left\{\begin{matrix} 4 \\ 3 \end{matrix}\right\} = \frac{S_{4,3}}{6} = \frac{36}{6}=6$, $\left\{\begin{matrix} 4 \\ 4 \end{matrix}\right\} = 1$. Somme : $B_4 = 1 + 7 + 6 + 1 = 15$.</div>
+            <div class="correction-item"><strong>Q1.</strong> $A$ et $B$ sont premiers entre eux. D'après Bézout, il existe $U, V \in \mathbb{K}[X]$ tels que $AU + BV = 1$. En évaluant en l'endomorphisme $u$, on a $A(u)U(u) + B(u)V(u) = \operatorname{Id}_E$.<br>
+            Soit $x \in \ker(A(u)) \cap \ker(B(u))$. Alors $x = \operatorname{Id}(x) = U(u)[A(u)(x)] + V(u)[B(u)(x)] = 0 + 0 = 0$. La somme est directe.<br>
+            Soit $x \in \ker(P(u))$. Posons $x_A = B(u)V(u)(x)$ et $x_B = A(u)U(u)(x)$. On a $x = x_A + x_B$. De plus $A(u)(x_A) = A(u)B(u)V(u)(x) = V(u)P(u)(x) = 0$, donc $x_A \in \ker(A(u))$. De même $x_B \in \ker(B(u))$. D'où l'égalité des sous-espaces.</div>
+            <div class="correction-item"><strong>Q2.</strong> Si $P$ est un polynôme annulateur de $u$, alors par définition $\ker(P(u)) = E$. La conclusion de Q1 devient donc immédiatement $E = \ker(A(u)) \oplus \ker(B(u))$.</div>
+            <div class="correction-item"><strong>Q3.</strong> D'après la preuve de la Q1, la décomposition d'un vecteur $x$ sur la somme directe est $x = x_A + x_B$ avec $x_A \in \ker(A(u))$. Le projecteur sur $\ker(A(u))$ associe à $x$ son unique composante $x_A$. Donc $p_A(x) = B(u)V(u)(x)$. L'endomorphisme projecteur est $p_A = B(u) \circ V(u)$.</div>
+            <div class="correction-item"><strong>Q4.</strong> $p_A = (BV)(u)$, qui est l'évaluation en $u$ du polynôme $BV$. Donc $p_A \in \mathbb{K}[u]$. L'avantage théorique majeur est que $p_A$, étant un polynôme en $u$, commute avec $u$ et avec tout endomorphisme commutant avec $u$. De plus, cela rend les espaces propres (et caractéristiques) stables par $u$.</div>
         </div>
     </div>
 
     <div class="exo-card exo-4">
         <div class="exo-title">
-            <div class="exo-icon"><i class="fas fa-th-large"></i></div>
-            Exercice 4 : Récurrences (Fibonacci & Pavages)
+            <div class="exo-icon"><i class="fas fa-cube"></i></div>
+            Exercice 4 : Matrices Symétriques Positives
         </div>
         <div class="context-box">
-            On s'intéresse aux liens entre dénombrement et suites récurrentes linéaires, notamment la suite de Fibonacci $(F_n)$ définie par $F_0=0, F_1=1, F_{n+2} = F_{n+1} + F_n$.
+            On note $\mathcal{S}_n(\mathbb{R})$ l'ensemble des matrices symétriques réelles et $\mathcal{S}_n^+(\mathbb{R})$ les matrices symétriques positives (telles que $\forall X \in \mathcal{M}_{n,1}(\mathbb{R}), \, ^tX S X \ge 0$).
         </div>
         <ul class="questions-list">
-            <li>Soit $f_n$ le nombre de suites de longueur $n$ d'éléments de $\{0,1\}$ ne contenant pas deux "1" consécutifs. Calculer $f_1$ et $f_2$.</li>
-            <li>Établir une relation de récurrence liant $f_n$, $f_{n-1}$ et $f_{n-2}$. En déduire l'expression de $f_n$ en fonction de la suite de Fibonacci.</li>
-            <li>Soit $P_n$ le nombre de façons de paver un rectangle de dimension $2 \times n$ avec des dominos de $2 \times 1$. Que valent $P_1$ et $P_2$ ?</li>
-            <li>Montrer que $P_n$ satisfait la même relation de récurrence que $f_n$.</li>
-            <li>Généralisation : On dispose de dominos rouges de taille $2 \times 1$ et de dominos bleus de taille $2 \times 1$. On pose $R_n$ le nombre de pavages du rectangle $2 \times n$ (deux pavages sont distincts si les couleurs diffèrent). Trouver la relation de récurrence de $R_n$.</li>
-            <li>Soit $g_n$ le nombre de sous-ensembles de $\llbracket 1, n \rrbracket$ ne contenant aucun entier consécutif. Montrer que $g_n = f_n$.</li>
+            <li>Soit $A \in \mathcal{M}_n(\mathbb{R})$. Démontrer que la matrice $M = ^tA A$ est symétrique positive.</li>
+            <li>Montrer que $^tA A$ est définie positive (i.e. $\forall X \neq 0, ^tX M X > 0$) si et seulement si $A$ est inversible.</li>
+            <li>Rappeler l'énoncé du Théorème Spectral pour les matrices symétriques réelles.</li>
+            <li>Soit $S \in \mathcal{S}_n^+(\mathbb{R})$. Démontrer l'existence d'une matrice $R \in \mathcal{S}_n^+(\mathbb{R})$ telle que $R^2 = S$. (On l'appelle "racine carrée" de $S$).</li>
         </ul>
         <button class="toggle-btn" onclick="toggleCorr('corr-4')">
             <i class="fas fa-eye"></i> Afficher le corrigé
         </button>
         <div id="corr-4" class="correction-box">
-            <div class="correction-item"><strong>Q1.</strong> Pour $n=1$, les suites valides sont $(0)$ et $(1) \implies f_1 = 2$. Pour $n=2$, on a $(0,0), (0,1), (1,0) \implies f_2 = 3$. L'unique suite interdite est $(1,1)$.</div>
-            <div class="correction-item"><strong>Q2.</strong> Une suite valide de longueur $n$ peut se terminer par $0$ ou $1$. Si elle se termine par $0$, le préfixe de longueur $n-1$ peut être n'importe quelle suite valide $\implies f_{n-1}$ possibilités. Si elle se termine par $1$, l'élément précédent doit obligatoirement être un $0$. Le préfixe de longueur $n-2$ est alors n'importe quelle suite valide $\implies f_{n-2}$ possibilités. On a donc $f_n = f_{n-1} + f_{n-2}$. On identifie $f_n = F_{n+2}$.</div>
-            <div class="correction-item"><strong>Q3.</strong> $P_1 = 1$ (un domino vertical). $P_2 = 2$ (soit deux dominos verticaux, soit deux dominos horizontaux empilés).</div>
-            <div class="correction-item"><strong>Q4.</strong> Regardons l'extrémité droite du pavage de $2 \times n$. Soit elle est couverte par un domino vertical, et le reste est un pavage de $2 \times (n-1)$ (soit $P_{n-1}$ façons). Soit elle est couverte par deux dominos horizontaux empilés, et le reste est un pavage de $2 \times (n-2)$ (soit $P_{n-2}$ façons). D'où $P_n = P_{n-1} + P_{n-2}$. On a $P_n = F_{n+1}$.</div>
-            <div class="correction-item"><strong>Q5.</strong> On applique le même raisonnement. Terminer par un domino vertical : il y a 2 choix de couleurs pour ce domino, multiplié par $R_{n-1}$. Terminer par deux horizontaux : il y a $2^2 = 4$ choix de couleurs pour cette paire, multiplié par $R_{n-2}$. La récurrence est donc : $R_n = 2R_{n-1} + 4R_{n-2}$.</div>
-            <div class="correction-item"><strong>Q6.</strong> Il y a une bijection naturelle. À tout sous-ensemble $A \subset \llbracket 1, n \rrbracket$, on associe sa fonction indicatrice, c'est-à-dire une suite de longueur $n$ avec un $1$ à la position $i$ si $i \in A$, et $0$ sinon. La condition "pas d'entiers consécutifs dans $A$" se traduit exactement par "pas de $1$ consécutifs dans la suite". C'est donc le même objet combinatoire. D'où $g_n = f_n = F_{n+2}$.</div>
+            <div class="correction-item"><strong>Q1.</strong> Vérifions la symétrie : $^tM = ^t(^tA A) = ^tA \, ^t(^tA) = ^tA A = M$.<br>Vérifions la positivité : Soit $X \in \mathcal{M}_{n,1}(\mathbb{R})$. On calcule $^tX M X = ^tX (^tA A) X = (^tX ^tA) (AX) = ^t(AX) (AX)$. Posons $Y = AX$. On obtient $^tY Y = \sum_{i=1}^n y_i^2 = \|Y\|^2 \ge 0$. Donc $M \in \mathcal{S}_n^+(\mathbb{R})$.</div>
+            <div class="correction-item"><strong>Q2.</strong> $M$ est définie positive ssi $^tX M X = 0 \implies X = 0$. D'après Q1, $^tX M X = \|AX\|^2$. Donc $^tX M X = 0 \iff \|AX\| = 0 \iff AX = 0$.<br>Si $A$ est inversible, $AX = 0 \implies X = 0$, donc $M$ est définie positive. Réciproquement, si $M$ est définie positive, alors $AX=0 \implies X=0$, donc $\ker(A) = \{0\}$, ce qui prouve (en dimension finie) que $A$ est inversible.</div>
+            <div class="correction-item"><strong>Q3.</strong> Théorème Spectral : Toute matrice symétrique à coefficients réels est diagonalisable dans une base orthonormée. Autrement dit, pour tout $S \in \mathcal{S}_n(\mathbb{R})$, il existe une matrice orthogonale $O \in \mathcal{O}_n(\mathbb{R})$ ($^tO = O^{-1}$) et une matrice diagonale $D$ (à coefficients réels) telles que $S = O D \,^tO$.</div>
+            <div class="correction-item"><strong>Q4.</strong> Puisque $S \in \mathcal{S}_n^+(\mathbb{R})$, le théorème spectral donne $S = O D \,^tO$. De plus, la positivité implique que les valeurs propres (sur la diagonale de $D$) sont positives : $\lambda_i \ge 0$. On définit la matrice diagonale $\Delta$ dont les coefficients diagonaux sont $\sqrt{\lambda_i}$. Posons $R = O \Delta \,^tO$.<br>
+            - $R$ est symétrique car $^tR = ^t(O \Delta \,^tO) = O \,^t\Delta \,^tO = O \Delta \,^tO = R$.<br>
+            - $R$ a des valeurs propres positives ($\sqrt{\lambda_i} \ge 0$) donc $R \in \mathcal{S}_n^+(\mathbb{R})$.<br>
+            - On a $R^2 = (O \Delta \,^tO)(O \Delta \,^tO) = O \Delta (^tO O) \Delta \,^tO = O \Delta^2 \,^tO = O D \,^tO = S$.</div>
         </div>
     </div>
 
     <div class="exo-card exo-5">
         <div class="exo-title">
-            <div class="exo-icon"><i class="fas fa-project-diagram"></i></div>
-            Exercice 5 : Arbres et Nombres de Catalan
+            <div class="exo-icon"><i class="fas fa-magic"></i></div>
+            Exercice 5 : Décomposition de Dunford
         </div>
         <div class="context-box">
-            On note $C_n$ le nombre de "chemins de Dyck" de longueur $2n$. Un tel chemin va de $(0,0)$ à $(2n,0)$ par des pas de vecteur $(1,1)$ (montée) ou $(1,-1)$ (descente), <strong>sans jamais passer strictement sous l'axe des abscisses</strong> ($y \ge 0$).
+            Théorème de Dunford : Pour tout endomorphisme $u \in \mathcal{L}(E)$ dont le polynôme caractéristique est scindé, il existe un unique couple $(d, n)$ tel que $u = d+n$, avec $d$ diagonalisable, $n$ nilpotent, et <strong>$d \circ n = n \circ d$</strong>.
         </div>
         <ul class="questions-list">
-            <li>Par énumération manuelle (ou dessin de principe mental), déterminer $C_1, C_2$ et $C_3$.</li>
-            <li>Tout chemin de Dyck de longueur $\ge 2$ touche au moins une fois l'axe des abscisses après l'origine (ne serait-ce qu'à la fin). Soit $2k$ l'abscisse du <em>premier retour</em> à l'axe. Exprimer l'allure du chemin entre $0$ et $2k$, puis entre $2k$ et $2n$.</li>
-            <li>En déduire l'équation de récurrence fondamentale des nombres de Catalan : $C_n = \sum_{k=0}^{n-1} C_k C_{n-1-k}$ (avec $C_0=1$).</li>
-            <li>On s'intéresse aux expressions bien parenthésées contenant $n$ paires de parenthèses "()". Montrer que leur nombre suit la définition des chemins de Dyck.</li>
-            <li>On veut calculer $C_n$ explicitement. Quel est le nombre total de chemins de longueur $2n$ allant de $(0,0)$ à $(2n,0)$ (sans contrainte de positivité) ?</li>
-            <li>Principe de réflexion (Désiré André) : les chemins "invalides" (qui plongent sous $y=0$) croisent la droite d'équation $y=-1$. En symétrisant la fin du chemin par rapport à cette droite, compter les chemins invalides. En déduire que $C_n = \frac{1}{n+1} \binom{2n}{n}$.</li>
+            <li>Pourquoi la condition de commutation $d \circ n = n \circ d$ est-elle absolument cruciale pour garantir l'unicité ? (Construire un contre-exemple de matrice de taille 2, l'une diagonalisable et l'autre non, qui ne respecte pas l'unicité sans la commutation).</li>
+            <li>Que valent $d$ et $n$ dans le cas où $u$ est déjà diagonalisable ?</li>
+            <li>Soit $A = \begin{pmatrix} 1 & 1 \\ 0 & 2 \end{pmatrix}$. Cette matrice est-elle diagonalisable ? Expliciter sa décomposition de Dunford.</li>
+            <li>Même question pour la matrice $B = \begin{pmatrix} 1 & 1 \\ 0 & 1 \end{pmatrix}$. En déduire l'expression explicite de la matrice $B^k$ pour $k \in \mathbb{N}$.</li>
         </ul>
         <button class="toggle-btn" onclick="toggleCorr('corr-5')">
             <i class="fas fa-eye"></i> Afficher le corrigé
         </button>
         <div id="corr-5" class="correction-box">
-            <div class="correction-item"><strong>Q1.</strong> $C_1 = 1$ (Montée-Descente). $C_2 = 2$ (MMDD, MDMD). $C_3 = 5$ (MMMDDD, MMDMDD, MMDDMD, MDMMDD, MDMDMD). La suite est 1, 2, 5, 14, 42...</div>
-            <div class="correction-item"><strong>Q2.</strong> Entre $x=0$ et $x=2k$, le chemin part par une Montée ($y>0$ sur $\rrbracket 0, 2k \llbracket$) et se termine par une Descente en $2k$. Ce qu'il y a entre cette première montée et cette descente (de largeur $2k-2$) est exactement une structure de chemin de Dyck (translatée de +1 en $y$). Ensuite, entre $2k$ et $2n$, on a un autre chemin de Dyck de longueur $2n-2k$.</div>
-            <div class="correction-item"><strong>Q3.</strong> D'après la Q2, pour un instant de premier retour $2k$ (où $k \in \llbracket 1, n \rrbracket$), le nombre de chemins est le produit du nombre de chemins de Dyck de longueur $2k-2$ ($C_{k-1}$ possibilités) et du nombre de chemins de longueur $2n-2k$ ($C_{n-k}$ possibilités). En sommant sur toutes les valeurs possibles du premier retour $k$, et en posant l'indice de sommation $j=k-1$ (allant de $0$ à $n-1$), on obtient $C_n = \sum_{j=0}^{n-1} C_j C_{n-1-j}$.</div>
-            <div class="correction-item"><strong>Q4.</strong> Associons "(" à une Montée et ")" à une Descente. Une expression est bien parenthésée si, lors d'une lecture de gauche à droite, le nombre de parenthèses fermantes ne dépasse jamais le nombre de parenthèses ouvrantes (le chemin reste au-dessus de $y=0$), et à la fin, il y a autant des deux (retour en $y=0$). C'est un isomorphisme parfait avec les chemins de Dyck.</div>
-            <div class="correction-item"><strong>Q5.</strong> Un chemin de longueur $2n$ finissant en $y=0$ effectue nécessairement $n$ montées et $n$ descentes. L'ordre importe peu. Il faut donc choisir la place des $n$ montées parmi les $2n$ pas. C'est une combinaison : $\binom{2n}{n}$.</div>
-            <div class="correction-item"><strong>Q6.</strong> Soit un chemin invalide. Il touche la ligne $y=-1$. Coupons le chemin lors de son premier point de contact avec $y=-1$, et symétrisons toute la fin du parcours par rapport à cette droite. L'arrivée $(2n,0)$ devient $(2n,-2)$. Les montées post-contact deviennent des descentes et inversement. Le chemin final modifié va de $(0,0)$ à $(2n,-2)$. Ce dernier nécessite $(n-1)$ montées et $(n+1)$ descentes. Il y en a $\binom{2n}{n-1}$. La symétrie étant bijective, c'est le nombre exact de chemins invalides.<br>Donc $C_n = \binom{2n}{n} - \binom{2n}{n-1} = \frac{(2n)!}{n!n!} - \frac{(2n)!}{(n-1)!(n+1)!} = \frac{(2n)!}{n!(n+1)!} \left( (n+1) - n \right) = \frac{1}{n+1} \binom{2n}{n}$.</div>
+            <div class="correction-item"><strong>Q1.</strong> Prenons la matrice $A = \begin{pmatrix} 1 & 1 \\ 0 & 2 \end{pmatrix}$. $A$ admet deux valeurs propres distinctes (1 et 2), elle est donc diagonalisable. Sa décomposition de Dunford classique est triviale : $d = A$ et $n = 0$ (qui commutent bien).<br>Cependant, sans la condition de commutation, on pourrait aussi écrire : $A = \begin{pmatrix} 1 & 0 \\ 0 & 2 \end{pmatrix} + \begin{pmatrix} 0 & 1 \\ 0 & 0 \end{pmatrix} = d' + n'$. Or $d'$ est diagonale, $n'$ est strictement triangulaire supérieure donc nilpotente. On a donc une seconde décomposition valide $A = d'+n'$. Mais $d'n' \neq n'd'$. La commutation force l'unicité.</div>
+            <div class="correction-item"><strong>Q2.</strong> Si $u$ est diagonalisable, par unicité de la décomposition, le couple solution est évidemment $d = u$ et $n = 0$ (qui commutent bien).</div>
+            <div class="correction-item"><strong>Q3.</strong> $A = \begin{pmatrix} 1 & 1 \\ 0 & 2 \end{pmatrix}$. Son spectre est $\{1, 2\}$. Les valeurs propres sont simples, $A$ est donc diagonalisable. Par conséquent, d'après Q2, sa décomposition de Dunford est $d = A$ et $n = \begin{pmatrix} 0 & 0 \\ 0 & 0 \end{pmatrix}$.</div>
+            <div class="correction-item"><strong>Q4.</strong> $B = \begin{pmatrix} 1 & 1 \\ 0 & 1 \end{pmatrix}$. Son unique valeur propre est $1$. Si elle était diagonalisable, elle serait semblable à $I_2$, donc égale à $I_2$, ce qui n'est pas le cas. On remarque qu'on peut l'écrire $B = I_2 + N$ avec $N = \begin{pmatrix} 0 & 1 \\ 0 & 0 \end{pmatrix}$.<br>
+            Ici, $d = I_2$ est diagonale, $N^2 = 0$ est nilpotente, et elles commutent (car $I_2$ commute avec tout le monde). C'est donc <strong>la</strong> décomposition de Dunford de $B$.<br>
+            Puisque $I_2$ et $N$ commutent, on peut appliquer la formule du binôme de Newton :<br>
+            $B^k = (I_2 + N)^k = \sum_{j=0}^k \binom{k}{j} N^j$. Or $N^j = 0$ pour $j \ge 2$.<br>
+            Donc $B^k = I_2 + k N = \begin{pmatrix} 1 & k \\ 0 & 1 \end{pmatrix}$.</div>
         </div>
     </div>
 
