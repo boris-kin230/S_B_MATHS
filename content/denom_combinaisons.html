@@ -1,70 +1,123 @@
-<div class="hero-banner" style="background: linear-gradient(135deg, var(--navy-main) 0%, #0f766e 100%); border-left-color: var(--accent-green);">
-    <div class="hero-banner-content">
-        <h1>Combinaisons & Triangle de Pascal</h1>
-        <p>Définition des coefficients binomiaux par le dénombrement et preuves combinatoires de leurs propriétés fondamentales.</p>
+<div class="hero-banner" style="background: linear-gradient(135deg, var(--v-blue) 0%, var(--v-purple) 100%); border-radius: var(--radius-xl); padding: 40px 30px; color: white; text-align: center; box-shadow: 0 20px 40px rgba(106, 43, 122, 0.2); position: relative; overflow: hidden; margin-bottom: 35px;">
+    <div style="position: absolute; top: -50px; left: -50px; width: 200px; height: 200px; background: rgba(255,255,255,0.1); border-radius: 50%; filter: blur(20px);"></div>
+    <div style="position: absolute; bottom: -80px; right: -20px; width: 250px; height: 250px; background: rgba(255,255,255,0.15); border-radius: 50%; filter: blur(30px);"></div>
+    
+    <div style="position: relative; z-index: 1;">
+        <span style="background: var(--v-yellow); color: var(--text-main); padding: 6px 18px; border-radius: 50px; font-weight: 800; font-size: 0.85rem; text-transform: uppercase; margin-bottom: 15px; display: inline-block; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">Chapitre 1</span>
+        <h1 style="margin: 0 0 15px 0; font-size: 2.4rem; font-weight: 900; letter-spacing: -1px; text-shadow: 0 2px 10px rgba(0,0,0,0.2);">Combinaisons & Triangle de Pascal</h1>
+        <p style="margin: 0; font-size: 1.1rem; font-weight: 500; opacity: 0.95;">Définitions, preuves combinatoires et calculs algébriques détaillés.</p>
     </div>
 </div>
 
-<div class="qcm-card" style="border-left: 4px solid var(--accent-cyan);">
-    <h2 style="color: var(--navy-dark); margin-top: 0;">1. Définition et Formule du Coefficient Binomial</h2>
-    <p><strong>Définition :</strong> Le coefficient binomial $\binom{n}{k}$ (lu "$k$ parmi $n$") est le nombre de parties (ou sous-ensembles) à $k$ éléments que l'on peut extraire d'un ensemble de $n$ éléments.</p>
+<div class="qcm-card" style="border: none; border-top: 6px solid var(--v-blue); background: #ffffff; padding: 35px; border-radius: var(--radius-xl); box-shadow: 0 10px 30px rgba(58, 154, 217, 0.08); margin-bottom: 30px;">
+    <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 25px;">
+        <div style="width: 50px; height: 50px; background: rgba(58, 154, 217, 0.1); color: var(--v-blue); border-radius: 15px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem;">
+            <i class="fas fa-cubes"></i>
+        </div>
+        <h2 style="color: var(--text-main); margin: 0; font-size: 1.6rem; font-weight: 800;">1. Le Coefficient Binomial</h2>
+    </div>
     
-    <div style="background: #f8fafc; padding: 20px; border-radius: 10px; margin-bottom: 20px;">
-        <h3 style="margin-top:0; color: var(--text-muted); font-size: 0.9rem; text-transform: uppercase;">Démonstration combinatoire de la formule</h3>
-        <p>Nous voulons prouver par dénombrement que $\binom{n}{k} = \frac{n!}{k!(n-k)!}$.</p>
-        <p>Considérons deux manières de choisir une liste <em>ordonnée</em> de $k$ éléments distincts parmi $n$ :</p>
-        <ol>
-            <li><strong>Méthode directe :</strong> C'est le choix d'un arrangement de $k$ éléments parmi $n$. Il y en a $A_n^k = \frac{n!}{(n-k)!}$.</li>
-            <li><strong>Méthode en deux étapes :</strong> On choisit d'abord un <em>sous-ensemble</em> de $k$ éléments non ordonnés (il y a $\binom{n}{k}$ choix). Puis, pour chaque sous-ensemble choisi, on ordonne ses $k$ éléments pour former une liste (il y a $k!$ façons de les ordonner, ce sont les permutations). Le nombre total de listes est donc $\binom{n}{k} \times k!$.</li>
-        </ol>
-        <p>Ces deux méthodes comptant exactement la même chose, on en déduit l'égalité :</p>
-        $$ \binom{n}{k} \times k! = \frac{n!}{(n-k)!} \implies \binom{n}{k} = \frac{n!}{k!(n-k)!} $$
-    </div>
-
-    <div class="qcm-question">
-        <i class="fas fa-bolt" style="color: var(--gold-btn);"></i> Application : Dans une classe de 30 élèves, le professeur doit désigner un groupe de 4 élèves pour un projet. L'ordre de désignation n'a pas d'importance. Combien de groupes différents peut-il former ?
-    </div>
-    <div class="options-grid">
-        <button class="opt-btn" onclick="checkQCM(this, false)">A) 657 720</button>
-        <button class="opt-btn" onclick="checkQCM(this, false)">B) 120</button>
-        <button class="opt-btn" onclick="checkQCM(this, true)">C) 27 405</button>
-        <button class="opt-btn" onclick="checkQCM(this, false)">D) 142 506</button>
-    </div>
-    <div class="correction-box">
-        <strong>Explication :</strong> Il s'agit de choisir 4 élèves parmi 30, sans notion d'ordre. C'est la combinaison $\binom{30}{4} = \frac{30!}{4! \times 26!} = \frac{30 \times 29 \times 28 \times 27}{4 \times 3 \times 2 \times 1} = 27\,405$.
-    </div>
-</div>
-
-<div class="qcm-card" style="border-left: 4px solid var(--accent-green);">
-    <h2 style="color: var(--navy-dark); margin-top: 0;">2. La Formule de Pascal</h2>
-    <p><strong>Théorème :</strong> Pour tous entiers $n \ge 1$ et $1 \le k \le n$, on a :</p>
-    $$ \binom{n}{k} = \binom{n-1}{k-1} + \binom{n-1}{k} $$
+    <p style="font-size: 1.1rem; line-height: 1.6; color: var(--text-muted); margin-bottom: 25px;">
+        <strong>Définition :</strong> Le coefficient binomial $\binom{n}{k}$ (lu "$k$ parmi $n$") représente le nombre de parties (ou sous-ensembles) à $k$ éléments que l'on peut extraire d'un ensemble contenant $n$ éléments distincts.
+    </p>
     
-    <div style="background: #f8fafc; padding: 20px; border-radius: 10px; margin-bottom: 20px;">
-        <h3 style="margin-top:0; color: var(--text-muted); font-size: 0.9rem; text-transform: uppercase;">Démonstration combinatoire</h3>
-        <p>Soit $E$ un ensemble à $n$ éléments. Soit un élément particulier $a \in E$. Nous voulons choisir un sous-ensemble $A$ de $k$ éléments parmi $E$ (il y a $\binom{n}{k}$ possibilités au total).</p>
-        <p>Divisons ces sous-ensembles en deux catégories disjointes qui couvrent tous les cas possibles :</p>
-        <ul>
-            <li><strong>Cas 1 : Le sous-ensemble $A$ <u>contient</u> l'élément $a$.</strong><br>Puisque $a$ est déjà choisi, il reste à choisir les $k-1$ autres éléments parmi les $n-1$ éléments restants de $E \setminus \{a\}$. Il y a $\binom{n-1}{k-1}$ façons de le faire.</li>
-            <li><strong>Cas 2 : Le sous-ensemble $A$ <u>ne contient pas</u> l'élément $a$.</strong><br>Il faut alors choisir l'intégralité des $k$ éléments parmi les $n-1$ éléments de $E \setminus \{a\}$. Il y a $\binom{n-1}{k}$ façons de le faire.</li>
+    <div style="background: linear-gradient(to right, rgba(58, 154, 217, 0.05), rgba(58, 154, 217, 0.01)); border-left: 4px solid var(--v-blue); padding: 25px; border-radius: 0 15px 15px 0; margin-bottom: 20px;">
+        <h3 style="margin-top:0; color: var(--v-blue); font-size: 0.95rem; text-transform: uppercase; font-weight: 800; letter-spacing: 1px;"><i class="fas fa-brain"></i> Preuve 1 : Démonstration Combinatoire</h3>
+        <p style="margin-bottom: 15px;">Évaluons de deux manières différentes le nombre de façons de construire une <strong>liste ordonnée</strong> de $k$ éléments choisis parmi $n$ :</p>
+        <ul style="padding-left: 20px; margin-bottom: 15px; line-height: 1.7;">
+            <li><strong>Méthode directe :</strong> C'est la définition même d'un arrangement. Il y a $A_n^k = \frac{n!}{(n-k)!}$ listes possibles.</li>
+            <li><strong>Méthode en 2 étapes :</strong> On choisit d'abord un sous-ensemble de $k$ éléments (sans ordre, soit $\binom{n}{k}$ possibilités), puis on ordonne ces $k$ éléments (il y a $k!$ permutations possibles). Cela donne $\binom{n}{k} \times k!$ listes.</li>
         </ul>
-        <p>Le nombre total de sous-ensembles est la somme de ces deux cas, ce qui démontre la formule.</p>
+        <p style="margin: 0; font-weight: 600;">En égalisant ces deux dénombrements, on obtient :</p>
+        <div style="text-align: center; margin-top: 15px; font-size: 1.2rem; background: white; padding: 15px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.02);">
+            $$ \binom{n}{k} \times k! = \frac{n!}{(n-k)!} \iff \binom{n}{k} = \frac{n!}{k!(n-k)!} $$
+        </div>
     </div>
 
-    <div class="qcm-question">
-        <i class="fas fa-bolt" style="color: var(--gold-btn);"></i> Application : Dans une équipe de 10 joueurs comprenant le capitaine "Hugo", on doit former un 5 majeur. On sait qu'il y a 126 équipes de 5 possibles qui n'incluent pas Hugo. Combien y a-t-il d'équipes possibles qui incluent Hugo ? (Sachant que $\binom{10}{5} = 252$)
+    <div style="background: linear-gradient(to right, rgba(106, 43, 122, 0.05), rgba(106, 43, 122, 0.01)); border-left: 4px solid var(--v-purple); padding: 25px; border-radius: 0 15px 15px 0; margin-bottom: 30px;">
+        <h3 style="margin-top:0; color: var(--v-purple); font-size: 0.95rem; text-transform: uppercase; font-weight: 800; letter-spacing: 1px;"><i class="fas fa-calculator"></i> Preuve 2 : Déduction de la Symétrie (Algébrique & Logique)</h3>
+        <p style="margin-bottom: 15px;">Une propriété fondamentale découle immédiatement de cette formule : <strong>la symétrie</strong> $\binom{n}{k} = \binom{n}{n-k}$.</p>
+        <p style="margin-bottom: 15px;"><strong>Algébriquement :</strong> En remplaçant $k$ par $n-k$ dans la formule :</p>
+        <div style="text-align: center; margin-bottom: 15px; font-size: 1.1rem;">
+            $$ \binom{n}{n-k} = \frac{n!}{(n-k)!(n-(n-k))!} = \frac{n!}{(n-k)!k!} = \binom{n}{k} $$
+        </div>
+        <p style="margin: 0;"><strong>Logiquement (Combinatoire) :</strong> Choisir $k$ éléments à <em>garder</em> revient exactement à choisir les $n-k$ éléments à <em>exclure</em>.</p>
     </div>
-    <div class="options-grid">
-        <button class="opt-btn" onclick="checkQCM(this, true)">A) 126</button>
-        <button class="opt-btn" onclick="checkQCM(this, false)">B) 100</button>
-        <button class="opt-btn" onclick="checkQCM(this, false)">C) 252</button>
-        <button class="opt-btn" onclick="checkQCM(this, false)">D) 84</button>
-    </div>
-    <div class="correction-box">
-        <strong>Explication :</strong> D'après la formule de Pascal vue combinatoirement, le nombre total d'équipes $\binom{10}{5}$ est la somme des équipes sans Hugo $\binom{9}{5}$ et des équipes avec Hugo $\binom{9}{4}$.<br>Donc : Équipes avec Hugo = Total - Équipes sans Hugo = $252 - 126 = 126$.
+
+    <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: var(--radius-lg); padding: 25px;">
+        <div class="qcm-question" style="font-size: 1.1rem; color: var(--text-main); font-weight: 700; margin-bottom: 20px;">
+            <i class="fas fa-bolt" style="color: var(--v-yellow); font-size: 1.3rem; margin-right: 8px;"></i> Application : Dans une classe de 30 élèves, le professeur doit désigner un groupe de 4 élèves pour un projet. Combien de groupes différents peut-il former ?
+        </div>
+        <div class="options-grid">
+            <button class="opt-btn" onclick="checkQCM(this, false)">A) 657 720</button>
+            <button class="opt-btn" onclick="checkQCM(this, true)">B) 27 405</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">C) 120</button>
+        </div>
+        <div class="correction-box" style="background: rgba(184, 212, 51, 0.1); border-left-color: var(--v-green);">
+            <strong>Correction détaillée :</strong> L'ordre n'a pas d'importance. C'est une combinaison :<br>
+            $$ \binom{30}{4} = \frac{30!}{4! \times 26!} = \frac{30 \times 29 \times 28 \times 27}{4 \times 3 \times 2 \times 1} = 27\,405 $$
+        </div>
     </div>
 </div>
 
-<div style="text-align: center; margin-top: 30px;">
-    <button class="dash-btn ia-btn" style="display:inline-block; margin-bottom:20px;" onclick="finishQuiz()">Valider mes acquis</button>
+<div class="qcm-card" style="border: none; border-top: 6px solid var(--v-yellow); background: #ffffff; padding: 35px; border-radius: var(--radius-xl); box-shadow: 0 10px 30px rgba(246, 200, 49, 0.08); margin-bottom: 30px;">
+    <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 25px;">
+        <div style="width: 50px; height: 50px; background: rgba(246, 200, 49, 0.15); color: #b48a12; border-radius: 15px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem;">
+            <i class="fas fa-play" style="transform: rotate(-90deg);"></i>
+        </div>
+        <h2 style="color: var(--text-main); margin: 0; font-size: 1.6rem; font-weight: 800;">2. La Formule de Pascal</h2>
+    </div>
+    
+    <p style="font-size: 1.1rem; line-height: 1.6; color: var(--text-muted); margin-bottom: 20px;">
+        <strong>Théorème :</strong> Pour tous entiers $n \ge 1$ et $1 \le k \le n$, le Triangle de Pascal repose sur la relation fondamentale :
+    </p>
+    <div style="text-align: center; font-size: 1.4rem; font-weight: 800; color: var(--text-main); margin-bottom: 30px; background: #fafafa; padding: 20px; border-radius: 15px;">
+        $$ \binom{n}{k} = \binom{n-1}{k-1} + \binom{n-1}{k} $$
+    </div>
+    
+    <div style="background: linear-gradient(to right, rgba(211, 69, 55, 0.05), rgba(211, 69, 55, 0.01)); border-left: 4px solid var(--v-red); padding: 25px; border-radius: 0 15px 15px 0; margin-bottom: 20px;">
+        <h3 style="margin-top:0; color: var(--v-red); font-size: 0.95rem; text-transform: uppercase; font-weight: 800; letter-spacing: 1px;"><i class="fas fa-square-root-variable"></i> Preuve 1 : Démonstration Algébrique (Mise au même dénominateur)</h3>
+        <p style="margin-bottom: 10px;">Partons du membre de droite et utilisons la définition factorielle :</p>
+        <div style="overflow-x: auto; font-size: 1rem; text-align: center; margin-bottom: 10px;">
+            $$ \binom{n-1}{k-1} + \binom{n-1}{k} = \frac{(n-1)!}{(k-1)!(n-k)!} + \frac{(n-1)!}{k!(n-1-k)!} $$
+        </div>
+        <p style="margin-bottom: 10px; font-size: 0.95rem;">Le dénominateur commun est $k!(n-k)!$. Multiplions la première fraction par $\frac{k}{k}$ et la seconde par $\frac{n-k}{n-k}$ :</p>
+        <div style="overflow-x: auto; font-size: 1.1rem; text-align: center;">
+            $$ = \frac{k \cdot (n-1)!}{k!(n-k)!} + \frac{(n-k) \cdot (n-1)!}{k!(n-k)!} $$
+            $$ = \frac{(n-1)! \cdot [k + (n-k)]}{k!(n-k)!} = \frac{(n-1)! \cdot n}{k!(n-k)!} = \frac{n!}{k!(n-k)!} = \binom{n}{k} $$
+        </div>
+    </div>
+
+    <div style="background: linear-gradient(to right, rgba(184, 212, 51, 0.1), rgba(184, 212, 51, 0.02)); border-left: 4px solid var(--v-green); padding: 25px; border-radius: 0 15px 15px 0; margin-bottom: 30px;">
+        <h3 style="margin-top:0; color: #5a6b0d; font-size: 0.95rem; text-transform: uppercase; font-weight: 800; letter-spacing: 1px;"><i class="fas fa-users"></i> Preuve 2 : Démonstration Combinatoire (Méthode de la disjonction)</h3>
+        <p style="margin-bottom: 10px;">Soit un ensemble $E$ de $n$ éléments. Isolons un élément particulier appelé $a$.</p>
+        <p style="margin-bottom: 15px;">Pour former un sous-ensemble de $k$ éléments, deux scénarios mutuellement exclusifs existent :</p>
+        <ul style="padding-left: 20px; line-height: 1.6; margin-bottom: 0;">
+            <li style="margin-bottom: 10px;"><strong>Cas 1 : On intègre l'élément $a$.</strong> Il nous reste à choisir $k-1$ éléments parmi les $n-1$ éléments restants. Il y a $\binom{n-1}{k-1}$ possibilités.</li>
+            <li><strong>Cas 2 : On exclut l'élément $a$.</strong> On doit alors choisir l'intégralité de nos $k$ éléments parmi les $n-1$ éléments restants. Il y a $\binom{n-1}{k}$ possibilités.</li>
+        </ul>
+        <p style="margin-top: 15px; margin-bottom: 0; font-weight: 600;">La somme de ces deux cas disjoints donne bien le total $\binom{n}{k}$.</p>
+    </div>
+
+    <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: var(--radius-lg); padding: 25px;">
+        <div class="qcm-question" style="font-size: 1.1rem; color: var(--text-main); font-weight: 700; margin-bottom: 20px;">
+            <i class="fas fa-bolt" style="color: var(--v-yellow); font-size: 1.3rem; margin-right: 8px;"></i> Application : Dans une équipe de 10 joueurs comprenant le capitaine "Hugo", on doit former un 5 majeur. Sachant qu'il y a 126 équipes de 5 possibles qui n'incluent PAS Hugo, et que $\binom{10}{5} = 252$, combien y a-t-il d'équipes possibles qui incluent Hugo ?
+        </div>
+        <div class="options-grid">
+            <button class="opt-btn" onclick="checkQCM(this, false)">A) 84</button>
+            <button class="opt-btn" onclick="checkQCM(this, false)">B) 100</button>
+            <button class="opt-btn" onclick="checkQCM(this, true)">C) 126</button>
+        </div>
+        <div class="correction-box" style="background: rgba(184, 212, 51, 0.1); border-left-color: var(--v-green);">
+            <strong>Correction détaillée :</strong> D'après l'interprétation combinatoire de la formule de Pascal :<br>
+            Total d'équipes $\binom{10}{5}$ = (Équipes avec Hugo) + (Équipes sans Hugo $\binom{9}{5}$).<br>
+            Donc : Équipes avec Hugo = $252 - 126 = 126$. (C'est d'ailleurs $\binom{9}{4}$).
+        </div>
+    </div>
+</div>
+
+<div style="text-align: center; margin-top: 40px; margin-bottom: 40px;">
+    <button class="action-card" style="display:inline-flex; flex-direction:row; padding: 15px 40px; background: var(--v-blue); color: white; border-radius: 50px; font-size: 1.1rem; font-weight: 800; border: none; cursor: pointer; box-shadow: 0 10px 25px rgba(58, 154, 217, 0.4); transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'" onclick="finishQuiz()">
+        <i class="fas fa-check-circle" style="margin-right: 10px; font-size: 1.3rem;"></i> Valider ce module
+    </button>
 </div>
