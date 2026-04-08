@@ -176,7 +176,6 @@
             margin-bottom: 0; padding-bottom: 0; border-bottom: none;
         }
 
-        /* Thèmes de couleurs */
         .exo-1 { border-top-color: var(--blue-accent); }
         .exo-1 .exo-icon { background: rgba(37, 99, 235, 0.1); color: var(--blue-accent); }
         .exo-1 .correction-box { border-left-color: var(--blue-accent); }
@@ -197,7 +196,6 @@
         .exo-5 .exo-icon { background: rgba(220, 38, 38, 0.1); color: var(--red-accent); }
         .exo-5 .correction-box { border-left-color: var(--red-accent); }
 
-        /* Recap Section */
         .recap-section {
             background: var(--navy-dark);
             color: white;
@@ -276,19 +274,19 @@
         <ul class="questions-list">
             <li>Combien d'anagrammes peut-on former avec le mot <strong>MATHS</strong> ?</li>
             <li>Combien d'anagrammes du mot MATHS commencent par une consonne ?</li>
-            <li>Combien d'anagrammes du mot MATHS ont les deux voyelles (A, M... non attendez, A est la seule voyelle, disons plutôt les lettres M et S) côte à côte ?</li>
-            <li>Combien d'anagrammes peut-on former avec le mot <strong>EXCELLENCE</strong> (10 lettres : 4 E, 2 C, 2 L, 1 X, 1 N) ?</li>
+            <li>Combien d'anagrammes du mot MATHS ont les lettres M et S côte à côte ?</li>
+            <li>Combien d'anagrammes peut-on former avec le mot <strong>EXCELLENCE</strong> ?</li>
             <li>Combien d'anagrammes de EXCELLENCE commencent par un E et se terminent par un E ?</li>
             <li>De combien de façons peut-on asseoir 6 personnes sur un banc de 6 places de sorte que deux personnes fâchées ne soient <strong>pas</strong> assises côte à côte ?</li>
         </ul>
-        <button class="toggle-btn" onclick="toggleCorr('corr-1')"><i class="fas fa-eye"></i> Afficher le corrigé</button>
+        <button class="toggle-btn" onclick="toggleCorr('corr-1', this)"><i class="fas fa-eye"></i> Afficher le corrigé</button>
         <div id="corr-1" class="correction-box">
             <div class="correction-item"><strong>Q1.</strong> 5 lettres distinctes à ordonner. C'est une permutation simple : $5! = 120$.</div>
             <div class="correction-item"><strong>Q2.</strong> Il y a 4 consonnes (M, T, H, S). On choisit la première lettre (4 choix). Puis on permute les 4 lettres restantes : $4 \times 4! = 96$.</div>
             <div class="correction-item"><strong>Q3.</strong> On "colle" M et S pour former un seul bloc. On permute 4 éléments (le bloc MS, A, T, H) $\implies 4!$. De plus, M et S peuvent s'ordonner de $2!$ façons dans leur bloc. Total : $4! \times 2 = 48$.</div>
-            <div class="correction-item"><strong>Q4.</strong> C'est une permutation avec répétitions. Formule : $\frac{n!}{n_1! n_2! \dots} = \frac{10!}{4! 2! 2! 1! 1!} = 37\,800$.</div>
-            <div class="correction-item"><strong>Q5.</strong> On fixe un E au début et un E à la fin. Il reste 8 lettres à permuter (2 E, 2 C, 2 L, 1 X, 1 N). Total : $\frac{8!}{2! 2! 2! 1! 1!} = 5\,040$.</div>
-            <div class="correction-item"><strong>Q6.</strong> Total des permutations : $6! = 720$. Cas où ils sont côte à côte (on les fusionne en un bloc) : on permute 5 blocs, avec 2! façons de les ranger dans le bloc $\implies 5! \times 2 = 240$. Résultat : $720 - 240 = 480$.</div>
+            <div class="correction-item"><strong>Q4.</strong> C'est une permutation avec répétitions. Formule : $\frac{10!}{4! 2! 2! 1! 1!} = 37\,800$.</div>
+            <div class="correction-item"><strong>Q5.</strong> On fixe un E au début et un E à la fin. Il reste 8 lettres à permuter. Total : $\frac{8!}{2! 2! 2! 1! 1!} = 5\,040$.</div>
+            <div class="correction-item"><strong>Q6.</strong> Total : $6! = 720$. Ensemble : $5! \times 2 = 240$. Résultat : $720 - 240 = 480$.</div>
         </div>
     </div>
 
@@ -298,24 +296,24 @@
             Exercice 2 : Arrangements (Listes ordonnées sans remise)
         </div>
         <div class="context-box">
-            Dans une association de 15 membres (8 femmes et 7 hommes), on doit élire un bureau composé d'un Président, d'un Trésorier et d'un Secrétaire. <em>(Une même personne ne peut cumuler deux postes).</em>
+            Dans une association de 15 membres (8 femmes et 7 hommes), on doit élire un bureau composé d'un Président, d'un Trésorier et d'un Secrétaire.
         </div>
         <ul class="questions-list">
             <li>Combien de bureaux différents peut-on former ?</li>
             <li>Combien de bureaux peut-on former si le président doit obligatoirement être une femme ?</li>
             <li>Combien de bureaux peut-on former si les 3 postes doivent être occupés par des personnes du même sexe ?</li>
             <li>Combien de bureaux contiennent exactement 2 femmes ?</li>
-            <li>On veut attribuer 3 médailles distinctes (Or, Argent, Bronze) à 3 des 15 membres. Est-ce le même dénombrement que la question 1 ?</li>
+            <li>On veut attribuer 3 médailles distinctes à 3 des 15 membres. Est-ce le même dénombrement ?</li>
             <li>Si le président et le trésorier refusent de siéger ensemble, combien de bureaux valides peut-on former ?</li>
         </ul>
-        <button class="toggle-btn" onclick="toggleCorr('corr-2')"><i class="fas fa-eye"></i> Afficher le corrigé</button>
+        <button class="toggle-btn" onclick="toggleCorr('corr-2', this)"><i class="fas fa-eye"></i> Afficher le corrigé</button>
         <div id="corr-2" class="correction-box">
-            <div class="correction-item"><strong>Q1.</strong> On choisit 3 personnes parmi 15, avec un ordre (rôles distincts) et sans répétition. C'est un arrangement : $A_{15}^3 = 15 \times 14 \times 13 = 2\,730$.</div>
-            <div class="correction-item"><strong>Q2.</strong> On choisit la présidente (8 choix). Puis on choisit le reste du bureau (2 personnes) parmi les 14 membres restants : $8 \times A_{14}^2 = 8 \times 14 \times 13 = 1\,456$.</div>
-            <div class="correction-item"><strong>Q3.</strong> Soit c'est un bureau 100% féminin ($A_8^3$), soit 100% masculin ($A_7^3$). Total : $(8 \times 7 \times 6) + $(7 \times 6 \times 5) = 336 + 210 = 546$.</div>
-            <div class="correction-item"><strong>Q4.</strong> On choisit la place de l'homme dans le bureau (3 postes possibles). Pour ce poste, on a 7 choix d'homme. Pour les deux autres postes, on choisit 2 femmes parmi 8 avec ordre ($A_8^2$). Total : $3 \times 7 \times (8 \times 7) = 1\,176$.</div>
-            <div class="correction-item"><strong>Q5.</strong> Oui, tout à fait. Distribuer 3 objets discernables (or, argent, bronze) à un sous-ensemble de 3 personnes parmi 15 revient exactement à choisir un arrangement $A_{15}^3$.</div>
-            <div class="correction-item"><strong>Q6.</strong> Calculons l'événement contraire : "Ils siègent ensemble (Président + Trésorier)". Il y a 2 rôles (P et T), donc $2!$ façons de les placer sur ces rôles. Ensuite on choisit le secrétaire parmi les 13 restants (13 choix). Total interdit : $2 \times 13 = 26$. Bureau valide : $2\,730 - 26 = 2\,704$.</div>
+            <div class="correction-item"><strong>Q1.</strong> $A_{15}^3 = 15 \times 14 \times 13 = 2\,730$.</div>
+            <div class="correction-item"><strong>Q2.</strong> $8 \times A_{14}^2 = 8 \times 14 \times 13 = 1\,456$.</div>
+            <div class="correction-item"><strong>Q3.</strong> $A_8^3 + A_7^3 = (8 \times 7 \times 6) + (7 \times 6 \times 5) = 336 + 210 = 546$.</div>
+            <div class="correction-item"><strong>Q4.</strong> $3 \times 7 \times A_8^2 = 3 \times 7 \times (8 \times 7) = 1\,176$.</div>
+            <div class="correction-item"><strong>Q5.</strong> Oui, c'est un arrangement $A_{15}^3$.</div>
+            <div class="correction-item"><strong>Q6.</strong> Événement contraire : $2! \times 13 = 26$. Valide : $2\,730 - 26 = 2\,704$.</div>
         </div>
     </div>
 
@@ -325,51 +323,51 @@
             Exercice 3 : Permutations sous contraintes
         </div>
         <div class="context-box">
-            L'ordre spatial des éléments peut obéir à des règles spécifiques (tables rondes, rayonnages alternés).
+            L'ordre spatial des éléments peut obéir à des règles spécifiques.
         </div>
         <ul class="questions-list">
-            <li>De combien de façons peut-on asseoir 5 personnes autour d'une table ronde ? <em>(Deux dispositions sont identiques si chacun a les mêmes voisins aux mêmes places relatives).</em></li>
-            <li>Sur une étagère, on veut ranger 4 livres de maths et 3 livres de physique. Combien y a-t-il de rangements possibles si tous les livres sont discernables ?</li>
+            <li>De combien de façons peut-on asseoir 5 personnes autour d'une table ronde ?</li>
+            <li>Sur une étagère, on veut ranger 4 livres de maths et 3 livres de physique. Rangements possibles ?</li>
             <li>Combien y a-t-il de rangements si l'on veut que les livres de même matière soient regroupés ?</li>
-            <li>Combien y a-t-il de rangements si l'on veut alterner les matières (M P M P M P M) ?</li>
-            <li>On pioche 4 cartes successives sans remise dans un jeu de 32. Combien de tirages forment un code où les couleurs (familles) s'alternent strictement (ex: Pique-Cœur-Trèfle-Carreau) ?</li>
-            <li>De combien de façons peut-on disposer 7 clés distinctes sur un anneau porte-clés ? <em>(L'anneau peut être retourné dans l'espace).</em></li>
+            <li>Combien y a-t-il de rangements si l'on veut alterner les matières ?</li>
+            <li>On pioche 4 cartes successives sans remise. Combien forment un code où les couleurs s'alternent strictement ?</li>
+            <li>De combien de façons peut-on disposer 7 clés distinctes sur un anneau porte-clés ?</li>
         </ul>
-        <button class="toggle-btn" onclick="toggleCorr('corr-3')"><i class="fas fa-eye"></i> Afficher le corrigé</button>
+        <button class="toggle-btn" onclick="toggleCorr('corr-3', this)"><i class="fas fa-eye"></i> Afficher le corrigé</button>
         <div id="corr-3" class="correction-box">
-            <div class="correction-item"><strong>Q1.</strong> C'est une permutation circulaire de $n$ éléments. Formule : $(n-1)! = 4! = 24$. (On fixe 1 personne comme "point de repère" et on permute les 4 autres).</div>
-            <div class="correction-item"><strong>Q2.</strong> Il y a $4+3=7$ livres tous différents. Ordre linéaire simple : $7! = 5\,040$.</div>
-            <div class="correction-item"><strong>Q3.</strong> On a 2 gros blocs (le bloc Maths et le bloc Physique). On peut ranger ces blocs de $2!$ façons. Dans le bloc Maths, on range de $4!$ façons. Dans le bloc Physique, de $3!$ façons. Total : $2! \times 4! \times 3! = 2 \times 24 \times 6 = 288$.</div>
-            <div class="correction-item"><strong>Q4.</strong> L'alternance stricte impose l'ordre des matières : M P M P M P M. On place les 4 livres de maths sur les places 'M' ($4!$ façons) et les 3 livres de physique sur les places 'P' ($3!$ façons). Total : $4! \times 3! = 144$.</div>
-            <div class="correction-item"><strong>Q5.</strong> On choisit l'ordre des 4 couleurs (il y en a $4!$). Pour chaque couleur, on tire une carte parmi les 8 de la couleur. Total : $4! \times 8^4 = 24 \times 4\,096 = 98\,304$.</div>
-            <div class="correction-item"><strong>Q6.</strong> C'est une permutation circulaire avec symétrie axiale (on peut retourner le trousseau). Formule : $\frac{(n-1)!}{2} = \frac{6!}{2} = \frac{720}{2} = 360$.</div>
+            <div class="correction-item"><strong>Q1.</strong> Permutation circulaire : $(5-1)! = 4! = 24$.</div>
+            <div class="correction-item"><strong>Q2.</strong> $7! = 5\,040$.</div>
+            <div class="correction-item"><strong>Q3.</strong> $2! \times 4! \times 3! = 288$.</div>
+            <div class="correction-item"><strong>Q4.</strong> $4! \times 3! = 144$.</div>
+            <div class="correction-item"><strong>Q5.</strong> $4! \times 8^4 = 98\,304$.</div>
+            <div class="correction-item"><strong>Q6.</strong> $\frac{(7-1)!}{2} = \frac{720}{2} = 360$.</div>
         </div>
     </div>
 
     <div class="exo-card exo-4">
         <div class="exo-title">
             <div class="exo-icon"><i class="fas fa-key"></i></div>
-            Exercice 4 : Mots de passe et Fonctions (Avec remise)
+            Exercice 4 : Mots de passe et Fonctions
         </div>
         <div class="context-box">
-            On considère des mots de passe (codes PIN) de 4 chiffres choisis parmi les chiffres de 0 à 9.
+            On considère des mots de passe de 4 chiffres choisis parmi 0 à 9.
         </div>
         <ul class="questions-list">
             <li>Combien de codes différents peut-on former au total ?</li>
             <li>Combien de codes sont composés de 4 chiffres distincts ?</li>
             <li>Combien de codes contiennent au moins une fois le chiffre 7 ?</li>
-            <li>Combien de codes forment un palindrome (ex: 1331, 8008) ?</li>
-            <li>Soit $E = \{1, 2, 3, 4\}$ et $F = \{1, 2, \dots, 10\}$. Combien y a-t-il d'applications quelconques de $E$ vers $F$ ?</li>
-            <li>Parmi elles, combien y a-t-il d'applications strictement croissantes de $E$ vers $F$ ?</li>
+            <li>Combien de codes forment un palindrome ?</li>
+            <li>Soit $E = \{1, 2, 3, 4\}$ et $F = \{1, 2, \dots, 10\}$. Nombre d'applications de E vers F ?</li>
+            <li>Nombre d'applications strictement croissantes de E vers F ?</li>
         </ul>
-        <button class="toggle-btn" onclick="toggleCorr('corr-4')"><i class="fas fa-eye"></i> Afficher le corrigé</button>
+        <button class="toggle-btn" onclick="toggleCorr('corr-4', this)"><i class="fas fa-eye"></i> Afficher le corrigé</button>
         <div id="corr-4" class="correction-box">
-            <div class="correction-item"><strong>Q1.</strong> Pour chaque position, on a 10 choix (avec répétition). C'est une $p$-liste : $10^4 = 10\,000$.</div>
-            <div class="correction-item"><strong>Q2.</strong> C'est un tirage avec ordre et SANS remise. C'est un arrangement : $A_{10}^4 = 10 \times 9 \times 8 \times 7 = 5\,040$.</div>
-            <div class="correction-item"><strong>Q3.</strong> On passe par l'événement contraire : "Ne contenir AUCUN 7". On a alors 9 choix par chiffre : $9^4 = 6\,561$. Résultat : Total - Contraire = $10\,000 - 6\,561 = 3\,439$.</div>
-            <div class="correction-item"><strong>Q4.</strong> Un palindrome de 4 chiffres est symétrique : $C_1 C_2 C_2 C_1$. On choisit librement $C_1$ (10 choix) et $C_2$ (10 choix). Le reste est imposé. Total : $10 \times 10 = 100$.</div>
-            <div class="correction-item"><strong>Q5.</strong> Définir une application, c'est choisir une image dans $F$ pour chaque élément de $E$ (avec répétitions possibles). C'est exactement le nombre de $p$-listes (avec $p=4$, $n=10$) : $10^4 = 10\,000$.</div>
-            <div class="correction-item"><strong>Q6.</strong> Définir une application strictement croissante revient UNIQUEMENT à choisir quelles seront les 4 images dans $F$. Une fois ces 4 éléments choisis, il n'y a qu'<strong>un seul ordre</strong> possible (du plus petit au plus grand). C'est donc une combinaison : $\binom{10}{4} = 210$.</div>
+            <div class="correction-item"><strong>Q1.</strong> $10^4 = 10\,000$.</div>
+            <div class="correction-item"><strong>Q2.</strong> $A_{10}^4 = 5\,040$.</div>
+            <div class="correction-item"><strong>Q3.</strong> $10^4 - 9^4 = 3\,439$.</div>
+            <div class="correction-item"><strong>Q4.</strong> $10 \times 10 = 100$.</div>
+            <div class="correction-item"><strong>Q5.</strong> $10^4 = 10\,000$.</div>
+            <div class="correction-item"><strong>Q6.</strong> $\binom{10}{4} = 210$.</div>
         </div>
     </div>
 
@@ -382,21 +380,21 @@
             Identifier rapidement s'il faut ordonner ou non est la clé du dénombrement.
         </div>
         <ul class="questions-list">
-            <li>Un entraîneur de foot doit choisir 11 joueurs parmi 22 pour former son équipe. <em>(Aucun rôle assigné).</em> Combien de choix a-t-il ?</li>
-            <li>Une fois les 11 joueurs sélectionnés, de combien de façons l'entraîneur peut-il attribuer les 11 maillots numérotés de 1 à 11 à ces joueurs ?</li>
-            <li>De combien de façons peut-on ranger 5 voitures dans un parking contenant 8 places numérotées ?</li>
-            <li>On tire simultanément 3 cartes d'un jeu de 52. Quel est le nombre de tirages ?</li>
-            <li>On tire 3 cartes successivement SANS remise d'un jeu de 52. Quel est le nombre de tirages ?</li>
+            <li>Un entraîneur choisit 11 joueurs parmi 22. Combien de choix a-t-il ?</li>
+            <li>De combien de façons l'entraîneur peut-il attribuer 11 maillots numérotés à ces joueurs ?</li>
+            <li>De combien de façons peut-on ranger 5 voitures dans un parking contenant 8 places ?</li>
+            <li>On tire simultanément 3 cartes d'un jeu de 52. Nombre de tirages ?</li>
+            <li>On tire 3 cartes successivement SANS remise d'un jeu de 52. Nombre de tirages ?</li>
             <li>Combien d'anagrammes du mot <strong>REPERE</strong> existe-t-il ?</li>
         </ul>
-        <button class="toggle-btn" onclick="toggleCorr('corr-5')"><i class="fas fa-eye"></i> Afficher le corrigé</button>
+        <button class="toggle-btn" onclick="toggleCorr('corr-5', this)"><i class="fas fa-eye"></i> Afficher le corrigé</button>
         <div id="corr-5" class="correction-box">
-            <div class="correction-item"><strong>Q1.</strong> Choix sans ordre ni répétition. Combinaison : $\binom{22}{11} = 705\,432$.</div>
-            <div class="correction-item"><strong>Q2.</strong> Attribuer 11 rôles distincts à 11 personnes distinctes. Permutation : $11! = 39\,916\,800$.</div>
-            <div class="correction-item"><strong>Q3.</strong> Les places sont distinctes, l'ordre de placement compte, sans répétition (une place = une voiture). Arrangement de 5 parmi 8 : $A_8^5 = 8 \times 7 \times 6 \times 5 \times 4 = 6\,720$.</div>
-            <div class="correction-item"><strong>Q4.</strong> Simultané = pas d'ordre. Combinaison : $\binom{52}{3} = 22\,100$.</div>
-            <div class="correction-item"><strong>Q5.</strong> Successif SANS remise = avec ordre. Arrangement : $A_{52}^3 = 52 \times 51 \times 50 = 132\,600$. <em>(Note : C'est bien $\binom{52}{3} \times 3!$).</em></div>
-            <div class="correction-item"><strong>Q6.</strong> Mot avec répétitions (3 fois le 'E', 2 fois le 'R', 1 fois le 'P'). Permutation avec répétitions : $\frac{6!}{3! 2! 1!} = \frac{720}{6 \times 2} = 60$.</div>
+            <div class="correction-item"><strong>Q1.</strong> $\binom{22}{11} = 705\,432$.</div>
+            <div class="correction-item"><strong>Q2.</strong> $11! = 39\,916\,800$.</div>
+            <div class="correction-item"><strong>Q3.</strong> $A_8^5 = 6\,720$.</div>
+            <div class="correction-item"><strong>Q4.</strong> $\binom{52}{3} = 22\,100$.</div>
+            <div class="correction-item"><strong>Q5.</strong> $A_{52}^3 = 132\,600$.</div>
+            <div class="correction-item"><strong>Q6.</strong> $\frac{6!}{3! 2! 1!} = 60$.</div>
         </div>
     </div>
 
@@ -408,27 +406,21 @@
         <div class="formula-card">
             <h3>1. Les p-listes : $n^p$ (Avec Ordre, Avec Répétition)</h3>
             <p><strong>Cadre :</strong> Tirage successif <strong>avec remise</strong> de $p$ boules parmi $n$.</p>
-            <p><strong>Démonstration :</strong> Par le principe multiplicatif. Pour le premier choix, on a $n$ possibilités. Pour le deuxième choix, on a encore $n$ possibilités (car il y a remise/répétition). On itère cela $p$ fois. Le total est $\underbrace{n \times n \times \dots \times n}_{p \text{ facteurs}} = n^p$.</p>
         </div>
 
         <div class="formula-card">
             <h3>2. Les Arrangements : $A_n^p$ (Avec Ordre, Sans Répétition)</h3>
             <p><strong>Cadre :</strong> Tirage successif <strong>sans remise</strong> de $p$ boules parmi $n$.</p>
-            <p><strong>Démonstration :</strong> Pour le 1er tirage, $n$ choix. Pour le 2ème, la boule est gardée, il reste $n-1$ choix. Au $p$-ième tirage, il reste $n-(p-1) = n-p+1$ choix. <br>
-            Le produit est : $A_n^p = n \times (n-1) \times \dots \times (n-p+1)$. <br>
-            En multipliant le numérateur et le dénominateur par $(n-p)!$, on retrouve : $$A_n^p = \frac{n!}{(n-p)!}$$</p>
         </div>
 
         <div class="formula-card">
             <h3>3. Les Permutations : $n!$ (Ordre complet)</h3>
-            <p><strong>Cadre :</strong> C'est le cas extrême de l'arrangement où l'on ordonne <em>tous</em> les éléments ($p=n$).</p>
-            <p><strong>Démonstration :</strong> $A_n^n = \frac{n!}{(n-n)!} = \frac{n!}{0!} = n!$. C'est le nombre de bijections d'un ensemble à $n$ éléments dans lui-même.</p>
+            <p><strong>Cadre :</strong> Ordonnancement de tous les éléments.</p>
         </div>
 
         <div class="formula-card">
             <h3>4. Les Combinaisons : $C_n^p$ ou $\binom{n}{p}$ (Sans Ordre, Sans Répétition)</h3>
             <p><strong>Cadre :</strong> Tirage <strong>simultané</strong> (ou sous-ensemble) de $p$ éléments parmi $n$.</p>
-            <p><strong>Démonstration :</strong> Un arrangement de $p$ éléments ($A_n^p$) correspond à d'abord tirer les $p$ éléments "en vrac" (ce qui correspond à $\binom{n}{p}$ possibilités), puis à les ordonner (ce qui se fait de $p!$ façons). On a donc la relation fondamentale : $A_n^p = \binom{n}{p} \times p!$. En divisant, on obtient : $$\binom{n}{p} = \frac{A_n^p}{p!} = \frac{n!}{p!(n-p)!}$$</p>
         </div>
 
         <h3 style="color: var(--gold-premium); margin-top: 40px;"><i class="fas fa-hand-paper"></i> Dictionnaire des Tirages Classiques</h3>
@@ -464,7 +456,6 @@
         </table>
 
         <h3 style="color: var(--gold-premium); margin-top: 40px;"><i class="fas fa-search"></i> Réflexe : Mots-clés des énoncés</h3>
-        <p style="color: #cbd5e1;">Quand vous lisez l'un de ces mots dans un énoncé, votre cerveau doit instantanément faire le lien avec l'outil mathématique correspondant.</p>
         
         <table class="keyword-table">
             <thead>
@@ -481,7 +472,7 @@
                     <td>Combinaison : <strong>$\binom{n}{p}$</strong></td>
                 </tr>
                 <tr>
-                    <td>"<strong>Comité</strong>" ou "<strong>Délégation</strong>" (sans rôles)</td>
+                    <td>"<strong>Comité</strong>" ou "<strong>Délégation</strong>"</td>
                     <td>Des personnes sur un même pied d'égalité.</td>
                     <td>Combinaison : <strong>$\binom{n}{p}$</strong></td>
                 </tr>
@@ -496,29 +487,9 @@
                     <td>Arrangement : <strong>$A_n^p$</strong></td>
                 </tr>
                 <tr>
-                    <td>"<strong>Podium</strong>", "<strong>Classement</strong>", "<strong>Tiercé</strong>"</td>
+                    <td>"<strong>Podium</strong>", "<strong>Classement</strong>"</td>
                     <td>L'ordre d'arrivée compte, sans ex-aequo.</td>
                     <td>Arrangement : <strong>$A_n^p$</strong></td>
-                </tr>
-                <tr>
-                    <td>"<strong>Code PIN</strong>", "<strong>Mot de passe</strong>"</td>
-                    <td>L'ordre compte, répétition des chiffres autorisée.</td>
-                    <td>p-liste : <strong>$n^p$</strong></td>
-                </tr>
-                <tr>
-                    <td>"<strong>Anagramme</strong>" d'un mot (sans rép.)</td>
-                    <td>Changement de l'ordre de tous les éléments.</td>
-                    <td>Permutation : <strong>$n!$</strong></td>
-                </tr>
-                <tr>
-                    <td>"<strong>Mains de Poker/Belote</strong>"</td>
-                    <td>Cartes données en vrac au joueur.</td>
-                    <td>Combinaison : <strong>$\binom{n}{p}$</strong></td>
-                </tr>
-                <tr>
-                    <td>"<strong>Application / Fonction de E vers F</strong>"</td>
-                    <td>Chaque $x$ (parmi $p$) a $n$ choix d'images possibles.</td>
-                    <td>p-liste : <strong>$n^p$</strong></td>
                 </tr>
             </tbody>
         </table>
@@ -527,9 +498,8 @@
 </div>
 
 <script>
-    function toggleCorr(id) {
+    function toggleCorr(id, btn) {
         var el = document.getElementById(id);
-        var btn = el.previousElementSibling;
         
         if (el.classList.contains('show')) {
             el.classList.remove('show');
