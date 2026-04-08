@@ -1,0 +1,70 @@
+<div class="hero-banner" style="background: linear-gradient(135deg, var(--navy-main) 0%, #0f766e 100%); border-left-color: var(--accent-green);">
+    <div class="hero-banner-content">
+        <h1>Combinaisons & Triangle de Pascal</h1>
+        <p>Définition des coefficients binomiaux par le dénombrement et preuves combinatoires de leurs propriétés fondamentales.</p>
+    </div>
+</div>
+
+<div class="qcm-card" style="border-left: 4px solid var(--accent-cyan);">
+    <h2 style="color: var(--navy-dark); margin-top: 0;">1. Définition et Formule du Coefficient Binomial</h2>
+    <p><strong>Définition :</strong> Le coefficient binomial $\binom{n}{k}$ (lu "$k$ parmi $n$") est le nombre de parties (ou sous-ensembles) à $k$ éléments que l'on peut extraire d'un ensemble de $n$ éléments.</p>
+    
+    <div style="background: #f8fafc; padding: 20px; border-radius: 10px; margin-bottom: 20px;">
+        <h3 style="margin-top:0; color: var(--text-muted); font-size: 0.9rem; text-transform: uppercase;">Démonstration combinatoire de la formule</h3>
+        <p>Nous voulons prouver par dénombrement que $\binom{n}{k} = \frac{n!}{k!(n-k)!}$.</p>
+        <p>Considérons deux manières de choisir une liste <em>ordonnée</em> de $k$ éléments distincts parmi $n$ :</p>
+        <ol>
+            <li><strong>Méthode directe :</strong> C'est le choix d'un arrangement de $k$ éléments parmi $n$. Il y en a $A_n^k = \frac{n!}{(n-k)!}$.</li>
+            <li><strong>Méthode en deux étapes :</strong> On choisit d'abord un <em>sous-ensemble</em> de $k$ éléments non ordonnés (il y a $\binom{n}{k}$ choix). Puis, pour chaque sous-ensemble choisi, on ordonne ses $k$ éléments pour former une liste (il y a $k!$ façons de les ordonner, ce sont les permutations). Le nombre total de listes est donc $\binom{n}{k} \times k!$.</li>
+        </ol>
+        <p>Ces deux méthodes comptant exactement la même chose, on en déduit l'égalité :</p>
+        $$ \binom{n}{k} \times k! = \frac{n!}{(n-k)!} \implies \binom{n}{k} = \frac{n!}{k!(n-k)!} $$
+    </div>
+
+    <div class="qcm-question">
+        <i class="fas fa-bolt" style="color: var(--gold-btn);"></i> Application : Dans une classe de 30 élèves, le professeur doit désigner un groupe de 4 élèves pour un projet. L'ordre de désignation n'a pas d'importance. Combien de groupes différents peut-il former ?
+    </div>
+    <div class="options-grid">
+        <button class="opt-btn" onclick="checkQCM(this, false)">A) 657 720</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">B) 120</button>
+        <button class="opt-btn" onclick="checkQCM(this, true)">C) 27 405</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">D) 142 506</button>
+    </div>
+    <div class="correction-box">
+        <strong>Explication :</strong> Il s'agit de choisir 4 élèves parmi 30, sans notion d'ordre. C'est la combinaison $\binom{30}{4} = \frac{30!}{4! \times 26!} = \frac{30 \times 29 \times 28 \times 27}{4 \times 3 \times 2 \times 1} = 27\,405$.
+    </div>
+</div>
+
+<div class="qcm-card" style="border-left: 4px solid var(--accent-green);">
+    <h2 style="color: var(--navy-dark); margin-top: 0;">2. La Formule de Pascal</h2>
+    <p><strong>Théorème :</strong> Pour tous entiers $n \ge 1$ et $1 \le k \le n$, on a :</p>
+    $$ \binom{n}{k} = \binom{n-1}{k-1} + \binom{n-1}{k} $$
+    
+    <div style="background: #f8fafc; padding: 20px; border-radius: 10px; margin-bottom: 20px;">
+        <h3 style="margin-top:0; color: var(--text-muted); font-size: 0.9rem; text-transform: uppercase;">Démonstration combinatoire</h3>
+        <p>Soit $E$ un ensemble à $n$ éléments. Soit un élément particulier $a \in E$. Nous voulons choisir un sous-ensemble $A$ de $k$ éléments parmi $E$ (il y a $\binom{n}{k}$ possibilités au total).</p>
+        <p>Divisons ces sous-ensembles en deux catégories disjointes qui couvrent tous les cas possibles :</p>
+        <ul>
+            <li><strong>Cas 1 : Le sous-ensemble $A$ <u>contient</u> l'élément $a$.</strong><br>Puisque $a$ est déjà choisi, il reste à choisir les $k-1$ autres éléments parmi les $n-1$ éléments restants de $E \setminus \{a\}$. Il y a $\binom{n-1}{k-1}$ façons de le faire.</li>
+            <li><strong>Cas 2 : Le sous-ensemble $A$ <u>ne contient pas</u> l'élément $a$.</strong><br>Il faut alors choisir l'intégralité des $k$ éléments parmi les $n-1$ éléments de $E \setminus \{a\}$. Il y a $\binom{n-1}{k}$ façons de le faire.</li>
+        </ul>
+        <p>Le nombre total de sous-ensembles est la somme de ces deux cas, ce qui démontre la formule.</p>
+    </div>
+
+    <div class="qcm-question">
+        <i class="fas fa-bolt" style="color: var(--gold-btn);"></i> Application : Dans une équipe de 10 joueurs comprenant le capitaine "Hugo", on doit former un 5 majeur. On sait qu'il y a 126 équipes de 5 possibles qui n'incluent pas Hugo. Combien y a-t-il d'équipes possibles qui incluent Hugo ? (Sachant que $\binom{10}{5} = 252$)
+    </div>
+    <div class="options-grid">
+        <button class="opt-btn" onclick="checkQCM(this, true)">A) 126</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">B) 100</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">C) 252</button>
+        <button class="opt-btn" onclick="checkQCM(this, false)">D) 84</button>
+    </div>
+    <div class="correction-box">
+        <strong>Explication :</strong> D'après la formule de Pascal vue combinatoirement, le nombre total d'équipes $\binom{10}{5}$ est la somme des équipes sans Hugo $\binom{9}{5}$ et des équipes avec Hugo $\binom{9}{4}$.<br>Donc : Équipes avec Hugo = Total - Équipes sans Hugo = $252 - 126 = 126$.
+    </div>
+</div>
+
+<div style="text-align: center; margin-top: 30px;">
+    <button class="dash-btn ia-btn" style="display:inline-block; margin-bottom:20px;" onclick="finishQuiz()">Valider mes acquis</button>
+</div>
