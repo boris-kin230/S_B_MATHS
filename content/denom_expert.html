@@ -253,7 +253,7 @@
             <li>En déduire la valeur de la somme des carrés des coefficients binomiaux : $\sum_{k=0}^n \binom{n}{k}^2$.</li>
         </ul>
         <button class="toggle-btn" onclick="toggleCorr('corr-1')">
-            <i class="fas fa-eye"></i> Afficher la correction experte
+            <i class="fas fa-eye"></i> Afficher le corrigé
         </button>
         <div id="corr-1" class="correction-box">
             <div class="correction-item"><strong>Q1.</strong> On compte le nombre de parties d'un ensemble $E$ à $n$ éléments. Méthode 1 : pour chaque élément, on a 2 choix (le prendre ou non), soit $2^n$. Méthode 2 : on regroupe les parties par leur cardinal $k$. Pour un $k$ fixé, il y a $\binom{n}{k}$ parties. La somme sur tous les $k$ donne le total. D'où l'égalité.</div>
@@ -282,7 +282,7 @@
             <li>Prouver algébriquement (à partir de la somme) ou combinatoirement la relation plus forte : $D_n = n D_{n-1} + (-1)^n$.</li>
         </ul>
         <button class="toggle-btn" onclick="toggleCorr('corr-2')">
-            <i class="fas fa-eye"></i> Afficher la correction experte
+            <i class="fas fa-eye"></i> Afficher le corrigé
         </button>
         <div id="corr-2" class="correction-box">
             <div class="correction-item"><strong>Q1.</strong> Formule du crible : $\left| \bigcup_{i=1}^n A_i \right| = \sum_{k=1}^n (-1)^{k-1} \sum_{1 \le i_1 < i_2 < \dots < i_k \le n} \left| A_{i_1} \cap A_{i_2} \cap \dots \cap A_{i_k} \right|$.</div>
@@ -311,7 +311,7 @@
             <li>Le nombre de Bell $B_n$ est le nombre total de partitions d'un $n$-ensemble. Calculer $B_4$.</li>
         </ul>
         <button class="toggle-btn" onclick="toggleCorr('corr-3')">
-            <i class="fas fa-eye"></i> Afficher la correction experte
+            <i class="fas fa-eye"></i> Afficher le corrigé
         </button>
         <div id="corr-3" class="correction-box">
             <div class="correction-item"><strong>Q1.</strong> $S_{n,1} = 1$ (la fonction constante). Pour $p=2$, il y a $2^n$ fonctions au total. Il faut enlever les 2 fonctions constantes qui ne sont pas surjectives. Donc $S_{n,2} = 2^n - 2$.</div>
@@ -340,7 +340,7 @@
             <li>Soit $g_n$ le nombre de sous-ensembles de $\llbracket 1, n \rrbracket$ ne contenant aucun entier consécutif. Montrer que $g_n = f_n$.</li>
         </ul>
         <button class="toggle-btn" onclick="toggleCorr('corr-4')">
-            <i class="fas fa-eye"></i> Afficher la correction experte
+            <i class="fas fa-eye"></i> Afficher le corrigé
         </button>
         <div id="corr-4" class="correction-box">
             <div class="correction-item"><strong>Q1.</strong> Pour $n=1$, les suites valides sont $(0)$ et $(1) \implies f_1 = 2$. Pour $n=2$, on a $(0,0), (0,1), (1,0) \implies f_2 = 3$. L'unique suite interdite est $(1,1)$.</div>
@@ -369,7 +369,7 @@
             <li>Principe de réflexion (Désiré André) : les chemins "invalides" (qui plongent sous $y=0$) croisent la droite d'équation $y=-1$. En symétrisant la fin du chemin par rapport à cette droite, compter les chemins invalides. En déduire que $C_n = \frac{1}{n+1} \binom{2n}{n}$.</li>
         </ul>
         <button class="toggle-btn" onclick="toggleCorr('corr-5')">
-            <i class="fas fa-eye"></i> Afficher la correction experte
+            <i class="fas fa-eye"></i> Afficher le corrigé
         </button>
         <div id="corr-5" class="correction-box">
             <div class="correction-item"><strong>Q1.</strong> $C_1 = 1$ (Montée-Descente). $C_2 = 2$ (MMDD, MDMD). $C_3 = 5$ (MMMDDD, MMDMDD, MMDDMD, MDMMDD, MDMDMD). La suite est 1, 2, 5, 14, 42...</div>
@@ -390,12 +390,12 @@
         
         if (el.classList.contains('show')) {
             el.classList.remove('show');
-            btn.innerHTML = '<i class="fas fa-eye"></i> Afficher la correction experte';
+            btn.innerHTML = '<i class="fas fa-eye"></i> Afficher le corrigé';
             btn.style.background = '#334155';
             btn.style.boxShadow = 'none';
         } else {
             el.classList.add('show');
-            btn.innerHTML = '<i class="fas fa-eye-slash"></i> Masquer la correction';
+            btn.innerHTML = '<i class="fas fa-eye-slash"></i> Masquer le corrigé';
             btn.style.background = 'var(--blue-accent)';
             btn.style.boxShadow = '0 8px 20px rgba(59, 130, 246, 0.4)';
         }
