@@ -23,25 +23,21 @@
            THEME V3.0 - "ÉDITION PRÉPA VUIBERT" (PREMIUM iOS)
            ============================================================================== */
         :root {
-            /* Palette extraite des couvertures Vuibert */
             --v-blue: #3A9AD9;      /* Bleu Cyan principal */
             --v-green: #B8D433;     /* Vert Anis bas de page */
             --v-red: #D34537;       /* Rouge brique (boutons/alertes) */
             --v-yellow: #F6C831;    /* Jaune vif (titres/badges) */
             --v-purple: #6A2B7A;    /* Violet (IA/Entraînement) */
             
-            /* Couleurs de fond et structure */
             --bg-app: #f4f7f6;
             --bg-card: #ffffff;
             --text-main: #1e293b;
             --text-muted: #64748b;
             
-            /* Dimensions (Adaptées iPhone/iPad) */
             --header-height: 75px;
             --dock-height: 75px;
             --safe-bottom: env(safe-area-inset-bottom, 20px);
             
-            /* Effets Premium */
             --shadow-soft: 0 8px 30px rgba(0, 0, 0, 0.04);
             --shadow-hover: 0 20px 40px rgba(58, 154, 217, 0.15);
             --radius-xl: 28px;
@@ -56,17 +52,15 @@
 
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; outline: none; }
 
-        /* FIX SCROLL iOS : On fige le body, on scrolle uniquement le main */
         body, html { 
             font-family: 'Plus Jakarta Sans', sans-serif; 
             margin: 0; padding: 0;
             background-color: var(--bg-app);
             height: 100%; width: 100%;
-            overflow: hidden; /* Empêche le scroll élastique de toute la page */
+            overflow: hidden; 
             color: var(--text-main);
         }
 
-        /* Arrière-plan global façon couverture de livre */
         .app-background {
             position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: -1;
             background: linear-gradient(180deg, rgba(58,154,217,0.08) 0%, rgba(244,247,246,1) 30%, rgba(184,212,51,0.05) 100%);
@@ -101,14 +95,14 @@
         }
         .header-actions button:active { transform: scale(0.9); }
 
-        /* --- ZONE DE CONTENU (SCROLL FIXÉ ICI) --- */
+        /* --- ZONE DE CONTENU (SCROLL FIXÉ) --- */
         main {
             position: absolute;
             top: var(--header-height);
             bottom: 0; left: 0; right: 0;
             overflow-y: auto;
             overflow-x: hidden;
-            -webkit-overflow-scrolling: touch; /* Défilement natif iOS */
+            -webkit-overflow-scrolling: touch; 
             padding: 20px 20px calc(var(--dock-height) + var(--safe-bottom) + 30px) 20px;
         }
 
@@ -119,12 +113,12 @@
             position: fixed;
             bottom: calc(var(--safe-bottom) + 15px);
             left: 50%; transform: translateX(-50%);
-            width: calc(100% - 40px); max-width: 500px;
+            width: calc(100% - 20px); max-width: 600px;
             height: var(--dock-height);
             background: var(--glass-bg); backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
             border: 1px solid rgba(255,255,255,0.5);
             border-radius: var(--radius-xl);
-            display: grid; grid-template-columns: repeat(4, 1fr);
+            display: grid; grid-template-columns: repeat(5, 1fr); /* 5 éléments maintenant */
             box-shadow: 0 15px 35px rgba(0,0,0,0.1);
             z-index: 1000; padding: 5px;
         }
@@ -134,13 +128,13 @@
             border-radius: var(--radius-lg); color: var(--text-muted); cursor: pointer;
             transition: var(--transition-bouncy); gap: 4px; position: relative;
         }
-        .dock-item i { font-size: 1.4rem; transition: transform 0.3s; }
-        .dock-item span { font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
+        .dock-item i { font-size: 1.3rem; transition: transform 0.3s; }
+        .dock-item span { font-size: 0.60rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
         
         .dock-item.active { background: var(--v-blue); color: white; box-shadow: 0 8px 20px rgba(58, 154, 217, 0.4); transform: translateY(-5px); }
         .dock-item.active i { transform: scale(1.1); }
 
-        /* --- HERO BANNER (Style Couverture Vuibert) --- */
+        /* --- HERO BANNER --- */
         .hero-banner {
             background: var(--v-blue);
             border-radius: var(--radius-xl); padding: 30px 25px; margin-bottom: 25px;
@@ -148,7 +142,7 @@
             box-shadow: 0 15px 30px rgba(58, 154, 217, 0.2);
             animation: slideDown 0.6s cubic-bezier(0.16, 1, 0.3, 1);
         }
-        .hero-banner::before { /* Forme géométrique de fond */
+        .hero-banner::before { 
             content: ''; position: absolute; top: -50px; right: -50px;
             width: 150px; height: 150px; background: rgba(255,255,255,0.1); border-radius: 50%;
         }
@@ -161,7 +155,7 @@
         .hero-banner h1 { margin: 0; font-size: 3rem; font-weight: 900; letter-spacing: -1px; line-height: 1; text-shadow: 2px 2px 0px rgba(0,0,0,0.1); }
         .hero-banner p { margin: 15px 0 0; font-weight: 600; font-size: 1rem; opacity: 0.9; }
 
-        /* --- DASHBOARD GRILLE (Cartes d'action) --- */
+        /* --- DASHBOARD GRILLE --- */
         .dashboard-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 25px; }
         
         .action-card {
@@ -176,7 +170,6 @@
         .action-card span.main { font-weight: 800; font-size: 0.95rem; color: var(--text-main); }
         .action-card span.sub { font-size: 0.75rem; color: var(--text-muted); font-weight: 600;}
 
-        /* Couleurs spécifiques des cartes */
         .card-ia .ac-icon { background: rgba(106, 43, 122, 0.1); color: var(--v-purple); }
         .card-ia { border-bottom: 4px solid var(--v-purple); }
         
@@ -189,7 +182,7 @@
         .card-clock .ac-icon { background: rgba(58, 154, 217, 0.1); color: var(--v-blue); }
         .card-clock { border-bottom: 4px solid var(--v-blue); }
 
-        /* --- PANNEAU DE CHAPITRES (Menu latéral modernisé) --- */
+        /* --- PANNEAU DE CHAPITRES --- */
         #chapter-panel {
             position: fixed; top: 0; left: -100%; width: 85vw; max-width: 380px; height: 100%;
             background: var(--glass-bg); backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
@@ -209,7 +202,6 @@
         
         .cp-content { overflow-y: auto; padding: 15px 20px; flex: 1; }
 
-        /* Accordéons */
         .chap-group { margin-bottom: 15px; background: white; border-radius: var(--radius-lg); box-shadow: var(--shadow-soft); overflow: hidden;}
         .chap-toggle {
             width: 100%; padding: 18px 20px; border: none; background: transparent;
@@ -219,12 +211,13 @@
         .chap-toggle .icon-wrap { 
             display: inline-flex; align-items: center; justify-content: center;
             width: 35px; height: 35px; border-radius: 10px; margin-right: 12px;
-            background: rgba(184, 212, 51, 0.2); color: #7a8f1a;
         }
         .chap-toggle.active { background: #fafafa; border-bottom: 1px solid #eee; }
         .chap-toggle.active .fa-chevron-down { transform: rotate(180deg); }
         .chap-content { display: none; padding: 10px 15px 15px; background: #fafafa; }
         .chap-content.active { display: block; animation: fadeIn 0.3s ease; }
+        
+        .nav-section-title { font-size: 0.7rem; font-weight: 800; color: var(--text-muted); text-transform: uppercase; padding: 15px 15px 5px; margin: 0; letter-spacing: 0.5px; }
         
         .nav-link {
             display: flex; align-items: center; gap: 12px; padding: 12px 15px;
@@ -233,10 +226,15 @@
         }
         .nav-link:active { background: #eee; transform: scale(0.98); }
         .nav-link i { font-size: 1.1rem; width: 20px; text-align: center; color: var(--v-blue); }
-        .nav-link.test-link { color: var(--v-red); background: rgba(211, 69, 55, 0.05); border: 1px solid rgba(211, 69, 55, 0.1); margin-top: 5px; }
-        .nav-link.test-link i { color: var(--v-red); }
+        
+        /* Styles pour les liens d'entraînement (Reprise de tes couleurs) */
+        .nav-link.expert-link { color: var(--v-red); background: rgba(211, 69, 55, 0.05); border: 1px solid rgba(211, 69, 55, 0.1); margin-top: 5px; font-weight: 800;}
+        .nav-link.expert-link i { color: var(--v-red); }
+        
+        .nav-link.niveau-link { color: #65a30d; background: rgba(184, 212, 51, 0.1); border: 1px solid rgba(184, 212, 51, 0.2); margin-top: 5px; font-weight: 800;}
+        .nav-link.niveau-link i { color: #65a30d; }
 
-        /* --- QCM V3.0 (PREMIUM CARDS) --- */
+        /* --- QCM V3.0 --- */
         .qcm-card {
             background: var(--bg-card); border-radius: var(--radius-xl); padding: 30px;
             margin-bottom: 25px; box-shadow: var(--shadow-soft); position: relative;
@@ -256,7 +254,6 @@
         }
         .opt-btn:active:not(:disabled) { transform: scale(0.98); border-color: var(--v-blue); }
         
-        /* États des boutons QCM */
         .opt-btn.correct { background: var(--v-green) !important; border-color: #9cb824 !important; color: #3d4a0a !important; box-shadow: 0 4px 15px rgba(184, 212, 51, 0.4); }
         .opt-btn.wrong { background: var(--v-red) !important; border-color: #a83529 !important; color: white !important; box-shadow: 0 4px 15px rgba(211, 69, 55, 0.4); }
         .opt-btn:disabled { cursor: not-allowed; opacity: 0.8; }
@@ -267,7 +264,7 @@
             animation: fadeIn 0.4s ease;
         }
 
-        /* --- MODALES (IA & POMODORO) --- */
+        /* --- MODALES --- */
         .overlay {
             position: fixed; top: 0; left: 0; right: 0; bottom: 0;
             background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(8px);
@@ -298,7 +295,6 @@
         .btn-ctrl { padding: 12px 25px; border-radius: 50px; border: none; font-weight: 800; font-size: 1rem; color: white; cursor: pointer; transition: transform 0.2s;}
         .btn-ctrl:active { transform: scale(0.9); }
         
-        /* Animations */
         @keyframes slideDown { from { transform: translateY(-30px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
         @keyframes slideUp { from { transform: translateY(30px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
@@ -326,28 +322,41 @@
             <button class="cp-close" onclick="closeChapterPanel()"><i class="fas fa-times"></i></button>
         </div>
         
-        <div class="cp-content">
+        <nav class="cp-content">
+            
             <div class="chap-group">
                 <button class="chap-toggle" onclick="toggleAccordeon(this)">
                     <div><span class="icon-wrap" style="background:#e0f2fe; color:#0284c7;"><i class="fas fa-layer-group"></i></span> Dénombrement</div>
                     <i class="fas fa-chevron-down"></i>
                 </button>
                 <div class="chap-content">
-                    <a class="nav-link" onclick="loadPage('denom_ensembles')"><i class="fas fa-boxes-stacked"></i> Ensembles</a>
-                    <a class="nav-link" onclick="loadPage('denom_combinaisons')"><i class="fas fa-hand-sparkles"></i> Combinaisons</a>
-                    <a class="nav-link test-link" onclick="loadTraining('denom')"><i class="fas fa-fire"></i> Test Intensif</a>
+                    <p class="nav-section-title">Cours</p>
+                    <a class="nav-link" onclick="loadPage('denom_ensembles')"><i class="fas fa-cubes"></i> Ensembles & Injections</a>
+                    <a class="nav-link" onclick="loadPage('denom_arrangements')"><i class="fas fa-arrows-turn-to-dots"></i> Arrangements & Permutations</a>
+                    <a class="nav-link" onclick="loadPage('denom_combinaisons')"><i class="fas fa-hands-holding-circle"></i> Combinaisons</a>
+                    
+                    <p class="nav-section-title">Entraînement</p>
+                    <a class="nav-link niveau-link" onclick="loadTraining('denom')"><i class="fas fa-bolt"></i> Test de Niveau</a>
+                    <a class="nav-link expert-link" onclick="loadPage('denom_expert')"><i class="fas fa-fire-flame-curved"></i> Test Expert</a>
                 </div>
             </div>
 
             <div class="chap-group">
                 <button class="chap-toggle" onclick="toggleAccordeon(this)">
-                    <div><span class="icon-wrap" style="background:#fef08a; color:#ca8a04;"><i class="fas fa-superscript"></i></span> Polynômes</div>
+                    <div><span class="icon-wrap" style="background:#fef08a; color:#ca8a04;"><i class="fas fa-square-root-variable"></i></span> Polynômes</div>
                     <i class="fas fa-chevron-down"></i>
                 </button>
                 <div class="chap-content">
+                    <p class="nav-section-title">Cours</p>
                     <a class="nav-link" onclick="loadPage('poly_bases')"><i class="fas fa-book"></i> Fondamentaux</a>
-                    <a class="nav-link" onclick="loadPage('poly_racines')"><i class="fas fa-bullseye"></i> Racines</a>
-                    <a class="nav-link test-link" onclick="loadTraining('poly')"><i class="fas fa-fire"></i> Évaluation</a>
+                    <a class="nav-link" onclick="loadPage('poly_racines')"><i class="fas fa-bullseye"></i> Racines & Divisibilité</a>
+                    <a class="nav-link" onclick="loadPage('poly_fractions')"><i class="fas fa-percentage"></i> Fractions Rationnelles</a>
+                    
+                    <p class="nav-section-title">Entraînement</p>
+                    <a class="nav-link" onclick="loadPage('poly_exos')"><i class="fas fa-dumbbell"></i> Exercice Partie 1</a>
+                    <a class="nav-link" onclick="loadPage('poly_exos_calc')"><i class="fas fa-calculator"></i> Exercice Partie 2</a>
+                    <a class="nav-link niveau-link" onclick="loadTraining('poly')"><i class="fas fa-bolt"></i> Entraînement</a>
+                    <a class="nav-link expert-link" onclick="loadPage('poly_training_v4')"><i class="fas fa-fire-flame-curved"></i> Test Expert</a>
                 </div>
             </div>
 
@@ -357,11 +366,34 @@
                     <i class="fas fa-chevron-down"></i>
                 </button>
                 <div class="chap-content">
-                    <a class="nav-link" onclick="loadPage('geo_metrique')"><i class="fas fa-ruler-combined"></i> Rél. Métriques</a>
-                    <a class="nav-link test-link" onclick="loadTraining('geo')"><i class="fas fa-fire"></i> Entraînement</a>
+                    <p class="nav-section-title">Théorie</p>
+                    <a class="nav-link" onclick="loadPage('geo_metrique')"><i class="fas fa-ruler-combined"></i> Relations Métriques</a>
+                    <a class="nav-link" onclick="loadPage('geo_analytique')"><i class="fas fa-location-crosshairs"></i> Géométrie Analytique</a>
+                    
+                    <p class="nav-section-title">Pratique</p>
+                    <a class="nav-link" onclick="loadPage('geo_training_v1')"><i class="fas fa-pencil"></i> Exercices v1</a>
+                    <a class="nav-link niveau-link" onclick="loadTraining('geo')"><i class="fas fa-bolt"></i> Test de Niveau</a>
+                    <a class="nav-link expert-link" onclick="loadPage('geo_training_v4')"><i class="fas fa-fire-flame-curved"></i> Test Expert v4</a>
                 </div>
             </div>
-        </div>
+
+            <div class="chap-group">
+                <button class="chap-toggle" onclick="toggleAccordeon(this)">
+                    <div><span class="icon-wrap" style="background:#f3e8ff; color:#9333ea;"><i class="fas fa-chart-line"></i></span> Fonctions</div>
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="chap-content">
+                    <p class="nav-section-title">Analyse</p>
+                    <a class="nav-link" onclick="loadPage('func_theoremes')"><i class="fas fa-microscope"></i> Rolle & TAF</a>
+                    <a class="nav-link" onclick="loadPage('func_taylor')"><i class="fas fa-infinity"></i> Taylor & DL</a>
+                    
+                    <p class="nav-section-title">Pratique</p>
+                    <a class="nav-link" onclick="loadPage('training_taylor_rolle')"><i class="fas fa-flask"></i> Mix Analyse</a>
+                    <a class="nav-link niveau-link" onclick="loadTraining('func')"><i class="fas fa-bolt"></i> Test de Rapidité</a>
+                    <a class="nav-link expert-link" onclick="loadPage('func_training_v4')"><i class="fas fa-fire-flame-curved"></i> Test Expert v4</a>
+                </div>
+            </div>
+        </nav>
     </aside>
 
     <main id="main-wrapper">
@@ -413,12 +445,16 @@
             <span>Dénombr.</span>
         </div>
         <div class="dock-item" onclick="navigateChapter('polynômes', this)">
-            <i class="fas fa-superscript"></i>
+            <i class="fas fa-square-root-variable"></i>
             <span>Polyn.</span>
         </div>
         <div class="dock-item" onclick="navigateChapter('géométrie', this)">
             <i class="fas fa-draw-polygon"></i>
             <span>Géom.</span>
+        </div>
+        <div class="dock-item" onclick="navigateChapter('fonctions', this)">
+            <i class="fas fa-chart-line"></i>
+            <span>Fonct.</span>
         </div>
     </nav>
 
@@ -447,7 +483,7 @@
             </div>
             <div id="ia-chat-box" style="flex:1; background:#f8fafc; padding:20px; overflow-y:auto; display:flex; flex-direction:column; gap:15px;">
                 <div style="background:white; padding:15px; border-radius:15px; border-bottom-left-radius:0; max-width:85%; font-size:0.95rem; box-shadow:0 2px 5px rgba(0,0,0,0.05); align-self:flex-start;">
-                    Prêt pour les maths ? Pose-moi tes questions sur les polynômes ou la géométrie !
+                    Prêt pour les maths ? Pose-moi tes questions sur le programme de PCSI !
                 </div>
             </div>
             <div style="padding:15px; background:white; display:flex; gap:10px; border-top:1px solid #eee;">
@@ -481,14 +517,13 @@
             moduleView.style.display = 'none';
             moduleView.innerHTML = '';
             homeView.style.display = 'block';
-            mainWrapper.scrollTop = 0; // Reset scroll
+            mainWrapper.scrollTop = 0; 
         }
 
         function navigateChapter(chapterName, element) {
             updateActiveTab(element);
             chapterPanel.classList.add('open');
             
-            // Ouvre l'accordéon correspondant
             document.querySelectorAll('.chap-toggle').forEach(toggle => {
                 const text = toggle.textContent.toLowerCase();
                 if(text.includes(chapterName.toLowerCase())) {
@@ -507,12 +542,12 @@
             content.classList.toggle('active');
         }
 
-        // CHARGEMENT DE PAGES (SIMULATION POUR L'EXEMPLE, ADAPTÉ À TES FICHIERS)
+        // CHARGEMENT DE PAGES
         async function loadPage(fileName) {
             closeChapterPanel();
             homeView.style.display = 'none';
             moduleView.style.display = 'block';
-            mainWrapper.scrollTop = 0; // Fix scroll en haut de page lors du chargement
+            mainWrapper.scrollTop = 0; 
 
             window.currentScore = 0; window.totalQuestions = 0;
 
@@ -525,21 +560,15 @@
                 if(window.MathJax) MathJax.typesetPromise([moduleView]);
                 window.totalQuestions = moduleView.querySelectorAll('.qcm-card').length;
             } catch (e) {
-                // FALLBACK POUR DÉMO VISUELLE SI FICHIER INTROUVABLE
+                // FALLBACK POUR DÉMO
                 moduleView.innerHTML = `
                     <div class="qcm-card">
-                        <div class="qcm-question"><i class="fas fa-circle-question" style="color:var(--v-blue)"></i> Question d'exemple : Quelle est la dérivée de $f(x) = x^2$ ?</div>
+                        <div class="qcm-question"><i class="fas fa-circle-question" style="color:var(--v-blue)"></i> Module en cours de construction ou fichier introuvable.</div>
                         <div class="options-grid">
-                            <button class="opt-btn" onclick="checkQCM(this, false)">A) $f'(x) = x$</button>
-                            <button class="opt-btn" onclick="checkQCM(this, true)">B) $f'(x) = 2x$</button>
-                            <button class="opt-btn" onclick="checkQCM(this, false)">C) $f'(x) = 2$</button>
+                            <button class="opt-btn" onclick="checkQCM(this, false)">Retourner à l'accueil</button>
                         </div>
-                        <div class="correction-box">Excellente réponse. En utilisant la règle des puissances, on descend l'exposant.</div>
                     </div>
-                    <button onclick="finishQuiz()" style="width:100%; padding:15px; border-radius:15px; background:var(--v-blue); color:white; border:none; font-weight:800; font-size:1.1rem; cursor:pointer;">Terminer l'exercice</button>
                 `;
-                if(window.MathJax) MathJax.typesetPromise([moduleView]);
-                window.totalQuestions = 1;
             }
         }
 
@@ -611,7 +640,7 @@
                 chat.innerHTML += `<div style="background:white; padding:15px; border-radius:15px; border-bottom-left-radius:0; max-width:85%; font-size:0.95rem; box-shadow:0 2px 5px rgba(0,0,0,0.05); align-self:flex-start;"><i class="fas fa-circle-notch fa-spin" style="color:var(--v-blue)"></i></div>`;
                 chat.scrollTop = chat.scrollHeight;
                 setTimeout(() => {
-                    chat.lastElementChild.innerHTML = "Je n'ai pas encore de connexion au serveur OpenAI, mais dans la version finale je te donnerai la réponse complète ici !";
+                    chat.lastElementChild.innerHTML = "L'IA n'est pas encore connectée au backend, mais l'interface est prête !";
                 }, 1000);
             }, 500);
         }
