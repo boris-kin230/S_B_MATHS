@@ -674,10 +674,20 @@
                                 <i class="fas fa-clock"></i> <span id="clock-display">--:--</span>
                             </button>
                             
-                            <a href="https://cahier-de-prepa.fr/pcsi1-lmb/docs?maths" target="_blank" class="dash-btn btn-links">
-                                <i class="fas fa-link"></i> Liens utiles
-                            </a>
-                            
+                           <div style="display: flex; flex-direction: column; gap: 8px;">
+    <span style="font-size: 0.85rem; font-weight: bold; margin-bottom: 4px;">
+        <i class="fas fa-link"></i> Devoirs & Fiches
+    </span>
+    <a href="https://www.devinck-mpsi.fr/devoirs-surveilles" target="_blank" class="dash-btn btn-links" style="text-decoration: none; background: rgba(184, 212, 51, 0.15); color: #5a6b0d; padding: 8px; border-radius: 8px; font-size: 0.75rem; text-align: center;">
+        Lien 1
+    </a>
+    <a href="https://cahier-de-prepa.fr/pcsi-lessouriau/?maths/dmds" target="_blank" class="dash-btn btn-links" style="text-decoration: none; background: rgba(184, 212, 51, 0.15); color: #5a6b0d; padding: 8px; border-radius: 8px; font-size: 0.75rem; text-align: center;">
+        Lien 2
+    </a>
+    <a href="https://mathsmpsi2iwallon.sitew.fr/Devoirs.b.htm" target="_blank" class="dash-btn btn-links" style="text-decoration: none; background: rgba(184, 212, 51, 0.15); color: #5a6b0d; padding: 8px; border-radius: 8px; font-size: 0.75rem; text-align: center;">
+        Lien 3
+    </a>
+</div>
                             <button class="dash-btn ia-btn" onclick="openIAModal()">
                                 <i class="fas fa-robot"></i> IA Maths
                             </button>
@@ -1051,7 +1061,7 @@
 
         // --- SYSTÈMES DE PARTAGE ---
         function getShareText(score, total) {
-            return `J'ai terminé ma session sur Elian Maths avec un score de ${score}/${total} ! Prêt pour les concours CPGE. 🚀`;
+            return `J'ai terminé ma session sur Elian Maths avec un score de ${score}/${total} `;
         }
         function shareWA(score, total) { window.open(`https://wa.me/?text=${encodeURIComponent(getShareText(score, total))}`); }
         function shareX(score, total) { window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(getShareText(score, total))}`); }
