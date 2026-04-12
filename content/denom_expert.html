@@ -239,10 +239,10 @@
             <li>On tire successivement et <strong>avec remise</strong> 5 boules. Quel est le nombre total de tirages ?</li>
             <li>Dans un tirage successif <strong>avec remise</strong> de 5 boules, combien de tirages comportent exactement 3 boules rouges ?</li>
         </ul>
-        <button class="toggle-btn" onclick="toggleCor('corr-1', this)">
+        <button class="toggle-btn" onclick="toggleCor(this)">
             <i class="fas fa-eye"></i> Afficher le corrigé détaillé
         </button>
-        <div id="corr-1" class="correction-box">
+        <div class="correction-box">
             <div class="correction-item"><strong>Q1.</strong> Tirage simultané (non ordonné, sans remise) de 5 boules parmi 15. C'est une combinaison : $$\binom{15}{5} = \frac{15!}{5!10!} = 3003$$</div>
             <div class="correction-item"><strong>Q2.</strong> Il faut choisir 2 rouges parmi 8, 2 bleues parmi 5, et la dernière boule doit nécessairement être l'unique boule verte restante (pour compléter à 5). Par principe multiplicatif : $$\binom{8}{2} \times \binom{5}{2} \times \binom{2}{1} = 28 \times 10 \times 2 = 560$$</div>
             <div class="correction-item"><strong>Q3.</strong> On passe par l'événement contraire : "N'obtenir aucune boule verte". Cela revient à tirer 5 boules parmi les 13 autres (rouges et bleues). Total - Contraire = $$\binom{15}{5} - \binom{13}{5} = 3003 - 1287 = 1716$$</div>
@@ -268,10 +268,10 @@
             <li>Combien d'anagrammes existent si l'on impose de garder les consonnes (M, S, S, S, S, P, P) dans leur ordre alphabétique strict d'apparition ?</li>
             <li>Combien d'anagrammes permettent aux 4 'I' d'être tous séparés par au moins une consonne ?</li>
         </ul>
-        <button class="toggle-btn" onclick="toggleCor('corr-2', this)">
+        <button class="toggle-btn" onclick="toggleCor(this)">
             <i class="fas fa-eye"></i> Afficher le corrigé détaillé
         </button>
-        <div id="corr-2" class="correction-box">
+        <div class="correction-box">
             <div class="correction-item"><strong>Q1.</strong> Il y a 11 lettres à permuter, avec des éléments indiscernables. Formule des permutations avec répétitions : $$\frac{11!}{1! \times 4! \times 4! \times 2!} = 34\,650$$</div>
             <div class="correction-item"><strong>Q2.</strong> La première lettre est fixée au 'M'. Il reste 10 lettres à permuter (4 'I', 4 'S', 2 'P') : $$\frac{10!}{4! \times 4! \times 2!} = 3\,150$$</div>
             <div class="correction-item"><strong>Q3.</strong> On "colle" les 4 'S' ensemble pour former une super-lettre unique. On doit alors permuter 8 entités (la super-lettre, 1 M, 4 I, 2 P) : $$\frac{8!}{1! \times 4! \times 2! \times 1!} = 840$$</div>
@@ -297,10 +297,10 @@
             <li>On pose $E = \llbracket 1, p \rrbracket$ et $F = \llbracket 1, n \rrbracket$ avec $p \le n$. Combien y a-t-il d'applications strictement croissantes de $E$ dans $F$ ?</li>
             <li>Dans le même cadre ($E = \llbracket 1, p \rrbracket$ et $F = \llbracket 1, n \rrbracket$), combien y a-t-il d'applications croissantes (au sens large) ?</li>
         </ul>
-        <button class="toggle-btn" onclick="toggleCor('corr-3', this)">
+        <button class="toggle-btn" onclick="toggleCor(this)">
             <i class="fas fa-eye"></i> Afficher le corrigé détaillé
         </button>
-        <div id="corr-3" class="correction-box">
+        <div class="correction-box">
             <div class="correction-item"><strong>Q1.</strong> Pour chacun des $n$ éléments de $E$, on doit choisir une image parmi les $p$ éléments de $F$. Il y a donc $\underbrace{p \times p \times \dots \times p}_{n \text{ fois}} = p^n$ applications.</div>
             <div class="correction-item"><strong>Q2.</strong> Pour qu'une application soit injective, les images doivent être distinctes. C'est un choix ordonné sans remise de $n$ éléments parmi $p$ : $$A_p^n = \frac{p!}{(p-n)!}$$</div>
             <div class="correction-item"><strong>Q3.</strong> Si $n=p$, une injection est automatiquement une bijection (et réciproquement en dimension finie). Le nombre est donc $A_n^n = n!$ (permutations de l'ensemble).</div>
@@ -326,10 +326,10 @@
             <li>Combien de mains forment une "Couleur" (5 cartes de la même couleur / famille) ?</li>
             <li>Combien de mains contiennent au moins un As OU au moins un Cœur ?</li>
         </ul>
-        <button class="toggle-btn" onclick="toggleCor('corr-4', this)">
+        <button class="toggle-btn" onclick="toggleCor(this)">
             <i class="fas fa-eye"></i> Afficher le corrigé détaillé
         </button>
-        <div id="corr-4" class="correction-box">
+        <div class="correction-box">
             <div class="correction-item"><strong>Q1.</strong> C'est un sous-ensemble non ordonné de 5 éléments parmi 32 : $$\binom{32}{5} = 201\,376$$</div>
             <div class="correction-item"><strong>Q2.</strong> On choisit la hauteur du Carré (8 possibilités). Les 4 cartes de cette hauteur sont prises. Reste à choisir 1 carte parmi les 28 cartes restantes du jeu pour compléter la main : $$8 \times \binom{28}{1} = 224$$</div>
             <div class="correction-item"><strong>Q3.</strong> On choisit la hauteur du Brelan (8 possibilités), puis 3 couleurs parmi 4 pour ce brelan. Ensuite, on choisit la hauteur de la Paire (7 possibilités restantes), puis 2 couleurs parmi 4. Total : $$8 \times \binom{4}{3} \times 7 \times \binom{4}{2} = 8 \times 4 \times 7 \times 6 = 1\,344$$</div>
@@ -355,10 +355,10 @@
             <li>Dénombrer le nombre de monômes $X_1^{\alpha_1} X_2^{\alpha_2} \dots X_n^{\alpha_n}$ de degré total exact $d$ à $n$ variables.</li>
             <li>Déterminer le nombre de $n$-uplets $(x_1, \dots, x_n) \in \mathbb{N}^n$ tels que $\sum_{i=1}^n x_i \le k$ (où $k \in \mathbb{N}$).</li>
         </ul>
-        <button class="toggle-btn" onclick="toggleCor('corr-5', this)">
+        <button class="toggle-btn" onclick="toggleCor(this)">
             <i class="fas fa-eye"></i> Afficher le corrigé détaillé
         </button>
-        <div id="corr-5" class="correction-box">
+        <div class="correction-box">
             <div class="correction-item"><strong>Q1.</strong> C'est la méthode des "étoiles et des barres" (stars and bars). On aligne $n$ éléments (le total à répartir) séparés par $p-1$ barres (qui délimitent $p$ compartiments). Le nombre d'arrangements de ces symboles est : $$\binom{n+p-1}{p-1} \quad \text{ou} \quad \binom{n+p-1}{n}$$</div>
             <div class="correction-item"><strong>Q2.</strong> On pose le changement de variable $y_i = x_i - 1$. Comme $x_i \ge 1$, on a $y_i \in \mathbb{N}$. L'équation devient $\sum_{i=1}^p (y_i + 1) = n \iff \sum_{i=1}^p y_i = n - p$. D'après la question 1, le nombre de solutions est : $$\binom{(n-p)+p-1}{p-1} = \binom{n-1}{p-1}$$</div>
             <div class="correction-item"><strong>Q3.</strong> C'est exactement l'équation $x_1 + x_2 + x_3 + x_4 = 20$ avec $x_i \in \mathbb{N}$ (les pièces sont identiques, seul leur nombre par pirate compte). Ici $n=20$ et $p=4$. $$\binom{20+4-1}{4-1} = \binom{23}{3} = 1771$$</div>
@@ -371,13 +371,10 @@
 </div>
 
 <script>
-    function toggleCor(targetId, btn) {
-        const correctionBlock = document.getElementById(targetId);
+    function toggleCor(btn) {
+        // Ciblage parfait : on prend le div qui suit juste le bouton !
+        const correctionBlock = btn.nextElementSibling;
         
-        if (!correctionBlock) return;
-        
-        // On vérifie le style actuel. 
-        // Au premier clic, style.display est souvent vide (""), d'où l'importance de passer dans le "else".
         if (correctionBlock.style.display === "block") {
             correctionBlock.style.display = "none";
             correctionBlock.classList.remove("fade-in"); 
