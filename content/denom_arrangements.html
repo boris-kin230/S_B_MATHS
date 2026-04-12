@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Arrangements & Permutations - Prépa</title>
+    <title>Dénombrement : Cours, Synthèse & Exercices - Prépa</title>
     
     <script>
         MathJax = {
@@ -29,6 +29,7 @@
             --gold-premium: #ca8a04;
             --text-main: #334155;
             --text-light: #64748b;
+            --white: #ffffff;
         }
 
         body {
@@ -45,6 +46,7 @@
             margin: 0 auto;
         }
 
+        /* Hero Banner */
         .hero-banner {
             background: linear-gradient(135deg, var(--navy-dark) 0%, var(--indigo-accent) 100%);
             border-radius: 20px;
@@ -59,10 +61,108 @@
 
         .hero-banner h1 {
             margin: 0 0 10px 0;
-            font-size: 2.5rem;
+            font-size: 2.8rem;
             font-weight: 900;
         }
 
+        .section-title {
+            font-size: 2rem;
+            color: var(--navy-dark);
+            margin: 50px 0 20px 0;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            border-bottom: 3px solid var(--indigo-accent);
+            padding-bottom: 10px;
+        }
+
+        /* Cours & Synthèse Sections */
+        .course-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .formula-card {
+            background: var(--white);
+            border-top: 5px solid var(--blue-accent);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease;
+        }
+
+        .formula-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .formula-card h3 {
+            margin-top: 0;
+            color: var(--navy-dark);
+            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 10px;
+            font-size: 1.2rem;
+        }
+
+        .focus-section {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+        }
+
+        .recap-section {
+            background: var(--navy-dark);
+            color: white;
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 60px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            border: 2px solid var(--gold-premium);
+        }
+
+        .recap-section h2 {
+            color: var(--gold-premium);
+            font-size: 2rem;
+            margin-top: 0;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .keyword-table, .tirage-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .keyword-table th, .keyword-table td, .tirage-table th, .tirage-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .keyword-table th, .tirage-table th {
+            background: rgba(0,0,0,0.3);
+            color: var(--gold-premium);
+        }
+
+        .badge {
+            padding: 5px 10px;
+            border-radius: 6px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            display: inline-block;
+        }
+        .badge-yes { background: #10b981; color: white; }
+        .badge-no { background: #ef4444; color: white; }
+
+        /* Exercices */
         .exo-card {
             background: white;
             border-radius: 20px;
@@ -176,6 +276,7 @@
             margin-bottom: 0; padding-bottom: 0; border-bottom: none;
         }
 
+        /* Couleurs spécifiques aux exercices */
         .exo-1 { border-top-color: var(--blue-accent); }
         .exo-1 .exo-icon { background: rgba(37, 99, 235, 0.1); color: var(--blue-accent); }
         .exo-1 .correction-box { border-left-color: var(--blue-accent); }
@@ -196,60 +297,13 @@
         .exo-5 .exo-icon { background: rgba(220, 38, 38, 0.1); color: var(--red-accent); }
         .exo-5 .correction-box { border-left-color: var(--red-accent); }
 
-        .recap-section {
-            background: var(--navy-dark);
-            color: white;
-            border-radius: 20px;
-            padding: 40px;
-            margin-top: 60px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
-            border: 2px solid var(--gold-premium);
+        /* Styles QCM */
+        .opt-btn {
+            transition: all 0.2s ease;
         }
-        .recap-section h2 {
-            color: var(--gold-premium);
-            font-size: 2rem;
-            margin-top: 0;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-        .formula-card {
-            background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 10px;
-            padding: 20px;
-            margin-bottom: 20px;
-        }
-        .formula-card h3 {
-            margin-top: 0;
-            color: #60a5fa;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-            padding-bottom: 10px;
-        }
-        .keyword-table, .tirage-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-            background: rgba(255,255,255,0.05);
-            border-radius: 10px;
-            overflow: hidden;
-        }
-        .keyword-table th, .keyword-table td, .tirage-table th, .tirage-table td {
-            padding: 15px;
-            text-align: left;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-        }
-        .keyword-table th, .tirage-table th {
-            background: rgba(0,0,0,0.3);
-            color: var(--gold-premium);
-        }
-        .badge {
-            background: var(--gold-premium);
-            color: var(--navy-dark);
-            padding: 3px 8px;
-            border-radius: 5px;
-            font-weight: 700;
-            font-size: 0.85rem;
+        .opt-btn:hover {
+            background-color: #f1f5f9 !important;
+            border-color: #94a3b8 !important;
         }
     </style>
 </head>
@@ -258,171 +312,95 @@
 <div class="container">
     
     <div class="hero-banner">
-        <span style="background: rgba(255,255,255,0.2); padding: 5px 15px; border-radius: 20px; font-size: 0.8rem; text-transform: uppercase; font-weight: 700; display: inline-block; margin-bottom: 15px;">Focus : Ordre & Répétition</span>
-        <h1>Arrangements & Permutations</h1>
-        <p>L'art de l'ordonnancement (Tirages successifs, Mots, Podiums, Bureaux)</p>
+        <span style="background: rgba(255,255,255,0.2); padding: 5px 15px; border-radius: 20px; font-size: 0.8rem; text-transform: uppercase; font-weight: 700; display: inline-block; margin-bottom: 15px;">Mathématiques - Prépa</span>
+        <h1>Dénombrement & Probabilités</h1>
+        <p>L'art de l'ordonnancement : Tirages, Arrangements, Permutations et Combinaisons</p>
     </div>
 
-    <div class="exo-card exo-1">
-        <div class="exo-title">
-            <div class="exo-icon"><i class="fas fa-font"></i></div>
-            Exercice 1 : Permutations et Anagrammes
+    <h2 class="section-title"><i class="fas fa-graduation-cap"></i> 1. Le Cours : Les 4 Fondamentaux</h2>
+    <div class="course-grid">
+        <div class="formula-card" style="border-top-color: var(--blue-accent);">
+            <h3>1. Les p-listes : $n^p$</h3>
+            <p><strong>Propriétés :</strong> Avec Ordre, Avec Répétition.</p>
+            <p><strong>Cadre :</strong> Tirage successif <strong>avec remise</strong> de $p$ éléments parmi $n$. Formation de mots, codes secrets.</p>
         </div>
-        <div class="context-box">
-            On s'intéresse aux permutations des lettres pour former des mots (ayant un sens ou non).
-        </div>
-        <ul class="questions-list">
-            <li>Combien d'anagrammes peut-on former avec le mot <strong>MATHS</strong> ?</li>
-            <li>Combien d'anagrammes du mot MATHS commencent par une consonne ?</li>
-            <li>Combien d'anagrammes du mot MATHS ont les lettres M et S côte à côte ?</li>
-            <li>Combien d'anagrammes peut-on former avec le mot <strong>EXCELLENCE</strong> ?</li>
-            <li>Combien d'anagrammes de EXCELLENCE commencent par un E et se terminent par un E ?</li>
-            <li>De combien de façons peut-on asseoir 6 personnes sur un banc de 6 places de sorte que deux personnes fâchées ne soient <strong>pas</strong> assises côte à côte ?</li>
-        </ul>
-        <button class="toggle-btn" onclick="toggleCorr('corr-1', this)"><i class="fas fa-eye"></i> Afficher le corrigé</button>
-        <div id="corr-1" class="correction-box">
-            <div class="correction-item"><strong>Q1.</strong> 5 lettres distinctes à ordonner. C'est une permutation simple : $5! = 120$.</div>
-            <div class="correction-item"><strong>Q2.</strong> Il y a 4 consonnes (M, T, H, S). On choisit la première lettre (4 choix). Puis on permute les 4 lettres restantes : $4 \times 4! = 96$.</div>
-            <div class="correction-item"><strong>Q3.</strong> On "colle" M et S pour former un seul bloc. On permute 4 éléments (le bloc MS, A, T, H) $\implies 4!$. De plus, M et S peuvent s'ordonner de $2!$ façons dans leur bloc. Total : $4! \times 2 = 48$.</div>
-            <div class="correction-item"><strong>Q4.</strong> C'est une permutation avec répétitions. Formule : $\frac{10!}{4! 2! 2! 1! 1!} = 37\,800$.</div>
-            <div class="correction-item"><strong>Q5.</strong> On fixe un E au début et un E à la fin. Il reste 8 lettres à permuter. Total : $\frac{8!}{2! 2! 2! 1! 1!} = 5\,040$.</div>
-            <div class="correction-item"><strong>Q6.</strong> Total : $6! = 720$. Ensemble : $5! \times 2 = 240$. Résultat : $720 - 240 = 480$.</div>
-        </div>
-    </div>
 
-    <div class="exo-card exo-2">
-        <div class="exo-title">
-            <div class="exo-icon"><i class="fas fa-trophy"></i></div>
-            Exercice 2 : Arrangements (Listes ordonnées sans remise)
+        <div class="formula-card" style="border-top-color: var(--indigo-accent);">
+            <h3>2. Les Arrangements : $A_n^p$</h3>
+            <p><strong>Propriétés :</strong> Avec Ordre, Sans Répétition.</p>
+            <p><strong>Cadre :</strong> Tirage successif <strong>sans remise</strong> de $p$ éléments parmi $n$. Élection d'un bureau (postes distincts), podiums.</p>
         </div>
-        <div class="context-box">
-            Dans une association de 15 membres (8 femmes et 7 hommes), on doit élire un bureau composé d'un Président, d'un Trésorier et d'un Secrétaire.
+
+        <div class="formula-card" style="border-top-color: var(--teal-accent);">
+            <h3>3. Les Permutations : $n!$</h3>
+            <p><strong>Propriétés :</strong> Ordre complet, Sans Répétition.</p>
+            <p><strong>Cadre :</strong> Ordonnancement de <strong>tous</strong> les $n$ éléments d'un ensemble. Anagrammes sans lettres répétées, placement sur des chaises.</p>
         </div>
-        <ul class="questions-list">
-            <li>Combien de bureaux différents peut-on former ?</li>
-            <li>Combien de bureaux peut-on former si le président doit obligatoirement être une femme ?</li>
-            <li>Combien de bureaux peut-on former si les 3 postes doivent être occupés par des personnes du même sexe ?</li>
-            <li>Combien de bureaux contiennent exactement 2 femmes ?</li>
-            <li>On veut attribuer 3 médailles distinctes à 3 des 15 membres. Est-ce le même dénombrement ?</li>
-            <li>Si le président et le trésorier refusent de siéger ensemble, combien de bureaux valides peut-on former ?</li>
-        </ul>
-        <button class="toggle-btn" onclick="toggleCorr('corr-2', this)"><i class="fas fa-eye"></i> Afficher le corrigé</button>
-        <div id="corr-2" class="correction-box">
-            <div class="correction-item"><strong>Q1.</strong> $A_{15}^3 = 15 \times 14 \times 13 = 2\,730$.</div>
-            <div class="correction-item"><strong>Q2.</strong> $8 \times A_{14}^2 = 8 \times 14 \times 13 = 1\,456$.</div>
-            <div class="correction-item"><strong>Q3.</strong> $A_8^3 + A_7^3 = (8 \times 7 \times 6) + (7 \times 6 \times 5) = 336 + 210 = 546$.</div>
-            <div class="correction-item"><strong>Q4.</strong> $3 \times 7 \times A_8^2 = 3 \times 7 \times (8 \times 7) = 1\,176$.</div>
-            <div class="correction-item"><strong>Q5.</strong> Oui, c'est un arrangement $A_{15}^3$.</div>
-            <div class="correction-item"><strong>Q6.</strong> Événement contraire : $2! \times 13 = 26$. Valide : $2\,730 - 26 = 2\,704$.</div>
+
+        <div class="formula-card" style="border-top-color: var(--red-accent);">
+            <h3>4. Les Combinaisons : $\binom{n}{p}$</h3>
+            <p><strong>Propriétés :</strong> Sans Ordre, Sans Répétition.</p>
+            <p><strong>Cadre :</strong> Tirage <strong>simultané</strong> de $p$ éléments parmi $n$. Constitution de groupes, poignées de main.</p>
         </div>
     </div>
 
-    <div class="exo-card exo-3">
-        <div class="exo-title">
-            <div class="exo-icon"><i class="fas fa-sync"></i></div>
-            Exercice 3 : Permutations sous contraintes
+    <div class="focus-section">
+        <h2 style="color: #0f172a; margin-top: 0; margin-bottom: 20px; font-size: 1.6rem; font-weight: 800;"><i class="fas fa-microscope" style="color: var(--indigo-accent); margin-right: 10px;"></i> 2. Focus Théorique : Nombre d'injections (Arrangements)</h2>
+        
+        <p style="font-size: 1.1rem; line-height: 1.6; color: #475569; margin-bottom: 20px;">
+            <strong>Théorème :</strong> Soient $E$ un ensemble à $n$ éléments et $F$ un ensemble à $p$ éléments. Si $n \le p$, le nombre d'applications injectives de $E$ dans $F$ (nombre d'arrangements de $n$ éléments parmi $p$) est :
+        </p>
+        
+        <div style="text-align: center; font-size: 1.4rem; font-weight: 800; color: #0f172a; margin-bottom: 30px; background: #f8fafc; padding: 20px; border-radius: 15px; border: 1px solid #e2e8f0;">
+            $$A_p^n = \frac{p!}{(p-n)!} = p \times (p-1) \times \dots \times (p-n+1)$$
         </div>
-        <div class="context-box">
-            L'ordre spatial des éléments peut obéir à des règles spécifiques.
+        
+        <div style="background: linear-gradient(to right, rgba(16, 185, 129, 0.05), rgba(16, 185, 129, 0.01)); border-left: 4px solid #10b981; padding: 25px; border-radius: 0 15px 15px 0; margin-bottom: 20px;">
+            <h3 style="margin-top:0; color: #059669; font-size: 0.95rem; text-transform: uppercase; font-weight: 800; letter-spacing: 1px;"><i class="fas fa-list-ol"></i> Preuve 1 : Démonstration Combinatoire (Choix successifs)</h3>
+            <p style="margin-bottom: 10px;">Construire une injection de $E = \{x_1, \dots, x_n\}$ vers $F$ nécessite d'attribuer une image unique à chaque élément de $E$ :</p>
+            <ul style="padding-left: 20px; line-height: 1.6; margin-bottom: 15px; color: #334155;">
+                <li>Pour $x_1$, on a le choix parmi les <strong>$p$</strong> éléments de $F$.</li>
+                <li>Pour $x_2$, l'image de $x_1$ étant "consommée", il reste <strong>$p-1$</strong> choix.</li>
+                <li>Pour $x_3$, il reste <strong>$p-2$</strong> choix...</li>
+                <li>Pour le $n$-ième élément $x_n$, il reste <strong>$p - (n-1) = p - n + 1$</strong> choix.</li>
+            </ul>
+            <p style="margin: 0; font-weight: 600; color: #334155;">En multipliant ces choix, on obtient bien : $A_p^n = p(p-1)\dots(p-n+1)$. En multipliant en haut et en bas par $(p-n)!$, on retrouve $\frac{p!}{(p-n)!}$.</p>
         </div>
-        <ul class="questions-list">
-            <li>De combien de façons peut-on asseoir 5 personnes autour d'une table ronde ?</li>
-            <li>Sur une étagère, on veut ranger 4 livres de maths et 3 livres de physique. Rangements possibles ?</li>
-            <li>Combien y a-t-il de rangements si l'on veut que les livres de même matière soient regroupés ?</li>
-            <li>Combien y a-t-il de rangements si l'on veut alterner les matières ?</li>
-            <li>On pioche 4 cartes successives sans remise. Combien forment un code où les couleurs s'alternent strictement ?</li>
-            <li>De combien de façons peut-on disposer 7 clés distinctes sur un anneau porte-clés ?</li>
-        </ul>
-        <button class="toggle-btn" onclick="toggleCorr('corr-3', this)"><i class="fas fa-eye"></i> Afficher le corrigé</button>
-        <div id="corr-3" class="correction-box">
-            <div class="correction-item"><strong>Q1.</strong> Permutation circulaire : $(5-1)! = 4! = 24$.</div>
-            <div class="correction-item"><strong>Q2.</strong> $7! = 5\,040$.</div>
-            <div class="correction-item"><strong>Q3.</strong> $2! \times 4! \times 3! = 288$.</div>
-            <div class="correction-item"><strong>Q4.</strong> $4! \times 3! = 144$.</div>
-            <div class="correction-item"><strong>Q5.</strong> $4! \times 8^4 = 98\,304$.</div>
-            <div class="correction-item"><strong>Q6.</strong> $\frac{(7-1)!}{2} = \frac{720}{2} = 360$.</div>
-        </div>
-    </div>
 
-    <div class="exo-card exo-4">
-        <div class="exo-title">
-            <div class="exo-icon"><i class="fas fa-key"></i></div>
-            Exercice 4 : Mots de passe et Fonctions
+        <div style="background: linear-gradient(to right, rgba(245, 158, 11, 0.1), rgba(245, 158, 11, 0.02)); border-left: 4px solid #f59e0b; padding: 25px; border-radius: 0 15px 15px 0; margin-bottom: 30px;">
+            <h3 style="margin-top:0; color: #b45309; font-size: 0.95rem; text-transform: uppercase; font-weight: 800; letter-spacing: 1px;"><i class="fas fa-stairs"></i> Preuve 2 : Démonstration par Récurrence</h3>
+            <p style="margin-bottom: 10px;">Démontrons par récurrence sur $n$ (le cardinal de $E$) la propriété $H_n : A_p^n = \frac{p!}{(p-n)!}$ pour un $p$ fixé.</p>
+            <ul style="padding-left: 20px; line-height: 1.6; margin-bottom: 0; color: #334155;">
+                <li style="margin-bottom: 10px;"><strong>Initialisation ($n=1$) :</strong> Une injection d'un ensemble à 1 élément vers $F$ revient à choisir un élément parmi $p$. Il y en a $p$. Or, $\frac{p!}{(p-1)!} = p$. $H_1$ est vraie.</li>
+                <li><strong>Hérédité :</strong> Supposons $H_{n-1}$ vraie. Pour créer une injection de $n$ éléments, on place d'abord le $n$-ième élément (il a $p$ choix possibles). Puis on doit injecter les $n-1$ éléments restants dans les $p-1$ éléments restants de $F$.<br>
+                Donc : $A_p^n = p \times A_{p-1}^{n-1}$.<br>
+                Par hypothèse de récurrence : $A_{p-1}^{n-1} = \frac{(p-1)!}{((p-1)-(n-1))!} = \frac{(p-1)!}{(p-n)!}$.<br>
+                En remplaçant : $A_p^n = p \times \frac{(p-1)!}{(p-n)!} = \frac{p \times (p-1)!}{(p-n)!} = \frac{p!}{(p-n)!}$. La propriété est héréditaire.</li>
+            </ul>
         </div>
-        <div class="context-box">
-            On considère des mots de passe de 4 chiffres choisis parmi 0 à 9.
-        </div>
-        <ul class="questions-list">
-            <li>Combien de codes différents peut-on former au total ?</li>
-            <li>Combien de codes sont composés de 4 chiffres distincts ?</li>
-            <li>Combien de codes contiennent au moins une fois le chiffre 7 ?</li>
-            <li>Combien de codes forment un palindrome ?</li>
-            <li>Soit $E = \{1, 2, 3, 4\}$ et $F = \{1, 2, \dots, 10\}$. Nombre d'applications de E vers F ?</li>
-            <li>Nombre d'applications strictement croissantes de E vers F ?</li>
-        </ul>
-        <button class="toggle-btn" onclick="toggleCorr('corr-4', this)"><i class="fas fa-eye"></i> Afficher le corrigé</button>
-        <div id="corr-4" class="correction-box">
-            <div class="correction-item"><strong>Q1.</strong> $10^4 = 10\,000$.</div>
-            <div class="correction-item"><strong>Q2.</strong> $A_{10}^4 = 5\,040$.</div>
-            <div class="correction-item"><strong>Q3.</strong> $10^4 - 9^4 = 3\,439$.</div>
-            <div class="correction-item"><strong>Q4.</strong> $10 \times 10 = 100$.</div>
-            <div class="correction-item"><strong>Q5.</strong> $10^4 = 10\,000$.</div>
-            <div class="correction-item"><strong>Q6.</strong> $\binom{10}{4} = 210$.</div>
-        </div>
-    </div>
 
-    <div class="exo-card exo-5">
-        <div class="exo-title">
-            <div class="exo-icon"><i class="fas fa-layer-group"></i></div>
-            Exercice 5 : Synthèse (Ordre ou pas ordre ?)
-        </div>
-        <div class="context-box">
-            Identifier rapidement s'il faut ordonner ou non est la clé du dénombrement.
-        </div>
-        <ul class="questions-list">
-            <li>Un entraîneur choisit 11 joueurs parmi 22. Combien de choix a-t-il ?</li>
-            <li>De combien de façons l'entraîneur peut-il attribuer 11 maillots numérotés à ces joueurs ?</li>
-            <li>De combien de façons peut-on ranger 5 voitures dans un parking contenant 8 places ?</li>
-            <li>On tire simultanément 3 cartes d'un jeu de 52. Nombre de tirages ?</li>
-            <li>On tire 3 cartes successivement SANS remise d'un jeu de 52. Nombre de tirages ?</li>
-            <li>Combien d'anagrammes du mot <strong>REPERE</strong> existe-t-il ?</li>
-        </ul>
-        <button class="toggle-btn" onclick="toggleCorr('corr-5', this)"><i class="fas fa-eye"></i> Afficher le corrigé</button>
-        <div id="corr-5" class="correction-box">
-            <div class="correction-item"><strong>Q1.</strong> $\binom{22}{11} = 705\,432$.</div>
-            <div class="correction-item"><strong>Q2.</strong> $11! = 39\,916\,800$.</div>
-            <div class="correction-item"><strong>Q3.</strong> $A_8^5 = 6\,720$.</div>
-            <div class="correction-item"><strong>Q4.</strong> $\binom{52}{3} = 22\,100$.</div>
-            <div class="correction-item"><strong>Q5.</strong> $A_{52}^3 = 132\,600$.</div>
-            <div class="correction-item"><strong>Q6.</strong> $\frac{6!}{3! 2! 1!} = 60$.</div>
+        <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 15px; padding: 25px;">
+            <div class="qcm-question" style="font-size: 1.1rem; color: #0f172a; font-weight: 700; margin-bottom: 20px;">
+                <i class="fas fa-horse-head" style="color: #f59e0b; font-size: 1.3rem; margin-right: 8px;"></i> Application : Dans une course de 8 chevaux, on s'intéresse au tiercé dans l'ordre (les 3 premiers chevaux de la course, sans ex-aequo). Combien y a-t-il de tiercés dans l'ordre possibles ?
+            </div>
+            <div class="options-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 15px;">
+                <button class="opt-btn" style="padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px; background: white; cursor: pointer; font-size: 1rem;" onclick="checkQCM(this, false)">A) 512</button>
+                <button class="opt-btn" style="padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px; background: white; cursor: pointer; font-size: 1rem;" onclick="checkQCM(this, false)">B) 56</button>
+                <button class="opt-btn" style="padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px; background: white; cursor: pointer; font-size: 1rem;" onclick="checkQCM(this, true)">C) 336</button>
+                <button class="opt-btn" style="padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px; background: white; cursor: pointer; font-size: 1rem;" onclick="checkQCM(this, false)">D) 24</button>
+            </div>
+            <div class="correction-box-qcm" style="background: rgba(16, 185, 129, 0.1); border-left: 4px solid #10b981; padding: 15px; border-radius: 8px; display: none; color: #064e3b;">
+                <strong>Correction détaillée :</strong> Il s'agit du nombre d'injections d'un ensemble de 3 éléments (les places sur le podium) vers un ensemble de 8 éléments (les chevaux). L'ordre compte et il n'y a pas de répétition. C'est un arrangement :<br>
+                $$A_8^3 = \frac{8!}{(8-3)!} = \frac{8!}{5!} = 8 \times 7 \times 6 = 336$$
+            </div>
         </div>
     </div>
 
     <div class="recap-section">
-        <h2><i class="fas fa-book-open"></i> La Synthèse de Survie : Formules & Réflexes</h2>
-        <p style="color: #cbd5e1; font-size: 1.1rem; margin-bottom: 30px;">Toutes les formules du dénombrement sont construites sur le triptyque : <strong>Ordre ? Répétition ? Éléments distincts ?</strong></p>
+        <h2><i class="fas fa-book-open"></i> 3. La Synthèse : Formules & Réflexes</h2>
+        <p style="color: #cbd5e1; font-size: 1.1rem; margin-bottom: 30px;">La réussite en dénombrement repose sur trois questions à se poser systématiquement : <strong>Ordre ? Répétition ? Éléments distincts ?</strong></p>
 
-        <div class="formula-card">
-            <h3>1. Les p-listes : $n^p$ (Avec Ordre, Avec Répétition)</h3>
-            <p><strong>Cadre :</strong> Tirage successif <strong>avec remise</strong> de $p$ boules parmi $n$.</p>
-        </div>
-
-        <div class="formula-card">
-            <h3>2. Les Arrangements : $A_n^p$ (Avec Ordre, Sans Répétition)</h3>
-            <p><strong>Cadre :</strong> Tirage successif <strong>sans remise</strong> de $p$ boules parmi $n$.</p>
-        </div>
-
-        <div class="formula-card">
-            <h3>3. Les Permutations : $n!$ (Ordre complet)</h3>
-            <p><strong>Cadre :</strong> Ordonnancement de tous les éléments.</p>
-        </div>
-
-        <div class="formula-card">
-            <h3>4. Les Combinaisons : $C_n^p$ ou $\binom{n}{p}$ (Sans Ordre, Sans Répétition)</h3>
-            <p><strong>Cadre :</strong> Tirage <strong>simultané</strong> (ou sous-ensemble) de $p$ éléments parmi $n$.</p>
-        </div>
-
-        <h3 style="color: var(--gold-premium); margin-top: 40px;"><i class="fas fa-hand-paper"></i> Dictionnaire des Tirages Classiques</h3>
+        <h3 style="color: var(--gold-premium); margin-top: 20px;"><i class="fas fa-hand-paper"></i> Dictionnaire des Tirages Classiques</h3>
         <table class="tirage-table">
             <thead>
                 <tr>
@@ -435,27 +413,26 @@
             <tbody>
                 <tr>
                     <td>Successif <strong>AVEC</strong> remise</td>
-                    <td><span class="badge" style="background:#10b981; color:white;">OUI</span></td>
-                    <td><span class="badge" style="background:#10b981; color:white;">OUI</span></td>
+                    <td><span class="badge badge-yes">OUI</span></td>
+                    <td><span class="badge badge-yes">OUI</span></td>
                     <td><strong style="color: #60a5fa; font-size: 1.2rem;">$n^p$</strong> (p-liste)</td>
                 </tr>
                 <tr>
                     <td>Successif <strong>SANS</strong> remise</td>
-                    <td><span class="badge" style="background:#10b981; color:white;">OUI</span></td>
-                    <td><span class="badge" style="background:#ef4444; color:white;">NON</span></td>
+                    <td><span class="badge badge-yes">OUI</span></td>
+                    <td><span class="badge badge-no">NON</span></td>
                     <td><strong style="color: #60a5fa; font-size: 1.2rem;">$A_n^p$</strong> (Arrangement)</td>
                 </tr>
                 <tr>
                     <td>Tirage <strong>SIMULTANÉ</strong> (Poignée)</td>
-                    <td><span class="badge" style="background:#ef4444; color:white;">NON</span></td>
-                    <td><span class="badge" style="background:#ef4444; color:white;">NON</span></td>
+                    <td><span class="badge badge-no">NON</span></td>
+                    <td><span class="badge badge-no">NON</span></td>
                     <td><strong style="color: #60a5fa; font-size: 1.2rem;">$\binom{n}{p}$</strong> (Combinaison)</td>
                 </tr>
             </tbody>
         </table>
 
         <h3 style="color: var(--gold-premium); margin-top: 40px;"><i class="fas fa-search"></i> Réflexe : Mots-clés des énoncés</h3>
-        
         <table class="keyword-table">
             <thead>
                 <tr>
@@ -494,9 +471,147 @@
         </table>
     </div>
 
+    <h2 class="section-title"><i class="fas fa-pencil-alt"></i> 4. Exercices d'Application</h2>
+
+    <div class="exo-card exo-1">
+        <div class="exo-title">
+            <div class="exo-icon"><i class="fas fa-font"></i></div>
+            Exercice 1 : Permutations et Anagrammes
+        </div>
+        <div class="context-box">
+            On s'intéresse aux permutations des lettres pour former des mots (ayant un sens ou non).
+        </div>
+        <ul class="questions-list">
+            <li>Combien d'anagrammes peut-on former avec le mot <strong>MATHS</strong> ?</li>
+            <li>Combien d'anagrammes du mot MATHS commencent par une consonne ?</li>
+            <li>Combien d'anagrammes du mot MATHS ont les lettres M et S côte à côte ?</li>
+            <li>Combien d'anagrammes peut-on former avec le mot <strong>EXCELLENCE</strong> ?</li>
+            <li>Combien d'anagrammes de EXCELLENCE commencent par un E et se terminent par un E ?</li>
+            <li>De combien de façons peut-on asseoir 6 personnes sur un banc de 6 places de sorte que deux personnes fâchées ne soient <strong>pas</strong> assises côte à côte ?</li>
+        </ul>
+        <button class="toggle-btn" onclick="toggleCorr('corr-1', this)"><i class="fas fa-eye"></i> Afficher le corrigé</button>
+        <div id="corr-1" class="correction-box">
+            <div class="correction-item"><strong>Q1.</strong> 5 lettres distinctes à ordonner. C'est une permutation simple : $5! = 120$.</div>
+            <div class="correction-item"><strong>Q2.</strong> Il y a 4 consonnes (M, T, H, S). On choisit la première lettre (4 choix). Puis on permute les 4 lettres restantes : $4 \times 4! = 96$.</div>
+            <div class="correction-item"><strong>Q3.</strong> On "colle" M et S pour former un seul bloc. On permute 4 éléments (le bloc MS, A, T, H) $\implies 4!$. De plus, M et S peuvent s'ordonner de $2!$ façons dans leur bloc. Total : $4! \times 2 = 48$.</div>
+            <div class="correction-item"><strong>Q4.</strong> C'est une permutation avec répétitions de 10 lettres (dont 4 E, 2 C, 2 L). Formule : $\frac{10!}{4! 2! 2! 1! 1!} = 37\,800$.</div>
+            <div class="correction-item"><strong>Q5.</strong> On fixe un E au début et un E à la fin. Il reste 8 lettres à permuter (dont 2 E, 2 C, 2 L). Total : $\frac{8!}{2! 2! 2! 1! 1!} = 5\,040$.</div>
+            <div class="correction-item"><strong>Q6.</strong> Total des placements sans contrainte : $6! = 720$. Nombre de placements où elles sont côte à côte (bloc de 2 personnes) : $5! \times 2 = 240$. Résultat final : $720 - 240 = 480$.</div>
+        </div>
+    </div>
+
+    <div class="exo-card exo-2">
+        <div class="exo-title">
+            <div class="exo-icon"><i class="fas fa-trophy"></i></div>
+            Exercice 2 : Arrangements (Listes ordonnées sans remise)
+        </div>
+        <div class="context-box">
+            Dans une association de 15 membres (8 femmes et 7 hommes), on doit élire un bureau composé d'un Président, d'un Trésorier et d'un Secrétaire.
+        </div>
+        <ul class="questions-list">
+            <li>Combien de bureaux différents peut-on former ?</li>
+            <li>Combien de bureaux peut-on former si le président doit obligatoirement être une femme ?</li>
+            <li>Combien de bureaux peut-on former si les 3 postes doivent être occupés par des personnes du même sexe ?</li>
+            <li>Combien de bureaux contiennent exactement 2 femmes ?</li>
+            <li>On veut attribuer 3 médailles distinctes à 3 des 15 membres. Est-ce le même dénombrement ?</li>
+            <li>Si le président et le trésorier refusent de siéger ensemble (dans le même bureau sur ces postes), combien de bureaux valides peut-on former ?</li>
+        </ul>
+        <button class="toggle-btn" onclick="toggleCorr('corr-2', this)"><i class="fas fa-eye"></i> Afficher le corrigé</button>
+        <div id="corr-2" class="correction-box">
+            <div class="correction-item"><strong>Q1.</strong> L'ordre compte, sans remise : $A_{15}^3 = 15 \times 14 \times 13 = 2\,730$.</div>
+            <div class="correction-item"><strong>Q2.</strong> Choix de la présidente (8), puis choix des 2 autres rôles parmi les 14 restants : $8 \times A_{14}^2 = 8 \times 14 \times 13 = 1\,456$.</div>
+            <div class="correction-item"><strong>Q3.</strong> 3 femmes ou 3 hommes : $A_8^3 + A_7^3 = (8 \times 7 \times 6) + (7 \times 6 \times 5) = 336 + 210 = 546$.</div>
+            <div class="correction-item"><strong>Q4.</strong> Choix des 2 postes pour les femmes ($3$), placement des 2 femmes ($A_8^2$), placement de l'homme sur le poste restant ($7$). Total : $3 \times 7 \times A_8^2 = 3 \times 7 \times (8 \times 7) = 1\,176$.</div>
+            <div class="correction-item"><strong>Q5.</strong> Oui, c'est un arrangement $A_{15}^3$ car les médailles sont distinctes (ordre important) et affectées à 3 personnes différentes (sans remise).</div>
+            <div class="correction-item"><strong>Q6.</strong> Événement contraire (ils sont élus P et T) : $2! \times 13 = 26$ bureaux. Nombre de bureaux valides : $2\,730 - 26 = 2\,704$.</div>
+        </div>
+    </div>
+
+    <div class="exo-card exo-3">
+        <div class="exo-title">
+            <div class="exo-icon"><i class="fas fa-sync"></i></div>
+            Exercice 3 : Permutations sous contraintes
+        </div>
+        <div class="context-box">
+            L'ordre spatial des éléments peut obéir à des règles spécifiques.
+        </div>
+        <ul class="questions-list">
+            <li>De combien de façons peut-on asseoir 5 personnes autour d'une table ronde ?</li>
+            <li>Sur une étagère, on veut ranger 4 livres de maths et 3 livres de physique. Rangements possibles au total ?</li>
+            <li>Combien y a-t-il de rangements si l'on veut que les livres de même matière soient regroupés ?</li>
+            <li>Combien y a-t-il de rangements si l'on veut alterner les matières ?</li>
+            <li>On pioche 4 cartes successives SANS remise dans un jeu standard de 52 cartes (26 Rouges, 26 Noires). Combien de ces codes alternent strictement les couleurs ?</li>
+            <li>De combien de façons peut-on disposer 7 clés distinctes sur un anneau porte-clés ?</li>
+        </ul>
+        <button class="toggle-btn" onclick="toggleCorr('corr-3', this)"><i class="fas fa-eye"></i> Afficher le corrigé</button>
+        <div id="corr-3" class="correction-box">
+            <div class="correction-item"><strong>Q1.</strong> Permutation circulaire : $(5-1)! = 4! = 24$.</div>
+            <div class="correction-item"><strong>Q2.</strong> 7 objets distincts à permuter : $7! = 5\,040$.</div>
+            <div class="correction-item"><strong>Q3.</strong> On a 2 blocs (Maths et Physique). L'ordre des blocs est $2!$. À l'intérieur, les Maths s'ordonnent en $4!$ et la Physique en $3!$. Total : $2! \times 4! \times 3! = 288$.</div>
+            <div class="correction-item"><strong>Q4.</strong> Structure imposée : M P M P M P M. On place les Maths ($4!$) et la Physique ($3!$). Total : $4! \times 3! = 144$.</div>
+            <div class="correction-item"><strong>Q5.</strong> Deux motifs possibles : R-N-R-N ou N-R-N-R. Pour R-N-R-N : $26 \times 26 \times 25 \times 25$. Multiplié par 2 (pour inclure N-R-N-R). Total : $2 \times 26^2 \times 25^2 = 845\,000$.</div>
+            <div class="correction-item"><strong>Q6.</strong> Permutation circulaire avec retournement (l'anneau se retourne) : $\frac{(7-1)!}{2} = \frac{720}{2} = 360$.</div>
+        </div>
+    </div>
+
+    <div class="exo-card exo-4">
+        <div class="exo-title">
+            <div class="exo-icon"><i class="fas fa-key"></i></div>
+            Exercice 4 : Mots de passe et Fonctions
+        </div>
+        <div class="context-box">
+            On considère des mots de passe de 4 chiffres choisis parmi 0 à 9.
+        </div>
+        <ul class="questions-list">
+            <li>Combien de codes différents peut-on former au total ?</li>
+            <li>Combien de codes sont composés de 4 chiffres distincts ?</li>
+            <li>Combien de codes contiennent au moins une fois le chiffre 7 ?</li>
+            <li>Combien de codes forment un palindrome (symétrie centrale, ex: 4224) ?</li>
+            <li>Soit l'ensemble $E = \{1, 2, 3, 4\}$ et $F = \{1, 2, \dots, 10\}$. Quel est le nombre d'applications de E vers F ?</li>
+            <li>Quel est le nombre d'applications strictement croissantes de E vers F ?</li>
+        </ul>
+        <button class="toggle-btn" onclick="toggleCorr('corr-4', this)"><i class="fas fa-eye"></i> Afficher le corrigé</button>
+        <div id="corr-4" class="correction-box">
+            <div class="correction-item"><strong>Q1.</strong> Tirage avec remise (p-liste) de 4 parmi 10 : $10^4 = 10\,000$.</div>
+            <div class="correction-item"><strong>Q2.</strong> Sans répétition (Arrangement) : $A_{10}^4 = 10 \times 9 \times 8 \times 7 = 5\,040$.</div>
+            <div class="correction-item"><strong>Q3.</strong> On utilise le complémentaire ("aucun 7"). Total $-$ codes sans $7$ : $10^4 - 9^4 = 10\,000 - 6\,561 = 3\,439$.</div>
+            <div class="correction-item"><strong>Q4.</strong> Structure <em>abba</em>. Il suffit de choisir les deux premiers chiffres (les deux derniers sont forcés). Total : $10 \times 10 = 100$.</div>
+            <div class="correction-item"><strong>Q5.</strong> Cela correspond à choisir une image dans F pour chaque élément de E. (4 tirages avec remise parmi 10) : $10^4 = 10\,000$.</div>
+            <div class="correction-item"><strong>Q6.</strong> Il suffit de choisir 4 éléments distincts dans F. L'ordre croissant est alors imposé par le choix (un seul arrangement possible par combinaison). Donc : $\binom{10}{4} = 210$.</div>
+        </div>
+    </div>
+
+    <div class="exo-card exo-5">
+        <div class="exo-title">
+            <div class="exo-icon"><i class="fas fa-layer-group"></i></div>
+            Exercice 5 : Synthèse Globale (Ordre ou pas ordre ?)
+        </div>
+        <div class="context-box">
+            Identifier rapidement s'il faut ordonner ou non est la clé du dénombrement en prépa.
+        </div>
+        <ul class="questions-list">
+            <li>Un entraîneur choisit 11 joueurs parmi 22. Combien de choix a-t-il ?</li>
+            <li>De combien de façons l'entraîneur peut-il attribuer 11 maillots distincts numérotés à ces 11 joueurs sélectionnés ?</li>
+            <li>De combien de façons peut-on ranger 5 voitures dans un parking contenant 8 places ?</li>
+            <li>On tire simultanément 3 cartes d'un jeu de 52. Nombre de tirages ?</li>
+            <li>On tire 3 cartes successivement SANS remise d'un jeu de 52. Nombre de tirages ?</li>
+            <li>Combien d'anagrammes distinctes du mot <strong>REPERE</strong> existe-t-il ?</li>
+        </ul>
+        <button class="toggle-btn" onclick="toggleCorr('corr-5', this)"><i class="fas fa-eye"></i> Afficher le corrigé</button>
+        <div id="corr-5" class="correction-box">
+            <div class="correction-item"><strong>Q1.</strong> Constitution d'un groupe, pas d'ordre (Combinaison) : $\binom{22}{11} = 705\,432$.</div>
+            <div class="correction-item"><strong>Q2.</strong> Les joueurs sont déjà choisis. Assigner 11 objets à 11 personnes : Permutation : $11! = 39\,916\,800$.</div>
+            <div class="correction-item"><strong>Q3.</strong> Choix ordonné de 5 places parmi 8 (Arrangement) : $A_8^5 = 8 \times 7 \times 6 \times 5 \times 4 = 6\,720$.</div>
+            <div class="correction-item"><strong>Q4.</strong> Tirage simultané (Combinaison) : $\binom{52}{3} = \frac{52 \times 51 \times 50}{3 \times 2 \times 1} = 22\,100$.</div>
+            <div class="correction-item"><strong>Q5.</strong> Tirage successif sans remise (Arrangement) : $A_{52}^3 = 52 \times 51 \times 50 = 132\,600$.</div>
+            <div class="correction-item"><strong>Q6.</strong> Permutation avec éléments identiques (6 lettres dont 3 E, 2 R, 1 P) : $\frac{6!}{3! 2! 1!} = \frac{720}{12} = 60$.</div>
+        </div>
+    </div>
+
 </div>
 
 <script>
+    // Fonction d'affichage/masquage des corrections classiques
     function toggleCorr(id, btn) {
         var el = document.getElementById(id);
         
@@ -504,10 +619,48 @@
             el.classList.remove('show');
             btn.innerHTML = '<i class="fas fa-eye"></i> Afficher le corrigé';
             btn.style.background = 'var(--navy-dark)';
+            btn.style.color = 'white';
         } else {
             el.classList.add('show');
             btn.innerHTML = '<i class="fas fa-eye-slash"></i> Masquer le corrigé';
             btn.style.background = 'var(--text-light)';
+            btn.style.color = 'white';
+        }
+    }
+
+    // Fonction de vérification interactive du QCM ajouté
+    function checkQCM(btn, isCorrect) {
+        var grid = btn.parentElement;
+        var btns = grid.getElementsByTagName('button');
+        
+        // On désactive tous les boutons une fois qu'on a cliqué
+        for(var i=0; i<btns.length; i++) {
+            btns[i].style.pointerEvents = 'none';
+            btns[i].style.opacity = '0.6';
+            
+            // On met en vert la bonne réponse systématiquement
+            if(btns[i].getAttribute('onclick').indexOf('true') > -1) {
+                btns[i].style.backgroundColor = '#10b981';
+                btns[i].style.color = 'white';
+                btns[i].style.borderColor = '#10b981';
+                btns[i].style.opacity = '1';
+                btns[i].style.fontWeight = 'bold';
+            }
+        }
+        
+        // Si l'utilisateur a cliqué sur une mauvaise réponse, on la met en rouge
+        if(!isCorrect) {
+            btn.style.backgroundColor = '#ef4444';
+            btn.style.color = 'white';
+            btn.style.borderColor = '#ef4444';
+            btn.style.opacity = '1';
+        }
+        
+        // Affichage de la correction
+        var corr = grid.nextElementSibling;
+        if(corr && corr.classList.contains('correction-box-qcm')) {
+            corr.style.display = 'block';
+            corr.style.animation = 'fadeIn 0.5s ease';
         }
     }
 </script>
