@@ -3,13 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dénombrement - Entraînement C(n,p)</title>
+    <title>Dénombrement - Prépa PCSI</title>
     
     <script>
         MathJax = {
             tex: {
                 inlineMath: [['$', '$']],
-                displayMath: [['$$', '$$']]
+                displayMath: [['$$', '$$']],
+                // Définition des macros pour que \llbracket et \rrbracket s'affichent correctement
+                macros: {
+                    llbracket: '[\\![',
+                    rrbracket: ']\\!]'
+                }
             }
         };
     </script>
@@ -45,12 +50,12 @@
         }
 
         .hero-banner {
-            background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+            background: linear-gradient(135deg, var(--navy-dark) 0%, #1e3a8a 100%);
             border-radius: 20px;
             padding: 50px 30px;
             color: white;
             text-align: center;
-            box-shadow: 0 20px 40px rgba(30, 41, 59, 0.2);
+            box-shadow: 0 20px 40px rgba(30, 58, 138, 0.2);
             margin-bottom: 40px;
             position: relative;
             overflow: hidden;
@@ -173,13 +178,13 @@
             border-radius: 15px;
         }
 
-        .fade-in {
-            animation: fadeIn 0.4s ease;
-        }
-
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(-10px); }
             to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.4s ease;
         }
 
         .correction-item {
@@ -204,6 +209,8 @@
         .exo-4 { border-top-color: var(--orange-accent); }
         .exo-4 .exo-icon { background: rgba(245, 158, 11, 0.1); color: var(--orange-accent); }
 
+        .exo-5 { border-top-color: var(--green-accent); }
+        .exo-5 .exo-icon { background: rgba(16, 185, 129, 0.1); color: var(--green-accent); }
     </style>
 </head>
 <body>
@@ -212,173 +219,171 @@
     
     <div class="hero-banner">
         <span style="background: rgba(255,255,255,0.2); padding: 5px 15px; border-radius: 20px; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; font-weight: 700; display: inline-block; margin-bottom: 15px;">Mathématiques - Tronc Commun</span>
-        <h1>Entraînement : Formules et Sommes</h1>
-        <p>Propriétés des coefficients binomiaux, Binôme de Newton, Identité de Vandermonde</p>
+        <h1>Travaux Dirigés : Dénombrement</h1>
+        <p>Ensembles, applications, combinaisons et anagrammes (Niveau MPSI/PCSI/PTSI)</p>
     </div>
 
     <div class="exo-card exo-1">
         <div class="exo-title">
-            <div class="exo-icon"><i class="fas fa-book-open"></i></div>
-            Exercice 1 : Démonstrations fondamentales
+            <div class="exo-icon"><i class="fas fa-box-open"></i></div>
+            Exercice 1 : Tirages classiques (Boules et Urnes)
         </div>
         <div class="context-box">
-            Soient $n$ et $p$ des entiers naturels. Rappelons que par définition analytique, pour $0 \le p \le n$, on a : $\binom{n}{p} = \frac{n!}{p!(n-p)!}$.
+            Une urne contient 15 boules indiscernables au toucher : <strong>8 rouges, 5 bleues et 2 vertes</strong>. On tire 5 boules de cette urne.
         </div>
         <ul class="questions-list">
-            <li>Démontrer algébriquement la propriété de <strong>symétrie</strong> : $\binom{n}{p} = \binom{n}{n-p}$ pour $0 \le p \le n$. Donner une interprétation combinatoire.</li>
-            <li>Démontrer la <strong>formule du pion</strong> (ou formule d'absorption) : $p \binom{n}{p} = n \binom{n-1}{p-1}$ pour $1 \le p \le n$.</li>
-            <li>En utilisant la définition factorielle, démontrer la <strong>relation de Pascal</strong> : $\binom{n}{p} + \binom{n}{p+1} = \binom{n+1}{p+1}$ (pour $0 \le p \le n-1$).</li>
+            <li>On tire simultanément 5 boules. Quel est le nombre total de tirages possibles ?</li>
+            <li>On tire simultanément 5 boules. Combien de tirages contiennent exactement 2 rouges et 2 bleues ?</li>
+            <li>On tire simultanément 5 boules. Combien de tirages contiennent au moins une boule verte ?</li>
+            <li>On tire successivement et <strong>sans remise</strong> 5 boules. Quel est le nombre total de tirages ?</li>
+            <li>On tire successivement et <strong>avec remise</strong> 5 boules. Quel est le nombre total de tirages ?</li>
+            <li>Dans un tirage successif <strong>avec remise</strong> de 5 boules, combien de tirages comportent exactement 3 boules rouges ?</li>
         </ul>
-        <button class="toggle-btn" onclick="toggleCor(this)">
-            <i class="fas fa-eye"></i> Afficher la correction
+        <button class="toggle-btn" onclick="toggleCor('corr-1', this)">
+            <i class="fas fa-eye"></i> Afficher le corrigé détaillé
         </button>
-        <div class="correction-box">
-            <div class="correction-item"><strong>Q1. Symétrie :</strong><br>
-            Algébriquement : $\binom{n}{n-p} = \frac{n!}{(n-p)!(n-(n-p))!} = \frac{n!}{(n-p)!p!} = \binom{n}{p}$.<br>
-            Combinatoirement : Choisir un sous-ensemble de $p$ éléments parmi $n$ revient exactement à choisir les $n-p$ éléments que l'on <em>exclut</em> du sous-ensemble. Il y a donc une bijection entre les parties à $p$ éléments et les parties à $n-p$ éléments.</div>
-            
-            <div class="correction-item"><strong>Q2. Formule du pion :</strong><br>
-            On part du membre de gauche : $p \binom{n}{p} = p \frac{n!}{p!(n-p)!}$.<br>
-            Comme $p! = p \times (p-1)!$, on simplifie par $p$ : $p \binom{n}{p} = \frac{n!}{(p-1)!(n-p)!}$.<br>
-            On factorise $n! = n \times (n-1)!$ pour faire apparaître $\binom{n-1}{p-1}$ :<br>
-            $p \binom{n}{p} = n \frac{(n-1)!}{(p-1)!((n-1)-(p-1))!} = n \binom{n-1}{p-1}$.</div>
-            
-            <div class="correction-item"><strong>Q3. Relation de Pascal :</strong><br>
-            $\binom{n}{p} + \binom{n}{p+1} = \frac{n!}{p!(n-p)!} + \frac{n!}{(p+1)!(n-p-1)!}$.<br>
-            On met au même dénominateur, qui est $(p+1)!(n-p)!$.<br>
-            - Pour le premier terme, on multiplie haut et bas par $(p+1)$.<br>
-            - Pour le second terme, on multiplie haut et bas par $(n-p)$.<br>
-            $\frac{n!(p+1)}{(p+1)!(n-p)!} + \frac{n!(n-p)}{(p+1)!(n-p)!} = \frac{n!(p+1+n-p)}{(p+1)!(n-p)!} = \frac{n!(n+1)}{(p+1)!(n-p)!}$.<br>
-            Ce qui donne bien $\frac{(n+1)!}{(p+1)!((n+1)-(p+1))!} = \binom{n+1}{p+1}$.</div>
+        <div id="corr-1" class="correction-box">
+            <div class="correction-item"><strong>Q1.</strong> Tirage simultané (non ordonné, sans remise) de 5 boules parmi 15. C'est une combinaison : $$\binom{15}{5} = \frac{15!}{5!10!} = 3003$$</div>
+            <div class="correction-item"><strong>Q2.</strong> Il faut choisir 2 rouges parmi 8, 2 bleues parmi 5, et la dernière boule doit nécessairement être l'unique boule verte restante (pour compléter à 5). Par principe multiplicatif : $$\binom{8}{2} \times \binom{5}{2} \times \binom{2}{1} = 28 \times 10 \times 2 = 560$$</div>
+            <div class="correction-item"><strong>Q3.</strong> On passe par l'événement contraire : "N'obtenir aucune boule verte". Cela revient à tirer 5 boules parmi les 13 autres (rouges et bleues). Total - Contraire = $$\binom{15}{5} - \binom{13}{5} = 3003 - 1287 = 1716$$</div>
+            <div class="correction-item"><strong>Q4.</strong> Tirage successif sans remise (ordonné, sans répétition). C'est un arrangement : $$A_{15}^5 = \frac{15!}{(15-5)!} = 15 \times 14 \times 13 \times 12 \times 11 = 360\,360$$</div>
+            <div class="correction-item"><strong>Q5.</strong> Tirage successif avec remise (ordonné, avec répétition). C'est une $p$-liste : $$15^5 = 759\,375$$</div>
+            <div class="correction-item"><strong>Q6.</strong> Il faut d'abord choisir la *place* des 3 boules rouges parmi les 5 tirages ($\binom{5}{3}$ choix). Pour ces 3 places, on tire une rouge (8 choix par place, avec remise). Pour les 2 autres places, on tire une non-rouge (7 choix par place). Total : $$\binom{5}{3} \times 8^3 \times 7^2 = 10 \times 512 \times 49 = 250\,880$$</div>
         </div>
     </div>
 
     <div class="exo-card exo-2">
         <div class="exo-title">
-            <div class="exo-icon"><i class="fas fa-plus"></i></div>
-            Exercice 2 : Sommes classiques et Binôme de Newton
+            <div class="exo-icon"><i class="fas fa-font"></i></div>
+            Exercice 2 : Permutations avec répétitions (Anagrammes)
         </div>
         <div class="context-box">
-            On rappelle la formule du Binôme de Newton : $(a+b)^n = \sum_{k=0}^n \binom{n}{k} a^k b^{n-k}$.
+            On s'intéresse aux anagrammes du mot <strong>MISSISSIPPI</strong>. Ce mot est composé de 11 lettres : 1 'M', 4 'I', 4 'S' et 2 'P'.
         </div>
         <ul class="questions-list">
-            <li>Calculer $S_1 = \sum_{k=0}^n \binom{n}{k}$.</li>
-            <li>Calculer $S_2 = \sum_{k=0}^n (-1)^k \binom{n}{k}$ (pour $n \ge 1$).</li>
-            <li>En déduire la valeur de la somme des termes de rang pair $\sum_{k=0}^{\lfloor n/2 \rfloor} \binom{n}{2k}$ et de rang impair $\sum_{k=0}^{\lfloor (n-1)/2 \rfloor} \binom{n}{2k+1}$.</li>
+            <li>Combien d'anagrammes distinctes peut-on former avec ce mot ?</li>
+            <li>Combien d'anagrammes commencent par la lettre 'M' ?</li>
+            <li>Combien d'anagrammes comportent les 4 lettres 'S' consécutives ?</li>
+            <li>Combien d'anagrammes comportent les 2 lettres 'P' séparées (non adjacentes) ?</li>
+            <li>Combien d'anagrammes existent si l'on impose de garder les consonnes (M, S, S, S, S, P, P) dans leur ordre alphabétique strict d'apparition ?</li>
+            <li>Combien d'anagrammes permettent aux 4 'I' d'être tous séparés par au moins une consonne ?</li>
         </ul>
-        <button class="toggle-btn" onclick="toggleCor(this)">
-            <i class="fas fa-eye"></i> Afficher la correction
+        <button class="toggle-btn" onclick="toggleCor('corr-2', this)">
+            <i class="fas fa-eye"></i> Afficher le corrigé détaillé
         </button>
-        <div class="correction-box">
-            <div class="correction-item"><strong>Q1. Somme totale :</strong><br>
-            On applique la formule du Binôme avec $a=1$ et $b=1$.<br>
-            $(1+1)^n = \sum_{k=0}^n \binom{n}{k} 1^k 1^{n-k} \implies \sum_{k=0}^n \binom{n}{k} = 2^n$.<br>
-            <em>Interprétation : La somme des cardinaux des sous-ensembles de toutes tailles donne le cardinal de l'ensemble des parties $\mathcal{P}(E)$.</em></div>
-            
-            <div class="correction-item"><strong>Q2. Somme alternée :</strong><br>
-            On applique la formule du Binôme avec $a=-1$ et $b=1$.<br>
-            $(-1+1)^n = \sum_{k=0}^n \binom{n}{k} (-1)^k 1^{n-k} \implies \sum_{k=0}^n (-1)^k \binom{n}{k} = 0^n = 0$ (car $n \ge 1$).</div>
-            
-            <div class="correction-item"><strong>Q3. Séparation pairs/impairs :</strong><br>
-            Notons $P$ la somme des termes d'indices pairs, et $I$ la somme des termes d'indices impairs.<br>
-            D'après Q1 : $P + I = 2^n$.<br>
-            D'après Q2 : $P - I = 0 \implies P = I$.<br>
-            En résolvant ce petit système, on obtient $2P = 2^n \implies P = I = 2^{n-1}$.<br>
-            Conclusion : $\sum_{k \text{ pair}} \binom{n}{k} = \sum_{k \text{ impair}} \binom{n}{k} = 2^{n-1}$.</div>
+        <div id="corr-2" class="correction-box">
+            <div class="correction-item"><strong>Q1.</strong> Il y a 11 lettres à permuter, avec des éléments indiscernables. Formule des permutations avec répétitions : $$\frac{11!}{1! \times 4! \times 4! \times 2!} = 34\,650$$</div>
+            <div class="correction-item"><strong>Q2.</strong> La première lettre est fixée au 'M'. Il reste 10 lettres à permuter (4 'I', 4 'S', 2 'P') : $$\frac{10!}{4! \times 4! \times 2!} = 3\,150$$</div>
+            <div class="correction-item"><strong>Q3.</strong> On "colle" les 4 'S' ensemble pour former une super-lettre unique. On doit alors permuter 8 entités (la super-lettre, 1 M, 4 I, 2 P) : $$\frac{8!}{1! \times 4! \times 2! \times 1!} = 840$$</div>
+            <div class="correction-item"><strong>Q4.</strong> Total - (cas où les 'P' sont collés). Si les 'P' sont collés (super-lettre), on permute 10 entités : $\frac{10!}{4! \times 4! \times 1! \times 1!} = 6\,300$. <br>Résultat : $34\,650 - 6\,300 = 28\,350$.</div>
+            <div class="correction-item"><strong>Q5.</strong> Les 7 consonnes ont un ordre relatif imposé. Il suffit de choisir les 7 places de ces consonnes parmi les 11 places disponibles, ce qui fixe leur disposition. Les 4 'I' s'installent sur les places restantes. $$\binom{11}{7} \times 1 = \frac{11!}{7!4!} = 330$$</div>
+            <div class="correction-item"><strong>Q6.</strong> On dispose d'abord les 7 consonnes en ligne (sans se soucier de l'identité exacte). Ces 7 consonnes créent 8 "espaces" (avant, entre, et après). On doit choisir 4 espaces parmi ces 8 pour y placer les 'I' ($\binom{8}{4}$ choix). Ensuite, on permute les consonnes sur leurs places allouées ($\frac{7!}{1!4!2!}$ façons).<br>Total : $$\binom{8}{4} \times \frac{7!}{1!4!2!} = 70 \times 105 = 7\,350$$</div>
         </div>
     </div>
 
     <div class="exo-card exo-3">
         <div class="exo-title">
-            <div class="exo-icon"><i class="fas fa-wave-square"></i></div>
-            Exercice 3 : L'astuce de la dérivation et de l'intégration
+            <div class="exo-icon"><i class="fas fa-project-diagram"></i></div>
+            Exercice 3 : Dénombrement d'applications
         </div>
         <div class="context-box">
-            Soit la fonction polynomiale $P(x) = (1+x)^n = \sum_{k=0}^n \binom{n}{k} x^k$.
+            Soient $E$ et $F$ deux ensembles finis non vides de cardinaux respectifs $n$ et $p$.
         </div>
         <ul class="questions-list">
-            <li>En dérivant $P(x)$, calculer la somme $A = \sum_{k=0}^n k \binom{n}{k}$.</li>
-            <li>En intégrant $P(x)$ sur un intervalle bien choisi, calculer la somme $B = \sum_{k=0}^n \frac{1}{k+1} \binom{n}{k}$.</li>
-            <li><em>Bonus :</em> Retrouver la somme $A$ en utilisant uniquement la formule du pion vue dans l'Exercice 1.</li>
+            <li>Quel est le nombre total d'applications $f: E \to F$ ?</li>
+            <li>On suppose $n \le p$. Quel est le nombre d'applications injectives de $E$ dans $F$ ?</li>
+            <li>On suppose $n = p$. Quel est le nombre d'applications bijectives (bijections) de $E$ sur $F$ ?</li>
+            <li>Soit $A$ un sous-ensemble de $E$ de cardinal $a$ ($a \le n$). Combien d'applications $f: E \to F$ sont constantes sur $A$ ?</li>
+            <li>On pose $E = \llbracket 1, p \rrbracket$ et $F = \llbracket 1, n \rrbracket$ avec $p \le n$. Combien y a-t-il d'applications strictement croissantes de $E$ dans $F$ ?</li>
+            <li>Dans le même cadre ($E = \llbracket 1, p \rrbracket$ et $F = \llbracket 1, n \rrbracket$), combien y a-t-il d'applications croissantes (au sens large) ?</li>
         </ul>
-        <button class="toggle-btn" onclick="toggleCor(this)">
-            <i class="fas fa-eye"></i> Afficher la correction
+        <button class="toggle-btn" onclick="toggleCor('corr-3', this)">
+            <i class="fas fa-eye"></i> Afficher le corrigé détaillé
         </button>
-        <div class="correction-box">
-            <div class="correction-item"><strong>Q1. Calcul par dérivation :</strong><br>
-            On dérive $P(x)$ par rapport à $x$ de deux manières différentes.<br>
-            D'une part : $P'(x) = n(1+x)^{n-1}$.<br>
-            D'autre part : $P'(x) = \sum_{k=1}^n k \binom{n}{k} x^{k-1}$. (On peut commencer à $k=1$ car la dérivée de la constante vaut 0).<br>
-            En évaluant en $x=1$, on obtient : $\sum_{k=1}^n k \binom{n}{k} 1^{k-1} = n(1+1)^{n-1}$.<br>
-            Donc $A = n 2^{n-1}$.</div>
-            
-            <div class="correction-item"><strong>Q2. Calcul par intégration :</strong><br>
-            On intègre $P(t)$ entre $0$ et $x$ : $\int_0^x (1+t)^n dt = \left[ \frac{(1+t)^{n+1}}{n+1} \right]_0^x = \frac{(1+x)^{n+1} - 1}{n+1}$.<br>
-            D'autre part : $\int_0^x \left(\sum_{k=0}^n \binom{n}{k} t^k\right) dt = \sum_{k=0}^n \binom{n}{k} \frac{x^{k+1}}{k+1}$.<br>
-            On évalue en $x=1$ pour retrouver la somme demandée :<br>
-            $B = \sum_{k=0}^n \frac{1}{k+1} \binom{n}{k} = \frac{2^{n+1} - 1}{n+1}$.</div>
-
-            <div class="correction-item"><strong>Q3. Méthode alternative (Formule du pion) :</strong><br>
-            $A = \sum_{k=0}^n k \binom{n}{k} = \sum_{k=1}^n k \binom{n}{k}$.<br>
-            D'après la formule du pion, $k \binom{n}{k} = n \binom{n-1}{k-1}$.<br>
-            $A = \sum_{k=1}^n n \binom{n-1}{k-1} = n \sum_{k=1}^n \binom{n-1}{k-1}$.<br>
-            On pose $j = k-1$. Quand $k$ va de $1$ à $n$, $j$ va de $0$ à $n-1$.<br>
-            $A = n \sum_{j=0}^{n-1} \binom{n-1}{j}$. En reconnaissant le Binôme de Newton $(1+1)^{n-1}$, on trouve : $A = n 2^{n-1}$.</div>
+        <div id="corr-3" class="correction-box">
+            <div class="correction-item"><strong>Q1.</strong> Pour chacun des $n$ éléments de $E$, on doit choisir une image parmi les $p$ éléments de $F$. Il y a donc $\underbrace{p \times p \times \dots \times p}_{n \text{ fois}} = p^n$ applications.</div>
+            <div class="correction-item"><strong>Q2.</strong> Pour qu'une application soit injective, les images doivent être distinctes. C'est un choix ordonné sans remise de $n$ éléments parmi $p$ : $$A_p^n = \frac{p!}{(p-n)!}$$</div>
+            <div class="correction-item"><strong>Q3.</strong> Si $n=p$, une injection est automatiquement une bijection (et réciproquement en dimension finie). Le nombre est donc $A_n^n = n!$ (permutations de l'ensemble).</div>
+            <div class="correction-item"><strong>Q4.</strong> Il faut d'abord choisir l'image unique attribuée à tous les éléments de $A$ ($p$ choix possibles dans $F$). Ensuite, pour les $n-a$ éléments restants de $E \setminus A$, on choisit librement leur image ($p^{n-a}$ choix). Total : $$p \times p^{n-a} = p^{n-a+1}$$</div>
+            <div class="correction-item"><strong>Q5.</strong> Définir une application strictement croissante revient exclusivement à choisir l'ensemble de ses $p$ images distinctes dans $F$. En effet, une fois ces $p$ images sélectionnées, il n'y a qu'<strong>une seule</strong> façon de les ordonner pour respecter la stricte croissance. Le nombre est : $$\binom{n}{p}$$</div>
+            <div class="correction-item"><strong>Q6.</strong> C'est le principe des combinaisons avec répétition (ou astuce de l'application $g(x) = f(x) + x - 1$ qui est strictement croissante). Choisir $p$ images avec répétitions possibles parmi $n$ équivaut à : $$\Gamma_n^p = \binom{n+p-1}{p}$$</div>
         </div>
     </div>
 
     <div class="exo-card exo-4">
         <div class="exo-title">
-            <div class="exo-icon"><i class="fas fa-layer-group"></i></div>
-            Exercice 4 : Formule de Vandermonde
+            <div class="exo-icon"><i class="fas fa-clone"></i></div>
+            Exercice 4 : Les cartes (Inclusion-Exclusion)
         </div>
         <div class="context-box">
-            Soient $n, m, p$ des entiers naturels avec $p \le n+m$.
+            On tire simultanément une "main" de 5 cartes dans un jeu de 32 cartes (8 hauteurs : 7, 8, 9, 10, V, D, R, As ; et 4 couleurs : Pique, Cœur, Carreau, Trèfle).
         </div>
         <ul class="questions-list">
-            <li>Développer le produit $(1+x)^n \times (1+x)^m$ de deux façons différentes pour démontrer l'identité de Vandermonde : $\sum_{k=0}^p \binom{n}{k}\binom{m}{p-k} = \binom{n+m}{p}$.<br><em>(Convention : $\binom{n}{k} = 0$ si $k > n$)</em></li>
-            <li>Donner une démonstration combinatoire de cette même formule.</li>
-            <li>En déduire une forme simplifiée de la somme : $\sum_{k=0}^n \binom{n}{k}^2$.</li>
+            <li>Combien de mains différentes existe-t-il au total ?</li>
+            <li>Combien de mains contiennent exactement un "Carré" (4 cartes de même hauteur) ?</li>
+            <li>Combien de mains constituent un "Full" (exactement 3 cartes de même hauteur + 2 cartes d'une autre hauteur) ?</li>
+            <li>Combien de mains contiennent exactement 2 Paires de hauteurs différentes (sans faire de Full) ?</li>
+            <li>Combien de mains forment une "Couleur" (5 cartes de la même couleur / famille) ?</li>
+            <li>Combien de mains contiennent au moins un As OU au moins un Cœur ?</li>
         </ul>
-        <button class="toggle-btn" onclick="toggleCor(this)">
-            <i class="fas fa-eye"></i> Afficher la correction
+        <button class="toggle-btn" onclick="toggleCor('corr-4', this)">
+            <i class="fas fa-eye"></i> Afficher le corrigé détaillé
         </button>
-        <div class="correction-box">
-            <div class="correction-item"><strong>Q1. Preuve analytique (Polynômes) :</strong><br>
-            D'une part, $(1+x)^n (1+x)^m = (1+x)^{n+m}$. Le coefficient de $x^p$ dans ce développement est $\binom{n+m}{p}$.<br>
-            D'autre part, en utilisant le produit de Cauchy de deux sommes :<br>
-            $\left(\sum_{i=0}^n \binom{n}{i} x^i \right) \left(\sum_{j=0}^m \binom{m}{j} x^j \right) = \sum_{p=0}^{n+m} \left( \sum_{k=0}^p \binom{n}{k}\binom{m}{p-k} \right) x^p$.<br>
-            Par unicité des coefficients d'un polynôme, en identifiant le terme en $x^p$ des deux expressions, on obtient $\sum_{k=0}^p \binom{n}{k}\binom{m}{p-k} = \binom{n+m}{p}$.</div>
-            
-            <div class="correction-item"><strong>Q2. Preuve combinatoire :</strong><br>
-            Imaginons une urne contenant $n$ boules rouges et $m$ boules bleues (soit $n+m$ boules au total). On souhaite tirer simultanément $p$ boules de cette urne.<br>
-            - Nombre total de tirages possibles : $\binom{n+m}{p}$.<br>
-            - On peut classifier ces tirages selon le nombre $k$ de boules rouges tirées ($0 \le k \le p$). Si l'on tire $k$ boules rouges (parmi $n$), on doit compléter avec $p-k$ boules bleues (parmi $m$). Pour un $k$ fixé, il y a $\binom{n}{k}\binom{m}{p-k}$ tirages. En sommant sur tous les $k$ possibles, on retrouve le total $\binom{n+m}{p}$.</div>
-            
-            <div class="correction-item"><strong>Q3. Application :</strong><br>
-            Pour calculer $\sum_{k=0}^n \binom{n}{k}^2$, on utilise l'identité de Vandermonde avec $m = n$ et $p = n$.<br>
-            La somme devient $\sum_{k=0}^n \binom{n}{k}\binom{n}{n-k}$.<br>
-            Or, par symétrie, $\binom{n}{n-k} = \binom{n}{k}$. L'expression est donc exactement $\sum_{k=0}^n \binom{n}{k}^2$.<br>
-            D'après Vandermonde, le résultat est $\binom{n+n}{n} = \binom{2n}{n}$.</div>
+        <div id="corr-4" class="correction-box">
+            <div class="correction-item"><strong>Q1.</strong> C'est un sous-ensemble non ordonné de 5 éléments parmi 32 : $$\binom{32}{5} = 201\,376$$</div>
+            <div class="correction-item"><strong>Q2.</strong> On choisit la hauteur du Carré (8 possibilités). Les 4 cartes de cette hauteur sont prises. Reste à choisir 1 carte parmi les 28 cartes restantes du jeu pour compléter la main : $$8 \times \binom{28}{1} = 224$$</div>
+            <div class="correction-item"><strong>Q3.</strong> On choisit la hauteur du Brelan (8 possibilités), puis 3 couleurs parmi 4 pour ce brelan. Ensuite, on choisit la hauteur de la Paire (7 possibilités restantes), puis 2 couleurs parmi 4. Total : $$8 \times \binom{4}{3} \times 7 \times \binom{4}{2} = 8 \times 4 \times 7 \times 6 = 1\,344$$</div>
+            <div class="correction-item"><strong>Q4.</strong> On choisit les 2 hauteurs des paires <em>simultanément</em> pour éviter les doublons d'ordre : $\binom{8}{2}$. Pour chaque hauteur, on choisit 2 couleurs : $\binom{4}{2}^2$. On choisit la dernière carte parmi les 24 cartes restantes (qui ne sont d'aucune des 2 hauteurs choisies). Total : $$\binom{8}{2} \times \binom{4}{2}^2 \times 24 = 28 \times 36 \times 24 = 24\,192$$</div>
+            <div class="correction-item"><strong>Q5.</strong> On choisit la famille (4 possibilités : Pique, Cœur, Carreau, Trèfle). Puis on choisit 5 cartes parmi les 8 de cette famille : $$4 \times \binom{8}{5} = 4 \times 56 = 224$$</div>
+            <div class="correction-item"><strong>Q6.</strong> On utilise l'événement contraire : "La main ne contient NI As NI Cœur". Les cartes "As ou Cœur" sont au nombre de 11 (4 As + 8 Cœurs - 1 As de Cœur). Les cartes restantes sont 32 - 11 = 21. Total - Contraire = $$\binom{32}{5} - \binom{21}{5} = 201\,376 - 20\,349 = 181\,027$$</div>
+        </div>
+    </div>
+
+    <div class="exo-card exo-5">
+        <div class="exo-title">
+            <div class="exo-icon"><i class="fas fa-asterisk"></i></div>
+            Exercice 5 : Équations et combinaisons avec répétition
+        </div>
+        <div class="context-box">
+            Soient $n$ et $p$ deux entiers naturels non nuls. On s'intéresse aux systèmes d'équations diophantiennes linéaires.
+        </div>
+        <ul class="questions-list">
+            <li>Déterminer le nombre de $p$-uplets $(x_1, \dots, x_p) \in \mathbb{N}^p$ solutions de l'équation $x_1 + x_2 + \dots + x_p = n$.</li>
+            <li>Déterminer le nombre de $p$-uplets $(x_1, \dots, x_p) \in (\mathbb{N}^*)^p$ (entiers strictement positifs) solutions de $x_1 + x_2 + \dots + x_p = n$ (avec $n \ge p$).</li>
+            <li>Application : De combien de façons peut-on distribuer 20 pièces d'or <strong>identiques</strong> à 4 pirates ?</li>
+            <li>Application : De combien de façons peut-on distribuer ces 20 pièces identiques si chaque pirate exige de recevoir au moins 2 pièces ?</li>
+            <li>Dénombrer le nombre de monômes $X_1^{\alpha_1} X_2^{\alpha_2} \dots X_n^{\alpha_n}$ de degré total exact $d$ à $n$ variables.</li>
+            <li>Déterminer le nombre de $n$-uplets $(x_1, \dots, x_n) \in \mathbb{N}^n$ tels que $\sum_{i=1}^n x_i \le k$ (où $k \in \mathbb{N}$).</li>
+        </ul>
+        <button class="toggle-btn" onclick="toggleCor('corr-5', this)">
+            <i class="fas fa-eye"></i> Afficher le corrigé détaillé
+        </button>
+        <div id="corr-5" class="correction-box">
+            <div class="correction-item"><strong>Q1.</strong> C'est la méthode des "étoiles et des barres" (stars and bars). On aligne $n$ éléments (le total à répartir) séparés par $p-1$ barres (qui délimitent $p$ compartiments). Le nombre d'arrangements de ces symboles est : $$\binom{n+p-1}{p-1} \quad \text{ou} \quad \binom{n+p-1}{n}$$</div>
+            <div class="correction-item"><strong>Q2.</strong> On pose le changement de variable $y_i = x_i - 1$. Comme $x_i \ge 1$, on a $y_i \in \mathbb{N}$. L'équation devient $\sum_{i=1}^p (y_i + 1) = n \iff \sum_{i=1}^p y_i = n - p$. D'après la question 1, le nombre de solutions est : $$\binom{(n-p)+p-1}{p-1} = \binom{n-1}{p-1}$$</div>
+            <div class="correction-item"><strong>Q3.</strong> C'est exactement l'équation $x_1 + x_2 + x_3 + x_4 = 20$ avec $x_i \in \mathbb{N}$ (les pièces sont identiques, seul leur nombre par pirate compte). Ici $n=20$ et $p=4$. $$\binom{20+4-1}{4-1} = \binom{23}{3} = 1771$$</div>
+            <div class="correction-item"><strong>Q4.</strong> On donne d'abord 2 pièces à chacun des 4 pirates. Il reste $20 - (4 \times 2) = 12$ pièces à distribuer sans restriction. Soit l'équation $y_1 + y_2 + y_3 + y_4 = 12$ dans $\mathbb{N}$. $$\binom{12+4-1}{4-1} = \binom{15}{3} = 455$$</div>
+            <div class="correction-item"><strong>Q5.</strong> Un monôme de degré total $d$ s'écrit avec $\alpha_1 + \dots + \alpha_n = d$ et $\alpha_i \in \mathbb{N}$. C'est l'équation de la Q1 avec $p=n$ et le total $d$. Le nombre de monômes est donc : $$\binom{d+n-1}{n-1}$$</div>
+            <div class="correction-item"><strong>Q6.</strong> L'inégalité $\sum x_i \le k$ peut être transformée en égalité en introduisant une variable d'écart (slack variable) $x_{n+1} \in \mathbb{N}$ telle que $\sum_{i=1}^n x_i + x_{n+1} = k$. Le problème se ramène à trouver le nombre de solutions dans $\mathbb{N}^{n+1}$ d'une équation de somme $k$. Résultat : $$\binom{k+(n+1)-1}{(n+1)-1} = \binom{k+n}{n}$$</div>
         </div>
     </div>
 
 </div>
 
 <script>
-    function toggleCor(btn) {
-        // Cible le bloc de correction qui suit immédiatement le bouton
-        const correctionBlock = btn.nextElementSibling;
+    function toggleCor(targetId, btn) {
+        const correctionBlock = document.getElementById(targetId);
         
-        // Alterne l'affichage
+        if (!correctionBlock) return;
+        
         if (correctionBlock.style.display === "block") {
             correctionBlock.style.display = "none";
-            btn.innerHTML = '<i class="fas fa-eye"></i> Afficher la correction';
+            correctionBlock.classList.remove("fade-in"); 
+            btn.innerHTML = '<i class="fas fa-eye"></i> Afficher le corrigé détaillé';
         } else {
             correctionBlock.style.display = "block";
-            // Ajoute la classe d'animation que tu as déjà prévue dans ton CSS
             correctionBlock.classList.add("fade-in"); 
-            btn.innerHTML = '<i class="fas fa-eye-slash"></i> Masquer la correction';
+            btn.innerHTML = '<i class="fas fa-eye-slash"></i> Masquer le corrigé détaillé';
         }
     }
 </script>
