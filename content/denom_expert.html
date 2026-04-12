@@ -9,7 +9,8 @@
         MathJax = {
             tex: {
                 inlineMath: [['$', '$']],
-                displayMath: [['$$', '$$']]
+                displayMath: [['$$', '$$']],
+                packages: {'[+]': ['require']}
             }
         };
     </script>
@@ -173,14 +174,13 @@
             border-radius: 15px;
         }
 
-        .correction-box.show {
-            display: block;
-            animation: fadeIn 0.4s ease;
-        }
-
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(-10px); }
             to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.4s ease;
         }
 
         .correction-item {
@@ -235,7 +235,7 @@
             <li>On tire successivement et <strong>avec remise</strong> 5 boules. Quel est le nombre total de tirages ?</li>
             <li>Dans un tirage successif <strong>avec remise</strong> de 5 boules, combien de tirages comportent exactement 3 boules rouges ?</li>
         </ul>
-        <button class="toggle-btn" onclick="toggleCorr('corr-1', this)">
+        <button class="toggle-btn" onclick="toggleCor('corr-1', this)">
             <i class="fas fa-eye"></i> Afficher le corrigé détaillé
         </button>
         <div id="corr-1" class="correction-box">
@@ -264,7 +264,7 @@
             <li>Combien d'anagrammes existent si l'on impose de garder les consonnes (M, S, S, S, S, P, P) dans leur ordre alphabétique strict d'apparition ?</li>
             <li>Combien d'anagrammes permettent aux 4 'I' d'être tous séparés par au moins une consonne ?</li>
         </ul>
-        <button class="toggle-btn" onclick="toggleCorr('corr-2', this)">
+        <button class="toggle-btn" onclick="toggleCor('corr-2', this)">
             <i class="fas fa-eye"></i> Afficher le corrigé détaillé
         </button>
         <div id="corr-2" class="correction-box">
@@ -290,10 +290,10 @@
             <li>On suppose $n \le p$. Quel est le nombre d'applications injectives de $E$ dans $F$ ?</li>
             <li>On suppose $n = p$. Quel est le nombre d'applications bijectives (bijections) de $E$ sur $F$ ?</li>
             <li>Soit $A$ un sous-ensemble de $E$ de cardinal $a$ ($a \le n$). Combien d'applications $f: E \to F$ sont constantes sur $A$ ?</li>
-            <li>On pose $E = [\![ 1, p ]\!]$ et $F = [\![ 1, n ]\!]$ avec $p \le n$. Combien y a-t-il d'applications strictement croissantes de $E$ dans $F$ ?</li>
-            <li>Dans le même cadre ($E = [\![ 1, p ]\!]$ et $F = [\![ 1, n ]\!]$), combien y a-t-il d'applications croissantes (au sens large) ?</li>
+            <li>On pose $E = \llbracket 1, p \rrbracket$ et $F = \llbracket 1, n \rrbracket$ avec $p \le n$. Combien y a-t-il d'applications strictement croissantes de $E$ dans $F$ ?</li>
+            <li>Dans le même cadre ($E = \llbracket 1, p \rrbracket$ et $F = \llbracket 1, n \rrbracket$), combien y a-t-il d'applications croissantes (au sens large) ?</li>
         </ul>
-        <button class="toggle-btn" onclick="toggleCorr('corr-3', this)">
+        <button class="toggle-btn" onclick="toggleCor('corr-3', this)">
             <i class="fas fa-eye"></i> Afficher le corrigé détaillé
         </button>
         <div id="corr-3" class="correction-box">
@@ -322,7 +322,7 @@
             <li>Combien de mains forment une "Couleur" (5 cartes de la même couleur / famille) ?</li>
             <li>Combien de mains contiennent au moins un As OU au moins un Cœur ?</li>
         </ul>
-        <button class="toggle-btn" onclick="toggleCorr('corr-4', this)">
+        <button class="toggle-btn" onclick="toggleCor('corr-4', this)">
             <i class="fas fa-eye"></i> Afficher le corrigé détaillé
         </button>
         <div id="corr-4" class="correction-box">
@@ -351,7 +351,7 @@
             <li>Dénombrer le nombre de monômes $X_1^{\alpha_1} X_2^{\alpha_2} \dots X_n^{\alpha_n}$ de degré total exact $d$ à $n$ variables.</li>
             <li>Déterminer le nombre de $n$-uplets $(x_1, \dots, x_n) \in \mathbb{N}^n$ tels que $\sum_{i=1}^n x_i \le k$ (où $k \in \mathbb{N}$).</li>
         </ul>
-        <button class="toggle-btn" onclick="toggleCorr('corr-5', this)">
+        <button class="toggle-btn" onclick="toggleCor('corr-5', this)">
             <i class="fas fa-eye"></i> Afficher le corrigé détaillé
         </button>
         <div id="corr-5" class="correction-box">
@@ -367,17 +367,22 @@
 </div>
 
 <script>
-    function toggleCorr(id, btn) {
-        var el = document.getElementById(id);
+    // Ajout de l'ID cible en paramètre pour rendre le script infaillible
+    function toggleCor(targetId, btn) {
+        const correctionBlock = document.getElementById(targetId);
         
-        if (el.classList.contains('show')) {
-            el.classList.remove('show');
+        // Sécurité au cas où l'ID n'existerait pas
+        if (!correctionBlock) return;
+        
+        if (correctionBlock.style.display === "block") {
+            correctionBlock.style.display = "none";
+            // On retire la classe pour pouvoir rejouer l'animation au prochain clic
+            correctionBlock.classList.remove("fade-in"); 
             btn.innerHTML = '<i class="fas fa-eye"></i> Afficher le corrigé détaillé';
-            btn.style.background = 'var(--navy-dark)';
         } else {
-            el.classList.add('show');
-            btn.innerHTML = '<i class="fas fa-eye-slash"></i> Masquer le corrigé';
-            btn.style.background = 'var(--text-light)';
+            correctionBlock.style.display = "block";
+            correctionBlock.classList.add("fade-in"); 
+            btn.innerHTML = '<i class="fas fa-eye-slash"></i> Masquer la correction';
         }
     }
 </script>
