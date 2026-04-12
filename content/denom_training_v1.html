@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dénombrement - Entraînement C(n,p)</title>
+    
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$']],
+                displayMath: [['$$', '$$']]
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --bg-main: #f4f7f6;
+            --navy-dark: #0f172a;
+            --blue-accent: #2563eb;
+            --cyan-accent: #06b6d4;
+            --purple-accent: #7c3aed;
+            --green-accent: #10b981;
+            --orange-accent: #f59e0b;
+            --text-main: #334155;
+            --text-light: #64748b;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .hero-banner {
+            background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+            border-radius: 20px;
+            padding: 50px 30px;
+            color: white;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(30, 41, 59, 0.2);
+            margin-bottom: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-banner::before {
+            content: '';
+            position: absolute;
+            top: -50px; left: -50px;
+            width: 200px; height: 200px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 50%;
+            filter: blur(20px);
+        }
+
+        .hero-banner h1 {
+            margin: 0 0 10px 0;
+            font-size: 2.5rem;
+            font-weight: 900;
+        }
+
+        .hero-banner p {
+            margin: 0;
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .exo-card {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            border-top: 6px solid;
+        }
+
+        .exo-title {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 25px;
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--navy-dark);
+        }
+
+        .exo-icon {
+            width: 50px; height: 50px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .context-box {
+            background: #f8fafc;
+            border-left: 4px solid var(--text-light);
+            padding: 15px 20px;
+            border-radius: 0 10px 10px 0;
+            margin-bottom: 25px;
+            font-weight: 500;
+        }
+
+        .questions-list {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 30px 0;
+            counter-reset: q-counter;
+        }
+
+        .questions-list li {
+            position: relative;
+            padding-left: 45px;
+            margin-bottom: 15px;
+            font-size: 1.05rem;
+        }
+
+        .questions-list li::before {
+            counter-increment: q-counter;
+            content: "Q" counter(q-counter);
+            position: absolute;
+            left: 0; top: 0;
+            background: #e2e8f0;
+            color: var(--navy-dark);
+            font-size: 0.85rem;
+            font-weight: 700;
+            padding: 4px 8px;
+            border-radius: 8px;
+        }
+
+        .toggle-btn {
+            background: var(--navy-dark);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(15, 23, 42, 0.2);
+        }
+
+        .toggle-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(15, 23, 42, 0.3);
+        }
+
+        .correction-box {
+            display: none;
+            margin-top: 25px;
+            padding: 25px;
+            background: #f0fdfa;
+            border: 1px solid #ccfbf1;
+            border-left: 4px solid var(--green-accent);
+            border-radius: 15px;
+        }
+
+        .correction-box.show {
+            display: block;
+            animation: fadeIn 0.4s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .correction-item {
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px dashed #cbd5e1;
+        }
+        .correction-item:last-child {
+            margin-bottom: 0; padding-bottom: 0; border-bottom: none;
+        }
+
+        /* Thèmes de couleurs par exercice */
+        .exo-1 { border-top-color: var(--blue-accent); }
+        .exo-1 .exo-icon { background: rgba(37, 99, 235, 0.1); color: var(--blue-accent); }
+        
+        .exo-2 { border-top-color: var(--purple-accent); }
+        .exo-2 .exo-icon { background: rgba(124, 58, 237, 0.1); color: var(--purple-accent); }
+
+        .exo-3 { border-top-color: var(--cyan-accent); }
+        .exo-3 .exo-icon { background: rgba(6, 182, 212, 0.1); color: var(--cyan-accent); }
+
+        .exo-4 { border-top-color: var(--orange-accent); }
+        .exo-4 .exo-icon { background: rgba(245, 158, 11, 0.1); color: var(--orange-accent); }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+    
+    <div class="hero-banner">
+        <span style="background: rgba(255,255,255,0.2); padding: 5px 15px; border-radius: 20px; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; font-weight: 700; display: inline-block; margin-bottom: 15px;">Mathématiques - Tronc Commun</span>
+        <h1>Entraînement : Formules et Sommes</h1>
+        <p>Propriétés des coefficients binomiaux, Binôme de Newton, Identité de Vandermonde</p>
+    </div>
+
+    <div class="exo-card exo-1">
+        <div class="exo-title">
+            <div class="exo-icon"><i class="fas fa-book-open"></i></div>
+            Exercice 1 : Démonstrations fondamentales
+        </div>
+        <div class="context-box">
+            Soient $n$ et $p$ des entiers naturels. Rappelons que par définition analytique, pour $0 \le p \le n$, on a : $\binom{n}{p} = \frac{n!}{p!(n-p)!}$.
+        </div>
+        <ul class="questions-list">
+            <li>Démontrer algébriquement la propriété de <strong>symétrie</strong> : $\binom{n}{p} = \binom{n}{n-p}$ pour $0 \le p \le n$. Donner une interprétation combinatoire.</li>
+            <li>Démontrer la <strong>formule du pion</strong> (ou formule d'absorption) : $p \binom{n}{p} = n \binom{n-1}{p-1}$ pour $1 \le p \le n$.</li>
+            <li>En utilisant la définition factorielle, démontrer la <strong>relation de Pascal</strong> : $\binom{n}{p} + \binom{n}{p+1} = \binom{n+1}{p+1}$ (pour $0 \le p \le n-1$).</li>
+        </ul>
+        <button class="toggle-btn" onclick="toggleCorr('corr-1', this)">
+            <i class="fas fa-eye"></i> Afficher le corrigé détaillé
+        </button>
+        <div id="corr-1" class="correction-box">
+            <div class="correction-item"><strong>Q1. Symétrie :</strong><br>
+            Algébriquement : $\binom{n}{n-p} = \frac{n!}{(n-p)!(n-(n-p))!} = \frac{n!}{(n-p)!p!} = \binom{n}{p}$.<br>
+            Combinatoirement : Choisir un sous-ensemble de $p$ éléments parmi $n$ revient exactement à choisir les $n-p$ éléments que l'on <em>exclut</em> du sous-ensemble. Il y a donc une bijection entre les parties à $p$ éléments et les parties à $n-p$ éléments.</div>
+            
+            <div class="correction-item"><strong>Q2. Formule du pion :</strong><br>
+            On part du membre de gauche : $p \binom{n}{p} = p \frac{n!}{p!(n-p)!}$.<br>
+            Comme $p! = p \times (p-1)!$, on simplifie par $p$ : $p \binom{n}{p} = \frac{n!}{(p-1)!(n-p)!}$.<br>
+            On factorise $n! = n \times (n-1)!$ pour faire apparaître $\binom{n-1}{p-1}$ :<br>
+            $p \binom{n}{p} = n \frac{(n-1)!}{(p-1)!((n-1)-(p-1))!} = n \binom{n-1}{p-1}$.</div>
+            
+            <div class="correction-item"><strong>Q3. Relation de Pascal :</strong><br>
+            $\binom{n}{p} + \binom{n}{p+1} = \frac{n!}{p!(n-p)!} + \frac{n!}{(p+1)!(n-p-1)!}$.<br>
+            On met au même dénominateur, qui est $(p+1)!(n-p)!$.<br>
+            - Pour le premier terme, on multiplie haut et bas par $(p+1)$.<br>
+            - Pour le second terme, on multiplie haut et bas par $(n-p)$.<br>
+            $\frac{n!(p+1)}{(p+1)!(n-p)!} + \frac{n!(n-p)}{(p+1)!(n-p)!} = \frac{n!(p+1+n-p)}{(p+1)!(n-p)!} = \frac{n!(n+1)}{(p+1)!(n-p)!}$.<br>
+            Ce qui donne bien $\frac{(n+1)!}{(p+1)!((n+1)-(p+1))!} = \binom{n+1}{p+1}$.</div>
+        </div>
+    </div>
+
+    <div class="exo-card exo-2">
+        <div class="exo-title">
+            <div class="exo-icon"><i class="fas fa-plus"></i></div>
+            Exercice 2 : Sommes classiques et Binôme de Newton
+        </div>
+        <div class="context-box">
+            On rappelle la formule du Binôme de Newton : $(a+b)^n = \sum_{k=0}^n \binom{n}{k} a^k b^{n-k}$.
+        </div>
+        <ul class="questions-list">
+            <li>Calculer $S_1 = \sum_{k=0}^n \binom{n}{k}$.</li>
+            <li>Calculer $S_2 = \sum_{k=0}^n (-1)^k \binom{n}{k}$ (pour $n \ge 1$).</li>
+            <li>En déduire la valeur de la somme des termes de rang pair $\sum_{k=0}^{\lfloor n/2 \rfloor} \binom{n}{2k}$ et de rang impair $\sum_{k=0}^{\lfloor (n-1)/2 \rfloor} \binom{n}{2k+1}$.</li>
+        </ul>
+        <button class="toggle-btn" onclick="toggleCorr('corr-2', this)">
+            <i class="fas fa-eye"></i> Afficher le corrigé détaillé
+        </button>
+        <div id="corr-2" class="correction-box">
+            <div class="correction-item"><strong>Q1. Somme totale :</strong><br>
+            On applique la formule du Binôme avec $a=1$ et $b=1$.<br>
+            $(1+1)^n = \sum_{k=0}^n \binom{n}{k} 1^k 1^{n-k} \implies \sum_{k=0}^n \binom{n}{k} = 2^n$.<br>
+            <em>Interprétation : La somme des cardinaux des sous-ensembles de toutes tailles donne le cardinal de l'ensemble des parties $\mathcal{P}(E)$.</em></div>
+            
+            <div class="correction-item"><strong>Q2. Somme alternée :</strong><br>
+            On applique la formule du Binôme avec $a=-1$ et $b=1$.<br>
+            $(-1+1)^n = \sum_{k=0}^n \binom{n}{k} (-1)^k 1^{n-k} \implies \sum_{k=0}^n (-1)^k \binom{n}{k} = 0^n = 0$ (car $n \ge 1$).</div>
+            
+            <div class="correction-item"><strong>Q3. Séparation pairs/impairs :</strong><br>
+            Notons $P$ la somme des termes d'indices pairs, et $I$ la somme des termes d'indices impairs.<br>
+            D'après Q1 : $P + I = 2^n$.<br>
+            D'après Q2 : $P - I = 0 \implies P = I$.<br>
+            En résolvant ce petit système, on obtient $2P = 2^n \implies P = I = 2^{n-1}$.<br>
+            Conclusion : $\sum_{k \text{ pair}} \binom{n}{k} = \sum_{k \text{ impair}} \binom{n}{k} = 2^{n-1}$.</div>
+        </div>
+    </div>
+
+    <div class="exo-card exo-3">
+        <div class="exo-title">
+            <div class="exo-icon"><i class="fas fa-wave-square"></i></div>
+            Exercice 3 : L'astuce de la dérivation et de l'intégration
+        </div>
+        <div class="context-box">
+            Soit la fonction polynomiale $P(x) = (1+x)^n = \sum_{k=0}^n \binom{n}{k} x^k$.
+        </div>
+        <ul class="questions-list">
+            <li>En dérivant $P(x)$, calculer la somme $A = \sum_{k=0}^n k \binom{n}{k}$.</li>
+            <li>En intégrant $P(x)$ sur un intervalle bien choisi, calculer la somme $B = \sum_{k=0}^n \frac{1}{k+1} \binom{n}{k}$.</li>
+            <li><em>Bonus :</em> Retrouver la somme $A$ en utilisant uniquement la formule du pion vue dans l'Exercice 1.</li>
+        </ul>
+        <button class="toggle-btn" onclick="toggleCorr('corr-3', this)">
+            <i class="fas fa-eye"></i> Afficher le corrigé détaillé
+        </button>
+        <div id="corr-3" class="correction-box">
+            <div class="correction-item"><strong>Q1. Calcul par dérivation :</strong><br>
+            On dérive $P(x)$ par rapport à $x$ de deux manières différentes.<br>
+            D'une part : $P'(x) = n(1+x)^{n-1}$.<br>
+            D'autre part : $P'(x) = \sum_{k=1}^n k \binom{n}{k} x^{k-1}$. (On peut commencer à $k=1$ car la dérivée de la constante vaut 0).<br>
+            En évaluant en $x=1$, on obtient : $\sum_{k=1}^n k \binom{n}{k} 1^{k-1} = n(1+1)^{n-1}$.<br>
+            Donc $A = n 2^{n-1}$.</div>
+            
+            <div class="correction-item"><strong>Q2. Calcul par intégration :</strong><br>
+            On intègre $P(t)$ entre $0$ et $x$ : $\int_0^x (1+t)^n dt = \left[ \frac{(1+t)^{n+1}}{n+1} \right]_0^x = \frac{(1+x)^{n+1} - 1}{n+1}$.<br>
+            D'autre part : $\int_0^x \left(\sum_{k=0}^n \binom{n}{k} t^k\right) dt = \sum_{k=0}^n \binom{n}{k} \frac{x^{k+1}}{k+1}$.<br>
+            On évalue en $x=1$ pour retrouver la somme demandée :<br>
+            $B = \sum_{k=0}^n \frac{1}{k+1} \binom{n}{k} = \frac{2^{n+1} - 1}{n+1}$.</div>
+
+            <div class="correction-item"><strong>Q3. Méthode alternative (Formule du pion) :</strong><br>
+            $A = \sum_{k=0}^n k \binom{n}{k} = \sum_{k=1}^n k \binom{n}{k}$.<br>
+            D'après la formule du pion, $k \binom{n}{k} = n \binom{n-1}{k-1}$.<br>
+            $A = \sum_{k=1}^n n \binom{n-1}{k-1} = n \sum_{k=1}^n \binom{n-1}{k-1}$.<br>
+            On pose $j = k-1$. Quand $k$ va de $1$ à $n$, $j$ va de $0$ à $n-1$.<br>
+            $A = n \sum_{j=0}^{n-1} \binom{n-1}{j}$. En reconnaissant le Binôme de Newton $(1+1)^{n-1}$, on trouve : $A = n 2^{n-1}$.</div>
+        </div>
+    </div>
+
+    <div class="exo-card exo-4">
+        <div class="exo-title">
+            <div class="exo-icon"><i class="fas fa-layer-group"></i></div>
+            Exercice 4 : Formule de Vandermonde
+        </div>
+        <div class="context-box">
+            Soient $n, m, p$ des entiers naturels avec $p \le n+m$.
+        </div>
+        <ul class="questions-list">
+            <li>Développer le produit $(1+x)^n \times (1+x)^m$ de deux façons différentes pour démontrer l'identité de Vandermonde : $\sum_{k=0}^p \binom{n}{k}\binom{m}{p-k} = \binom{n+m}{p}$.<br><em>(Convention : $\binom{n}{k} = 0$ si $k > n$)</em></li>
+            <li>Donner une démonstration combinatoire de cette même formule.</li>
+            <li>En déduire une forme simplifiée de la somme : $\sum_{k=0}^n \binom{n}{k}^2$.</li>
+        </ul>
+        <button class="toggle-btn" onclick="toggleCorr('corr-4', this)">
+            <i class="fas fa-eye"></i> Afficher le corrigé détaillé
+        </button>
+        <div id="corr-4" class="correction-box">
+            <div class="correction-item"><strong>Q1. Preuve analytique (Polynômes) :</strong><br>
+            D'une part, $(1+x)^n (1+x)^m = (1+x)^{n+m}$. Le coefficient de $x^p$ dans ce développement est $\binom{n+m}{p}$.<br>
+            D'autre part, en utilisant le produit de Cauchy de deux sommes :<br>
+            $\left(\sum_{i=0}^n \binom{n}{i} x^i \right) \left(\sum_{j=0}^m \binom{m}{j} x^j \right) = \sum_{p=0}^{n+m} \left( \sum_{k=0}^p \binom{n}{k}\binom{m}{p-k} \right) x^p$.<br>
+            Par unicité des coefficients d'un polynôme, en identifiant le terme en $x^p$ des deux expressions, on obtient $\sum_{k=0}^p \binom{n}{k}\binom{m}{p-k} = \binom{n+m}{p}$.</div>
+            
+            <div class="correction-item"><strong>Q2. Preuve combinatoire :</strong><br>
+            Imaginons une urne contenant $n$ boules rouges et $m$ boules bleues (soit $n+m$ boules au total). On souhaite tirer simultanément $p$ boules de cette urne.<br>
+            - Nombre total de tirages possibles : $\binom{n+m}{p}$.<br>
+            - On peut classifier ces tirages selon le nombre $k$ de boules rouges tirées ($0 \le k \le p$). Si l'on tire $k$ boules rouges (parmi $n$), on doit compléter avec $p-k$ boules bleues (parmi $m$). Pour un $k$ fixé, il y a $\binom{n}{k}\binom{m}{p-k}$ tirages. En sommant sur tous les $k$ possibles, on retrouve le total $\binom{n+m}{p}$.</div>
+            
+            <div class="correction-item"><strong>Q3. Application :</strong><br>
+            Pour calculer $\sum_{k=0}^n \binom{n}{k}^2$, on utilise l'identité de Vandermonde avec $m = n$ et $p = n$.<br>
+            La somme devient $\sum_{k=0}^n \binom{n}{k}\binom{n}{n-k}$.<br>
+            Or, par symétrie, $\binom{n}{n-k} = \binom{n}{k}$. L'expression est donc exactement $\sum_{k=0}^n \binom{n}{k}^2$.<br>
+            D'après Vandermonde, le résultat est $\binom{n+n}{n} = \binom{2n}{n}$.</div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    function toggleCorr(id, btn) {
+        var el = document.getElementById(id);
+        
+        if (el.classList.contains('show')) {
+            el.classList.remove('show');
+            btn.innerHTML = '<i class="fas fa-eye"></i> Afficher le corrigé détaillé';
+            btn.style.background = 'var(--navy-dark)';
+        } else {
+            el.classList.add('show');
+            btn.innerHTML = '<i class="fas fa-eye-slash"></i> Masquer le corrigé';
+            btn.style.background = 'var(--text-light)';
+        }
+    }
+</script>
+
+</body>
+</html>
