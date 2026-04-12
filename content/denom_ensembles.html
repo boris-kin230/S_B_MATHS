@@ -4,8 +4,8 @@
     
     <div style="position: relative; z-index: 1;">
         <span style="background: #06b6d4; color: #ffffff; padding: 6px 18px; border-radius: 50px; font-weight: 800; font-size: 0.85rem; text-transform: uppercase; margin-bottom: 15px; display: inline-block; box-shadow: 0 4px 15px rgba(0,0,0,0.2);">Chapitre 2</span>
-        <h1 style="margin: 0 0 15px 0; font-size: 2.4rem; font-weight: 900; letter-spacing: -1px; text-shadow: 0 2px 10px rgba(0,0,0,0.3);">Ensembles & Injections</h1>
-        <p style="margin: 0; font-size: 1.1rem; font-weight: 500; opacity: 0.95;">Dénombrement des parties d'un ensemble et arrangements, avec double démonstration.</p>
+        <h1 style="margin: 0 0 15px 0; font-size: 2.4rem; font-weight: 900; letter-spacing: -1px; text-shadow: 0 2px 10px rgba(0,0,0,0.3);">Ensembles & Applications</h1>
+        <p style="margin: 0; font-size: 1.1rem; font-weight: 500; opacity: 0.95;">Dénombrement des parties d'un ensemble et des p-listes, avec double démonstration.</p>
     </div>
 </div>
 
@@ -66,53 +66,51 @@
         <div style="width: 50px; height: 50px; background: rgba(16, 185, 129, 0.15); color: #059669; border-radius: 15px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem;">
             <i class="fas fa-arrow-right-to-bracket"></i>
         </div>
-        <h2 style="color: #0f172a; margin: 0; font-size: 1.6rem; font-weight: 800;">2. Nombre d'injections (Arrangements)</h2>
+        <h2 style="color: #0f172a; margin: 0; font-size: 1.6rem; font-weight: 800;">2. Nombre d'applications ($p$-listes)</h2>
     </div>
     
     <p style="font-size: 1.1rem; line-height: 1.6; color: #475569; margin-bottom: 20px;">
-        <strong>Théorème :</strong> Soient $E$ un ensemble à $n$ éléments et $F$ un ensemble à $p$ éléments. Si $n \le p$, le nombre d'applications injectives de $E$ dans $F$ (nombre d'arrangements de $n$ éléments parmi $p$) est :
+        <strong>Théorème :</strong> Soient $E$ un ensemble fini à $p$ éléments et $F$ un ensemble fini à $n$ éléments. Le nombre d'applications de $E$ dans $F$ (ce qui correspond au nombre de $p$-listes d'éléments de $F$) est égal à :
     </p>
     <div style="text-align: center; font-size: 1.4rem; font-weight: 800; color: #0f172a; margin-bottom: 30px; background: #f8fafc; padding: 20px; border-radius: 15px;">
-        $$A_p^n = \frac{p!}{(p-n)!} = p \times (p-1) \times \dots \times (p-n+1)$$
+        $$n^p$$
     </div>
     
     <div style="background: linear-gradient(to right, rgba(16, 185, 129, 0.05), rgba(16, 185, 129, 0.01)); border-left: 4px solid #10b981; padding: 25px; border-radius: 0 15px 15px 0; margin-bottom: 20px;">
         <h3 style="margin-top:0; color: #059669; font-size: 0.95rem; text-transform: uppercase; font-weight: 800; letter-spacing: 1px;"><i class="fas fa-list-ol"></i> Preuve 1 : Démonstration Combinatoire (Choix successifs)</h3>
-        <p style="margin-bottom: 10px;">Construire une injection de $E = \{x_1, \dots, x_n\}$ vers $F$ nécessite d'attribuer une image unique à chaque élément de $E$ :</p>
+        <p style="margin-bottom: 10px;">Construire une application de $E = \{x_1, \dots, x_p\}$ vers $F$ nécessite d'attribuer une image à chaque élément de $E$. Contrairement à l'injection, les répétitions sont possibles :</p>
         <ul style="padding-left: 20px; line-height: 1.6; margin-bottom: 15px;">
-            <li>Pour $x_1$, on a le choix parmi les <strong>$p$</strong> éléments de $F$.</li>
-            <li>Pour $x_2$, l'image de $x_1$ étant "consommée", il reste <strong>$p-1$</strong> choix.</li>
-            <li>Pour $x_3$, il reste <strong>$p-2$</strong> choix...</li>
-            <li>Pour le $n$-ième élément $x_n$, il reste <strong>$p - (n-1) = p - n + 1$</strong> choix.</li>
+            <li>Pour $x_1$, on a le choix parmi les <strong>$n$</strong> éléments de $F$.</li>
+            <li>Pour $x_2$, l'image de $x_1$ n'est pas bloquée (on peut la reprendre), on a de nouveau <strong>$n$</strong> choix.</li>
+            <li>Pour $x_3$, on a encore <strong>$n$</strong> choix...</li>
+            <li>Pour le $p$-ième élément $x_p$, on a toujours <strong>$n$</strong> choix.</li>
         </ul>
-        <p style="margin: 0; font-weight: 600;">En multipliant ces choix, on obtient bien : $A_p^n = p(p-1)\dots(p-n+1)$. En multipliant en haut et en bas par $(p-n)!$, on retrouve $\frac{p!}{(p-n)!}$.</p>
+        <p style="margin: 0; font-weight: 600;">En multipliant ces choix indépendants, on obtient bien : $\underbrace{n \times n \times \dots \times n}_{p \text{ facteurs}} = n^p$.</p>
     </div>
 
     <div style="background: linear-gradient(to right, rgba(245, 158, 11, 0.1), rgba(245, 158, 11, 0.02)); border-left: 4px solid #f59e0b; padding: 25px; border-radius: 0 15px 15px 0; margin-bottom: 30px;">
         <h3 style="margin-top:0; color: #b45309; font-size: 0.95rem; text-transform: uppercase; font-weight: 800; letter-spacing: 1px;"><i class="fas fa-stairs"></i> Preuve 2 : Démonstration par Récurrence</h3>
-        <p style="margin-bottom: 10px;">Démontrons par récurrence sur $n$ (le cardinal de $E$) la propriété $H_n : A_p^n = \frac{p!}{(p-n)!}$ pour un $p$ fixé.</p>
+        <p style="margin-bottom: 10px;">Démontrons par récurrence sur $p$ (le cardinal de $E$) la propriété $H_p :$ "Le nombre d'applications d'un ensemble de cardinal $p$ vers un ensemble de cardinal $n$ est $n^p$".</p>
         <ul style="padding-left: 20px; line-height: 1.6; margin-bottom: 0;">
-            <li style="margin-bottom: 10px;"><strong>Initialisation ($n=1$) :</strong> Une injection d'un ensemble à 1 élément vers $F$ revient à choisir un élément parmi $p$. Il y en a $p$. Or, $\frac{p!}{(p-1)!} = p$. $H_1$ est vraie.</li>
-            <li><strong>Hérédité :</strong> Supposons $H_{n-1}$ vraie. Pour créer une injection de $n$ éléments, on place d'abord le $n$-ième élément (il a $p$ choix possibles). Puis on doit injecter les $n-1$ éléments restants dans les $p-1$ éléments restants de $F$.<br>
-            Donc : $A_p^n = p \times A_{p-1}^{n-1}$.<br>
-            Par hypothèse de récurrence : $A_{p-1}^{n-1} = \frac{(p-1)!}{((p-1)-(n-1))!} = \frac{(p-1)!}{(p-n)!}$.<br>
-            En remplaçant : $A_p^n = p \times \frac{(p-1)!}{(p-n)!} = \frac{p \times (p-1)!}{(p-n)!} = \frac{p!}{(p-n)!}$. La propriété est héréditaire.</li>
+            <li style="margin-bottom: 10px;"><strong>Initialisation ($p=1$) :</strong> Une application d'un ensemble à 1 élément vers $F$ revient à choisir 1 image parmi $n$. Il y en a $n$. Or, $n^1 = n$. $H_1$ est vraie.</li>
+            <li><strong>Hérédité :</strong> Supposons $H_{p-1}$ vraie. Pour créer une application d'un ensemble $E$ à $p$ éléments vers $F$, on choisit d'abord l'image d'un élément particulier (ce qui donne $n$ choix possibles). Puis, on doit définir l'application pour les $p-1$ éléments restants. Par hypothèse de récurrence, il y a $n^{p-1}$ façons de le faire.<br>
+            Le total est donc le produit : $n \times n^{p-1} = n^p$. La propriété est héréditaire.</li>
         </ul>
     </div>
 
     <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 15px; padding: 25px;">
         <div class="qcm-question" style="font-size: 1.1rem; color: #0f172a; font-weight: 700; margin-bottom: 20px;">
-            <i class="fas fa-horse-head" style="color: #f59e0b; font-size: 1.3rem; margin-right: 8px;"></i> Application : Dans une course de 8 chevaux, on s'intéresse au tiercé dans l'ordre (les 3 premiers chevaux de la course, sans ex-aequo). Combien y a-t-il de tiercés dans l'ordre possibles ?
+            <i class="fas fa-lock" style="color: #f59e0b; font-size: 1.3rem; margin-right: 8px;"></i> Application : Un cadenas à code est constitué de 3 molettes indépendantes. Sur chaque molette, on peut choisir un chiffre de 0 à 9. Combien de combinaisons (codes) sont possibles au total ?
         </div>
         <div class="options-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 15px;">
-            <button class="opt-btn" style="padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px; background: white; cursor: pointer;" onclick="checkQCM(this, false)">A) 512</button>
-            <button class="opt-btn" style="padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px; background: white; cursor: pointer;" onclick="checkQCM(this, false)">B) 56</button>
-            <button class="opt-btn" style="padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px; background: white; cursor: pointer;" onclick="checkQCM(this, true)">C) 336</button>
-            <button class="opt-btn" style="padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px; background: white; cursor: pointer;" onclick="checkQCM(this, false)">D) 24</button>
+            <button class="opt-btn" style="padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px; background: white; cursor: pointer;" onclick="checkQCM(this, false)">A) 30</button>
+            <button class="opt-btn" style="padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px; background: white; cursor: pointer;" onclick="checkQCM(this, false)">B) 720</button>
+            <button class="opt-btn" style="padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px; background: white; cursor: pointer;" onclick="checkQCM(this, true)">C) 1000</button>
+            <button class="opt-btn" style="padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px; background: white; cursor: pointer;" onclick="checkQCM(this, false)">D) 120</button>
         </div>
         <div class="correction-box" style="background: rgba(16, 185, 129, 0.1); border-left: 4px solid #10b981; padding: 15px; border-radius: 8px; display: none;">
-            <strong>Correction détaillée :</strong> Il s'agit du nombre d'injections d'un ensemble de 3 éléments (les places sur le podium) vers un ensemble de 8 éléments (les chevaux). L'ordre compte et il n'y a pas de répétition. C'est un arrangement :<br>
-            $$A_8^3 = \frac{8!}{(8-3)!} = \frac{8!}{5!} = 8 \times 7 \times 6 = 336$$
+            <strong>Correction détaillée :</strong> Former un code revient à choisir une $3$-liste dans un ensemble de 10 éléments (les chiffres de 0 à 9). L'ordre compte et les chiffres peuvent être répétés (tirage avec remise). Le nombre de $3$-listes est donc :<br>
+            $$10^3 = 10 \times 10 \times 10 = 1000$$
         </div>
     </div>
 </div>
