@@ -2,595 +2,346 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Elian Maths | PCSI Intensif</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Elian Maths | Édition Prépa</title>
     
     <script>
         window.MathJax = {
-            tex: { 
-                inlineMath: [['$', '$'], ['\\(', '\\)']], 
-                displayMath: [['$$', '$$']],
-                processEscapes: true
-            },
+            tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$']], processEscapes: true },
             options: { enableMenu: false }
         };
     </script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&display=swap" rel="stylesheet">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     
     <style>
+        /* ==============================================================================
+           THEME V3.0 - "ÉDITION PRÉPA VUIBERT" (PREMIUM iOS)
+           ============================================================================== */
         :root {
-            --navy-dark: #0f172a;     
-            --navy-main: #1e293b;     
-            --gold-btn: #fbbf24;      
-            --gold-hover: #f59e0b;    
-            --accent-cyan: #06b6d4;
-            --accent-green: #10b981;
-            --accent-red: #ef4444;
-            --bg-page: #f1f5f9;        
-            --surface: #ffffff;        
-            --text-main: #0f172a;
+            --v-blue: #3A9AD9;      /* Bleu Cyan principal */
+            --v-green: #B8D433;     /* Vert Anis bas de page */
+            --v-red: #D34537;       /* Rouge brique (boutons/alertes) */
+            --v-yellow: #F6C831;    /* Jaune vif (titres/badges) */
+            --v-purple: #6A2B7A;    /* Violet (IA/Entraînement) */
+            
+            --bg-app: #f4f7f6;
+            --bg-card: #ffffff;
+            --text-main: #1e293b;
             --text-muted: #64748b;
-            --border: #e2e8f0;
-            --radius: 16px;
-            --shadow-sm: 0 4px 6px -1px rgba(0,0,0,0.1);
-            --shadow-md: 0 10px 15px -3px rgba(0,0,0,0.1);
-            --shadow-lg: 0 20px 25px -5px rgba(0,0,0,0.1);
-            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            
+            --header-height: 75px;
+            --dock-height: 75px;
+            --safe-bottom: env(safe-area-inset-bottom, 20px);
+            
+            --shadow-soft: 0 8px 30px rgba(0, 0, 0, 0.04);
+            --shadow-hover: 0 20px 40px rgba(58, 154, 217, 0.15);
+            --radius-xl: 28px;
+            --radius-lg: 20px;
+            --radius-md: 14px;
+            --glass-bg: rgba(255, 255, 255, 0.85);
+            --glass-blur: blur(16px);
+            
+            --transition-bouncy: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            --transition-smooth: all 0.3s ease;
         }
 
-        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; outline: none; }
 
-        body { 
-            font-family: 'Inter', sans-serif; 
-            margin: 0; 
-            background: var(--bg-page); 
-            color: var(--text-main); 
-            display: flex; 
-            height: 100vh; 
+        body, html { 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
+            margin: 0; padding: 0;
+            background-color: var(--bg-app);
+            height: 100%; width: 100%;
             overflow: hidden; 
-        }
-
-        /* --- SIDEBAR PRESTIGE --- */
-        #sidebar { 
-            width: 320px; 
-            min-width: 320px;
-            height: 100vh; 
-            background: var(--surface); 
-            border-right: 2px solid var(--border); 
-            display: flex;
-            flex-direction: column;
-            z-index: 1000;
-            transition: var(--transition);
-        }
-
-        .logo-area { 
-            padding: 40px 25px; 
-            border-bottom: 2px solid var(--border);
-            text-align: center;
-            cursor: pointer;
-            transition: var(--transition);
-            background: var(--navy-dark);
-        }
-        
-        .logo-box {
-            background: #000;
-            padding: 15px 20px;
-            border-radius: 12px;
-            display: inline-block;
-            border: 2px solid var(--accent-cyan);
-            box-shadow: 0 0 15px rgba(6, 182, 212, 0.3);
-        }
-
-        .logo-text { 
-            color: #fff; 
-            font-weight: 900; 
-            font-size: 1.5rem; 
-            margin: 0; 
-            letter-spacing: -1px;
-            text-transform: uppercase;
-        }
-        .logo-text span { color: var(--gold-btn); }
-
-        .badge-pcsi {
-            display: inline-block;
-            margin-top: 15px;
-            padding: 8px 16px;
-            background: var(--accent-cyan);
-            color: #000;
-            font-size: 0.8rem;
-            font-weight: 900;
-            border-radius: 50px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            box-shadow: 0 4px 10px rgba(6, 182, 212, 0.4);
-        }
-
-        #nav-scroll {
-            flex-grow: 1;
-            overflow-y: auto;
-            padding: 20px 0;
-            background: var(--surface);
-        }
-
-        /* --- ACCORDEON --- */
-        .chap-group { margin-bottom: 5px; }
-
-        .chap-toggle {
-            width: 100%;
-            padding: 18px 25px;
-            background: none;
-            border: none;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            cursor: pointer;
-            font-weight: 800;
-            font-size: 0.9rem;
-            color: var(--navy-dark);
-            text-transform: uppercase;
-            transition: var(--transition);
-            border-left: 4px solid transparent;
-        }
-
-        .chap-toggle:hover { background: #f8fafc; border-left-color: var(--gold-btn); }
-        .chap-toggle i.main-icon { width: 30px; color: var(--navy-dark); font-size: 1.1rem; }
-
-        .chap-content {
-            display: none;
-            background: #f8fafc;
-            border-bottom: 1px solid var(--border);
-        }
-        .chap-content.active { display: block; }
-
-        .nav-section-title {
-            padding: 15px 30px 5px;
-            font-size: 0.7rem;
-            font-weight: 900;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .nav-link {
-            display: flex;
-            align-items: center;
-            padding: 12px 30px 12px 45px;
-            color: var(--text-muted);
-            text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-
-        .nav-link:hover {
-            color: var(--navy-dark);
-            background: #fff;
-            padding-left: 50px;
-            box-shadow: inset 4px 0 0 var(--accent-cyan);
-        }
-
-        .nav-link i { margin-right: 12px; font-size: 0.9rem; width: 20px; text-align: center; }
-        
-        .nav-link.active-link {
-            color: var(--navy-dark);
-            background: #fff;
-            font-weight: 800;
-            box-shadow: inset 4px 0 0 var(--accent-cyan);
-        }
-
-        /* --- MAIN AREA --- */
-        #main-wrapper {
-            flex-grow: 1;
-            height: 100vh;
-            overflow-y: auto;
-            position: relative;
-            background: var(--bg-page);
-            scroll-behavior: smooth;
-        }
-
-        #content-container {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 40px 20px 120px;
-        }
-
-        /* --- HERO BANNER (RE-DESIGN INTENSIF) --- */
-        .hero-banner {
-            background: linear-gradient(135deg, var(--navy-dark) 0%, var(--navy-main) 100%);
-            border-radius: var(--radius);
-            padding: 50px 40px;
-            color: white;
-            margin-bottom: 40px;
-            position: relative;
-            overflow: hidden;
-            border-left: 8px solid var(--accent-cyan);
-            box-shadow: var(--shadow-lg);
-        }
-
-        .hero-banner-content {
-            position: relative;
-            z-index: 2;
-        }
-
-        .hero-banner h1 { 
-            margin: 0; 
-            font-size: 2.5rem; 
-            font-weight: 900; 
-            letter-spacing: -1px; 
-            text-transform: uppercase;
-            color: var(--gold-btn);
-        }
-        .hero-banner p { 
-            opacity: 0.9; 
-            margin-top: 15px; 
-            font-size: 1.1rem; 
-            font-weight: 600;
-        }
-
-        /* --- DASHBOARD ACTIONS (RE-DESIGN GRILLE) --- */
-        .dashboard-actions {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 15px;
-            margin-top: 35px;
-        }
-
-        .dash-btn {
-            padding: 20px 15px;
-            border-radius: 12px;
-            font-family: inherit;
-            font-size: 0.95rem;
-            font-weight: 800;
-            text-transform: uppercase;
-            cursor: pointer;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-            transition: var(--transition);
-            text-decoration: none;
-            border: none;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
-        }
-
-        .dash-btn i { font-size: 2rem; }
-
-        .dash-btn:hover:not(:disabled) {
-            transform: translateY(-5px);
-            filter: brightness(1.1);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.25);
-        }
-
-        .btn-clock { background: var(--accent-cyan); color: var(--navy-dark); }
-        .btn-links { background: var(--gold-btn); color: var(--navy-dark); }
-        .ia-btn    { background: var(--accent-green); color: var(--navy-dark); }
-        .btn-pomo  { background: var(--accent-red); color: #fff; }
-        .quit-btn  { background: var(--navy-dark); color: var(--accent-red); border: 2px solid var(--accent-red); }
-
-        .quit-btn:hover { background: var(--accent-red); color: #fff; }
-
-        /* --- VUES SEPARÉES --- */
-        #home-view { display: block; animation: fadeIn 0.5s ease; }
-        #module-view { display: none; animation: fadeIn 0.5s ease; }
-
-        /* --- DESIGN QCM --- */
-        .qcm-card {
-            background: var(--surface);
-            border-radius: var(--radius);
-            padding: 35px;
-            margin-bottom: 25px;
-            box-shadow: var(--shadow-md);
-            border: 2px solid var(--border);
-            transition: var(--transition);
-        }
-
-        .qcm-card:hover { border-color: var(--accent-cyan); transform: translateY(-2px); }
-
-        .qcm-question {
-            font-size: 1.15rem;
-            font-weight: 800;
-            margin-bottom: 25px;
-            line-height: 1.5;
-            color: var(--navy-dark);
-        }
-
-        .options-grid { display: grid; gap: 12px; }
-
-        .opt-btn {
-            padding: 16px 22px;
-            border-radius: 12px;
-            border: 2px solid var(--border);
-            background: #f8fafc;
-            cursor: pointer;
-            text-align: left;
-            font-family: inherit;
-            font-size: 1rem;
-            font-weight: 600;
             color: var(--text-main);
-            transition: all 0.2s ease;
-            display: flex;
-            align-items: center;
         }
 
-        .opt-btn:hover:not(:disabled) {
-            border-color: var(--accent-cyan);
-            background: #fff;
-            transform: translateX(5px);
+        .app-background {
+            position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: -1;
+            background: linear-gradient(180deg, rgba(58,154,217,0.08) 0%, rgba(244,247,246,1) 30%, rgba(184,212,51,0.05) 100%);
         }
 
-        .opt-btn.correct { background: #ecfdf5 !important; border-color: var(--accent-green) !important; color: #065f46 !important; font-weight: 800; }
-        .opt-btn.wrong { background: #fef2f2 !important; border-color: var(--accent-red) !important; color: #991b1b !important; }
-        .opt-btn:disabled { cursor: default; }
+        /* --- HEADER --- */
+        header {
+            position: absolute; top: 0; left: 0; right: 0;
+            height: var(--header-height);
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0 20px; z-index: 100;
+            background: var(--v-blue);
+            color: white;
+            box-shadow: 0 4px 15px rgba(58, 154, 217, 0.3);
+            border-bottom-left-radius: 20px;
+            border-bottom-right-radius: 20px;
+        }
+
+        .logo-area { display: flex; align-items: center; gap: 12px; cursor: pointer; }
+        .logo-icon { 
+            background: white; color: var(--v-blue); width: 40px; height: 40px; 
+            border-radius: 12px; display: flex; justify-content: center; align-items: center;
+            font-size: 1.2rem; box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        .logo-text { font-weight: 900; font-size: 1.3rem; margin: 0; letter-spacing: -0.5px;}
+        .logo-text span { color: var(--v-yellow); }
+
+        .header-actions button {
+            background: rgba(255,255,255,0.2); border: none; color: white;
+            width: 40px; height: 40px; border-radius: 12px; font-size: 1.1rem;
+            backdrop-filter: blur(5px); cursor: pointer; transition: var(--transition-smooth);
+        }
+        .header-actions button:active { transform: scale(0.9); }
+
+        /* --- ZONE DE CONTENU (SCROLL FIXÉ) --- */
+        main {
+            position: absolute;
+            top: var(--header-height);
+            bottom: 0; left: 0; right: 0;
+            overflow-y: auto;
+            overflow-x: hidden;
+            -webkit-overflow-scrolling: touch; 
+            padding: 20px 20px calc(var(--dock-height) + var(--safe-bottom) + 30px) 20px;
+        }
+
+        .content-container { max-width: 800px; margin: 0 auto; width: 100%; }
+
+        /* --- MENU DOCK FLOTTANT iOS --- */
+        nav.floating-dock {
+            position: fixed;
+            bottom: calc(var(--safe-bottom) + 15px);
+            left: 50%; transform: translateX(-50%);
+            width: calc(100% - 20px); max-width: 600px;
+            height: var(--dock-height);
+            background: var(--glass-bg); backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
+            border: 1px solid rgba(255,255,255,0.5);
+            border-radius: var(--radius-xl);
+            display: grid; grid-template-columns: repeat(5, 1fr);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            z-index: 1000; padding: 5px;
+        }
+
+        .dock-item {
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            border-radius: var(--radius-lg); color: var(--text-muted); cursor: pointer;
+            transition: var(--transition-bouncy); gap: 4px; position: relative;
+        }
+        .dock-item i { font-size: 1.3rem; transition: transform 0.3s; }
+        .dock-item span { font-size: 0.60rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
+        
+        .dock-item.active { background: var(--v-blue); color: white; box-shadow: 0 8px 20px rgba(58, 154, 217, 0.4); transform: translateY(-5px); }
+        .dock-item.active i { transform: scale(1.1); }
+
+        /* --- HERO BANNER --- */
+        .hero-banner {
+            background: var(--v-blue);
+            border-radius: var(--radius-xl); padding: 30px 25px; margin-bottom: 25px;
+            color: white; text-align: center; position: relative; overflow: hidden;
+            box-shadow: 0 15px 30px rgba(58, 154, 217, 0.2);
+            animation: slideDown 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .hero-banner::before { 
+            content: ''; position: absolute; top: -50px; right: -50px;
+            width: 150px; height: 150px; background: rgba(255,255,255,0.1); border-radius: 50%;
+        }
+        .hero-badge {
+            display: inline-block; background: var(--v-yellow); color: var(--text-main);
+            padding: 6px 15px; border-radius: 50px; font-weight: 800; font-size: 0.8rem;
+            margin-bottom: 15px; text-transform: uppercase; transform: rotate(-2deg);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        }
+        .hero-banner h1 { margin: 0; font-size: 3rem; font-weight: 900; letter-spacing: -1px; line-height: 1; text-shadow: 2px 2px 0px rgba(0,0,0,0.1); }
+        .hero-banner p { margin: 15px 0 0; font-weight: 600; font-size: 1rem; opacity: 0.9; }
+
+        /* --- DASHBOARD GRILLE --- */
+        .dashboard-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 25px; }
+        
+        .action-card {
+            background: var(--bg-card); border-radius: var(--radius-lg); padding: 20px 15px;
+            text-align: center; text-decoration: none; border: 2px solid transparent;
+            box-shadow: var(--shadow-soft); transition: var(--transition-bouncy);
+            display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; cursor: pointer;
+        }
+        .action-card:active { transform: scale(0.95); }
+        
+        .ac-icon { width: 50px; height: 50px; border-radius: 15px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; }
+        .action-card span.main { font-weight: 800; font-size: 0.95rem; color: var(--text-main); }
+        .action-card span.sub { font-size: 0.75rem; color: var(--text-muted); font-weight: 600;}
+
+        .card-docs .ac-icon { background: rgba(184, 212, 51, 0.2); color: #7a8f1a; }
+        .card-docs { border-bottom: 4px solid var(--v-green); }
+        
+        .card-pomo .ac-icon { background: rgba(211, 69, 55, 0.1); color: var(--v-red); }
+        .card-pomo { border-bottom: 4px solid var(--v-red); }
+        
+        .card-clock .ac-icon { background: rgba(58, 154, 217, 0.1); color: var(--v-blue); }
+        .card-clock { border-bottom: 4px solid var(--v-blue); }
+
+        /* --- PANNEAU DE CHAPITRES --- */
+        #chapter-panel {
+            position: fixed; top: 0; left: -100%; width: 85vw; max-width: 380px; height: 100%;
+            background: var(--glass-bg); backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
+            z-index: 2000; transition: left 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+            box-shadow: 20px 0 50px rgba(0,0,0,0.1); padding: 0;
+            display: flex; flex-direction: column;
+        }
+        #chapter-panel.open { left: 0; }
+        
+        .cp-header {
+            background: var(--v-blue); color: white; padding: calc(env(safe-area-inset-top, 20px) + 20px) 25px 25px;
+            display: flex; justify-content: space-between; align-items: center;
+            border-bottom-right-radius: 30px; margin-bottom: 10px;
+        }
+        .cp-header h2 { margin: 0; font-size: 1.4rem; font-weight: 900; }
+        .cp-close { background: rgba(255,255,255,0.2); border: none; color: white; width: 36px; height: 36px; border-radius: 50%; font-size: 1.2rem; cursor: pointer; }
+        
+        .cp-content { overflow-y: auto; padding: 15px 20px; flex: 1; }
+
+        .chap-group { margin-bottom: 15px; background: white; border-radius: var(--radius-lg); box-shadow: var(--shadow-soft); overflow: hidden;}
+        .chap-toggle {
+            width: 100%; padding: 18px 20px; border: none; background: transparent;
+            display: flex; justify-content: space-between; align-items: center;
+            font-weight: 800; font-size: 1rem; color: var(--text-main); cursor: pointer; transition: background 0.3s;
+        }
+        .chap-toggle .icon-wrap { 
+            display: inline-flex; align-items: center; justify-content: center;
+            width: 35px; height: 35px; border-radius: 10px; margin-right: 12px;
+        }
+        .chap-toggle.active { background: #fafafa; border-bottom: 1px solid #eee; }
+        .chap-toggle.active .fa-chevron-down { transform: rotate(180deg); }
+        .chap-content { display: none; padding: 10px 15px 15px; background: #fafafa; }
+        .chap-content.active { display: block; animation: fadeIn 0.3s ease; }
+        
+        .nav-section-title { font-size: 0.7rem; font-weight: 800; color: var(--text-muted); text-transform: uppercase; padding: 15px 15px 5px; margin: 0; letter-spacing: 0.5px; }
+        
+        .nav-link {
+            display: flex; align-items: center; gap: 12px; padding: 12px 15px;
+            text-decoration: none; color: var(--text-muted); font-size: 0.95rem; font-weight: 600;
+            border-radius: var(--radius-md); transition: all 0.2s; cursor: pointer;
+        }
+        .nav-link:active { background: #eee; transform: scale(0.98); }
+        .nav-link i { font-size: 1.1rem; width: 20px; text-align: center; color: var(--v-blue); }
+        
+        .nav-link.expert-link { color: var(--v-red); background: rgba(211, 69, 55, 0.05); border: 1px solid rgba(211, 69, 55, 0.1); margin-top: 5px; font-weight: 800;}
+        .nav-link.expert-link i { color: var(--v-red); }
+        
+        .nav-link.niveau-link { color: #65a30d; background: rgba(184, 212, 51, 0.1); border: 1px solid rgba(184, 212, 51, 0.2); margin-top: 5px; font-weight: 800;}
+        .nav-link.niveau-link i { color: #65a30d; }
+
+        /* --- QCM ET EXERCICES V3.0 --- */
+        .qcm-card {
+            background: var(--bg-card); border-radius: var(--radius-xl); padding: 30px;
+            margin-bottom: 25px; box-shadow: var(--shadow-soft); position: relative;
+            border-top: 6px solid var(--v-blue); transition: var(--transition-smooth);
+            animation: slideUp 0.5s ease backwards;
+        }
+        
+        .qcm-question { font-size: 1.15rem; font-weight: 800; color: var(--text-main); margin-bottom: 25px; line-height: 1.5; }
+        
+        .options-grid { display: flex; flex-direction: column; gap: 12px; }
+        .opt-btn {
+            padding: 16px 20px; border-radius: var(--radius-md);
+            border: 2px solid #e2e8f0; background: #ffffff;
+            text-align: left; font-family: inherit; font-size: 1rem; font-weight: 600; color: var(--text-main);
+            transition: var(--transition-bouncy); cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+        }
+        .opt-btn:active:not(:disabled) { transform: scale(0.98); border-color: var(--v-blue); }
+        
+        .opt-btn.correct { background: var(--v-green) !important; border-color: #9cb824 !important; color: #3d4a0a !important; box-shadow: 0 4px 15px rgba(184, 212, 51, 0.4); }
+        .opt-btn.wrong { background: var(--v-red) !important; border-color: #a83529 !important; color: white !important; box-shadow: 0 4px 15px rgba(211, 69, 55, 0.4); }
+        .opt-btn:disabled { cursor: not-allowed; opacity: 0.8; }
 
         .correction-box {
-            margin-top: 20px;
-            padding: 20px;
-            background: #f1f5f9;
-            border-radius: 10px;
-            display: none; 
-            border-left: 4px solid var(--accent-cyan);
-            font-size: 0.95rem;
-            font-weight: 600;
+            margin-top: 25px; padding: 20px; background: #f8fafc; border-radius: var(--radius-md);
+            border-left: 4px solid var(--v-yellow); font-size: 0.95rem; font-weight: 500; display: none;
             animation: fadeIn 0.4s ease;
         }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* --- ACTIONS & SCORE --- */
-        #score-zone { margin-top: 50px; }
-
-        .score-display {
-            background: var(--navy-dark);
-            color: white;
-            border-radius: var(--radius);
-            padding: 40px;
-            text-align: center;
-            margin-bottom: 20px;
-            box-shadow: var(--shadow-lg);
-            border-bottom: 5px solid var(--accent-cyan);
-        }
-
-        .score-display h2 { font-size: 3rem; margin: 0; font-weight: 900; }
-        .score-display p { font-size: 1.2rem; color: var(--gold-btn); margin-top: 10px; font-weight: 800;}
-
-        .share-bar {
-            background: var(--surface);
-            padding: 25px;
-            border-radius: var(--radius);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 15px;
-            border: 2px solid var(--border);
-        }
-
-        .share-btn {
-            padding: 12px 20px;
-            border-radius: 50px;
-            border: none;
-            cursor: pointer;
-            font-weight: 800;
-            font-size: 0.9rem;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            transition: var(--transition);
-            text-transform: uppercase;
-        }
-
-        .btn-pdf { background: var(--navy-main); color: white; }
-        .btn-wa { background: #25D366; color: white; }
-        .btn-mail { background: #ea4335; color: white; }
-        .btn-sms { background: var(--accent-cyan); color: var(--navy-dark); }
-        .btn-x { background: #000000; color: white; }
         
-        .share-btn:hover { transform: translateY(-3px); filter: brightness(1.1); box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
+        /* Scores & Share UI */
+        .score-display { 
+            text-align: center; margin: 30px 0; padding: 25px; 
+            background: white; border-radius: var(--radius-xl); box-shadow: var(--shadow-soft); 
+            animation: slideUp 0.5s ease;
+        }
+        .score-display h2 { font-size: 3.5rem; margin: 0; font-weight: 900; }
+        .share-bar { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-top: 20px; }
+        .share-btn { 
+            padding: 12px 18px; border-radius: var(--radius-md); border: none; 
+            font-weight: 700; color: white; cursor: pointer; transition: transform 0.2s; 
+            display: flex; align-items: center; gap: 8px; font-size: 0.9rem;
+        }
+        .share-btn:active { transform: scale(0.95); }
+        .btn-pdf { background: #64748b; }
+        .btn-wa { background: #25D366; }
+        .btn-x { background: #000000; }
+        .btn-mail { background: #ea4335; }
+        .btn-sms { background: #3b82f6; }
 
         /* --- MODALES --- */
         .overlay {
-            position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(15, 23, 42, 0.8);
-            backdrop-filter: blur(8px);
-            z-index: 2000;
-            display: none;
-            justify-content: center;
-            align-items: center;
-            animation: fadeInOverlay 0.3s ease;
+            position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(8px);
+            z-index: 3000; display: none; align-items: center; justify-content: center;
+            opacity: 0; transition: opacity 0.3s;
         }
+        .overlay.show { opacity: 1; }
 
-        @keyframes fadeInOverlay { from { opacity: 0; } to { opacity: 1; } }
-
-        /* WIDGET POMODORO */
-        .pomodoro-modal {
-            background: var(--navy-dark);
-            color: white;
-            width: 90%;
-            max-width: 400px;
-            border-radius: 24px;
-            padding: 40px;
-            text-align: center;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-            position: relative;
-            border: 2px solid var(--accent-red);
+        .modal-box {
+            background: var(--bg-card); width: 90%; max-width: 450px;
+            border-radius: var(--radius-xl); overflow: hidden;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.25);
+            transform: scale(0.95) translateY(20px); transition: var(--transition-bouncy);
         }
+        .overlay.show .modal-box { transform: scale(1) translateY(0); }
 
-        .close-btn {
-            position: absolute;
-            top: 15px; right: 20px;
-            background: none; border: none;
-            font-size: 1.5rem; color: #fff;
-            cursor: pointer; transition: color 0.2s;
-        }
-        .close-btn:hover { color: var(--accent-red); }
-
+        .modal-header { padding: 20px 25px; display: flex; justify-content: space-between; align-items: center; color: white; }
+        .modal-header.pomo-head { background: var(--v-red); }
+        .modal-header h3 { margin: 0; font-weight: 800; font-size: 1.2rem; }
+        
         .timer-circle {
-            width: 200px; height: 200px;
-            border-radius: 50%;
-            border: 8px solid rgba(255,255,255,0.1);
-            border-top-color: var(--accent-red);
-            margin: 0 auto 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 3.5rem;
-            font-weight: 900;
-            color: #fff;
-            transition: border-color 0.5s;
+            width: 200px; height: 200px; border-radius: 50%; border: 10px solid #f1f5f9;
+            margin: 30px auto; display: flex; justify-content: center; align-items: center;
+            font-size: 4rem; font-weight: 900; color: var(--text-main); position: relative;
         }
-
-        .timer-controls { display: flex; justify-content: center; gap: 15px; margin-top: 20px; }
-
-        .btn-pomo {
-            padding: 12px 24px;
-            border-radius: 12px;
-            font-weight: 800; border: none; cursor: pointer;
-            text-transform: uppercase;
-            transition: var(--transition);
-            display: flex; align-items: center; gap: 8px;
-        }
+        .timer-controls { display: flex; justify-content: center; gap: 15px; padding-bottom: 30px; }
+        .btn-ctrl { padding: 12px 25px; border-radius: 50px; border: none; font-weight: 800; font-size: 1rem; color: white; cursor: pointer; transition: transform 0.2s;}
+        .btn-ctrl:active { transform: scale(0.9); }
         
-        .btn-pomo-play { background: var(--accent-green); color: var(--navy-dark); }
-        .btn-pomo-pause { background: var(--gold-btn); color: var(--navy-dark); }
-        .btn-pomo-reset { background: var(--navy-main); color: #fff; }
-        .btn-pomo:hover { transform: translateY(-3px); filter: brightness(1.1); }
+        @keyframes slideDown { from { transform: translateY(-30px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        @keyframes slideUp { from { transform: translateY(30px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        /* MODALE IA ASSISTANT */
-        .ia-modal {
-            background: var(--surface);
-            width: 90%;
-            max-width: 600px;
-            height: 80vh;
-            border-radius: 20px;
-            display: flex;
-            flex-direction: column;
-            box-shadow: var(--shadow-lg);
-            overflow: hidden;
-            position: relative;
-            border: 2px solid var(--accent-green);
-        }
-
-        .ia-header {
-            background: var(--navy-dark);
-            color: var(--accent-green);
-            padding: 20px;
-            display: flex; justify-content: space-between; align-items: center;
-            border-bottom: 3px solid var(--accent-green);
-        }
-        .ia-header h3 { margin: 0; font-size: 1.2rem; display: flex; align-items: center; gap: 10px; font-weight: 900; text-transform: uppercase;}
-        
-        .ia-chat-box {
-            flex-grow: 1;
-            padding: 20px;
-            overflow-y: auto;
-            background: var(--bg-page);
-            display: flex; flex-direction: column; gap: 15px;
-        }
-
-        .chat-bubble {
-            max-width: 85%;
-            padding: 15px;
-            border-radius: 15px;
-            font-size: 0.95rem;
-            line-height: 1.5;
-            font-weight: 600;
-            animation: fadeIn 0.3s ease;
-        }
-
-        .chat-user {
-            background: var(--navy-dark);
-            color: white;
-            align-self: flex-end;
-            border-bottom-right-radius: 4px;
-        }
-
-        .chat-ai {
-            background: #ecfdf5;
-            color: #065f46;
-            align-self: flex-start;
-            border-bottom-left-radius: 4px;
-            border: 1px solid var(--accent-green);
-        }
-
-        .ia-input-area {
-            padding: 15px;
-            background: white;
-            border-top: 1px solid var(--border);
-            display: flex; gap: 10px;
-        }
-
-        .ia-input-area input {
-            flex-grow: 1;
-            padding: 12px 15px;
-            border-radius: 10px;
-            border: 2px solid var(--border);
-            font-family: inherit;
-            font-weight: 600;
-            outline: none;
-            font-size: 0.95rem;
-        }
-        .ia-input-area input:focus { border-color: var(--accent-green); }
-
-        .ia-send-btn {
-            background: var(--accent-green);
-            color: var(--navy-dark); border: none; border-radius: 10px;
-            width: 50px; cursor: pointer; transition: 0.2s; font-size: 1.2rem;
-            display: flex; justify-content: center; align-items: center;
-        }
-        .ia-send-btn:hover { background: #059669; color: white; }
-
-        .typing-indicator {
-            display: none; align-self: flex-start; padding: 10px 15px;
-            background: #ecfdf5; border-radius: 15px; color: #065f46; font-size: 0.8rem; font-weight: 800; text-transform: uppercase;
-        }
-
-        /* --- MOBILE --- */
-        .menu-trigger {
-            display: none; position: fixed; top: 20px; left: 20px; z-index: 2000;
-            background: var(--navy-dark); color: var(--gold-btn); border: 2px solid var(--gold-btn);
-            width: 50px; height: 50px; border-radius: 12px; font-size: 1.5rem;
-            cursor: pointer; box-shadow: var(--shadow-md);
-        }
-
-        @media (max-width: 1000px) {
-            #sidebar { position: fixed; left: -320px; }
-            #sidebar.open { left: 0; }
-            .menu-trigger { display: block; }
-            #main-wrapper { margin-left: 0; padding-top: 60px; }
-            .share-bar { flex-direction: column; align-items: stretch; }
-            .share-btn { justify-content: center; }
-        }
     </style>
 </head>
 <body>
 
-    <button class="menu-trigger" onclick="toggleSidebar()" aria-label="Ouvrir le menu">
-        <i class="fas fa-bars"></i>
-    </button>
+    <div class="app-background"></div>
 
-    <aside id="sidebar">
-        <div class="logo-area" onclick="goHome()">
-            <div class="logo-box">
-                <p class="logo-text">ELIAN<span>MATHS</span></p>
-            </div>
-            <br>
-            <span class="badge-pcsi">Mode Intensif</span>
+    <header id="app-header">
+        <div class="logo-area" onclick="navigateHome(document.querySelector('.dock-item'))">
+            <div class="logo-icon"><i class="fas fa-square-root-variable"></i></div>
+            <p class="logo-text">ELIAN<span>MATHS</span></p>
         </div>
+        <div class="header-actions">
+            <button onclick="window.location.reload()" title="Rafraîchir"><i class="fas fa-sync-alt"></i></button>
+            <button onclick="alert('Déconnexion...')"><i class="fas fa-power-off"></i></button>
+        </div>
+    </header>
 
-        <nav id="nav-scroll">
+    <aside id="chapter-panel">
+        <div class="cp-header">
+            <h2>Programme</h2>
+            <button class="cp-close" onclick="closeChapterPanel()"><i class="fas fa-times"></i></button>
+        </div>
+        
+        <nav class="cp-content">
             
             <div class="chap-group">
                 <button class="chap-toggle" onclick="toggleAccordeon(this)">
-                    <span><i class="fas fa-layer-group main-icon" style="color: var(--accent-cyan);"></i> Dénombrement</span>
+                    <div><span class="icon-wrap" style="background:#e0f2fe; color:#0284c7;"><i class="fas fa-layer-group"></i></span> Dénombrement</div>
                     <i class="fas fa-chevron-down"></i>
                 </button>
                 <div class="chap-content">
@@ -600,14 +351,14 @@
                     <a class="nav-link" onclick="loadPage('denom_combinaisons')"><i class="fas fa-hands-holding-circle"></i> Combinaisons</a>
                     
                     <p class="nav-section-title">Entraînement</p>
-                    <a class="nav-link" style="color:var(--accent-green); font-weight:800" onclick="loadTraining('denom')"><i class="fas fa-bolt"></i> Test de Niveau</a>
-                    <a class="nav-link" style="color:var(--accent-red); font-weight:800" onclick="loadPage('denom_expert')"><i class="fas fa-fire-flame-curved"></i> Test Expert</a>
+                    <a class="nav-link niveau-link" onclick="loadTraining('denom')"><i class="fas fa-bolt"></i> Exercice Partie 1</a>
+                    <a class="nav-link expert-link" onclick="loadPage('denom_expert')"><i class="fas fa-fire-flame-curved"></i> Exercice Partie 2</a>
                 </div>
             </div>
 
             <div class="chap-group">
                 <button class="chap-toggle" onclick="toggleAccordeon(this)">
-                    <span><i class="fas fa-square-root-variable main-icon"></i> Polynômes</span>
+                    <div><span class="icon-wrap" style="background:#fef08a; color:#ca8a04;"><i class="fas fa-square-root-variable"></i></span> Polynômes</div>
                     <i class="fas fa-chevron-down"></i>
                 </button>
                 <div class="chap-content">
@@ -618,15 +369,15 @@
                     
                     <p class="nav-section-title">Entraînement</p>
                     <a class="nav-link" onclick="loadPage('poly_exos')"><i class="fas fa-dumbbell"></i> Exercice Partie 1</a>
-                    <a class="nav-link" onclick="loadPage('poly_exos_calc')"><i class="fas fa-calculator"></i>Exercice Partie 2 </a>
-                    <a class="nav-link" style="color:var(--accent-green); font-weight:800" onclick="loadTraining('poly')"><i class="fas fa-bolt"></i> Entraînement</a>
-                    <a class="nav-link" style="color:var(--accent-red); font-weight:800" onclick="loadPage('poly_training_v4')"><i class="fas fa-fire-flame-curved"></i> Test Expert</a>
+                    <a class="nav-link" onclick="loadPage('poly_exos_calc')"><i class="fas fa-calculator"></i> Exercice Partie 2</a>
+                    <a class="nav-link niveau-link" onclick="loadTraining('poly')"><i class="fas fa-bolt"></i> Entraînement 1</a>
+                    <a class="nav-link expert-link" onclick="loadPage('poly_training_v4')"><i class="fas fa-fire-flame-curved"></i> Entraînement 2</a>
                 </div>
             </div>
 
             <div class="chap-group">
                 <button class="chap-toggle" onclick="toggleAccordeon(this)">
-                    <span><i class="fas fa-draw-polygon main-icon"></i> Géométrie</span>
+                    <div><span class="icon-wrap" style="background:#dcfce7; color:#16a34a;"><i class="fas fa-draw-polygon"></i></span> Géométrie</div>
                     <i class="fas fa-chevron-down"></i>
                 </button>
                 <div class="chap-content">
@@ -635,15 +386,15 @@
                     <a class="nav-link" onclick="loadPage('geo_analytique')"><i class="fas fa-location-crosshairs"></i> Géométrie Analytique</a>
                     
                     <p class="nav-section-title">Pratique</p>
-                    <a class="nav-link" onclick="loadPage('geo_training_v1')"><i class="fas fa-pencil"></i> Exercices v1</a>
-                    <a class="nav-link" style="color:var(--accent-green); font-weight:800" onclick="loadTraining('geo')"><i class="fas fa-bolt"></i> Test de Niveau</a>
-                    <a class="nav-link" style="color:var(--accent-red); font-weight:800" onclick="loadPage('geo_training_v4')"><i class="fas fa-fire-flame-curved"></i> Test Expert v4</a>
+                    <a class="nav-link" onclick="loadPage('geo_training_v1')"><i class="fas fa-pencil"></i> Entraînement 1</a>
+                    <a class="nav-link niveau-link" onclick="loadTraining('geo')"><i class="fas fa-bolt"></i>Entraînement 2</a>
+                    <a class="nav-link expert-link" onclick="loadPage('geo_training_v4')"><i class="fas fa-fire-flame-curved"></i> Entraînement 3</a>
                 </div>
             </div>
 
             <div class="chap-group">
                 <button class="chap-toggle" onclick="toggleAccordeon(this)">
-                    <span><i class="fas fa-chart-line main-icon"></i> Fonctions</span>
+                    <div><span class="icon-wrap" style="background:#f3e8ff; color:#9333ea;"><i class="fas fa-chart-line"></i></span> Fonctions</div>
                     <i class="fas fa-chevron-down"></i>
                 </button>
                 <div class="chap-content">
@@ -652,269 +403,155 @@
                     <a class="nav-link" onclick="loadPage('func_taylor')"><i class="fas fa-infinity"></i> Taylor & DL</a>
                     
                     <p class="nav-section-title">Pratique</p>
-                    <a class="nav-link" onclick="loadPage('training_taylor_rolle')"><i class="fas fa-flask"></i> Mix Analyse</a>
-                    <a class="nav-link" style="color:var(--accent-green); font-weight:800" onclick="loadTraining('func')"><i class="fas fa-bolt"></i> Test de Rapidité</a>
-                    <a class="nav-link" style="color:var(--accent-red); font-weight:800" onclick="loadPage('func_training_v4')"><i class="fas fa-fire-flame-curved"></i> Test Expert v4</a>
+                    <a class="nav-link" onclick="loadPage('training_taylor_rolle')"><i class="fas fa-flask"></i> Entraînement 1</a>
+                    <a class="nav-link niveau-link" onclick="loadTraining('func')"><i class="fas fa-bolt"></i> Entraînement 2</a>
+                    <a class="nav-link expert-link" onclick="loadPage('func_training_v4')"><i class="fas fa-fire-flame-curved"></i> Entraînement 3</a>
                 </div>
             </div>
         </nav>
     </aside>
 
     <main id="main-wrapper">
-        <div id="content-container">
+        <div class="content-container">
             
             <div id="home-view">
                 <div class="hero-banner">
-                    <div class="hero-banner-content">
-                        <h1>Bienvenue, Elian</h1>
-                        <p>Sélectionnez un module dans le menu latéral pour commencer votre séance.</p>
-                        
-                        <div class="dashboard-actions">
-                            <button class="dash-btn btn-clock" id="btn-heure" disabled>
-                                <i class="fas fa-clock"></i> <span id="clock-display">--:--</span>
-                            </button>
-                            
-                           <div style="display: flex; flex-direction: column; gap: 8px;">
-    <span style="font-size: 0.85rem; font-weight: bold; margin-bottom: 4px;">
-        <i class="fas fa-link"></i> Devoirs & Fiches
-    </span>
-    <a href="https://www.devinck-mpsi.fr/devoirs-surveilles" target="_blank" class="dash-btn btn-links" style="text-decoration: none; background: rgba(184, 212, 51, 0.15); color: #5a6b0d; padding: 8px; border-radius: 8px; font-size: 0.75rem; text-align: center;">
-        Lien 1
-    </a>
-    <a href="https://cahier-de-prepa.fr/pcsi-lessouriau/?maths/dmds" target="_blank" class="dash-btn btn-links" style="text-decoration: none; background: rgba(184, 212, 51, 0.15); color: #5a6b0d; padding: 8px; border-radius: 8px; font-size: 0.75rem; text-align: center;">
-        Lien 2
-    </a>
-    <a href="https://mathsmpsi2iwallon.sitew.fr/Devoirs.b.htm" target="_blank" class="dash-btn btn-links" style="text-decoration: none; background: rgba(184, 212, 51, 0.15); color: #5a6b0d; padding: 8px; border-radius: 8px; font-size: 0.75rem; text-align: center;">
-        Lien 3
-    </a>
-</div>
-                            <button class="dash-btn ia-btn" onclick="openIAModal()">
-                                <i class="fas fa-robot"></i> IA Maths
-                            </button>
-
-                            <button class="dash-btn btn-pomo" onclick="openPomodoroModal()">
-                                <i class="fas fa-stopwatch"></i> Pomodoro
-                            </button>
-                            
-                            <button class="dash-btn quit-btn" onclick="quitterPlateforme()">
-                                <i class="fas fa-power-off"></i> Quitter
-                            </button>
-                        </div>
-                    </div>
+                    <span class="hero-badge">PREPA</span>
+                    <h1>Maths<br>PCSI</h1>
+                    <p>Je réussis mon année en prépa.</p>
                 </div>
                 
-                <div style="text-align:center; padding:60px; color:var(--text-muted)">
-                    <i class="fas fa-hand-point-left" style="font-size:3rem; margin-bottom:20px; display:block; color:var(--accent-cyan)"></i>
-                    <p style="font-weight:800; text-transform:uppercase; letter-spacing:1px;">En attente d'un module...</p>
+                <h3 style="font-weight:800; margin-top:30px; font-size:1.3rem;">Outils rapides</h3>
+                <div class="dashboard-grid">
+                    
+                    <div class="action-card card-docs" style="padding: 10px; gap: 6px; justify-content: center; cursor: default;">
+                        <span class="main" style="margin-bottom: 4px; font-size: 0.85rem;"><i class="fas fa-link"></i> Devoirs & Fiches</span>
+                        
+                        <a href="https://www.devinck-mpsi.fr/devoirs-surveilles" target="_blank" style="width: 100%; padding: 6px 5px; background: rgba(184, 212, 51, 0.15); color: #5a6b0d; border-radius: 8px; text-decoration: none; font-size: 0.75rem; font-weight: 700; transition: transform 0.2s; display:block;" onmouseover="this.style.transform='scale(0.97)'" onmouseout="this.style.transform='scale(1)'">
+                            Lien 1 
+                        </a>
+                        
+                        <a href="https://cahier-de-prepa.fr/pcsi-lessouriau/?maths/dmds" target="_blank" style="width: 100%; padding: 6px 5px; background: rgba(184, 212, 51, 0.15); color: #5a6b0d; border-radius: 8px; text-decoration: none; font-size: 0.75rem; font-weight: 700; transition: transform 0.2s; display:block;" onmouseover="this.style.transform='scale(0.97)'" onmouseout="this.style.transform='scale(1)'">
+                            Lien 2
+                        </a>
+                        
+                        <a href="https://mathsmpsi2iwallon.sitew.fr/Devoirs.b.htm" target="_blank" style="width: 100%; padding: 6px 5px; background: rgba(184, 212, 51, 0.15); color: #5a6b0d; border-radius: 8px; text-decoration: none; font-size: 0.75rem; font-weight: 700; transition: transform 0.2s; display:block;" onmouseover="this.style.transform='scale(0.97)'" onmouseout="this.style.transform='scale(1)'">
+                            Lien 3
+                        </a>
+                    </div>
+                    <div class="action-card card-pomo" onclick="openPomodoroModal()">
+                        <div class="ac-icon"><i class="fas fa-stopwatch"></i></div>
+                        <span class="main">Focus</span>
+                        <span class="sub">Mode Pomodoro</span>
+                    </div>
+                    <div class="action-card card-clock">
+                        <div class="ac-icon"><i class="fas fa-clock"></i></div>
+                        <span class="main" id="clock-display">--:--</span>
+                        <span class="sub">Aujourd'hui</span>
+                    </div>
                 </div>
             </div>
 
-            <div id="module-view">
-                </div>
-
+            <div id="module-view" style="display:none;"></div>
         </div>
     </main>
 
-    <div class="overlay" id="overlay-pomodoro">
-        <div class="pomodoro-modal">
-            <button class="close-btn" onclick="closePomodoroModal()"><i class="fas fa-times"></i></button>
-            <h2 style="margin-top:0; color:var(--gold-btn); font-weight:900; text-transform:uppercase;">Session Focus</h2>
-            <p style="color:#cbd5e1; font-size:0.95rem; margin-bottom: 30px; font-weight:600;">Concentre-toi sur tes exercices.</p>
-            
-            <div class="timer-circle" id="timer-display">25:00</div>
-            
-            <div class="timer-controls">
-                <button class="btn-pomo btn-pomo-play" onclick="startPomodoro()"><i class="fas fa-play"></i> Start</button>
-                <button class="btn-pomo btn-pomo-pause" onclick="pausePomodoro()"><i class="fas fa-pause"></i> Pause</button>
-                <button class="btn-pomo btn-pomo-reset" onclick="resetPomodoro()"><i class="fas fa-rotate-right"></i></button>
-            </div>
+    <nav class="floating-dock">
+        <div class="dock-item active" onclick="navigateHome(this)">
+            <i class="fas fa-house"></i>
+            <span>Accueil</span>
         </div>
-    </div>
+        <div class="dock-item" onclick="navigateChapter('dénombrement', this)">
+            <i class="fas fa-layer-group"></i>
+            <span>Dénombr.</span>
+        </div>
+        <div class="dock-item" onclick="navigateChapter('polynômes', this)">
+            <i class="fas fa-square-root-variable"></i>
+            <span>Polyn.</span>
+        </div>
+        <div class="dock-item" onclick="navigateChapter('géométrie', this)">
+            <i class="fas fa-draw-polygon"></i>
+            <span>Géom.</span>
+        </div>
+        <div class="dock-item" onclick="navigateChapter('fonctions', this)">
+            <i class="fas fa-chart-line"></i>
+            <span>Fonct.</span>
+        </div>
+    </nav>
 
-    <div class="overlay" id="overlay-ia">
-        <div class="ia-modal">
-            <div class="ia-header">
-                <h3><i class="fas fa-robot"></i> Assistant IA Maths (Bêta)</h3>
-                <button class="close-btn" style="position:static; color:var(--accent-green);" onclick="closeIAModal()"><i class="fas fa-times"></i></button>
+    <div class="overlay" id="overlay-pomo">
+        <div class="modal-box">
+            <div class="modal-header pomo-head">
+                <h3><i class="fas fa-fire"></i> Entraînement Intensif</h3>
+                <button onclick="closeModal('overlay-pomo')" style="background:none;border:none;color:white;font-size:1.2rem;cursor:pointer;"><i class="fas fa-times"></i></button>
             </div>
-            
-            <div class="ia-chat-box" id="ia-chat-box">
-                <div class="chat-bubble chat-ai">
-                    Bonjour Elian ! Je suis ton assistant dédié aux mathématiques de PCSI. Tu peux me poser des questions sur ton cours (Rolle, Taylor, Polynômes, Dénombrement...).
+            <div style="text-align:center;">
+                <div class="timer-circle" id="timer-display">25:00</div>
+                <div class="timer-controls">
+                    <button class="btn-ctrl" style="background:var(--v-green);color:#3d4a0a;" onclick="startPomodoro()"><i class="fas fa-play"></i> Go</button>
+                    <button class="btn-ctrl" style="background:var(--v-yellow);color:#714f00;" onclick="pausePomodoro()"><i class="fas fa-pause"></i> Pause</button>
+                    <button class="btn-ctrl" style="background:#e2e8f0;color:#475569;" onclick="resetPomodoro()"><i class="fas fa-redo"></i></button>
                 </div>
-                <div class="typing-indicator" id="typing-indicator">
-                    <i class="fas fa-circle-notch fa-spin"></i> L'IA réfléchit...
-                </div>
-            </div>
-
-            <div class="ia-input-area">
-                <input type="text" id="ia-input" placeholder="Pose ta question ici..." onkeypress="handleIAKeyPress(event)">
-                <button class="ia-send-btn" onclick="sendIAMessage()"><i class="fas fa-paper-plane"></i></button>
             </div>
         </div>
     </div>
 
     <script>
-        // --- MISE EN CACHE DU DOM ---
-        const sidebar = document.getElementById('sidebar');
-        const container = document.getElementById('content-container');
+        // === VARIABLES GLOBALES DU MOTEUR ===
+        window.currentScore = 0;
+        window.answeredQuestions = 0;
+        window.totalQuestions = 0;
+
+        // === ELEMENTS DOM ===
         const mainWrapper = document.getElementById('main-wrapper');
         const homeView = document.getElementById('home-view');
         const moduleView = document.getElementById('module-view');
+        const chapterPanel = document.getElementById('chapter-panel');
 
-        // --- GESTION DES SCORES GLOBALE ---
-        window.currentScore = 0;
-        window.totalQuestions = 0;
-        window.answeredQuestions = 0;
+        // === HORLOGE ===
+        setInterval(() => {
+            const d = document.getElementById('clock-display');
+            if (d) d.textContent = new Date().toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
+        }, 1000);
 
-        // --- GESTION DE L'HEURE (DASHBOARD) ---
-        function updateHorloge() {
-            const now = new Date();
-            const timeString = now.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
-            const clockEl = document.getElementById('clock-display');
-            if(clockEl) clockEl.textContent = timeString;
+        // === NAVIGATION DOCK ===
+        function updateActiveTab(element) {
+            document.querySelectorAll('.dock-item').forEach(card => card.classList.remove('active'));
+            element.classList.add('active');
         }
-        setInterval(updateHorloge, 1000);
-        updateHorloge();
 
-        // --- RETOUR A L'ACCUEIL ---
-        function goHome() {
-            document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active-link'));
+        function navigateHome(element) {
+            updateActiveTab(element);
+            closeChapterPanel();
             moduleView.style.display = 'none';
-            moduleView.innerHTML = ''; 
+            moduleView.innerHTML = '';
             homeView.style.display = 'block';
-            if(window.innerWidth < 1000) sidebar.classList.remove('open');
+            mainWrapper.scrollTop = 0; 
         }
 
-        // --- FONCTION QUITTER ---
-        function quitterPlateforme() {
-            if(confirm("Veux-tu vraiment clôturer ta session de révision ?")) {
-                document.body.innerHTML = '<div style="display:flex; height:100vh; width:100vw; background:var(--navy-dark); color:white; justify-content:center; align-items:center; flex-direction:column;"><h1 style="color:var(--accent-red); font-size:3rem; text-transform:uppercase;">Session Terminée</h1><p style="color:var(--gold-btn); margin-top:10px; font-size:1.2rem; font-weight:800;">Repose-toi bien avant ta prochaine session.</p></div>';
-            }
-        }
-
-        // --- GESTION DU CHRONOMÈTRE POMODORO ---
-        let pomoInterval = null;
-        let timeLeft = 25 * 60; 
-        const displayEl = document.getElementById('timer-display');
-        const pCircle = document.querySelector('.timer-circle');
-
-        function openPomodoroModal() { document.getElementById('overlay-pomodoro').style.display = 'flex'; }
-        function closePomodoroModal() { document.getElementById('overlay-pomodoro').style.display = 'none'; }
-
-        function updateDisplay() {
-            let minutes = Math.floor(timeLeft / 60);
-            let seconds = timeLeft % 60;
-            displayEl.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        function navigateChapter(chapterName, element) {
+            updateActiveTab(element);
+            chapterPanel.classList.add('open');
             
-            if(timeLeft < 300) pCircle.style.borderTopColor = "var(--accent-red)";
-            else pCircle.style.borderTopColor = "var(--accent-green)";
-        }
-
-        function startPomodoro() {
-            if (pomoInterval) return;
-            pomoInterval = setInterval(() => {
-                if(timeLeft > 0) {
-                    timeLeft--;
-                    updateDisplay();
-                } else {
-                    clearInterval(pomoInterval);
-                    pomoInterval = null;
-                    alert("⏰ Session terminée ! Prends 5 minutes de pause.");
+            document.querySelectorAll('.chap-toggle').forEach(toggle => {
+                const text = toggle.textContent.toLowerCase();
+                if(text.includes(chapterName.toLowerCase())) {
+                    if(!toggle.classList.contains('active')) toggleAccordeon(toggle);
+                } else if (toggle.classList.contains('active')) {
+                    toggleAccordeon(toggle);
                 }
-            }, 1000);
+            });
         }
 
-        function pausePomodoro() {
-            clearInterval(pomoInterval);
-            pomoInterval = null;
-        }
-
-        function resetPomodoro() {
-            pausePomodoro();
-            timeLeft = 25 * 60;
-            updateDisplay();
-        }
-
-        // --- GESTION DE L'IA ASSISTANT ---
-        function openIAModal() { document.getElementById('overlay-ia').style.display = 'flex'; }
-        function closeIAModal() { document.getElementById('overlay-ia').style.display = 'none'; }
-
-        function handleIAKeyPress(event) {
-            if (event.key === "Enter") sendIAMessage();
-        }
-
-        function sendIAMessage() {
-            const inputEl = document.getElementById('ia-input');
-            const message = inputEl.value.trim();
-            if(!message) return;
-
-            const chatBox = document.getElementById('ia-chat-box');
-            const typingInd = document.getElementById('typing-indicator');
-
-            const userMsg = document.createElement('div');
-            userMsg.className = 'chat-bubble chat-user';
-            userMsg.textContent = message;
-            chatBox.insertBefore(userMsg, typingInd);
-
-            inputEl.value = '';
-            chatBox.scrollTop = chatBox.scrollHeight;
-
-            typingInd.style.display = 'block';
-            chatBox.scrollTop = chatBox.scrollHeight;
-
-            setTimeout(() => {
-                typingInd.style.display = 'none';
-                
-                const aiMsg = document.createElement('div');
-                aiMsg.className = 'chat-bubble chat-ai';
-                
-                aiMsg.innerHTML = `Voici une formule mathématique pour répondre à ta requête sur <b>"${message}"</b> :<br><br>
-                La formule de Taylor-Young à l'ordre $n$ s'écrit :<br>
-                $$ f(x) = \\sum_{k=0}^{n} \\frac{f^{(k)}(a)}{k!} (x-a)^k + o((x-a)^n) $$ <br>
-                <em>Remarque : Connecte ce front à un backend pour une autonomie complète. Le rendu LaTeX fonctionne !</em>`;
-                
-                chatBox.insertBefore(aiMsg, typingInd);
-                
-                if(window.MathJax) {
-                    MathJax.typesetPromise([aiMsg]).then(() => {
-                        chatBox.scrollTop = chatBox.scrollHeight;
-                    });
-                } else {
-                    chatBox.scrollTop = chatBox.scrollHeight;
-                }
-            }, 1500);
-        }
-
-        // --- GESTION DES LIENS ACTIFS (SIDEBAR) ---
-        document.addEventListener('click', (e) => {
-            const link = e.target.closest('.nav-link');
-            if (link) {
-                document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active-link'));
-                link.classList.add('active-link');
-            }
-        });
-
-        // --- LOGIQUE NAVIGATION SIDEBAR ---
-        function toggleSidebar() {
-            sidebar.classList.toggle('open');
-        }
+        function closeChapterPanel() { chapterPanel.classList.remove('open'); }
 
         function toggleAccordeon(btn) {
             const content = btn.nextElementSibling;
-            const icon = btn.querySelector('.fa-chevron-down');
-            
-            document.querySelectorAll('.chap-content').forEach(el => {
-                if(el !== content) el.classList.remove('active');
-            });
-            document.querySelectorAll('.chap-toggle i.fa-chevron-down').forEach(i => {
-                if(i !== icon) i.style.transform = 'rotate(0deg)';
-            });
-
-            const isActive = content.classList.toggle('active');
-            icon.style.transform = isActive ? 'rotate(180deg)' : 'rotate(0deg)';
+            btn.classList.toggle('active');
+            content.classList.toggle('active');
         }
 
+        // === GESTION DE L'AFFICHAGE DES CORRIGÉS ===
         function toggleCor(btn) {
             const block = btn.nextElementSibling;
             if (!block) return;
@@ -932,20 +569,20 @@
             }
         }
 
-        // --- CHARGEMENT DYNAMIQUE DES CHAPITRES ---
+        // === CHARGEMENT DE PAGES (COURS & ENTRAINEMENTS) ===
         async function loadPage(fileName) {
-            if(window.innerWidth < 1000) {
-                sidebar.classList.remove('open');
-            }
+            closeChapterPanel();
             
+            // Bascule des vues
             homeView.style.display = 'none';
             moduleView.style.display = 'block';
             
+            // Réinitialisation des scores
             window.currentScore = 0;
             window.answeredQuestions = 0;
             window.totalQuestions = 0;
 
-            moduleView.innerHTML = '<div style="text-align:center; padding:100px;"><i class="fas fa-circle-notch fa-spin" style="font-size:3rem; color:var(--accent-cyan)"></i></div>';
+            moduleView.innerHTML = '<div style="text-align:center; padding:100px;"><i class="fas fa-circle-notch fa-spin" style="font-size:3rem; color:var(--v-blue)"></i></div>';
 
             try {
                 const timestamp = new Date().getTime();
@@ -960,13 +597,14 @@
                     MathJax.typesetPromise([moduleView]).catch(err => console.log(err));
                 }
 
+                // Récupérer le nombre total de questions de la page chargée
                 window.totalQuestions = moduleView.querySelectorAll('.qcm-card').length;
                 mainWrapper.scrollTop = 0;
 
             } catch (error) {
                 moduleView.innerHTML = `
-                    <div class="hero-banner" style="background:var(--navy-dark); border-left-color:var(--accent-red); padding: 40px; border-radius:16px; color:white;">
-                        <h1 style="margin:0; color:var(--accent-red);">Erreur 404</h1>
+                    <div class="hero-banner" style="background:var(--v-red); padding: 40px; border-radius:16px; color:white;">
+                        <h1 style="margin:0">Erreur 404</h1>
                         <p>Le module <b>content/${fileName}.html</b> est introuvable.</p>
                         <p style="font-size:0.9rem; margin-top:15px; opacity:0.8;">Vérifiez que le fichier existe bien dans le dossier /content/.</p>
                     </div>`;
@@ -980,7 +618,7 @@
             loadPage(finalName);
         }
 
-        // --- MOTEUR QCM UNIFIÉ ---
+        // === MOTEUR QCM UNIFIÉ ===
         window.checkQCM = function(btn, isCorrect) {
             const card = btn.closest('.qcm-card');
             if(!card) return;
@@ -1012,6 +650,7 @@
             }
         };
 
+        // === FIN DE QUIZ ET SYSTEME DE PARTAGE ===
         function finishQuiz() {
             if(document.getElementById('score-zone')) return;
 
@@ -1026,32 +665,32 @@
             
             if (ratio === 1) { 
                 message = "Perfection ! La majoration au concours n'est plus très loin."; 
-                colorHex = "var(--accent-green)"; 
+                colorHex = "var(--v-green)"; 
             } else if (ratio >= 0.75) { 
                 message = "Excellent travail, tes bases sont très solides."; 
-                colorHex = "var(--accent-green)"; 
+                colorHex = "var(--v-green)"; 
             } else if (ratio >= 0.5) { 
                 message = "C'est un bon début, mais relis le cours sur les erreurs commises."; 
-                colorHex = "var(--gold-btn)"; 
+                colorHex = "var(--v-yellow)"; 
             } else { 
-                message = "Ne te décourage pas ! L'important est d'apprendre de ses erreurs. Prends le temps de lire les corrigés."; 
-                colorHex = "var(--accent-red)"; 
+                message = "Ne te décourage pas ! L'important est d'apprendre de ses erreurs."; 
+                colorHex = "var(--v-red)"; 
             }
 
             const scoreHTML = `
                 <div id="score-zone">
-                    <div class="score-display" style="border-bottom-color: ${colorHex}">
+                    <div class="score-display">
                         <h2 style="color: ${colorHex}">${window.currentScore} / ${window.totalQuestions}</h2>
-                        <p>Score final : ${percentage}%</p>
-                        <p style="font-size: 0.95rem; color: #cbd5e1; font-weight: 600; margin-top:15px;">${message}</p>
+                        <p style="font-size: 1.1rem; margin-top: 10px;">Score final : <b>${percentage}%</b></p>
+                        <p style="font-size: 0.95rem; color: var(--text-muted); font-weight: 600; margin-top:15px;">${message}</p>
                     </div>
 
                     <div class="share-bar no-print-pdf">
-                        <button class="share-btn btn-pdf" onclick="generatePDF()"><i class="fas fa-file-pdf"></i> Sauvegarder PDF</button>
-                        <button class="share-btn btn-wa" onclick="shareWA(${window.currentScore}, ${window.totalQuestions})"><i class="fab fa-whatsapp"></i> WhatsApp</button>
-                        <button class="share-btn btn-x" onclick="shareX(${window.currentScore}, ${window.totalQuestions})"><i class="fab fa-x-twitter"></i> Twitter</button>
-                        <button class="share-btn btn-mail" onclick="shareMail(${window.currentScore}, ${window.totalQuestions})"><i class="fas fa-envelope"></i> Email</button>
-                        <button class="share-btn btn-sms" onclick="shareSMS(${window.currentScore}, ${window.totalQuestions})"><i class="fas fa-comment-sms"></i> SMS</button>
+                        <button class="share-btn btn-pdf" onclick="generatePDF()"><i class="fas fa-file-pdf"></i> PDF</button>
+                        <button class="share-btn btn-wa" onclick="shareWA(${window.currentScore}, ${window.totalQuestions})"><i class="fab fa-whatsapp"></i></button>
+                        <button class="share-btn btn-x" onclick="shareX(${window.currentScore}, ${window.totalQuestions})"><i class="fab fa-x-twitter"></i></button>
+                        <button class="share-btn btn-mail" onclick="shareMail(${window.currentScore}, ${window.totalQuestions})"><i class="fas fa-envelope"></i></button>
+                        <button class="share-btn btn-sms" onclick="shareSMS(${window.currentScore}, ${window.totalQuestions})"><i class="fas fa-comment-sms"></i></button>
                     </div>
                 </div>
             `;
@@ -1059,10 +698,8 @@
             document.getElementById('score-zone').scrollIntoView({ behavior: 'smooth' });
         }
 
-        // --- SYSTÈMES DE PARTAGE ---
-        function getShareText(score, total) {
-            return `J'ai terminé ma session sur Elian Maths avec un score de ${score}/${total} `;
-        }
+        // Fonctions de partage
+        function getShareText(score, total) { return `J'ai terminé ma session sur Elian Maths avec un score de ${score}/${total} ! Prêt pour les concours CPGE. 🚀`; }
         function shareWA(score, total) { window.open(`https://wa.me/?text=${encodeURIComponent(getShareText(score, total))}`); }
         function shareX(score, total) { window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(getShareText(score, total))}`); }
         function shareMail(score, total) { window.location.href = `mailto:?subject=Mon score sur le site Elian Maths&body=${encodeURIComponent(getShareText(score, total))}`; }
@@ -1084,6 +721,56 @@
                 noPrintElements.forEach(el => el.style.display = 'flex');
             });
         }
+
+        // === MODALES & POMODORO ===
+        function openPomodoroModal() { 
+            const overlay = document.getElementById('overlay-pomo');
+            overlay.style.display = 'flex'; 
+            setTimeout(() => overlay.classList.add('show'), 10);
+        }
+        
+        function closeModal(id) { 
+            const overlay = document.getElementById(id);
+            overlay.classList.remove('show'); 
+            setTimeout(() => overlay.style.display = 'none', 300); 
+        }
+
+        // Logique JS du minuteur Pomodoro
+        let pomoInterval;
+        let pomoTime = 25 * 60; // 25 minutes
+        
+        function updatePomoDisplay() {
+            let m = Math.floor(pomoTime / 60).toString().padStart(2, '0');
+            let s = (pomoTime % 60).toString().padStart(2, '0');
+            document.getElementById('timer-display').textContent = `${m}:${s}`;
+        }
+        
+        function startPomodoro() {
+            if (pomoInterval) return;
+            pomoInterval = setInterval(() => {
+                if(pomoTime > 0) { 
+                    pomoTime--; 
+                    updatePomoDisplay(); 
+                } else { 
+                    clearInterval(pomoInterval); 
+                    pomoInterval = null; 
+                    alert('Session Pomodoro terminée ! Temps de prendre une pause.'); 
+                }
+            }, 1000);
+        }
+        
+        function pausePomodoro() { 
+            clearInterval(pomoInterval); 
+            pomoInterval = null; 
+        }
+        
+        function resetPomodoro() { 
+            clearInterval(pomoInterval); 
+            pomoInterval = null; 
+            pomoTime = 25 * 60; 
+            updatePomoDisplay(); 
+        }
+
     </script>
 </body>
 </html>
