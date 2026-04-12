@@ -376,6 +376,8 @@
         
         if (!correctionBlock) return;
         
+        // On vérifie le style actuel. 
+        // Au premier clic, style.display est souvent vide (""), d'où l'importance de passer dans le "else".
         if (correctionBlock.style.display === "block") {
             correctionBlock.style.display = "none";
             correctionBlock.classList.remove("fade-in"); 
