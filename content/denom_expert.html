@@ -10,10 +10,11 @@
             tex: {
                 inlineMath: [['$', '$']],
                 displayMath: [['$$', '$$']],
-                // Définition des macros pour que \llbracket et \rrbracket s'affichent correctement
                 macros: {
-                    llbracket: '[\\![',
-                    rrbracket: ']\\!]'
+                    // Utilisation de \mathopen et \mathclose pour que MathJax 
+                    // reconnaisse les doubles crochets comme de vrais délimiteurs
+                    llbracket: '\\mathopen{[\\![}',
+                    rrbracket: '\\mathclose{]\\!]}'
                 }
             }
         };
