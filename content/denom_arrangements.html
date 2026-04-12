@@ -587,80 +587,63 @@
             Exercice 5 : Synthèse Globale (Ordre ou pas ordre ?)
         </div>
         <div class="context-box">
-            Identifier rapidement s'il faut ordonner ou non est la clé du dénombrement en prépa.
+            Identifier rapidement s'il faut ordonner ou non est la clé du succès en dénombrement. Choisissez la bonne méthode pour chaque situation.
         </div>
         <ul class="questions-list">
-            <li>Un entraîneur choisit 11 joueurs parmi 22. Combien de choix a-t-il ?</li>
-            <li>De combien de façons l'entraîneur peut-il attribuer 11 maillots distincts numérotés à ces 11 joueurs sélectionnés ?</li>
-            <li>De combien de façons peut-on ranger 5 voitures dans un parking contenant 8 places ?</li>
-            <li>On tire simultanément 3 cartes d'un jeu de 52. Nombre de tirages ?</li>
-            <li>On tire 3 cartes successivement SANS remise d'un jeu de 52. Nombre de tirages ?</li>
-            <li>Combien d'anagrammes distinctes du mot <strong>REPERE</strong> existe-t-il ?</li>
+            <li>On tire simultanément 3 boules dans une urne en contenant 12.</li>
+            <li>On forme un mot de passe de 8 caractères (lettres majuscules ou chiffres) pouvant se répéter.</li>
+            <li>On choisit 2 délégués égaux parmi une classe de 30 élèves.</li>
+            <li>On distribue les rôles de "Loup", "Sorcière" et "Voyante" à 3 joueurs parmi 10.</li>
         </ul>
         <button class="toggle-btn" onclick="toggleCorr('corr-5', this)"><i class="fas fa-eye"></i> Afficher le corrigé</button>
         <div id="corr-5" class="correction-box">
-            <div class="correction-item"><strong>Q1.</strong> Constitution d'un groupe, pas d'ordre (Combinaison) : $\binom{22}{11} = 705\,432$.</div>
-            <div class="correction-item"><strong>Q2.</strong> Les joueurs sont déjà choisis. Assigner 11 objets à 11 personnes : Permutation : $11! = 39\,916\,800$.</div>
-            <div class="correction-item"><strong>Q3.</strong> Choix ordonné de 5 places parmi 8 (Arrangement) : $A_8^5 = 8 \times 7 \times 6 \times 5 \times 4 = 6\,720$.</div>
-            <div class="correction-item"><strong>Q4.</strong> Tirage simultané (Combinaison) : $\binom{52}{3} = \frac{52 \times 51 \times 50}{3 \times 2 \times 1} = 22\,100$.</div>
-            <div class="correction-item"><strong>Q5.</strong> Tirage successif sans remise (Arrangement) : $A_{52}^3 = 52 \times 51 \times 50 = 132\,600$.</div>
-            <div class="correction-item"><strong>Q6.</strong> Permutation avec éléments identiques (6 lettres dont 3 E, 2 R, 1 P) : $\frac{6!}{3! 2! 1!} = \frac{720}{12} = 60$.</div>
+            <div class="correction-item"><strong>Q1.</strong> Tirage simultané, donc sans ordre et sans remise. C'est une combinaison : $\binom{12}{3} = 220$.</div>
+            <div class="correction-item"><strong>Q2.</strong> L'ordre compte et les répétitions sont possibles. C'est une p-liste (tirages avec remise). Alphabet (26) + Chiffres (10) = 36 caractères possibles. Résultat : $36^8$.</div>
+            <div class="correction-item"><strong>Q3.</strong> Les postes sont identiques, l'ordre de sélection n'a pas d'importance. C'est une combinaison : $\binom{30}{2} = 435$.</div>
+            <div class="correction-item"><strong>Q4.</strong> Les postes sont distincts (l'ordre d'attribution compte) et une personne ne peut avoir qu'un seul de ces rôles (sans remise). C'est un arrangement : $A_{10}^3 = 720$.</div>
         </div>
     </div>
 
 </div>
 
 <script>
-    // Fonction d'affichage/masquage des corrections classiques
+    // Fonction pour afficher/masquer les corrections des exercices
     function toggleCorr(id, btn) {
-        var el = document.getElementById(id);
+        const correctionBlock = document.getElementById(id);
         
-        if (el.classList.contains('show')) {
-            el.classList.remove('show');
+        if (correctionBlock.classList.contains("show")) {
+            correctionBlock.classList.remove("show");
             btn.innerHTML = '<i class="fas fa-eye"></i> Afficher le corrigé';
-            btn.style.background = 'var(--navy-dark)';
-            btn.style.color = 'white';
         } else {
-            el.classList.add('show');
+            correctionBlock.classList.add("show");
             btn.innerHTML = '<i class="fas fa-eye-slash"></i> Masquer le corrigé';
-            btn.style.background = 'var(--text-light)';
-            btn.style.color = 'white';
         }
     }
 
-    // Fonction de vérification interactive du QCM ajouté
+    // Fonction pour gérer le QCM de l'encart "Focus Théorique"
     function checkQCM(btn, isCorrect) {
-        var grid = btn.parentElement;
-        var btns = grid.getElementsByTagName('button');
-        
-        // On désactive tous les boutons une fois qu'on a cliqué
-        for(var i=0; i<btns.length; i++) {
-            btns[i].style.pointerEvents = 'none';
-            btns[i].style.opacity = '0.6';
-            
-            // On met en vert la bonne réponse systématiquement
-            if(btns[i].getAttribute('onclick').indexOf('true') > -1) {
-                btns[i].style.backgroundColor = '#10b981';
-                btns[i].style.color = 'white';
-                btns[i].style.borderColor = '#10b981';
-                btns[i].style.opacity = '1';
-                btns[i].style.fontWeight = 'bold';
-            }
-        }
-        
-        // Si l'utilisateur a cliqué sur une mauvaise réponse, on la met en rouge
-        if(!isCorrect) {
-            btn.style.backgroundColor = '#ef4444';
+        const optionsGrid = btn.parentElement;
+        const allButtons = optionsGrid.querySelectorAll('.opt-btn');
+        const correctionBox = optionsGrid.nextElementSibling;
+
+        // Réinitialise tous les boutons (retire les couleurs)
+        allButtons.forEach(b => {
+            b.style.backgroundColor = 'white';
+            b.style.color = 'var(--text-main)';
+            b.style.borderColor = '#cbd5e1';
+        });
+
+        // Applique les couleurs de succès ou d'erreur
+        if (isCorrect) {
+            btn.style.backgroundColor = '#10b981'; // Vert
+            btn.style.color = 'white';
+            btn.style.borderColor = '#10b981';
+            correctionBox.style.display = 'block'; // Affiche la correction
+        } else {
+            btn.style.backgroundColor = '#ef4444'; // Rouge
             btn.style.color = 'white';
             btn.style.borderColor = '#ef4444';
-            btn.style.opacity = '1';
-        }
-        
-        // Affichage de la correction
-        var corr = grid.nextElementSibling;
-        if(corr && corr.classList.contains('correction-box-qcm')) {
-            corr.style.display = 'block';
-            corr.style.animation = 'fadeIn 0.5s ease';
+            correctionBox.style.display = 'none'; // Cache la correction si on se trompe
         }
     }
 </script>
